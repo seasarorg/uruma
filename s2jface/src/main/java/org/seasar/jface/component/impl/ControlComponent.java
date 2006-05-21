@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -256,7 +256,7 @@ public class ControlComponent extends UIComponentBase {
     }
 
     /**
-     * eControl‚©‚ç‘®«‚Ìˆø‚«Œp‚¬‚ğs‚¢‚Ü‚·B
+     * è¦ªControlã‹ã‚‰å±æ€§ã®å¼•ãç¶™ãã‚’è¡Œã„ã¾ã™ã€‚
      */
     protected void inheritAttributes() {
         if (parent instanceof ControlComponent) {

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +63,7 @@ public class TemplateWindow extends ApplicationWindow {
 
     @Override
     protected Control createContents(Composite parent) {
-        // TODO ‚ ‚Æ‚ÅŒ©’¼‚µ
+        // TODO ã‚ã¨ã§è¦‹ç›´ã—
         ResourceBundle imageResources = ResourceBundle
                 .getBundle("s2JFaceImages");
         ImageManager.getInstance().putImages(Display.getCurrent(),
@@ -102,7 +102,7 @@ public class TemplateWindow extends ApplicationWindow {
                     SWTEventListenerBinder.bindListener(listener, widget);
 
                 } catch (MethodNotFoundRuntimeException ex) {
-                    // TODO —áŠOˆ—
+                    // TODO ä¾‹å¤–å‡¦ç†
                 }
             } else {
                 throw new NotFoundException(NotFoundException.WIDGET, id);

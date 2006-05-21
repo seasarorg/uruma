@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,7 +52,7 @@ public class SWTEventListenerBinder {
 
     protected static Method findMethod(Class clazz, String methodName,
             Class[] paramTypes) {
-        // TODO BeanDescImpl�ֈړ�
+        // TODO BeanDescImplへ移動
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(clazz);
         Method[] methods = beanDesc.getMethods(methodName);
         for (Method method : methods) {

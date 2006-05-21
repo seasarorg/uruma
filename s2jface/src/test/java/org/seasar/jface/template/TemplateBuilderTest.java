@@ -1,4 +1,4 @@
-package org.seasar.jface.template;
+﻿package org.seasar.jface.template;
 
 
 import org.seasar.framework.unit.S2FrameworkTestCase;

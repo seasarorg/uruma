@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,15 +30,15 @@ import org.seasar.framework.util.IntegerConversionUtil;
  */
 public class PropertyUtil {
     /**
-     * w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ÌƒvƒƒpƒeƒB‚É’l‚ğƒZƒbƒg‚µ‚Ü‚·B<br>
+     * æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«å€¤ã‚’ã‚»ãƒƒãƒˆã—ã¾ã™ã€‚<br>
      * 
      * @param target
-     *            ƒ^[ƒQƒbƒgƒIƒuƒWƒFƒNƒg
+     *            ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      * @param propertyName
-     *            ƒvƒƒpƒeƒB–¼
+     *            ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å
      * @param value
-     *            ƒZƒbƒg‚·‚é’l
-     * @return ¬Œ÷‚µ‚½ê‡A<code>true</code>B¸”s‚µ‚½ê‡A<code>false</code>B
+     *            ã‚»ãƒƒãƒˆã™ã‚‹å€¤
+     * @return æˆåŠŸã—ãŸå ´åˆã€<code>true</code>ã€‚å¤±æ•—ã—ãŸå ´åˆã€<code>false</code>ã€‚
      */
     public static boolean setProperty(final Object target,
             final String propertyName, final Object value) {
@@ -52,15 +52,15 @@ public class PropertyUtil {
     }
 
     /**
-     * w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ÌƒtƒB[ƒ‹ƒh‚É’l‚ğƒZƒbƒg‚µ‚Ü‚·B<br>
+     * æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å€¤ã‚’ã‚»ãƒƒãƒˆã—ã¾ã™ã€‚<br>
      * 
      * @param target
-     *            ƒ^[ƒQƒbƒgƒIƒuƒWƒFƒNƒg
+     *            ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      * @param fieldName
-     *            ƒtƒB[ƒ‹ƒh–¼
+     *            ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å
      * @param value
-     *            ƒZƒbƒg‚·‚é’l
-     * @return ¬Œ÷‚µ‚½ê‡A<code>true</code>B¸”s‚µ‚½ê‡A<code>false</code>B
+     *            ã‚»ãƒƒãƒˆã™ã‚‹å€¤
+     * @return æˆåŠŸã—ãŸå ´åˆã€<code>true</code>ã€‚å¤±æ•—ã—ãŸå ´åˆã€<code>false</code>ã€‚
      */
     public static boolean setField(final Object target, final String fieldName,
             final Object value) {
@@ -69,7 +69,7 @@ public class PropertyUtil {
             Class fieldType = field.getType();
 
             Object setValue = value;
-            // TODO BooleanConversionUtil C³?
+            // TODO BooleanConversionUtil ä¿®æ­£?
             if (fieldType == Boolean.TYPE || fieldType == Boolean.class) {
                 setValue = BooleanConversionUtil.toBoolean(value);
             } else if (fieldType == Integer.TYPE || fieldType == Integer.class) {

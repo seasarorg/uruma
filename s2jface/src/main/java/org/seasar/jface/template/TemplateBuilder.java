@@ -1,4 +1,4 @@
-package org.seasar.jface.template;
+﻿package org.seasar.jface.template;
 
 import java.io.File;
 import java.io.InputStream;

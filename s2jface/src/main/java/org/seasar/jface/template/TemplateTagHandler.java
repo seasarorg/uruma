@@ -1,4 +1,4 @@
-package org.seasar.jface.template;
+﻿package org.seasar.jface.template;
 
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.impl.TemplateComponent;

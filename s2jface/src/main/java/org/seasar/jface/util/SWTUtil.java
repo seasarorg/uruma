@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,7 +48,7 @@ public class SWTUtil {
                         Color color = Display.getCurrent().getSystemColor(
                                 getSWTConstant(name));
                         colors.put(colorName, color);
-                        // TODO Color�I�u�W�F�N�g��dispose����
+                        // TODO Colorオブジェクトのdispose処理
                     }
                 } catch (Exception ignore) {
                 }
@@ -70,11 +70,11 @@ public class SWTUtil {
     }
 
     /**
-     * <code>SWT</code>�N���X�̎��萔��Ԃ��܂��B<br>
+     * <code>SWT</code>クラスの持つ定数を返します。<br>
      * 
      * @param name
-     *            �萔��
-     * @return �l�B���݂��Ȃ��萔�����w�肳�ꂽ�ꍇ�A<code>SWT.NONE</code>��Ԃ��܂��B
+     *            定数名
+     * @return 値。存在しない定数名が指定された場合、<code>SWT.NONE</code>を返します。
      */
     public static int getSWTConstant(String name) {
         int constant = SWT.NONE;
@@ -86,20 +86,20 @@ public class SWTUtil {
     }
 
     /**
-     * �J���}��؂�̒萔����SWT�̃X�^�C�����v�Z���܂��B<br>
-     * �Ⴆ�Έȉ��̂悤�ȓ��͂ɑ΂��āA�{���\�b�h��
-     * <code>SWT.HORIZONTAL | SWT.SHADOW_IN | SWT.CENTER</code>�̌v�Z���ʂ�
-     * �߂�l�Ƃ��ĕԂ��܂��B<br>
-     * <code>SWT</code>�N���X�ɒ�`����Ă��Ȃ��萔���w�肳�ꂽ�ꍇ�A��������܂��B
+     * カンマ区切りの定数からSWTのスタイルを計算します。<br>
+     * 例えば以下のような入力に対して、本メソッドは
+     * <code>SWT.HORIZONTAL | SWT.SHADOW_IN | SWT.CENTER</code>の計算結果を
+     * 戻り値として返します。<br>
+     * <code>SWT</code>クラスに定義されていない定数が指定された場合、無視されます。
      * 
-     * ���͗�:<code>"HORIZONTAL, SHADOW_IN, CENTER"</code><br>
+     * 入力例:<code>"HORIZONTAL, SHADOW_IN, CENTER"</code><br>
      * 
      * @param styles
-     *            �J���}��؂�̒萔�B
+     *            カンマ区切りの定数。
      * @param defaultStyle
-     *            <code>styles</code> �� <code>null</code> �������ꍇ�ɕԂ��f�t�H���g�l�B
-     * @return �X�^�C���l�B ������ <code>null</code> �̏ꍇ�� <code>defalutStyle</code>
-     *         ��Ԃ��܂��B
+     *            <code>styles</code> が <code>null</code> だった場合に返すデフォルト値。
+     * @return スタイル値。 引数が <code>null</code> の場合は <code>defalutStyle</code>
+     *         を返します。
      */
     public static int getStyle(String styles, int defaultStyle) {
         int result = defaultStyle;
@@ -117,34 +117,34 @@ public class SWTUtil {
     }
 
     /**
-     * �J���}��؂�̒萔����SWT�̃X�^�C�����v�Z���܂��B<br>
-     * �Ⴆ�Έȉ��̂悤�ȓ��͂ɑ΂��āA�{���\�b�h��
-     * <code>SWT.HORIZONTAL | SWT.SHADOW_IN | SWT.CENTER</code>�̌v�Z���ʂ�
-     * �߂�l�Ƃ��ĕԂ��܂��B<br>
-     * <code>SWT</code>�N���X�ɒ�`����Ă��Ȃ��萔���w�肳�ꂽ�ꍇ�A��������܂��B
+     * カンマ区切りの定数からSWTのスタイルを計算します。<br>
+     * 例えば以下のような入力に対して、本メソッドは
+     * <code>SWT.HORIZONTAL | SWT.SHADOW_IN | SWT.CENTER</code>の計算結果を
+     * 戻り値として返します。<br>
+     * <code>SWT</code>クラスに定義されていない定数が指定された場合、無視されます。
      * 
-     * ���͗�:<code>"HORIZONTAL, SHADOW_IN, CENTER"</code><br>
+     * 入力例:<code>"HORIZONTAL, SHADOW_IN, CENTER"</code><br>
      * 
      * @param styles
-     *            �J���}��؂�̒萔�B
-     * @return �X�^�C���l�B ������ <code>null</code> �̏ꍇ�� <code>SWT.NONE</code>
-     *         ��Ԃ��܂��B
+     *            カンマ区切りの定数。
+     * @return スタイル値。 引数が <code>null</code> の場合は <code>SWT.NONE</code>
+     *         を返します。
      */
     public static int getStyle(String styles) {
         return getStyle(styles, SWT.NONE);
     }
 
     /**
-     * <code>Color</code>�I�u�W�F�N�g�𐶐����܂��B<br>
-     * <code>colorString</code> �Ŏw�肳�ꂽ�����񂩂� <code>Color</code> �I�u�W�F�N�g�𐶐����܂��B<br>
-     * <code>colorString</code> �� #RGB �`���܂��� <code>red</code>�A<code>blue</code>
-     * �� <code>SWT</code>�N���X�� <code>COLOR_*</code>
-     * �萔�ŗp�ӂ��ꂽ�����񂪎w��ł��܂�(��������A�啶���E�������ǂ�����g�p�\)�B<br>
-     * ��: <code>#FF0000</code> ���w�肵���ꍇ�A�Ԃ�\���܂��B
+     * <code>Color</code>オブジェクトを生成します。<br>
+     * <code>colorString</code> で指定された文字列から <code>Color</code> オブジェクトを生成します。<br>
+     * <code>colorString</code> は #RGB 形式または <code>red</code>、<code>blue</code>
+     * 等 <code>SWT</code>クラスの <code>COLOR_*</code>
+     * 定数で用意された文字列が指定できます(いずれも、大文字・小文字どちらも使用可能)。<br>
+     * 例: <code>#FF0000</code> を指定した場合、赤を表します。
      * 
      * @param colorString
-     *            �F��\��������B
-     * @return <code>Color</code> �I�u�W�F�N�g
+     *            色を表す文字列。
+     * @return <code>Color</code> オブジェクト
      */
     public static Color getColor(String colorString) {
         Color color = null;

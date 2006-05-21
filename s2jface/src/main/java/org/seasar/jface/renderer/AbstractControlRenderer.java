@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,7 +46,7 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
         ControlComponent controlComponent = (ControlComponent) uiComponent;
         Control control = createControl(parent, getStyle(controlComponent));
 
-        // TODO ‚»‚Ì‘¼‚ÌƒvƒƒpƒeƒB‚É‘Î‰
+        // TODO ãã®ä»–ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«å¯¾å¿œ
         setEnabled(control, controlComponent);
         setVisible(control, controlComponent);
         setLocation(control, controlComponent);

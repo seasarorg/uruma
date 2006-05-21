@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,25 +39,25 @@ public class ImageManager {
     }
 
     /**
-     * w’è‚³‚ê‚½ƒL[‚Å“o˜^‚³‚ê‚½ Image ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚µ‚Ü‚·B<br>
+     * æŒ‡å®šã•ã‚ŒãŸã‚­ãƒ¼ã§ç™»éŒ²ã•ã‚ŒãŸ Image ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã—ã¾ã™ã€‚<br>
      * 
      * @param key
-     *            ƒL[
-     * @return ImageƒIƒuƒWƒFƒNƒgBŒ©‚Â‚©‚ç‚È‚¢ê‡‚Í<code>null</code>B
+     *            ã‚­ãƒ¼
+     * @return Imageã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€‚è¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã¯<code>null</code>ã€‚
      */
     public Image getImage(final String key) {
         return imageRegistry.get(key);
     }
 
     /**
-     * <code>url</code>‚ğƒL[‚Æ‚µ‚ÄImageƒIƒuƒWƒFƒNƒg‚ğŒŸõ‚µ‚Ü‚·B<br>
-     * ImageƒIƒuƒWƒFƒNƒg‚ª“o˜^‚³‚ê‚Ä‚¢‚È‚¢ê‡A¶¬‚µ‚Ä<code>url</code>‚ğƒL[‚Æ‚µ‚Ä“o˜^‚µ‚Ä‚©‚ç•Ô‚µ‚Ü‚·B
+     * <code>url</code>ã‚’ã‚­ãƒ¼ã¨ã—ã¦Imageã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¤œç´¢ã—ã¾ã™ã€‚<br>
+     * Imageã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒç™»éŒ²ã•ã‚Œã¦ã„ãªã„å ´åˆã€ç”Ÿæˆã—ã¦<code>url</code>ã‚’ã‚­ãƒ¼ã¨ã—ã¦ç™»éŒ²ã—ã¦ã‹ã‚‰è¿”ã—ã¾ã™ã€‚
      * 
      * @param url
-     *            ƒCƒ[ƒW‚ÌURL/ƒL[
+     *            ã‚¤ãƒ¡ãƒ¼ã‚¸ã®URL/ã‚­ãƒ¼
      * @param display
-     *            ƒCƒ[ƒW¶¬‚Ég—p‚·‚é <code>Display</code> ƒIƒuƒWƒFƒNƒg
-     * @return ImageƒIƒuƒWƒFƒNƒg
+     *            ã‚¤ãƒ¡ãƒ¼ã‚¸ç”Ÿæˆæ™‚ã«ä½¿ç”¨ã™ã‚‹ <code>Display</code> ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return Imageã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      */
     public Image getImage(final String url, final Display display) {
         Image image = getImage(url);
@@ -74,14 +74,14 @@ public class ImageManager {
     }
 
     /**
-     * ImageRegistry ‚Ö Image ‚ğ“o˜^‚µ‚Ü‚·B<br>
+     * ImageRegistry ã¸ Image ã‚’ç™»éŒ²ã—ã¾ã™ã€‚<br>
      * 
      * @param display
-     *            Image‚Ì¶¬‚Ég—p‚·‚éDisplay‚ÌQÆ
+     *            Imageã®ç”Ÿæˆã«ä½¿ç”¨ã™ã‚‹Displayã®å‚ç…§
      * @param key
-     *            ƒL[
+     *            ã‚­ãƒ¼
      * @param url
-     *            ƒCƒ[ƒW‚ÌURL
+     *            ã‚¤ãƒ¡ãƒ¼ã‚¸ã®URL
      */
     public void putImage(Display display, String key, String url) {
         Image image = new Image(display, getClass().getResourceAsStream(url));
@@ -89,15 +89,15 @@ public class ImageManager {
     }
 
     /**
-     * ResourceBundle ‚©‚ç Image ‚ğ“Ç‚İ‚İAˆêŠ‡“o˜^‚µ‚Ü‚·B<br>
-     * ukey=urlv‚ÌŒ`®‚Å‹Lq‚³‚ê‚½ƒvƒƒpƒeƒBƒtƒ@ƒCƒ‹‚ğŒ³‚É‚µ‚½ResourceBundle ‚©‚çImage‚ğˆêŠ‡‚µ‚Ä“Ç‚İ‚İ‚Ü‚·B
+     * ResourceBundle ã‹ã‚‰ Image ã‚’èª­ã¿è¾¼ã¿ã€ä¸€æ‹¬ç™»éŒ²ã—ã¾ã™ã€‚<br>
+     * ã€Œkey=urlã€ã®å½¢å¼ã§è¨˜è¿°ã•ã‚ŒãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å…ƒã«ã—ãŸResourceBundle ã‹ã‚‰Imageã‚’ä¸€æ‹¬ã—ã¦èª­ã¿è¾¼ã¿ã¾ã™ã€‚
      * 
      * @param display
-     *            Image‚Ì¶¬‚Ég—p‚·‚éDisplay‚ÌQÆ
+     *            Imageã®ç”Ÿæˆã«ä½¿ç”¨ã™ã‚‹Displayã®å‚ç…§
      * @param bundle
-     *            ƒŠƒ\[ƒXƒoƒ“ƒhƒ‹‚ÌQÆ
+     *            ãƒªã‚½ãƒ¼ã‚¹ãƒãƒ³ãƒ‰ãƒ«ã®å‚ç…§
      * @throws MissingResourceException
-     *             ƒŠƒ\[ƒX‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡‚ÉƒXƒ[‚µ‚Ü‚·B
+     *             ãƒªã‚½ãƒ¼ã‚¹ãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã«ã‚¹ãƒ­ãƒ¼ã—ã¾ã™ã€‚
      */
     public void putImages(Display display, ResourceBundle bundle) {
 

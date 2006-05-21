@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -71,29 +71,29 @@ public class JankenAction {
         int computerHand = computer.showHand();
         showImage(computerHand, computerHandImage);
 
-        messageLabel.setText("‚Û‚ñI");
+        messageLabel.setText("ã½ã‚“ï¼");
         sleep(1000);
 
         if (isWinner(hand, computerHand)) {
-            messageLabel.setText("‚ ‚È‚½‚ÌŸ‚¿I");
+            messageLabel.setText("ã‚ãªãŸã®å‹ã¡ï¼");
             messageLabel.setForeground(SWTUtil.getColor("red"));
             player.win();
-            playerWinLabel.setText(player.getWinCount() + " Ÿ");
+            playerWinLabel.setText(player.getWinCount() + " å‹");
 
         } else if (isWinner(computerHand, hand)) {
-            messageLabel.setText("‚ ‚È‚½‚Ì•‰‚¯EEE");
+            messageLabel.setText("ã‚ãªãŸã®è² ã‘ãƒ»ãƒ»ãƒ»");
             messageLabel.setForeground(SWTUtil.getColor("blue"));
             computer.win();
-            computerWinLabel.setText(computer.getWinCount() + " Ÿ");
+            computerWinLabel.setText(computer.getWinCount() + " å‹");
         } else {
-            messageLabel.setText("ˆø‚«•ª‚¯");
+            messageLabel.setText("å¼•ãåˆ†ã‘");
         }
         sleep(1000);
 
         setEnableButtons(true);
         clearImage();
         messageLabel.setForeground(SWTUtil.getColor("black"));
-        messageLabel.setText("‚¶‚á‚ñ‚¯‚ñEEE");
+        messageLabel.setText("ã˜ã‚ƒã‚“ã‘ã‚“ãƒ»ãƒ»ãƒ»");
     }
 
     private void sleep(int time) {

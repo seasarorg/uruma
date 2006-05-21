@@ -1,4 +1,4 @@
-package org.seasar.jface.util;
+ï»¿package org.seasar.jface.util;
 
 /**
  * @author y-komori
@@ -6,17 +6,17 @@ package org.seasar.jface.util;
  */
 public class GeometryUtil {
     /**
-     * <code>value</code>‚Ì•\‚·”’l‚Ü‚½‚ÍŠ„‡‚ğŒ³‚ÉÀÛ‚Ì’l‚ğŒvZ‚µ‚Ü‚·B<br>
+     * <code>value</code>ã®è¡¨ã™æ•°å€¤ã¾ãŸã¯å‰²åˆã‚’å…ƒã«å®Ÿéš›ã®å€¤ã‚’è¨ˆç®—ã—ã¾ã™ã€‚<br>
      * <ul>
-     * <li><code>value</code>‚ª”’l‚Ì‚İ‚©‚ç‚È‚éê‡A‚»‚Ì‚Ü‚Üint’l‚É•ÏŠ·‚µ‚½’l‚ğ•Ô‚µ‚Ü‚·B<br>
-     * <li><code>value</code>‚ª%‚ÅI‚í‚é”’l‚ğ•\‚·ê‡A<code>parentSize</code>‚É‘Î‚·‚é<code>value</code>‚ÌŠ„‡‚ğ•Ô‚µ‚Ü‚·B
+     * <li><code>value</code>ãŒæ•°å€¤ã®ã¿ã‹ã‚‰ãªã‚‹å ´åˆã€ãã®ã¾ã¾intå€¤ã«å¤‰æ›ã—ãŸå€¤ã‚’è¿”ã—ã¾ã™ã€‚<br>
+     * <li><code>value</code>ãŒ%ã§çµ‚ã‚ã‚‹æ•°å€¤ã‚’è¡¨ã™å ´åˆã€<code>parentSize</code>ã«å¯¾ã™ã‚‹<code>value</code>ã®å‰²åˆã‚’è¿”ã—ã¾ã™ã€‚
      * </ul>
      * 
      * @param value
-     *            ŒvZ‘ÎÛ
+     *            è¨ˆç®—å¯¾è±¡
      * @param parentSize
-     *            eƒTƒCƒY
-     * @return ŒvZŒ‹‰Ê
+     *            è¦ªã‚µã‚¤ã‚º
+     * @return è¨ˆç®—çµæœ
      * @throws NumberFormatException
      */
     public static int calcSize(final String value, final int parentSize) {
@@ -32,24 +32,24 @@ public class GeometryUtil {
     }
 
     /**
-     * <code>value</code>‚ğŒ³‚ÉÀÛ‚ÌˆÊ’u‚ğŒvZ‚µ‚Ü‚·B<br>
+     * <code>value</code>ã‚’å…ƒã«å®Ÿéš›ã®ä½ç½®ã‚’è¨ˆç®—ã—ã¾ã™ã€‚<br>
      * <ul>
-     * <li><code>value</code>‚ª”’l‚Ì‚İ‚©‚ç‚È‚éê‡A‚»‚Ì‚Ü‚Üint’l‚É•ÏŠ·‚µ‚½’l‚ğ•Ô‚µ‚Ü‚·B<br>
-     * <li><code>value</code>‚ª%‚ÅI‚í‚é”’l‚ğ•\‚·ê‡A<code>parentSize</code>‚É‘Î‚·‚é<code>value</code>‚ÌŠ„‡‚ğ•Ô‚µ‚Ü‚·B
-     * <li><code>value</code>‚ª top ‚Ü‚½‚Í left ‚Ìê‡A0‚ğ•Ô‚µ‚Ü‚·B
-     * <li><code>value</code>‚ª center ‚Ü‚½‚Í middle ‚Ìê‡A(<code>parentSize</code> -
-     * <code>targetSize</code>) / 2 ‚ğ•Ô‚µ‚Ü‚·B
-     * <li><code>value</code>‚ª bottom ‚Ü‚½‚Í right ‚Ìê‡A(<code>parentSize</code> -
-     * <code>targetSize</code> ‚ğ•Ô‚µ‚Ü‚·B
+     * <li><code>value</code>ãŒæ•°å€¤ã®ã¿ã‹ã‚‰ãªã‚‹å ´åˆã€ãã®ã¾ã¾intå€¤ã«å¤‰æ›ã—ãŸå€¤ã‚’è¿”ã—ã¾ã™ã€‚<br>
+     * <li><code>value</code>ãŒ%ã§çµ‚ã‚ã‚‹æ•°å€¤ã‚’è¡¨ã™å ´åˆã€<code>parentSize</code>ã«å¯¾ã™ã‚‹<code>value</code>ã®å‰²åˆã‚’è¿”ã—ã¾ã™ã€‚
+     * <li><code>value</code>ãŒ top ã¾ãŸã¯ left ã®å ´åˆã€0ã‚’è¿”ã—ã¾ã™ã€‚
+     * <li><code>value</code>ãŒ center ã¾ãŸã¯ middle ã®å ´åˆã€(<code>parentSize</code> -
+     * <code>targetSize</code>) / 2 ã‚’è¿”ã—ã¾ã™ã€‚
+     * <li><code>value</code>ãŒ bottom ã¾ãŸã¯ right ã®å ´åˆã€(<code>parentSize</code> -
+     * <code>targetSize</code> ã‚’è¿”ã—ã¾ã™ã€‚
      * </ul>
      * 
      * @param value
-     *            ŒvZ‘ÎÛ
+     *            è¨ˆç®—å¯¾è±¡
      * @param parentSize
-     *            eBoxƒTƒCƒY
+     *            è¦ªBoxã‚µã‚¤ã‚º
      * @param targetSize
-     *            ©BoxƒTƒCƒY
-     * @return ŒvZŒ‹‰Ê
+     *            è‡ªBoxã‚µã‚¤ã‚º
+     * @return è¨ˆç®—çµæœ
      * @throws NumberFormatException
      */
     public static int calcPosition(final String value, final int parentSize,

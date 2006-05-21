@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ import org.seasar.framework.util.StringUtil;
  * 
  */
 public class PathUtil {
-    // TODO —lX‚Èƒpƒ^[ƒ“‚ÌƒpƒX‚É‘Î‰
+    // TODO æ§˜ã€…ãªãƒ‘ã‚¿ãƒ¼ãƒ³ã®ãƒ‘ã‚¹ã«å¯¾å¿œ
     public static String createPath(final String basePath, final String relPath) {
         String path = "";
         if (false == StringUtil.isEmpty(basePath)) {
