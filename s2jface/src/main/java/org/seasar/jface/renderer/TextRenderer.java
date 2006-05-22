@@ -19,9 +19,21 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.seasar.framework.util.BooleanConversionUtil;
 import org.seasar.framework.util.IntegerConversionUtil;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.component.impl.ControlComponent;
 
+/**
+ * @author y-komori
+ * 
+ */
 public class TextRenderer extends AbstractControlRenderer<Text> {
+    public static final String ATTR_TEXT_LIMIT = "textLimit";
+
+    public static final String ATTR_EDITABLE = "editable";
+
+    public static final String ATTR_ECHO_CHAR = "echoChar";
+
+    public static final String ATTR_TABS = "tabs";
 
     @Override
     protected Class<Text> getControlType() {
@@ -29,20 +41,12 @@ public class TextRenderer extends AbstractControlRenderer<Text> {
     }
 
     @Override
-    protected void doRender(Text control, ControlComponent uiComponent) {
-        control.setText(uiComponent.getText());
-
-        String textLimit = uiComponent.getAttribute("textLimit");
-        if (textLimit != null) {
-            control.setTextLimit(IntegerConversionUtil
-                    .toPrimitiveInt(textLimit));
-        }
-
-        String editable = uiComponent.getAttribute("editable");
-        if (editable != null) {
-            control.setEditable(BooleanConversionUtil
-                    .toPrimitiveBoolean(editable));
-        }
+    protected void doRender(Text control, ControlComponent controlComponent) {
+        renderText(control, controlComponent);
+        renderTextLimit(control, controlComponent);
+        renderEditable(control, controlComponent);
+        renderEchoChar(control, controlComponent);
+        renderTabs(control, controlComponent);
     }
 
     @Override
@@ -50,4 +54,37 @@ public class TextRenderer extends AbstractControlRenderer<Text> {
         return SWT.SINGLE | SWT.BORDER;
     }
 
+    protected void renderText(Text text, ControlComponent controlComponent) {
+        text.setText(controlComponent.getText());
+    }
+
+    protected void renderTextLimit(Text text, ControlComponent controlComponent) {
+        String textLimit = controlComponent.getAttribute(ATTR_TEXT_LIMIT);
+        if (textLimit != null) {
+            text.setTextLimit(IntegerConversionUtil.toPrimitiveInt(textLimit));
+        }
+    }
+
+    protected void renderEditable(Text text, ControlComponent controlComponent) {
+        String editable = controlComponent.getAttribute(ATTR_EDITABLE);
+        if (editable != null) {
+            text
+                    .setEditable(BooleanConversionUtil
+                            .toPrimitiveBoolean(editable));
+        }
+    }
+
+    protected void renderEchoChar(Text text, ControlComponent controlComponent) {
+        String echoChar = controlComponent.getAttribute(ATTR_ECHO_CHAR);
+        if (echoChar != null && !StringUtil.isEmpty(echoChar)) {
+            text.setEchoChar(echoChar.charAt(0));
+        }
+    }
+
+    protected void renderTabs(Text text, ControlComponent controlComponent) {
+        String tabs = controlComponent.getAttribute(ATTR_TABS);
+        if (tabs != null) {
+            text.setTabs(IntegerConversionUtil.toPrimitiveInt(tabs));
+        }
+    }
 }

@@ -56,7 +56,8 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
         setToolTipText(control, controlComponent);
         setFont(control, controlComponent);
         setLayoutData(control, controlComponent);
-
+        
+        // TODO レンダリング中に発生したRuntimeExceptionのハンドリングが必要
         doRender(getControlType().cast(control), controlComponent);
 
         return (Widget) control;
@@ -206,7 +207,7 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
     }
 
     protected abstract void doRender(CONTROL_TYPE control,
-            ControlComponent uiComponent);
+            ControlComponent controlComponent);
 
     protected abstract Class<CONTROL_TYPE> getControlType();
 }

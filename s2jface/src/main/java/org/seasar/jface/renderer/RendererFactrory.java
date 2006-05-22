@@ -31,6 +31,7 @@ public class RendererFactrory {
         rendererMap.put("button", new ButtonRenderer());
         rendererMap.put("label", new LabelRenderer());
         rendererMap.put("text", new TextRenderer());
+        rendererMap.put("textArea", new TextAreaRenderer());
 
         rendererMap.put("box", new BoxRenderer());
 

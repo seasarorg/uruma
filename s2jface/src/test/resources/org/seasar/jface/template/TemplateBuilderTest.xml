@@ -44,10 +44,15 @@
 				<property name="fontSize" value="64"/>
 			</control>
 		</composite>
+		
 		<control type="text">
 			<property name="text" value="テストテキスト"/>
 			<property name="textLimit" value="30"/>
 		</control>
 		
+		<control type="textArea">
+			<property name="text" value="テストテキスト"/>
+			<property name="textLimit" value="30"/>
+		</control>
 	</window>
 </template>

@@ -102,7 +102,7 @@ public class SWTUtil {
      *         を返します。
      */
     public static int getStyle(String styles, int defaultStyle) {
-        int result = defaultStyle;
+        int result = 0;
         if (styles != null) {
             StringTokenizer st = new StringTokenizer(styles, ",");
             while (st.hasMoreTokens()) {
@@ -112,6 +112,10 @@ public class SWTUtil {
                     result |= constant.intValue();
                 }
             }
+        }
+        else
+        {
+            result = defaultStyle;
         }
         return result;
     }
