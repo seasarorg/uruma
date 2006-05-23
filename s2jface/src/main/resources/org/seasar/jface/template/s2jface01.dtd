@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+-->
+<!ELEMENT template (
+        window
+)>
+
+<!ATTLIST template name CDATA #REQUIRED>
+
+<!ELEMENT window (property | control | composit)*>
+
+<!ATTLIST window id CDATA #REQUIRED>
+<!ATTLIST window title CDATA #REQUIRED>
+<!ATTLIST window x CDATA #REQUIRED>
+<!ATTLIST window y CDATA #REQUIRED>
+<!ATTLIST window x CDATA #REQUIRED>
+<!ATTLIST window maxButton (true | false) "true">
+<!ATTLIST window minButton (true | false) "true">
+<!ATTLIST window closeButton (true | false) "true">
+<!ATTLIST window resizable (true | false) "true">
+<!ATTLIST window layout CDATA #REQUIRED>
+<!ATTLIST window layoutParam CDATA #REQUIRED>
+
+<!ELEMENT property EMPTY>
+<!ATTLIST property name CDATA #REQUIRED>
+<!ATTLIST property value CDATA #REQUIRED>
+
+<!ELEMENT control (layoutData | property)*>
+<!ATTLIST control type CDATA #REQUIRED>
+<!ATTLIST control id CDATA #REQUIRED>
+
+<!ELEMENT layoutData EMPTY>
+<!ATTLIST layoutData name CDATA #REQUIRED>
+<!ATTLIST layoutData value CDATA "FILL">
+
+<!ELEMENT composit (layoutData | control)*>
