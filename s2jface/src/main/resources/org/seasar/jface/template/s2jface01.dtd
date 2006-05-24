@@ -6,7 +6,7 @@
 <!ELEMENT template (window)>
 <!ATTLIST template name CDATA #REQUIRED>
 
-<!ELEMENT window (property | control | composit)*>
+<!ELEMENT window (property | control | composite)*>
 <!ATTLIST window id CDATA #REQUIRED>
 <!ATTLIST window title CDATA #REQUIRED>
 <!ATTLIST window x CDATA #REQUIRED>
@@ -30,7 +30,7 @@
 
 <!ELEMENT layoutData EMPTY>
 <!ATTLIST layoutData name CDATA #REQUIRED>
-<!ATTLIST layoutData value CDATA "FILL">
+<!ATTLIST layoutData value CDATA #REQUIRED>
 
 <!ELEMENT composite (layoutData | control)*>
 <!ATTLIST composite type CDATA #REQUIRED>
