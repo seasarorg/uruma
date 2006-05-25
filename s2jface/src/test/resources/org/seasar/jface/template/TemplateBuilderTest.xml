@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="testTemplate">
 	<window id="testApp" title="テストアプリケーション" width="50%" height="50%" x="center"
 		y="middle" maxButton="true" minButton="true" closeButton="true" resizable="true"

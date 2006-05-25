@@ -6,33 +6,34 @@
 <!ELEMENT template (window)>
 <!ATTLIST template name CDATA #REQUIRED>
 
-<!ELEMENT window (property | control | composite)*>
+<!ELEMENT window (composite | control | property)*>
 <!ATTLIST window id CDATA #REQUIRED>
-<!ATTLIST window title CDATA #REQUIRED>
-<!ATTLIST window x CDATA #REQUIRED>
-<!ATTLIST window y CDATA #REQUIRED>
-<!ATTLIST window x CDATA #REQUIRED>
+<!ATTLIST window title CDATA #IMPLIED>
+<!ATTLIST window x CDATA #IMPLIED>
+<!ATTLIST window y CDATA #IMPLIED>
+<!ATTLIST window width CDATA #IMPLIED>
+<!ATTLIST window height CDATA #IMPLIED>
 <!ATTLIST window maxButton (true | false) "true">
 <!ATTLIST window minButton (true | false) "true">
 <!ATTLIST window closeButton (true | false) "true">
 <!ATTLIST window resizable (true | false) "true">
-<!ATTLIST window image CDATA #REQUIRED>
-<!ATTLIST window layout CDATA #REQUIRED>
-<!ATTLIST window layoutParam CDATA #REQUIRED>
+<!ATTLIST window image CDATA #IMPLIED>
+<!ATTLIST window layout CDATA #IMPLIED>
+<!ATTLIST window layoutParam CDATA #IMPLIED>
+
+<!ELEMENT control (property | layoutData)*>
+<!ATTLIST control type CDATA #REQUIRED>
+<!ATTLIST control id CDATA #IMPLIED>
+
+<!ELEMENT composite (composite | control | property | layoutData)*>
+<!ATTLIST composite type CDATA #REQUIRED>
+<!ATTLIST composite layout CDATA #IMPLIED>
+<!ATTLIST composite layoutParam CDATA #IMPLIED>
 
 <!ELEMENT property EMPTY>
 <!ATTLIST property name CDATA #REQUIRED>
 <!ATTLIST property value CDATA #REQUIRED>
 
-<!ELEMENT control (layoutData | property)*>
-<!ATTLIST control type CDATA #REQUIRED>
-<!ATTLIST control id CDATA #IMPLIED>
-
 <!ELEMENT layoutData EMPTY>
 <!ATTLIST layoutData name CDATA #REQUIRED>
 <!ATTLIST layoutData value CDATA #REQUIRED>
-
-<!ELEMENT composite (layoutData | control)*>
-<!ATTLIST composite type CDATA #REQUIRED>
-<!ATTLIST composite layout CDATA #IMPLIED>
-<!ATTLIST composite layoutParam CDATA #IMPLIED>
