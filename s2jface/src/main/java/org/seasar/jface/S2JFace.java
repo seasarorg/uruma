@@ -15,10 +15,10 @@
  */
 package org.seasar.jface;
 
-import org.seasar.framework.container.factory.AnnotationHandlerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.container.factory.TigerAnnotationHandler;
 import org.seasar.jface.component.impl.TemplateComponent;
-import org.seasar.jface.container.factory.S2JFaceAnnotationHandler;
+import org.seasar.jface.container.factory.S2JFaceComponentDefFactory;
 import org.seasar.jface.impl.TemplateWindow;
 import org.seasar.jface.template.TemplateBuilder;
 
@@ -28,8 +28,8 @@ import org.seasar.jface.template.TemplateBuilder;
  */
 public class S2JFace {
     public void openWindow(String path) {
-        AnnotationHandlerFactory
-                .setAnnotationHandler(new S2JFaceAnnotationHandler());
+        TigerAnnotationHandler
+                .addComponentDefFactory(new S2JFaceComponentDefFactory());
         SingletonS2ContainerFactory.init();
 
         TemplateBuilder builder = new TemplateBuilder();

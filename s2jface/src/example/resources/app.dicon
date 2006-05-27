@@ -2,7 +2,7 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
 	"http://www.seasar.org/dtd/components23.dtd">
 <components>
-	<component name="jankenAction" class="org.seasar.jface.example.janken.JankenAction" />
+	<component class="org.seasar.jface.example.janken.JankenAction" />
 	
 	<component class="org.seasar.jface.example.janken.impl.ComputerPlayer" />
 	
