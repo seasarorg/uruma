@@ -1,60 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="testTemplate">
-	<window id="testApp" title="テストアプリケーション" width="50%" height="50%" x="center"
-		y="middle" maxButton="true" minButton="true" closeButton="true" resizable="true"
-		image="container.gif" layout="row"
-		layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-		<control id="testButton" type="button">
-			<property name="x" value="10"/>
-			<property name="y" value="10"/>
-			<property name="width" value="100"/>
-			<property name="height" value="20"/>
-			<property name="text" value="テストボタン1"/>
-		</control>
-		<control id="testButton2" type="button">
-			<property name="x" value="130"/>
-			<property name="y" value="30"/>
-			<property name="width" value="50"/>
-			<property name="height" value="50"/>
-			<property name="text" value="テストボタン2"/>
-		</control>
-		<control id="testButton3" type="button">
-			<property name="x" value="130"/>
-			<property name="y" value="30"/>
-			<property name="width" value="50"/>
-			<property name="height" value="50"/>
-			<property name="text" value="テストボタン3"/>
-			<property name="enabled" value="true"/>
-			<property name="visible" value="true"/>
-		</control>
-		<composite type="box" layout="fill" layoutParam="type=VERTICAL">
-			<control type="label">
-				<property name="width" value="100"/>
-				<property name="height" value="30"/>
-				<property name="text" value="テストラベル"/>
-				<property name="foregroundColor" value="#FF0000"/>
-				<property name="backgroundColor" value="blue"/>
-				<property name="toolTip" value="ツールチップ"/>
-				<property name="fontSize" value="20"/>
-			</control>
-			<control type="label">
-				<property name="text" value="テストラベル2"/>
-				<property name="font" value="ＭＳ 明朝"/>
-				<property name="fontStyle" value="BOLD, ITALIC"/>
-				<property name="fontSize" value="64"/>
-			</control>
-		</composite>
-		
-		<control type="text">
-			<property name="text" value="テストテキスト"/>
-			<property name="textLimit" value="30"/>
-		</control>
-		
-		<control type="textArea">
-			<property name="text" value="テストテキスト"/>
-			<property name="textLimit" value="30"/>
-		</control>
-	</window>
+  <window id="testApp" title="テストアプリケーション" width="50%" height="50%"
+    x="center" y="middle" maxButton="true" minButton="true"
+    closeButton="true" resizable="true" image="container.gif"
+    layout="row"
+    layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+    <control id="testButton" type="button">
+      <property name="x" value="10" />
+      <property name="y" value="10" />
+      <property name="width" value="100" />
+      <property name="height" value="20" />
+      <property name="text" value="テストボタン1" />
+    </control>
+    <control id="testButton2" type="button">
+      <property name="x" value="130" />
+      <property name="y" value="30" />
+      <property name="width" value="50" />
+      <property name="height" value="50" />
+      <property name="text" value="テストボタン2" />
+    </control>
+    <control id="testButton3" type="button">
+      <property name="x" value="130" />
+      <property name="y" value="30" />
+      <property name="width" value="50" />
+      <property name="height" value="50" />
+      <property name="text" value="テストボタン3" />
+      <property name="enabled" value="true" />
+      <property name="visible" value="true" />
+    </control>
+    <composite type="box" layout="fill" layoutParam="type=VERTICAL">
+      <control type="label">
+        <property name="width" value="100" />
+        <property name="height" value="30" />
+        <property name="text" value="テストラベル" />
+        <property name="foregroundColor" value="#FF0000" />
+        <property name="backgroundColor" value="blue" />
+        <property name="toolTip" value="ツールチップ" />
+        <property name="fontSize" value="20" />
+      </control>
+      <control type="label">
+        <property name="text" value="テストラベル2" />
+        <property name="font" value="ＭＳ 明朝" />
+        <property name="fontStyle" value="BOLD, ITALIC" />
+        <property name="fontSize" value="64" />
+      </control>
+    </composite>
+
+    <control type="text">
+      <property name="text" value="テストテキスト" />
+      <property name="textLimit" value="30" />
+    </control>
+
+    <control type="textArea">
+      <property name="text" value="テストテキスト" />
+      <property name="textLimit" value="30" />
+    </control>
+  </window>
 </template>

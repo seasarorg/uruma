@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="labelRendererTest">
+  <window id="labelRendererTest" title="LabelRendererTest" x="center"
+    y="middle" layout="row"
+    layoutParam="type=VERTICAL; marginHeight=10; marginWidth=10; spacing=10">
+    <property name="fontSize" value="20" />
+
+    <control type="label">
+      <property name="text" value="ラベル" />
+      <property name="toolTip" value="ツールチップテキスト" />
+    </control>
+
+    <control type="label" style="BORDER">
+      <property name="text" value="枠付きラベル" />
+    </control>
+
+    <control type="label">
+      <property name="image" value="../template/container.gif" />
+    </control>
+
+    <control type="label" style="BORDER">
+      <property name="text" value="複数行テキスト1行目\n\t複数行テキスト2行目\n3行目" />
+    </control>
+
+    <control type="label" style="WRAP, BORDER">
+      <property name="text"
+        value="WRAPスタイルを適用することで、長い文字列は折り返して表示されます。" />
+      <property name="fontSize" value="12" />
+      <layoutData name="width" value="200" />
+      <layoutData name="height" value="100" />
+
+    </control>
+  </window>
+</template>

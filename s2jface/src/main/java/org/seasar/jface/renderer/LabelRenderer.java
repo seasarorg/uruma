@@ -27,34 +27,51 @@ import org.seasar.jface.util.SWTUtil;
  * 
  */
 public class LabelRenderer extends AbstractControlRenderer<Label> {
+    public static final String ATTR_IMAGE = "image";
+
+    public static final String ATTR_ALIGNMENT = "alignment";
 
     @Override
-    protected void doRender(Label label, ControlComponent uiComponent) {
-        String text = uiComponent.getText();
+    protected void doRender(Label label, ControlComponent controlComponent) {
+        renderText(label, controlComponent);
+        renderImage(label, controlComponent);
+        renderAlignment(label, controlComponent);
+    }
+
+    @Override
+    protected Class<Label> getControlType() {
+        return Label.class;
+    }
+
+    protected void renderText(Label label, ControlComponent controlComponent) {
+        String text = controlComponent.getText();
         if (text != null) {
+            text = text.replace("\\n", "\n");
+            text = text.replace("\\t", "\t");
             label.setText(text);
         }
+    }
 
-        String imgSrc = uiComponent.getAttribute("image");
+    protected void renderImage(Label label, ControlComponent controlComponent) {
+        String imgSrc = controlComponent.getAttribute(ATTR_IMAGE);
         if (imgSrc != null) {
             Image image = ImageManager.getInstance().getImage(imgSrc);
             if (image == null) {
-                imgSrc = PathUtil.createPath(uiComponent.getBasePath(), imgSrc);
+                imgSrc = PathUtil.createPath(controlComponent.getBasePath(),
+                        imgSrc);
                 image = ImageManager.getInstance().getImage(imgSrc,
                         label.getDisplay());
             }
 
             label.setImage(image);
         }
+    }
 
-        String alignment = uiComponent.getAttribute("alignment");
+    protected void renderAlignment(Label label,
+            ControlComponent controlComponent) {
+        String alignment = controlComponent.getAttribute(ATTR_ALIGNMENT);
         if (alignment != null) {
             label.setAlignment(SWTUtil.getSWTConstant(alignment));
         }
-    }
-
-    @Override
-    protected Class<Label> getControlType() {
-        return Label.class;
     }
 }

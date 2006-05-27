@@ -22,6 +22,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
 import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.layout.LayoutSupport;
+import org.seasar.jface.layout.LayoutSupportFactory;
 import org.seasar.jface.util.PropertyUtil;
 import org.seasar.jface.util.SWTUtil;
 
@@ -41,7 +43,9 @@ public class BoxRenderer extends AbstractControlRenderer<Composite> {
         CompositeComponent compositeComponent = (CompositeComponent) uiComponent;
         String layoutType = compositeComponent.getLayout();
         if (layoutType != null) {
-            Layout layout = LayoutFactory.getLayout(layoutType);
+            LayoutSupport layoutSupport = LayoutSupportFactory
+                    .getLayoutSupport(layoutType);
+            Layout layout = layoutSupport.createLayout();
 
             String layoutParam = compositeComponent.getLayoutParam();
             if (layoutParam != null) {

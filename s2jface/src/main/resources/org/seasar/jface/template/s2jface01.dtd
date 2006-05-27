@@ -24,9 +24,12 @@
 <!ELEMENT control (property | layoutData)*>
 <!ATTLIST control type CDATA #REQUIRED>
 <!ATTLIST control id CDATA #IMPLIED>
+<!ATTLIST control style CDATA #IMPLIED>
 
 <!ELEMENT composite (composite | control | property | layoutData)*>
 <!ATTLIST composite type CDATA #REQUIRED>
+<!ATTLIST composite id CDATA #IMPLIED>
+<!ATTLIST composite style CDATA #IMPLIED>
 <!ATTLIST composite layout CDATA #IMPLIED>
 <!ATTLIST composite layoutParam CDATA #IMPLIED>
 

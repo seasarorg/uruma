@@ -15,8 +15,6 @@
  */
 package org.seasar.jface.renderer;
 
-import java.util.Iterator;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Composite;
@@ -26,9 +24,10 @@ import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.layout.LayoutSupport;
+import org.seasar.jface.layout.LayoutSupportFactory;
 import org.seasar.jface.util.ClassUtil;
 import org.seasar.jface.util.FontManager;
-import org.seasar.jface.util.PropertyUtil;
 import org.seasar.jface.util.SWTUtil;
 
 /**
@@ -47,6 +46,7 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
         Control control = createControl(parent, getStyle(controlComponent));
 
         // TODO その他のプロパティに対応
+        setLayoutData(control, controlComponent);
         setEnabled(control, controlComponent);
         setVisible(control, controlComponent);
         setLocation(control, controlComponent);
@@ -55,8 +55,7 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
         setBackground(control, controlComponent);
         setToolTipText(control, controlComponent);
         setFont(control, controlComponent);
-        setLayoutData(control, controlComponent);
-        
+
         // TODO レンダリング中に発生したRuntimeExceptionのハンドリングが必要
         doRender(getControlType().cast(control), controlComponent);
 
@@ -159,22 +158,12 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
         Composite parent = control.getParent();
         Layout layout = parent.getLayout();
         if ((controlComponent.getLayoutDataNum() > 0) && (layout != null)) {
-            Object layoutData = LayoutDataFactory.getLayoutData(layout
-                    .getClass());
-
-            for (Iterator<String> iter = controlComponent
-                    .layoutDataNameIterator(); iter.hasNext();) {
-                String name = iter.next();
-                String value = controlComponent.getLayoutData(name);
-                int constant = SWTUtil.getSWTConstant(value);
-                if (constant != SWT.NULL) {
-                    PropertyUtil.setField(layoutData, name, constant);
-                } else {
-                    PropertyUtil.setField(layoutData, name, value);
-                }
+            LayoutSupport support = LayoutSupportFactory
+                    .getLayoutSupport(layout.getClass());
+            Object layoutData = support.createLayoutData(controlComponent);
+            if (layoutData != null) {
+                control.setLayoutData(layoutData);
             }
-
-            control.setLayoutData(layoutData);
         }
     }
 
