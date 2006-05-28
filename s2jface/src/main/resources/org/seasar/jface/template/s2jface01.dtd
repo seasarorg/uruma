@@ -21,7 +21,7 @@
 <!ATTLIST window layout CDATA #IMPLIED>
 <!ATTLIST window layoutParam CDATA #IMPLIED>
 
-<!ELEMENT control (property | layoutData)*>
+<!ELEMENT control (property | layoutData | item)*>
 <!ATTLIST control type CDATA #REQUIRED>
 <!ATTLIST control id CDATA #IMPLIED>
 <!ATTLIST control style CDATA #IMPLIED>
@@ -41,3 +41,6 @@
 <!ELEMENT layoutData EMPTY>
 <!ATTLIST layoutData name CDATA #REQUIRED>
 <!ATTLIST layoutData value CDATA #REQUIRED>
+
+<!ELEMENT item (#PCDATA)*>
+<!ATTLIST item label CDATA #IMPLIED>

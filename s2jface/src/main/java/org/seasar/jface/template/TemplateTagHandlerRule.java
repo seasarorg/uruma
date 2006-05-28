@@ -32,6 +32,7 @@ public class TemplateTagHandlerRule extends TagHandlerRule {
         addTagHandler(ControlTagHandler.class);
         addTagHandler(PropertyTagHandler.class);
         addTagHandler(LayoutDataTagHandler.class);
+        addTagHandler(ItemTagHandler.class);
     }
 
     protected void addTagHandler(Class<? extends AbstractTagHandler> clazz) {

@@ -37,6 +37,7 @@ public class RendererFactrory {
         addRenderer(new TextAreaRenderer());
         addRenderer(new BoxRenderer());
         addRenderer(new WindowRenderer());
+        addRenderer(new ListRenderer());
     }
 
     /**

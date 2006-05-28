@@ -15,13 +15,16 @@
  */
 package org.seasar.jface.component.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.Item;
 import org.seasar.jface.util.AssertionUtil;
 
 /**
@@ -63,6 +66,8 @@ public class ControlComponent extends UIComponentBase {
 
     private Map<String, String> layoutData = new HashMap<String, String>();
 
+    private List<Item> itemList = new ArrayList<Item>();
+
     public ControlComponent() {
         createProperty(ATTR_X);
         createProperty(ATTR_Y);
@@ -80,7 +85,7 @@ public class ControlComponent extends UIComponentBase {
         createProperty(ATTR_ACCESS_KEY);
         createProperty(ATTR_FOCUS_ORDER);
     }
-
+    
     public String getStyle() {
         return style;
     }
@@ -103,6 +108,14 @@ public class ControlComponent extends UIComponentBase {
 
     public Collection<String> getLayoutDataNames() {
         return layoutData.keySet();
+    }
+    
+    public List getItemList() {
+        return itemList;
+    }
+    
+    public void addItem(Item item) {
+        itemList.add(item);
     }
 
     public void render(final Composite parent, final WindowContext context) {

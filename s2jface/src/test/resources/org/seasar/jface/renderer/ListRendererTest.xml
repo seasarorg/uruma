@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="listRendererTest">
+  <window id="listRendererTest" title="ListRendererTest" x="center"
+    y="middle" layout="row"
+    layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+    <control type="list">
+    	<item>テストリスト</item>
+    	<item>TestList</item>
+	</control>
+	
+	<control type="list">
+		<item>テストリスト２</item>
+		<item>TestList2</item>
+	</control>
+  </window>
+</template>
