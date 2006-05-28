@@ -33,14 +33,20 @@ public class ButtonRenderer extends AbstractControlRenderer<Button> {
     }
 
     @Override
-    protected void doRender(Button control, ControlComponent uiComponent) {
-        Button button = (Button) control;
-        button.setText(uiComponent.getText());
+    protected void doRender(Button button, ControlComponent controlComponent) {
+        renderText(button, controlComponent);
     }
 
     @Override
     protected Class<Button> getControlType() {
         return Button.class;
+    }
+
+    protected void renderText(Button button, ControlComponent controlComponent) {
+        String text = controlComponent.getText();
+        if (text != null) {
+            button.setText(text);
+        }
     }
 
     public String getRendererName() {

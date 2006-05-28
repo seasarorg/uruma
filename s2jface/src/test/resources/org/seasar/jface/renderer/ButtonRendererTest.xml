@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="buttonRendererTest">
+  <window id="buttonRendererTest" title="ButtonRendererTest" x="center"
+    y="middle" layout="row"
+    layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+    <property name="fontSize" value="20" />
+
+    <composite type="box" layout="row"
+      layoutParam="type=VERTICAL; spacing=10">
+      <!-- styleを省略した場合、style="PUSH" となります -->
+      <control type="button">
+        <property name="text" value="プッシュボタン" />
+        <property name="toolTip" value="ツールチップテキスト" />
+      </control>
+
+      <control type="button" style="FLAT">
+        <property name="text" value="フラットボタン" />
+      </control>
+
+      <control type="button" style="RADIO">
+        <property name="text" value="ラジオボタン" />
+      </control>
+
+      <control type="button" style="CHECK">
+        <property name="text" value="チェックボタン" />
+      </control>
+
+      <control type="button" style="TOGGLE">
+        <property name="text" value="トグルボタン" />
+      </control>
+    </composite>
+
+    <composite type="box" layout="row"
+      layoutParam="type=VERTICAL; spacing=10">
+
+      <control type="button" style="ARROW, UP">
+        <property name="width" value="30" />
+        <property name="height" value="30" />
+      </control>
+
+      <control type="button" style="ARROW, RIGHT">
+        <property name="width" value="30" />
+        <property name="height" value="30" />
+      </control>
+
+      <control type="button" style="ARROW, DOWN">
+        <property name="width" value="30" />
+        <property name="height" value="30" />
+      </control>
+
+      <control type="button" style="ARROW, LEFT">
+        <property name="width" value="30" />
+        <property name="height" value="30" />
+      </control>
+    </composite>
+  </window>
+</template>
