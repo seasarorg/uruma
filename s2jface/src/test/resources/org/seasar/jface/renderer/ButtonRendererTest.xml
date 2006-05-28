@@ -30,6 +30,13 @@
       <control type="button" style="TOGGLE">
         <property name="text" value="トグルボタン" />
       </control>
+
+      <control type="button">
+        <property name="text" value="フォントを変更" />
+        <property name="font" value="ＭＳ 明朝" />
+        <property name="fontSize" value="15" />
+        <property name="fontStyle" value="BOLD, ITALIC" />
+      </control>
     </composite>
 
     <composite type="box" layout="row"
@@ -37,13 +44,13 @@
       <property name="width" value="30" />
       <property name="height" value="30" />
 
-      <control type="button" style="ARROW, UP"></control>
+      <control type="button" style="ARROW, UP" />
 
-      <control type="button" style="ARROW, RIGHT"></control>
+      <control type="button" style="ARROW, RIGHT" />
 
-      <control type="button" style="ARROW, DOWN"></control>
+      <control type="button" style="ARROW, DOWN" />
 
-      <control type="button" style="ARROW, LEFT"></control>
+      <control type="button" style="ARROW, LEFT" />
     </composite>
   </window>
 </template>
