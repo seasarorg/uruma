@@ -36,7 +36,7 @@ public interface Renderer {
      *            親コンポジット
      * @param context
      *            画面情報を収めた <code>WindowContext</code> オブジェクト
-     * @return
+     * @return レンダリングしたウィジット
      * @see Widget
      * @see Composite
      */

@@ -25,7 +25,11 @@ public interface Property extends Cloneable {
 
     public static final String INHERITANCE_CHILD = "child";
 
+    public static final String INHERITANCE_CHILD_ONLY = "childOnly";
+
     public static final String INHERITANCE_DESCENDANT = "descendant";
+
+    public static final String INHERITANCE_DESCENDANT_ONLY = "descendantOnly";
 
     public Inheritance getInheritance();
 
@@ -44,6 +48,6 @@ public interface Property extends Cloneable {
     public boolean getBooleanValue();
 
     public boolean isValueExist();
-    
+
     public Property cloneProperty(Inheritance inheritance);
 }

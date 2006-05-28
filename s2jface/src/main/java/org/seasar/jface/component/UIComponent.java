@@ -39,8 +39,12 @@ public interface UIComponent extends Iterable<UIComponent> {
      * <dl>
      * <dt>CHILDの場合
      * <dd>NONEに書き換える
+     * <dt>CHILD_ONLYの場合
+     * <dd>NONEに書き換える
      * <dt>DESCENDANTの場合
      * <dd>書き換えない(DESCENDANTのまま)
+     * <dt>DESCENDANT_ONLYの場合
+     * <dd>DESCENDANTに書き換える
      * </dl>
      * 
      * @param parent

@@ -15,6 +15,12 @@
  */
 package org.seasar.jface.component.impl;
 
+import static org.seasar.jface.component.Inheritance.CHILD;
+import static org.seasar.jface.component.Inheritance.CHILD_ONLY;
+import static org.seasar.jface.component.Inheritance.DESCENDANT;
+import static org.seasar.jface.component.Inheritance.DESCENDANT_ONLY;
+import static org.seasar.jface.component.Inheritance.NONE;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -134,12 +140,23 @@ public abstract class UIComponentBase implements UIComponent {
     }
 
     public Property getProperty(final String name) {
-        return properties.get(name);
+        Property property = properties.get(name);
+        if (property != null) {
+            Inheritance inheritance = property.getInheritance();
+            if (inheritance == NONE || inheritance == CHILD
+                    || inheritance == DESCENDANT) {
+                return property;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 
     public String getPropertyValue(final String name) {
         String value = null;
-        Property property = properties.get(name);
+        Property property = getProperty(name);
         if (property != null) {
             value = property.getValue();
         }
@@ -160,10 +177,15 @@ public abstract class UIComponentBase implements UIComponent {
 
     protected void inheritProperty() {
         for (Property property : parent.getProperties()) {
-            if (property.getInheritance() == Inheritance.CHILD) {
-                addProperty(property.cloneProperty(Inheritance.NONE));
-            } else if (property.getInheritance() == Inheritance.DESCENDANT) {
-                addProperty(property.cloneProperty(Inheritance.DESCENDANT));
+            Inheritance inheritance = property.getInheritance();
+            if (inheritance == CHILD) {
+                addProperty(property.cloneProperty(NONE));
+            } else if (inheritance == CHILD_ONLY) {
+                addProperty(property.cloneProperty(NONE));
+            } else if (inheritance == DESCENDANT) {
+                addProperty(property.cloneProperty(DESCENDANT));
+            } else if (inheritance == DESCENDANT_ONLY) {
+                addProperty(property.cloneProperty(DESCENDANT));
             }
         }
     }

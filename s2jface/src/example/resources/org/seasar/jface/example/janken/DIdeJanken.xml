@@ -6,7 +6,7 @@
     maxButton="true" minButton="true" closeButton="true"
     resizable="true" image="container.gif" layout="grid"
     layoutParam="numColumns=3">
-    <property name="backgroundColor" value="white" />
+    <property name="backgroundColor" value="white" inheritance="descendant"/>
     <property name="foregroundColor" value="black" />
     <property name="fontSize" value="50" />
     <property name="alignment" value="CENTER" />

@@ -47,13 +47,12 @@ public class GridLayoutSupport extends
         GridData gridData = createLayoutData();
 
         Property widthProp = controlComponent.getProperty(ATTR_WIDTH);
-        if (widthProp.isValueExist()) {
+        if ((widthProp != null) && widthProp.isValueExist()) {
             gridData.minimumWidth = widthProp.getIntValue();
         }
 
-        Property heightProp = controlComponent
-                .getProperty(ATTR_HEIGHT);
-        if (heightProp.isValueExist()) {
+        Property heightProp = controlComponent.getProperty(ATTR_HEIGHT);
+        if ((heightProp != null) && heightProp.isValueExist()) {
             gridData.minimumHeight = heightProp.getIntValue();
         }
 

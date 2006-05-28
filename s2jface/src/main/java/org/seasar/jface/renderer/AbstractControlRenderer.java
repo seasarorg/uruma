@@ -77,37 +77,41 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
     }
 
     protected void setEnabled(Control control, ControlComponent controlComponent) {
-        control.setEnabled(controlComponent.getProperty(ATTR_ENABLED)
-                .getBooleanValue());
+        Property prop = controlComponent.getProperty(ATTR_ENABLED);
+        if (prop != null) {
+            control.setEnabled(prop.getBooleanValue());
+        }
     }
 
     protected void setVisible(Control control, ControlComponent controlComponent) {
-        control.setVisible(controlComponent.getProperty(ATTR_VISIBLE)
-                .getBooleanValue());
+        Property prop = controlComponent.getProperty(ATTR_VISIBLE);
+        if (prop != null) {
+            control.setVisible(prop.getBooleanValue());
+        }
     }
 
     protected void setLocation(Control control,
             ControlComponent controlComponent) {
         Property xProp = controlComponent.getProperty(ATTR_X);
         Property yProp = controlComponent.getProperty(ATTR_Y);
-        if (xProp.isValueExist() && yProp.isValueExist()) {
+        if ((xProp != null) && (yProp != null) && xProp.isValueExist()
+                && yProp.isValueExist()) {
             control.setLocation(xProp.getIntValue(), yProp.getIntValue());
         }
     }
 
     protected void setSize(Control control, ControlComponent controlComponent) {
         Property widthProp = controlComponent.getProperty(ATTR_WIDTH);
-        Property heightProp = controlComponent
-                .getProperty(ATTR_HEIGHT);
-        if (widthProp.isValueExist() && heightProp.isValueExist()) {
+        Property heightProp = controlComponent.getProperty(ATTR_HEIGHT);
+        if ((widthProp != null) && (heightProp != null)
+                && widthProp.isValueExist() && heightProp.isValueExist()) {
             control.setSize(widthProp.getIntValue(), heightProp.getIntValue());
         }
     }
 
     protected void setForeground(Control control,
             ControlComponent controlComponent) {
-        String foreColor = controlComponent.getProperty(ATTR_FOREGROUND_COLOR)
-                .getValue();
+        String foreColor = controlComponent.getPropertyValue(ATTR_FOREGROUND_COLOR);
         if (foreColor != null) {
             control.setForeground(SWTUtil.getColor(foreColor));
         }
@@ -146,10 +150,9 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
             style = fontData.getStyle();
         }
 
-        Property heightProp = controlComponent
-                .getProperty(ATTR_FONT_SIZE);
+        Property heightProp = controlComponent.getProperty(ATTR_FONT_SIZE);
         int height;
-        if (heightProp.isValueExist()) {
+        if ((heightProp != null) && heightProp.isValueExist()) {
             height = heightProp.getIntValue();
         } else {
             height = fontData.getHeight();

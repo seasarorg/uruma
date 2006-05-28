@@ -34,26 +34,16 @@
 
     <composite type="box" layout="row"
       layoutParam="type=VERTICAL; spacing=10">
+      <property name="width" value="30" />
+      <property name="height" value="30" />
 
-      <control type="button" style="ARROW, UP">
-        <property name="width" value="30" />
-        <property name="height" value="30" />
-      </control>
+      <control type="button" style="ARROW, UP"></control>
 
-      <control type="button" style="ARROW, RIGHT">
-        <property name="width" value="30" />
-        <property name="height" value="30" />
-      </control>
+      <control type="button" style="ARROW, RIGHT"></control>
 
-      <control type="button" style="ARROW, DOWN">
-        <property name="width" value="30" />
-        <property name="height" value="30" />
-      </control>
+      <control type="button" style="ARROW, DOWN"></control>
 
-      <control type="button" style="ARROW, LEFT">
-        <property name="width" value="30" />
-        <property name="height" value="30" />
-      </control>
+      <control type="button" style="ARROW, LEFT"></control>
     </composite>
   </window>
 </template>

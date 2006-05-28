@@ -15,6 +15,15 @@
  */
 package org.seasar.jface.template;
 
+import static org.seasar.jface.component.Inheritance.CHILD;
+import static org.seasar.jface.component.Inheritance.CHILD_ONLY;
+import static org.seasar.jface.component.Inheritance.DESCENDANT;
+import static org.seasar.jface.component.Inheritance.DESCENDANT_ONLY;
+import static org.seasar.jface.component.Property.INHERITANCE_CHILD;
+import static org.seasar.jface.component.Property.INHERITANCE_CHILD_ONLY;
+import static org.seasar.jface.component.Property.INHERITANCE_DESCENDANT;
+import static org.seasar.jface.component.Property.INHERITANCE_DESCENDANT_ONLY;
+
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.Property;
@@ -58,16 +67,20 @@ public class PropertyTagHandler extends AbstractTagHandler {
         String inheritanceAttr = attributes.getValue(INHERITANCE_ATTR);
         Inheritance inheritance = Inheritance.NONE;
         if (inheritanceAttr != null) {
-            if (Property.INHERITANCE_CHILD.equalsIgnoreCase(inheritanceAttr)) {
-                inheritance = Inheritance.CHILD;
-            } else if (Property.INHERITANCE_DESCENDANT
+            if (INHERITANCE_CHILD.equalsIgnoreCase(inheritanceAttr)) {
+                inheritance = CHILD;
+            } else if (INHERITANCE_CHILD_ONLY.equalsIgnoreCase(inheritanceAttr)) {
+                inheritance = CHILD_ONLY;
+            } else if (INHERITANCE_DESCENDANT.equalsIgnoreCase(inheritanceAttr)) {
+                inheritance = DESCENDANT;
+            } else if (INHERITANCE_DESCENDANT_ONLY
                     .equalsIgnoreCase(inheritanceAttr)) {
-                inheritance = Inheritance.DESCENDANT;
+                inheritance = DESCENDANT_ONLY;
             }
         } else if (parent instanceof AbstractCompositeComponent) {
             // Inheritanceが未指定の場合、
-            // 対象がコンポジットの場合のみ自動でDESCENDANTに設定
-            inheritance = Inheritance.DESCENDANT;
+            // 対象がコンポジットの場合のみ自動でDESCENDANT_ONLYに設定
+            inheritance = DESCENDANT_ONLY;
         }
         property.setInheritance(inheritance);
 

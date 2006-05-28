@@ -22,12 +22,16 @@ package org.seasar.jface.component;
  * <dd>子要素へ引き継ぎません。(デフォルト)
  * <dt><code>CHILD</code>
  * <dd>直近の子要素へのみ引き継ぎます。
+ * <dt><code>CHILD_ONLY</code>
+ * <dd>直近の子要素へのみ引き継ぎ、自要素へは適用しません。
  * <dt><code>DESCENDANT</code>
  * <dd>すべての子要素へ引き継ぎます。
+ * <dt><code>DESCENDANT_ONLY</code>
+ * <dd>すべての子要素へ引き継ぎ、自要素へは適用しません。
  * </dl>
  * 
  * @author y-komori
  */
 public enum Inheritance {
-    NONE, CHILD, DESCENDANT
+    NONE, CHILD, CHILD_ONLY, DESCENDANT, DESCENDANT_ONLY
 }
