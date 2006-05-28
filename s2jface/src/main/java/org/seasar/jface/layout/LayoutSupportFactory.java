@@ -22,8 +22,10 @@ import org.eclipse.swt.widgets.Layout;
 import org.seasar.jface.exception.NotFoundException;
 
 /**
- * @author y-komori
+ * レイアウトサポートクラスを取得するためのファクトリです。</br>
  * 
+ * @author y-komori
+ * @see org.seasar.jface.layout.LayoutSupport
  */
 public class LayoutSupportFactory {
     private static final Map<String, LayoutSupport> LAYOUT_SUPPORT_MAP_BY_NAME = new HashMap<String, LayoutSupport>();
@@ -36,6 +38,15 @@ public class LayoutSupportFactory {
         addLayoutSupport(new GridLayoutSupport());
     }
 
+    /**
+     * レイアウト名をキーにしてレイアウトサポートクラスを取得します。</br>
+     * 
+     * @param layoutName
+     *            レイアウト名
+     * @return レイアウトサポートクラス
+     * @throws NotFoundException
+     *             指定されたレイアウトサポートクラスが見つからない場合
+     */
     public static LayoutSupport getLayoutSupport(String layoutName) {
         LayoutSupport layoutSupport = LAYOUT_SUPPORT_MAP_BY_NAME
                 .get(layoutName);
@@ -46,6 +57,13 @@ public class LayoutSupportFactory {
         }
     }
 
+    /**
+     * レイアウトクラスをキーにして、レイアウトサポートクラスを取得します</br>
+     * 
+     * @param layoutType
+     *            レイアウトのクラスオブジェクト
+     * @return レイアウトサポートクラス。見つからない場合は<code>null</code>
+     */
     public static LayoutSupport getLayoutSupport(
             Class<? extends Layout> layoutType) {
         LayoutSupport layoutSupport = LAYOUT_SUPPORT_MAP_BY_TYPE
@@ -53,11 +71,16 @@ public class LayoutSupportFactory {
         if (layoutSupport != null) {
             return layoutSupport;
         } else {
-            throw new NotFoundException(NotFoundException.LAYOUT, layoutType
-                    .getName());
+            return null;
         }
     }
 
+    /**
+     * レイアウトサポートクラスを追加します</br>
+     * 
+     * @param layoutSupport
+     *            レイアウトサポートクラス
+     */
     public static void addLayoutSupport(
             LayoutSupport<? extends Layout, ?> layoutSupport) {
         LAYOUT_SUPPORT_MAP_BY_NAME.put(layoutSupport.getLayoutName(),

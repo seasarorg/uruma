@@ -17,7 +17,6 @@ package org.seasar.jface.util;
 
 import java.io.InputStream;
 import java.util.Enumeration;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.jface.resource.ImageRegistry;

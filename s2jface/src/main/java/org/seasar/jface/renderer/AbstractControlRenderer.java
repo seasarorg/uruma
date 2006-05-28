@@ -157,12 +157,14 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
             ControlComponent controlComponent) {
         Composite parent = control.getParent();
         Layout layout = parent.getLayout();
-        if ((controlComponent.getLayoutDataNum() > 0) && (layout != null)) {
+        if (layout != null) {
             LayoutSupport support = LayoutSupportFactory
                     .getLayoutSupport(layout.getClass());
-            Object layoutData = support.createLayoutData(controlComponent);
-            if (layoutData != null) {
-                control.setLayoutData(layoutData);
+            if (support != null) {
+                Object layoutData = support.createLayoutData(controlComponent);
+                if (layoutData != null) {
+                    control.setLayoutData(layoutData);
+                }
             }
         }
     }

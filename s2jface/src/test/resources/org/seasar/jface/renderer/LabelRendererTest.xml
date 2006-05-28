@@ -28,9 +28,8 @@
       <property name="text"
         value="WRAPスタイルを適用することで、長い文字列は折り返して表示されます。" />
       <property name="fontSize" value="12" />
-      <layoutData name="width" value="200" />
-      <layoutData name="height" value="100" />
-
+      <property name="width" value="200" />
+      <property name="height" value="100" />
     </control>
   </window>
 </template>

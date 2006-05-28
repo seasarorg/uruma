@@ -20,42 +20,74 @@ import org.eclipse.swt.layout.RowLayout;
 import org.seasar.jface.component.impl.ControlComponent;
 
 /**
- * @author y-komori
+ * <code>RowLayout</code>と<code>RowData</code>の生成をサポートする<code>LayoutSupport</code>クラスです。</br>
  * 
+ * @author y-komori
+ * @see org.eclipse.swt.layout.RowLayout
+ * @see org.eclipse.swt.layout.RowData
  */
 public class RowLayoutSupport extends AbstractLayoutSupport<RowLayout, RowData> {
     private static final String LAYOUT_NAME = "row";
 
+    /*
+     * @see org.seasar.jface.layout.LayoutSupport#createLayout()
+     */
     public RowLayout createLayout() {
         return new RowLayout();
     }
 
+    /*
+     * @see org.seasar.jface.layout.LayoutSupport#getLayoutType()
+     */
     public Class<RowLayout> getLayoutType() {
         return RowLayout.class;
     }
 
+    /*
+     * @see org.seasar.jface.layout.LayoutSupport#createLayoutData()
+     */
     public RowData createLayoutData() {
         return new RowData();
     }
 
+    /**
+     * <code>ControlComponent</code>を指定して、レイアウトデータオブジェクトを生成します。</br>
+     * レイアウトデータを利用しないレイアウトの場合は、常に<code>null</code>を返します。</br>
+     * レイアウトデータオブジェクト生成時、<code>ControlComponent</code>が持つ
+     * <code>LayoutData</code>属性をレイアウトデータに設定します。</br> また、<code>ControlComponent</code>の<code>width</code>属性、
+     * <code>height</code>属性がセットされている場合、それぞれ<code>RowData</code>の<code>width</code>属性、<code>height</code>属性に設定します。
+     * 
+     * @param controlComponent
+     *            <code>LayoutData</code>属性を使用する<code>ControlComponent</code>オブジェクト
+     * @return レイアウトデータオブジェクト
+     */
     public RowData createLayoutData(ControlComponent controlComponent) {
-        RowData rowData = createLayoutData();
-
         String width = controlComponent.getWidth();
-        if (width != null) {
-            rowData.width = Integer.parseInt(width);
-        }
-
         String height = controlComponent.getHeight();
-        if (height != null) {
-            rowData.height = Integer.parseInt(height);
+
+        if ((width != null) || (height != null)
+                || (controlComponent.getLayoutDataNum() > 0)) {
+            RowData rowData = createLayoutData();
+
+            if (width != null) {
+                rowData.width = Integer.parseInt(width);
+            }
+
+            if (height != null) {
+                rowData.height = Integer.parseInt(height);
+            }
+
+            setupLayoutData(rowData, controlComponent);
+
+            return rowData;
+        } else {
+            return null;
         }
-
-        setupLayoutData(rowData, controlComponent);
-
-        return rowData;
     }
 
+    /*
+     * @see org.seasar.jface.layout.LayoutSupport#getLayoutName()
+     */
     public String getLayoutName() {
         return LAYOUT_NAME;
     }
