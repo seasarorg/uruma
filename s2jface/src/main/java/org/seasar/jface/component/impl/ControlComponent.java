@@ -256,7 +256,7 @@ public class ControlComponent extends UIComponentBase {
     }
 
     /**
-     * 荀・ontrol・vヒ・P舊･・・雌・w㈲冷 w痃蝉殼痃#・障q8・q・
+     * 親Controlから属性の引き継ぎを行います。
      */
     protected void inheritAttributes() {
         if (parent instanceof ControlComponent) {
@@ -290,6 +290,16 @@ public class ControlComponent extends UIComponentBase {
             String fontStyle = parentControl.getFontStyle();
             if (fontStyle != null) {
                 this.fontStyle = fontStyle;
+            }
+
+            String width = parentControl.getWidth();
+            if (width != null) {
+                this.width = width;
+            }
+
+            String height = parentControl.getHeight();
+            if (height != null) {
+                this.height = height;
             }
         }
 
