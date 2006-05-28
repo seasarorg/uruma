@@ -21,6 +21,8 @@ import org.seasar.jface.renderer.RendererFactrory;
 import org.xml.sax.Attributes;
 
 /**
+ * composite 要素に対するタグハンドラです。
+ * 
  * @author y-komori
  * 
  */

@@ -23,6 +23,8 @@ import org.seasar.jface.renderer.RendererFactrory;
 import org.xml.sax.Attributes;
 
 /**
+ * window 要素に対するタグハンドラです。
+ * 
  * @author y-komori
  * 
  */
@@ -95,8 +97,8 @@ public class WindowTagHandler extends AbstractTagHandler {
         setValue(rootComposite, LAYOUT_PARAM_ATTR, attributes
                 .getValue(LAYOUT_PARAM_ATTR));
         setValue(rootComposite, RENDERER_TYPE_ATTR, "box");
-        rootComposite.setRenderer(RendererFactrory
-                .getRenderer(rootComposite.getRendererType()));
+        rootComposite.setRenderer(RendererFactrory.getRenderer(rootComposite
+                .getRendererType()));
         window.addChild(rootComposite);
         setBasePath(window, context);
 

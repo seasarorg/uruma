@@ -20,6 +20,12 @@ import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.exception.ParseException;
 import org.xml.sax.Attributes;
 
+/**
+ * layoutData 要素に対するタグハンドラです。
+ * 
+ * @author y-komori
+ * 
+ */
 public class LayoutDataTagHandler extends AbstractTagHandler {
     private static final long serialVersionUID = -4353026434864374392L;
 
@@ -40,7 +46,7 @@ public class LayoutDataTagHandler extends AbstractTagHandler {
         if (value == null) {
             throw new ParseException("EJFC0100", getElementName(), VALUE_ATTR);
         }
-        
+
         parent.addLayoutData(name, value);
     }
 

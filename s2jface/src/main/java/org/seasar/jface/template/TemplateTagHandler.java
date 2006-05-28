@@ -20,6 +20,8 @@ import org.seasar.jface.component.impl.TemplateComponent;
 import org.xml.sax.Attributes;
 
 /**
+ * template 要素に対するタグハンドラです。
+ * 
  * @author y-komori
  * 
  */

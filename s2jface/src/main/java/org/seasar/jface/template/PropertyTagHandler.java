@@ -20,25 +20,33 @@ import org.seasar.jface.component.impl.UIComponentBase;
 import org.seasar.jface.exception.ParseException;
 import org.xml.sax.Attributes;
 
+/**
+ * property 要素に対するタグハンドラです。
+ * 
+ * @author y-komori
+ * 
+ */
 public class PropertyTagHandler extends AbstractTagHandler {
     private static final long serialVersionUID = -8500459704411838669L;
+
     protected static final String NAME_ATTR = "name";
+
     protected static final String VALUE_ATTR = "value";
-    
+
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
-        UIComponentBase parent = (UIComponentBase)context.peek();
-        
+        UIComponentBase parent = (UIComponentBase) context.peek();
+
         String name = attributes.getValue(NAME_ATTR);
-        if (name == null){
+        if (name == null) {
             throw new ParseException("EJFC0100", getElementName(), NAME_ATTR);
         }
-        
-        String value =attributes.getValue(VALUE_ATTR);
-        if (value == null){
+
+        String value = attributes.getValue(VALUE_ATTR);
+        if (value == null) {
             throw new ParseException("EJFC0100", getElementName(), VALUE_ATTR);
         }
-        
+
         setValue(parent, name, value);
     }
 

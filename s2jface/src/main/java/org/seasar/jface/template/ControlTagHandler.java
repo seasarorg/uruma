@@ -22,13 +22,16 @@ import org.seasar.jface.renderer.RendererFactrory;
 import org.xml.sax.Attributes;
 
 /**
+ * control 要素に対するタグハンドラです。
+ * 
  * @author y-komori
- *
+ * 
  */
 public class ControlTagHandler extends AbstractTagHandler {
     private static final long serialVersionUID = 1627288649056320123L;
 
     protected static final String STYLE_ATTR = "style";
+
     protected static final String ACTION_ATTR = "action";
 
     @Override
@@ -46,7 +49,7 @@ public class ControlTagHandler extends AbstractTagHandler {
         setValue(control, RENDERER_TYPE_ATTR, rendererType, true);
         control.setRenderer(RendererFactrory.getRenderer(rendererType));
         setBasePath(control, context);
-        
+
         context.push(control);
     }
 
