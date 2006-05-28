@@ -27,6 +27,8 @@ import org.seasar.jface.util.SWTUtil;
  * 
  */
 public class LabelRenderer extends AbstractControlRenderer<Label> {
+    public static final String ATTR_TEXT = "text";
+
     public static final String ATTR_IMAGE = "image";
 
     public static final String ATTR_ALIGNMENT = "alignment";
@@ -44,7 +46,7 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
     }
 
     protected void renderText(Label label, ControlComponent controlComponent) {
-        String text = controlComponent.getText();
+        String text = controlComponent.getPropertyValue(ATTR_TEXT);
         if (text != null) {
             text = text.replace("\\n", "\n");
             text = text.replace("\\t", "\t");
@@ -53,7 +55,7 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
     }
 
     protected void renderImage(Label label, ControlComponent controlComponent) {
-        String imgSrc = controlComponent.getAttribute(ATTR_IMAGE);
+        String imgSrc = controlComponent.getPropertyValue(ATTR_IMAGE);
         if (imgSrc != null) {
             Image image = ImageManager.getInstance().getImage(imgSrc);
             if (image == null) {
@@ -69,7 +71,7 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
 
     protected void renderAlignment(Label label,
             ControlComponent controlComponent) {
-        String alignment = controlComponent.getAttribute(ATTR_ALIGNMENT);
+        String alignment = controlComponent.getPropertyValue(ATTR_ALIGNMENT);
         if (alignment != null) {
             label.setAlignment(SWTUtil.getSWTConstant(alignment));
         }

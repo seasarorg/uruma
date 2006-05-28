@@ -15,8 +15,6 @@
  */
 package org.seasar.jface.layout;
 
-import java.util.Iterator;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Layout;
 import org.seasar.jface.component.impl.ControlComponent;
@@ -34,9 +32,7 @@ public abstract class AbstractLayoutSupport<LAYOUT_TYPE extends Layout, LAYOUT_D
 
     protected void setupLayoutData(Object layoutData,
             ControlComponent controlComponent) {
-        for (Iterator<String> iter = controlComponent.layoutDataNameIterator(); iter
-                .hasNext();) {
-            String name = iter.next();
+        for (String name : controlComponent.getLayoutDataNames()) {
             String value = controlComponent.getLayoutData(name);
             int constant = SWTUtil.getSWTConstant(value);
             if (constant != SWT.NULL) {

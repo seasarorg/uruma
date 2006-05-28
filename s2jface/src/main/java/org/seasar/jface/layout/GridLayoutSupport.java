@@ -15,13 +15,17 @@
  */
 package org.seasar.jface.layout;
 
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_HEIGHT;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_WIDTH;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.seasar.jface.component.Property;
 import org.seasar.jface.component.impl.ControlComponent;
 
 /**
  * @author y-komori
- *
+ * 
  */
 public class GridLayoutSupport extends
         AbstractLayoutSupport<GridLayout, GridData> {
@@ -42,14 +46,15 @@ public class GridLayoutSupport extends
     public GridData createLayoutData(ControlComponent controlComponent) {
         GridData gridData = createLayoutData();
 
-        String width = controlComponent.getWidth();
-        if (width != null) {
-            gridData.minimumWidth = Integer.parseInt(width);
+        Property widthProp = controlComponent.getProperty(ATTR_WIDTH);
+        if (widthProp.isValueExist()) {
+            gridData.minimumWidth = widthProp.getIntValue();
         }
 
-        String height = controlComponent.getHeight();
-        if (height != null) {
-            gridData.minimumHeight = Integer.parseInt(height);
+        Property heightProp = controlComponent
+                .getProperty(ATTR_HEIGHT);
+        if (heightProp.isValueExist()) {
+            gridData.minimumHeight = heightProp.getIntValue();
         }
 
         setupLayoutData(gridData, controlComponent);

@@ -24,6 +24,7 @@ import org.seasar.jface.component.impl.ControlComponent;
  * 
  */
 public class ButtonRenderer extends AbstractControlRenderer<Button> {
+    public static final String ATTR_TEXT = "text";
 
     @Override
     protected int getStyle(ControlComponent uiComponent) {
@@ -43,7 +44,7 @@ public class ButtonRenderer extends AbstractControlRenderer<Button> {
     }
 
     protected void renderText(Button button, ControlComponent controlComponent) {
-        String text = controlComponent.getText();
+        String text = controlComponent.getPropertyValue(ATTR_TEXT);
         if (text != null) {
             button.setText(text);
         }

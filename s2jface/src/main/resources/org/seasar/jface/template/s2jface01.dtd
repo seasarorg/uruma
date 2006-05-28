@@ -36,6 +36,7 @@
 <!ELEMENT property EMPTY>
 <!ATTLIST property name CDATA #REQUIRED>
 <!ATTLIST property value CDATA #REQUIRED>
+<!ATTLIST property inheritance (none | child | descendant) #IMPLIED>
 
 <!ELEMENT layoutData EMPTY>
 <!ATTLIST layoutData name CDATA #REQUIRED>

@@ -18,6 +18,7 @@ package org.seasar.jface.template;
 import org.seasar.framework.xml.TagHandler;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.impl.PropertyComponent;
 import org.seasar.jface.exception.ParseException;
 import org.seasar.jface.util.PropertyUtil;
 
@@ -33,12 +34,13 @@ public abstract class AbstractTagHandler extends TagHandler {
     protected static final String RENDERER_TYPE_ATTR = "rendererType";
 
     abstract protected String getElementName();
-    
+
     protected void setValue(final UIComponent target,
             final String propertyName, final Object value) {
         if (value != null) {
             if (false == PropertyUtil.setProperty(target, propertyName, value)) {
-                target.setAttribute(propertyName, value.toString());
+                target.addProperty(new PropertyComponent(propertyName,
+                        value.toString()));
             }
         }
     }

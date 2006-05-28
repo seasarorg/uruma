@@ -16,12 +16,15 @@
 package org.seasar.jface.component.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.component.Inheritance;
+import org.seasar.jface.component.Property;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.renderer.Renderer;
 import org.seasar.jface.util.AssertionUtil;
@@ -42,7 +45,7 @@ public abstract class UIComponentBase implements UIComponent {
 
     private String renderType;
 
-    protected Map<String, String> attribute = new HashMap<String, String>();
+    private Map<String, Property> properties = new HashMap<String, Property>();
 
     private String basePath;
 
@@ -73,6 +76,7 @@ public abstract class UIComponentBase implements UIComponent {
     public void setParent(final UIComponent parent) {
         AssertionUtil.assertNotNull("parent", parent);
         this.parent = parent;
+        inheritProperty();
     }
 
     public void setRendererType(final String type) {
@@ -118,15 +122,49 @@ public abstract class UIComponentBase implements UIComponent {
         this.basePath = basePath;
     }
 
-    public String getAttribute(final String name) {
-        return attribute.get(name);
+    public void addProperty(final Property property) {
+        String name = property.getName();
+        if (properties.containsKey(name)) {
+            Property existence = properties.get(name);
+            existence.setValue(property.getValue());
+            existence.setInheritance(property.getInheritance());
+        } else {
+            properties.put(name, property);
+        }
     }
 
-    public void setAttribute(final String name, final String value) {
-        attribute.put(name, value);
+    public Property getProperty(final String name) {
+        return properties.get(name);
     }
 
-    public Map<String, String> getAttributes() {
-        return attribute;
+    public String getPropertyValue(final String name) {
+        String value = null;
+        Property property = properties.get(name);
+        if (property != null) {
+            value = property.getValue();
+        }
+        return value;
+    }
+
+    public Collection<Property> getProperties() {
+        return properties.values();
+    }
+
+    protected void createProperty(String name) {
+        addProperty(new PropertyComponent(name));
+    }
+
+    protected void createProperty(String name, String value) {
+        addProperty(new PropertyComponent(name, value));
+    }
+
+    protected void inheritProperty() {
+        for (Property property : parent.getProperties()) {
+            if (property.getInheritance() == Inheritance.CHILD) {
+                addProperty(property.cloneProperty(Inheritance.NONE));
+            } else if (property.getInheritance() == Inheritance.DESCENDANT) {
+                addProperty(property.cloneProperty(Inheritance.DESCENDANT));
+            }
+        }
     }
 }

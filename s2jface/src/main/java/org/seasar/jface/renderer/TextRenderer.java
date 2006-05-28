@@ -27,6 +27,8 @@ import org.seasar.jface.component.impl.ControlComponent;
  * 
  */
 public class TextRenderer extends AbstractControlRenderer<Text> {
+    public static final String ATTR_TEXT = "text";
+
     public static final String ATTR_TEXT_LIMIT = "textLimit";
 
     public static final String ATTR_EDITABLE = "editable";
@@ -55,18 +57,18 @@ public class TextRenderer extends AbstractControlRenderer<Text> {
     }
 
     protected void renderText(Text text, ControlComponent controlComponent) {
-        text.setText(controlComponent.getText());
+        text.setText(controlComponent.getPropertyValue(ATTR_TEXT));
     }
 
     protected void renderTextLimit(Text text, ControlComponent controlComponent) {
-        String textLimit = controlComponent.getAttribute(ATTR_TEXT_LIMIT);
+        String textLimit = controlComponent.getPropertyValue(ATTR_TEXT_LIMIT);
         if (textLimit != null) {
             text.setTextLimit(IntegerConversionUtil.toPrimitiveInt(textLimit));
         }
     }
 
     protected void renderEditable(Text text, ControlComponent controlComponent) {
-        String editable = controlComponent.getAttribute(ATTR_EDITABLE);
+        String editable = controlComponent.getPropertyValue(ATTR_EDITABLE);
         if (editable != null) {
             text
                     .setEditable(BooleanConversionUtil
@@ -75,14 +77,14 @@ public class TextRenderer extends AbstractControlRenderer<Text> {
     }
 
     protected void renderEchoChar(Text text, ControlComponent controlComponent) {
-        String echoChar = controlComponent.getAttribute(ATTR_ECHO_CHAR);
+        String echoChar = controlComponent.getPropertyValue(ATTR_ECHO_CHAR);
         if (echoChar != null && !StringUtil.isEmpty(echoChar)) {
             text.setEchoChar(echoChar.charAt(0));
         }
     }
 
     protected void renderTabs(Text text, ControlComponent controlComponent) {
-        String tabs = controlComponent.getAttribute(ATTR_TABS);
+        String tabs = controlComponent.getPropertyValue(ATTR_TABS);
         if (tabs != null) {
             text.setTabs(IntegerConversionUtil.toPrimitiveInt(tabs));
         }

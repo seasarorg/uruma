@@ -16,6 +16,10 @@
 package org.seasar.jface.template;
 
 import org.seasar.framework.xml.TagHandlerContext;
+import org.seasar.jface.component.Inheritance;
+import org.seasar.jface.component.Property;
+import org.seasar.jface.component.impl.AbstractCompositeComponent;
+import org.seasar.jface.component.impl.PropertyComponent;
 import org.seasar.jface.component.impl.UIComponentBase;
 import org.seasar.jface.exception.ParseException;
 import org.xml.sax.Attributes;
@@ -33,6 +37,8 @@ public class PropertyTagHandler extends AbstractTagHandler {
 
     protected static final String VALUE_ATTR = "value";
 
+    protected static final String INHERITANCE_ATTR = "inheritance";
+
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
         UIComponentBase parent = (UIComponentBase) context.peek();
@@ -47,7 +53,25 @@ public class PropertyTagHandler extends AbstractTagHandler {
             throw new ParseException("EJFC0100", getElementName(), VALUE_ATTR);
         }
 
-        setValue(parent, name, value);
+        Property property = new PropertyComponent(name, value);
+
+        String inheritanceAttr = attributes.getValue(INHERITANCE_ATTR);
+        Inheritance inheritance = Inheritance.NONE;
+        if (inheritanceAttr != null) {
+            if (Property.INHERITANCE_CHILD.equalsIgnoreCase(inheritanceAttr)) {
+                inheritance = Inheritance.CHILD;
+            } else if (Property.INHERITANCE_DESCENDANT
+                    .equalsIgnoreCase(inheritanceAttr)) {
+                inheritance = Inheritance.DESCENDANT;
+            }
+        } else if (parent instanceof AbstractCompositeComponent) {
+            // Inheritanceが未指定の場合、
+            // 対象がコンポジットの場合のみ自動でDESCENDANTに設定
+            inheritance = Inheritance.DESCENDANT;
+        }
+        property.setInheritance(inheritance);
+
+        parent.addProperty(property);
     }
 
     @Override

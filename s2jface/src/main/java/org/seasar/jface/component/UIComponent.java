@@ -15,6 +15,8 @@
  */
 package org.seasar.jface.component;
 
+import java.util.Collection;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
@@ -29,6 +31,21 @@ public interface UIComponent extends Iterable<UIComponent> {
 
     public String getId();
 
+    /**
+     * 親コンポーネントをセットします。</br> このとき、親コンポーネントの持つプロパティのうち、<code>Inheritance</code>
+     * が <code>CHILD</code> または <code>DESCENDANT</code>
+     * になっているものを自コンポーネントのプロパティに引き継ぎます。</br> その際、以下のように <code>Inheritance</code>
+     * を書き換えます。</br>
+     * <dl>
+     * <dt>CHILDの場合
+     * <dd>NONEに書き換える
+     * <dt>DESCENDANTの場合
+     * <dd>書き換えない(DESCENDANTのまま)
+     * </dl>
+     * 
+     * @param parent
+     *            親コンポーネント
+     */
     public void setParent(UIComponent parent);
 
     public UIComponent getParent();
@@ -49,13 +66,24 @@ public interface UIComponent extends Iterable<UIComponent> {
 
     public Widget getWidget();
 
-    public void render(Composite parent, WindowContext context);
-
-    public void setAttribute(String name, String value);
-
-    public String getAttribute(String name);
-
     public String getBasePath();
 
     public void setBasePath(String basePath);
+
+    public void render(Composite parent, WindowContext context);
+
+    /**
+     * プロパティを追加します。</br> 既に同名のプロパティが存在する場合、追加したプロパティに置き換えられます。
+     * 
+     * @param property
+     *            プロパティ
+     */
+    public void addProperty(Property property);
+
+    public Property getProperty(String name);
+
+    public String getPropertyValue(String name);
+
+    public Collection<Property> getProperties();
+
 }

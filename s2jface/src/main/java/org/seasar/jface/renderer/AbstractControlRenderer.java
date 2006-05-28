@@ -15,6 +15,19 @@
  */
 package org.seasar.jface.renderer;
 
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_BACKGROUND_COLOR;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_ENABLED;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_FONT;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_FONT_SIZE;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_FONT_STYLE;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_FOREGROUND_COLOR;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_HEIGHT;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_TOOL_TIP;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_VISIBLE;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_WIDTH;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_X;
+import static org.seasar.jface.component.impl.ControlComponent.ATTR_Y;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Composite;
@@ -22,6 +35,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.Property;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.layout.LayoutSupport;
@@ -63,45 +77,37 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
     }
 
     protected void setEnabled(Control control, ControlComponent controlComponent) {
-        control.setEnabled(controlComponent.isEnabled());
+        control.setEnabled(controlComponent.getProperty(ATTR_ENABLED)
+                .getBooleanValue());
     }
 
     protected void setVisible(Control control, ControlComponent controlComponent) {
-        control.setVisible(controlComponent.isVisible());
+        control.setVisible(controlComponent.getProperty(ATTR_VISIBLE)
+                .getBooleanValue());
     }
 
     protected void setLocation(Control control,
             ControlComponent controlComponent) {
-        String xStr = controlComponent.getX();
-        String yStr = controlComponent.getY();
-        if ((xStr != null) && (yStr != null)) {
-            int x = Integer.parseInt(xStr);
-            int y = Integer.parseInt(yStr);
-            control.setLocation(x, y);
+        Property xProp = controlComponent.getProperty(ATTR_X);
+        Property yProp = controlComponent.getProperty(ATTR_Y);
+        if (xProp.isValueExist() && yProp.isValueExist()) {
+            control.setLocation(xProp.getIntValue(), yProp.getIntValue());
         }
     }
 
     protected void setSize(Control control, ControlComponent controlComponent) {
-        String widthStr = controlComponent.getWidth();
-        String heightStr = controlComponent.getHeight();
-        if ((widthStr != null) && (heightStr != null)) {
-            int width = Integer.parseInt(widthStr);
-            int height = Integer.parseInt(heightStr);
-            control.setSize(width, height);
+        Property widthProp = controlComponent.getProperty(ATTR_WIDTH);
+        Property heightProp = controlComponent
+                .getProperty(ATTR_HEIGHT);
+        if (widthProp.isValueExist() && heightProp.isValueExist()) {
+            control.setSize(widthProp.getIntValue(), heightProp.getIntValue());
         }
     }
 
     protected void setForeground(Control control,
             ControlComponent controlComponent) {
-        String foreColor = controlComponent.getForegroundColor();
-
-        if (foreColor == null) {
-            ControlComponent parent = getParentComponent(controlComponent);
-            if (parent != null) {
-                foreColor = parent.getForegroundColor();
-            }
-        }
-
+        String foreColor = controlComponent.getProperty(ATTR_FOREGROUND_COLOR)
+                .getValue();
         if (foreColor != null) {
             control.setForeground(SWTUtil.getColor(foreColor));
         }
@@ -109,15 +115,8 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
 
     protected void setBackground(Control control,
             ControlComponent controlComponent) {
-        String backColor = controlComponent.getBackgroundColor();
-
-        if (backColor == null) {
-            ControlComponent parent = getParentComponent(controlComponent);
-            if (parent != null) {
-                backColor = parent.getBackgroundColor();
-            }
-        }
-
+        String backColor = controlComponent
+                .getPropertyValue(ATTR_BACKGROUND_COLOR);
         if (backColor != null) {
             control.setBackground(SWTUtil.getColor(backColor));
         }
@@ -125,18 +124,20 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
 
     protected void setToolTipText(Control control,
             ControlComponent controlComponent) {
-        control.setToolTipText(controlComponent.getToolTip());
+        control
+                .setToolTipText(controlComponent
+                        .getPropertyValue(ATTR_TOOL_TIP));
     }
 
     protected void setFont(Control control, ControlComponent controlComponent) {
         FontData fontData = control.getFont().getFontData()[0];
 
-        String fontName = controlComponent.getFont();
+        String fontName = controlComponent.getPropertyValue(ATTR_FONT);
         if (fontName == null) {
             fontName = fontData.getName();
         }
 
-        String fontStyle = controlComponent.getFontStyle();
+        String fontStyle = controlComponent.getPropertyValue(ATTR_FONT_STYLE);
         int style;
         if (fontStyle != null) {
             style = SWTUtil.getStyle(fontStyle);
@@ -145,9 +146,14 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
             style = fontData.getStyle();
         }
 
-        int height = controlComponent.getFontSize();
-        if (height == ControlComponent.NULL) {
+        Property heightProp = controlComponent
+                .getProperty(ATTR_FONT_SIZE);
+        int height;
+        if (heightProp.isValueExist()) {
+            height = heightProp.getIntValue();
+        } else {
             height = fontData.getHeight();
+
         }
 
         control.setFont(FontManager.get(fontName, height, style));
