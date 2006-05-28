@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -256,7 +256,7 @@ public class ControlComponent extends UIComponentBase {
     }
 
     /**
-     * 親Controlから属性の引き継ぎを行います。
+     * 荀・ontrol・vヒ・P舊･・・雌・w㈲冷 w痃蝉殼痃#・障q8・q・
      */
     protected void inheritAttributes() {
         if (parent instanceof ControlComponent) {
