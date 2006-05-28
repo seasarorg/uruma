@@ -74,4 +74,8 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
             label.setAlignment(SWTUtil.getSWTConstant(alignment));
         }
     }
+
+    public String getRendererName() {
+        return "label";
+    }
 }

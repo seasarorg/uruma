@@ -42,4 +42,8 @@ public class ButtonRenderer extends AbstractControlRenderer<Button> {
     protected Class<Button> getControlType() {
         return Button.class;
     }
+
+    public String getRendererName() {
+        return "button";
+    }
 }

@@ -21,10 +21,32 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
 
 /**
+ * Widgetをレンダリングするためのインターフェースです。</br>
+ * 
  * @author y-komori
  * 
  */
 public interface Renderer {
+    /**
+     * レンダリングを行います。</br>
+     * 
+     * @param uiComponent
+     *            レンダリング対象の情報を持つ <code>UIComponent</code> オブジェクト
+     * @param parent
+     *            親コンポジット
+     * @param context
+     *            画面情報を収めた <code>WindowContext</code> オブジェクト
+     * @return
+     * @see Widget
+     * @see Composite
+     */
     public Widget render(UIComponent uiComponent, Composite parent,
             WindowContext context);
+
+    /**
+     * レンダラの名称を返します。</br> レンダラ名称は、画面定義XML上で <code>type</code> 属性として指定されます。
+     * 
+     * @return レンダラの名称
+     */
+    public String getRendererName();
 }

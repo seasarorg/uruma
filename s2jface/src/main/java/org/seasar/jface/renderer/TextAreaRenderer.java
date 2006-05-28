@@ -19,7 +19,7 @@ import org.eclipse.swt.SWT;
 
 /**
  * @author y-komori
- *
+ * 
  */
 public class TextAreaRenderer extends TextRenderer {
 
@@ -27,4 +27,10 @@ public class TextAreaRenderer extends TextRenderer {
     protected int getDefaultStyle() {
         return SWT.MULTI | SWT.BORDER | SWT.V_SCROLL;
     }
+
+    @Override
+    public String getRendererName() {
+        return "textArea";
+    }
+
 }

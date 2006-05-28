@@ -74,4 +74,8 @@ public class BoxRenderer extends AbstractControlRenderer<Composite> {
             }
         }
     }
+
+    public String getRendererName() {
+        return "box";
+    }
 }

@@ -87,4 +87,8 @@ public class TextRenderer extends AbstractControlRenderer<Text> {
             text.setTabs(IntegerConversionUtil.toPrimitiveInt(tabs));
         }
     }
+
+    public String getRendererName() {
+        return "text";
+    }
 }

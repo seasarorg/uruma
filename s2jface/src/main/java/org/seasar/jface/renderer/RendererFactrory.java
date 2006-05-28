@@ -19,25 +19,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.seasar.jface.exception.NotFoundException;
+import org.seasar.jface.util.AssertionUtil;
 
 /**
+ * レンダラ名称をキーにしてレンダラを取得するためのファクトリクラスです。</br>
+ * 
  * @author y-komori
  * 
  */
 public class RendererFactrory {
-    protected static final Map<String, Renderer> rendererMap = new HashMap<String, Renderer>();
+    private static final Map<String, Renderer> rendererMap = new HashMap<String, Renderer>();
 
     static {
-        rendererMap.put("button", new ButtonRenderer());
-        rendererMap.put("label", new LabelRenderer());
-        rendererMap.put("text", new TextRenderer());
-        rendererMap.put("textArea", new TextAreaRenderer());
-
-        rendererMap.put("box", new BoxRenderer());
-
-        rendererMap.put("window", new WindowRenderer());
+        addRenderer(new ButtonRenderer());
+        addRenderer(new LabelRenderer());
+        addRenderer(new TextRenderer());
+        addRenderer(new TextAreaRenderer());
+        addRenderer(new BoxRenderer());
+        addRenderer(new WindowRenderer());
     }
 
+    /**
+     * レンダラ名称をキーにして、レンダラを取得します。</br>
+     * 
+     * @param type
+     *            レンダラ名称
+     * @return レンダラオブジェクト
+     * @throws NotFoundException
+     *             レンダラが見つからなかった場合
+     */
     public static Renderer getRenderer(final String type) {
         Renderer renderer = rendererMap.get(type);
         if (renderer != null) {
@@ -45,5 +55,16 @@ public class RendererFactrory {
         } else {
             throw new NotFoundException(NotFoundException.RENDERER, type);
         }
+    }
+
+    /**
+     * レンダラを登録します。</br>
+     * 
+     * @param renderer
+     *            レンダラオブジェクト
+     */
+    public static void addRenderer(final Renderer renderer) {
+        AssertionUtil.assertNotNull("renderer", renderer);
+        rendererMap.put(renderer.getRendererName(), renderer);
     }
 }

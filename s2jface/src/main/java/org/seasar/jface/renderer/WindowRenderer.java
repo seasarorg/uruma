@@ -84,4 +84,8 @@ public class WindowRenderer implements Renderer {
                 .getClientArea().height, calcHeight(window));
     }
 
+    public String getRendererName() {
+        return "window";
+    }
+
 }
