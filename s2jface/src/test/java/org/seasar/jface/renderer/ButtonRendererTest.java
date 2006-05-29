@@ -15,22 +15,11 @@
  */
 package org.seasar.jface.renderer;
 
-import org.seasar.extension.unit.S2TestCase;
-import org.seasar.jface.S2JFace;
 
 /**
  * @author y-komori
- *
+ * 
  */
-public class ButtonRendererTest extends S2TestCase {
-    private S2JFace s2JFace;
+public class ButtonRendererTest extends AbstractRendererTest {
 
-    @Override
-    protected void setUp() throws Exception {
-        s2JFace = new S2JFace();
-    }
-
-    public void testRender() {
-        s2JFace.openWindow("org/seasar/jface/renderer/ButtonRendererTest.xml");
-    }
 }

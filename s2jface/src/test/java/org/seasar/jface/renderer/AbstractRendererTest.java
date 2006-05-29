@@ -15,10 +15,25 @@
  */
 package org.seasar.jface.renderer;
 
+import org.seasar.framework.unit.S2FrameworkTestCase;
+import org.seasar.jface.S2JFace;
 
 /**
+ * レンダラのテストを行うための基底クラスです。</br> 各レンダラのテストクラスは、本クラスを継承してください。</br>
+ * 
  * @author y-komori
  * 
  */
-public class LabelRendererTest extends AbstractRendererTest {
+public abstract class AbstractRendererTest extends S2FrameworkTestCase {
+    protected S2JFace s2JFace;
+
+    @Override
+    protected void setUp() throws Exception {
+        s2JFace = new S2JFace();
+    }
+
+    public void testRender() {
+        String path = convertPath(getClass().getSimpleName() + ".xml");
+        s2JFace.openWindow(path);
+    }
 }

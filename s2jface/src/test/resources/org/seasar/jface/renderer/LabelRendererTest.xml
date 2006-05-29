@@ -5,7 +5,7 @@
   <window id="labelRendererTest" title="LabelRendererTest" x="center"
     y="middle" layout="row"
     layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-    <property name="fontSize" value="20" />
+    <property name="fontSize" value="20" inheritance="descendantOnly"/>
 
     <composite type="box" layout="row" layoutParam="type=VERTICAL">
       <control type="label">
@@ -35,7 +35,7 @@
     </composite>
 
     <composite type="box" layout="row" layoutParam="type=VERTICAL">
-      <property name="width" value="300" />
+      <property name="width" value="300" inheritance="descendantOnly"/>
 
       <control type="label" style="BORDER, LEFT">
         <property name="text" value="左寄せ1" />

@@ -15,10 +15,10 @@
  */
 package org.seasar.jface.renderer;
 
-
 /**
  * @author y-komori
  * 
  */
-public class LabelRendererTest extends AbstractRendererTest {
+public class GroupRendererTest extends AbstractRendererTest {
+
 }

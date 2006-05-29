@@ -27,7 +27,6 @@ import static org.seasar.jface.component.Property.INHERITANCE_DESCENDANT_ONLY;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.Property;
-import org.seasar.jface.component.impl.AbstractCompositeComponent;
 import org.seasar.jface.component.impl.PropertyComponent;
 import org.seasar.jface.component.impl.UIComponentBase;
 import org.seasar.jface.exception.ParseException;
@@ -77,11 +76,8 @@ public class PropertyTagHandler extends AbstractTagHandler {
                     .equalsIgnoreCase(inheritanceAttr)) {
                 inheritance = DESCENDANT_ONLY;
             }
-        } else if (parent instanceof AbstractCompositeComponent) {
-            // Inheritanceが未指定の場合、
-            // 対象がコンポジットの場合のみ自動でDESCENDANT_ONLYに設定
-            inheritance = DESCENDANT_ONLY;
         }
+
         property.setInheritance(inheritance);
 
         parent.addProperty(property);

@@ -5,7 +5,7 @@
   <window id="buttonRendererTest" title="ButtonRendererTest" x="center"
     y="middle" layout="row"
     layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-    <property name="fontSize" value="20" />
+    <property name="fontSize" value="20" inheritance="descendantOnly" />
 
     <composite type="box" layout="row"
       layoutParam="type=VERTICAL; spacing=10">
@@ -24,11 +24,21 @@
       </control>
 
       <control type="button" style="CHECK">
-        <property name="text" value="チェックボタン" />
+        <property name="text" value="チェックボタン(OFF)" />
+      </control>
+
+      <control type="button" style="CHECK">
+        <property name="text" value="チェックボタン(ON)" />
+        <property name="selection" value="true" />
       </control>
 
       <control type="button" style="TOGGLE">
-        <property name="text" value="トグルボタン" />
+        <property name="text" value="トグルボタン(OFF)" />
+      </control>
+      
+      <control type="button" style="TOGGLE">
+        <property name="text" value="トグルボタン(ON)" />
+        <property name="selection" value="true" />
       </control>
 
       <control type="button">
@@ -41,8 +51,8 @@
 
     <composite type="box" layout="row"
       layoutParam="type=VERTICAL; spacing=10">
-      <property name="width" value="30" />
-      <property name="height" value="30" />
+      <property name="width" value="30" inheritance="descendantOnly" />
+      <property name="height" value="30" inheritance="descendantOnly" />
 
       <control type="button" style="ARROW, UP" />
 

@@ -17,6 +17,7 @@ package org.seasar.jface.renderer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
+import org.seasar.jface.component.Property;
 import org.seasar.jface.component.impl.ControlComponent;
 
 /**
@@ -26,16 +27,20 @@ import org.seasar.jface.component.impl.ControlComponent;
 public class ButtonRenderer extends AbstractControlRenderer<Button> {
     public static final String ATTR_TEXT = "text";
 
+    public static final String ATTR_SELECTION = "selection";
+
     @Override
-    protected int getStyle(ControlComponent uiComponent) {
+    protected int getStyle(final ControlComponent uiComponent) {
         int style = super.getStyle(uiComponent);
         style = (style == SWT.NONE) ? SWT.PUSH : style;
         return style;
     }
 
     @Override
-    protected void doRender(Button button, ControlComponent controlComponent) {
+    protected void doRender(final Button button,
+            final ControlComponent controlComponent) {
         renderText(button, controlComponent);
+        renderSelection(button, controlComponent);
     }
 
     @Override
@@ -43,10 +48,19 @@ public class ButtonRenderer extends AbstractControlRenderer<Button> {
         return Button.class;
     }
 
-    protected void renderText(Button button, ControlComponent controlComponent) {
+    protected void renderText(final Button button,
+            final ControlComponent controlComponent) {
         String text = controlComponent.getPropertyValue(ATTR_TEXT);
         if (text != null) {
             button.setText(text);
+        }
+    }
+
+    protected void renderSelection(final Button button,
+            final ControlComponent controlComponent) {
+        Property selection = controlComponent.getProperty(ATTR_SELECTION);
+        if (selection != null) {
+            button.setSelection(selection.getBooleanValue());
         }
     }
 

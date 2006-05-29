@@ -15,22 +15,9 @@
  */
 package org.seasar.jface.renderer;
 
-import org.seasar.extension.unit.S2TestCase;
-import org.seasar.jface.S2JFace;
-
 /**
  * @author dkameya
- *
+ * 
  */
-public class ListRendererTest extends S2TestCase {
-    private S2JFace s2JFace;
-
-    @Override
-    protected void setUp() throws Exception {
-        s2JFace = new S2JFace();
-    }
-
-    public void testRender() {
-        s2JFace.openWindow("org/seasar/jface/renderer/ListRendererTest.xml");
-    }
+public class ListRendererTest extends AbstractRendererTest {
 }

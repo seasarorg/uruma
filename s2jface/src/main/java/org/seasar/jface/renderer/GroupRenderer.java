@@ -15,31 +15,37 @@
  */
 package org.seasar.jface.renderer;
 
-import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.seasar.jface.component.impl.CompositeComponent;
 
 /**
- * <code>Composite</code>のレンダリングを行うクラスです。
+ * <code>Group</code>のレンダリングを行うクラスです。</br>
  * 
  * @author y-komori
- * @see org.eclipse.swt.widgets.Composite
  * 
  */
-public class BoxRenderer extends AbstractCompositeRenderer<Composite> {
+public class GroupRenderer extends AbstractCompositeRenderer<Group> {
+    public static final String ATTR_TEXT = "text";
 
+    @Override
+    protected void doRenderComposite(final Group group,
+            final CompositeComponent component) {
+        renderText(group, component);
+    }
 
     public String getRendererName() {
-        return "box";
+        return "group";
+    }
+
+    protected void renderText(Group group, CompositeComponent compositeComponent) {
+        String text = compositeComponent.getPropertyValue(ATTR_TEXT);
+        if (text != null) {
+            group.setText(text);
+        }
     }
 
     @Override
-    protected void doRenderComposite(final Composite composite,
-            final CompositeComponent compositeComponent) {
-        // 追加のレンダリングは行わない
-    }
-
-    @Override
-    protected Class<Composite> getControlType() {
-        return Composite.class;
+    protected Class<Group> getControlType() {
+        return Group.class;
     }
 }

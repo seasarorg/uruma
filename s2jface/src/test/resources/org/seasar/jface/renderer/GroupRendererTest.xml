@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="groupRendererTest">
+  <window id="groupRendererTest" title="GroupRendererTest" x="center"
+    y="middle" layout="row"
+    layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+
+    <composite type="group" layout="row"
+      layoutParam="type=VERTICAL; spacing=10">
+      <property name="text" value="グループ1" />
+
+      <control type="button" style="RADIO">
+        <property name="text" value="ラジオボタン1" />
+      </control>
+
+      <control type="button" style="RADIO">
+        <property name="text" value="ラジオボタン2" />
+      </control>
+
+      <control type="button" style="RADIO">
+        <property name="text" value="ラジオボタン3" />
+      </control>
+    </composite>
+
+    <composite type="group" layout="row"
+      layoutParam="type=VERTICAL; spacing=10">
+      <property name="text" value="グループ2" />
+
+      <control type="button" style="RADIO">
+        <property name="text" value="ラジオボタン1" />
+      </control>
+
+      <control type="button" style="RADIO">
+        <property name="text" value="ラジオボタン2" />
+      </control>
+
+      <control type="button" style="RADIO">
+        <property name="text" value="ラジオボタン3" />
+        <property name="selection" value="true"/>
+      </control>
+
+      <control type="button" style="RADIO">
+        <property name="text" value="ラジオボタン4" />
+      </control>
+
+    </composite>
+  </window>
+</template>
