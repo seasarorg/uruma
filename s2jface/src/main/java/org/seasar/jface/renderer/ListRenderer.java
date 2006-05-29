@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.renderer;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.List;
 import org.seasar.jface.component.Item;
 import org.seasar.jface.component.impl.ControlComponent;
@@ -25,7 +26,14 @@ import org.seasar.jface.component.impl.ControlComponent;
 public class ListRenderer extends AbstractControlRenderer<List> {
     
     @Override
-    protected void doRender(List list, ControlComponent controlComponent) {
+    protected int getStyle(final ControlComponent controlComponent) {
+        int style = super.getStyle(controlComponent);
+        style = (style ==SWT.NONE) ? SWT.BORDER : style;
+        return style;
+    }
+
+    @Override
+    protected void doRender(final List list, final ControlComponent controlComponent) {
         addItem(list, controlComponent);
     }
 
@@ -38,10 +46,9 @@ public class ListRenderer extends AbstractControlRenderer<List> {
         return "list";
     }
     
-    private void addItem(List list, ControlComponent controlComponent) {
-        java.util.List items = controlComponent.getItemList();
-        for (int i = 0; i < items.size(); i++) {
-            list.add(((Item) items.get(i)).getValue());
+    protected void addItem(final List list, final ControlComponent controlComponent) {
+        for (Item item : controlComponent.getItemList()) {
+            list.add(item.getValue());
         }
     }
 }

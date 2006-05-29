@@ -17,19 +17,17 @@ package org.seasar.jface.component.impl;
 
 import org.seasar.jface.component.Item;
 
-
+/**
+ * @author dkameya
+ */
 public class ItemComponent implements Item {
     private String value;
     
-    public void setValue(String value) {
+    public void setValue(final String value) {
         this.value = value;
     }
     
     public String getValue() {
-        return value;
-    }
-    
-    public String toString() {
         return value;
     }
 }

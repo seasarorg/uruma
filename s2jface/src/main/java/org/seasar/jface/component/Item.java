@@ -14,7 +14,9 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.jface.component;
-
+/**
+ * @author dkameya
+ */
 public interface Item {
     void setValue(String value);
     String getValue();

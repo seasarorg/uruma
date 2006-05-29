@@ -18,18 +18,15 @@ package org.seasar.jface.template;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.component.impl.ItemComponent;
-import org.xml.sax.Attributes;
-
+/**
+ * @author dkameya
+ */
 public class ItemTagHandler extends AbstractTagHandler {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7973949046037222249L;
     private ControlComponent parent;
     
     @Override
-    public void start(TagHandlerContext context, Attributes attributes) {
-    }
-    
-    @Override
-    public void end(TagHandlerContext context, String body) {
+    public void end(final TagHandlerContext context, final String body) {
         parent = (ControlComponent) context.peek();
         ItemComponent item = new ItemComponent();
         item.setValue(body);

@@ -110,11 +110,11 @@ public class ControlComponent extends UIComponentBase {
         return layoutData.keySet();
     }
     
-    public List getItemList() {
+    public List<Item> getItemList() {
         return itemList;
     }
     
-    public void addItem(Item item) {
+    public void addItem(final Item item) {
         itemList.add(item);
     }
 
