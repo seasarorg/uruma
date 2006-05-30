@@ -15,6 +15,10 @@
  */
 package org.seasar.jface.renderer;
 
+import org.seasar.framework.container.ComponentDef;
+import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.container.factory.TigerAnnotationHandler;
 import org.seasar.framework.unit.S2FrameworkTestCase;
 import org.seasar.jface.S2JFace;
 
@@ -30,10 +34,15 @@ public abstract class AbstractRendererTest extends S2FrameworkTestCase {
     @Override
     protected void setUp() throws Exception {
         s2JFace = new S2JFace();
+        S2Container container = SingletonS2ContainerFactory.getContainer();
+        TigerAnnotationHandler handler = new TigerAnnotationHandler();
+        ComponentDef cd = handler.createComponentDef(getClass(), null, null);
+        container.register(cd);
     }
 
     public void testRender() {
         String path = convertPath(getClass().getSimpleName() + ".xml");
         s2JFace.openWindow(path);
     }
+
 }

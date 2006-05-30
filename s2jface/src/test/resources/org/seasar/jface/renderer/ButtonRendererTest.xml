@@ -3,64 +3,83 @@
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="buttonRendererTest">
   <window id="buttonRendererTest" title="ButtonRendererTest" x="center"
-    y="middle" layout="row"
-    layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-    <property name="fontSize" value="20" inheritance="descendantOnly" />
+    y="middle" layout="grid" layoutParam="numColumns=1">
 
     <composite type="box" layout="row"
-      layoutParam="type=VERTICAL; spacing=10">
-      <!-- styleを省略した場合、style="PUSH" となります -->
-      <control type="button">
-        <property name="text" value="プッシュボタン" />
-        <property name="toolTip" value="ツールチップテキスト" />
-      </control>
+      layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+      <property name="fontSize" value="20" inheritance="descendantOnly" />
+      <layoutData name="horizontalAlignment" value="FILL" />
 
-      <control type="button" style="FLAT">
-        <property name="text" value="フラットボタン" />
-      </control>
+      <composite type="box" layout="row"
+        layoutParam="type=VERTICAL; spacing=10">
+        <!-- styleを省略した場合、style="PUSH" となります -->
+        <control type="button">
+          <property name="text" value="プッシュボタン" />
+          <property name="toolTip" value="ツールチップテキスト" />
+        </control>
 
-      <control type="button" style="RADIO">
-        <property name="text" value="ラジオボタン" />
-      </control>
+        <control type="button" style="FLAT">
+          <property name="text" value="フラットボタン" />
+        </control>
 
-      <control type="button" style="CHECK">
-        <property name="text" value="チェックボタン(OFF)" />
-      </control>
+        <control type="button" style="RADIO">
+          <property name="text" value="ラジオボタン" />
+        </control>
 
-      <control type="button" style="CHECK">
-        <property name="text" value="チェックボタン(ON)" />
-        <property name="selection" value="true" />
-      </control>
+        <control type="button" style="CHECK">
+          <property name="text" value="チェックボタン(OFF)" />
+        </control>
 
-      <control type="button" style="TOGGLE">
-        <property name="text" value="トグルボタン(OFF)" />
-      </control>
-      
-      <control type="button" style="TOGGLE">
-        <property name="text" value="トグルボタン(ON)" />
-        <property name="selection" value="true" />
-      </control>
+        <control type="button" style="CHECK">
+          <property name="text" value="チェックボタン(ON)" />
+          <property name="selection" value="true" />
+        </control>
 
-      <control type="button">
-        <property name="text" value="フォントを変更" />
-        <property name="font" value="ＭＳ 明朝" />
-        <property name="fontSize" value="15" />
-        <property name="fontStyle" value="BOLD, ITALIC" />
-      </control>
+        <control type="button" style="TOGGLE">
+          <property name="text" value="トグルボタン(OFF)" />
+        </control>
+
+        <control type="button" style="TOGGLE">
+          <property name="text" value="トグルボタン(ON)" />
+          <property name="selection" value="true" />
+        </control>
+
+        <control type="button">
+          <property name="text" value="フォントを変更" />
+          <property name="font" value="ＭＳ 明朝" />
+          <property name="fontSize" value="15" />
+          <property name="fontStyle" value="BOLD, ITALIC" />
+        </control>
+      </composite>
+
+      <composite type="box" layout="row"
+        layoutParam="type=VERTICAL; spacing=10">
+        <property name="width" value="30" inheritance="descendantOnly" />
+        <property name="height" value="30" inheritance="descendantOnly" />
+
+        <control type="button" style="ARROW, UP" />
+
+        <control type="button" style="ARROW, RIGHT" />
+
+        <control type="button" style="ARROW, DOWN" />
+
+        <control type="button" style="ARROW, LEFT" />
+      </composite>
     </composite>
 
-    <composite type="box" layout="row"
-      layoutParam="type=VERTICAL; spacing=10">
-      <property name="width" value="30" inheritance="descendantOnly" />
-      <property name="height" value="30" inheritance="descendantOnly" />
+    <control type="label" style="SEPARATOR, HORIZONTAL">
+      <layoutData name="horizontalAlignment" value="FILL" />
+    </control>
 
-      <control type="button" style="ARROW, UP" />
-
-      <control type="button" style="ARROW, RIGHT" />
-
-      <control type="button" style="ARROW, DOWN" />
-
-      <control type="button" style="ARROW, LEFT" />
+    <composite type="box" layout="fill"
+      layoutParam="type=HORIZONTAL; spacing=5">
+      <layoutData name="horizontalAlignment" value="FILL" />
+      <control type="button" id="okButton">
+        <property name="text" value="OK" />
+      </control>
+      <control type="button" id="ngButton">
+        <property name="text" value="NG" />
+      </control>
     </composite>
   </window>
 </template>
