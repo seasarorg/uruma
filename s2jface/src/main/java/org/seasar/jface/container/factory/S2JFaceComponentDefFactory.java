@@ -100,15 +100,17 @@ public class S2JFaceComponentDefFactory implements ComponentDefFactory {
     }
 
     protected void setupMethods(final S2JFaceComponentDef componentDef) {
-        Method[] declaredMethods = componentDef.getComponentClass()
-                .getDeclaredMethods();
-        for (Method method : declaredMethods) {
-            EventListener eventListener = method
-                    .getAnnotation(EventListener.class);
-            if (eventListener != null) {
-                EventListenerDef eventListenerDef = new EventListenerDefImpl(
-                        method, eventListener);
-                componentDef.addEventListenerDef(eventListenerDef);
+        for (Class<?> type = componentDef.getComponentClass(); type != Object.class; type = type
+                .getSuperclass()) {
+            Method[] declaredMethods = type.getDeclaredMethods();
+            for (Method method : declaredMethods) {
+                EventListener eventListener = method
+                        .getAnnotation(EventListener.class);
+                if (eventListener != null) {
+                    EventListenerDef eventListenerDef = new EventListenerDefImpl(
+                            method, eventListener);
+                    componentDef.addEventListenerDef(eventListenerDef);
+                }
             }
         }
     }

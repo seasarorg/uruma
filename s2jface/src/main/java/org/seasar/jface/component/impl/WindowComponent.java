@@ -24,6 +24,7 @@ import org.seasar.jface.WindowContext;
  * 
  */
 public class WindowComponent extends AbstractCompositeComponent {
+
     private String title = "";
 
     private String image;
@@ -182,6 +183,7 @@ public class WindowComponent extends AbstractCompositeComponent {
 
             if (getId() != null) {
                 context.putComponent(getId(), widget);
+                context.putComponent(WindowContext.SHELL_ID, widget);
             }
         }
 

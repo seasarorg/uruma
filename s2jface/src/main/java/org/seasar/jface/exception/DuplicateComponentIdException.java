@@ -13,15 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.renderer;
-
-import org.seasar.jface.annotation.S2JFaceAction;
+package org.seasar.jface.exception;
 
 /**
- * @author y-komori
+ * XML定義上でコンポーネントIDが重複定義されたときにスローされる例外です。</br>
  * 
+ * @author y-komori
  */
-@S2JFaceAction
-public class GroupRendererTest extends AbstractRendererTest {
+public class DuplicateComponentIdException extends S2JFaceRuntimeException {
+    private static final long serialVersionUID = 351911943692106870L;
+
+    public DuplicateComponentIdException(String duplicatedId) {
+        super("EJFC0106", duplicatedId);
+    }
 
 }

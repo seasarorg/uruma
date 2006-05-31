@@ -15,7 +15,6 @@
  */
 package org.seasar.jface.renderer;
 
-import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.S2JFaceAction;
 
 /**
@@ -24,9 +23,4 @@ import org.seasar.jface.annotation.S2JFaceAction;
  */
 @S2JFaceAction
 public class ButtonRendererTest extends AbstractRendererTest {
-    @EventListener(id = "okButton")
-    public void okButtonAction() {
-        System.out.println("OK");
-    }
-
 }

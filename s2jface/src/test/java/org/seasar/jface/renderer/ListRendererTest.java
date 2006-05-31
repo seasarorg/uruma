@@ -15,9 +15,12 @@
  */
 package org.seasar.jface.renderer;
 
+import org.seasar.jface.annotation.S2JFaceAction;
+
 /**
  * @author dkameya
  * 
  */
+@S2JFaceAction
 public class ListRendererTest extends AbstractRendererTest {
 }

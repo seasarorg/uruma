@@ -17,14 +17,19 @@ package org.seasar.jface;
 
 import org.eclipse.swt.widgets.Widget;
 
-
 /**
  * @author y-komori
- *
+ * 
  */
 public interface WindowContext {
+
+    /**
+     * 自ウィンドウのShellオブジェクトが登録されるIDです。
+     */
+    public static final String SHELL_ID = "shell";
+
     public void putComponent(String id, Widget component);
-    
+
     public Widget getComponent(String id);
 
 }

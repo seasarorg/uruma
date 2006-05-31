@@ -20,15 +20,16 @@ import java.util.Map;
 
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.exception.DuplicateComponentIdException;
 import org.seasar.jface.util.AssertionUtil;
 
 /**
  * @author y-komori
- *
+ * 
  */
 public class WindowContextImpl implements WindowContext {
     protected Map<String, Widget> componentMap = new HashMap<String, Widget>();
-    
+
     public Widget getComponent(String id) {
         return componentMap.get(id);
     }
@@ -37,6 +38,10 @@ public class WindowContextImpl implements WindowContext {
         AssertionUtil.assertNotNull("id", id);
         AssertionUtil.assertNotNull("component", component);
 
-        componentMap.put(id, component);
+        if (!componentMap.containsKey(id)) {
+            componentMap.put(id, component);
+        } else {
+            throw new DuplicateComponentIdException(id);
+        }
     }
 }

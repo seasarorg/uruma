@@ -15,15 +15,20 @@
  */
 package org.seasar.jface.renderer;
 
+import org.eclipse.swt.widgets.Shell;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.container.factory.TigerAnnotationHandler;
 import org.seasar.framework.unit.S2FrameworkTestCase;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.S2JFace;
+import org.seasar.jface.annotation.EventListener;
+import org.seasar.jface.container.factory.S2JFaceComponentDefFactory;
 
 /**
- * レンダラのテストを行うための基底クラスです。</br> 各レンダラのテストクラスは、本クラスを継承してください。</br>
+ * レンダラのテストを行うための基底クラスです。</br>各レンダラのテストクラスは、本クラスを継承してください。</br>
+ * 
  * 
  * @author y-komori
  * 
@@ -33,11 +38,19 @@ public abstract class AbstractRendererTest extends S2FrameworkTestCase {
 
     @Override
     protected void setUp() throws Exception {
+        TigerAnnotationHandler
+                .addComponentDefFactory(new S2JFaceComponentDefFactory());
         s2JFace = new S2JFace();
         S2Container container = SingletonS2ContainerFactory.getContainer();
+        container.register(createActionComponentDef());
+    }
+
+    protected ComponentDef createActionComponentDef() {
         TigerAnnotationHandler handler = new TigerAnnotationHandler();
         ComponentDef cd = handler.createComponentDef(getClass(), null, null);
-        container.register(cd);
+        cd.setComponentName(StringUtil.decapitalize(getClass().getSimpleName())
+                + "Action");
+        return cd;
     }
 
     public void testRender() {
@@ -45,4 +58,17 @@ public abstract class AbstractRendererTest extends S2FrameworkTestCase {
         s2JFace.openWindow(path);
     }
 
+    Shell shell;
+
+    @EventListener(id = "okButton")
+    public void okButtonAction() {
+        shell.close();
+        assertTrue(true);
+    }
+
+    @EventListener(id = "ngButton")
+    public void ngButtonAction() {
+        shell.close();
+        fail();
+    }
 }
