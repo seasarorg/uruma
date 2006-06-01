@@ -3,7 +3,9 @@
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="listRendererTest">
   <window id="listRendererTest" title="listRendererTest" x="center"
-    y="middle" layout="grid" layoutParam="numColumns=1">
+    y="middle" layout="grid" layoutParam="numColumns=1"
+    minButton="false" maxButton="false" closeButton="false"
+    resizable="false">
 
     <composite type="box" layout="row"
       layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">

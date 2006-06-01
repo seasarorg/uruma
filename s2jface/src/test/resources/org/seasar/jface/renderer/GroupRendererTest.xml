@@ -3,7 +3,9 @@
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="groupRendererTest">
   <window id="groupRendererTest" title="groupRendererTest" x="center"
-    y="middle" layout="grid" layoutParam="numColumns=1">
+    y="middle" layout="grid" layoutParam="numColumns=1"
+    minButton="false" maxButton="false" closeButton="false"
+    resizable="false">
 
     <composite type="box" layout="row"
       layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
