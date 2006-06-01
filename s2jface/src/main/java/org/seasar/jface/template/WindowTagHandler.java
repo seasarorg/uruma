@@ -16,7 +16,6 @@
 package org.seasar.jface.template;
 
 import org.seasar.framework.xml.TagHandlerContext;
-import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.renderer.RendererFactrory;
@@ -91,19 +90,20 @@ public class WindowTagHandler extends AbstractTagHandler {
         setValue(window, RESIZABLE_ATTR, attributes.getValue(RESIZABLE_ATTR));
         setValue(window, SAVE_STATE_ATTR, attributes.getValue(SAVE_STATE_ATTR));
 
-        CompositeComponent rootComposite = new CompositeComponent();
-        setValue(rootComposite, ID_ATTR, "rootComposite");
-        setValue(rootComposite, LAYOUT_ATTR, attributes.getValue(LAYOUT_ATTR));
-        setValue(rootComposite, LAYOUT_PARAM_ATTR, attributes
-                .getValue(LAYOUT_PARAM_ATTR));
-        setValue(rootComposite, RENDERER_TYPE_ATTR, "box");
-        rootComposite.setRenderer(RendererFactrory.getRenderer(rootComposite
-                .getRendererType()));
-        window.addChild(rootComposite);
+        // CompositeComponent rootComposite = new CompositeComponent();
+        // setValue(rootComposite, ID_ATTR, "rootComposite");
+        // setValue(rootComposite, LAYOUT_ATTR,
+        // attributes.getValue(LAYOUT_ATTR));
+        // setValue(rootComposite, LAYOUT_PARAM_ATTR, attributes
+        // .getValue(LAYOUT_PARAM_ATTR));
+        // setValue(rootComposite, RENDERER_TYPE_ATTR, "box");
+        // rootComposite.setRenderer(RendererFactrory.getRenderer(rootComposite
+        // .getRendererType()));
+        //        window.addChild(rootComposite);
         setBasePath(window, context);
 
         context.push(window);
-        context.push(rootComposite);
+        //        context.push(rootComposite);
     }
 
     @Override

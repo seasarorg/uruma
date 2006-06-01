@@ -23,7 +23,7 @@ import org.seasar.jface.WindowContext;
  * @author y-komori
  * 
  */
-public class WindowComponent extends AbstractCompositeComponent {
+public class WindowComponent extends CompositeComponent {
 
     private String title = "";
 
@@ -188,6 +188,8 @@ public class WindowComponent extends AbstractCompositeComponent {
         }
 
         renderChild((Composite) widget, context);
+
+        renderer.renderAfter(widget, this, parent, context);
     }
 
 }

@@ -44,6 +44,25 @@ public interface Renderer {
             WindowContext context);
 
     /**
+     * 子のレンダリングが終わった後に呼び出されるメソッドです。</br>
+     * 
+     * @param widget
+     *            <code>render</code> メソッドでレンダリングされた <code>Widget</code>
+     *            オブジェクト
+     * 
+     * @param uiComponent
+     *            レンダリング対象の情報を持つ <code>UIComponent</code> オブジェクト
+     * @param parent
+     *            親コンポジット
+     * @param context
+     *            画面情報を収めた <code>WindowContext</code> オブジェクト
+     * @see Widget
+     * @see Composite
+     */
+    public void renderAfter(Widget widget, UIComponent uiComponent,
+            Composite parent, WindowContext context);
+
+    /**
      * レンダラの名称を返します。</br> レンダラ名称は、画面定義XML上で <code>type</code> 属性として指定されます。
      * 
      * @return レンダラの名称

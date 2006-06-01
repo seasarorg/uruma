@@ -6,7 +6,7 @@
 <!ELEMENT template (window)>
 <!ATTLIST template name CDATA #REQUIRED>
 
-<!ELEMENT window (composite | control | property)*>
+<!ELEMENT window (composite | property)*>
 <!ATTLIST window id CDATA #REQUIRED>
 <!ATTLIST window title CDATA #IMPLIED>
 <!ATTLIST window x CDATA #IMPLIED>
@@ -18,8 +18,6 @@
 <!ATTLIST window closeButton (true | false) "true">
 <!ATTLIST window resizable (true | false) "true">
 <!ATTLIST window image CDATA #IMPLIED>
-<!ATTLIST window layout CDATA #IMPLIED>
-<!ATTLIST window layoutParam CDATA #IMPLIED>
 
 <!ELEMENT control (property | layoutData | item)*>
 <!ATTLIST control type CDATA #REQUIRED>

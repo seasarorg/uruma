@@ -4,74 +4,79 @@
 <template name="DIdeJanken">
   <window id="janken" title="DIでジャンケン" x="center" y="middle"
     maxButton="true" minButton="true" closeButton="true"
-    resizable="true" image="container.gif" layout="grid"
-    layoutParam="numColumns=3">
-    <property name="backgroundColor" value="white" inheritance="descendant"/>
-    <property name="foregroundColor" value="black" />
-    <property name="fontSize" value="50" />
-    <property name="alignment" value="CENTER" />
+    resizable="true" image="container.gif">
 
-    <control type="label">
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <property name="text" value="コンピュータ" />
-    </control>
-    <composite type="box">
-      <layoutData name="horizontalAlignment" value="FILL" />
-    </composite>
-    <control type="label">
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <property name="text" value="あなた" />
-    </control>
+    <composite type="box" layout="grid" layoutParam="numColumns=3">
+      <property name="backgroundColor" value="white"
+        inheritance="descendant" />
+      <property name="foregroundColor" value="black"
+        inheritance="descendant" />
+      <property name="fontSize" value="50" inheritance="descendant" />
+      <property name="alignment" value="CENTER"
+        inheritance="descendant" />
 
-    <control type="label" id="computerWinLabel">
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <property name="text" value="0 勝" />
-    </control>
-    <composite type="box">
-      <layoutData name="horizontalAlignment" value="FILL" />
-    </composite>
-    <control type="label" id="playerWinLabel">
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <property name="text" value="0 勝" />
-    </control>
-
-    <control type="label" id="computerHandImage">
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <property name="image" value="blank" />
-    </control>
-    <control type="label">
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <layoutData name="verticalalAlignment" value="TOP" />
-      <layoutData name="grabExcessHorizontalSpace" value="true" />
-      <property name="text" value="vs" />
-      <property name="fontsize" value="100" />
-    </control>
-    <control type="label" id="playerHandImage">
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <property name="image" value="blank" />
-    </control>
-
-    <control type="label" id="messageLabel">
-      <layoutData name="horizontalSpan" value="3" />
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <property name="text" value="じゃんけん・・・" />
-    </control>
-
-    <composite type="box" layout="fill"
-      layoutParam="spacing=20; marginWidth=20">
-      <layoutData name="horizontalSpan" value="3" />
-      <layoutData name="horizontalAlignment" value="FILL" />
-
-      <control type="button" id="guButton">
-        <property name="text" value="グー！" />
+      <control type="label">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <property name="text" value="コンピュータ" />
       </control>
-      <control type="button" id="cyokiButton">
-        <property name="text" value="チョキ！" />
+      <composite type="box">
+        <layoutData name="horizontalAlignment" value="FILL" />
+      </composite>
+      <control type="label">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <property name="text" value="あなた" />
       </control>
-      <control type="button" id="paButton">
-        <property name="text" value="パー！" />
-      </control>
-    </composite>
 
+      <control type="label" id="computerWinLabel">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <property name="text" value="0 勝" />
+      </control>
+      <composite type="box">
+        <layoutData name="horizontalAlignment" value="FILL" />
+      </composite>
+      <control type="label" id="playerWinLabel">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <property name="text" value="0 勝" />
+      </control>
+
+      <control type="label" id="computerHandImage">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <property name="image" value="blank" />
+      </control>
+      <control type="label">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <layoutData name="verticalalAlignment" value="TOP" />
+        <layoutData name="grabExcessHorizontalSpace" value="true" />
+        <property name="text" value="vs" />
+        <property name="fontsize" value="100" />
+      </control>
+      <control type="label" id="playerHandImage">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <property name="image" value="blank" />
+      </control>
+
+      <control type="label" id="messageLabel">
+        <layoutData name="horizontalSpan" value="3" />
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <property name="text" value="じゃんけん・・・" />
+      </control>
+
+      <composite type="box" layout="fill"
+        layoutParam="spacing=20; marginWidth=20">
+        <layoutData name="horizontalSpan" value="3" />
+        <layoutData name="horizontalAlignment" value="FILL" />
+
+        <control type="button" id="guButton">
+          <property name="text" value="グー！" />
+        </control>
+        <control type="button" id="cyokiButton">
+          <property name="text" value="チョキ！" />
+        </control>
+        <control type="button" id="paButton">
+          <property name="text" value="パー！" />
+        </control>
+      </composite>
+
+    </composite>
   </window>
 </template>

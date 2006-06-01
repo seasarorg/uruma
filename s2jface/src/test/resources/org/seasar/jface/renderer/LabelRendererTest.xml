@@ -3,103 +3,110 @@
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="labelRendererTest">
   <window id="labelRendererTest" title="labelRendererTest" x="center"
-    y="middle" layout="grid" layoutParam="numColumns=1"
-    minButton="false" maxButton="false" closeButton="false"
+    y="middle" minButton="false" maxButton="false" closeButton="false"
     resizable="false">
+    <property name="defaultButton" value="okButton" />
 
-    <composite type="box" layout="row"
-      layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-      <property name="fontSize" value="20" inheritance="descendantOnly" />
-      <layoutData name="horizontalAlignment" value="FILL" />
+    <composite type="box" layout="grid" layoutParam="numColumns=1">
+      <composite type="box" layout="row"
+        layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+        <property name="fontSize" value="20"
+          inheritance="descendantOnly" />
+        <layoutData name="horizontalAlignment" value="FILL" />
 
-      <composite type="box" layout="row" layoutParam="type=VERTICAL">
-        <control type="label">
-          <property name="text" value="ラベル" />
-          <property name="toolTip" value="ツールチップテキスト" />
+        <composite type="box" layout="row"
+          layoutParam="type=VERTICAL">
+          <control type="label">
+            <property name="text" value="ラベル" />
+            <property name="toolTip" value="ツールチップテキスト" />
+          </control>
+
+          <control type="label" style="BORDER">
+            <property name="text" value="枠付きラベル" />
+          </control>
+
+          <control type="label">
+            <property name="image" value="../template/container.gif" />
+          </control>
+
+          <control type="label" style="BORDER">
+            <property name="text" value="複数行テキスト1行目\n\t複数行テキスト2行目\n3行目" />
+          </control>
+
+          <control type="label" style="WRAP, BORDER">
+            <property name="text"
+              value="WRAPスタイルを適用することで、長い文字列は折り返して表示されます。" />
+            <property name="fontSize" value="12" />
+            <property name="width" value="200" />
+            <property name="height" value="100" />
+          </control>
+        </composite>
+
+        <composite type="box" layout="row"
+          layoutParam="type=VERTICAL">
+          <property name="width" value="300"
+            inheritance="descendantOnly" />
+
+          <control type="label" style="BORDER, LEFT">
+            <property name="text" value="左寄せ1" />
+          </control>
+
+          <control type="label" style="BORDER">
+            <property name="text" value="左寄せ2" />
+            <property name="alignment" value="LEFT" />
+          </control>
+
+          <control type="label" style="BORDER, CENTER">
+            <property name="text" value="中央1" />
+          </control>
+
+          <control type="label" style="BORDER">
+            <property name="text" value="中央2" />
+            <property name="alignment" value="CENTER" />
+          </control>
+
+          <control type="label" style="BORDER, RIGHT">
+            <property name="text" value="右寄せ1" />
+          </control>
+
+          <control type="label" style="BORDER">
+            <property name="text" value="右寄せ2" />
+            <property name="alignment" value="RIGHT" />
+          </control>
+
+          <control type="label" style="SEPARATOR, HORIZONTAL" />
+
+          <control type="label" style="SEPARATOR, VERTICAL">
+            <property name="height" value="100" />
+          </control>
+
+          <control type="label" style="BORDER, CENTER">
+            <property name="text" value="色・フォントを変更" />
+            <property name="font" value="ＭＳ 明朝" />
+            <property name="fontSize" value="15" />
+            <property name="fontStyle" value="BOLD, ITALIC" />
+            <property name="foregroundColor" value="yellow" />
+            <property name="backgroundColor" value="blue" />
+          </control>
+
+        </composite>
+      </composite>
+
+      <control type="label" style="SEPARATOR, HORIZONTAL">
+        <layoutData name="horizontalAlignment" value="FILL" />
+      </control>
+
+      <composite type="box" layout="fill"
+        layoutParam="type=HORIZONTAL; spacing=5">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <control type="button" id="okButton">
+          <property name="text" value="OK" />
         </control>
-
-        <control type="label" style="BORDER">
-          <property name="text" value="枠付きラベル" />
-        </control>
-
-        <control type="label">
-          <property name="image" value="../template/container.gif" />
-        </control>
-
-        <control type="label" style="BORDER">
-          <property name="text" value="複数行テキスト1行目\n\t複数行テキスト2行目\n3行目" />
-        </control>
-
-        <control type="label" style="WRAP, BORDER">
-          <property name="text"
-            value="WRAPスタイルを適用することで、長い文字列は折り返して表示されます。" />
-          <property name="fontSize" value="12" />
-          <property name="width" value="200" />
-          <property name="height" value="100" />
+        <control type="button" id="ngButton">
+          <property name="text" value="NG" />
         </control>
       </composite>
 
-      <composite type="box" layout="row" layoutParam="type=VERTICAL">
-        <property name="width" value="300" inheritance="descendantOnly" />
-
-        <control type="label" style="BORDER, LEFT">
-          <property name="text" value="左寄せ1" />
-        </control>
-
-        <control type="label" style="BORDER">
-          <property name="text" value="左寄せ2" />
-          <property name="alignment" value="LEFT" />
-        </control>
-
-        <control type="label" style="BORDER, CENTER">
-          <property name="text" value="中央1" />
-        </control>
-
-        <control type="label" style="BORDER">
-          <property name="text" value="中央2" />
-          <property name="alignment" value="CENTER" />
-        </control>
-
-        <control type="label" style="BORDER, RIGHT">
-          <property name="text" value="右寄せ1" />
-        </control>
-
-        <control type="label" style="BORDER">
-          <property name="text" value="右寄せ2" />
-          <property name="alignment" value="RIGHT" />
-        </control>
-
-        <control type="label" style="SEPARATOR, HORIZONTAL" />
-
-        <control type="label" style="SEPARATOR, VERTICAL">
-          <property name="height" value="100" />
-        </control>
-
-        <control type="label" style="BORDER, CENTER">
-          <property name="text" value="色・フォントを変更" />
-          <property name="font" value="ＭＳ 明朝" />
-          <property name="fontSize" value="15" />
-          <property name="fontStyle" value="BOLD, ITALIC" />
-          <property name="foregroundColor" value="yellow" />
-          <property name="backgroundColor" value="blue" />
-        </control>
-
-      </composite>
-    </composite>
-
-    <control type="label" style="SEPARATOR, HORIZONTAL">
-      <layoutData name="horizontalAlignment" value="FILL" />
-    </control>
-
-    <composite type="box" layout="fill"
-      layoutParam="type=HORIZONTAL; spacing=5">
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <control type="button" id="okButton">
-        <property name="text" value="OK" />
-      </control>
-      <control type="button" id="ngButton">
-        <property name="text" value="NG" />
-      </control>
     </composite>
   </window>
 </template>

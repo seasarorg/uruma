@@ -69,6 +69,6 @@ public abstract class AbstractRendererTest extends S2FrameworkTestCase {
     @EventListener(id = "ngButton")
     public void ngButtonAction() {
         shell.close();
-        fail();
+        assertTrue(false);
     }
 }

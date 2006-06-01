@@ -16,6 +16,7 @@
 package org.seasar.jface.renderer;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -32,15 +33,21 @@ import org.seasar.jface.util.PathUtil;
  * 
  */
 public class WindowRenderer implements Renderer {
+    public static final String ATTR_DEFAULT_BUTTON = "defaultButton";
 
-    public Widget render(UIComponent uiComponent, Composite parent,
-            WindowContext context) {
+    public Widget render(final UIComponent uiComponent, final Composite parent,
+            final WindowContext context) {
         configureShell((WindowComponent) uiComponent, parent.getShell());
 
         return parent;
     }
 
-    public int getShellStyle(WindowComponent uiComponent) {
+    public void renderAfter(final Widget widget, final UIComponent uiComponent,
+            final Composite parent, final WindowContext context) {
+        setDefaultButton((Shell) widget, uiComponent, context);
+    }
+
+    public int getShellStyle(final WindowComponent uiComponent) {
         int minButton = uiComponent.isMinButton() ? SWT.MIN : 0;
         int maxButton = uiComponent.isMaxButton() ? SWT.MAX : 0;
         int closeButton = uiComponent.isCloseButton() ? SWT.CLOSE : 0;
@@ -48,7 +55,8 @@ public class WindowRenderer implements Renderer {
         return SWT.TITLE | minButton | maxButton | closeButton | resizeButton;
     }
 
-    protected void configureShell(WindowComponent window, Shell shell) {
+    protected void configureShell(final WindowComponent window,
+            final Shell shell) {
         shell.setText(window.getTitle());
 
         if ((window.getWidth() != null) && (window.getHeight() != null)) {
@@ -64,24 +72,34 @@ public class WindowRenderer implements Renderer {
         }
     }
 
-    protected int calcWidth(WindowComponent window) {
+    protected int calcWidth(final WindowComponent window) {
         return GeometryUtil.calcSize(window.getWidth(), Display.getCurrent()
                 .getClientArea().width);
     }
 
-    protected int calcHeight(WindowComponent window) {
+    protected int calcHeight(final WindowComponent window) {
         return GeometryUtil.calcSize(window.getHeight(), Display.getCurrent()
                 .getClientArea().height);
     }
 
-    protected int calcX(WindowComponent window) {
+    protected int calcX(final WindowComponent window) {
         return GeometryUtil.calcPosition(window.getX(), Display.getCurrent()
                 .getClientArea().width, calcWidth(window));
     }
 
-    protected int calcY(WindowComponent window) {
+    protected int calcY(final WindowComponent window) {
         return GeometryUtil.calcPosition(window.getY(), Display.getCurrent()
                 .getClientArea().height, calcHeight(window));
+    }
+
+    protected void setDefaultButton(final Shell shell,
+            final UIComponent uiComponent, final WindowContext context) {
+        Widget defaultButton = context.getComponent(uiComponent
+                .getPropertyValue(ATTR_DEFAULT_BUTTON));
+        if (defaultButton instanceof Button) {
+            shell.setDefaultButton((Button) defaultButton);
+        }
+
     }
 
     public String getRendererName() {

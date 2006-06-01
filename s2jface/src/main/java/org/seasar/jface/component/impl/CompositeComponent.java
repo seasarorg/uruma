@@ -37,5 +37,7 @@ public class CompositeComponent extends AbstractCompositeComponent {
         }
 
         renderChild((Composite) widget, context);
+
+        renderer.renderAfter(widget, this, parent, context);
     }
 }

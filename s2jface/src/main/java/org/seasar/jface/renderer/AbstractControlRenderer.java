@@ -76,6 +76,11 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
         return (Widget) control;
     }
 
+    public void renderAfter(Widget widget, UIComponent uiComponent,
+            Composite parent, WindowContext context) {
+        // do nothing.
+    }
+
     protected void setEnabled(Control control, ControlComponent controlComponent) {
         Property prop = controlComponent.getProperty(ATTR_ENABLED);
         if (prop != null) {
@@ -111,7 +116,8 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
 
     protected void setForeground(Control control,
             ControlComponent controlComponent) {
-        String foreColor = controlComponent.getPropertyValue(ATTR_FOREGROUND_COLOR);
+        String foreColor = controlComponent
+                .getPropertyValue(ATTR_FOREGROUND_COLOR);
         if (foreColor != null) {
             control.setForeground(SWTUtil.getColor(foreColor));
         }

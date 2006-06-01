@@ -3,41 +3,44 @@
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="listRendererTest">
   <window id="listRendererTest" title="listRendererTest" x="center"
-    y="middle" layout="grid" layoutParam="numColumns=1"
-    minButton="false" maxButton="false" closeButton="false"
+    y="middle" minButton="false" maxButton="false" closeButton="false"
     resizable="false">
+    <property name="defaultButton" value="okButton" />
 
-    <composite type="box" layout="row"
-      layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-      <layoutData name="horizontalAlignment" value="FILL" />
+    <composite type="box" layout="grid" layoutParam="numColumns=1">
+      <composite type="box" layout="row"
+        layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+        <layoutData name="horizontalAlignment" value="FILL" />
 
-      <control type="list" style="BORDER">
-        <item>テストリスト</item>
-        <item>TestList</item>
+        <control type="list" style="BORDER">
+          <item>テストリスト</item>
+          <item>TestList</item>
+        </control>
+
+        <control type="list">
+          <item>テストリスト２</item>
+          <item>TestList2</item>
+          <item>TestList2</item>
+          <item>TestList2</item>
+        </control>
+
+      </composite>
+
+      <control type="label" style="SEPARATOR, HORIZONTAL">
+        <layoutData name="horizontalAlignment" value="FILL" />
       </control>
 
-      <control type="list">
-        <item>テストリスト２</item>
-        <item>TestList2</item>
-        <item>TestList2</item>
-        <item>TestList2</item>
-      </control>
+      <composite type="box" layout="fill"
+        layoutParam="type=HORIZONTAL; spacing=5">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <control type="button" id="okButton">
+          <property name="text" value="OK" />
+        </control>
+        <control type="button" id="ngButton">
+          <property name="text" value="NG" />
+        </control>
+      </composite>
 
-    </composite>
-
-    <control type="label" style="SEPARATOR, HORIZONTAL">
-      <layoutData name="horizontalAlignment" value="FILL" />
-    </control>
-
-    <composite type="box" layout="fill"
-      layoutParam="type=HORIZONTAL; spacing=5">
-      <layoutData name="horizontalAlignment" value="FILL" />
-      <control type="button" id="okButton">
-        <property name="text" value="OK" />
-      </control>
-      <control type="button" id="ngButton">
-        <property name="text" value="NG" />
-      </control>
     </composite>
   </window>
 </template>
