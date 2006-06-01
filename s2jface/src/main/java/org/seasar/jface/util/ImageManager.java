@@ -74,6 +74,7 @@ public class ImageManager {
 
     /**
      * ImageRegistry へ Image を登録します。<br>
+     * 既に同じキーで Image が登録されている場合、上書きします。
      * 
      * @param display
      *            Imageの生成に使用するDisplayの参照
@@ -83,6 +84,9 @@ public class ImageManager {
      *            イメージのURL
      */
     public void putImage(Display display, String key, String url) {
+        if (imageRegistry.get(key) != null) {
+            imageRegistry.remove(key);
+        }
         Image image = new Image(display, getClass().getResourceAsStream(url));
         imageRegistry.put(key, image);
     }
