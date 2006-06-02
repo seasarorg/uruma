@@ -32,8 +32,6 @@ public class ControlTagHandler extends AbstractTagHandler {
 
     protected static final String STYLE_ATTR = "style";
 
-    protected static final String ACTION_ATTR = "action";
-
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
         AbstractCompositeComponent parent = (AbstractCompositeComponent) context
@@ -43,7 +41,6 @@ public class ControlTagHandler extends AbstractTagHandler {
 
         setValue(control, ID_ATTR, attributes.getValue(ID_ATTR));
         setValue(control, STYLE_ATTR, attributes.getValue(STYLE_ATTR));
-        setValue(control, ACTION_ATTR, attributes.getValue(ACTION_ATTR));
 
         String rendererType = attributes.getValue(TYPE_ATTR);
         setValue(control, RENDERER_TYPE_ATTR, rendererType, true);

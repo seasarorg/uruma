@@ -52,10 +52,6 @@ public class WindowTagHandler extends AbstractTagHandler {
 
     private static final String SAVE_STATE_ATTR = "saveState";
 
-    protected static final String LAYOUT_ATTR = "layout";
-
-    protected static final String LAYOUT_PARAM_ATTR = "layoutParam";
-
     protected static final String BASE_PATH_ATTR = "basePath";
 
     protected static final String DEFAULT_RENDERER = "window";
@@ -90,20 +86,9 @@ public class WindowTagHandler extends AbstractTagHandler {
         setValue(window, RESIZABLE_ATTR, attributes.getValue(RESIZABLE_ATTR));
         setValue(window, SAVE_STATE_ATTR, attributes.getValue(SAVE_STATE_ATTR));
 
-        // CompositeComponent rootComposite = new CompositeComponent();
-        // setValue(rootComposite, ID_ATTR, "rootComposite");
-        // setValue(rootComposite, LAYOUT_ATTR,
-        // attributes.getValue(LAYOUT_ATTR));
-        // setValue(rootComposite, LAYOUT_PARAM_ATTR, attributes
-        // .getValue(LAYOUT_PARAM_ATTR));
-        // setValue(rootComposite, RENDERER_TYPE_ATTR, "box");
-        // rootComposite.setRenderer(RendererFactrory.getRenderer(rootComposite
-        // .getRendererType()));
-        //        window.addChild(rootComposite);
         setBasePath(window, context);
 
         context.push(window);
-        //        context.push(rootComposite);
     }
 
     @Override
