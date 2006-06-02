@@ -118,7 +118,7 @@ public class JankenAction {
     }
 
     private void clearImage() {
-        Image image = ImageManager.getInstance().getImage("blank");
+        Image image = ImageManager.getImage("blank");
         playerHandImage.setImage(image);
         computerHandImage.setImage(image);
     }
@@ -127,15 +127,15 @@ public class JankenAction {
         Image image = null;
         switch (hand) {
         case Janken.STONE:
-            image = ImageManager.getInstance().getImage("gu");
+            image = ImageManager.getImage("gu");
             break;
 
         case Janken.SCISSORS:
-            image = ImageManager.getInstance().getImage("cyoki");
+            image = ImageManager.getImage("cyoki");
             break;
 
         case Janken.PAPER:
-            image = ImageManager.getInstance().getImage("pa");
+            image = ImageManager.getImage("pa");
             break;
 
         default:

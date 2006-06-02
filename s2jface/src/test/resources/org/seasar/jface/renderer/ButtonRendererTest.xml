@@ -58,8 +58,7 @@
 
         <composite type="box" layout="row"
           layoutParam="type=VERTICAL; spacing=10">
-          <property name="width" value="30"
-            inheritance="descendantOnly" />
+          <property name="width" value="30" inheritance="descendantOnly" />
           <property name="height" value="30"
             inheritance="descendantOnly" />
 
@@ -87,7 +86,7 @@
           <property name="text" value="NG" />
         </control>
       </composite>
-      
+
     </composite>
   </window>
 </template>

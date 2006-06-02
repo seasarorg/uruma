@@ -67,8 +67,7 @@ public class WindowRenderer implements Renderer {
         String img = window.getImage();
         if (img != null) {
             img = PathUtil.createPath(window.getBasePath(), img);
-            shell.setImage(ImageManager.getInstance().getImage(img,
-                    Display.getCurrent()));
+            shell.setImage(ImageManager.getImage(img));
         }
     }
 

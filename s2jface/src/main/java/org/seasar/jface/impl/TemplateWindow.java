@@ -23,7 +23,6 @@ import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.internal.SWTEventListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.beans.MethodNotFoundRuntimeException;
 import org.seasar.framework.container.S2Container;
@@ -63,11 +62,10 @@ public class TemplateWindow extends ApplicationWindow {
 
     @Override
     protected Control createContents(Composite parent) {
-        // TODO あとで見直し
+        // TODO 初期化位置とdispose位置を再考
         ResourceBundle imageResources = ResourceBundle
                 .getBundle("s2JFaceImages");
-        ImageManager.getInstance().putImages(Display.getCurrent(),
-                imageResources);
+        ImageManager.loadImages(imageResources, getClass());
 
         WindowContext context = new WindowContextImpl();
         windowComponent.render(parent, context);

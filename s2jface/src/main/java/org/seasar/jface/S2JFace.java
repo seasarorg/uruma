@@ -35,6 +35,7 @@ public class S2JFace {
         TemplateBuilder builder = new TemplateBuilder();
 
         TemplateComponent template = (TemplateComponent) builder.build(path);
+
         TemplateWindow templateWindow = new TemplateWindow(template);
         templateWindow.setBlockOnOpen(true);
         templateWindow.open();
