@@ -27,15 +27,15 @@ import org.seasar.jface.component.impl.ControlComponent;
  * 
  */
 public class TextRenderer extends AbstractControlRenderer<Text> {
-    public static final String ATTR_TEXT = "text";
+    public static final String TEXT_PROP = "text";
 
-    public static final String ATTR_TEXT_LIMIT = "textLimit";
+    public static final String TEXT_LIMIT_PROP = "textLimit";
 
-    public static final String ATTR_EDITABLE = "editable";
+    public static final String EDITABLE_PROP = "editable";
 
-    public static final String ATTR_ECHO_CHAR = "echoChar";
+    public static final String ECHO_CHAR_PROP = "echoChar";
 
-    public static final String ATTR_TABS = "tabs";
+    public static final String TABS_PROP = "tabs";
 
     @Override
     protected Class<Text> getControlType() {
@@ -57,18 +57,18 @@ public class TextRenderer extends AbstractControlRenderer<Text> {
     }
 
     protected void renderText(Text text, ControlComponent controlComponent) {
-        text.setText(controlComponent.getPropertyValue(ATTR_TEXT));
+        text.setText(controlComponent.getPropertyValue(TEXT_PROP));
     }
 
     protected void renderTextLimit(Text text, ControlComponent controlComponent) {
-        String textLimit = controlComponent.getPropertyValue(ATTR_TEXT_LIMIT);
+        String textLimit = controlComponent.getPropertyValue(TEXT_LIMIT_PROP);
         if (textLimit != null) {
             text.setTextLimit(IntegerConversionUtil.toPrimitiveInt(textLimit));
         }
     }
 
     protected void renderEditable(Text text, ControlComponent controlComponent) {
-        String editable = controlComponent.getPropertyValue(ATTR_EDITABLE);
+        String editable = controlComponent.getPropertyValue(EDITABLE_PROP);
         if (editable != null) {
             text
                     .setEditable(BooleanConversionUtil
@@ -77,14 +77,14 @@ public class TextRenderer extends AbstractControlRenderer<Text> {
     }
 
     protected void renderEchoChar(Text text, ControlComponent controlComponent) {
-        String echoChar = controlComponent.getPropertyValue(ATTR_ECHO_CHAR);
+        String echoChar = controlComponent.getPropertyValue(ECHO_CHAR_PROP);
         if (echoChar != null && !StringUtil.isEmpty(echoChar)) {
             text.setEchoChar(echoChar.charAt(0));
         }
     }
 
     protected void renderTabs(Text text, ControlComponent controlComponent) {
-        String tabs = controlComponent.getPropertyValue(ATTR_TABS);
+        String tabs = controlComponent.getPropertyValue(TABS_PROP);
         if (tabs != null) {
             text.setTabs(IntegerConversionUtil.toPrimitiveInt(tabs));
         }

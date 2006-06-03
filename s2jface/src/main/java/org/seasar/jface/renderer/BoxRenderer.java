@@ -57,7 +57,7 @@ public class BoxRenderer extends AbstractCompositeRenderer<Composite> {
      */
     @Override
     public Inheritance getDefaultInheritance(final String propertyName) {
-        if (ControlComponent.ATTR_BACKGROUND_COLOR.equals(propertyName)) {
+        if (ControlComponent.BACKGROUND_COLOR_PROP.equals(propertyName)) {
             return Inheritance.DESCENDANT;
         } else {
             return Inheritance.DESCENDANT_ONLY;

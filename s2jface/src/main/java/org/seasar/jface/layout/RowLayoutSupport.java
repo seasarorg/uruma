@@ -15,8 +15,8 @@
  */
 package org.seasar.jface.layout;
 
-import static org.seasar.jface.component.impl.ControlComponent.ATTR_HEIGHT;
-import static org.seasar.jface.component.impl.ControlComponent.ATTR_WIDTH;
+import static org.seasar.jface.component.impl.ControlComponent.HEIGHT_PROP;
+import static org.seasar.jface.component.impl.ControlComponent.WIDTH_PROP;
 
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
@@ -66,8 +66,8 @@ public class RowLayoutSupport extends AbstractLayoutSupport<RowLayout, RowData> 
      * @return レイアウトデータオブジェクト
      */
     public RowData createLayoutData(ControlComponent controlComponent) {
-        Property widthProp = controlComponent.getProperty(ATTR_WIDTH);
-        Property heightProp = controlComponent.getProperty(ATTR_HEIGHT);
+        Property widthProp = controlComponent.getProperty(WIDTH_PROP);
+        Property heightProp = controlComponent.getProperty(HEIGHT_PROP);
 
         if ((widthProp != null && widthProp.isValueExist())
                 || (heightProp != null) && heightProp.isValueExist()

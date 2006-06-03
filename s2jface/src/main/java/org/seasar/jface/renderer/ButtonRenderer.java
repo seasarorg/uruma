@@ -25,9 +25,9 @@ import org.seasar.jface.component.impl.ControlComponent;
  * 
  */
 public class ButtonRenderer extends AbstractControlRenderer<Button> {
-    public static final String ATTR_TEXT = "text";
+    public static final String TEXT_PROP = "text";
 
-    public static final String ATTR_SELECTION = "selection";
+    public static final String SELECTION_PROP = "selection";
 
     @Override
     protected int getStyle(final ControlComponent uiComponent) {
@@ -50,7 +50,7 @@ public class ButtonRenderer extends AbstractControlRenderer<Button> {
 
     protected void renderText(final Button button,
             final ControlComponent controlComponent) {
-        String text = controlComponent.getPropertyValue(ATTR_TEXT);
+        String text = controlComponent.getPropertyValue(TEXT_PROP);
         if (text != null) {
             button.setText(text);
         }
@@ -58,7 +58,7 @@ public class ButtonRenderer extends AbstractControlRenderer<Button> {
 
     protected void renderSelection(final Button button,
             final ControlComponent controlComponent) {
-        Property selection = controlComponent.getProperty(ATTR_SELECTION);
+        Property selection = controlComponent.getProperty(SELECTION_PROP);
         if (selection != null) {
             button.setSelection(selection.getBooleanValue());
         }

@@ -27,11 +27,11 @@ import org.seasar.jface.util.SWTUtil;
  * 
  */
 public class LabelRenderer extends AbstractControlRenderer<Label> {
-    public static final String ATTR_TEXT = "text";
+    public static final String TEXT_PROP = "text";
 
-    public static final String ATTR_IMAGE = "image";
+    public static final String IMAGE_PROP = "image";
 
-    public static final String ATTR_ALIGNMENT = "alignment";
+    public static final String ALIGNMENT_PROP = "alignment";
 
     @Override
     protected void doRender(Label label, ControlComponent controlComponent) {
@@ -46,7 +46,7 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
     }
 
     protected void renderText(Label label, ControlComponent controlComponent) {
-        String text = controlComponent.getPropertyValue(ATTR_TEXT);
+        String text = controlComponent.getPropertyValue(TEXT_PROP);
         if (text != null) {
             text = text.replace("\\n", "\n");
             text = text.replace("\\t", "\t");
@@ -55,7 +55,7 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
     }
 
     protected void renderImage(Label label, ControlComponent controlComponent) {
-        String imgSrc = controlComponent.getPropertyValue(ATTR_IMAGE);
+        String imgSrc = controlComponent.getPropertyValue(IMAGE_PROP);
         if (imgSrc != null) {
             Image image = ImageManager.getImage(imgSrc);
             if (image == null) {
@@ -70,7 +70,7 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
 
     protected void renderAlignment(Label label,
             ControlComponent controlComponent) {
-        String alignment = controlComponent.getPropertyValue(ATTR_ALIGNMENT);
+        String alignment = controlComponent.getPropertyValue(ALIGNMENT_PROP);
         if (alignment != null) {
             label.setAlignment(SWTUtil.getSWTConstant(alignment));
         }
