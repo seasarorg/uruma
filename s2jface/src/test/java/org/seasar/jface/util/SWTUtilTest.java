@@ -18,13 +18,26 @@ package org.seasar.jface.util;
 import junit.framework.TestCase;
 
 import org.eclipse.swt.SWT;
-import org.seasar.jface.util.SWTUtil;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * @author y-komori
  * 
  */
 public class SWTUtilTest extends TestCase {
+    Display display;
+
+    @Override
+    protected void setUp() throws Exception {
+        display = new Display();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        display.dispose();
+    }
+
     public void testGetSWTConstant() {
         assertEquals(SWT.ABORT, SWTUtil.getSWTConstant("ABORT"));
         assertEquals(SWT.BOLD, SWTUtil.getSWTConstant("BOLD"));
@@ -48,8 +61,9 @@ public class SWTUtilTest extends TestCase {
         assertEquals(SWT.NONE, SWTUtil.getStyle(null));
     }
 
-//    public void testGetColor() {
-//        assertSame(new Color(Display.getCurrent(), 255, 0, 0), SWTUtil
-//                .getColor("#FF0000"));
-//    }
+    public void testGetColor() {
+        assertEquals(new Color(display, 255, 0, 0), SWTUtil.getColor("#FF0000"));
+        assertEquals(new Color(display, 0, 255, 0), SWTUtil.getColor("#00FF00"));
+        assertEquals(new Color(display, 0, 0, 255), SWTUtil.getColor("#0000FF"));
+    }
 }
