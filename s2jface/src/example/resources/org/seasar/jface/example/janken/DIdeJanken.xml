@@ -7,13 +7,10 @@
     resizable="true" image="container.gif">
 
     <composite type="box" layout="grid" layoutParam="numColumns=3">
-      <property name="backgroundColor" value="white"
-        inheritance="descendant" />
-      <property name="foregroundColor" value="black"
-        inheritance="descendant" />
-      <property name="fontSize" value="50" inheritance="descendant" />
-      <property name="alignment" value="CENTER"
-        inheritance="descendant" />
+      <property name="backgroundColor" value="white" />
+      <property name="foregroundColor" value="black" />
+      <property name="fontSize" value="50" />
+      <property name="alignment" value="CENTER" />
 
       <control type="label">
         <layoutData name="horizontalAlignment" value="FILL" />

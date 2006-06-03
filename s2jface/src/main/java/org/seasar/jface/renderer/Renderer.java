@@ -18,6 +18,7 @@ package org.seasar.jface.renderer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.UIComponent;
 
 /**
@@ -61,6 +62,15 @@ public interface Renderer {
      */
     public void renderAfter(Widget widget, UIComponent uiComponent,
             Composite parent, WindowContext context);
+
+    /**
+     * プロパティの <code>inheritance</code> 属性が未指定(<code>Inheritance.NULL</code>)の場合の、デフォルト値を返します。</br>
+     * 
+     * @param propertyName
+     *            プロパティ名
+     * @return デフォルトの <code>inheritance</code> 属性
+     */
+    public Inheritance getDefaultInheritance(String propertyName);
 
     /**
      * レンダラの名称を返します。</br> レンダラ名称は、画面定義XML上で <code>type</code> 属性として指定されます。

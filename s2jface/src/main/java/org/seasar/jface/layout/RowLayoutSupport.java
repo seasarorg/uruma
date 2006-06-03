@@ -74,11 +74,11 @@ public class RowLayoutSupport extends AbstractLayoutSupport<RowLayout, RowData> 
                 || (controlComponent.getLayoutDataNum() > 0)) {
             RowData rowData = createLayoutData();
 
-            if (widthProp.isValueExist()) {
+            if ((widthProp != null) && (widthProp.isValueExist())) {
                 rowData.width = widthProp.getIntValue();
             }
 
-            if (heightProp.isValueExist()) {
+            if ((heightProp != null) && (heightProp.isValueExist())) {
                 rowData.height = heightProp.getIntValue();
             }
 

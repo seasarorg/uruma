@@ -19,10 +19,12 @@ import static org.seasar.jface.component.Inheritance.CHILD;
 import static org.seasar.jface.component.Inheritance.CHILD_ONLY;
 import static org.seasar.jface.component.Inheritance.DESCENDANT;
 import static org.seasar.jface.component.Inheritance.DESCENDANT_ONLY;
+import static org.seasar.jface.component.Inheritance.NONE;
 import static org.seasar.jface.component.Property.INHERITANCE_CHILD;
 import static org.seasar.jface.component.Property.INHERITANCE_CHILD_ONLY;
 import static org.seasar.jface.component.Property.INHERITANCE_DESCENDANT;
 import static org.seasar.jface.component.Property.INHERITANCE_DESCENDANT_ONLY;
+import static org.seasar.jface.component.Property.INHERITANCE_NONE;
 
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Inheritance;
@@ -64,9 +66,11 @@ public class PropertyTagHandler extends AbstractTagHandler {
         Property property = new PropertyComponent(name, value);
 
         String inheritanceAttr = attributes.getValue(INHERITANCE_ATTR);
-        Inheritance inheritance = Inheritance.NONE;
+        Inheritance inheritance = Inheritance.NULL;
         if (inheritanceAttr != null) {
-            if (INHERITANCE_CHILD.equalsIgnoreCase(inheritanceAttr)) {
+            if (INHERITANCE_NONE.equalsIgnoreCase(inheritanceAttr)) {
+                inheritance = NONE;
+            } else if (INHERITANCE_CHILD.equalsIgnoreCase(inheritanceAttr)) {
                 inheritance = CHILD;
             } else if (INHERITANCE_CHILD_ONLY.equalsIgnoreCase(inheritanceAttr)) {
                 inheritance = CHILD_ONLY;

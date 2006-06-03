@@ -21,6 +21,8 @@ package org.seasar.jface.component;
  */
 public interface Property extends Cloneable {
 
+    public static final String INHERITANCE_NULL = "null";
+
     public static final String INHERITANCE_NONE = "none";
 
     public static final String INHERITANCE_CHILD = "child";

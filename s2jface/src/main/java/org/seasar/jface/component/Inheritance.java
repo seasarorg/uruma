@@ -18,8 +18,10 @@ package org.seasar.jface.component;
 /**
  * <code>Property</code> 要素の子要素への引き継ぎを指定するための列挙型です。
  * <dl>
+ * <dt><code>NULL</code>
+ * <dd>未指定の状態です。各レンダラのデフォルト値が利用されます。(デフォルト)
  * <dt><code>NONE</code>
- * <dd>子要素へ引き継ぎません。(デフォルト)
+ * <dd>子要素へ引き継ぎません。
  * <dt><code>CHILD</code>
  * <dd>直近の子要素へのみ引き継ぎます。
  * <dt><code>CHILD_ONLY</code>
@@ -33,5 +35,5 @@ package org.seasar.jface.component;
  * @author y-komori
  */
 public enum Inheritance {
-    NONE, CHILD, CHILD_ONLY, DESCENDANT, DESCENDANT_ONLY
+    NULL, NONE, CHILD, CHILD_ONLY, DESCENDANT, DESCENDANT_ONLY
 }

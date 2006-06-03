@@ -10,8 +10,7 @@
     <composite type="box" layout="grid" layoutParam="numColumns=1">
       <composite type="box" layout="row"
         layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-        <property name="fontSize" value="20"
-          inheritance="descendantOnly" />
+        <property name="fontSize" value="20"/>
         <layoutData name="horizontalAlignment" value="FILL" />
 
         <composite type="box" layout="row"
@@ -58,9 +57,8 @@
 
         <composite type="box" layout="row"
           layoutParam="type=VERTICAL; spacing=10">
-          <property name="width" value="30" inheritance="descendantOnly" />
-          <property name="height" value="30"
-            inheritance="descendantOnly" />
+          <property name="width" value="30"/>
+          <property name="height" value="30"/>
 
           <control type="button" style="ARROW, UP" />
 

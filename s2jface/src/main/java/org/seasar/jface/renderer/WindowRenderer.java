@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.util.GeometryUtil;
@@ -32,11 +33,15 @@ import org.seasar.jface.util.PathUtil;
  * @author y-komori
  * 
  */
-public class WindowRenderer implements Renderer {
-    public static final String ATTR_DEFAULT_BUTTON = "defaultButton";
+public class WindowRenderer extends AbstractRenderer {
+    public static final String DEFAULT_BUTTON_PROP = "defaultButton";
 
     public Widget render(final UIComponent uiComponent, final Composite parent,
             final WindowContext context) {
+        setContext(context);
+        setupInheritance(uiComponent);
+        inheritProperty(uiComponent);
+
         configureShell((WindowComponent) uiComponent, parent.getShell());
 
         return parent;
@@ -45,6 +50,25 @@ public class WindowRenderer implements Renderer {
     public void renderAfter(final Widget widget, final UIComponent uiComponent,
             final Composite parent, final WindowContext context) {
         setDefaultButton((Shell) widget, uiComponent, context);
+    }
+
+    /**
+     * <p>
+     * <code>defaultButton</code> プロパティは <code>Inheritance.NONE</code>
+     * を返します。
+     * </p>
+     * <p>
+     * それ以外については、<code>Inheritance.DESCENDANT_ONLY</code> を返します。
+     * </p>
+     * 
+     * @see org.seasar.jface.renderer.Renderer#getDefaultInheritance()
+     */
+    public Inheritance getDefaultInheritance(final String propertyName) {
+        if (DEFAULT_BUTTON_PROP.equals(propertyName)) {
+            return Inheritance.NONE;
+        } else {
+            return Inheritance.DESCENDANT_ONLY;
+        }
     }
 
     public int getShellStyle(final WindowComponent uiComponent) {
@@ -94,7 +118,7 @@ public class WindowRenderer implements Renderer {
     protected void setDefaultButton(final Shell shell,
             final UIComponent uiComponent, final WindowContext context) {
         Widget defaultButton = context.getComponent(uiComponent
-                .getPropertyValue(ATTR_DEFAULT_BUTTON));
+                .getPropertyValue(DEFAULT_BUTTON_PROP));
         if (defaultButton instanceof Button) {
             shell.setDefaultButton((Button) defaultButton);
         }
@@ -104,5 +128,4 @@ public class WindowRenderer implements Renderer {
     public String getRendererName() {
         return "window";
     }
-
 }

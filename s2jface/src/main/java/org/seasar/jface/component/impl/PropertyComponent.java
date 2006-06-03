@@ -30,7 +30,7 @@ public class PropertyComponent implements Property {
 
     private String value;
 
-    private Inheritance inheritance = Inheritance.NONE;
+    private Inheritance inheritance = Inheritance.NULL;
 
     public PropertyComponent(final String name) {
         AssertionUtil.assertNotNull("name", name);

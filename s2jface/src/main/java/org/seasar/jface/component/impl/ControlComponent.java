@@ -68,24 +68,6 @@ public class ControlComponent extends UIComponentBase {
 
     private List<Item> itemList = new ArrayList<Item>();
 
-    public ControlComponent() {
-        createProperty(ATTR_X);
-        createProperty(ATTR_Y);
-        createProperty(ATTR_WIDTH);
-        createProperty(ATTR_HEIGHT);
-        createProperty(ATTR_ORDER);
-        createProperty(ATTR_FOREGROUND_COLOR);
-        createProperty(ATTR_BACKGROUND_COLOR);
-        createProperty(ATTR_ENABLED, "true");
-        createProperty(ATTR_VISIBLE, "true");
-        createProperty(ATTR_FONT);
-        createProperty(ATTR_FONT_SIZE);
-        createProperty(ATTR_FONT_STYLE);
-        createProperty(ATTR_TOOL_TIP);
-        createProperty(ATTR_ACCESS_KEY);
-        createProperty(ATTR_FOCUS_ORDER);
-    }
-    
     public String getStyle() {
         return style;
     }
@@ -109,11 +91,11 @@ public class ControlComponent extends UIComponentBase {
     public Collection<String> getLayoutDataNames() {
         return layoutData.keySet();
     }
-    
+
     public List<Item> getItemList() {
         return itemList;
     }
-    
+
     public void addItem(final Item item) {
         itemList.add(item);
     }

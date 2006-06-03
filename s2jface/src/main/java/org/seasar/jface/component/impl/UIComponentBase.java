@@ -16,9 +16,7 @@
 package org.seasar.jface.component.impl;
 
 import static org.seasar.jface.component.Inheritance.CHILD;
-import static org.seasar.jface.component.Inheritance.CHILD_ONLY;
 import static org.seasar.jface.component.Inheritance.DESCENDANT;
-import static org.seasar.jface.component.Inheritance.DESCENDANT_ONLY;
 import static org.seasar.jface.component.Inheritance.NONE;
 
 import java.util.ArrayList;
@@ -82,7 +80,6 @@ public abstract class UIComponentBase implements UIComponent {
     public void setParent(final UIComponent parent) {
         AssertionUtil.assertNotNull("parent", parent);
         this.parent = parent;
-        inheritProperty();
     }
 
     public void setRendererType(final String type) {
@@ -167,26 +164,14 @@ public abstract class UIComponentBase implements UIComponent {
         return properties.values();
     }
 
-    protected void createProperty(String name) {
-        addProperty(new PropertyComponent(name));
+    protected void createProperty(String name, Inheritance inheritance) {
+        Property property = new PropertyComponent(name);
+        property.setInheritance(inheritance);
+        addProperty(property);
     }
 
-    protected void createProperty(String name, String value) {
-        addProperty(new PropertyComponent(name, value));
-    }
-
-    protected void inheritProperty() {
-        for (Property property : parent.getProperties()) {
-            Inheritance inheritance = property.getInheritance();
-            if (inheritance == CHILD) {
-                addProperty(property.cloneProperty(NONE));
-            } else if (inheritance == CHILD_ONLY) {
-                addProperty(property.cloneProperty(NONE));
-            } else if (inheritance == DESCENDANT) {
-                addProperty(property.cloneProperty(DESCENDANT));
-            } else if (inheritance == DESCENDANT_ONLY) {
-                addProperty(property.cloneProperty(DESCENDANT));
-            }
-        }
+    protected void createProperty(String name, String value,
+            Inheritance inheritance) {
+        addProperty(new PropertyComponent(name, value, inheritance));
     }
 }

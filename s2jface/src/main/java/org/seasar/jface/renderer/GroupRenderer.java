@@ -16,6 +16,7 @@
 package org.seasar.jface.renderer;
 
 import org.eclipse.swt.widgets.Group;
+import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.impl.CompositeComponent;
 
 /**
@@ -25,7 +26,7 @@ import org.seasar.jface.component.impl.CompositeComponent;
  * 
  */
 public class GroupRenderer extends AbstractCompositeRenderer<Group> {
-    public static final String ATTR_TEXT = "text";
+    public static final String TEXT_PROP = "text";
 
     @Override
     protected void doRenderComposite(final Group group,
@@ -38,7 +39,7 @@ public class GroupRenderer extends AbstractCompositeRenderer<Group> {
     }
 
     protected void renderText(Group group, CompositeComponent compositeComponent) {
-        String text = compositeComponent.getPropertyValue(ATTR_TEXT);
+        String text = compositeComponent.getPropertyValue(TEXT_PROP);
         if (text != null) {
             group.setText(text);
         }
@@ -47,5 +48,24 @@ public class GroupRenderer extends AbstractCompositeRenderer<Group> {
     @Override
     protected Class<Group> getControlType() {
         return Group.class;
+    }
+
+    /**
+     * <p>
+     * <code>text</code> プロパティは <code>Inheritance.NONE</code> を返します。
+     * </p>
+     * <p>
+     * それ以外については、<code>Inheritance.DESCENDANT_ONLY</code> を返します。
+     * </p>
+     * 
+     * @see org.seasar.jface.renderer.Renderer#getDefaultInheritance()
+     */
+    @Override
+    public Inheritance getDefaultInheritance(final String propertyName) {
+        if (TEXT_PROP.equals(propertyName)) {
+            return Inheritance.NONE;
+        } else {
+            return Inheritance.DESCENDANT_ONLY;
+        }
     }
 }

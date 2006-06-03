@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.Property;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.ControlComponent;
@@ -49,14 +50,17 @@ import org.seasar.jface.util.SWTUtil;
  * 
  */
 public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
-        implements Renderer {
-    private WindowContext context;
+        extends AbstractRenderer {
 
     public Widget render(UIComponent uiComponent, Composite parent,
             WindowContext context) {
-        this.context = context;
+        setContext(context);
 
         ControlComponent controlComponent = (ControlComponent) uiComponent;
+
+        setupInheritance(controlComponent);
+        inheritProperty(controlComponent);
+
         Control control = createControl(parent, getStyle(controlComponent));
 
         // TODO その他のプロパティに対応
@@ -79,6 +83,18 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
     public void renderAfter(Widget widget, UIComponent uiComponent,
             Composite parent, WindowContext context) {
         // do nothing.
+    }
+
+    /**
+     * <code>Control</code> コンポーネントは子要素を持たないため、デフォルトで
+     * <code>Inheritance.NONE</code> を返します。</br> <code>Composite</code>
+     * コンポーネントでは、本メソッドをオーバーライドして、適切な <code>Inheritance</code> を返してください。
+     * 
+     * @see org.seasar.jface.renderer.Renderer#getDefaultInheritance()
+     * @see Inheritance
+     */
+    public Inheritance getDefaultInheritance(final String propertyName) {
+        return Inheritance.NONE;
     }
 
     protected void setEnabled(Control control, ControlComponent controlComponent) {
@@ -206,10 +222,6 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
         } else {
             return null;
         }
-    }
-
-    protected WindowContext getContext() {
-        return this.context;
     }
 
     protected abstract void doRender(CONTROL_TYPE control,
