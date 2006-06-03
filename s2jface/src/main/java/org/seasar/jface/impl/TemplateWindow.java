@@ -53,7 +53,8 @@ public class TemplateWindow extends ApplicationWindow {
     public TemplateWindow(TemplateComponent template) {
         super(null);
         this.template = template;
-        this.windowComponent = (WindowComponent) template.getChild(0);
+        this.windowComponent = (WindowComponent) template.getChildren()
+                .iterator().next();
 
         int style = ((WindowRenderer) windowComponent.getRenderer())
                 .getShellStyle(windowComponent);

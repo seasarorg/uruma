@@ -68,20 +68,11 @@ public interface UIComponent extends Iterable<UIComponent> {
     public void addChild(UIComponent child);
 
     /**
-     * 指定されたインデックスを持つ子コンポーネントを取得します。</br>
+     * 子コンポーネントのコレクションを取得します。</br>
      * 
-     * @param index
-     *            インデックス
-     * @return 子コンポーネント
+     * @return 子コンポーネントのコレクション
      */
-    public UIComponent getChild(int index);
-
-    /**
-     * 子コンポーネントの数を返します。
-     * 
-     * @return コンポーネントの数
-     */
-    public int getChildLength();
+    public Collection<UIComponent> getChildren();
 
     /**
      * レンダラをセットします。</br>

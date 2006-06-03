@@ -87,12 +87,8 @@ public abstract class UIComponentBase implements UIComponent {
         this.renderType = type;
     }
 
-    public UIComponent getChild(final int index) {
-        return children.get(index);
-    }
-
-    public int getChildLength() {
-        return children.size();
+    public Collection<UIComponent> getChildren() {
+        return children;
     }
 
     public Widget getWidget() {
