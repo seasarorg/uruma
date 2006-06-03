@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Display;
  * 
  */
 public class SWTUtilTest extends TestCase {
-    Display display;
+    private Display display;
 
     @Override
     protected void setUp() throws Exception {

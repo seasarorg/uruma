@@ -16,6 +16,8 @@
 package org.seasar.jface.util;
 
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
@@ -23,6 +25,10 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.framework.log.Logger;
+import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.exception.ResourceNotFoundException;
 
 /**
@@ -33,6 +39,8 @@ import org.seasar.jface.exception.ResourceNotFoundException;
  */
 public class ImageManager {
     protected static final ImageRegistry imageRegistry = new ImageRegistry();
+
+    protected static final Logger logger = Logger.getLogger(ImageManager.class);
 
     private ImageManager() {
     }
@@ -54,7 +62,7 @@ public class ImageManager {
      * 
      * @param url
      *            イメージのURL/キー
-     * @param class
+     * @param clazz
      *            ファイルの位置を示す <code>Class</code> オブジェクト
      * 
      * @return Imageオブジェクト
@@ -83,14 +91,20 @@ public class ImageManager {
      *            イメージのファイル名
      * @param clazz
      *            ファイルの位置を示す <code>Class</code> オブジェクト
+     * @throws ResourceNotFoundException
+     *             fileName の示すリソースが取得できなかった場合
      */
     public static void putImage(String key, String fileName, Class clazz) {
         if (imageRegistry.get(key) != null) {
             imageRegistry.remove(key);
         }
-        Image image = new Image(Display.getCurrent(), clazz
-                .getResourceAsStream(fileName));
-        imageRegistry.put(key, image);
+        InputStream is = clazz.getResourceAsStream(fileName);
+        if (is != null) {
+            Image image = new Image(Display.getCurrent(), is);
+            imageRegistry.put(key, image);
+        } else {
+            throw new ResourceNotFoundException(fileName);
+        }
     }
 
     /**
@@ -112,15 +126,14 @@ public class ImageManager {
     }
 
     /**
-     * ResourceBundle から Image を読み込み、一括登録します。<br>
-     * 「key=url」の形式で記述されたプロパティファイルを元にしたResourceBundle からImageを一括して読み込みます。
+     * <code>ResourceBundle</code> から <code>Image</code>
+     * オブジェクトを読み込み、一括登録します。</br> 「key=url」の形式で記述されたプロパティファイルを元にした
+     * <code>ResourceBundle</code> から <code>Image</code> オブジェクトを一括して読み込みます。
      * 
      * @param bundle
      *            リソースバンドルの参照
      * @param clazz
      *            ファイルの位置を示す <code>Class</code> オブジェクト
-     * @throws MissingResourceException
-     *             リソースが見つからない場合にスローします。
      */
     public static void loadImages(final ResourceBundle bundle, final Class clazz) {
 
@@ -133,10 +146,87 @@ public class ImageManager {
     }
 
     /**
+     * 指定されたクラスの定数フィールドに対して、<code>ImageManager</code>が
+     * 管理するオブジェクトをインジェクションします。</br> インジェクション対象となるのは、以下の条件を満たすフィールドです。</br>
+     * <p>
+     * <ol>
+     * <li><code>public static final</code> な定数フィールドであること
+     * <li><code>Image</code>または <code>ImageDescriptor</code> 型のフィールドであること
+     * </ol>
+     * </p>
+     * 以上の条件を満たすフィールドに対して、フィールド名をキーとして <code>ImageManager</code> が登録する
+     * <code>Image</code> または <code>ImageDescriptor</code>
+     * を検索し、見つかればインジェクションを行います。</br> 見つからなかった場合は、Warning ログを出力します。
+     * <p>
+     * <b>【例】</b> </br> 以下の例では、<code>ImageHolder</code> クラスの フィールド、<code>IMAGE_A</code>
+     * と <code>IMAGE_B</code> に対して、<code>ImageManager</code>
+     * が管理するオブジェクトの中から、<code>IMAGE_A</code>、<code>IMAGE_B</code>
+     * という名前のキーで登録されたオブジェクトをインジェクションします。
+     * 
+     * <pre>
+     *             public class ImageHolder() {
+     *                  public static final Image IMAGE_A;
+     *                  public static final ImageDescriptor IMAGE_B;
+     *             }
+     * </pre>
+     * <pre>
+     * ImageManager.injectImages(ImageHolder.class);
+     * </pre>
+     * 
+     * </p>
+     * 
+     * @param clazz
+     *            対象クラス
+     */
+    public static void injectImages(final Class clazz) {
+        BeanDesc beanDesc = BeanDescFactory.getBeanDesc(clazz);
+        for (int i = 0; i < beanDesc.getFieldSize(); i++) {
+            Field field = beanDesc.getField(i);
+            String key = field.getName();
+            if (!validateMask(field)) {
+                continue;
+            }
+
+            if (isAssignableFrom(Image.class, field)) {
+                Image image = imageRegistry.get(key);
+                if (image != null) {
+                    FieldUtil.set(field, null, image);
+                } else {
+                    logBindingFailed(clazz, field);
+                }
+            } else if (isAssignableFrom(ImageDescriptor.class, field)) {
+                ImageDescriptor descriptor = imageRegistry.getDescriptor(key);
+                if (descriptor != null) {
+                    FieldUtil.set(field, null, descriptor);
+                } else {
+                    logBindingFailed(clazz, field);
+                }
+            }
+        }
+    }
+
+    /**
      * <code>ImageManager</code> が管理する <code>ImageRegistry</code> を破棄します。
      * 
      */
     public static void dispose() {
         imageRegistry.dispose();
     }
+
+    protected static boolean validateMask(Field field) {
+        final int MOD_EXPECTED = Modifier.PUBLIC | Modifier.STATIC;
+        final int MOD_MASK = MOD_EXPECTED | Modifier.FINAL;
+        return (field.getModifiers() & MOD_MASK) == MOD_EXPECTED;
+    }
+
+    protected static boolean isAssignableFrom(final Class<?> clazz,
+            final Field target) {
+        return clazz.isAssignableFrom(target.getType());
+    }
+
+    protected static void logBindingFailed(final Class clazz, final Field field) {
+        logger.log("WJFC0200",
+                new Object[] { clazz.getName(), field.getName() });
+    }
+
 }
