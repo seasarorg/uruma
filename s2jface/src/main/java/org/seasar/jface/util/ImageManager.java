@@ -150,7 +150,7 @@ public class ImageManager {
      * 管理するオブジェクトをインジェクションします。</br> インジェクション対象となるのは、以下の条件を満たすフィールドです。</br>
      * <p>
      * <ol>
-     * <li><code>public static final</code> な定数フィールドであること
+     * <li><code>public static</code> な定数フィールドであること
      * <li><code>Image</code>または <code>ImageDescriptor</code> 型のフィールドであること
      * </ol>
      * </p>
@@ -164,10 +164,10 @@ public class ImageManager {
      * という名前のキーで登録されたオブジェクトをインジェクションします。
      * 
      * <pre>
-     *             public class ImageHolder() {
-     *                  public static final Image IMAGE_A;
-     *                  public static final ImageDescriptor IMAGE_B;
-     *             }
+     *              public class ImageHolder() {
+     *                   public static Image IMAGE_A;
+     *                   public static ImageDescriptor IMAGE_B;
+     *              }
      * </pre>
      * <pre>
      * ImageManager.injectImages(ImageHolder.class);
