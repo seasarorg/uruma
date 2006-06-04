@@ -21,6 +21,8 @@ import org.seasar.framework.util.BooleanConversionUtil;
 import org.seasar.framework.util.IntegerConversionUtil;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.renderer.info.ComponentInfo;
+import org.seasar.jface.renderer.info.TextInfo;
 
 /**
  * @author y-komori
@@ -92,5 +94,9 @@ public class TextRenderer extends AbstractControlRenderer<Text> {
 
     public String getRendererName() {
         return "text";
+    }
+
+    public Class<? extends ComponentInfo> getComponentInfo() {
+        return TextInfo.class;
     }
 }

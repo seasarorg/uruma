@@ -16,9 +16,9 @@
 package org.seasar.jface.renderer;
 
 import org.eclipse.swt.widgets.Composite;
-import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.impl.CompositeComponent;
-import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.renderer.info.ComponentInfo;
+import org.seasar.jface.renderer.info.CompositeInfo;
 
 /**
  * <code>Composite</code>のレンダリングを行うクラスです。
@@ -44,23 +44,7 @@ public class BoxRenderer extends AbstractCompositeRenderer<Composite> {
         return Composite.class;
     }
 
-    /**
-     * <p>
-     * <code>backgroundColor</code> プロパティは <code>Inheritance.DECENDANT</code>
-     * を返します。
-     * </p>
-     * <p>
-     * それ以外については、<code>Inheritance.DESCENDANT_ONLY</code> を返します。
-     * </p>
-     * 
-     * @see org.seasar.jface.renderer.Renderer#getDefaultInheritance()
-     */
-    @Override
-    public Inheritance getDefaultInheritance(final String propertyName) {
-        if (ControlComponent.BACKGROUND_COLOR_PROP.equals(propertyName)) {
-            return Inheritance.DESCENDANT;
-        } else {
-            return Inheritance.DESCENDANT_ONLY;
-        }
+    public Class<? extends ComponentInfo> getComponentInfo() {
+        return CompositeInfo.class;
     }
 }

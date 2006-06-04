@@ -26,6 +26,7 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.Property;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.renderer.info.ComponentInfoAccessor;
 
 /**
  * @author y-komori
@@ -45,8 +46,8 @@ public abstract class AbstractRenderer implements Renderer {
         for (Property property : uiComponent.getProperties()) {
             Inheritance inheritance = property.getInheritance();
             if (inheritance == NULL) {
-                property.setInheritance(renderer.getDefaultInheritance(property
-                        .getName()));
+                property.setInheritance(ComponentInfoAccessor.getInheritance(
+                        renderer.getComponentInfo(), property.getName()));
             }
         }
     }

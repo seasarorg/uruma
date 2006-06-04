@@ -19,6 +19,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.seasar.jface.component.Property;
 import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.renderer.info.ButtonInfo;
+import org.seasar.jface.renderer.info.ComponentInfo;
 
 /**
  * @author y-komori
@@ -66,5 +68,9 @@ public class ButtonRenderer extends AbstractControlRenderer<Button> {
 
     public String getRendererName() {
         return "button";
+    }
+
+    public Class<? extends ComponentInfo> getComponentInfo() {
+        return ButtonInfo.class;
     }
 }

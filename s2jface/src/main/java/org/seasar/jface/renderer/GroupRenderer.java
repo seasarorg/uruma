@@ -18,6 +18,8 @@ package org.seasar.jface.renderer;
 import org.eclipse.swt.widgets.Group;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.impl.CompositeComponent;
+import org.seasar.jface.renderer.info.ComponentInfo;
+import org.seasar.jface.renderer.info.GroupInfo;
 
 /**
  * <code>Group</code>のレンダリングを行うクラスです。</br>
@@ -67,5 +69,9 @@ public class GroupRenderer extends AbstractCompositeRenderer<Group> {
         } else {
             return Inheritance.DESCENDANT_ONLY;
         }
+    }
+
+    public Class<? extends ComponentInfo> getComponentInfo() {
+        return GroupInfo.class;
     }
 }

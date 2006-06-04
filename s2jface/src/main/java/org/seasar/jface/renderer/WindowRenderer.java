@@ -25,6 +25,8 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.WindowComponent;
+import org.seasar.jface.renderer.info.ComponentInfo;
+import org.seasar.jface.renderer.info.WindowInfo;
 import org.seasar.jface.util.GeometryUtil;
 import org.seasar.jface.util.ImageManager;
 import org.seasar.jface.util.PathUtil;
@@ -127,5 +129,9 @@ public class WindowRenderer extends AbstractRenderer {
 
     public String getRendererName() {
         return "window";
+    }
+
+    public Class<? extends ComponentInfo> getComponentInfo() {
+        return WindowInfo.class;
     }
 }

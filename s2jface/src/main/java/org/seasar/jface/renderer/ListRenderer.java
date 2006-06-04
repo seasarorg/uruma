@@ -19,21 +19,24 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.List;
 import org.seasar.jface.component.Item;
 import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.renderer.info.ComponentInfo;
+import org.seasar.jface.renderer.info.ListInfo;
 
 /**
  * @author dkameya
  */
 public class ListRenderer extends AbstractControlRenderer<List> {
-    
+
     @Override
     protected int getStyle(final ControlComponent controlComponent) {
         int style = super.getStyle(controlComponent);
-        style = (style ==SWT.NONE) ? SWT.BORDER : style;
+        style = (style == SWT.NONE) ? SWT.BORDER : style;
         return style;
     }
 
     @Override
-    protected void doRender(final List list, final ControlComponent controlComponent) {
+    protected void doRender(final List list,
+            final ControlComponent controlComponent) {
         addItem(list, controlComponent);
     }
 
@@ -45,10 +48,15 @@ public class ListRenderer extends AbstractControlRenderer<List> {
     public String getRendererName() {
         return "list";
     }
-    
-    protected void addItem(final List list, final ControlComponent controlComponent) {
+
+    protected void addItem(final List list,
+            final ControlComponent controlComponent) {
         for (Item item : controlComponent.getItemList()) {
             list.add(item.getValue());
         }
+    }
+
+    public Class<? extends ComponentInfo> getComponentInfo() {
+        return ListInfo.class;
     }
 }

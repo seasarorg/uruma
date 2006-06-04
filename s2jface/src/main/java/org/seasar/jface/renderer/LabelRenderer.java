@@ -18,6 +18,8 @@ package org.seasar.jface.renderer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Label;
 import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.renderer.info.ComponentInfo;
+import org.seasar.jface.renderer.info.LabelInfo;
 import org.seasar.jface.util.ImageManager;
 import org.seasar.jface.util.PathUtil;
 import org.seasar.jface.util.SWTUtil;
@@ -78,5 +80,9 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
 
     public String getRendererName() {
         return "label";
+    }
+
+    public Class<? extends ComponentInfo> getComponentInfo() {
+        return LabelInfo.class;
     }
 }

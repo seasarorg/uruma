@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.renderer.info.ComponentInfo;
 
 /**
  * Widgetをレンダリングするためのインターフェースです。</br>
@@ -70,6 +71,7 @@ public interface Renderer {
      *            プロパティ名
      * @return デフォルトの <code>inheritance</code> 属性
      */
+    @Deprecated
     public Inheritance getDefaultInheritance(String propertyName);
 
     /**
@@ -78,4 +80,16 @@ public interface Renderer {
      * @return レンダラの名称
      */
     public String getRendererName();
+
+    /**
+     * コンポーネント情報を保持するクラスを返します。</br>
+     * <p>
+     * コンポーネント情報を保持するクラスは、<code>ComponentInfo</code> のサブクラスです。</br>
+     * 新たなコンポーネントを作成する場合、<code>Renderer</code> と対となる
+     * <code>ComponentInfo</code> を作成してください。
+     * </p>
+     * 
+     * @return コンポーネント情報を保持するクラス
+     */
+    public Class<? extends ComponentInfo> getComponentInfo();
 }
