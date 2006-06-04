@@ -164,10 +164,10 @@ public class ImageManager {
      * という名前のキーで登録されたオブジェクトをインジェクションします。
      * 
      * <pre>
-     *               public class ImageHolder() {
-     *                    public static Image IMAGE_A;
-     *                    public static ImageDescriptor IMAGE_B;
-     *               }
+     *                public class ImageHolder() {
+     *                     public static Image IMAGE_A;
+     *                     public static ImageDescriptor IMAGE_B;
+     *                }
      * </pre>
      * <pre>
      * ImageManager.injectImages(ImageHolder.class);
@@ -195,6 +195,14 @@ public class ImageManager {
         }
     }
 
+    /**
+     * <code>ImageManager</code> が管理する <code>ImageRegistry</code> を破棄します。
+     * 
+     */
+    public static void dispose() {
+        imageRegistry.dispose();
+    }
+
     protected static void injectField(final Class clazz, final Field field,
             final Object o) {
         if (o != null) {
@@ -202,14 +210,6 @@ public class ImageManager {
         } else {
             logBindingFailed(clazz, field);
         }
-    }
-
-    /**
-     * <code>ImageManager</code> が管理する <code>ImageRegistry</code> を破棄します。
-     * 
-     */
-    public static void dispose() {
-        imageRegistry.dispose();
     }
 
     protected static boolean validateMask(Field field) {
