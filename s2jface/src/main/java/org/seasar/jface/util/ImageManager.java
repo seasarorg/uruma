@@ -164,10 +164,10 @@ public class ImageManager {
      * という名前のキーで登録されたオブジェクトをインジェクションします。
      * 
      * <pre>
-     *              public class ImageHolder() {
-     *                   public static Image IMAGE_A;
-     *                   public static ImageDescriptor IMAGE_B;
-     *              }
+     *               public class ImageHolder() {
+     *                    public static Image IMAGE_A;
+     *                    public static ImageDescriptor IMAGE_B;
+     *               }
      * </pre>
      * <pre>
      * ImageManager.injectImages(ImageHolder.class);
@@ -188,20 +188,19 @@ public class ImageManager {
             }
 
             if (isAssignableFrom(Image.class, field)) {
-                Image image = imageRegistry.get(key);
-                if (image != null) {
-                    FieldUtil.set(field, null, image);
-                } else {
-                    logBindingFailed(clazz, field);
-                }
+                injectField(clazz, field, imageRegistry.get(key));
             } else if (isAssignableFrom(ImageDescriptor.class, field)) {
-                ImageDescriptor descriptor = imageRegistry.getDescriptor(key);
-                if (descriptor != null) {
-                    FieldUtil.set(field, null, descriptor);
-                } else {
-                    logBindingFailed(clazz, field);
-                }
+                injectField(clazz, field, imageRegistry.getDescriptor(key));
             }
+        }
+    }
+
+    protected static void injectField(final Class clazz, final Field field,
+            final Object o) {
+        if (o != null) {
+            FieldUtil.set(field, null, o);
+        } else {
+            logBindingFailed(clazz, field);
         }
     }
 
