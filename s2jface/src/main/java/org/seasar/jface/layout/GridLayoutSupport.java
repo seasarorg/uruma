@@ -15,8 +15,8 @@
  */
 package org.seasar.jface.layout;
 
-import static org.seasar.jface.component.impl.ControlComponent.HEIGHT_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.WIDTH_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.HEIGHT_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.WIDTH_PROP;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;

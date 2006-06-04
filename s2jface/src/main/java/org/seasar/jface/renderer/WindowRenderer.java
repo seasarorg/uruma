@@ -15,6 +15,8 @@
  */
 package org.seasar.jface.renderer;
 
+import static org.seasar.jface.renderer.info.WindowInfo.DEFAULT_BUTTON_PROP;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -36,7 +38,6 @@ import org.seasar.jface.util.PathUtil;
  * 
  */
 public class WindowRenderer extends AbstractRenderer {
-    public static final String DEFAULT_BUTTON_PROP = "defaultButton";
 
     public Widget render(final UIComponent uiComponent, final Composite parent,
             final WindowContext context) {

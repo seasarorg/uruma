@@ -15,18 +15,18 @@
  */
 package org.seasar.jface.renderer;
 
-import static org.seasar.jface.component.impl.ControlComponent.BACKGROUND_COLOR_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.ENABLED_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.FONT_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.FONT_SIZE_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.FONT_STYLE_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.FOREGROUND_COLOR_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.HEIGHT_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.TOOL_TIP_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.VISIBLE_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.WIDTH_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.X_PROP;
-import static org.seasar.jface.component.impl.ControlComponent.Y_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.BACKGROUND_COLOR_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.ENABLED_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.FONT_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.FONT_SIZE_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.FONT_STYLE_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.FOREGROUND_COLOR_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.HEIGHT_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.TOOL_TIP_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.VISIBLE_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.WIDTH_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.X_PROP;
+import static org.seasar.jface.renderer.info.ControlInfo.Y_PROP;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;

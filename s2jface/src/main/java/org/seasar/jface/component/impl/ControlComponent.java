@@ -32,35 +32,6 @@ import org.seasar.jface.util.AssertionUtil;
  * 
  */
 public class ControlComponent extends UIComponentBase {
-    public static final String X_PROP = "x";
-
-    public static final String Y_PROP = "y";
-
-    public static final String WIDTH_PROP = "width";
-
-    public static final String HEIGHT_PROP = "height";
-
-    public static final String ORDER_PROP = "order";
-
-    public static final String FOREGROUND_COLOR_PROP = "foregroundColor";
-
-    public static final String BACKGROUND_COLOR_PROP = "backgroundColor";
-
-    public static final String ENABLED_PROP = "enabled";
-
-    public static final String VISIBLE_PROP = "visible";
-
-    public static final String FONT_PROP = "font";
-
-    public static final String FONT_SIZE_PROP = "fontSize";
-
-    public static final String FONT_STYLE_PROP = "fontStyle";
-
-    public static final String TOOL_TIP_PROP = "toolTip";
-
-    public static final String ACCESS_KEY_PROP = "accessKey";
-
-    public static final String FOCUS_ORDER_PROP = "focusOrder";
 
     private String style;
 

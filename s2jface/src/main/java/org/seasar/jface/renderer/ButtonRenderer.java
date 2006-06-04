@@ -15,6 +15,9 @@
  */
 package org.seasar.jface.renderer;
 
+import static org.seasar.jface.renderer.info.ButtonInfo.SELECTION_PROP;
+import static org.seasar.jface.renderer.info.ButtonInfo.TEXT_PROP;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.seasar.jface.component.Property;
@@ -27,9 +30,6 @@ import org.seasar.jface.renderer.info.ComponentInfo;
  * 
  */
 public class ButtonRenderer extends AbstractControlRenderer<Button> {
-    public static final String TEXT_PROP = "text";
-
-    public static final String SELECTION_PROP = "selection";
 
     @Override
     protected int getStyle(final ControlComponent uiComponent) {

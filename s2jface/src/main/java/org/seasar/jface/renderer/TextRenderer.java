@@ -15,6 +15,12 @@
  */
 package org.seasar.jface.renderer;
 
+import static org.seasar.jface.renderer.info.TextInfo.ECHO_CHAR_PROP;
+import static org.seasar.jface.renderer.info.TextInfo.EDITABLE_PROP;
+import static org.seasar.jface.renderer.info.TextInfo.TABS_PROP;
+import static org.seasar.jface.renderer.info.TextInfo.TEXT_LIMIT_PROP;
+import static org.seasar.jface.renderer.info.TextInfo.TEXT_PROP;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.seasar.framework.util.BooleanConversionUtil;
@@ -29,15 +35,6 @@ import org.seasar.jface.renderer.info.TextInfo;
  * 
  */
 public class TextRenderer extends AbstractControlRenderer<Text> {
-    public static final String TEXT_PROP = "text";
-
-    public static final String TEXT_LIMIT_PROP = "textLimit";
-
-    public static final String EDITABLE_PROP = "editable";
-
-    public static final String ECHO_CHAR_PROP = "echoChar";
-
-    public static final String TABS_PROP = "tabs";
 
     @Override
     protected Class<Text> getControlType() {

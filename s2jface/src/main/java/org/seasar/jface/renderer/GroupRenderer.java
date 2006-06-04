@@ -15,6 +15,8 @@
  */
 package org.seasar.jface.renderer;
 
+import static org.seasar.jface.renderer.info.GroupInfo.TEXT_PROP;
+
 import org.eclipse.swt.widgets.Group;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.impl.CompositeComponent;
@@ -28,7 +30,6 @@ import org.seasar.jface.renderer.info.GroupInfo;
  * 
  */
 public class GroupRenderer extends AbstractCompositeRenderer<Group> {
-    public static final String TEXT_PROP = "text";
 
     @Override
     protected void doRenderComposite(final Group group,

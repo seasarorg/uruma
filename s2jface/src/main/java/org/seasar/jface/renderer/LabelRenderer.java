@@ -15,6 +15,10 @@
  */
 package org.seasar.jface.renderer;
 
+import static org.seasar.jface.renderer.info.LabelInfo.ALIGNMENT_PROP;
+import static org.seasar.jface.renderer.info.LabelInfo.IMAGE_PROP;
+import static org.seasar.jface.renderer.info.LabelInfo.TEXT_PROP;
+
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Label;
 import org.seasar.jface.component.impl.ControlComponent;
@@ -29,11 +33,6 @@ import org.seasar.jface.util.SWTUtil;
  * 
  */
 public class LabelRenderer extends AbstractControlRenderer<Label> {
-    public static final String TEXT_PROP = "text";
-
-    public static final String IMAGE_PROP = "image";
-
-    public static final String ALIGNMENT_PROP = "alignment";
 
     @Override
     protected void doRender(Label label, ControlComponent controlComponent) {
