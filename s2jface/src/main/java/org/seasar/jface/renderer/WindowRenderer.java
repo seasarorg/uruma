@@ -40,10 +40,17 @@ import org.seasar.jface.util.PathUtil;
 public class WindowRenderer extends AbstractCompositeRenderer<Composite> {
 
     @Override
+    public Widget render(UIComponent uiComponent, Composite parent,
+            WindowContext context) {
+        configureShell((WindowComponent) uiComponent, (Shell) context
+                .getComponent(WindowContext.SHELL_ID));
+        return super.render(uiComponent, parent, context);
+    }
+
+    @Override
     protected void doRenderComposite(final Composite composite,
             final CompositeComponent compositeComponent) {
-        configureShell((WindowComponent) compositeComponent, composite
-                .getShell());
+        // Do nothing.
     }
 
     public void renderAfter(final Widget widget, final UIComponent uiComponent,

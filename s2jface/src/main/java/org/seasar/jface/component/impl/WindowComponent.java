@@ -177,6 +177,10 @@ public class WindowComponent extends CompositeComponent {
     }
 
     public void render(final Composite parent, final WindowContext context) {
+        if (parent instanceof Shell) {
+            context.putComponent(WindowContext.SHELL_ID, parent);
+        }
+
         Widget widget = null;
         if (renderer != null) {
             widget = renderer.render(this, parent, context);
@@ -184,9 +188,6 @@ public class WindowComponent extends CompositeComponent {
 
             if (getId() != null) {
                 context.putComponent(getId(), widget);
-                if (parent instanceof Shell) {
-                    context.putComponent(WindowContext.SHELL_ID, parent);
-                }
             }
         }
 
@@ -194,5 +195,4 @@ public class WindowComponent extends CompositeComponent {
 
         renderer.renderAfter(widget, this, parent, context);
     }
-
 }
