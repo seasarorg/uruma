@@ -4,71 +4,69 @@
 <template name="groupRendererTest">
   <window id="groupRendererTest" title="groupRendererTest" x="center"
     y="middle" minButton="false" maxButton="false" closeButton="false"
-    resizable="false">
+    resizable="false" layout="grid" layoutParam="numColumns=1">
     <property name="defaultButton" value="okButton" />
 
-    <composite type="box" layout="grid" layoutParam="numColumns=1">
-      <composite type="box" layout="row"
-        layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-        <property name="fontSize" value="20"/>
-        <layoutData name="horizontalAlignment" value="FILL" />
+    <composite type="box" layout="row"
+      layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+      <property name="fontSize" value="20" />
+      <layoutData name="horizontalAlignment" value="FILL" />
 
-        <composite type="group" layout="row"
-          layoutParam="type=VERTICAL; spacing=10">
-          <property name="text" value="グループ1" />
+      <composite type="group" layout="row"
+        layoutParam="type=VERTICAL; spacing=10">
+        <property name="text" value="グループ1" />
 
-          <control type="button" style="RADIO">
-            <property name="text" value="ラジオボタン1" />
-          </control>
+        <control type="button" style="RADIO">
+          <property name="text" value="ラジオボタン1" />
+        </control>
 
-          <control type="button" style="RADIO">
-            <property name="text" value="ラジオボタン2" />
-          </control>
+        <control type="button" style="RADIO">
+          <property name="text" value="ラジオボタン2" />
+        </control>
 
-          <control type="button" style="RADIO">
-            <property name="text" value="ラジオボタン3" />
-          </control>
-        </composite>
-
-        <composite type="group" layout="row"
-          layoutParam="type=VERTICAL; spacing=10">
-          <property name="text" value="グループ2" />
-
-          <control type="button" style="RADIO">
-            <property name="text" value="ラジオボタン1" />
-          </control>
-
-          <control type="button" style="RADIO">
-            <property name="text" value="ラジオボタン2" />
-          </control>
-
-          <control type="button" style="RADIO">
-            <property name="text" value="ラジオボタン3" />
-            <property name="selection" value="true" />
-          </control>
-
-          <control type="button" style="RADIO">
-            <property name="text" value="ラジオボタン4" />
-          </control>
-        </composite>
-
+        <control type="button" style="RADIO">
+          <property name="text" value="ラジオボタン3" />
+        </control>
       </composite>
 
-      <control type="label" style="SEPARATOR, HORIZONTAL">
-        <layoutData name="horizontalAlignment" value="FILL" />
-      </control>
+      <composite type="group" layout="row"
+        layoutParam="type=VERTICAL; spacing=10">
+        <property name="text" value="グループ2" />
 
-      <composite type="box" layout="fill"
-        layoutParam="type=HORIZONTAL; spacing=5">
-        <layoutData name="horizontalAlignment" value="FILL" />
-        <control type="button" id="okButton">
-          <property name="text" value="OK" />
+        <control type="button" style="RADIO">
+          <property name="text" value="ラジオボタン1" />
         </control>
-        <control type="button" id="ngButton">
-          <property name="text" value="NG" />
+
+        <control type="button" style="RADIO">
+          <property name="text" value="ラジオボタン2" />
+        </control>
+
+        <control type="button" style="RADIO">
+          <property name="text" value="ラジオボタン3" />
+          <property name="selection" value="true" />
+        </control>
+
+        <control type="button" style="RADIO">
+          <property name="text" value="ラジオボタン4" />
         </control>
       </composite>
 
     </composite>
+
+    <control type="label" style="SEPARATOR, HORIZONTAL">
+      <layoutData name="horizontalAlignment" value="FILL" />
+    </control>
+
+    <composite type="box" layout="fill"
+      layoutParam="type=HORIZONTAL; spacing=5">
+      <layoutData name="horizontalAlignment" value="FILL" />
+      <control type="button" id="okButton">
+        <property name="text" value="OK" />
+      </control>
+      <control type="button" id="ngButton">
+        <property name="text" value="NG" />
+      </control>
+    </composite>
+
   </window>
 </template>

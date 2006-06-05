@@ -24,8 +24,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.renderer.info.ComponentInfo;
 import org.seasar.jface.renderer.info.WindowInfo;
@@ -37,41 +37,30 @@ import org.seasar.jface.util.PathUtil;
  * @author y-komori
  * 
  */
-public class WindowRenderer extends AbstractRenderer {
+public class WindowRenderer extends AbstractCompositeRenderer<Composite> {
 
-    public Widget render(final UIComponent uiComponent, final Composite parent,
-            final WindowContext context) {
-        setContext(context);
-        setupInheritance(uiComponent);
-        inheritProperty(uiComponent);
-
-        configureShell((WindowComponent) uiComponent, parent.getShell());
-
-        return parent;
+    @Override
+    protected void doRenderComposite(final Composite composite,
+            final CompositeComponent compositeComponent) {
+        configureShell((WindowComponent) compositeComponent, composite
+                .getShell());
     }
+
+    // public Widget render(final UIComponent uiComponent, final Composite
+    // parent,
+    // final WindowContext context) {
+    // setContext(context);
+    // setupInheritance(uiComponent);
+    // inheritProperty(uiComponent);
+    //
+    // configureShell((WindowComponent) uiComponent, parent.getShell());
+    //
+    // return parent;
+    // }
 
     public void renderAfter(final Widget widget, final UIComponent uiComponent,
             final Composite parent, final WindowContext context) {
-        setDefaultButton((Shell) widget, uiComponent, context);
-    }
-
-    /**
-     * <p>
-     * <code>defaultButton</code> プロパティは <code>Inheritance.NONE</code>
-     * を返します。
-     * </p>
-     * <p>
-     * それ以外については、<code>Inheritance.DESCENDANT_ONLY</code> を返します。
-     * </p>
-     * 
-     * @see org.seasar.jface.renderer.Renderer#getDefaultInheritance()
-     */
-    public Inheritance getDefaultInheritance(final String propertyName) {
-        if (DEFAULT_BUTTON_PROP.equals(propertyName)) {
-            return Inheritance.NONE;
-        } else {
-            return Inheritance.DESCENDANT_ONLY;
-        }
+        setDefaultButton(uiComponent, context);
     }
 
     public int getShellStyle(final WindowComponent uiComponent) {
@@ -80,6 +69,19 @@ public class WindowRenderer extends AbstractRenderer {
         int closeButton = uiComponent.isCloseButton() ? SWT.CLOSE : 0;
         int resizeButton = uiComponent.isResizable() ? SWT.RESIZE : 0;
         return SWT.TITLE | minButton | maxButton | closeButton | resizeButton;
+    }
+
+    public String getRendererName() {
+        return "window";
+    }
+
+    public Class<? extends ComponentInfo> getComponentInfo() {
+        return WindowInfo.class;
+    }
+
+    @Override
+    protected Class<Composite> getControlType() {
+        return Composite.class;
     }
 
     protected void configureShell(final WindowComponent window,
@@ -118,21 +120,15 @@ public class WindowRenderer extends AbstractRenderer {
                 .getClientArea().height, calcHeight(window));
     }
 
-    protected void setDefaultButton(final Shell shell,
-            final UIComponent uiComponent, final WindowContext context) {
+    protected void setDefaultButton(final UIComponent uiComponent,
+            final WindowContext context) {
         Widget defaultButton = context.getComponent(uiComponent
                 .getPropertyValue(DEFAULT_BUTTON_PROP));
         if (defaultButton instanceof Button) {
-            shell.setDefaultButton((Button) defaultButton);
+            Shell shell = (Shell) context.getComponent(WindowContext.SHELL_ID);
+            if (shell != null) {
+                shell.setDefaultButton((Button) defaultButton);
+            }
         }
-
-    }
-
-    public String getRendererName() {
-        return "window";
-    }
-
-    public Class<? extends ComponentInfo> getComponentInfo() {
-        return WindowInfo.class;
     }
 }

@@ -16,6 +16,7 @@
 package org.seasar.jface.component.impl;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 
@@ -183,7 +184,9 @@ public class WindowComponent extends CompositeComponent {
 
             if (getId() != null) {
                 context.putComponent(getId(), widget);
-                context.putComponent(WindowContext.SHELL_ID, widget);
+                if (parent instanceof Shell) {
+                    context.putComponent(WindowContext.SHELL_ID, parent);
+                }
             }
         }
 

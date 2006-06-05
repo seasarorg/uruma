@@ -56,6 +56,10 @@ public class WindowTagHandler extends AbstractTagHandler {
 
     protected static final String DEFAULT_RENDERER = "window";
 
+    protected static final String LAYOUT_ATTR = "layout";
+
+    protected static final String LAYOUT_PARAM_ATTR = "layoutParam";
+
     @Override
     public void start(final TagHandlerContext context,
             final Attributes attributes) {
@@ -85,6 +89,9 @@ public class WindowTagHandler extends AbstractTagHandler {
                 .getValue(CLOSE_BUTTON_ATTR));
         setValue(window, RESIZABLE_ATTR, attributes.getValue(RESIZABLE_ATTR));
         setValue(window, SAVE_STATE_ATTR, attributes.getValue(SAVE_STATE_ATTR));
+        setValue(window, LAYOUT_ATTR, attributes.getValue(LAYOUT_ATTR), true);
+        setValue(window, LAYOUT_PARAM_ATTR, attributes
+                .getValue(LAYOUT_PARAM_ATTR));
 
         setBasePath(window, context);
 

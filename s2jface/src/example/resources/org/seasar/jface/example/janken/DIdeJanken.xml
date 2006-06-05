@@ -4,9 +4,8 @@
 <template name="DIdeJanken">
   <window id="janken" title="DIでジャンケン" x="center" y="middle"
     maxButton="true" minButton="true" closeButton="true"
-    resizable="true" image="container.gif">
+    resizable="true" image="container.gif" layout="grid" layoutParam="numColumns=3">
 
-    <composite type="box" layout="grid" layoutParam="numColumns=3">
       <property name="backgroundColor" value="white" />
       <property name="foregroundColor" value="black" />
       <property name="fontSize" value="50" />
@@ -74,6 +73,5 @@
         </control>
       </composite>
 
-    </composite>
   </window>
 </template>

@@ -43,7 +43,11 @@ public abstract class AbstractCompositeRenderer<COMPOSITE_TYPE extends Composite
         extends AbstractControlRenderer<COMPOSITE_TYPE> {
 
     /**
-     * サブクラスでのレンダリングを行います。</br> <code>AbstractCompositeRenderer</code>のサブクラスは、本メソッドをオーバーライドしてレンダリングを行ってください。
+     * サブクラスでのレンダリングを行います。</br>
+     * <p>
+     * <code>AbstractCompositeRenderer</code>
+     * のサブクラスは、本メソッドをオーバーライドしてレンダリングを行ってください。
+     * </p>
      * 
      * @param composite
      *            レンダリング対象のコンポジット
