@@ -46,18 +46,6 @@ public class WindowRenderer extends AbstractCompositeRenderer<Composite> {
                 .getShell());
     }
 
-    // public Widget render(final UIComponent uiComponent, final Composite
-    // parent,
-    // final WindowContext context) {
-    // setContext(context);
-    // setupInheritance(uiComponent);
-    // inheritProperty(uiComponent);
-    //
-    // configureShell((WindowComponent) uiComponent, parent.getShell());
-    //
-    // return parent;
-    // }
-
     public void renderAfter(final Widget widget, final UIComponent uiComponent,
             final Composite parent, final WindowContext context) {
         setDefaultButton(uiComponent, context);
