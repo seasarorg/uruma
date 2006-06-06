@@ -16,6 +16,7 @@
 package org.seasar.jface.example.janken;
 
 import org.seasar.jface.S2JFace;
+import org.seasar.jface.impl.S2JFaceImpl;
 
 /**
  * @author y-komori
@@ -23,7 +24,9 @@ import org.seasar.jface.S2JFace;
  */
 public class DIdeJanken {
     public static void main(String[] args) {
-        S2JFace s2JFace = new S2JFace();
-        s2JFace.openWindow("org/seasar/jface/example/janken/DIdeJanken.xml");
+        S2JFace s2JFace = new S2JFaceImpl();
+        String windowName = s2JFace
+                .loadTemplate("org/seasar/jface/example/janken/DIdeJanken.xml");
+        s2JFace.openWindow(windowName);
     }
 }

@@ -28,11 +28,13 @@ public class NotFoundException extends S2JFaceRuntimeException {
     public static final String LAYOUT_DATA = "EJFC0102";
 
     public static final String RENDERER = "EJFC0103";
-    
+
     public static final String SWT_EVENT_LISTENER = "EJFC0104";
 
     public static final String WIDGET = "EJFC0105";
-    
+
+    public static final String WINDOW = "EJFC0300";
+
     public NotFoundException(String code, String name) {
         super(code, name);
     }
