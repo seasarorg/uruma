@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="treeRendererTest">
+	<window id="treeRendererTest" title="TreeRendererTest" x="center"
+    y="middle" minButton="false" maxButton="false" closeButton="false"
+    resizable="true" layout="grid" layoutParam="numColumns=2">
+    <property name="defaultButton" value="okButton" />
+	
+    <composite type="box" layout="grid" layoutParam="numColumns=1">
+	  <composite type="box" layout="row"
+	    layoutParam="type=HORIZONTAL; marginHeight=100; marginWidth=100; spacing=20">
+	    <layoutData name="horizontalAlignment" value="FILL" />
+	    <control type="tree">
+	      <property name="width" value="80"/>
+	      <property name="height" value="80"/>
+	      <item label="親">
+		    <item label="子">
+			  <item label="孫"/>
+		  	</item>
+		  </item>
+		</control>
+		
+		<control type="tree">
+	      <property name="width" value="50"/>
+	      <property name="height" value="80"/>
+		  <item label="親">
+	    	<item label="子"/>
+	    	<item label="子"/>
+	      </item>
+		</control>
+      </composite>
+		
+      <control type="label" style="SEPARATOR, HORIZONTAL">
+        <layoutData name="horizontalAlignment" value="FILL" />
+      </control>
+
+      <composite type="box" layout="fill"
+        layoutParam="type=HORIZONTAL; spacing=5">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <control type="button" id="okButton">
+          <property name="text" value="OK" />
+        </control>
+        <control type="button" id="ngButton">
+          <property name="text" value="NG" />
+        </control>
+      </composite>
+	</composite>
+  </window>
+</template>
