@@ -14,10 +14,16 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.jface.component;
+
+import java.util.List;
+
 /**
  * @author dkameya
  */
 public interface Item {
     void setValue(String value);
     String getValue();
+    void addChild(Item item);
+    List<Item> getChildren();
+    boolean hasChildren();
 }

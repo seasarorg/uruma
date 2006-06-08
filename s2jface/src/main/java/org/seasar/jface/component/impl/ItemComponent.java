@@ -15,6 +15,9 @@
  */
 package org.seasar.jface.component.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.seasar.jface.component.Item;
 
 /**
@@ -22,6 +25,7 @@ import org.seasar.jface.component.Item;
  */
 public class ItemComponent implements Item {
     private String value;
+    private List<Item> children = new ArrayList<Item>();
     
     public void setValue(final String value) {
         this.value = value;
@@ -29,5 +33,17 @@ public class ItemComponent implements Item {
     
     public String getValue() {
         return value;
+    }
+    
+    public void addChild(Item item) {
+        children.add(item);
+    }
+    
+    public List<Item> getChildren() {
+        return children;
+    }
+    
+    public boolean hasChildren() {
+        return children.size() > 0 ? true : false;
     }
 }

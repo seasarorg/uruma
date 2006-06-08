@@ -42,5 +42,5 @@
 <!ATTLIST layoutData name CDATA #REQUIRED>
 <!ATTLIST layoutData value CDATA #REQUIRED>
 
-<!ELEMENT item (#PCDATA)*>
+<!ELEMENT item (#PCDATA | item)*>
 <!ATTLIST item label CDATA #IMPLIED>

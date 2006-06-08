@@ -39,6 +39,7 @@ public class RendererFactrory {
         addRenderer(new WindowRenderer());
         addRenderer(new ListRenderer());
         addRenderer(new GroupRenderer());
+        addRenderer(new TreeRenderer());
     }
 
     /**

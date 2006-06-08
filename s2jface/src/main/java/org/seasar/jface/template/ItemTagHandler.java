@@ -16,25 +16,59 @@
 package org.seasar.jface.template;
 
 import org.seasar.framework.xml.TagHandlerContext;
+import org.seasar.jface.component.Item;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.component.impl.ItemComponent;
+import org.xml.sax.Attributes;
+
 /**
  * @author dkameya
  */
 public class ItemTagHandler extends AbstractTagHandler {
     private static final long serialVersionUID = -7973949046037222249L;
-    private ControlComponent parent;
-    
+
+    private Item item = null;
+
+    private Item parentItem = null;
+
     @Override
     public void end(final TagHandlerContext context, final String body) {
-        parent = (ControlComponent) context.peek();
-        ItemComponent item = new ItemComponent();
-        item.setValue(body);
-        parent.addItem(item);
+        ControlComponent parent = (ControlComponent) context.peek();
+        if (item == null) {
+            if (parentItem == null) {
+                item = new ItemComponent();
+                item.setValue(body);
+                parent.addItem(item);
+            } else {
+                parentItem = null;
+            }
+        }
+        item = null;
     }
-    
+
     @Override
     protected String getElementName() {
         return "item";
+    }
+
+    @Override
+    public void start(final TagHandlerContext context,
+            final Attributes attributes) {
+        String label = attributes.getValue("label");
+
+        if (item != null) {
+            parentItem = item;
+        }
+
+        if (label != null) {
+            item = new ItemComponent();
+            item.setValue(label);
+        }
+        if (parentItem != null) {
+            parentItem.addChild(item);
+        }
+        if (item != null && parentItem == null) {
+            ((ControlComponent) context.peek()).addItem(item);
+        }
     }
 }
