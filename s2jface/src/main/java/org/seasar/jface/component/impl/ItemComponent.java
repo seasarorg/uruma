@@ -35,7 +35,7 @@ public class ItemComponent implements Item {
         return value;
     }
     
-    public void addChild(Item item) {
+    public void addChild(final Item item) {
         children.add(item);
     }
     

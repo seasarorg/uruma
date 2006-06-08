@@ -38,7 +38,7 @@ public class TreeRenderer extends AbstractControlRenderer<Tree> {
     }
 
     @Override
-    protected void doRender(Tree tree, ControlComponent controlComponent) {
+    protected void doRender(final Tree tree, final ControlComponent controlComponent) {
         addTree(tree, controlComponent);
     }
 
@@ -51,7 +51,7 @@ public class TreeRenderer extends AbstractControlRenderer<Tree> {
         return "tree";
     }
     
-    protected void addTree(Tree tree, ControlComponent controlComponent) {
+    protected void addTree(final Tree tree, final ControlComponent controlComponent) {
         for (Item item : controlComponent.getItemList()) {
             if (item.getValue().length() != 0) {
                 TreeItem parent = new TreeItem(tree, SWT.NONE);
