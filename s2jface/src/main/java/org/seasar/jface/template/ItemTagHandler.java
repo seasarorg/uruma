@@ -22,6 +22,8 @@ import org.seasar.jface.component.impl.ItemComponent;
 import org.xml.sax.Attributes;
 
 /**
+ * item 要素に対するタグハンドラです。
+ * 
  * @author dkameya
  */
 public class ItemTagHandler extends AbstractTagHandler {

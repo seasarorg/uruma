@@ -30,6 +30,11 @@ import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.renderer.info.ComponentInfo;
 import org.seasar.jface.renderer.info.TableInfo;
 
+/**
+ * <code>Table</code> のレンダリングを行うクラスです。<br/>
+ * 
+ * @author dkameya
+ */
 public class TableRenderer extends AbstractControlRenderer<Table> {
 
     @Override

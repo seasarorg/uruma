@@ -17,6 +17,9 @@ package org.seasar.jface.renderer.info;
 
 import org.seasar.jface.component.Inheritance;
 
+/**
+ * @author dkameya
+ */
 public class TableInfo extends ControlInfo {
     public static final String HEADER_PROP = "header";
 

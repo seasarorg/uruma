@@ -22,8 +22,12 @@ import java.util.List;
  */
 public interface Item {
     void setValue(String value);
+
     String getValue();
+
     void addChild(Item item);
+
     List<Item> getChildren();
+
     boolean hasChildren();
 }

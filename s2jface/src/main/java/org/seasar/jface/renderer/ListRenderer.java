@@ -23,6 +23,8 @@ import org.seasar.jface.renderer.info.ComponentInfo;
 import org.seasar.jface.renderer.info.ListInfo;
 
 /**
+ * <code>List</code> のレンダリングを行うクラスです。<br/>
+ * 
  * @author dkameya
  */
 public class ListRenderer extends AbstractControlRenderer<List> {

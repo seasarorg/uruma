@@ -21,28 +21,31 @@ import java.util.List;
 import org.seasar.jface.component.Item;
 
 /**
+ * <code>Item</code> 要素の情報を保持するためのコンポーネントです。
+ * 
  * @author dkameya
  */
 public class ItemComponent implements Item {
     private String value;
+
     private List<Item> children = new ArrayList<Item>();
-    
+
     public void setValue(final String value) {
         this.value = value;
     }
-    
+
     public String getValue() {
         return value;
     }
-    
+
     public void addChild(final Item item) {
         children.add(item);
     }
-    
+
     public List<Item> getChildren() {
         return children;
     }
-    
+
     public boolean hasChildren() {
         return children.size() > 0 ? true : false;
     }

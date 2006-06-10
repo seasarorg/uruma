@@ -26,6 +26,8 @@ import org.seasar.jface.renderer.info.ComponentInfo;
 import org.seasar.jface.renderer.info.TreeInfo;
 
 /**
+ * <code>Tree</code> のレンダリングを行うクラスです。<br/>
+ * 
  * @author dkameya
  */
 public class TreeRenderer extends AbstractControlRenderer<Tree> {
@@ -33,12 +35,13 @@ public class TreeRenderer extends AbstractControlRenderer<Tree> {
     @Override
     protected int getStyle(final ControlComponent controlComponent) {
         int style = super.getStyle(controlComponent);
-        style = (style ==SWT.NONE) ? SWT.BORDER : style;
+        style = (style == SWT.NONE) ? SWT.BORDER : style;
         return style;
     }
 
     @Override
-    protected void doRender(final Tree tree, final ControlComponent controlComponent) {
+    protected void doRender(final Tree tree,
+            final ControlComponent controlComponent) {
         addTree(tree, controlComponent);
     }
 
@@ -50,25 +53,26 @@ public class TreeRenderer extends AbstractControlRenderer<Tree> {
     public String getRendererName() {
         return "tree";
     }
-    
-    protected void addTree(final Tree tree, final ControlComponent controlComponent) {
+
+    protected void addTree(final Tree tree,
+            final ControlComponent controlComponent) {
         for (Item item : controlComponent.getItemList()) {
             if (item.getValue().length() != 0) {
                 TreeItem parent = new TreeItem(tree, SWT.NONE);
                 parent.setText(item.getValue());
                 if (item.hasChildren()) {
-                    display(item.getChildren(), parent);
+                    addChildren(item.getChildren(), parent);
                 }
             }
         }
     }
-    
-    protected void display(List<Item> items, TreeItem parent) {
+
+    protected void addChildren(List<Item> items, TreeItem parent) {
         for (Item item : items) {
             TreeItem self = new TreeItem(parent, SWT.NONE);
             self.setText(item.getValue());
             if (item.hasChildren()) {
-                display(item.getChildren(), self);
+                addChildren(item.getChildren(), self);
             }
         }
     }
@@ -76,6 +80,5 @@ public class TreeRenderer extends AbstractControlRenderer<Tree> {
     public Class<? extends ComponentInfo> getComponentInfo() {
         return TreeInfo.class;
     }
-    
-    
+
 }
