@@ -83,7 +83,6 @@ public class TableRenderer extends AbstractControlRenderer<Table> {
 
     protected void addLine(final Table table,
             final ControlComponent controlComponent) {
-        List<TableItem> itemList = new ArrayList<TableItem>();
         for (Item item : controlComponent.getItemList()) {
             StringTokenizer st = new StringTokenizer(item.getValue(), ",");
             String[] items = new String[st.countTokens()];
@@ -93,7 +92,6 @@ public class TableRenderer extends AbstractControlRenderer<Table> {
                 items[i++] = st.nextToken().trim();
             }
             child.setText(items);
-            itemList.add(child);
         }
     }
 }
