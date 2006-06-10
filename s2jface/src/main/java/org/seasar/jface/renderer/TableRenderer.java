@@ -38,7 +38,7 @@ public class TableRenderer extends AbstractControlRenderer<Table> {
     @Override
     protected int getStyle(final ControlComponent controlComponent) {
         int style = super.getStyle(controlComponent);
-        style = (style == SWT.NONE) ? SWT.BORDER : style;
+        style = SWT.BORDER | SWT.FULL_SELECTION;
         return style;
     }
 
@@ -64,7 +64,7 @@ public class TableRenderer extends AbstractControlRenderer<Table> {
     public String getRendererName() {
         return "table";
     }
-
+    
     protected void addHeader(final Table table,
             final ControlComponent controlComponent) {
         table.setHeaderVisible(true);
@@ -85,7 +85,7 @@ public class TableRenderer extends AbstractControlRenderer<Table> {
             StringTokenizer st = new StringTokenizer(item.getValue(), ",");
             String[] items = new String[st.countTokens()];
             int i = 0;
-            TableItem child = new TableItem(table, SWT.NONE);
+            TableItem child = new TableItem(table, SWT.NULL);
             while (st.hasMoreTokens()) {
                 items[i++] = st.nextToken().trim();
             }
