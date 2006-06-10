@@ -17,8 +17,6 @@ package org.seasar.jface.renderer;
 
 import static org.seasar.jface.renderer.info.TableInfo.HEADER_PROP;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import org.eclipse.swt.SWT;
