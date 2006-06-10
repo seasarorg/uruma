@@ -75,10 +75,8 @@ public class TableRenderer extends AbstractControlRenderer<Table> {
             StringTokenizer st = new StringTokenizer(prop, ",");
             TableColumn header;
             while (st.hasMoreTokens()) {
-                String s;
-                System.out.println(s = st.nextToken().trim());
                 header = new TableColumn(table, SWT.NONE);
-                header.setText(s);
+                header.setText(st.nextToken().trim());
             }
         }
     }
@@ -97,6 +95,5 @@ public class TableRenderer extends AbstractControlRenderer<Table> {
             child.setText(items);
             itemList.add(child);
         }
-        table.setSelection(itemList.toArray(new TableItem[0]));
     }
 }
