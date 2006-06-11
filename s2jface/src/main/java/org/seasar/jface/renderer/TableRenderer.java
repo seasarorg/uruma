@@ -37,8 +37,7 @@ public class TableRenderer extends AbstractControlRenderer<Table> {
 
     @Override
     protected int getStyle(final ControlComponent controlComponent) {
-        int style = super.getStyle(controlComponent);
-        style = SWT.BORDER | SWT.FULL_SELECTION;
+        int style = SWT.BORDER | SWT.FULL_SELECTION;
         return style;
     }
 

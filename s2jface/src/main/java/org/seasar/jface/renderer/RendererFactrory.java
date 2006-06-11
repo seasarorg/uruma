@@ -41,6 +41,10 @@ public class RendererFactrory {
         addRenderer(new GroupRenderer());
         addRenderer(new TreeRenderer());
         addRenderer(new TableRenderer());
+        addRenderer(new SpinnerRenderer());
+        addRenderer(new SliderRenderer());
+        addRenderer(new ScaleRenderer());
+        addRenderer(new TabRenderer());
     }
 
     /**

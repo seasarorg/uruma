@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="spinnerRendererTest">
+  <window id="spinnerRendererTest" title="SpinnerRendererTest" x="center"
+    y="middle" minButton="false" maxButton="false" closeButton="false"
+    resizable="false" layout="grid" layoutParam="numColumns=1">
+    <property name="defaultButton" value="okButton" />
+
+    <composite type="box" layout="row"
+      layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+      <layoutData name="horizontalAlignment" value="FILL" />
+
+      <control type="spinner">
+        <property name="max" value="100" />
+        <property name="min" value="1" />
+        <property name="selection" value="20" />
+      </control>
+
+      <control type="spinner">
+        <property name="max" value="100" />
+        <property name="min" value="1" />
+      </control>
+    </composite>
+ 
+    <control type="label" style="SEPARATOR, HORIZONTAL">
+      <layoutData name="horizontalAlignment" value="FILL" />
+    </control>
+
+    <composite type="box" layout="fill"
+      layoutParam="type=HORIZONTAL; spacing=5">
+      <layoutData name="horizontalAlignment" value="FILL" />
+      <control type="button" id="okButton">
+        <property name="text" value="OK" />
+      </control>
+      <control type="button" id="ngButton">
+        <property name="text" value="NG" />
+      </control>
+    </composite>
+
+  </window>
+</template>
