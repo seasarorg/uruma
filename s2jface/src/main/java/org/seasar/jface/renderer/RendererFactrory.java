@@ -45,6 +45,7 @@ public class RendererFactrory {
         addRenderer(new SliderRenderer());
         addRenderer(new ScaleRenderer());
         addRenderer(new TabRenderer());
+        addRenderer(new ComboboxRenderer());
     }
 
     /**

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="comboboxRendererTest">
+	<window id="comboboxRendererTest" title="ComboboxRendererTest" x="center"
+    y="middle" minButton="false" maxButton="false" closeButton="false"
+    resizable="true" layout="grid" layoutParam="numColumns=2">
+    <property name="defaultButton" value="okButton" />
+	
+    <composite type="box" layout="grid" layoutParam="numColumns=1">
+	  <composite type="box" layout="row"
+	    layoutParam="type=HORIZONTAL; marginHeight=100; marginWidth=100; spacing=20">
+	    <layoutData name="horizontalAlignment" value="FILL" />
+
+		<control type="combobox">
+		  <item label="Item1-1"/>
+	      <item label="Item1-2"/>
+	      <item label="Item1-3"/>
+		</control>
+
+		<control type="combobox">
+		  <property name="style" value="DROP_DOWN"/>
+		  <item label="Item2-1"/>
+	      <item label="Item2-2"/>
+	      <item label="Item2-3"/>
+		</control>
+
+		<control type="combobox">
+		  <property name="style" value="READ_ONLY"/>
+		  <item label="Item3-1"/>
+	      <item label="Item3-2"/>
+	      <item label="Item3-3"/>
+		</control>
+      </composite>
+		
+      <control type="label" style="SEPARATOR, HORIZONTAL">
+        <layoutData name="horizontalAlignment" value="FILL" />
+      </control>
+
+      <composite type="box" layout="fill"
+        layoutParam="type=HORIZONTAL; spacing=5">
+        <layoutData name="horizontalAlignment" value="FILL" />
+        <control type="button" id="okButton">
+          <property name="text" value="OK" />
+        </control>
+        <control type="button" id="ngButton">
+          <property name="text" value="NG" />
+        </control>
+      </composite>
+	</composite>
+  </window>
+</template>
