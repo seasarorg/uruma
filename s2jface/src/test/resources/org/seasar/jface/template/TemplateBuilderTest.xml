@@ -9,59 +9,59 @@
     layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
 
     <control id="testButton" type="button">
-      <property name="x" value="10" />
-      <property name="y" value="10" />
-      <property name="width" value="100" />
-      <property name="height" value="20" />
-      <property name="text" value="テストボタン1" />
+      <property name="x">10</property>
+      <property name="y">10</property>
+      <property name="width">100</property>
+      <property name="height">20</property>
+      <property name="text">テストボタン1</property>
     </control>
-    
+
     <control id="testButton2" type="button">
-      <property name="x" value="130" />
-      <property name="y" value="30" />
-      <property name="width" value="100" />
-      <property name="height" value="50" />
-      <property name="text" value="テストボタン2" />
+      <property name="x">130</property>
+      <property name="y">30</property>
+      <property name="width">100</property>
+      <property name="height">50</property>
+      <property name="text">テストボタン2</property>
     </control>
-    
+
     <control id="testButton3" type="button">
-      <property name="x" value="130" />
-      <property name="y" value="30" />
-      <property name="width" value="50" />
-      <property name="height" value="50" />
-      <property name="text" value="テストボタン3" />
-      <property name="enabled" value="true" />
-      <property name="visible" value="true" />
+      <property name="x">130</property>
+      <property name="y">30</property>
+      <property name="width">50</property>
+      <property name="height">50</property>
+      <property name="text">テストボタン3</property>
+      <property name="enabled">true</property>
+      <property name="visible">true</property>
     </control>
-    
+
     <composite type="box" layout="fill" layoutParam="type=VERTICAL">
       <control type="label">
-        <property name="width" value="100" />
-        <property name="height" value="30" />
-        <property name="text" value="テストラベル" />
-        <property name="foregroundColor" value="#FF0000" />
-        <property name="backgroundColor" value="blue" />
-        <property name="toolTip" value="ツールチップ" />
-        <property name="fontSize" value="20" />
+        <property name="width">100</property>
+        <property name="height">30</property>
+        <property name="text">テストラベル</property>
+        <property name="foregroundColor">#FF0000</property>
+        <property name="backgroundColor">blue</property>
+        <property name="toolTip">ツールチップ</property>
+        <property name="fontSize">20</property>
       </control>
-      
+
       <control type="label">
-        <property name="text" value="テストラベル2" />
-        <property name="font" value="ＭＳ 明朝" />
-        <property name="fontStyle" value="BOLD, ITALIC" />
-        <property name="fontSize" value="64" />
+        <property name="text">テストラベル2</property>
+        <property name="font">ＭＳ 明朝</property>
+        <property name="fontStyle">BOLD, ITALIC</property>
+        <property name="fontSize">64</property>
       </control>
-      
+
     </composite>
 
     <control type="text">
-      <property name="text" value="テストテキスト" />
-      <property name="textLimit" value="30" />
+      <property name="text">テストテキスト</property>
+      <property name="textLimit">30</property>
     </control>
 
     <control type="textArea">
-      <property name="text" value="テストテキスト" />
-      <property name="textLimit" value="30" />
+      <property name="text">テストテキスト</property>
+      <property name="textLimit">30</property>
     </control>
 
   </window>

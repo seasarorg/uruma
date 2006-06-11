@@ -31,23 +31,20 @@ public class LayoutDataTagHandler extends AbstractTagHandler {
 
     protected static final String NAME_ATTR = "name";
 
-    protected static final String VALUE_ATTR = "value";
-
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
-        ControlComponent parent = (ControlComponent) context.peek();
-
         String name = attributes.getValue(NAME_ATTR);
         if (name == null) {
             throw new ParseException("EJFC0100", getElementName(), NAME_ATTR);
         }
+        context.push(name);
+    }
 
-        String value = attributes.getValue(VALUE_ATTR);
-        if (value == null) {
-            throw new ParseException("EJFC0100", getElementName(), VALUE_ATTR);
-        }
-
-        parent.addLayoutData(name, value);
+    @Override
+    public void end(TagHandlerContext context, String body) {
+        String name = (String) context.pop();
+        ControlComponent parent = (ControlComponent) context.peek();
+        parent.addLayoutData(name, body);
     }
 
     @Override

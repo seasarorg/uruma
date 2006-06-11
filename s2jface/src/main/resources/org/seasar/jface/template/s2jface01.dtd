@@ -33,14 +33,12 @@
 <!ATTLIST composite layout CDATA #IMPLIED>
 <!ATTLIST composite layoutParam CDATA #IMPLIED>
 
-<!ELEMENT property EMPTY>
+<!ELEMENT property (#PCDATA)>
 <!ATTLIST property name CDATA #REQUIRED>
-<!ATTLIST property value CDATA #REQUIRED>
 <!ATTLIST property inheritance (none | child | childOnly | descendant | descendantOnly) #IMPLIED>
 
-<!ELEMENT layoutData EMPTY>
+<!ELEMENT layoutData (#PCDATA)>
 <!ATTLIST layoutData name CDATA #REQUIRED>
-<!ATTLIST layoutData value CDATA #REQUIRED>
 
 <!ELEMENT item (#PCDATA | item)*>
 <!ATTLIST item label CDATA #IMPLIED>

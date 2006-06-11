@@ -6,70 +6,70 @@
     maxButton="true" minButton="true" closeButton="true"
     resizable="true" image="container.gif" layout="grid" layoutParam="numColumns=3">
 
-      <property name="backgroundColor" value="white" />
-      <property name="foregroundColor" value="black" />
-      <property name="fontSize" value="50" />
-      <property name="alignment" value="CENTER" />
+      <property name="backgroundColor">white</property>
+      <property name="foregroundColor">black</property>
+      <property name="fontSize">50</property>
+      <property name="alignment">CENTER</property>
 
       <control type="label">
-        <layoutData name="horizontalAlignment" value="FILL" />
-        <property name="text" value="コンピュータ" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
+        <property name="text">コンピュータ</property>
       </control>
       <composite type="box">
-        <layoutData name="horizontalAlignment" value="FILL" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
       </composite>
       <control type="label">
-        <layoutData name="horizontalAlignment" value="FILL" />
-        <property name="text" value="あなた" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
+        <property name="text">あなた</property>
       </control>
 
       <control type="label" id="computerWinLabel">
-        <layoutData name="horizontalAlignment" value="FILL" />
-        <property name="text" value="0 勝" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
+        <property name="text">0 勝</property>
       </control>
       <composite type="box">
-        <layoutData name="horizontalAlignment" value="FILL" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
       </composite>
       <control type="label" id="playerWinLabel">
-        <layoutData name="horizontalAlignment" value="FILL" />
-        <property name="text" value="0 勝" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
+        <property name="text">0 勝</property>
       </control>
 
       <control type="label" id="computerHandImage">
-        <layoutData name="horizontalAlignment" value="FILL" />
-        <property name="image" value="blank" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
+        <property name="image">blank</property>
       </control>
       <control type="label">
-        <layoutData name="horizontalAlignment" value="FILL" />
-        <layoutData name="verticalalAlignment" value="TOP" />
-        <layoutData name="grabExcessHorizontalSpace" value="true" />
-        <property name="text" value="vs" />
-        <property name="fontsize" value="100" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
+        <layoutData name="verticalalAlignment">TOP</layoutData>
+        <layoutData name="grabExcessHorizontalSpace">true</layoutData>
+        <property name="text">vs</property>
+        <property name="fontsize">100</property>
       </control>
       <control type="label" id="playerHandImage">
-        <layoutData name="horizontalAlignment" value="FILL" />
-        <property name="image" value="blank" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
+        <property name="image">blank</property>
       </control>
 
       <control type="label" id="messageLabel">
-        <layoutData name="horizontalSpan" value="3" />
-        <layoutData name="horizontalAlignment" value="FILL" />
-        <property name="text" value="じゃんけん・・・" />
+        <layoutData name="horizontalSpan">3</layoutData>
+        <layoutData name="horizontalAlignment">FILL</layoutData>
+        <property name="text">じゃんけん・・・</property>
       </control>
 
       <composite type="box" layout="fill"
         layoutParam="spacing=20; marginWidth=20">
-        <layoutData name="horizontalSpan" value="3" />
-        <layoutData name="horizontalAlignment" value="FILL" />
+        <layoutData name="horizontalSpan">3</layoutData>
+        <layoutData name="horizontalAlignment">FILL</layoutData>
 
         <control type="button" id="guButton">
-          <property name="text" value="グー！" />
+          <property name="text">グー！</property>
         </control>
         <control type="button" id="cyokiButton">
-          <property name="text" value="チョキ！" />
+          <property name="text">チョキ！</property>
         </control>
         <control type="button" id="paButton">
-          <property name="text" value="パー！" />
+          <property name="text">パー！</property>
         </control>
       </composite>
 

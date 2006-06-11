@@ -5,33 +5,33 @@
   <window id="tableRendererTest" title="tableRendererTest" x="center"
     y="middle" minButton="false" maxButton="false" closeButton="false"
     resizable="false" layout="grid" layoutParam="numColumns=1">
-    <property name="defaultButton" value="okButton" />
+    <property name="defaultButton">okButton</property>
 
     <composite type="box" layout="row"
       layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-      <layoutData name="horizontalAlignment" value="FILL" />
+      <layoutData name="horizontalAlignment">FILL</layoutData>
 
       <control type="table" style="BORDER">
-      	<property name="width" value="200"/>
-      	<property name="height" value="100"/>
-      	<property name="header" value="head1, head2, head3"/>
+        <property name="width">200</property>
+        <property name="height">100</property>
+        <property name="header">head1, head2, head3</property>
         <item>column1, column2, column3</item>
         <item>column4, column5, column6</item>
       </control>
     </composite>
 
     <control type="label" style="SEPARATOR, HORIZONTAL">
-      <layoutData name="horizontalAlignment" value="FILL" />
+      <layoutData name="horizontalAlignment">FILL</layoutData>
     </control>
 
     <composite type="box" layout="fill"
       layoutParam="type=HORIZONTAL; spacing=5">
-      <layoutData name="horizontalAlignment" value="FILL" />
+      <layoutData name="horizontalAlignment">FILL</layoutData>
       <control type="button" id="okButton">
-        <property name="text" value="OK" />
+        <property name="text">OK</property>
       </control>
       <control type="button" id="ngButton">
-        <property name="text" value="NG" />
+        <property name="text">NG</property>
       </control>
     </composite>
 

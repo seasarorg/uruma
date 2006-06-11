@@ -5,40 +5,40 @@
   <window id="sliderRendererTest" title="SliderRendererTest" x="center"
     y="middle" minButton="false" maxButton="false" closeButton="false"
     resizable="false" layout="grid" layoutParam="numColumns=1">
-    <property name="defaultButton" value="okButton" />
+    <property name="defaultButton">okButton</property>
 
     <composite type="box" layout="row"
       layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-      <layoutData name="horizontalAlignment" value="FILL" />
+      <layoutData name="horizontalAlignment">FILL</layoutData>
 
       <control type="slider">
-        <property name="max" value="100" />
-        <property name="min" value="0" />
-        <property name="selection" value="10" />
-        <property name="incriment" value="5" />
+        <property name="max">100</property>
+        <property name="min">0</property>
+        <property name="selection">10</property>
+        <property name="incriment">5</property>
       </control>
-      
+
       <control type="slider">
-        <property name="max" value="100" />
-        <property name="min" value="0" />
-        <property name="incriment" value="5" />
-        <property name="style" value="VARTICAL" />
+        <property name="max">100</property>
+        <property name="min">0</property>
+        <property name="incriment">5</property>
+        <property name="style">VARTICAL</property>
       </control>
-      
+
     </composite>
- 
+
     <control type="label" style="SEPARATOR, HORIZONTAL">
-      <layoutData name="horizontalAlignment" value="FILL" />
+      <layoutData name="horizontalAlignment">FILL</layoutData>
     </control>
 
     <composite type="box" layout="fill"
       layoutParam="type=HORIZONTAL; spacing=5">
-      <layoutData name="horizontalAlignment" value="FILL" />
+      <layoutData name="horizontalAlignment">FILL</layoutData>
       <control type="button" id="okButton">
-        <property name="text" value="OK" />
+        <property name="text">OK</property>
       </control>
       <control type="button" id="ngButton">
-        <property name="text" value="NG" />
+        <property name="text">NG</property>
       </control>
     </composite>
 

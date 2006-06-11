@@ -5,11 +5,11 @@
   <window id="listRendererTest" title="listRendererTest" x="center"
     y="middle" minButton="false" maxButton="false" closeButton="false"
     resizable="false" layout="grid" layoutParam="numColumns=1">
-    <property name="defaultButton" value="okButton" />
+    <property name="defaultButton">okButton</property>
 
     <composite type="box" layout="row"
       layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
-      <layoutData name="horizontalAlignment" value="FILL" />
+      <layoutData name="horizontalAlignment">FILL</layoutData>
 
       <control type="list" style="BORDER">
         <item>テストリスト</item>
@@ -26,17 +26,17 @@
     </composite>
 
     <control type="label" style="SEPARATOR, HORIZONTAL">
-      <layoutData name="horizontalAlignment" value="FILL" />
+      <layoutData name="horizontalAlignment">FILL</layoutData>
     </control>
 
     <composite type="box" layout="fill"
       layoutParam="type=HORIZONTAL; spacing=5">
-      <layoutData name="horizontalAlignment" value="FILL" />
+      <layoutData name="horizontalAlignment">FILL</layoutData>
       <control type="button" id="okButton">
-        <property name="text" value="OK" />
+        <property name="text">OK</property>
       </control>
       <control type="button" id="ngButton">
-        <property name="text" value="NG" />
+        <property name="text">NG</property>
       </control>
     </composite>
 

@@ -45,8 +45,6 @@ public class PropertyTagHandler extends AbstractTagHandler {
 
     protected static final String NAME_ATTR = "name";
 
-    protected static final String VALUE_ATTR = "value";
-
     protected static final String INHERITANCE_ATTR = "inheritance";
 
     @Override
@@ -58,12 +56,7 @@ public class PropertyTagHandler extends AbstractTagHandler {
             throw new ParseException("EJFC0100", getElementName(), NAME_ATTR);
         }
 
-        String value = attributes.getValue(VALUE_ATTR);
-        if (value == null) {
-            throw new ParseException("EJFC0100", getElementName(), VALUE_ATTR);
-        }
-
-        Property property = new PropertyComponent(name, value);
+        Property property = new PropertyComponent(name);
 
         String inheritanceAttr = attributes.getValue(INHERITANCE_ATTR);
         Inheritance inheritance = Inheritance.NULL;
@@ -85,6 +78,13 @@ public class PropertyTagHandler extends AbstractTagHandler {
         property.setInheritance(inheritance);
 
         parent.addProperty(property);
+
+        context.push(property);
+    }
+
+    @Override
+    public void end(final TagHandlerContext context, final String body) {
+        ((Property) context.pop()).setValue(body);
     }
 
     @Override

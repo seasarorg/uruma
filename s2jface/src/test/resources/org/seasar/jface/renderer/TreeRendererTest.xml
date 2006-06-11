@@ -2,49 +2,49 @@
 <!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="treeRendererTest">
-	<window id="treeRendererTest" title="TreeRendererTest" x="center"
+  <window id="treeRendererTest" title="TreeRendererTest" x="center"
     y="middle" minButton="false" maxButton="false" closeButton="false"
     resizable="true" layout="grid" layoutParam="numColumns=2">
-    <property name="defaultButton" value="okButton" />
-	
+    <property name="defaultButton">okButton</property>
+
     <composite type="box" layout="grid" layoutParam="numColumns=1">
-	  <composite type="box" layout="row"
-	    layoutParam="type=HORIZONTAL; marginHeight=100; marginWidth=100; spacing=20">
-	    <layoutData name="horizontalAlignment" value="FILL" />
-	    <control type="tree">
-	      <property name="width" value="80"/>
-	      <property name="height" value="80"/>
-	      <item label="親">
-		    <item label="子">
-			  <item label="孫"/>
-		  	</item>
-		  </item>
-		</control>
-		
-		<control type="tree">
-	      <property name="width" value="50"/>
-	      <property name="height" value="80"/>
-		  <item label="親">
-	    	<item label="子"/>
-	    	<item label="子"/>
-	      </item>
-		</control>
+      <composite type="box" layout="row"
+        layoutParam="type=HORIZONTAL; marginHeight=100; marginWidth=100; spacing=20">
+        <layoutData name="horizontalAlignment">FILL</layoutData>
+        <control type="tree">
+          <property name="width">80</property>
+          <property name="height">80</property>
+          <item label="親">
+            <item label="子">
+              <item label="孫" />
+            </item>
+          </item>
+        </control>
+
+        <control type="tree">
+          <property name="width">50</property>
+          <property name="height">80</property>
+          <item label="親">
+            <item label="子" />
+            <item label="子" />
+          </item>
+        </control>
       </composite>
-		
+
       <control type="label" style="SEPARATOR, HORIZONTAL">
-        <layoutData name="horizontalAlignment" value="FILL" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
       </control>
 
       <composite type="box" layout="fill"
         layoutParam="type=HORIZONTAL; spacing=5">
-        <layoutData name="horizontalAlignment" value="FILL" />
+        <layoutData name="horizontalAlignment">FILL</layoutData>
         <control type="button" id="okButton">
-          <property name="text" value="OK" />
+          <property name="text">OK</property>
         </control>
         <control type="button" id="ngButton">
-          <property name="text" value="NG" />
+          <property name="text">NG</property>
         </control>
       </composite>
-	</composite>
+    </composite>
   </window>
 </template>
