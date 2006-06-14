@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="customTabRendererTest">
+  <window id="customTabRendererTest" title="CustomTabRendererTest" x="center"
+    y="middle" minButton="false" maxButton="false" closeButton="false"
+    resizable="false" layout="grid" layoutParam="numColumns=1">
+    <property name="defaultButton">okButton</property>
+
+    <composite type="box" layout="fill"
+      layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+      <layoutData name="horizontalAlignment">FILL</layoutData>
+
+      <control type="customTab">
+      	<property name="simpleStyle">true</property>
+        <property name="text">tab1-1, tab1-2</property>
+      </control>
+
+      <control type="customTab">
+        <property name="text">tab2-1, tab2-2, tab2-3</property>
+        <property name="closeButton">true</property>
+      </control>
+    </composite>
+
+    <control type="label" style="SEPARATOR, HORIZONTAL">
+      <layoutData name="horizontalAlignment">FILL</layoutData>
+    </control>
+
+    <composite type="box" layout="fill"
+      layoutParam="type=HORIZONTAL; spacing=5">
+      <layoutData name="horizontalAlignment">FILL</layoutData>
+      <control type="button" id="okButton">
+        <property name="text">OK</property>
+      </control>
+      <control type="button" id="ngButton">
+        <property name="text">NG</property>
+      </control>
+    </composite>
+
+  </window>
+</template>
