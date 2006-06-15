@@ -38,14 +38,24 @@ public class ItemTagHandler extends AbstractTagHandler {
         ControlComponent parent = (ControlComponent) context.peek();
         if (item == null) {
             if (parentItem == null) {
-                item = new ItemComponent();
-                item.setValue(body);
+                item = createItem(body);
                 parent.addItem(item);
             } else {
-                parentItem = null;
+                if (body != null && !body.equals("")) {
+                    item = createItem(body);
+                    parentItem.addChild(item);
+                } else {
+                    parentItem = null;
+                }
             }
         }
         item = null;
+    }
+    
+    protected Item createItem(String value) {
+        Item item = new ItemComponent();
+        item.setValue(value);
+        return item;
     }
 
     @Override
@@ -57,16 +67,16 @@ public class ItemTagHandler extends AbstractTagHandler {
     public void start(final TagHandlerContext context,
             final Attributes attributes) {
         String label = attributes.getValue("label");
-
         if (item != null) {
             parentItem = item;
+            item = null;
         }
 
         if (label != null) {
-            item = new ItemComponent();
-            item.setValue(label);
+            item = createItem(label);
         }
-        if (parentItem != null) {
+        
+        if (parentItem != null && item != null) {
             parentItem.addChild(item);
         }
         if (item != null && parentItem == null) {
