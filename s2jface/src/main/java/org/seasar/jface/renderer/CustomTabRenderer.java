@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.seasar.jface.component.Property;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.renderer.info.ComponentInfo;
 import org.seasar.jface.renderer.info.CustomTabInfo;
@@ -44,10 +45,9 @@ public class CustomTabRenderer extends AbstractControlRenderer<CTabFolder> {
     @Override
     protected void doRender(final CTabFolder ctabFolder,
             final ControlComponent controlComponent) {
-        String simpleStyleValue = controlComponent
-                .getPropertyValue(SIMPLE_STYLE_PROP);
-        ctabFolder.setSimple(simpleStyleValue != null
-                && simpleStyleValue.equals("true"));
+        Property simpleStyleValue = controlComponent
+                .getProperty(SIMPLE_STYLE_PROP);
+        ctabFolder.setSimple(simpleStyleValue != null ?simpleStyleValue.getBooleanValue() : false);
         addTab(ctabFolder, controlComponent);
     }
 
@@ -67,10 +67,10 @@ public class CustomTabRenderer extends AbstractControlRenderer<CTabFolder> {
     protected void addTab(final CTabFolder ctabFolder,
             final ControlComponent controlComponent) {
         String tabsValue = controlComponent.getPropertyValue(TEXT_PROP);
-        String closeButtonValue = controlComponent
-                .getPropertyValue(CLOSE_BUTTON_PROP);
-        boolean hasCloseButton = closeButtonValue != null
-               && closeButtonValue.equals("true");
+        Property closeButtonValue = controlComponent
+                .getProperty(CLOSE_BUTTON_PROP);
+        boolean hasCloseButton = closeButtonValue != null ? closeButtonValue
+                .getBooleanValue() : false;
         StringTokenizer st = new StringTokenizer(tabsValue, ",");
         while (st.hasMoreTokens()) {
             CTabItem tabItem = new CTabItem(ctabFolder,

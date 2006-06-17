@@ -31,27 +31,24 @@ public class ItemTagHandler extends AbstractTagHandler {
 
     private Item item = null;
 
-    private Item parentItem = null;
-
     @Override
     public void end(final TagHandlerContext context, final String body) {
-        ControlComponent parent = (ControlComponent) context.peek();
         if (item == null) {
-            if (parentItem == null) {
+            if (context.peek() instanceof ControlComponent) {
                 createItem(body);
-                parent.addItem(item);
+                ((ControlComponent) context.peek()).addItem(item);
             } else {
                 if (body != null && !body.equals("")) {
                     createItem(body);
-                    parentItem.addChild(item);
+                    ((Item) context.peek()).addChild(item);
                 } else {
-                    parentItem = null;
+                    context.pop();
                 }
             }
         }
         item = null;
     }
-    
+
     /**
      * <code>item</code> に引数で指定した文字列をセットした <code>Item<code> をセットする。 
      * @param value テキスト文字列
@@ -71,18 +68,19 @@ public class ItemTagHandler extends AbstractTagHandler {
             final Attributes attributes) {
         String label = attributes.getValue("label");
         if (item != null) {
-            parentItem = item;
+            context.push(item);
             item = null;
         }
 
         if (label != null) {
             createItem(label);
         }
-        
-        if (parentItem != null && item != null) {
-            parentItem.addChild(item);
+
+        if (context.peek() instanceof Item && item != null) {
+            ((Item) context.peek()).addChild(item);
         }
-        if (item != null && parentItem == null) {
+        
+        if (item != null && context.peek() instanceof ControlComponent) {
             ((ControlComponent) context.peek()).addItem(item);
         }
     }

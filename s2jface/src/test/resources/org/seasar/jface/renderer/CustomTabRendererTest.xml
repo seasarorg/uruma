@@ -17,8 +17,8 @@
       </control>
 
       <control type="customTab">
-        <property name="text">tab2-1, tab2-2, tab2-3</property>
         <property name="closeButton">true</property>
+        <property name="text">tab2-1, tab2-2, tab2-3</property>
       </control>
     </composite>
 
