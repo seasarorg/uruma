@@ -41,7 +41,8 @@ public class S2JFaceComponentDefFactory implements ComponentDefFactory {
 
     public ComponentDef createComponentDef(final Class<?> componentClass,
             final InstanceDef defaultInstanceDef,
-            final AutoBindingDef defaultAutoBindingDef) {
+            final AutoBindingDef defaultAutoBindingDef,
+            final boolean defaultExternalBinding) {
         final S2JFaceAction s2JFaceAction = componentClass
                 .getAnnotation(S2JFaceAction.class);
         if (s2JFaceAction == null) {
@@ -60,6 +61,8 @@ public class S2JFaceComponentDefFactory implements ComponentDefFactory {
                 defaultAutoBindingDef);
 
         setupMethods(componentDef);
+
+        componentDef.setExternalBinding(defaultExternalBinding);
 
         return componentDef;
 
