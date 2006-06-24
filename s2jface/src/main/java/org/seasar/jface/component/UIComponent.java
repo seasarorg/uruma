@@ -75,6 +75,16 @@ public interface UIComponent extends Iterable<UIComponent> {
     public Collection<UIComponent> getChildren();
 
     /**
+     * 指定された id を持つ<code>UIComponent</code>を探して返します。</br>
+     * 検索は子コンポーネントに対して再帰的に行います。
+     * 
+     * @param id
+     *            コンポーネントのID
+     * @return 見つかった<code>UIComponent</code>。見つからなかった場合は <code>null</code>。
+     */
+    public UIComponent find(String id);
+
+    /**
      * レンダラをセットします。</br>
      * 
      * @param renderer

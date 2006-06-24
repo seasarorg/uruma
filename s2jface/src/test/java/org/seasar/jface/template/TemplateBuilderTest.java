@@ -16,6 +16,7 @@
 package org.seasar.jface.template;
 
 import org.seasar.framework.unit.S2FrameworkTestCase;
+import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 
@@ -41,8 +42,18 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
         WindowComponent window = (WindowComponent) template.getChildren()
                 .iterator().next();
         assertNotNull(window);
-
-        System.out.println(template.getName());
     }
 
+    public void testExtendProperty() {
+        TemplateComponent template = (TemplateComponent) builder
+                .build(convertPath("TemplateBuilderTest2.xml"));
+
+        assertNotNull(template);
+
+        UIComponent testButton = template.find("testButton");
+        assertEquals("テストボタン2", testButton.getPropertyValue("text"));
+
+        UIComponent testButton3 = template.find("testButton3");
+        assertEquals("false", testButton3.getPropertyValue("enabled"));
+    }
 }

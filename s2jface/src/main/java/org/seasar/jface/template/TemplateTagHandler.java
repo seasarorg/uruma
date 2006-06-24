@@ -30,12 +30,15 @@ public class TemplateTagHandler extends AbstractTagHandler {
 
     private static final String NAME_ATTR = "name";
 
+    private static final String EXTENDS_ATTR = "extends";
+
     @Override
     public void start(final TagHandlerContext context,
             final Attributes attributes) {
         final TemplateComponent template = new TemplateComponent();
 
         setValue(template, NAME_ATTR, attributes.getValue(NAME_ATTR));
+        setValue(template, EXTENDS_ATTR, attributes.getValue(EXTENDS_ATTR));
         setBasePath(template, context);
 
         context.push(template);

@@ -18,6 +18,7 @@ package org.seasar.jface.component.impl;
 import static org.seasar.jface.component.Inheritance.CHILD;
 import static org.seasar.jface.component.Inheritance.DESCENDANT;
 import static org.seasar.jface.component.Inheritance.NONE;
+import static org.seasar.jface.component.Inheritance.NULL;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -91,6 +92,21 @@ public abstract class UIComponentBase implements UIComponent {
         return children;
     }
 
+    public UIComponent find(final String id) {
+        UIComponent result = null;
+        if ((this.id != null) && (this.id.equals(id))) {
+            result = this;
+        } else {
+            for (UIComponent component : children) {
+                result = component.find(id);
+                if (result != null) {
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
     public Widget getWidget() {
         return widget;
     }
@@ -136,8 +152,8 @@ public abstract class UIComponentBase implements UIComponent {
         Property property = properties.get(name);
         if (property != null) {
             Inheritance inheritance = property.getInheritance();
-            if (inheritance == NONE || inheritance == CHILD
-                    || inheritance == DESCENDANT) {
+            if (inheritance == NULL || inheritance == NONE
+                    || inheritance == CHILD || inheritance == DESCENDANT) {
                 return property;
             } else {
                 return null;

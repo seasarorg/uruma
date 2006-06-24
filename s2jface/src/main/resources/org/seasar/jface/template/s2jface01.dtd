@@ -3,8 +3,14 @@
 <!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 -->
-<!ELEMENT template (window)>
+<!ELEMENT template (extends*, window?)>
 <!ATTLIST template name CDATA #REQUIRED>
+<!ATTLIST template extends CDATA #IMPLIED>
+
+<!ELEMENT extends (#PCDATA)>
+<!ATTLIST extends id CDATA #REQUIRED>
+<!ATTLIST extends replace (true | false) "false">
+<!ATTLIST extends property CDATA #IMPLIED>
 
 <!ELEMENT window (composite | control | property)*>
 <!ATTLIST window id CDATA #REQUIRED>

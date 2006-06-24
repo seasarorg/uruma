@@ -27,6 +27,7 @@ public class TemplateTagHandlerRule extends TagHandlerRule {
 
     public TemplateTagHandlerRule() {
         addTagHandler(TemplateTagHandler.class);
+        addTagHandler(ExtendsTagHandler.class);
         addTagHandler(WindowTagHandler.class);
         addTagHandler(CompositeTagHandler.class);
         addTagHandler(ControlTagHandler.class);

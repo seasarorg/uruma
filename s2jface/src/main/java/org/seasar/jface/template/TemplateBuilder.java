@@ -29,7 +29,12 @@ import org.seasar.framework.util.SAXParserFactoryUtil;
 import org.seasar.framework.xml.SaxHandler;
 import org.seasar.framework.xml.SaxHandlerParser;
 import org.seasar.framework.xml.TagHandlerContext;
+import org.seasar.jface.component.Property;
+import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.TemplateComponent;
+import org.seasar.jface.component.impl.TemplateComponent.ExtendPoint;
+import org.seasar.jface.exception.NotFoundException;
+import org.seasar.jface.util.PathUtil;
 
 /**
  * @author y-komori
@@ -48,7 +53,10 @@ public class TemplateBuilder {
         final SaxHandlerParser parser = createSaxHandlerParser(path);
         final InputStream is = getInputStream(path);
         try {
-            return (TemplateComponent) parser.parse(is, path);
+            TemplateComponent template = (TemplateComponent) parser.parse(is,
+                    path);
+            template.setSourcePath(path);
+            return extendTemplate(template);
         } finally {
             InputStreamUtil.close(is);
         }
@@ -77,5 +85,69 @@ public class TemplateBuilder {
         ctx.addParameter("basePath", (new File(path)).getParent());
 
         return new SaxHandlerParser(handler, saxParser);
+    }
+
+    protected TemplateComponent extendTemplate(final TemplateComponent template) {
+        String extendsPath = template.getExtends();
+        if (extendsPath != null) {
+            extendsPath = PathUtil.createPath(template.getBasePath(),
+                    extendsPath);
+            TemplateComponent parentComponent = build(extendsPath);
+            if (parentComponent != null) {
+                return doExtend(parentComponent, template);
+            }
+        }
+
+        return template;
+    }
+
+    protected TemplateComponent doExtend(final TemplateComponent parent,
+            final TemplateComponent template) {
+        for (ExtendPoint extendPoint : template.getExtendPoints()) {
+            if (extendPoint.getProperty() != null) {
+                extendProperty(parent, extendPoint);
+            } else {
+
+            }
+        }
+
+        return parent;
+    }
+
+    /**
+     * <code>extendPoint</code> で与えられた内容にしたがって、プロパティの上書きを行います。</br> target
+     * の中から <code>extendPoint</code> の <code>getId()</code> メソッド、
+     * <code>getValue()</code> メソッドが表すプロパティを検索し、その値を extendPoint#getValue()
+     * の結果に置き換えます。
+     * 
+     * @param target
+     *            上書き対象の <code>TemplateComponent</code>。
+     * @param extendPoint
+     *            プロパティの上書き方法を指定するオブジェクト。
+     * @throws NotFoundException
+     *             上書き対象のコンポーネントまたはプロパティが見つからなかった場合。
+     */
+    protected void extendProperty(final TemplateComponent target,
+            final ExtendPoint extendPoint) {
+        UIComponent extendTarget = target.find(extendPoint.getId());
+        if (extendTarget != null) {
+            Property prop = extendTarget.getProperty(extendPoint.getProperty());
+            if (prop != null) {
+                prop.setValue(extendPoint.getValue());
+            } else {
+                throw new NotFoundException(
+                        NotFoundException.EXTEND_TARGET_PROPERTY, target
+                                .getSourcePath()
+                                + ":"
+                                + extendPoint.getId()
+                                + ":"
+                                + extendPoint.getProperty());
+            }
+        } else {
+            throw new NotFoundException(
+                    NotFoundException.EXTEND_TARGET_COMPONENT, target
+                            .getSourcePath()
+                            + ":" + extendPoint.getId());
+        }
     }
 }

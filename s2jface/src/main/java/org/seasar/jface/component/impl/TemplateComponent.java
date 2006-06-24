@@ -15,6 +15,9 @@
  */
 package org.seasar.jface.component.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Composite;
 import org.seasar.jface.WindowContext;
 
@@ -23,16 +26,110 @@ import org.seasar.jface.WindowContext;
  * 
  */
 public class TemplateComponent extends UIComponentBase {
+    private String sourcePath;
+
     private String name;
+
+    private String extendsPath;
+
+    private List<ExtendPoint> extendPoints = new ArrayList<ExtendPoint>();
+
+    /**
+     * 画面定義ファイルの読み込み元パスを取得します。</br>
+     * 
+     * @return 画面定義ファイルの読み込み元パス
+     */
+    public String getSourcePath() {
+        return this.sourcePath;
+    }
+
+    public void setSourcePath(final String sourcePath) {
+        this.sourcePath = sourcePath;
+    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
+    public String getExtends() {
+        return this.extendsPath;
+    }
+
+    public void setExtends(final String extendsPath) {
+        this.extendsPath = extendsPath;
+    }
+
+    public void addExtendPoint(final String id, final boolean replace) {
+        extendPoints.add(new ExtendPoint(id, replace));
+    }
+
+    public void addExtendPoint(final String id, final String attribute,
+            final String value) {
+        extendPoints.add(new ExtendPoint(id, attribute, value));
+    }
+
+    public List<ExtendPoint> getExtendPoints() {
+        return extendPoints;
+    }
+
     public void render(Composite parent, WindowContext context) {
+    }
+
+    public class ExtendPoint {
+        private String id;
+
+        private String property;
+
+        private boolean replace;
+
+        private String value;
+
+        ExtendPoint(final String id, final boolean replace) {
+            this.id = id;
+            this.replace = replace;
+        }
+
+        ExtendPoint(final String id, final String property, final String value) {
+            this.id = id;
+            this.property = property;
+            this.value = value;
+        }
+
+        public String getProperty() {
+            return this.property;
+        }
+
+        public void setProperty(final String property) {
+            this.property = property;
+        }
+
+        public String getId() {
+            return this.id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public boolean getReplace() {
+            return this.replace;
+        }
+
+        public void setReplace(boolean replace) {
+            this.replace = replace;
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
     }
 }

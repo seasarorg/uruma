@@ -27,8 +27,11 @@ public class PathUtil {
     // TODO 様々なパターンのパスに対応
     public static String createPath(final String basePath, final String relPath) {
         String path = "";
-        if (false == StringUtil.isEmpty(basePath)) {
-            path += File.separator + basePath + File.separator;
+        if (!StringUtil.isEmpty(basePath)) {
+            if (relPath.startsWith("..")) {
+                path += File.separator;
+            }
+            path += basePath + File.separator;
         }
         path += relPath;
         return StringUtil.replace(path, "\\", "/");
