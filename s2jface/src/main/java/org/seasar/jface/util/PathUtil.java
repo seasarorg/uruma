@@ -15,8 +15,6 @@
  */
 package org.seasar.jface.util;
 
-import java.io.File;
-
 import org.seasar.framework.util.StringUtil;
 
 /**
@@ -24,16 +22,48 @@ import org.seasar.framework.util.StringUtil;
  * 
  */
 public class PathUtil {
-    // TODO 様々なパターンのパスに対応
-    public static String createPath(final String basePath, final String relPath) {
+    /**
+     * 与えられた基準パスと相対パスから絶対パスを生成します。</br>
+     * <ul>
+     * <li>パス中の <code>\</code> はすべて <code>/</code> に変換します。
+     * <li><code>relPath</code> に <code>/</code> が含まれる場合(ただし、<code>relPath</code>
+     * が <code>../</code> で始まる場合は除く)、<code>basePath</code>は無視されます。
+     * <li><code>basePath</code> が <code>relPath</code> の先頭に含まれる場合、<code>basePath</code>
+     * は無視されます。
+     * <li><code>basePath</code> が <code>\</code> または <code>/</code>
+     * で終わっていない場合、<code>/</code> を付加して <code>relPath</code> と結合します。
+     * </ul>
+     * 
+     * @param basePath
+     *            基準パス
+     * @param relPath
+     *            相対パス
+     * @return 生成したパス
+     */
+    public static String createPath(String basePath, String relPath) {
+        basePath = replaceSeparator(basePath);
+        relPath = replaceSeparator(relPath);
         String path = "";
+        if (relPath.indexOf("/") >= 0 && !relPath.startsWith("../")) {
+            basePath = "";
+        }
         if (!StringUtil.isEmpty(basePath)) {
-            if (relPath.startsWith("..")) {
-                path += File.separator;
+            if (!relPath.startsWith(basePath)) {
+                path += basePath;
+                if (!path.endsWith("/")) {
+                    path += "/";
+                }
             }
-            path += basePath + File.separator;
         }
         path += relPath;
         return StringUtil.replace(path, "\\", "/");
+    }
+
+    protected static String replaceSeparator(final String path) {
+        if (path != null) {
+            return StringUtil.replace(path, "\\", "/");
+        } else {
+            return "";
+        }
     }
 }

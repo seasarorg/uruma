@@ -27,6 +27,10 @@
             <property name="image">../template/container.gif</property>
           </control>
 
+          <control type="label">
+            <property name="image">org/seasar/jface/template/container.gif</property>
+          </control>
+          
           <control type="label" style="BORDER">
             <property name="text">複数行テキスト1行目\n\t複数行テキスト2行目\n3行目</property>
           </control>

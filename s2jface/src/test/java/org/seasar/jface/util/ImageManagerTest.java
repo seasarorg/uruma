@@ -42,12 +42,12 @@ public class ImageManagerTest extends TestCase {
     }
 
     public void testPutImage() {
-        ImageManager.putImage("ARG_IMG", "/images/arg.gif", getClass());
+        ImageManager.putImage("ARG_IMG", "/images/arg.gif");
 
         assertNotNull(ImageManager.getImage("ARG_IMG"));
 
         try {
-            ImageManager.putImage("DUMMY_IMG", "dummy", getClass());
+            ImageManager.putImage("DUMMY_IMG", "dummy");
             fail();
         } catch (ResourceNotFoundException ex) {
             System.out.println(ex.getMessage());
@@ -56,20 +56,17 @@ public class ImageManagerTest extends TestCase {
     }
 
     public void testPutImageDescriptor() {
-        ImageManager.putImageDescriptor("ARG_IMG", "/images/arg.gif",
-                getClass());
+        ImageManager.putImageDescriptor("ARG_IMG", "/images/arg.gif");
         Image argImage = ImageManager.getImage("ARG_IMG");
         assertNotNull(argImage);
     }
 
     public void testGetImage() {
-        assertNotNull(ImageManager
-                .getImage("/images/container.gif", getClass()));
-        assertNotNull(ImageManager
-                .getImage("/images/container.gif", getClass()));
+        assertNotNull(ImageManager.loadImage("/images/container.gif"));
+        assertNotNull(ImageManager.loadImage("/images/container.gif"));
 
         try {
-            ImageManager.getImage("DUMMY_IMG", getClass());
+            ImageManager.loadImage("DUMMY_IMG");
             fail();
         } catch (ResourceNotFoundException ex) {
             assertTrue(true);
@@ -118,7 +115,7 @@ public class ImageManagerTest extends TestCase {
     protected void loadImages() {
         ResourceBundle imageResources = ResourceBundle
                 .getBundle("org/seasar/jface/util/ImageManagerTest");
-        ImageManager.loadImages(imageResources, getClass());
+        ImageManager.loadImages(imageResources);
     }
 
     public static class Images {

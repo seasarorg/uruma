@@ -62,7 +62,7 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
             if (image == null) {
                 imgSrc = PathUtil.createPath(controlComponent.getBasePath(),
                         imgSrc);
-                image = ImageManager.getImage(imgSrc, getClass());
+                image = ImageManager.loadImage(imgSrc);
             }
 
             label.setImage(image);

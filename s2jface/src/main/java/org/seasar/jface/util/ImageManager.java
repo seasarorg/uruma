@@ -62,15 +62,14 @@ public class ImageManager {
      * 
      * @param url
      *            イメージのURL/キー
-     * @param clazz
-     *            ファイルの位置を示す <code>Class</code> オブジェクト
      * 
      * @return Imageオブジェクト
      */
-    public static Image getImage(final String url, final Class clazz) {
+    public static Image loadImage(final String url) {
         Image image = getImage(url);
         if (image == null) {
-            InputStream is = clazz.getResourceAsStream(url);
+            InputStream is = ImageManager.class
+                    .getResourceAsStream(createAbsolutePath(url));
             if (is != null) {
                 image = new Image(Display.getCurrent(), is);
                 imageRegistry.put(url, image);
@@ -89,16 +88,15 @@ public class ImageManager {
      *            キー
      * @param fileName
      *            イメージのファイル名
-     * @param clazz
-     *            ファイルの位置を示す <code>Class</code> オブジェクト
      * @throws ResourceNotFoundException
      *             fileName の示すリソースが取得できなかった場合
      */
-    public static void putImage(String key, String fileName, Class clazz) {
+    public static void putImage(final String key, final String fileName) {
         if (imageRegistry.get(key) != null) {
             imageRegistry.remove(key);
         }
-        InputStream is = clazz.getResourceAsStream(fileName);
+        InputStream is = ImageManager.class
+                .getResourceAsStream(createAbsolutePath(fileName));
         if (is != null) {
             Image image = new Image(Display.getCurrent(), is);
             imageRegistry.put(key, image);
@@ -115,13 +113,11 @@ public class ImageManager {
      *            キー
      * @param fileName
      *            イメージのファイル名
-     * @param clazz
-     *            ファイルの位置を示す <code>Class</code> オブジェクト
      */
     public static void putImageDescriptor(final String key,
-            final String fileName, final Class clazz) {
-        ImageDescriptor descriptor = ImageDescriptor.createFromFile(clazz,
-                fileName);
+            final String fileName) {
+        ImageDescriptor descriptor = ImageDescriptor.createFromFile(
+                ImageManager.class, createAbsolutePath(fileName));
         imageRegistry.put(key, descriptor);
     }
 
@@ -132,16 +128,14 @@ public class ImageManager {
      * 
      * @param bundle
      *            リソースバンドルの参照
-     * @param clazz
-     *            ファイルの位置を示す <code>Class</code> オブジェクト
      */
-    public static void loadImages(final ResourceBundle bundle, final Class clazz) {
+    public static void loadImages(final ResourceBundle bundle) {
 
         Enumeration keys = bundle.getKeys();
         while (keys.hasMoreElements()) {
             String key = (String) keys.nextElement();
             String url = bundle.getString(key);
-            putImage(key, url, clazz);
+            putImage(key, url);
         }
     }
 
@@ -164,10 +158,10 @@ public class ImageManager {
      * という名前のキーで登録されたオブジェクトをインジェクションします。
      * 
      * <pre>
-     *                public class ImageHolder() {
-     *                     public static Image IMAGE_A;
-     *                     public static ImageDescriptor IMAGE_B;
-     *                }
+     *                      public class ImageHolder() {
+     *                           public static Image IMAGE_A;
+     *                           public static ImageDescriptor IMAGE_B;
+     *                      }
      * </pre>
      * <pre>
      * ImageManager.injectImages(ImageHolder.class);
@@ -228,4 +222,11 @@ public class ImageManager {
                 new Object[] { clazz.getName(), field.getName() });
     }
 
+    protected static String createAbsolutePath(final String path) {
+        if (path.startsWith("/")) {
+            return path;
+        } else {
+            return "/" + path;
+        }
+    }
 }

@@ -66,7 +66,7 @@ public class TemplateWindow extends ApplicationWindow {
         // TODO 初期化位置とdispose位置を再考
         ResourceBundle imageResources = ResourceBundle
                 .getBundle("s2JFaceImages");
-        ImageManager.loadImages(imageResources, getClass());
+        ImageManager.loadImages(imageResources);
 
         WindowContext context = new WindowContextImpl();
         windowComponent.render(parent, context);
