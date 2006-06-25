@@ -39,6 +39,8 @@ public class NotFoundException extends S2JFaceRuntimeException {
 
     public static final String EXTEND_TARGET_PROPERTY = "EJFC0108";
 
+    public static final String UICOMPONENT = "EJFC0109";
+
     public NotFoundException(String code, String name) {
         super(code, name);
     }

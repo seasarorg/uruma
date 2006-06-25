@@ -60,12 +60,38 @@ public interface UIComponent extends Iterable<UIComponent> {
     public UIComponent getParent();
 
     /**
+     * 親コンポーネントを削除します。</br>
+     */
+    public void removeParent();
+
+    /**
      * 子コンポーネントを追加します。</br>
      * 
      * @param child
      *            子コンポーネント
      */
     public void addChild(UIComponent child);
+
+    /**
+     * 子コンポーネントを置き換えます。</br> 子コンポーネントの中に <code>newChild</code> と同じ
+     * <p>
+     * <code>id</code> を持つコンポーネントがあるか探し、見つかった場合はそのコンポーネントの代わりに
+     * <code>newComponent</code> を置き換えます。</br> 見つからなかった場合は何も行いません。</br>
+     * </p>
+     * 
+     * @param newChild
+     *            置き換える子コンポーネント
+     */
+    public void replaceChild(UIComponent newChild);
+
+    /**
+     * 現在保持する子コンポーネントをすべて破棄して、指定された <code>UIComponent</code>
+     * の保持する子コンポーネントに置き換えます。</br>
+     * 
+     * @param uiComponent
+     *            置き換える子コンポーネントを保持する <code>UIComponent</code>。
+     */
+    public void replaceChildren(UIComponent uiComponent);
 
     /**
      * 子コンポーネントのコレクションを取得します。</br>

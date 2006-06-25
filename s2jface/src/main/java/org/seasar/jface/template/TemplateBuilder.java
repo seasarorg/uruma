@@ -111,7 +111,7 @@ public class TemplateBuilder {
             if (extendPoint.getProperty() != null) {
                 extendProperty(parent, extendPoint);
             } else {
-
+                extendComponent(parent, template, extendPoint);
             }
         }
 
@@ -119,10 +119,56 @@ public class TemplateBuilder {
     }
 
     /**
-     * <code>extendPoint</code> で与えられた内容にしたがって、プロパティの上書きを行います。</br> target
-     * の中から <code>extendPoint</code> の <code>getId()</code> メソッド、
-     * <code>getValue()</code> メソッドが表すプロパティを検索し、その値を extendPoint#getValue()
-     * の結果に置き換えます。
+     * <code>extendPoint</code> で与えられた内容にしたがって、コンポーネントの上書きを行います。</br>
+     * <p>
+     * <code>parent</code> の中から <code>extendPoint</code> の示す <code>id</code>
+     * を持つコンポーネントを探し、<code>child</code> が保持する <code>UIComponent</code>
+     * のうち同じ <code>id</code> を持つもので置き換えます。</br>
+     * <p>
+     * <p>
+     * このとき、<code>extendPoint#getReplace()</code> の結果が <code>true</code>
+     * ならば <code>UIComponent</code> をすべて置き換えます。</br> <code>false</code>
+     * ならば、子コンポーネントのみ置き換えます。
+     * </p>
+     * 
+     * @param parent
+     *            上書き対象の <code>TemplateComponent</code>。
+     * @param child
+     *            上書きを行う <code>TemplateComponent</code>。
+     * @param extendPoint
+     *            プロパティの上書き方法を指定するオブジェクト。
+     * @throws NotFoundException
+     *             上書き対象のコンポーネントまたはプロパティが見つからなかった場合。
+     */
+    protected void extendComponent(final TemplateComponent parent,
+            final TemplateComponent child, final ExtendPoint extendPoint) {
+        UIComponent override = child.find(extendPoint.getId());
+        if (override == null) {
+            throwNotFoundExceptionByComponent(child, extendPoint);
+        }
+
+        UIComponent overrideTarget = parent.find(extendPoint.getId());
+        if (overrideTarget == null) {
+            throwNotFoundExceptionByExtendComponent(parent, extendPoint);
+        }
+
+        if (extendPoint.getReplace()) {
+            UIComponent overrideParent = overrideTarget.getParent();
+            if (overrideParent != null) {
+                overrideParent.replaceChild(override);
+            }
+        } else {
+            overrideTarget.replaceChildren(override);
+        }
+    }
+
+    /**
+     * <code>extendPoint</code> で与えられた内容にしたがって、プロパティの上書きを行います。</br>
+     * <p>
+     * <code>target</code> の中から <code>extendPoint</code> の
+     * <code>getId()</code> メソッド、 <code>getValue()</code>
+     * メソッドが表すプロパティを検索し、その値を extendPoint#getValue() の結果に置き換えます。</br>
+     * </p>
      * 
      * @param target
      *            上書き対象の <code>TemplateComponent</code>。
@@ -139,19 +185,33 @@ public class TemplateBuilder {
             if (prop != null) {
                 prop.setValue(extendPoint.getValue());
             } else {
-                throw new NotFoundException(
-                        NotFoundException.EXTEND_TARGET_PROPERTY, target
-                                .getSourcePath()
-                                + ":"
-                                + extendPoint.getId()
-                                + ":"
-                                + extendPoint.getProperty());
+                throwNotFoundExceptionByExtendProperty(target, extendPoint);
             }
         } else {
-            throw new NotFoundException(
-                    NotFoundException.EXTEND_TARGET_COMPONENT, target
-                            .getSourcePath()
-                            + ":" + extendPoint.getId());
+            throwNotFoundExceptionByExtendComponent(target, extendPoint);
         }
+    }
+
+    protected void throwNotFoundExceptionByExtendProperty(
+            final TemplateComponent target, final ExtendPoint extendPoint)
+            throws NotFoundException {
+        throw new NotFoundException(NotFoundException.EXTEND_TARGET_PROPERTY,
+                target.getSourcePath() + ":" + extendPoint.getId() + ":"
+                        + extendPoint.getProperty());
+    }
+
+    protected void throwNotFoundExceptionByExtendComponent(
+            final TemplateComponent target, final ExtendPoint extendPoint)
+            throws NotFoundException {
+        throw new NotFoundException(NotFoundException.EXTEND_TARGET_COMPONENT,
+                target.getSourcePath() + ":" + extendPoint.getId());
+    }
+
+    protected void throwNotFoundExceptionByComponent(
+            final TemplateComponent target, final ExtendPoint extendPoint)
+            throws NotFoundException {
+        throw new NotFoundException(NotFoundException.UICOMPONENT, target
+                .getSourcePath()
+                + ":" + extendPoint.getId());
     }
 }

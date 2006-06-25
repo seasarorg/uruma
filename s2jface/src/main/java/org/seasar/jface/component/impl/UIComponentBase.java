@@ -70,6 +70,35 @@ public abstract class UIComponentBase implements UIComponent {
         child.setParent(this);
     }
 
+    public void replaceChild(UIComponent newChild) {
+        AssertionUtil.assertNotNull("newChild", newChild);
+        String id = newChild.getId();
+        UIComponent target = null;
+        for (UIComponent child : children) {
+            if (id.equals(child.getId())) {
+                target = child;
+                break;
+            }
+        }
+
+        if (target != null) {
+            children.remove(target);
+            target.removeParent();
+            addChild(newChild);
+        }
+    }
+
+    public void replaceChildren(UIComponent uiComponent) {
+        for (UIComponent child : children) {
+            child.removeParent();
+        }
+        children.clear();
+
+        for (UIComponent newChild : uiComponent.getChildren()) {
+            addChild(newChild);
+        }
+    }
+
     public UIComponent getParent() {
         return parent;
     }
@@ -81,6 +110,10 @@ public abstract class UIComponentBase implements UIComponent {
     public void setParent(final UIComponent parent) {
         AssertionUtil.assertNotNull("parent", parent);
         this.parent = parent;
+    }
+
+    public void removeParent() {
+        this.parent = null;
     }
 
     public void setRendererType(final String type) {
