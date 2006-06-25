@@ -18,7 +18,6 @@ package org.seasar.jface.template;
 import org.seasar.framework.unit.S2FrameworkTestCase;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.TemplateComponent;
-import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.exception.NotFoundException;
 
 /**
@@ -43,9 +42,7 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
 
         assertNotNull(template);
 
-        WindowComponent window = (WindowComponent) template.getChildren()
-                .iterator().next();
-        assertNotNull(window);
+        assertNotNull(template.getWindowComponent());
     }
 
     /**
@@ -57,11 +54,14 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
 
         assertNotNull(template);
 
+        assertEquals("1", "templateBuilderTest2", template.getWindowComponent()
+                .getId());
+
         UIComponent testButton = template.find("testButton");
-        assertEquals("テストボタン2", testButton.getPropertyValue("text"));
+        assertEquals("2", "テストボタン2", testButton.getPropertyValue("text"));
 
         UIComponent testButton3 = template.find("testButton3");
-        assertEquals("false", testButton3.getPropertyValue("enabled"));
+        assertEquals("3", "false", testButton3.getPropertyValue("enabled"));
     }
 
     /**
@@ -73,11 +73,14 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
 
         assertNotNull(template);
 
+        assertEquals("1", "templateBuilderTest3", template.getWindowComponent()
+                .getId());
+
         UIComponent testButton = template.find("testButton");
-        assertEquals("テストボタン3", testButton.getPropertyValue("text"));
+        assertEquals("2", "テストボタン3", testButton.getPropertyValue("text"));
 
         UIComponent testButton3 = template.find("testButton3");
-        assertEquals("false", testButton3.getPropertyValue("visible"));
+        assertEquals("3", "false", testButton3.getPropertyValue("visible"));
     }
 
     /**

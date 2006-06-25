@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.UIComponent;
 
 /**
  * @author y-komori
@@ -74,6 +75,15 @@ public class TemplateComponent extends UIComponentBase {
 
     public List<ExtendPoint> getExtendPoints() {
         return extendPoints;
+    }
+
+    public WindowComponent getWindowComponent() {
+        for (UIComponent uiComponent : children) {
+            if (uiComponent instanceof WindowComponent) {
+                return (WindowComponent) uiComponent;
+            }
+        }
+        return null;
     }
 
     public void render(Composite parent, WindowContext context) {

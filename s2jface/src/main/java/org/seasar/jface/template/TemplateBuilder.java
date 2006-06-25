@@ -32,6 +32,7 @@ import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Property;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.TemplateComponent;
+import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.component.impl.TemplateComponent.ExtendPoint;
 import org.seasar.jface.exception.NotFoundException;
 import org.seasar.jface.util.PathUtil;
@@ -103,6 +104,9 @@ public class TemplateBuilder {
 
     protected TemplateComponent doExtend(final TemplateComponent parent,
             final TemplateComponent template) {
+        WindowComponent window = parent.getWindowComponent();
+        window.setId(template.getWindowComponent().getId());
+
         for (ExtendPoint extendPoint : template.getExtendPoints()) {
             if (extendPoint.getProperty() != null) {
                 extendProperty(parent, extendPoint);

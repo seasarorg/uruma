@@ -3,7 +3,7 @@
 <!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 -->
-<!ELEMENT template (extends*, window?)>
+<!ELEMENT template (extends*, window)>
 <!ATTLIST template name CDATA #REQUIRED>
 <!ATTLIST template extends CDATA #IMPLIED>
 

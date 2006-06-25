@@ -4,4 +4,6 @@
 <template name="testTemplate" extends="templateBuilderTest2.xml">
   <extends id="testButton" property="text">テストボタン3</extends>
   <extends id="testButton3" property="visible">false</extends>
+  
+  <window id="templateBuilderTest3" layout="fill" />
 </template>
