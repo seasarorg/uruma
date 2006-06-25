@@ -30,31 +30,11 @@ import org.xml.sax.Attributes;
 public class WindowTagHandler extends AbstractTagHandler {
     private static final long serialVersionUID = -8514801832940499258L;
 
-    private static final String TITLE_ATTR = "title";
-
-    private static final String IMAGE_ATTR = "image";
-
-    private static final String WIDTH_ATTR = "width";
-
-    private static final String HEIGHT_ATTR = "height";
-
-    private static final String X_ATTR = "x";
-
-    private static final String Y_ATTR = "y";
-
-    private static final String MIN_BUTTON_ATTR = "minButton";
-
-    private static final String MAX_BUTTON_ATTR = "maxButton";
-
-    private static final String CLOSE_BUTTON_ATTR = "closeButton";
-
-    private static final String RESIZABLE_ATTR = "resizable";
-
-    private static final String SAVE_STATE_ATTR = "saveState";
-
     protected static final String BASE_PATH_ATTR = "basePath";
 
     protected static final String DEFAULT_RENDERER = "window";
+
+    protected static final String STYLE_ATTR = "style";
 
     protected static final String LAYOUT_ATTR = "layout";
 
@@ -69,7 +49,7 @@ public class WindowTagHandler extends AbstractTagHandler {
         template.addChild(window);
 
         setValue(window, ID_ATTR, attributes.getValue(ID_ATTR), true);
-        setValue(window, TITLE_ATTR, attributes.getValue(TITLE_ATTR));
+        setValue(window, STYLE_ATTR, attributes.getValue(STYLE_ATTR));
 
         String rendererType = attributes.getValue(TYPE_ATTR);
         if (rendererType == null) {
@@ -78,17 +58,6 @@ public class WindowTagHandler extends AbstractTagHandler {
         setValue(window, RENDERER_TYPE_ATTR, rendererType);
         window.setRenderer(RendererFactrory.getRenderer(rendererType));
 
-        setValue(window, IMAGE_ATTR, attributes.getValue(IMAGE_ATTR));
-        setValue(window, WIDTH_ATTR, attributes.getValue(WIDTH_ATTR));
-        setValue(window, HEIGHT_ATTR, attributes.getValue(HEIGHT_ATTR));
-        setValue(window, X_ATTR, attributes.getValue(X_ATTR));
-        setValue(window, Y_ATTR, attributes.getValue(Y_ATTR));
-        setValue(window, MIN_BUTTON_ATTR, attributes.getValue(MIN_BUTTON_ATTR));
-        setValue(window, MAX_BUTTON_ATTR, attributes.getValue(MAX_BUTTON_ATTR));
-        setValue(window, CLOSE_BUTTON_ATTR, attributes
-                .getValue(CLOSE_BUTTON_ATTR));
-        setValue(window, RESIZABLE_ATTR, attributes.getValue(RESIZABLE_ATTR));
-        setValue(window, SAVE_STATE_ATTR, attributes.getValue(SAVE_STATE_ATTR));
         setValue(window, LAYOUT_ATTR, attributes.getValue(LAYOUT_ATTR), true);
         setValue(window, LAYOUT_PARAM_ATTR, attributes
                 .getValue(LAYOUT_PARAM_ATTR));

@@ -2,9 +2,9 @@
 <!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="tabRendererTest">
-  <window id="tabRendererTest" title="TabRendererTest" x="center"
-    y="middle" minButton="false" maxButton="false" closeButton="false"
-    resizable="false" layout="grid" layoutParam="numColumns=1">
+  <window id="tabRendererTest" style="TITLE" layout="grid"
+    layoutParam="numColumns=1">
+    <property name="title">TabRendererTest</property>
     <property name="defaultButton">okButton</property>
 
     <composite type="box" layout="fill"

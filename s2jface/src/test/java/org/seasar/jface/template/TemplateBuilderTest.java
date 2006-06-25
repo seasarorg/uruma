@@ -148,6 +148,6 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
         WindowComponent window = template.getWindowComponent();
         assertNotNull("6", window);
         assertEquals("7", "testApp", window.getId());
-        assertEquals("8", "テストアプリケーション", window.getTitle());
+        assertEquals("8", "テストアプリケーション", window.getPropertyValue("title"));
     }
 }

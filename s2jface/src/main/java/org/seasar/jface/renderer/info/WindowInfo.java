@@ -22,6 +22,30 @@ import org.seasar.jface.component.Inheritance;
  * 
  */
 public class WindowInfo extends CompositeInfo {
+    public static final String TITLE_PROP = "title";
+
+    public static final Inheritance title_INHERITANCE = Inheritance.NONE;
+
+    public static final String X_PROP = "x";
+
+    public static final Inheritance x_INHERITANCE = Inheritance.NONE;
+
+    public static final String Y_PROP = "y";
+
+    public static final Inheritance y_INHERITANCE = Inheritance.NONE;
+
+    public static final String WIDTH_PROP = "width";
+
+    public static final Inheritance width_INHERITANCE = Inheritance.NONE;
+
+    public static final String HEIGHT_PROP = "height";
+
+    public static final Inheritance height_INHERITANCE = Inheritance.NONE;
+
+    public static final String IMAGE_PROP = "image";
+
+    public static final Inheritance image_INHERITANCE = Inheritance.NONE;
+
     public static final String DEFAULT_BUTTON_PROP = "defaultButton";
 
     public static final Inheritance defaultButton_INHERITANCE = Inheritance.NONE;

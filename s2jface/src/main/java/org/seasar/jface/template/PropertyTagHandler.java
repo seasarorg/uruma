@@ -49,8 +49,6 @@ public class PropertyTagHandler extends AbstractTagHandler {
 
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
-        UIComponentBase parent = (UIComponentBase) context.peek();
-
         String name = attributes.getValue(NAME_ATTR);
         if (name == null) {
             throw new ParseException("EJFC0100", getElementName(), NAME_ATTR);
@@ -77,14 +75,15 @@ public class PropertyTagHandler extends AbstractTagHandler {
 
         property.setInheritance(inheritance);
 
-        parent.addProperty(property);
-
         context.push(property);
     }
 
     @Override
     public void end(final TagHandlerContext context, final String body) {
-        ((Property) context.pop()).setValue(body);
+        Property property = (Property) context.pop();
+        property.setValue(body);
+
+        ((UIComponentBase) context.peek()).addProperty(property);
     }
 
     @Override

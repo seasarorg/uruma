@@ -14,16 +14,7 @@
 
 <!ELEMENT window (composite | control | property)*>
 <!ATTLIST window id CDATA #REQUIRED>
-<!ATTLIST window title CDATA #IMPLIED>
-<!ATTLIST window x CDATA #IMPLIED>
-<!ATTLIST window y CDATA #IMPLIED>
-<!ATTLIST window width CDATA #IMPLIED>
-<!ATTLIST window height CDATA #IMPLIED>
-<!ATTLIST window maxButton (true | false) "true">
-<!ATTLIST window minButton (true | false) "true">
-<!ATTLIST window closeButton (true | false) "true">
-<!ATTLIST window resizable (true | false) "true">
-<!ATTLIST window image CDATA #IMPLIED>
+<!ATTLIST window style CDATA #IMPLIED>
 <!ATTLIST window layout CDATA #REQUIRED>
 <!ATTLIST window layoutParam CDATA #IMPLIED>
 

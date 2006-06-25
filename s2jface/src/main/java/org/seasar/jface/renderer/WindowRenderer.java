@@ -16,26 +16,37 @@
 package org.seasar.jface.renderer;
 
 import static org.seasar.jface.renderer.info.WindowInfo.DEFAULT_BUTTON_PROP;
+import static org.seasar.jface.renderer.info.WindowInfo.HEIGHT_PROP;
+import static org.seasar.jface.renderer.info.WindowInfo.IMAGE_PROP;
+import static org.seasar.jface.renderer.info.WindowInfo.TITLE_PROP;
+import static org.seasar.jface.renderer.info.WindowInfo.WIDTH_PROP;
+import static org.seasar.jface.renderer.info.WindowInfo.X_PROP;
+import static org.seasar.jface.renderer.info.WindowInfo.Y_PROP;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.CompositeComponent;
+import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.renderer.info.ComponentInfo;
 import org.seasar.jface.renderer.info.WindowInfo;
 import org.seasar.jface.util.GeometryUtil;
 import org.seasar.jface.util.ImageManager;
 import org.seasar.jface.util.PathUtil;
+import org.seasar.jface.util.SWTUtil;
 
 /**
- * @author y-komori
+ * ウィンドウのレンダリングを行うクラスです。</br>
  * 
+ * @author y-komori
  */
 public class WindowRenderer extends AbstractCompositeRenderer<Composite> {
 
@@ -53,17 +64,29 @@ public class WindowRenderer extends AbstractCompositeRenderer<Composite> {
         // Do nothing.
     }
 
+    @Override
+    protected void setLocation(Control control,
+            ControlComponent controlComponent) {
+        // Do nothing.
+    }
+
+    @Override
+    protected void setSize(Control control, ControlComponent controlComponent) {
+        // Do nothing.
+    }
+
     public void renderAfter(final Widget widget, final UIComponent uiComponent,
             final Composite parent, final WindowContext context) {
         setDefaultButton(uiComponent, context);
     }
 
     public int getShellStyle(final WindowComponent uiComponent) {
-        int minButton = uiComponent.isMinButton() ? SWT.MIN : 0;
-        int maxButton = uiComponent.isMaxButton() ? SWT.MAX : 0;
-        int closeButton = uiComponent.isCloseButton() ? SWT.CLOSE : 0;
-        int resizeButton = uiComponent.isResizable() ? SWT.RESIZE : 0;
-        return SWT.TITLE | minButton | maxButton | closeButton | resizeButton;
+        String styleString = uiComponent.getStyle();
+        if (styleString != null) {
+            return SWTUtil.getStyle(styleString);
+        } else {
+            return getDefaultStyle();
+        }
     }
 
     public String getRendererName() {
@@ -81,38 +104,41 @@ public class WindowRenderer extends AbstractCompositeRenderer<Composite> {
 
     protected void configureShell(final WindowComponent window,
             final Shell shell) {
-        shell.setText(window.getTitle());
+        shell.setText(window.getPropertyValue(TITLE_PROP));
 
-        if ((window.getWidth() != null) && (window.getHeight() != null)) {
+        if ((window.getProperty(WIDTH_PROP) != null)
+                && (window.getProperty(HEIGHT_PROP) != null)) {
             shell.setSize(calcWidth(window), calcHeight(window));
             shell.setLocation(calcX(window), calcY(window));
         }
 
-        String img = window.getImage();
-        if (img != null) {
+        String img = window.getPropertyValue(IMAGE_PROP);
+        if (!StringUtil.isEmpty(img)) {
             img = PathUtil.createPath(window.getBasePath(), img);
             shell.setImage(ImageManager.getImage(img));
         }
     }
 
     protected int calcWidth(final WindowComponent window) {
-        return GeometryUtil.calcSize(window.getWidth(), Display.getCurrent()
-                .getClientArea().width);
+        return GeometryUtil.calcSize(window.getPropertyValue(WIDTH_PROP),
+                Display.getCurrent().getClientArea().width);
     }
 
     protected int calcHeight(final WindowComponent window) {
-        return GeometryUtil.calcSize(window.getHeight(), Display.getCurrent()
-                .getClientArea().height);
+        return GeometryUtil.calcSize(window.getPropertyValue(HEIGHT_PROP),
+                Display.getCurrent().getClientArea().height);
     }
 
     protected int calcX(final WindowComponent window) {
-        return GeometryUtil.calcPosition(window.getX(), Display.getCurrent()
-                .getClientArea().width, calcWidth(window));
+        return GeometryUtil.calcPosition(window.getPropertyValue(X_PROP),
+                Display.getCurrent().getClientArea().width, calcWidth(window));
     }
 
     protected int calcY(final WindowComponent window) {
-        return GeometryUtil.calcPosition(window.getY(), Display.getCurrent()
-                .getClientArea().height, calcHeight(window));
+        return GeometryUtil
+                .calcPosition(window.getPropertyValue(Y_PROP), Display
+                        .getCurrent().getClientArea().height,
+                        calcHeight(window));
     }
 
     protected void setDefaultButton(final UIComponent uiComponent,
@@ -125,5 +151,10 @@ public class WindowRenderer extends AbstractCompositeRenderer<Composite> {
                 shell.setDefaultButton((Button) defaultButton);
             }
         }
+    }
+
+    @Override
+    protected int getDefaultStyle() {
+        return SWT.SHELL_TRIM;
     }
 }

@@ -2,37 +2,37 @@
 <!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
 	"http://www.seasar.org/dtd/s2jface01.dtd">
 <template name="comboboxRendererTest">
-	<window id="comboboxRendererTest" title="ComboboxRendererTest" x="center"
-    y="middle" minButton="false" maxButton="false" closeButton="false"
-    resizable="true" layout="grid" layoutParam="numColumns=2">
+  <window id="comboboxRendererTest" style="TITLE" layout="grid"
+    layoutParam="numColumns=1">
+    <property name="title">ComboboxRendererTest</property>
     <property name="defaultButton">okButton</property>
-	
+
     <composite type="box" layout="grid" layoutParam="numColumns=1">
-	  <composite type="box" layout="row"
-	    layoutParam="type=HORIZONTAL; marginHeight=100; marginWidth=100; spacing=20">
-	    <layoutData name="horizontalAlignment">FILL</layoutData>
+      <composite type="box" layout="row"
+        layoutParam="type=HORIZONTAL; marginHeight=100; marginWidth=100; spacing=20">
+        <layoutData name="horizontalAlignment">FILL</layoutData>
 
-		<control type="combobox">
-		  <item label="Item1-1"/>
-	      <item label="Item1-2"/>
-	      <item label="Item1-3"/>
-		</control>
+        <control type="combobox">
+          <item label="Item1-1" />
+          <item label="Item1-2" />
+          <item label="Item1-3" />
+        </control>
 
-		<control type="combobox">
-		  <property name="style">DROP_DOWN</property>
-		  <item label="Item2-1"/>
-	      <item label="Item2-2"/>
-	      <item label="Item2-3"/>
-		</control>
+        <control type="combobox">
+          <property name="style">DROP_DOWN</property>
+          <item label="Item2-1" />
+          <item label="Item2-2" />
+          <item label="Item2-3" />
+        </control>
 
-		<control type="combobox">
-		  <property name="style">READ_ONLY</property>
-		  <item label="Item3-1"/>
-	      <item label="Item3-2"/>
-	      <item label="Item3-3"/>
-		</control>
+        <control type="combobox">
+          <property name="style">READ_ONLY</property>
+          <item label="Item3-1" />
+          <item label="Item3-2" />
+          <item label="Item3-3" />
+        </control>
       </composite>
-		
+
       <control type="label" style="SEPARATOR, HORIZONTAL">
         <layoutData name="horizontalAlignment">FILL</layoutData>
       </control>
@@ -47,6 +47,6 @@
           <property name="text">NG</property>
         </control>
       </composite>
-	</composite>
+    </composite>
   </window>
 </template>
