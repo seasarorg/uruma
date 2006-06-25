@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="testTemplate" extends="templateBuilderTest2.xml">
+  <extends id="testButton" property="text">テストボタン3</extends>
+  <extends id="testButton3" property="visible">false</extends>
+</template>

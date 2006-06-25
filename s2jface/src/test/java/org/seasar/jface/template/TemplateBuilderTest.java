@@ -19,6 +19,7 @@ import org.seasar.framework.unit.S2FrameworkTestCase;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.impl.WindowComponent;
+import org.seasar.jface.exception.NotFoundException;
 
 /**
  * @author y-komori
@@ -33,6 +34,9 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
         builder = new TemplateBuilder();
     }
 
+    /**
+     * 画面定義XMLのビルドに関するテスト。</br>
+     */
     public void testBuild() {
         TemplateComponent template = (TemplateComponent) builder
                 .build(convertPath("TemplateBuilderTest.xml"));
@@ -44,6 +48,9 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
         assertNotNull(window);
     }
 
+    /**
+     * 継承した画面定義XMLからのプロパティ上書きテスト。</br>
+     */
     public void testExtendProperty() {
         TemplateComponent template = (TemplateComponent) builder
                 .build(convertPath("TemplateBuilderTest2.xml"));
@@ -55,5 +62,53 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
 
         UIComponent testButton3 = template.find("testButton3");
         assertEquals("false", testButton3.getPropertyValue("enabled"));
+    }
+
+    /**
+     * ２階層に渡る継承に対するテスト。</br>
+     */
+    public void testTwiceExtendProperty() {
+        TemplateComponent template = (TemplateComponent) builder
+                .build(convertPath("TemplateBuilderTest3.xml"));
+
+        assertNotNull(template);
+
+        UIComponent testButton = template.find("testButton");
+        assertEquals("テストボタン3", testButton.getPropertyValue("text"));
+
+        UIComponent testButton3 = template.find("testButton3");
+        assertEquals("false", testButton3.getPropertyValue("visible"));
+    }
+
+    /**
+     * 継承元コンポーネントが存在しない場合のテスト。</br>
+     */
+    public void testExtendPropertyIdNotFound() {
+        try {
+            TemplateComponent template = (TemplateComponent) builder
+                    .build(convertPath("TemplateBuilderTest4.xml"));
+
+            fail();
+        } catch (NotFoundException ex) {
+            System.err.println(ex);
+            assertEquals(NotFoundException.EXTEND_TARGET_COMPONENT, ex
+                    .getMessageCode());
+        }
+    }
+
+    /**
+     * 継承元コンポーネントのプロパティが存在しない場合のテスト。</br>
+     */
+    public void testExtendPropertyPropertyNotFound() {
+        try {
+            TemplateComponent template = (TemplateComponent) builder
+                    .build(convertPath("TemplateBuilderTest5.xml"));
+
+            fail();
+        } catch (NotFoundException ex) {
+            System.err.println(ex);
+            assertEquals(NotFoundException.EXTEND_TARGET_PROPERTY, ex
+                    .getMessageCode());
+        }
     }
 }
