@@ -18,6 +18,7 @@ package org.seasar.jface.template;
 import org.seasar.framework.unit.S2FrameworkTestCase;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.TemplateComponent;
+import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.exception.NotFoundException;
 
 /**
@@ -113,5 +114,40 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
             assertEquals(NotFoundException.EXTEND_TARGET_PROPERTY, ex
                     .getMessageCode());
         }
+    }
+
+    /**
+     * コンポーネントの継承(要素置き換えあり)のテスト。</br>
+     */
+    public void testExtendComponentReplace() {
+        TemplateComponent template = (TemplateComponent) builder
+                .build(convertPath("TemplateBuilderTest6.xml"));
+
+        UIComponent testButton = template.find("testButton");
+        assertEquals("1", "30", testButton.getPropertyValue("x"));
+        assertEquals("2", "40", testButton.getPropertyValue("y"));
+        assertEquals("3", "100", testButton.getPropertyValue("width"));
+        assertEquals("4", "200", testButton.getPropertyValue("height"));
+        assertEquals("5", "override", testButton.getPropertyValue("text"));
+    }
+
+    /**
+     * コンポーネントの継承(要素置き換えなし)のテスト。</br>
+     */
+    public void testExtendComponentNonReplace() {
+        TemplateComponent template = (TemplateComponent) builder
+                .build(convertPath("TemplateBuilderTest7.xml"));
+
+        UIComponent testButton = template.find("testButton");
+        assertEquals("1", "30", testButton.getPropertyValue("x"));
+        assertEquals("2", "40", testButton.getPropertyValue("y"));
+        assertEquals("3", "100", testButton.getPropertyValue("width"));
+        assertEquals("4", "200", testButton.getPropertyValue("height"));
+        assertEquals("5", "override", testButton.getPropertyValue("text"));
+
+        WindowComponent window = template.getWindowComponent();
+        assertNotNull("6", window);
+        assertEquals("7", "testApp", window.getId());
+        assertEquals("8", "テストアプリケーション", window.getTitle());
     }
 }
