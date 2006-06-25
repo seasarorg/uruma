@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
 	"http://www.seasar.org/dtd/s2jface01.dtd">
-<template name="tableRendererTest">
-  <window id="tableRendererTest" style="TITLE" layout="grid"
-    layoutParam="numColumns=1">
-    <property name="title">TableRendererTest</property>
-    <property name="defaultButton">okButton</property>
-
-    <composite type="box" layout="row"
-      layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+<template name="tableRendererTest" extends="RendererTest.xml">
+  <extends id="tableRendererTest" property="title">
+    TableRendererTest
+  </extends>
+  <extends id="contents" />
+  <window id="tableRendererTest" layout="grid">
+    <composite id="contents" type="box">
       <layoutData name="horizontalAlignment">FILL</layoutData>
 
       <control type="table" style="BORDER">
@@ -19,21 +18,5 @@
         <item>column4, column5, column6</item>
       </control>
     </composite>
-
-    <control type="label" style="SEPARATOR, HORIZONTAL">
-      <layoutData name="horizontalAlignment">FILL</layoutData>
-    </control>
-
-    <composite type="box" layout="fill"
-      layoutParam="type=HORIZONTAL; spacing=5">
-      <layoutData name="horizontalAlignment">FILL</layoutData>
-      <control type="button" id="okButton">
-        <property name="text">OK</property>
-      </control>
-      <control type="button" id="ngButton">
-        <property name="text">NG</property>
-      </control>
-    </composite>
-
   </window>
 </template>

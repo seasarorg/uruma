@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
 	"http://www.seasar.org/dtd/s2jface01.dtd">
-<template name="scaleRendererTest">
-  <window id="scaleRendererTest" style="TITLE" layout="grid"
-    layoutParam="numColumns=1">
-    <property name="title">ScaleRendererTest</property>
-    <property name="defaultButton">okButton</property>
+<template name="scaleRendererTest" extends="RendererTest.xml">
+  <extends id="scaleRendererTest" property="title">
+    ScaleRendererTest
+  </extends>
+  <extends id="contents" />
+  <window id="scaleRendererTest" layout="grid">
 
-    <composite type="box" layout="row"
-      layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+    <composite id="contents" type="box">
       <layoutData name="horizontalAlignment">FILL</layoutData>
 
       <control type="scale">
@@ -23,21 +23,6 @@
         <property name="min">0</property>
         <property name="incriment">1</property>
         <property name="style">VARTICAL</property>
-      </control>
-    </composite>
-
-    <control type="label" style="SEPARATOR, HORIZONTAL">
-      <layoutData name="horizontalAlignment">FILL</layoutData>
-    </control>
-
-    <composite type="box" layout="fill"
-      layoutParam="type=HORIZONTAL; spacing=5">
-      <layoutData name="horizontalAlignment">FILL</layoutData>
-      <control type="button" id="okButton">
-        <property name="text">OK</property>
-      </control>
-      <control type="button" id="ngButton">
-        <property name="text">NG</property>
       </control>
     </composite>
 
