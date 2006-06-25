@@ -6,7 +6,7 @@
     TreeRendererTest
   </extends>
   <extends id="contents" />
-  <window id="treeRendererTest" layout="grid">
+  <window id="treeRendererTest">
     <composite id="contents" type="box">
       <composite type="box" layout="row"
         layoutParam="type=HORIZONTAL; marginHeight=100; marginWidth=100; spacing=20">

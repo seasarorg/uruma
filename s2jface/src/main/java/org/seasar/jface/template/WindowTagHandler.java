@@ -58,7 +58,7 @@ public class WindowTagHandler extends AbstractTagHandler {
         setValue(window, RENDERER_TYPE_ATTR, rendererType);
         window.setRenderer(RendererFactrory.getRenderer(rendererType));
 
-        setValue(window, LAYOUT_ATTR, attributes.getValue(LAYOUT_ATTR), true);
+        setValue(window, LAYOUT_ATTR, attributes.getValue(LAYOUT_ATTR));
         setValue(window, LAYOUT_PARAM_ATTR, attributes
                 .getValue(LAYOUT_PARAM_ATTR));
 

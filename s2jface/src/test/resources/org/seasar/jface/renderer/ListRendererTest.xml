@@ -6,8 +6,8 @@
     ListRendererTest
   </extends>
   <extends id="contents" />
-  <window id="listRendererTest" layout="grid">
-
+  
+  <window id="listRendererTest">
     <composite id="contents" type="box">
       <layoutData name="horizontalAlignment">FILL</layoutData>
 

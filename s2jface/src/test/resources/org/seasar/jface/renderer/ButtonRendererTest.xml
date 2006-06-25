@@ -5,7 +5,7 @@
   <extends id="buttonRendererTest" property="title">ButtonRendererTest</extends>
   <extends id="contents" />
   
-  <window id="buttonRendererTest" layout="fill">
+  <window id="buttonRendererTest">
     <composite id="contents" type="box">
       <composite type="box" layout="row"
         layoutParam="type=VERTICAL; spacing=10">

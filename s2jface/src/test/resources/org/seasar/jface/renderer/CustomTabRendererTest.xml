@@ -7,7 +7,7 @@
   </extends>
   <extends id="contents" />
   
-  <window id="customTabRendererTest" layout="fill">
+  <window id="customTabRendererTest">
     <composite id="contents" type="box">
       <composite type="box" layout="fill"
         layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">

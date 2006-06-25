@@ -6,8 +6,8 @@
     ScaleRendererTest
   </extends>
   <extends id="contents" />
-  <window id="scaleRendererTest" layout="grid">
 
+  <window id="scaleRendererTest">
     <composite id="contents" type="box">
       <layoutData name="horizontalAlignment">FILL</layoutData>
 

@@ -6,7 +6,8 @@
     MenuRendererTest
   </extends>
   <extends id="contents" />
-  <window id="menuRendererTest" layout="grid">
+  
+  <window id="menuRendererTest">
     <composite id="contents" type="box">
       <control type="menu">
         <item label="Menu">

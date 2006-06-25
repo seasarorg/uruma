@@ -7,7 +7,7 @@
   </extends>
   <extends id="contents" />
 
-  <window id="comboboxRendererTest" layout="fill">
+  <window id="comboboxRendererTest">
     <composite id="contents" type="box">
       <composite type="box" layout="row"
         layoutParam="type=HORIZONTAL; marginHeight=100; marginWidth=100; spacing=20">

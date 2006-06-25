@@ -15,7 +15,7 @@
 <!ELEMENT window (composite | control | property)*>
 <!ATTLIST window id CDATA #REQUIRED>
 <!ATTLIST window style CDATA #IMPLIED>
-<!ATTLIST window layout CDATA #REQUIRED>
+<!ATTLIST window layout CDATA #IMPLIED>
 <!ATTLIST window layoutParam CDATA #IMPLIED>
 
 <!ELEMENT control (property | layoutData | item)*>

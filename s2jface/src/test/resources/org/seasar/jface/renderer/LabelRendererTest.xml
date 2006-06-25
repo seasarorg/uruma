@@ -6,8 +6,8 @@
     LabelRendererTest
   </extends>
   <extends id="contents" />
-  <window id="labelRendererTest" layout="fill">
-
+  
+  <window id="labelRendererTest">
     <composite id="contents" type="box">
       <composite type="box" layout="row" layoutParam="type=VERTICAL">
         <control type="label">

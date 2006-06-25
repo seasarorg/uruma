@@ -7,7 +7,7 @@
   </extends>
   <extends id="contents" />
 
-  <window id="groupRendererTest" layout="grid">
+  <window id="groupRendererTest">
 
     <composite id="contents" type="box">
       <composite type="group" layout="row"
