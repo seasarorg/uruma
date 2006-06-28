@@ -34,6 +34,10 @@ public class WindowComponent extends CompositeComponent {
                 Inheritance.NONE));
         addProperty(new PropertyComponent(WindowInfo.Y_PROP, "middle",
                 Inheritance.NONE));
+        addProperty(new PropertyComponent(WindowInfo.WIDTH_PROP, "50%",
+                Inheritance.NONE));
+        addProperty(new PropertyComponent(WindowInfo.HEIGHT_PROP, "50%",
+                Inheritance.NONE));
     }
 
     public void render(final Composite parent, final WindowContext context) {
