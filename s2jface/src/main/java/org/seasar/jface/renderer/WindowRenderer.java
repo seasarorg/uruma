@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.Property;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.ControlComponent;
@@ -104,7 +105,10 @@ public class WindowRenderer extends AbstractCompositeRenderer<Composite> {
 
     protected void configureShell(final WindowComponent window,
             final Shell shell) {
-        shell.setText(window.getPropertyValue(TITLE_PROP));
+        Property titleProperty = window.getProperty(TITLE_PROP);
+        if (titleProperty != null) {
+            shell.setText(titleProperty.getValue());
+        }
 
         if ((window.getProperty(WIDTH_PROP) != null)
                 && (window.getProperty(HEIGHT_PROP) != null)) {
