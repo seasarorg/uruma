@@ -119,7 +119,7 @@ public class WindowRenderer extends AbstractCompositeRenderer<Composite> {
         String img = window.getPropertyValue(IMAGE_PROP);
         if (!StringUtil.isEmpty(img)) {
             img = PathUtil.createPath(window.getBasePath(), img);
-            shell.setImage(ImageManager.getImage(img));
+            shell.setImage(ImageManager.loadImage(img));
         }
     }
 
