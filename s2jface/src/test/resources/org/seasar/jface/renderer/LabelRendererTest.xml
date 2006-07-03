@@ -25,7 +25,7 @@
 
         <control type="label">
           <property name="image">
-            org/seasar/jface/template/container.gif
+            /org/seasar/jface/template/container.gif
           </property>
         </control>
 

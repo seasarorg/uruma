@@ -36,9 +36,9 @@ public class PathUtilTest extends TestCase {
                 .createPath("org/seasar/jface/util",
                         "org/seasar/jface/util/PathUtil.java"));
 
-        assertEquals("5", "org/seasar/jface/abc/PathUtil.java", PathUtil
+        assertEquals("5", "/org/seasar/jface/abc/PathUtil.java", PathUtil
                 .createPath("org/seasar/jface/util",
-                        "org/seasar/jface/abc/PathUtil.java"));
+                        "/org/seasar/jface/abc/PathUtil.java"));
 
         assertEquals("6", "org/seasar/jface/util/../template/PathUtil.java",
                 PathUtil.createPath("org/seasar/jface/util",

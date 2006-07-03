@@ -13,17 +13,13 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.janken;
-
-import org.seasar.jface.S2JFace;
+package org.seasar.jface;
 
 /**
- * @author y-komori
+ * S2JFaceで利用する定数を保持するクラスです。</br>
  * 
+ * @author y-komori
  */
-public class DIdeJanken {
-    public static void main(String[] args) {
-        S2JFace s2JFace = new S2JFace();
-        s2JFace.openWindow("org/seasar/jface/example/janken/DIdeJanken.xml");
-    }
+public class S2JFaceConstants {
+    public static final String S2JFACE_DICON_PATH = "s2jface.dicon";
 }

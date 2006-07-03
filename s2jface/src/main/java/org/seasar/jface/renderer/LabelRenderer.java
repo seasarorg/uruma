@@ -51,6 +51,9 @@ public class LabelRenderer extends AbstractControlRenderer<Label> {
         if (text != null) {
             text = text.replace("\\n", "\n");
             text = text.replace("\\t", "\t");
+            if (text.startsWith("\"") && text.endsWith("\"")) {
+                text = text.substring(1, text.length() - 1);
+            }
             label.setText(text);
         }
     }

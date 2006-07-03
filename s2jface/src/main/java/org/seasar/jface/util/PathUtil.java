@@ -26,12 +26,14 @@ public class PathUtil {
      * 与えられた基準パスと相対パスから絶対パスを生成します。</br>
      * <ul>
      * <li>パス中の <code>\</code> はすべて <code>/</code> に変換します。
-     * <li><code>relPath</code> に <code>/</code> が含まれる場合(ただし、<code>relPath</code>
-     * が <code>../</code> で始まる場合は除く)、<code>basePath</code>は無視されます。
+     * <li>基本動作として <code>basePath</code> と <code>relPath</code>
+     * を連結した文字列を返します。
+     * <li>この際、<code>basePath</code> が <code>/</code> で終了していない場合、<code>/</code>
+     * を付加します。
+     * <li><code>relPath</code> が <code>/</code> から始まる場合、<code>relPath</code>
+     * が絶対パスを表していると見なして、<code>basePath</code> は無視されます。
      * <li><code>basePath</code> が <code>relPath</code> の先頭に含まれる場合、<code>basePath</code>
      * は無視されます。
-     * <li><code>basePath</code> が <code>\</code> または <code>/</code>
-     * で終わっていない場合、<code>/</code> を付加して <code>relPath</code> と結合します。
      * </ul>
      * 
      * @param basePath
@@ -44,7 +46,7 @@ public class PathUtil {
         basePath = replaceSeparator(basePath);
         relPath = replaceSeparator(relPath);
         String path = "";
-        if (relPath.indexOf("/") >= 0 && !relPath.startsWith("../")) {
+        if (relPath.charAt(0) == '/') {
             basePath = "";
         }
         if (!StringUtil.isEmpty(basePath)) {
@@ -56,7 +58,7 @@ public class PathUtil {
             }
         }
         path += relPath;
-        return StringUtil.replace(path, "\\", "/");
+        return path;
     }
 
     protected static String replaceSeparator(final String path) {

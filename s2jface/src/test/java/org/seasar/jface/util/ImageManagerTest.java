@@ -63,7 +63,7 @@ public class ImageManagerTest extends TestCase {
 
     public void testGetImage() {
         assertNotNull(ImageManager.loadImage("/images/container.gif"));
-        assertNotNull(ImageManager.loadImage("/images/container.gif"));
+        assertNotNull(ImageManager.loadImage("images/container.gif"));
 
         try {
             ImageManager.loadImage("DUMMY_IMG");

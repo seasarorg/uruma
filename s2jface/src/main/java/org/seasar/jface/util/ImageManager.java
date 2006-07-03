@@ -27,6 +27,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.framework.container.factory.ClassPathResourceResolver;
+import org.seasar.framework.container.factory.ResourceResolver;
 import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.exception.ResourceNotFoundException;
@@ -41,6 +43,8 @@ public class ImageManager {
     protected static final ImageRegistry imageRegistry = new ImageRegistry();
 
     protected static final Logger logger = Logger.getLogger(ImageManager.class);
+
+    protected static final ResourceResolver resourceResolver = new ClassPathResourceResolver();
 
     private ImageManager() {
     }
@@ -57,57 +61,77 @@ public class ImageManager {
     }
 
     /**
-     * <code>url</code>をキーとしてImageオブジェクトを検索します。<br>
-     * Imageオブジェクトが登録されていない場合、生成して<code>url</code>をキーとして登録してから返します。
+     * <code>path</code> で指定された <code>Image</code>
+     * オブジェクトを検索し、存在しなければクラスパスからロードします。<br>
+     * <p>
+     * 本メソッドでは、まず <code>path</code> をキーと見なしてレジストリから <code>Image</code>
+     * オブジェクトを検索します。 <code>Image</code> オブジェクトが見つからない場合、<code>path</code>
+     * で示されるリソースをクラスパスからロードして <code>path</code> をキーとしてレジストリに登録します。</br> この際、<code>path</code>
+     * は <code>/</code>(スラッシュ)で始まっていてもいなくても構いません。</br>
+     * </p>
+     * <dl>
+     * <dt>【例】
+     * <dd> loadImage("icons/app.png");
+     * </dl>
+     * <ul>
+     * <li>まず、レジストリに対して <code>icons/app.png</code> というキーで <code>Image</code>
+     * オブジェクトを検索します。
+     * <li>見つからない場合、クラスパスから <code>icons/app.png</code> というリソースをロードします。
+     * <li>ロードに成功すれば、<code>icons/app.png</code> というキーでレジストリに登録します。
+     * <li>ここで見つからない場合は、{@link org.seasar.jface.exception ResourceNotFoundException}
+     * をスローします。
+     * </ul>
      * 
-     * @param url
-     *            イメージのURL/キー
+     * @param path
+     *            イメージのパス/キー
      * 
-     * @return Imageオブジェクト
+     * @return 見つかった <code>Image</code> オブジェクト
+     * @throws ResourceNotFoundException
+     *             <code>Image</code> オブジェクトが取得できなかった場合
      */
-    public static Image loadImage(final String url) {
-        Image image = getImage(url);
+    public static Image loadImage(final String path) {
+        Image image = getImage(path);
         if (image == null) {
-            InputStream is = ImageManager.class
-                    .getResourceAsStream(createAbsolutePath(url));
-            if (is != null) {
-                image = new Image(Display.getCurrent(), is);
-                imageRegistry.put(url, image);
-            } else {
-                throw new ResourceNotFoundException(url);
-            }
+            image = putImage(path, path);
         }
         return image;
     }
 
     /**
      * <code>Image</code> オブジェクトを登録します。<br>
-     * 既に同じキーで <code>Image</code> が登録されている場合、上書きします。
+     * <p>
+     * <code>path</code> で示されるリソースをクラスパス上から読み込み、<code>key</code>
+     * で示されるキーでレジストリに登録します。</br> 既に同じキーで <code>Image</code>
+     * オブジェクトが登録されている場合、上書きします。</br>
+     * </p>
      * 
      * @param key
      *            キー
-     * @param fileName
-     *            イメージのファイル名
+     * @param path
+     *            イメージのパス
+     * @return 登録した <code>Image</code> オブジェクト
      * @throws ResourceNotFoundException
-     *             fileName の示すリソースが取得できなかった場合
+     *             path の示すリソースが取得できなかった場合
      */
-    public static void putImage(final String key, final String fileName) {
+    public static Image putImage(final String key, final String path) {
         if (imageRegistry.get(key) != null) {
             imageRegistry.remove(key);
         }
-        InputStream is = ImageManager.class
-                .getResourceAsStream(createAbsolutePath(fileName));
+        InputStream is = getInputStream(path);
         if (is != null) {
             Image image = new Image(Display.getCurrent(), is);
             imageRegistry.put(key, image);
+            return image;
         } else {
-            throw new ResourceNotFoundException(fileName);
+            throw new ResourceNotFoundException(path);
         }
     }
 
     /**
      * <code>ImageDescriptor</code> オブジェクトを登録します。<br>
-     * 既に同じキーで <code>ImageDescriptor</code> が登録されている場合、上書きします。
+     * <p>
+     * 既に同じキーで <code>ImageDescriptor</code> が登録されている場合、上書きします。</br>
+     * </p>
      * 
      * @param key
      *            キー
@@ -123,8 +147,10 @@ public class ImageManager {
 
     /**
      * <code>ResourceBundle</code> から <code>Image</code>
-     * オブジェクトを読み込み、一括登録します。</br> 「key=url」の形式で記述されたプロパティファイルを元にした
+     * <p>
+     * オブジェクトを読み込み、一括登録します。</br> 「key=path」の形式で記述されたプロパティファイルを元にした
      * <code>ResourceBundle</code> から <code>Image</code> オブジェクトを一括して読み込みます。
+     * </p>
      * 
      * @param bundle
      *            リソースバンドルの参照
@@ -158,10 +184,10 @@ public class ImageManager {
      * という名前のキーで登録されたオブジェクトをインジェクションします。
      * 
      * <pre>
-     *                      public class ImageHolder() {
-     *                           public static Image IMAGE_A;
-     *                           public static ImageDescriptor IMAGE_B;
-     *                      }
+     *      public class ImageHolder() {
+     *        public static Image IMAGE_A;
+     *        public static ImageDescriptor IMAGE_B;
+     *      }
      * </pre>
      * <pre>
      * ImageManager.injectImages(ImageHolder.class);
@@ -222,11 +248,15 @@ public class ImageManager {
                 new Object[] { clazz.getName(), field.getName() });
     }
 
+    protected static InputStream getInputStream(final String path) {
+        return resourceResolver.getInputStream(createAbsolutePath(path));
+    }
+
     protected static String createAbsolutePath(final String path) {
         if (path.startsWith("/")) {
-            return path;
+            return path.substring(1);
         } else {
-            return "/" + path;
+            return path;
         }
     }
 }

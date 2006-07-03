@@ -25,14 +25,14 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.S2JFace;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.container.factory.S2JFaceComponentDefFactory;
-import org.seasar.jface.impl.S2JFaceImpl;
 
 /**
- * レンダラのテストを行うための基底クラスです。</br>各レンダラのテストクラスは、本クラスを継承してください。</br>
- * 
+ * レンダラのテストを行うための基底クラスです。</br>
+ * <p>
+ * 各レンダラのテストクラスは、本クラスを継承してください。</br>
+ * </p>
  * 
  * @author y-komori
- * 
  */
 public abstract class AbstractRendererTest extends S2FrameworkTestCase {
     protected S2JFace s2JFace;
@@ -41,7 +41,7 @@ public abstract class AbstractRendererTest extends S2FrameworkTestCase {
     protected void setUp() throws Exception {
         TigerAnnotationHandler
                 .addComponentDefFactory(new S2JFaceComponentDefFactory());
-        s2JFace = new S2JFaceImpl();
+        s2JFace = new S2JFace();
         S2Container container = SingletonS2ContainerFactory.getContainer();
         container.register(createActionComponentDef());
     }
@@ -56,8 +56,7 @@ public abstract class AbstractRendererTest extends S2FrameworkTestCase {
 
     public void testRender() {
         String path = convertPath(getClass().getSimpleName() + ".xml");
-        String windowName = s2JFace.loadTemplate(path);
-        s2JFace.openWindow(windowName);
+        s2JFace.openWindow(path);
     }
 
     Shell shell;

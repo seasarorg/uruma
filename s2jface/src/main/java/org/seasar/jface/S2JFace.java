@@ -15,14 +15,46 @@
  */
 package org.seasar.jface;
 
+import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.factory.S2ContainerFactory;
+import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.container.factory.TigerAnnotationHandler;
+import org.seasar.jface.container.factory.S2JFaceComponentDefFactory;
+
 /**
  * @author y-komori
  * 
  */
-public interface S2JFace {
-    public String[] loadTemplates(String directoryName);
+public class S2JFace {
+    protected S2Container container;
 
-    public String loadTemplate(String path);
+    public static void main(String[] args) {
+        if (args.length >= 1) {
+            String templatePath = args[0];
+            S2JFace s2JFace = new S2JFace();
+            s2JFace.openWindow(templatePath);
+        } else {
+            System.err.println("[Error] 第1引数に初期画面のテンプレートパスを指定してください.");
+        }
+    }
 
-    public void openWindow(String windowName);
+    public S2JFace() {
+        initS2Container();
+    }
+
+    public void openWindow(final String templatePath) {
+        S2JFaceWindowManager windowManager = (S2JFaceWindowManager) container
+                .getComponent(S2JFaceWindowManager.class);
+        windowManager.open(templatePath, true);
+    }
+
+    protected void initS2Container() {
+        TigerAnnotationHandler
+                .addComponentDefFactory(new S2JFaceComponentDefFactory());
+        SingletonS2ContainerFactory.init();
+
+        container = SingletonS2ContainerFactory.getContainer();
+        container.include(S2ContainerFactory
+                .create(S2JFaceConstants.S2JFACE_DICON_PATH));
+    }
 }
