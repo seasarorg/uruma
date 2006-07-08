@@ -39,6 +39,27 @@ public interface LayoutSupport<LAYOUT_TYPE extends Layout, LAYOUT_DATA_TYPE> {
     public LAYOUT_TYPE createLayout();
 
     /**
+     * レイアウトパラメータを指定して、レイアウトオブジェクトを生成します。</br>
+     * <p>
+     * レイアウトパラメータは、「(属性名)=(値)」をセミコロンで区切って並べた文字列です。
+     * </p>
+     * <dl>
+     * <dt>【例】
+     * <dd>
+     * 
+     * <pre>
+     *  numColumns=1; marginHeight=0; marginWidth=0
+     * </pre>
+     * 
+     * </dl>
+     * 
+     * @param layoutParam
+     *            レイアウトパラメータ
+     * @return レイアウトオブジェクト
+     */
+    public LAYOUT_TYPE createLayout(String layoutParam);
+
+    /**
      * サポート対象のレイアウトクラスを返します。</br>
      * 
      * @return レイアウトクラスの<code>Class</code>オブジェクト

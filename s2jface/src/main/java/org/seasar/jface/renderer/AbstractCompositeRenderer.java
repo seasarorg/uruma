@@ -15,17 +15,12 @@
  */
 package org.seasar.jface.renderer;
 
-import java.util.StringTokenizer;
-
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
 import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.layout.LayoutSupport;
 import org.seasar.jface.layout.LayoutSupportFactory;
-import org.seasar.jface.util.PropertyUtil;
-import org.seasar.jface.util.SWTUtil;
 
 /**
  * <code>Composite</code> 用レンダラの基底クラスです。</br> <code>Composite</code>
@@ -65,37 +60,11 @@ public abstract class AbstractCompositeRenderer<COMPOSITE_TYPE extends Composite
         if (layoutType != null) {
             LayoutSupport layoutSupport = LayoutSupportFactory
                     .getLayoutSupport(layoutType);
-            Layout layout = layoutSupport.createLayout();
-
-            String layoutParam = compositeComponent.getLayoutParam();
-            if (layoutParam != null) {
-                setupLayoutParam(layout, layoutParam);
-            }
+            Layout layout = layoutSupport.createLayout(compositeComponent
+                    .getLayoutParam());
             control.setLayout(layout);
         }
 
         doRenderComposite(getControlType().cast(control), compositeComponent);
-
     }
-
-    protected void setupLayoutParam(final Layout layout, final String params) {
-        StringTokenizer st = new StringTokenizer(params, ";");
-        while (st.hasMoreElements()) {
-            String param = st.nextToken();
-            int eqPos = param.indexOf("=");
-            if (eqPos >= 0) {
-                String property = param.substring(0, eqPos).trim();
-                String value = param.substring(eqPos + 1).trim();
-
-                int swtConstant = SWTUtil.getSWTConstant(value);
-                if (swtConstant != SWT.NONE) {
-                    value = Integer.toString(swtConstant);
-                }
-
-                PropertyUtil
-                        .setField(layout, property, Integer.parseInt(value));
-            }
-        }
-    }
-
 }

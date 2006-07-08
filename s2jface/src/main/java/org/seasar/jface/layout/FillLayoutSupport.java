@@ -22,7 +22,8 @@ import org.seasar.jface.component.impl.ControlComponent;
  * @author y-komori
  * 
  */
-public class FillLayoutSupport implements LayoutSupport<FillLayout, Object> {
+public class FillLayoutSupport extends
+        AbstractLayoutSupport<FillLayout, Object> {
     private static final String LAYOUT_NAME = "fill";
 
     public FillLayout createLayout() {
