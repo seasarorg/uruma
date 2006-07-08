@@ -19,8 +19,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.S2JFaceAction;
 import org.seasar.jface.example.janken.impl.PlayerImpl;
 import org.seasar.jface.util.ImageManager;
 import org.seasar.jface.util.SWTUtil;
@@ -29,7 +29,7 @@ import org.seasar.jface.util.SWTUtil;
  * @author y-komori
  * 
  */
-@S2JFaceAction
+@Component(name = "jankenAction")
 public class JankenAction {
     private Label playerHandImage;
 

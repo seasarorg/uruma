@@ -24,7 +24,6 @@ import org.seasar.framework.unit.S2FrameworkTestCase;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.S2JFace;
 import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.container.factory.S2JFaceComponentDefFactory;
 
 /**
  * レンダラのテストを行うための基底クラスです。</br>
@@ -37,13 +36,16 @@ import org.seasar.jface.container.factory.S2JFaceComponentDefFactory;
 public abstract class AbstractRendererTest extends S2FrameworkTestCase {
     protected S2JFace s2JFace;
 
+    protected Shell shell;
+
+    private static boolean result;
+
     @Override
     protected void setUp() throws Exception {
-        TigerAnnotationHandler
-                .addComponentDefFactory(new S2JFaceComponentDefFactory());
         s2JFace = new S2JFace();
         S2Container container = SingletonS2ContainerFactory.getContainer();
         container.register(createActionComponentDef());
+        result = false;
     }
 
     protected ComponentDef createActionComponentDef() {
@@ -57,19 +59,18 @@ public abstract class AbstractRendererTest extends S2FrameworkTestCase {
     public void testRender() {
         String path = convertPath(getClass().getSimpleName() + ".xml");
         s2JFace.openWindow(path);
+        assertTrue(path, result);
     }
-
-    Shell shell;
 
     @EventListener(id = "okButton")
     public void okButtonAction() {
         shell.close();
-        assertTrue(true);
+        result = true;
     }
 
     @EventListener(id = "ngButton")
     public void ngButtonAction() {
         shell.close();
-        assertTrue(false);
+        result = false;
     }
 }

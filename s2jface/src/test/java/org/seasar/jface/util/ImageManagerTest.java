@@ -33,12 +33,18 @@ public class ImageManagerTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        display = new Display();
+        display = Display.getCurrent();
+        if (display == null) {
+            display = new Display();
+        }
     }
 
     @Override
     protected void tearDown() throws Exception {
-        display.dispose();
+        ImageManager.dispose();
+        if (display != null) {
+            display.dispose();
+        }
     }
 
     public void testPutImage() {

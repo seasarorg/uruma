@@ -184,10 +184,10 @@ public class ImageManager {
      * という名前のキーで登録されたオブジェクトをインジェクションします。
      * 
      * <pre>
-     *      public class ImageHolder() {
-     *        public static Image IMAGE_A;
-     *        public static ImageDescriptor IMAGE_B;
-     *      }
+     *         public class ImageHolder() {
+     *           public static Image IMAGE_A;
+     *           public static ImageDescriptor IMAGE_B;
+     *         }
      * </pre>
      * <pre>
      * ImageManager.injectImages(ImageHolder.class);

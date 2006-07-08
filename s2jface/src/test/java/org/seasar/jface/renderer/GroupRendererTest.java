@@ -15,13 +15,10 @@
  */
 package org.seasar.jface.renderer;
 
-import org.seasar.jface.annotation.S2JFaceAction;
-
 /**
  * @author y-komori
  * 
  */
-@S2JFaceAction
 public class GroupRendererTest extends AbstractRendererTest {
 
 }

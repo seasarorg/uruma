@@ -19,7 +19,7 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.container.factory.TigerAnnotationHandler;
-import org.seasar.jface.container.factory.S2JFaceComponentDefFactory;
+import org.seasar.jface.container.factory.S2JFaceComponentDefBuilder;
 
 /**
  * @author y-komori
@@ -50,7 +50,7 @@ public class S2JFace {
 
     protected void initS2Container() {
         TigerAnnotationHandler
-                .addComponentDefFactory(new S2JFaceComponentDefFactory());
+                .addComponentDefBuilder(new S2JFaceComponentDefBuilder());
         SingletonS2ContainerFactory.init();
 
         container = SingletonS2ContainerFactory.getContainer();
