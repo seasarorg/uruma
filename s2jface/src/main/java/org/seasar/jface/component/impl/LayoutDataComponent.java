@@ -60,4 +60,8 @@ public class LayoutDataComponent implements LayoutData {
     public void setInheritance(final Inheritance inheritance) {
         this.inheritance = inheritance;
     }
+
+    public LayoutData cloneLayoutData(final Inheritance inheritance) {
+        return new LayoutDataComponent(this.name, inheritance, this.value);
+    }
 }

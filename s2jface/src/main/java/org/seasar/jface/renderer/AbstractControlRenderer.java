@@ -60,6 +60,7 @@ public abstract class AbstractControlRenderer<CONTROL_TYPE extends Control>
 
         setupInheritance(controlComponent);
         inheritProperty(controlComponent);
+        inheritLayoutData(controlComponent);
 
         Control control = createControl(parent, getStyle(controlComponent));
 

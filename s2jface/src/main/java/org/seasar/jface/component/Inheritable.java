@@ -19,7 +19,7 @@ package org.seasar.jface.component;
  * @author y-komori
  * 
  */
-public interface Inheritable extends Cloneable {
+public interface Inheritable {
     public static final String INHERITANCE_NULL = "null";
 
     public static final String INHERITANCE_NONE = "none";

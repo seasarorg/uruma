@@ -27,4 +27,6 @@ public interface LayoutData extends Inheritable {
     public String getValue();
 
     public void setValue(String value);
+
+    public LayoutData cloneLayoutData(Inheritance inheritance);
 }

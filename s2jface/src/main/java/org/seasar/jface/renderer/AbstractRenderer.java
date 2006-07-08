@@ -24,8 +24,10 @@ import static org.seasar.jface.component.Inheritance.NULL;
 
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.Inheritance;
+import org.seasar.jface.component.LayoutData;
 import org.seasar.jface.component.Property;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.renderer.info.ComponentInfoAccessor;
 
 /**
@@ -92,6 +94,55 @@ public abstract class AbstractRenderer implements Renderer {
         }
     }
 
+    /**
+     * 親コンポーネントからLayoutData属性を引き継ぎます。</br>
+     * <p>
+     * 自コンポーネントに同名のLayoutDataが存在する場合は、引き継ぎを行いません。
+     * </p>
+     * <p>
+     * 引き継ぎを行う場合は、以下のように inheritance 属性を書き換えます。</br>
+     * </p>
+     * <dl>
+     * <dt>CHILDの場合
+     * <dd>NONEに書き換える
+     * <dt>CHILD_ONLYの場合
+     * <dd>NONEに書き換える
+     * <dt>DESCENDANTの場合
+     * <dd>書き換えない(DESCENDANTのまま)
+     * <dt>DESCENDANT_ONLYの場合
+     * <dd>DESCENDANTに書き換える
+     * </dl>
+     * 
+     * @param component
+     *            自コンポーネント
+     */
+    protected void inheritLayoutData(final ControlComponent component) {
+        UIComponent parent = component.getParent();
+        if (parent instanceof ControlComponent) {
+            ControlComponent parentControl = (ControlComponent) parent;
+
+            for (LayoutData layoutData : parentControl
+                    .getLayoutDataCollection()) {
+                if (component.getLayoutData(layoutData.getName()) == null) {
+                    Inheritance inheritance = layoutData.getInheritance();
+                    if (inheritance == CHILD) {
+                        component.addLayoutData(layoutData
+                                .cloneLayoutData(NONE));
+                    } else if (inheritance == CHILD_ONLY) {
+                        component.addLayoutData(layoutData
+                                .cloneLayoutData(NONE));
+                    } else if (inheritance == DESCENDANT) {
+                        component.addLayoutData(layoutData
+                                .cloneLayoutData(DESCENDANT));
+                    } else if (inheritance == DESCENDANT_ONLY) {
+                        component.addLayoutData(layoutData
+                                .cloneLayoutData(DESCENDANT));
+                    }
+                }
+            }
+        }
+    }
+
     protected WindowContext getContext() {
         return this.context;
     }
@@ -99,5 +150,4 @@ public abstract class AbstractRenderer implements Renderer {
     protected void setContext(WindowContext context) {
         this.context = context;
     }
-
 }

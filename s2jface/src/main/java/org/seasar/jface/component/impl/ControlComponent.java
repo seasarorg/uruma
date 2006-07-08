@@ -55,6 +55,10 @@ public class ControlComponent extends UIComponentBase {
                 value));
     }
 
+    public void addLayoutData(final LayoutData layoutData) {
+        layoutDataMap.put(layoutData.getName(), layoutData);
+    }
+
     public LayoutData getLayoutData(final String name) {
         return layoutDataMap.get(name);
     }
@@ -74,6 +78,10 @@ public class ControlComponent extends UIComponentBase {
 
     public Collection<String> getLayoutDataNames() {
         return layoutDataMap.keySet();
+    }
+
+    public Collection<LayoutData> getLayoutDataCollection() {
+        return layoutDataMap.values();
     }
 
     public List<Item> getItemList() {
