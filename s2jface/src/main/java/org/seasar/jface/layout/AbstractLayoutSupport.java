@@ -79,8 +79,7 @@ public abstract class AbstractLayoutSupport<LAYOUT_TYPE extends Layout, LAYOUT_D
                     value = Integer.toString(swtConstant);
                 }
 
-                PropertyUtil
-                        .setField(layout, property, Integer.parseInt(value));
+                PropertyUtil.setField(layout, property, value);
                 layoutParams.put(property, value);
             }
         }
