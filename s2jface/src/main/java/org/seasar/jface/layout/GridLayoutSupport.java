@@ -35,6 +35,10 @@ import org.seasar.jface.util.PropertyUtil;
  * @see org.eclipse.swt.layout.GridLayout
  * @see org.eclipse.swt.layout.GridData
  */
+/**
+ * @author y-komori
+ * 
+ */
 public class GridLayoutSupport extends
         AbstractLayoutSupport<GridLayout, GridData> {
     private static final String LAYOUT_NAME = "grid";
@@ -59,14 +63,23 @@ public class GridLayoutSupport extends
 
     private static final String VERTICAL_SPACING_ATTR = "verticalSpacing";
 
+    /*
+     * @see org.seasar.jface.layout.LayoutSupport#createLayout()
+     */
     public GridLayout createLayout() {
         return new GridLayout();
     }
 
+    /*
+     * @see org.seasar.jface.layout.LayoutSupport#getLayoutType()
+     */
     public Class<GridLayout> getLayoutType() {
         return GridLayout.class;
     }
 
+    /*
+     * @see org.seasar.jface.layout.LayoutSupport#createLayoutData()
+     */
     public GridData createLayoutData() {
         return new GridData();
     }
@@ -141,6 +154,9 @@ public class GridLayoutSupport extends
         }
     }
 
+    /*
+     * @see org.seasar.jface.layout.LayoutSupport#getLayoutName()
+     */
     public String getLayoutName() {
         return LAYOUT_NAME;
     }

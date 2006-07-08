@@ -18,10 +18,15 @@ package org.seasar.jface.layout;
 import static org.seasar.jface.renderer.info.ControlInfo.HEIGHT_PROP;
 import static org.seasar.jface.renderer.info.ControlInfo.WIDTH_PROP;
 
+import java.util.Map;
+
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Layout;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.component.Property;
 import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.util.PropertyUtil;
 
 /**
  * <code>RowLayout</code>と<code>RowData</code>の生成をサポートする<code>LayoutSupport</code>クラスです。</br>
@@ -32,6 +37,20 @@ import org.seasar.jface.component.impl.ControlComponent;
  */
 public class RowLayoutSupport extends AbstractLayoutSupport<RowLayout, RowData> {
     private static final String LAYOUT_NAME = "row";
+
+    private static final String MARGIN_LAYOUT_PARAM = "margin";
+
+    private static final String MARGIN_TOP_ATTR = "marginTop";
+
+    private static final String MARGIN_BOTTOM_ATTR = "marginBottom";
+
+    private static final String MARGIN_RIGHT_ATTR = "marginRight";
+
+    private static final String MARGIN_LEFT_ATTR = "marginLeft";
+
+    private static final String MARGIN_HEIGHT_ATTR = "marginHeight";
+
+    private static final String MARGIN_WIDTH_ATTR = "marginWidth";
 
     /*
      * @see org.seasar.jface.layout.LayoutSupport#createLayout()
@@ -87,6 +106,32 @@ public class RowLayoutSupport extends AbstractLayoutSupport<RowLayout, RowData> 
             return rowData;
         } else {
             return null;
+        }
+    }
+
+    /**
+     * 独自のレイアウトパラメータ処理を行います。</br>
+     * <p>
+     * <code>margin</code> が指定されていた場合、<code>marginTop</code>、
+     * <code>marginBottom</code>、<code>marginRight</code>、<code>marginLeft</code>、
+     * <code>marginHeight</code>、<code>marginWidth</code> をすべて同じ値に設定します。
+     * </p>
+     * 
+     * @see org.seasar.jface.layout.AbstractLayoutSupport#setupAdditionalLayoutParam(org.eclipse.swt.widgets.Layout,
+     *      java.util.Map)
+     */
+    @Override
+    protected void setupAdditionalLayoutParam(final Layout layout,
+            final Map<String, String> layoutParams) {
+        String marginStr = layoutParams.get(MARGIN_LAYOUT_PARAM);
+        if (!StringUtil.isEmpty(marginStr)) {
+            int margin = Integer.parseInt(marginStr);
+            PropertyUtil.setField(layout, MARGIN_TOP_ATTR, margin);
+            PropertyUtil.setField(layout, MARGIN_BOTTOM_ATTR, margin);
+            PropertyUtil.setField(layout, MARGIN_RIGHT_ATTR, margin);
+            PropertyUtil.setField(layout, MARGIN_LEFT_ATTR, margin);
+            PropertyUtil.setField(layout, MARGIN_HEIGHT_ATTR, margin);
+            PropertyUtil.setField(layout, MARGIN_WIDTH_ATTR, margin);
         }
     }
 

@@ -8,7 +8,7 @@
     <property name="defaultButton">okButton</property>
 
     <composite id="contents" type="box" layout="row"
-      layoutParam="type=HORIZONTAL; marginHeight=10; marginWidth=10; spacing=10">
+      layoutParam="type=HORIZONTAL; margin=10; spacing=10">
       <property name="fontSize">20</property>
       <layoutData name="horizontalAlignment">FILL</layoutData>
     </composite>
