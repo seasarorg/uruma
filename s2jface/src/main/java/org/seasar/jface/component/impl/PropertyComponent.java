@@ -20,10 +20,9 @@ import org.seasar.jface.component.Property;
 import org.seasar.jface.util.AssertionUtil;
 
 /**
- * <code>Property</code> 要素の情報を保持するためのコンポーネントです。
+ * <code>Property</code> 要素の情報を保持するためのコンポーネントです。</br>
  * 
  * @author y-komori
- * 
  */
 public class PropertyComponent implements Property {
     private String name;
@@ -52,7 +51,7 @@ public class PropertyComponent implements Property {
         return this.inheritance;
     }
 
-    public void setInheritance(Inheritance inheritance) {
+    public void setInheritance(final Inheritance inheritance) {
         this.inheritance = inheritance;
     }
 

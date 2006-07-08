@@ -15,20 +15,10 @@
  */
 package org.seasar.jface.template;
 
-import static org.seasar.jface.component.Inheritance.CHILD;
-import static org.seasar.jface.component.Inheritance.CHILD_ONLY;
-import static org.seasar.jface.component.Inheritance.DESCENDANT;
-import static org.seasar.jface.component.Inheritance.DESCENDANT_ONLY;
-import static org.seasar.jface.component.Inheritance.NONE;
-import static org.seasar.jface.component.Property.INHERITANCE_CHILD;
-import static org.seasar.jface.component.Property.INHERITANCE_CHILD_ONLY;
-import static org.seasar.jface.component.Property.INHERITANCE_DESCENDANT;
-import static org.seasar.jface.component.Property.INHERITANCE_DESCENDANT_ONLY;
-import static org.seasar.jface.component.Property.INHERITANCE_NONE;
-
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.Property;
+import org.seasar.jface.component.impl.InheritanceFactory;
 import org.seasar.jface.component.impl.PropertyComponent;
 import org.seasar.jface.component.impl.UIComponentBase;
 import org.seasar.jface.exception.ParseException;
@@ -57,21 +47,8 @@ public class PropertyTagHandler extends AbstractTagHandler {
         Property property = new PropertyComponent(name);
 
         String inheritanceAttr = attributes.getValue(INHERITANCE_ATTR);
-        Inheritance inheritance = Inheritance.NULL;
-        if (inheritanceAttr != null) {
-            if (INHERITANCE_NONE.equalsIgnoreCase(inheritanceAttr)) {
-                inheritance = NONE;
-            } else if (INHERITANCE_CHILD.equalsIgnoreCase(inheritanceAttr)) {
-                inheritance = CHILD;
-            } else if (INHERITANCE_CHILD_ONLY.equalsIgnoreCase(inheritanceAttr)) {
-                inheritance = CHILD_ONLY;
-            } else if (INHERITANCE_DESCENDANT.equalsIgnoreCase(inheritanceAttr)) {
-                inheritance = DESCENDANT;
-            } else if (INHERITANCE_DESCENDANT_ONLY
-                    .equalsIgnoreCase(inheritanceAttr)) {
-                inheritance = DESCENDANT_ONLY;
-            }
-        }
+        Inheritance inheritance = InheritanceFactory
+                .createInheritance(inheritanceAttr);
 
         property.setInheritance(inheritance);
 

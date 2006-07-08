@@ -19,8 +19,7 @@ package org.seasar.jface.component;
  * @author y-komori
  * 
  */
-public interface Property extends Inheritable {
-
+public interface LayoutData extends Inheritable {
     public String getName();
 
     public void setName(String name);
@@ -28,12 +27,4 @@ public interface Property extends Inheritable {
     public String getValue();
 
     public void setValue(String value);
-
-    public int getIntValue();
-
-    public boolean getBooleanValue();
-
-    public boolean isValueExist();
-
-    public Property cloneProperty(Inheritance inheritance);
 }

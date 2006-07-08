@@ -24,7 +24,9 @@ import java.util.Map;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.Item;
+import org.seasar.jface.component.LayoutData;
 import org.seasar.jface.util.AssertionUtil;
 
 /**
@@ -35,7 +37,7 @@ public class ControlComponent extends UIComponentBase {
 
     private String style;
 
-    private Map<String, String> layoutData = new HashMap<String, String>();
+    private Map<String, LayoutData> layoutDataMap = new HashMap<String, LayoutData>();
 
     private List<Item> itemList = new ArrayList<Item>();
 
@@ -47,20 +49,31 @@ public class ControlComponent extends UIComponentBase {
         this.style = style;
     }
 
-    public void addLayoutData(final String name, final String value) {
-        layoutData.put(name, value);
+    public void addLayoutData(final String name, final Inheritance inheritance,
+            final String value) {
+        layoutDataMap.put(name, new LayoutDataComponent(name, inheritance,
+                value));
     }
 
-    public String getLayoutData(final String name) {
-        return layoutData.get(name);
+    public LayoutData getLayoutData(final String name) {
+        return layoutDataMap.get(name);
+    }
+
+    public String getLayoutDataValue(final String name) {
+        LayoutData layoutData = layoutDataMap.get(name);
+        if (layoutData != null) {
+            return layoutData.getValue();
+        } else {
+            return null;
+        }
     }
 
     public int getLayoutDataNum() {
-        return layoutData.size();
+        return layoutDataMap.size();
     }
 
     public Collection<String> getLayoutDataNames() {
-        return layoutData.keySet();
+        return layoutDataMap.keySet();
     }
 
     public List<Item> getItemList() {

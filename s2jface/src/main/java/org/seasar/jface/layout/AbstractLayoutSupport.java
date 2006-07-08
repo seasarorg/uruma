@@ -53,7 +53,7 @@ public abstract class AbstractLayoutSupport<LAYOUT_TYPE extends Layout, LAYOUT_D
     protected void setupLayoutData(final Object layoutData,
             final ControlComponent controlComponent) {
         for (String name : controlComponent.getLayoutDataNames()) {
-            String value = controlComponent.getLayoutData(name);
+            String value = controlComponent.getLayoutDataValue(name);
             int constant = SWTUtil.getSWTConstant(value);
             if (constant != SWT.NULL) {
                 PropertyUtil.setField(layoutData, name, constant);

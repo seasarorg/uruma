@@ -16,7 +16,9 @@
 package org.seasar.jface.template;
 
 import org.seasar.framework.xml.TagHandlerContext;
+import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.component.impl.InheritanceFactory;
 import org.seasar.jface.exception.ParseException;
 import org.xml.sax.Attributes;
 
@@ -31,6 +33,8 @@ public class LayoutDataTagHandler extends AbstractTagHandler {
 
     protected static final String NAME_ATTR = "name";
 
+    protected static final String INHERITANCE_ATTR = "inheritance";
+
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
         String name = attributes.getValue(NAME_ATTR);
@@ -38,13 +42,19 @@ public class LayoutDataTagHandler extends AbstractTagHandler {
             throw new ParseException("EJFC0100", getElementName(), NAME_ATTR);
         }
         context.push(name);
+
+        String inheritanceAttr = attributes.getValue(INHERITANCE_ATTR);
+        Inheritance inheritance = InheritanceFactory
+                .createInheritance(inheritanceAttr);
+        context.push(inheritance);
     }
 
     @Override
     public void end(TagHandlerContext context, String body) {
+        Inheritance inheritance = (Inheritance) context.pop();
         String name = (String) context.pop();
         ControlComponent parent = (ControlComponent) context.peek();
-        parent.addLayoutData(name, body);
+        parent.addLayoutData(name, inheritance, body);
     }
 
     @Override

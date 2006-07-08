@@ -19,21 +19,20 @@ package org.seasar.jface.component;
  * @author y-komori
  * 
  */
-public interface Property extends Inheritable {
+public interface Inheritable extends Cloneable {
+    public static final String INHERITANCE_NULL = "null";
 
-    public String getName();
+    public static final String INHERITANCE_NONE = "none";
 
-    public void setName(String name);
+    public static final String INHERITANCE_CHILD = "child";
 
-    public String getValue();
+    public static final String INHERITANCE_CHILD_ONLY = "childOnly";
 
-    public void setValue(String value);
+    public static final String INHERITANCE_DESCENDANT = "descendant";
 
-    public int getIntValue();
+    public static final String INHERITANCE_DESCENDANT_ONLY = "descendantOnly";
 
-    public boolean getBooleanValue();
+    public Inheritance getInheritance();
 
-    public boolean isValueExist();
-
-    public Property cloneProperty(Inheritance inheritance);
+    public void setInheritance(Inheritance inheritance);
 }

@@ -36,6 +36,7 @@
 
 <!ELEMENT layoutData (#PCDATA)>
 <!ATTLIST layoutData name CDATA #REQUIRED>
+<!ATTLIST layoutData inheritance (none | child | childOnly | descendant | descendantOnly) #IMPLIED>
 
 <!ELEMENT item (#PCDATA | item)*>
 <!ATTLIST item label CDATA #IMPLIED>
