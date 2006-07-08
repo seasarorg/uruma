@@ -29,7 +29,7 @@ import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.util.PropertyUtil;
 
 /**
- * <code>GridLayout</code> および <code>GridData</code> オブジェクトの生成をサポートするクラスです。</br>
+ * <code>GridLayout</code>と<code>GridData</code>の生成をサポートする<code>LayoutSupport</code>クラスです。</br>
  * 
  * @author y-komori
  * @see org.eclipse.swt.layout.GridLayout
