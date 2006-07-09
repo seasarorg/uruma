@@ -46,7 +46,7 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
      */
     public void open(String templatePath, boolean blockOnOpen) {
         TemplateComponent template = loadTemplate(templatePath);
-        TemplateWindow templateWindow = new TemplateWindow(template);
+        S2JFaceApplicationWindow templateWindow = new S2JFaceApplicationWindow(template);
         templateWindow.setBlockOnOpen(blockOnOpen);
         windowManager.add(templateWindow);
         // TODO Windowがクローズされた時の対処

@@ -45,12 +45,12 @@ import org.seasar.jface.util.ImageManager;
  * @author y-komori
  * 
  */
-public class TemplateWindow extends ApplicationWindow {
+public class S2JFaceApplicationWindow extends ApplicationWindow {
     private TemplateComponent template;
 
     private WindowComponent windowComponent;
 
-    public TemplateWindow(TemplateComponent template) {
+    public S2JFaceApplicationWindow(TemplateComponent template) {
         super(null);
         this.template = template;
         this.windowComponent = template.getWindowComponent();

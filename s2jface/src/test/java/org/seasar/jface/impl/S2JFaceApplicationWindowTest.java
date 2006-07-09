@@ -23,13 +23,13 @@ import org.seasar.jface.template.TemplateBuilder;
  * @author y-komori
  *
  */
-public class TemplateWindowTest extends S2FrameworkTestCase {
+public class S2JFaceApplicationWindowTest extends S2FrameworkTestCase {
     public void test() {
         TemplateBuilder builder = new TemplateBuilder();
         TemplateComponent template = builder
                 .build("org/seasar/jface/template/TemplateBuilderTest.xml");
 
-        TemplateWindow templateWindow = new TemplateWindow(template);
+        S2JFaceApplicationWindow templateWindow = new S2JFaceApplicationWindow(template);
         templateWindow.setBlockOnOpen(true);
         templateWindow.open();
     }
