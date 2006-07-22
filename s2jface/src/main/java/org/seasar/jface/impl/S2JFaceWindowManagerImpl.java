@@ -46,11 +46,11 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
      */
     public void open(String templatePath, boolean blockOnOpen) {
         TemplateComponent template = loadTemplate(templatePath);
-        S2JFaceApplicationWindow templateWindow = new S2JFaceApplicationWindow(template);
-        templateWindow.setBlockOnOpen(blockOnOpen);
-        windowManager.add(templateWindow);
+        S2JFaceApplicationWindow window = new S2JFaceApplicationWindow(template);
+        window.setBlockOnOpen(blockOnOpen);
+        windowManager.add(window);
         // TODO Windowがクローズされた時の対処
-        templateWindow.open();
+        window.open();
     }
 
     /*
@@ -69,7 +69,7 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
                 return template;
             }
         }
-        return null;
+        return template;
     }
 
     protected TemplateComponent getTemplate(final String path) {
