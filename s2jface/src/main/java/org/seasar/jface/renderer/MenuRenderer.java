@@ -48,21 +48,21 @@ public class MenuRenderer extends AbstractControlRenderer<Composite> {
         shell.setMenuBar(menuBar);
         for (Item item : controlComponent.getItemList()) {
             MenuItem mainMenuItem = createMenuItem(menuBar, SWT.CASCADE);
-            mainMenuItem.setText(item.getValue());
+            mainMenuItem.setText(item.getLabel());
             Menu mainMenu = new Menu(mainMenuItem);
             mainMenuItem.setMenu(mainMenu);
             addChildMenu(mainMenu, item.getChildren());
         }
     }
-    
+
     protected Menu createMenu(final Shell parent) {
         return new Menu(parent, SWT.BAR);
     }
-    
+
     protected Menu createMenu(final MenuItem parent) {
         return new Menu(parent);
     }
-    
+
     protected MenuItem createMenuItem(final Menu parent, final int style) {
         return new MenuItem(parent, style);
     }
@@ -79,13 +79,12 @@ public class MenuRenderer extends AbstractControlRenderer<Composite> {
     public String getRendererName() {
         return "menu";
     }
-    
-    protected void addChildMenu(final Menu menu,
-            final List<Item> childItems) {
+
+    protected void addChildMenu(final Menu menu, final List<Item> childItems) {
         for (Item item : childItems) {
             MenuItem childMenu = createMenuItem(menu, SWT.PUSH);
-            if (childMenu != null && item.getValue() != null) {
-                childMenu.setText(item.getValue());
+            if (childMenu != null && item.getLabel() != null) {
+                childMenu.setText(item.getLabel());
             }
         }
     }

@@ -26,6 +26,8 @@ import org.seasar.jface.component.Item;
  * @author dkameya
  */
 public class ItemComponent implements Item {
+    private String label;
+
     private String value;
 
     private List<Item> children = new ArrayList<Item>();
@@ -48,5 +50,13 @@ public class ItemComponent implements Item {
 
     public boolean hasChildren() {
         return children.size() > 0 ? true : false;
+    }
+
+    public String getLabel() {
+        return this.label;
+    }
+
+    public void setLabel(final String label) {
+        this.label = label;
     }
 }

@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.template;
 
+import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Item;
 import org.seasar.jface.component.impl.ControlComponent;
@@ -29,59 +30,36 @@ import org.xml.sax.Attributes;
 public class ItemTagHandler extends AbstractTagHandler {
     private static final long serialVersionUID = -7973949046037222249L;
 
-    private Item item = null;
+    private static final String LABEL_ATTR = "label";
+
+    @Override
+    public void start(final TagHandlerContext context,
+            final Attributes attributes) {
+        Item item = new ItemComponent();
+        String label = attributes.getValue(LABEL_ATTR);
+        if (label != null) {
+            item.setLabel(label);
+        }
+
+        Object parent = context.peek();
+        if (parent instanceof ControlComponent) {
+            ((ControlComponent) parent).addItem(item);
+        } else if (parent instanceof Item) {
+            ((Item) parent).addChild(item);
+        }
+        context.push(item);
+    }
 
     @Override
     public void end(final TagHandlerContext context, final String body) {
-        if (item == null) {
-            if (context.peek() instanceof ControlComponent) {
-                createItem(body);
-                ((ControlComponent) context.peek()).addItem(item);
-            } else {
-                if (body != null && !body.equals("")) {
-                    createItem(body);
-                    ((Item) context.peek()).addChild(item);
-                } else {
-                    context.pop();
-                }
-            }
+        Item item = (Item) context.pop();
+        if (!StringUtil.isEmpty(body)) {
+            item.setValue(body);
         }
-        item = null;
-    }
-
-    /**
-     * <code>item</code> に引数で指定した文字列をセットした <code>Item<code> をセットする。 
-     * @param value テキスト文字列
-     */
-    protected void createItem(String value) {
-        item = new ItemComponent();
-        item.setValue(value);
     }
 
     @Override
     protected String getElementName() {
         return "item";
-    }
-
-    @Override
-    public void start(final TagHandlerContext context,
-            final Attributes attributes) {
-        String label = attributes.getValue("label");
-        if (item != null) {
-            context.push(item);
-            item = null;
-        }
-
-        if (label != null) {
-            createItem(label);
-        }
-
-        if (context.peek() instanceof Item && item != null) {
-            ((Item) context.peek()).addChild(item);
-        }
-        
-        if (item != null && context.peek() instanceof ControlComponent) {
-            ((ControlComponent) context.peek()).addItem(item);
-        }
     }
 }

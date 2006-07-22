@@ -63,7 +63,7 @@ public class TableRenderer extends AbstractControlRenderer<Table> {
     public String getRendererName() {
         return "table";
     }
-    
+
     protected void addHeader(final Table table,
             final ControlComponent controlComponent) {
         table.setHeaderVisible(true);

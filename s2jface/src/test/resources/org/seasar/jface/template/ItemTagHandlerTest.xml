@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="itemTagHandlerTest">
+  <window id="itemTagHandlerTest">
+    <control type="label">
+      <item label="item1Label">item1Value</item>
+      
+      <item>item2Value</item>
+      
+      <item label="item3Label" />
+      
+      <item label="item4Label">
+        <item label="item4-1Label">item4-1Value</item>
+        <item>item4-2Value</item>
+        <item label="item4-3Label" />
+      </item>
+
+      <item label="item5Label">
+        <item label="item5-1Label">
+          <item label="item5-1-1Label" />
+        </item>
+        <item label="item5-2Label">
+          <item label="item5-2-1Label" />
+        </item>
+      </item>
+    </control>
+  </window>
+</template>

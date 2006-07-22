@@ -21,13 +21,17 @@ import java.util.List;
  * @author dkameya
  */
 public interface Item {
-    void setValue(String value);
+    public void setLabel(String label);
 
-    String getValue();
+    public String getLabel();
 
-    void addChild(Item item);
+    public void setValue(String value);
 
-    List<Item> getChildren();
+    public String getValue();
 
-    boolean hasChildren();
+    public void addChild(Item item);
+
+    public List<Item> getChildren();
+
+    public boolean hasChildren();
 }

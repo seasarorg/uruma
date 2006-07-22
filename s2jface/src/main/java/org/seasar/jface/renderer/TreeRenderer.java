@@ -57,9 +57,9 @@ public class TreeRenderer extends AbstractControlRenderer<Tree> {
     protected void addTree(final Tree tree,
             final ControlComponent controlComponent) {
         for (Item item : controlComponent.getItemList()) {
-            if (item.getValue().length() != 0) {
+            if (item.getLabel().length() != 0) {
                 TreeItem parent = new TreeItem(tree, SWT.NONE);
-                parent.setText(item.getValue());
+                parent.setText(item.getLabel());
                 if (item.hasChildren()) {
                     addChildren(item.getChildren(), parent);
                 }
@@ -70,7 +70,7 @@ public class TreeRenderer extends AbstractControlRenderer<Tree> {
     protected void addChildren(List<Item> items, TreeItem parent) {
         for (Item item : items) {
             TreeItem self = new TreeItem(parent, SWT.NONE);
-            self.setText(item.getValue());
+            self.setText(item.getLabel());
             if (item.hasChildren()) {
                 addChildren(item.getChildren(), self);
             }

@@ -57,11 +57,11 @@ public class ComboboxRenderer extends AbstractControlRenderer<Combo> {
     public String getRendererName() {
         return "combobox";
     }
-    
+
     protected void addItems(final Combo combo,
             final ControlComponent controlComponent) {
         for (Item item : controlComponent.getItemList()) {
-            combo.add(item.getValue());
+            combo.add(item.getLabel());
         }
     }
 }
