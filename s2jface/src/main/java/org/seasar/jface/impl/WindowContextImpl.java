@@ -18,6 +18,7 @@ package org.seasar.jface.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.exception.DuplicateComponentIdException;
@@ -30,10 +31,19 @@ import org.seasar.jface.util.AssertionUtil;
 public class WindowContextImpl implements WindowContext {
     protected Map<String, Widget> componentMap = new HashMap<String, Widget>();
 
+    protected MenuManager menuBar;
+
+    /*
+     * @see org.seasar.jface.WindowContext#getComponent(java.lang.String)
+     */
     public Widget getComponent(String id) {
         return componentMap.get(id);
     }
 
+    /*
+     * @see org.seasar.jface.WindowContext#putComponent(java.lang.String,
+     *      org.eclipse.swt.widgets.Widget)
+     */
     public void putComponent(String id, Widget component) {
         AssertionUtil.assertNotNull("id", id);
         AssertionUtil.assertNotNull("component", component);
@@ -43,5 +53,19 @@ public class WindowContextImpl implements WindowContext {
         } else {
             throw new DuplicateComponentIdException(id);
         }
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#getMenuBar()
+     */
+    public MenuManager getMenuBar() {
+        return this.menuBar;
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#setMenuBar(org.eclipse.jface.action.IMenuManager)
+     */
+    public void setMenuBar(MenuManager menuManager) {
+        this.menuBar = menuManager;
     }
 }

@@ -19,6 +19,7 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.internal.SWTEventListener;
 import org.eclipse.swt.widgets.Composite;
@@ -48,29 +49,56 @@ import org.seasar.jface.util.ImageManager;
 public class S2JFaceApplicationWindow extends ApplicationWindow {
     private TemplateComponent template;
 
-    private WindowComponent windowComponent;
+    private WindowContext context;
 
     public S2JFaceApplicationWindow(TemplateComponent template) {
         super(null);
         this.template = template;
-        this.windowComponent = template.getWindowComponent();
+        this.context = new WindowContextImpl();
 
-        int style = ((WindowRenderer) windowComponent.getRenderer())
-                .getShellStyle(windowComponent);
+        setupShellStyle(template.getWindowComponent());
+    }
+
+    protected void setupShellStyle(final WindowComponent component) {
+        int style = ((WindowRenderer) component.getRenderer())
+                .getShellStyle(component);
         setShellStyle(style);
+    }
+
+    protected void setupImageManager() {
+        ResourceBundle imageResources = ResourceBundle
+                .getBundle("s2JFaceImages");
+        ImageManager.loadImages(imageResources);
     }
 
     @Override
     protected Control createContents(Composite parent) {
-        // TODO 初期化位置とdispose位置を再考
-        ResourceBundle imageResources = ResourceBundle
-                .getBundle("s2JFaceImages");
-        ImageManager.loadImages(imageResources);
+        setupImageManager();
 
-        WindowContext context = new WindowContextImpl();
+        WindowComponent windowComponent = template.getWindowComponent();
         windowComponent.render(parent, context);
+
+        if (context.getMenuBar() != null) {
+            addMenuBar();
+        }
+
         createListeners(windowComponent.getId(), context);
+
         return parent;
+    }
+
+    @Override
+    protected MenuManager createMenuManager() {
+        return context.getMenuBar();
+    }
+
+    @Override
+    public boolean close() {
+        boolean result = super.close();
+        if (result) {
+            ImageManager.dispose();
+        }
+        return result;
     }
 
     protected void createListeners(String windowName, WindowContext context) {

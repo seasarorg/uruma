@@ -15,6 +15,7 @@
  */
 package org.seasar.jface;
 
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Widget;
 
 /**
@@ -28,8 +29,46 @@ public interface WindowContext {
      */
     public static final String SHELL_ID = "shell";
 
+    /**
+     * 画面コンポーネント(SWTウィジット)を登録します。</br>
+     * 
+     * @param id
+     *            コンポーネントのID
+     * @param component
+     *            コンポーネント
+     * @throws org.seasar.jface.exception.DuplicateComponentIdException
+     *             コンポーネントIDが既に登録されている場合にスローされます。
+     * @see Widget
+     */
     public void putComponent(String id, Widget component);
 
+    /**
+     * 画面コンポーネント(SWTウィジット)を取得します。</br>
+     * 
+     * @param id
+     *            コンポーネントのID
+     * @return コンポーネント
+     */
     public Widget getComponent(String id);
 
+    /**
+     * ウィンドウへメニューバーとして表示する <code>MenuManager</code> を登録します。</br>
+     * <p>
+     * ウィンドウへメニューバーを表示する際は、レンダラ内で<code>MenuManager</code>
+     * を生成して本メソッドを利用して登録してください。
+     * </p>
+     * 
+     * @param menuManager
+     *            <code>MenuManager</code>オブジェクト
+     * @see MenuManager
+     */
+    public void setMenuBar(MenuManager menuManager);
+
+    /**
+     * メニューバーとして登録した <code>MenuManager</code> を取得します。</br>
+     * 
+     * @return <code>MenuManager</code> のインスタンス
+     * @see MenuManager
+     */
+    public MenuManager getMenuBar();
 }
