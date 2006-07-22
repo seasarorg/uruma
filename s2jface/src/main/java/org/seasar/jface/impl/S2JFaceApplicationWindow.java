@@ -33,12 +33,14 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.EventListenerType;
 import org.seasar.jface.binding.MethodBinding;
 import org.seasar.jface.binding.SWTEventListenerBinder;
+import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.container.EventListenerDef;
 import org.seasar.jface.container.S2JFaceComponentDef;
 import org.seasar.jface.events.SWTEventListenerFactory;
 import org.seasar.jface.exception.NotFoundException;
+import org.seasar.jface.renderer.MenuManagerRenderer;
 import org.seasar.jface.renderer.WindowRenderer;
 import org.seasar.jface.util.ImageManager;
 
@@ -56,6 +58,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         this.template = template;
         this.context = new WindowContextImpl();
 
+        setupMenuBar();
         setupShellStyle(template.getWindowComponent());
     }
 
@@ -63,6 +66,21 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         int style = ((WindowRenderer) component.getRenderer())
                 .getShellStyle(component);
         setShellStyle(style);
+    }
+
+    protected void setupMenuBar() {
+        // addMenuBar() は shell の生成前に呼び出さなければならないため、
+        // MenuManagerRenderer のみ別扱いでレンダリングを行っている
+        WindowComponent windowComponent = template.getWindowComponent();
+        String rendererName = (new MenuManagerRenderer()).getRendererName();
+        for (UIComponent component : windowComponent.getChildren()) {
+            if (rendererName.equals(component.getRendererType())) {
+                component.render(null, context);
+                if (context.getMenuBar() != null) {
+                    addMenuBar();
+                }
+            }
+        }
     }
 
     protected void setupImageManager() {
@@ -77,10 +95,6 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
 
         WindowComponent windowComponent = template.getWindowComponent();
         windowComponent.render(parent, context);
-
-        if (context.getMenuBar() != null) {
-            addMenuBar();
-        }
 
         createListeners(windowComponent.getId(), context);
 

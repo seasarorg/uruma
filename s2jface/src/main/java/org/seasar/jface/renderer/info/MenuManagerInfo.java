@@ -13,29 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.exception;
+package org.seasar.jface.renderer.info;
 
 /**
  * @author y-komori
  * 
  */
-public class ResourceNotFoundException extends S2JFaceRuntimeException {
-    private static final long serialVersionUID = 2351873148287806683L;
+public class MenuManagerInfo extends ControlInfo {
 
-    private static final String MESSAGE_CODE = "EJFC0003";
-
-    protected String path;
-
-    public ResourceNotFoundException(final String path) {
-        super(MESSAGE_CODE, path);
-        this.path = path;
-    }
-
-    public ResourceNotFoundException(final String path, Throwable cause) {
-        super(MESSAGE_CODE, cause, path);
-    }
-
-    public String getPath() {
-        return path;
-    }
 }

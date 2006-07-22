@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+  "http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="menuManagerRendererTest" extends="RendererTest.xml">
+  <extends id="menuManagerRendererTest" property="title">
+    MenuManagerRendererTest
+  </extends>
+  <extends id="menuBar" replace="true" />
+
+  <window id="menuManagerRendererTest">
+    <control id="menuBar" type="menuManager">
+      <item label="ファイル(&amp;F)">
+        <item>newAction</item>
+        <item>openAction</item>
+        <item>closeAction</item>
+      </item>
+      <item label="編集(&amp;E)">
+        <item>openAction</item>
+      </item>
+    </control>
+  </window>
+</template>

@@ -7,6 +7,8 @@
     <property name="title">RendererTest</property>
     <property name="defaultButton">okButton</property>
 
+    <control id="menuBar" type="menuManager"/>
+    
     <composite id="contents" type="box" layout="row"
       layoutParam="type=HORIZONTAL; margin=10; spacing=10">
       <property name="fontSize">20</property>

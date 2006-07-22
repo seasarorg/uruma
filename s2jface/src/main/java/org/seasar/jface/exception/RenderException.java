@@ -16,26 +16,16 @@
 package org.seasar.jface.exception;
 
 /**
- * @author y-komori
+ * レンダリング処理中に異常が発生した際にスローされるクラスです。</br>
  * 
+ * @author y-komori
  */
-public class ResourceNotFoundException extends S2JFaceRuntimeException {
-    private static final long serialVersionUID = 2351873148287806683L;
+public class RenderException extends S2JFaceRuntimeException {
+    private static final long serialVersionUID = 2652211902877860349L;
 
-    private static final String MESSAGE_CODE = "EJFC0003";
+    public static final String IACTION = "EJFC0301";
 
-    protected String path;
-
-    public ResourceNotFoundException(final String path) {
-        super(MESSAGE_CODE, path);
-        this.path = path;
-    }
-
-    public ResourceNotFoundException(final String path, Throwable cause) {
-        super(MESSAGE_CODE, cause, path);
-    }
-
-    public String getPath() {
-        return path;
+    public RenderException(String messageCode, Object... args) {
+        super(messageCode, args);
     }
 }

@@ -48,6 +48,7 @@ public class RendererFactrory {
         addRenderer(new CustomTabRenderer());
         addRenderer(new ComboboxRenderer());
         addRenderer(new MenuRenderer());
+        addRenderer(new MenuManagerRenderer());
     }
 
     /**
