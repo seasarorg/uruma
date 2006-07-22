@@ -11,8 +11,8 @@
     <composite id="contents" type="box">
       <control type="menu">
         <item label="Menu">
-          <item>Menu1</item>
-          <item>Menu2</item>
+          <item label="Menu1" />
+          <item label="Menu2" />
         </item>
       </control>
     </composite>
