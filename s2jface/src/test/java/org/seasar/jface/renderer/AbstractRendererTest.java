@@ -18,9 +18,11 @@ package org.seasar.jface.renderer;
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.container.factory.TigerAnnotationHandler;
 import org.seasar.framework.unit.S2FrameworkTestCase;
+import org.seasar.framework.util.ResourceNotFoundRuntimeException;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.S2JFace;
 import org.seasar.jface.annotation.EventListener;
@@ -45,6 +47,16 @@ public abstract class AbstractRendererTest extends S2FrameworkTestCase {
         s2JFace = new S2JFace();
         S2Container container = SingletonS2ContainerFactory.getContainer();
         container.register(createActionComponentDef());
+
+        // クラス名と同名のdiconファイルが存在すればインクルードする
+        try {
+            S2Container child = S2ContainerFactory
+                    .create(convertPath(getClass().getSimpleName() + ".dicon"));
+            container.include(child);
+        } catch (ResourceNotFoundRuntimeException ex) {
+            // do nothing.
+        }
+
         result = false;
     }
 
