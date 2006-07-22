@@ -26,12 +26,12 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.binding.DummyAction;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.Item;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.exception.RenderException;
-import org.seasar.jface.impl.DummyAction;
 import org.seasar.jface.renderer.info.ComponentInfo;
 import org.seasar.jface.renderer.info.MenuManagerInfo;
 

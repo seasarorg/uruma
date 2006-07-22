@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.impl;
+package org.seasar.jface.binding;
 
 import org.eclipse.jface.action.Action;
 
