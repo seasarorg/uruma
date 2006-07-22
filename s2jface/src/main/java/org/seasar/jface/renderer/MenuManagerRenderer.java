@@ -19,10 +19,12 @@ import java.util.List;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.Inheritance;
 import org.seasar.jface.component.Item;
@@ -59,15 +61,24 @@ public class MenuManagerRenderer extends AbstractRenderer {
 
             if (componentName != null) {
                 // IAction オブジェクトの登録
-                parent.add(getActionComponent(componentName));
+                IAction action = getActionComponent(componentName);
+                if (label != null) {
+                    action.setText(label);
+                }
+                parent.add(action);
             } else if (label != null) {
-                // メニューの登録
-                MenuManager menu = new MenuManager(label);
-                parent.add(menu);
+                if (StringUtil.isBlank(label)) {
+                    // セパレータの登録
+                    parent.add(new Separator());
+                } else {
+                    // メニューの登録
+                    MenuManager menu = new MenuManager(label);
+                    parent.add(menu);
 
-                List<Item> children = item.getChildren();
-                if (children.size() > 0) {
-                    renderItems(children, menu);
+                    List<Item> children = item.getChildren();
+                    if (children.size() > 0) {
+                        renderItems(children, menu);
+                    }
                 }
             }
         }

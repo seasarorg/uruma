@@ -11,6 +11,8 @@
     <control id="menuBar" type="menuManager">
       <item label="ファイル(&amp;F)">
         <item>newAction</item>
+        <!-- ラベルが空のitemはセパレータを表します -->
+        <item label="" />
         <item>openAction</item>
         <item>closeAction</item>
       </item>
