@@ -31,6 +31,7 @@ import org.seasar.jface.component.Item;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.exception.RenderException;
+import org.seasar.jface.impl.DummyAction;
 import org.seasar.jface.renderer.info.ComponentInfo;
 import org.seasar.jface.renderer.info.MenuManagerInfo;
 
@@ -71,13 +72,15 @@ public class MenuManagerRenderer extends AbstractRenderer {
                     // セパレータの登録
                     parent.add(new Separator());
                 } else {
-                    // メニューの登録
-                    MenuManager menu = new MenuManager(label);
-                    parent.add(menu);
-
                     List<Item> children = item.getChildren();
                     if (children.size() > 0) {
+                        // メニューの登録
+                        MenuManager menu = new MenuManager(label);
+                        parent.add(menu);
                         renderItems(children, menu);
+                    } else {
+                        // 末端要素の場合はダミーのアクションを登録する
+                        parent.add(new DummyAction(label));
                     }
                 }
             }

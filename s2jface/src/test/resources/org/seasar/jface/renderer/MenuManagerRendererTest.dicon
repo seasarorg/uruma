@@ -2,17 +2,17 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
 	"http://www.seasar.org/dtd/components23.dtd">
 <components>
-	<component name="newAction" class="org.seasar.jface.renderer.TestAction">
+	<component name="newAction" class="org.seasar.jface.impl.DummyAction">
 		<initMethod name="setText">
 			<arg>"新規(&amp;N)@Ctrl+N"</arg>
 		</initMethod>
 	</component>
-	<component name="openAction" class="org.seasar.jface.renderer.TestAction">
+	<component name="openAction" class="org.seasar.jface.impl.DummyAction">
 		<initMethod name="setText">
 			<arg>"開く(&amp;O)@Ctrl+O"</arg>
 		</initMethod>
 	</component>
-	<component name="closeAction" class="org.seasar.jface.renderer.TestAction">
+	<component name="closeAction" class="org.seasar.jface.impl.DummyAction">
 		<initMethod name="setText">
 			<arg>"閉じる(&amp;W)@Ctrl+W"</arg>
 		</initMethod>

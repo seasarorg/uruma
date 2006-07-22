@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.renderer;
+package org.seasar.jface.impl;
 
 import org.eclipse.jface.action.Action;
 
@@ -21,8 +21,12 @@ import org.eclipse.jface.action.Action;
  * @author y-komori
  * 
  */
-public class TestAction extends Action {
-    public TestAction() {
+public class DummyAction extends Action {
+    public DummyAction() {
         super();
+    }
+
+    public DummyAction(String text) {
+        super(text);
     }
 }

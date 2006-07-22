@@ -17,8 +17,15 @@
         <item>closeAction</item>
       </item>
       <item label="編集(&amp;E)">
-        <item>openAction</item>
+        <item label="メニュー1(&amp;1)">
+          <item>openAction</item>
+          <item>newAction</item>
+        </item>
+        <item label="メニュー2(&amp;2)">
+          <item>closeAction</item>
+        </item>
       </item>
     </control>
+
   </window>
 </template>
