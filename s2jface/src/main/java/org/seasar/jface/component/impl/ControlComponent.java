@@ -96,7 +96,7 @@ public class ControlComponent extends UIComponentBase {
         AssertionUtil.assertNotNull("renderer", renderer);
         Widget widget = renderer.render(this, parent, context);
 
-        if (getId() != null) {
+        if ((getId() != null) && (widget != null)) {
             context.putComponent(getId(), widget);
         }
     }
