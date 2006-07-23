@@ -23,8 +23,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.seasar.framework.container.factory.ClassPathResourceResolver;
 import org.seasar.framework.container.factory.ResourceResolver;
+import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.util.InputStreamUtil;
-import org.seasar.framework.util.ResourceNotFoundRuntimeException;
 import org.seasar.framework.util.SAXParserFactoryUtil;
 import org.seasar.framework.xml.SaxHandler;
 import org.seasar.framework.xml.SaxHandlerParser;
