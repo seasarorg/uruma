@@ -15,30 +15,15 @@
  */
 package org.seasar.jface.impl;
 
-import java.lang.reflect.Method;
-import java.util.Iterator;
-
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
-import org.eclipse.swt.internal.SWTEventListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Widget;
-import org.seasar.framework.beans.MethodNotFoundRuntimeException;
-import org.seasar.framework.container.S2Container;
-import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.annotation.EventListenerType;
-import org.seasar.jface.binding.MethodBinding;
-import org.seasar.jface.binding.SWTEventListenerBinder;
+import org.seasar.jface.binding.MethodBindingSupport;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.impl.WindowComponent;
-import org.seasar.jface.container.EventListenerDef;
-import org.seasar.jface.container.S2JFaceComponentDef;
-import org.seasar.jface.events.SWTEventListenerFactory;
-import org.seasar.jface.exception.NotFoundException;
 import org.seasar.jface.renderer.MenuManagerRenderer;
 import org.seasar.jface.renderer.WindowRenderer;
 
@@ -86,7 +71,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         WindowComponent windowComponent = template.getWindowComponent();
         windowComponent.render(parent, context);
 
-        createListeners(windowComponent.getId(), context);
+        MethodBindingSupport.createListeners(windowComponent.getId(), context);
 
         return parent;
     }
@@ -94,55 +79,5 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
     @Override
     protected MenuManager createMenuManager() {
         return context.getMenuBar();
-    }
-
-    protected void createListeners(String windowName, WindowContext context) {
-        S2JFaceComponentDef componentDef = getActionComponentDef(windowName);
-        if (componentDef == null) {
-            return;
-        }
-        Object action = componentDef.getComponent();
-
-        Iterator<EventListenerDef> iter = componentDef
-                .eventListenerDefIterator();
-        while (iter.hasNext()) {
-            EventListenerDef eventListenerDef = iter.next();
-            String id = eventListenerDef.getEventListener().id();
-            Widget widget = context.getComponent(id);
-            if (widget != null) {
-                Method targetMethod = eventListenerDef.getTargetMethod();
-                MethodBinding methodBinding = new MethodBinding(action,
-                        targetMethod);
-
-                EventListenerType listenerType = eventListenerDef
-                        .getEventListener().eventListenerType();
-
-                try {
-                    SWTEventListener listener = SWTEventListenerFactory
-                            .getListener(listenerType, context, methodBinding);
-                    SWTEventListenerBinder.bindListener(listener, widget);
-
-                } catch (MethodNotFoundRuntimeException ex) {
-                    // TODO 例外処理
-                }
-            } else {
-                throw new NotFoundException(NotFoundException.WIDGET, id);
-            }
-        }
-    }
-
-    protected S2JFaceComponentDef getActionComponentDef(String windowName) {
-        String actionComponentName = getActionComponentName(windowName);
-        S2Container container = SingletonS2ContainerFactory.getContainer();
-        if (container.hasComponentDef(actionComponentName)) {
-            return (S2JFaceComponentDef) container
-                    .getComponentDef(actionComponentName);
-        } else {
-            return null;
-        }
-    }
-
-    protected String getActionComponentName(String windowName) {
-        return StringUtil.decapitalize(windowName) + "Action";
     }
 }
