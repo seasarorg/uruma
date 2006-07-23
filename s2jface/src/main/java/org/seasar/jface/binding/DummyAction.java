@@ -36,6 +36,10 @@ public class DummyAction extends Action {
         super(text);
     }
 
+    public DummyAction(String text, int style) {
+        super(text, style);
+    }
+
     @Override
     @Binding(bindingType = BindingType.MAY)
     public void setHelpListener(HelpListener listener) {
