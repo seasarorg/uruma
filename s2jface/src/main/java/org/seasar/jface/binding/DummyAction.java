@@ -16,11 +16,17 @@
 package org.seasar.jface.binding;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuCreator;
+import org.eclipse.swt.events.HelpListener;
+import org.seasar.framework.container.annotation.tiger.Binding;
+import org.seasar.framework.container.annotation.tiger.BindingType;
+import org.seasar.framework.container.annotation.tiger.Component;
 
 /**
  * @author y-komori
  * 
  */
+@Component
 public class DummyAction extends Action {
     public DummyAction() {
         super();
@@ -28,5 +34,17 @@ public class DummyAction extends Action {
 
     public DummyAction(String text) {
         super(text);
+    }
+
+    @Override
+    @Binding(bindingType = BindingType.MAY)
+    public void setHelpListener(HelpListener listener) {
+        super.setHelpListener(listener);
+    }
+
+    @Override
+    @Binding(bindingType = BindingType.MAY)
+    public void setMenuCreator(IMenuCreator creator) {
+        super.setMenuCreator(creator);
     }
 }
