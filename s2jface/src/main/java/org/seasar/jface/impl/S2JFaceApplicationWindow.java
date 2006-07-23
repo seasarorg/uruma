@@ -17,7 +17,6 @@ package org.seasar.jface.impl;
 
 import java.lang.reflect.Method;
 import java.util.Iterator;
-import java.util.ResourceBundle;
 
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
@@ -42,7 +41,6 @@ import org.seasar.jface.events.SWTEventListenerFactory;
 import org.seasar.jface.exception.NotFoundException;
 import org.seasar.jface.renderer.MenuManagerRenderer;
 import org.seasar.jface.renderer.WindowRenderer;
-import org.seasar.jface.util.ImageManager;
 
 /**
  * @author y-komori
@@ -83,16 +81,8 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         }
     }
 
-    protected void setupImageManager() {
-        ResourceBundle imageResources = ResourceBundle
-                .getBundle("s2JFaceImages");
-        ImageManager.loadImages(imageResources);
-    }
-
     @Override
     protected Control createContents(Composite parent) {
-        setupImageManager();
-
         WindowComponent windowComponent = template.getWindowComponent();
         windowComponent.render(parent, context);
 
@@ -104,15 +94,6 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
     @Override
     protected MenuManager createMenuManager() {
         return context.getMenuBar();
-    }
-
-    @Override
-    public boolean close() {
-        boolean result = super.close();
-        if (result) {
-            ImageManager.dispose();
-        }
-        return result;
     }
 
     protected void createListeners(String windowName, WindowContext context) {

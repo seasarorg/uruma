@@ -15,11 +15,15 @@
  */
 package org.seasar.jface;
 
+import java.util.ResourceBundle;
+
+import org.eclipse.swt.widgets.Display;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.container.factory.TigerAnnotationHandler;
 import org.seasar.jface.container.factory.S2JFaceComponentDefBuilder;
+import org.seasar.jface.util.ImageManager;
 
 /**
  * @author y-komori
@@ -27,6 +31,8 @@ import org.seasar.jface.container.factory.S2JFaceComponentDefBuilder;
  */
 public class S2JFace {
     protected S2Container container;
+
+    private Display display;
 
     public static void main(String[] args) {
         if (args.length >= 1) {
@@ -43,9 +49,17 @@ public class S2JFace {
     }
 
     public void openWindow(final String templatePath) {
+        display = Display.getCurrent();
+        if (display == null) {
+            display = new Display();
+        }
+        setupImageManager();
+
         S2JFaceWindowManager windowManager = (S2JFaceWindowManager) container
                 .getComponent(S2JFaceWindowManager.class);
         windowManager.open(templatePath, true);
+
+        dispose();
     }
 
     protected void initS2Container() {
@@ -56,5 +70,17 @@ public class S2JFace {
         container = SingletonS2ContainerFactory.getContainer();
         container.include(S2ContainerFactory
                 .create(S2JFaceConstants.S2JFACE_DICON_PATH));
+    }
+
+    protected void setupImageManager() {
+        ResourceBundle imageResources = ResourceBundle
+                .getBundle("s2JFaceImages");
+        ImageManager.loadImages(imageResources);
+    }
+
+    protected void dispose() {
+        ImageManager.dispose();
+        display.dispose();
+        display = null;
     }
 }

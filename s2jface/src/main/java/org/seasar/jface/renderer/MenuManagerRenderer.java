@@ -41,8 +41,6 @@ import org.seasar.jface.renderer.info.MenuManagerInfo;
  * @author y-komori
  */
 public class MenuManagerRenderer extends AbstractRenderer {
-    protected S2Container container = SingletonS2ContainerFactory
-            .getContainer();
 
     public Widget render(final UIComponent uiComponent, final Composite parent,
             final WindowContext context) {
@@ -88,6 +86,7 @@ public class MenuManagerRenderer extends AbstractRenderer {
     }
 
     protected IAction getActionComponent(final String name) {
+        S2Container container = SingletonS2ContainerFactory.getContainer();
         Object component = container.getComponent(name);
         if (component instanceof IAction) {
             return (IAction) component;

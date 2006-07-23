@@ -22,6 +22,7 @@ import org.eclipse.jface.window.WindowManager;
 import org.seasar.jface.S2JFaceWindowManager;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.impl.WindowComponent;
+import org.seasar.jface.exception.WindowManagerException;
 import org.seasar.jface.template.TemplateBuilder;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -31,6 +32,8 @@ import org.seasar.jface.util.AssertionUtil;
  * @author y-komori
  */
 public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
+    private boolean blocking;
+
     // 現在開いているウィンドウを管理するためのクラス
     private WindowManager windowManager = new WindowManager();
 
@@ -45,12 +48,19 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
      *      boolean)
      */
     public void open(String templatePath, boolean blockOnOpen) {
+        if (blockOnOpen) {
+            startBlocking();
+        }
+
         TemplateComponent template = loadTemplate(templatePath);
         S2JFaceApplicationWindow window = new S2JFaceApplicationWindow(template);
         window.setBlockOnOpen(blockOnOpen);
         windowManager.add(window);
-        // TODO Windowがクローズされた時の対処
         window.open();
+
+        if (blockOnOpen) {
+            endBlocking();
+        }
     }
 
     /*
@@ -82,4 +92,18 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
         WindowComponent window = template.getWindowComponent();
         windowMap.put(window.getId(), window);
     }
+
+    protected synchronized void startBlocking() {
+        if (!blocking) {
+            blocking = true;
+        } else {
+            throw new WindowManagerException(
+                    WindowManagerException.ALREADY_BLOCKING);
+        }
+    }
+
+    protected synchronized void endBlocking() {
+        blocking = false;
+    }
+
 }
