@@ -17,4 +17,24 @@
 			<arg>"閉じる(&amp;W)@Ctrl+W"</arg>
 		</initMethod>
 	</component>
+	<component name="checkAction1" class="org.seasar.jface.renderer.CheckAction">
+		<initMethod name="setText">
+			<arg>"チェックボックス型メニュー1"</arg>
+		</initMethod>
+	</component>
+	<component name="checkAction2" class="org.seasar.jface.renderer.CheckAction">
+		<initMethod name="setText">
+			<arg>"チェックボックス型メニュー2"</arg>
+		</initMethod>
+	</component>
+	<component name="radioAction1" class="org.seasar.jface.renderer.RadioAction">
+		<initMethod name="setText">
+			<arg>"ラジオボタン型メニュー1"</arg>
+		</initMethod>
+	</component>
+	<component name="radioAction2" class="org.seasar.jface.renderer.RadioAction">
+		<initMethod name="setText">
+			<arg>"ラジオボタン型メニュー2"</arg>
+		</initMethod>
+	</component>
 </components>
