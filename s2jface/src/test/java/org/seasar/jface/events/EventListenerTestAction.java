@@ -15,19 +15,18 @@
  */
 package org.seasar.jface.events;
 
-import org.eclipse.swt.widgets.Listener;
-import org.seasar.jface.WindowContext;
-import org.seasar.jface.binding.MethodBinding;
+import org.seasar.framework.container.annotation.tiger.Component;
+import org.seasar.jface.annotation.EventListener;
 
-/**
- * @author bskuroneko
- * 
- */
-public class ListenerFactory {
-
-    public static Listener getListener(WindowContext context,
-            MethodBinding methodBinding) {
-        return new S2JFaceListener(context, methodBinding);
+@Component(name = "eventListenerTestAction")
+public class EventListenerTestAction {
+    @EventListener(id = "go")
+    public void go() {
+        System.out.println("Go!");
     }
 
+    @EventListener(id = "stop")
+    public void stop() {
+        System.out.println("Stop!");
+    }
 }

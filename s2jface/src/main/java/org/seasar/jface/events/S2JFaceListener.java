@@ -23,10 +23,10 @@ import org.seasar.jface.binding.WidgetBinder;
 
 /**
  * @author bskuroneko
- *
+ * 
  */
 public class S2JFaceListener implements Listener {
-    
+
     private WindowContext context;
 
     private MethodBinding methodBinding;
@@ -42,5 +42,5 @@ public class S2JFaceListener implements Listener {
             methodBinding.invoke();
         }
     }
-    
+
 }

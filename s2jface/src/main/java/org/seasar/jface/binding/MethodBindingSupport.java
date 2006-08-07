@@ -80,7 +80,8 @@ public class MethodBindingSupport {
                 EventListenerType listenerType = eventListenerDef
                         .getEventListener().eventListenerType();
 
-                Listener listener = ListenerFactory.getListener(context, methodBinding);
+                Listener listener = ListenerFactory.getListener(context,
+                        methodBinding);
                 ListenerBinder.bindListener(listenerType, listener, widget);
             } else {
                 throw new NotFoundException(NotFoundException.WIDGET, id);

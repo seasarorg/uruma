@@ -25,7 +25,8 @@ import org.seasar.jface.annotation.EventListenerType;
  */
 public class ListenerBinder {
 
-    public static void bindListener(EventListenerType listenerType, Listener listener, Widget widget) {
+    public static void bindListener(EventListenerType listenerType,
+            Listener listener, Widget widget) {
         widget.addListener(listenerType.getSWTEventType(), listener);
     }
 

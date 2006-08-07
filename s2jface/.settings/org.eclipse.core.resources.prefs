@@ -1,6 +1,7 @@
-#Mon Aug 07 20:31:38 JST 2006
+#Mon Aug 07 22:53:45 JST 2006
 eclipse.preferences.version=1
 encoding//src/main/resources/s2jface.dicon=UTF-8
+encoding//src/test/resources/org/seasar/jface/events/eventListenerTestAction.dicon=UTF-8
 encoding//src/test/resources/org/seasar/jface/renderer/MenuManagerRendererTest.dicon=UTF-8
 encoding//src/test/resources/org/seasar/jface/test.dicon=UTF-8
 encoding/<project>=UTF-8

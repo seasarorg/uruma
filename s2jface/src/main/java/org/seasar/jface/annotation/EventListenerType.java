@@ -25,55 +25,55 @@ import org.seasar.jface.util.SWTUtil;
  * 
  */
 public enum EventListenerType {
-    
+
     // ArmListener
     ARM,
-    
+
     // ControlListener
     MOVE, RESIZE,
-    
+
     // DisposeListener
     DISPOSE,
-    
+
     // FocusListener
     FOCUS_IN, FOCUS_OUT,
-    
+
     // HelpListener
     HELP,
-    
+
     // KeyListener
     KEY_PRESSED, KEY_RELEASED,
-    
+
     // MenuListener
     HIDE, SHOW,
-    
+
     // ModifyListener
-    MODIFY, 
-    
+    MODIFY,
+
     // MouseListener
     MOUSE_DOUBLE_CLICK, MOUSE_DOWN, MOUSE_UP,
-    
+
     // MouseMoveListener
     MOUSE_MOVE,
-    
+
     // MouseTrackListener
     MOUSE_ENTER, MOUSE_EXIT, MOUSE_HOVER,
-    
+
     // PaintListener
     PAINT,
-    
+
     // SelectionListener
     DEFAULT_SELECTION, SELECTION,
-    
+
     // ShellListener
     ACTIVATE, CLOSE, DEACTIVATE, DEICONIFY, ICONIFY,
-    
+
     // TraverseListener
     TRAVERSE,
-    
+
     // TreeListener
     COLLAPSE, EXPAND,
-    
+
     // VerifyListener
     VERIFY;
 

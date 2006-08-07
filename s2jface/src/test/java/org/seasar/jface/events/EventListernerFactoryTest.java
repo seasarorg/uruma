@@ -15,19 +15,16 @@
  */
 package org.seasar.jface.events;
 
-import org.eclipse.swt.widgets.Listener;
-import org.seasar.jface.WindowContext;
-import org.seasar.jface.binding.MethodBinding;
+import org.junit.Test;
+import org.seasar.jface.S2JFace;
 
-/**
- * @author bskuroneko
- * 
- */
-public class ListenerFactory {
+public class EventListernerFactoryTest {
+    private S2JFace s2JFace;
 
-    public static Listener getListener(WindowContext context,
-            MethodBinding methodBinding) {
-        return new S2JFaceListener(context, methodBinding);
+    @Test
+    public void setup() {
+        s2JFace = new S2JFace(
+                "org/seasar/jface/events/eventListenerTestAction.dicon");
+        s2JFace.openWindow("org/seasar/jface/events/eventListenerTest.xml");
     }
-
 }

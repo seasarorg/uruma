@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
- package org.seasar.jface.impl;
+package org.seasar.jface.impl;
 
 import org.seasar.framework.unit.S2FrameworkTestCase;
 import org.seasar.jface.component.impl.TemplateComponent;
@@ -21,7 +21,7 @@ import org.seasar.jface.template.TemplateBuilder;
 
 /**
  * @author y-komori
- *
+ * 
  */
 public class S2JFaceApplicationWindowTest extends S2FrameworkTestCase {
     public void test() {
@@ -29,7 +29,8 @@ public class S2JFaceApplicationWindowTest extends S2FrameworkTestCase {
         TemplateComponent template = builder
                 .build("org/seasar/jface/template/TemplateBuilderTest.xml");
 
-        S2JFaceApplicationWindow templateWindow = new S2JFaceApplicationWindow(template);
+        S2JFaceApplicationWindow templateWindow = new S2JFaceApplicationWindow(
+                template);
         templateWindow.setBlockOnOpen(true);
         templateWindow.open();
     }
