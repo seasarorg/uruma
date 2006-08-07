@@ -15,8 +15,6 @@
  */
 package org.seasar.jface;
 
-import java.util.ResourceBundle;
-
 import org.eclipse.swt.widgets.Display;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
@@ -73,9 +71,7 @@ public class S2JFace {
     }
 
     protected void setupImageManager() {
-        ResourceBundle imageResources = ResourceBundle
-                .getBundle("s2JFaceImages");
-        ImageManager.loadImages(imageResources);
+        ImageManager.loadImages("s2JFaceImages");
     }
 
     protected void dispose() {
