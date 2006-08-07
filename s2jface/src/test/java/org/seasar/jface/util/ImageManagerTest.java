@@ -65,9 +65,12 @@ public class ImageManagerTest extends TestCase {
         Image argImage = ImageManager.getImage("ARG_IMG");
         assertNotNull("1", argImage);
 
-        ImageManager.putImageDescriptor("DUMMY_IMG", "dummy");
-        Image dummyImg = ImageManager.getImage("DUMMY_IMG");
-        assertNotNull("2", dummyImg);
+        try {
+            ImageManager.putImageDescriptor("DUMMY_IMG", "dummy");
+            fail();
+        } catch (ResourceNotFoundRuntimeException ex) {
+            assertTrue(true);
+        }
     }
 
     public void testLoadImage() {

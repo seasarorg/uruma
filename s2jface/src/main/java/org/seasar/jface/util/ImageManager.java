@@ -82,7 +82,7 @@ public class ImageManager {
      * オブジェクトを検索します。
      * <li>見つからない場合、クラスパスから <code>icons/app.png</code> というリソースをロードします。
      * <li>ロードに成功すれば、<code>icons/app.png</code> というキーでレジストリに登録します。
-     * <li>ここで見つからない場合は、{@link org.seasar.jface.exception ResourceNotFoundException}
+     * <li>ここで見つからない場合は、{@link org.seasar.framework.exception.ResourceNotFoundRuntimeException}
      * をスローします。
      * </ul>
      * 
@@ -90,8 +90,8 @@ public class ImageManager {
      *            イメージのパス/キー
      * 
      * @return 見つかった <code>Image</code> オブジェクト
-     * @throws ResourceNotFoundException
-     *             <code>Image</code> オブジェクトが取得できなかった場合
+     * @throws org.seasar.framework.exception.ResourceNotFoundRuntimeException
+     *             指定されたリソースが見つからなかった場合
      */
     public static Image loadImage(final String path) {
         Image image = getImage(path);
@@ -114,8 +114,8 @@ public class ImageManager {
      * @param path
      *            イメージのパス
      * @return 登録した <code>Image</code> オブジェクト
-     * @throws ResourceNotFoundException
-     *             path の示すリソースが取得できなかった場合
+     * @throws org.seasar.framework.exception.ResourceNotFoundRuntimeException
+     *             指定されたリソースが見つからなかった場合
      */
     public static Image putImage(final String key, final String path) {
         checkKey(key);
@@ -133,19 +133,18 @@ public class ImageManager {
      * オブジェクトとして <code>key</code> で示されるキーでレジストリに登録します。</br> 既に同じキーで
      * <code>ImageDescriptor</code> オブジェクトが登録されている場合、上書きします。</br>
      * </p>
-     * <p>
-     * 本メソッドでは <code>path</code> 指定したリソースが存在しなくても例外をスローしません。
-     * </p>
      * 
      * @param key
      *            キー
      * @param path
      *            リソースのパス
+     * @throws org.seasar.framework.exception.ResourceNotFoundRuntimeException
+     *             指定されたリソースが見つからなかった場合
      */
     public static void putImageDescriptor(final String key, final String path) {
         checkKey(key);
 
-        URL url = ResourceUtil.getResourceNoException(normalizePath(path));
+        URL url = ResourceUtil.getResource(normalizePath(path));
         ImageDescriptor descriptor = ImageDescriptor.createFromURL(url);
         imageRegistry.put(key, descriptor);
     }
@@ -218,10 +217,10 @@ public class ImageManager {
      * という名前のキーで登録されたオブジェクトをインジェクションします。
      * 
      * <pre>
-     *             public class ImageHolder() {
-     *                 public static Image IMAGE_A;
-     *                 public static ImageDescriptor IMAGE_B;
-     *             }
+     *                 public class ImageHolder() {
+     *                     public static Image IMAGE_A;
+     *                     public static ImageDescriptor IMAGE_B;
+     *                 }
      * </pre>
      * <pre>
      * ImageManager.injectImages(ImageHolder.class);
