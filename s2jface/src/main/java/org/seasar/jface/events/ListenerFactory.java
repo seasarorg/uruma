@@ -15,32 +15,18 @@
  */
 package org.seasar.jface.events;
 
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Listener;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.MethodBinding;
-import org.seasar.jface.binding.WidgetBinder;
 
 /**
- * @author y-komori
- * 
+ * @author bskuroneko
+ *
  */
-public class S2JFaceSelectionListener extends SelectionAdapter {
-    private WindowContext context;
+public class ListenerFactory {
 
-    private MethodBinding methodBinding;
-
-    public S2JFaceSelectionListener(final WindowContext context,
-            final MethodBinding methodBinding) {
-        this.context = context;
-        this.methodBinding = methodBinding;
+    public static Listener getListener(WindowContext context, MethodBinding methodBinding) {
+        return new S2JFaceListener(context, methodBinding);
     }
 
-    @Override
-    public void widgetSelected(SelectionEvent event) {
-        if (methodBinding != null) {
-            WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
-            methodBinding.invoke();
-        }
-    }
 }

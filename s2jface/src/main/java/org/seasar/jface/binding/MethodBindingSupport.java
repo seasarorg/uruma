@@ -18,9 +18,8 @@ package org.seasar.jface.binding;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 
-import org.eclipse.swt.internal.SWTEventListener;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.framework.beans.MethodNotFoundRuntimeException;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
@@ -28,7 +27,7 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.EventListenerType;
 import org.seasar.jface.container.EventListenerDef;
 import org.seasar.jface.container.S2JFaceComponentDef;
-import org.seasar.jface.events.SWTEventListenerFactory;
+import org.seasar.jface.events.ListenerFactory;
 import org.seasar.jface.exception.NotFoundException;
 
 /**
@@ -81,14 +80,8 @@ public class MethodBindingSupport {
                 EventListenerType listenerType = eventListenerDef
                         .getEventListener().eventListenerType();
 
-                try {
-                    SWTEventListener listener = SWTEventListenerFactory
-                            .getListener(listenerType, context, methodBinding);
-                    SWTEventListenerBinder.bindListener(listener, widget);
-
-                } catch (MethodNotFoundRuntimeException ex) {
-                    // TODO 例外処理
-                }
+                Listener listener = ListenerFactory.getListener(context, methodBinding);
+                ListenerBinder.bindListener(listenerType, listener, widget);
             } else {
                 throw new NotFoundException(NotFoundException.WIDGET, id);
             }

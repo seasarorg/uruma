@@ -15,14 +15,85 @@
  */
 package org.seasar.jface.annotation;
 
+import java.util.StringTokenizer;
+
+import org.seasar.framework.util.StringUtil;
+import org.seasar.jface.util.SWTUtil;
+
 /**
  * @author y-komori
  * 
  */
 public enum EventListenerType {
-    SELECTION, KEY, MOUSE;
+    
+    // ArmListener
+    ARM,
+    
+    // ControlListener
+    MOVE, RESIZE,
+    
+    // DisposeListener
+    DISPOSE,
+    
+    // FocusListener
+    FOCUS_IN, FOCUS_OUT,
+    
+    // HelpListener
+    HELP,
+    
+    // KeyListener
+    KEY_PRESSED, KEY_RELEASED,
+    
+    // MenuListener
+    HIDE, SHOW,
+    
+    // ModifyListener
+    MODIFY, 
+    
+    // MouseListener
+    MOUSE_DOUBLE_CLICK, MOUSE_DOWN, MOUSE_UP,
+    
+    // MouseMoveListener
+    MOUSE_MOVE,
+    
+    // MouseTrackListener
+    MOUSE_ENTER, MOUSE_EXIT, MOUSE_HOVER,
+    
+    // PaintListener
+    PAINT,
+    
+    // SelectionListener
+    DEFAULT_SELECTION, SELECTION,
+    
+    // ShellListener
+    ACTIVATE, CLOSE, DEACTIVATE, DEICONIFY, ICONIFY,
+    
+    // TraverseListener
+    TRAVERSE,
+    
+    // TreeListener
+    COLLAPSE, EXPAND,
+    
+    // VerifyListener
+    VERIFY;
 
     public String getName() {
         return toString().toLowerCase();
+    }
+
+    // TODO 面倒でもSWT.Xxxを直接参照した方がコンパイルエラーになってよいかも
+    public int getSWTEventType() {
+        String swtConstantName = capitalizeConstantName(toString());
+        return SWTUtil.getSWTConstant(swtConstantName);
+    }
+
+    // TODO 適切なクラスに移動する
+    private String capitalizeConstantName(String string) {
+        StringTokenizer st = new StringTokenizer(string, "_");
+        StringBuilder builder = new StringBuilder("");
+        while (st.hasMoreTokens()) {
+            builder.append(StringUtil.capitalize(st.nextToken().toLowerCase()));
+        }
+        return builder.toString();
     }
 }
