@@ -19,8 +19,12 @@
         <item>checkAction1</item>
         <item>checkAction2</item>
         <item label="" />
-        <item>radioAction1</item>
-        <item>radioAction2</item>
+        <item>radioAction1_1</item>
+        <item>radioAction1_2</item>
+        <item label="" />
+        <item>radioAction2_1</item>
+        <item>radioAction2_2</item>
+        <item>radioAction2_3</item>
       </item>
       <item label="編集(&amp;E)">
         <item label="メニュー1(&amp;1)">

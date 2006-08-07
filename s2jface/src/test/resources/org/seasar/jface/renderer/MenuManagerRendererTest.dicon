@@ -21,20 +21,44 @@
 		<initMethod name="setText">
 			<arg>"チェックボックス型メニュー1"</arg>
 		</initMethod>
+		<initMethod name="setChecked">
+			<arg>true</arg>
+		</initMethod>
 	</component>
 	<component name="checkAction2" class="org.seasar.jface.renderer.CheckAction">
 		<initMethod name="setText">
 			<arg>"チェックボックス型メニュー2"</arg>
 		</initMethod>
 	</component>
-	<component name="radioAction1" class="org.seasar.jface.renderer.RadioAction">
+	<component name="radioAction1_1" class="org.seasar.jface.renderer.RadioAction">
 		<initMethod name="setText">
-			<arg>"ラジオボタン型メニュー1"</arg>
+			<arg>"ラジオボタン型メニュー1-1"</arg>
+		</initMethod>
+		<initMethod name="setChecked">
+			<arg>true</arg>
 		</initMethod>
 	</component>
-	<component name="radioAction2" class="org.seasar.jface.renderer.RadioAction">
+	<component name="radioAction1_2" class="org.seasar.jface.renderer.RadioAction">
 		<initMethod name="setText">
-			<arg>"ラジオボタン型メニュー2"</arg>
+			<arg>"ラジオボタン型メニュー1-2"</arg>
+		</initMethod>
+	</component>
+	<component name="radioAction2_1" class="org.seasar.jface.renderer.RadioAction">
+		<initMethod name="setText">
+			<arg>"ラジオボタン型メニュー2-1"</arg>
+		</initMethod>
+	</component>
+	<component name="radioAction2_2" class="org.seasar.jface.renderer.RadioAction">
+		<initMethod name="setText">
+			<arg>"ラジオボタン型メニュー2-2"</arg>
+		</initMethod>
+		<initMethod name="setChecked">
+			<arg>true</arg>
+		</initMethod>
+	</component>
+	<component name="radioAction2_3" class="org.seasar.jface.renderer.RadioAction">
+		<initMethod name="setText">
+			<arg>"ラジオボタン型メニュー2-3"</arg>
 		</initMethod>
 	</component>
 </components>
