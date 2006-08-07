@@ -15,24 +15,22 @@
  */
 package org.seasar.jface;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import junit.framework.TestCase;
+
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 
-public class S2JFaceTest {
+public class S2JFaceTest extends TestCase {
     private static final String PATH = "org/seasar/jface/test.dicon";
 
-    @Test
-    public void init() {
+    public void testInit() {
         new S2JFace(PATH);
-        if (SingletonS2ContainerFactory.hasContainer()) {
-            System.out.println("OK");
-            List list = (List) SingletonS2ContainerFactory.getContainer()
-                    .getComponent(List.class);
-            System.out.println(list.getClass().getName());
-        } else {
-            System.out.println("NG");
-        }
+        assertTrue(SingletonS2ContainerFactory.hasContainer());
+        List list = (List) SingletonS2ContainerFactory.getContainer()
+                .getComponent(List.class);
+        assertNotNull(list);
+        assertEquals(ArrayList.class, list.getClass());
     }
 }
