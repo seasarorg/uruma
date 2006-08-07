@@ -18,6 +18,7 @@ package org.seasar.jface.util;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
@@ -27,14 +28,19 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.framework.container.factory.ClassPathResourceResolver;
-import org.seasar.framework.container.factory.ResourceResolver;
 import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.FieldUtil;
-import org.seasar.jface.exception.ResourceNotFoundException;
+import org.seasar.framework.util.ResourceUtil;
 
 /**
  * <code>Image</code> オブジェクトを管理するためのユーティリティクラスです。
+ * <p>
+ * 本クラスは、クラスパス上のリソースとして存在するイメージファイルを読み込み、管理する機能を提供します。</br>
+ * また、本クラスのメソッドに対してリソースのパスを指定する場合、先頭にスラッシュ(/)がついていてもいなくても同じパスとして扱います。</br>
+ * たとえば、<code>&quot;org/seasar/jface/images/xxxImage.png&quot;</code> と
+ * <code>&quot;/org/seasar/jface/images/xxxImage.png&quot;</code>
+ * は同じものとして扱います。
+ * </p>
  * 
  * @author y-komori
  * 
@@ -44,13 +50,11 @@ public class ImageManager {
 
     protected static final Logger logger = Logger.getLogger(ImageManager.class);
 
-    protected static final ResourceResolver resourceResolver = new ClassPathResourceResolver();
-
     private ImageManager() {
     }
 
     /**
-     * 指定されたキーで登録された Image オブジェクトを返します。<br>
+     * 指定されたキーで登録された <code>Image</code> オブジェクトを返します。<br>
      * 
      * @param key
      *            キー
@@ -114,55 +118,85 @@ public class ImageManager {
      *             path の示すリソースが取得できなかった場合
      */
     public static Image putImage(final String key, final String path) {
-        if (imageRegistry.get(key) != null) {
-            imageRegistry.remove(key);
-        }
-        InputStream is = getInputStream(path);
-        if (is != null) {
-            Image image = new Image(Display.getCurrent(), is);
-            imageRegistry.put(key, image);
-            return image;
-        } else {
-            throw new ResourceNotFoundException(path);
-        }
+        checkKey(key);
+
+        InputStream is = ResourceUtil.getResourceAsStream(normalizePath(path));
+        Image image = new Image(Display.getCurrent(), is);
+        imageRegistry.put(key, image);
+        return image;
     }
 
     /**
      * <code>ImageDescriptor</code> オブジェクトを登録します。<br>
      * <p>
-     * 既に同じキーで <code>ImageDescriptor</code> が登録されている場合、上書きします。</br>
+     * <code>path</code> で示されるリソースをクラスパス上から読み込み、<code>ImageDescriptor</code>
+     * オブジェクトとして <code>key</code> で示されるキーでレジストリに登録します。</br> 既に同じキーで
+     * <code>ImageDescriptor</code> オブジェクトが登録されている場合、上書きします。</br>
+     * </p>
+     * <p>
+     * 本メソッドでは <code>path</code> 指定したリソースが存在しなくても例外をスローしません。
      * </p>
      * 
      * @param key
      *            キー
-     * @param fileName
-     *            イメージのファイル名
+     * @param path
+     *            リソースのパス
      */
-    public static void putImageDescriptor(final String key,
-            final String fileName) {
-        ImageDescriptor descriptor = ImageDescriptor.createFromFile(
-                ImageManager.class, createAbsolutePath(fileName));
+    public static void putImageDescriptor(final String key, final String path) {
+        checkKey(key);
+
+        URL url = ResourceUtil.getResourceNoException(normalizePath(path));
+        ImageDescriptor descriptor = ImageDescriptor.createFromURL(url);
         imageRegistry.put(key, descriptor);
     }
 
     /**
-     * <code>ResourceBundle</code> から <code>Image</code>
+     * <code>ResourceBundle</code> からイメージを読み込み、一括登録します。</br>
      * <p>
-     * オブジェクトを読み込み、一括登録します。</br> 「key=path」の形式で記述されたプロパティファイルを元にした
-     * <code>ResourceBundle</code> から <code>Image</code> オブジェクトを一括して読み込みます。
+     * 「key=path」の形式で記述されたプロパティファイルを元にした <code>ResourceBundle</code> から
+     * <code>Image</code> オブジェクトを一括して読み込みます。
      * </p>
+     * <p>
+     * 本メソッドではイメージを <code>ImageDescriptor</code> として登録します。
+     * </p>
+     * 
+     * <p>
+     * コーディング例
+     * </p>
+     * 
+     * <pre>
+     * ResourceBundle imageResources = ResourceBundle.getBundle(&quot;s2JFaceImages&quot;);
+     * ImageManager.loadImages(imageResources);
+     * </pre>
      * 
      * @param bundle
      *            リソースバンドルの参照
      */
     public static void loadImages(final ResourceBundle bundle) {
-
         Enumeration keys = bundle.getKeys();
         while (keys.hasMoreElements()) {
             String key = (String) keys.nextElement();
-            String url = bundle.getString(key);
-            putImage(key, url);
+            String path = bundle.getString(key);
+            putImageDescriptor(key, path);
         }
+    }
+
+    /**
+     * <code>ResourceBundle</code> からイメージを読み込み、一括登録します。</br>
+     * <p>
+     * 「key=path」の形式で記述されたプロパティファイルを元にした <code>ResourceBundle</code> から
+     * <code>Image</code> オブジェクトを一括して読み込みます。
+     * </p>
+     * <p>
+     * 本メソッドではイメージを <code>ImageDescriptor</code> として登録します。
+     * </p>
+     * 
+     * @param baseName
+     *            リソースバンドルの基底名
+     */
+    public static void loadImages(final String baseName) {
+        ResourceBundle imageResources = ResourceBundle.getBundle(baseName);
+        loadImages(imageResources);
     }
 
     /**
@@ -184,10 +218,10 @@ public class ImageManager {
      * という名前のキーで登録されたオブジェクトをインジェクションします。
      * 
      * <pre>
-     *         public class ImageHolder() {
-     *           public static Image IMAGE_A;
-     *           public static ImageDescriptor IMAGE_B;
-     *         }
+     *             public class ImageHolder() {
+     *                 public static Image IMAGE_A;
+     *                 public static ImageDescriptor IMAGE_B;
+     *             }
      * </pre>
      * <pre>
      * ImageManager.injectImages(ImageHolder.class);
@@ -248,13 +282,19 @@ public class ImageManager {
                 new Object[] { clazz.getName(), field.getName() });
     }
 
-    protected static InputStream getInputStream(final String path) {
-        return resourceResolver.getInputStream(createAbsolutePath(path));
+    protected static void checkKey(String key) {
+        if (imageRegistry.get(key) != null) {
+            imageRegistry.remove(key);
+        }
     }
 
-    protected static String createAbsolutePath(final String path) {
-        if (path.startsWith("/")) {
-            return path.substring(1);
+    protected static String normalizePath(final String path) {
+        if ((path != null) && (path.startsWith("/"))) {
+            if (path.length() > 1) {
+                return path.substring(1);
+            } else {
+                return "";
+            }
         } else {
             return path;
         }

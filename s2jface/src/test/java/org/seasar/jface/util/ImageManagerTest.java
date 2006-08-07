@@ -15,14 +15,12 @@
  */
 package org.seasar.jface.util;
 
-import java.util.ResourceBundle;
-
 import junit.framework.TestCase;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
-import org.seasar.jface.exception.ResourceNotFoundException;
+import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 
 /**
  * @author y-komori
@@ -48,33 +46,45 @@ public class ImageManagerTest extends TestCase {
     }
 
     public void testPutImage() {
-        ImageManager.putImage("ARG_IMG", "/images/arg.gif");
+        ImageManager.putImage("ARG_IMG", "images/arg.gif");
+        assertNotNull("1", ImageManager.getImage("ARG_IMG"));
 
-        assertNotNull(ImageManager.getImage("ARG_IMG"));
+        ImageManager.putImage("COMPONENT_IMG", "/images/component.gif");
+        assertNotNull("2", ImageManager.getImage("ARG_IMG"));
 
         try {
             ImageManager.putImage("DUMMY_IMG", "dummy");
-            fail();
-        } catch (ResourceNotFoundException ex) {
-            System.out.println(ex.getMessage());
+            fail("3");
+        } catch (ResourceNotFoundRuntimeException ex) {
             assertTrue(true);
         }
     }
 
     public void testPutImageDescriptor() {
-        ImageManager.putImageDescriptor("ARG_IMG", "/images/arg.gif");
+        ImageManager.putImageDescriptor("ARG_IMG", "images/arg.gif");
         Image argImage = ImageManager.getImage("ARG_IMG");
-        assertNotNull(argImage);
+        assertNotNull("1", argImage);
+
+        ImageManager.putImageDescriptor("DUMMY_IMG", "dummy");
+        Image dummyImg = ImageManager.getImage("DUMMY_IMG");
+        assertNotNull("2", dummyImg);
+    }
+
+    public void testLoadImage() {
+        Image argImg1 = ImageManager.loadImage("images/arg.gif");
+        assertNotNull("1", argImg1);
+        Image argImg2 = ImageManager.loadImage("images/arg.gif");
+        assertNotNull("2", argImg2);
+        assertSame("3", argImg1, argImg2);
     }
 
     public void testGetImage() {
-        assertNotNull(ImageManager.loadImage("/images/container.gif"));
-        assertNotNull(ImageManager.loadImage("images/container.gif"));
+        assertNotNull("1", ImageManager.loadImage("images/container.gif"));
 
         try {
             ImageManager.loadImage("DUMMY_IMG");
-            fail();
-        } catch (ResourceNotFoundException ex) {
+            fail("2");
+        } catch (ResourceNotFoundRuntimeException ex) {
             assertTrue(true);
         }
     }
@@ -82,46 +92,53 @@ public class ImageManagerTest extends TestCase {
     public void testLoadImages() {
         loadImages();
 
-        assertNotNull(ImageManager.getImage("ARG_IMG"));
-        assertNotNull(ImageManager.getImage("COMPONENT_IMG"));
-        assertNotNull(ImageManager.getImage("CONTAINER_IMG"));
-        assertNotNull(ImageManager.getImage("INCLUDE_IMG"));
-        assertNotNull(ImageManager.getImage("PROPERTY_IMG"));
+        assertNotNull("1", ImageManager.getImage("ARG_IMG"));
+        assertNotNull("2", ImageManager.getImage("COMPONENT_IMG"));
+        assertNotNull("3", ImageManager.getImage("CONTAINER_IMG"));
+        assertNotNull("4", ImageManager.getImage("INCLUDE_IMG"));
+        assertNotNull("5", ImageManager.getImage("PROPERTY_IMG"));
     }
 
     public void testInjectImages() {
         loadImages();
         ImageManager.injectImages(Images.class);
 
-        assertNotNull(Images.ARG_IMG);
-        assertEquals(ImageManager.getImage("ARG_IMG"), Images.ARG_IMG);
+        assertNotNull("1", Images.ARG_IMG);
+        assertEquals("2", ImageManager.getImage("ARG_IMG"), Images.ARG_IMG);
 
-        assertNotNull(Images.COMPONENT_IMG);
+        assertNotNull("3", Images.COMPONENT_IMG);
 
-        assertNotNull(Images.CONTAINER_IMG);
-        assertEquals(ImageManager.getImage("CONTAINER_IMG"),
+        assertNotNull("4", Images.CONTAINER_IMG);
+        assertEquals("5", ImageManager.getImage("CONTAINER_IMG"),
                 Images.CONTAINER_IMG);
 
-        assertNotNull(Images.INCLUDE_IMG);
+        assertNotNull("6", Images.INCLUDE_IMG);
     }
 
     public void testDispose() {
         loadImages();
         Image argImage = ImageManager.getImage("ARG_IMG");
         Image containerImage = ImageManager.getImage("CONTAINER_IMG");
-        assertNotNull(argImage);
-        assertNotNull(containerImage);
+        assertNotNull("1", argImage);
+        assertNotNull("2", containerImage);
 
         ImageManager.dispose();
 
-        assertTrue(argImage.isDisposed());
-        assertTrue(containerImage.isDisposed());
+        assertNull("3", ImageManager.getImage("ARG_IMG"));
+        assertNull("4", ImageManager.getImage("CONTAINER_IMG"));
+    }
+
+    public void testNormalizePath() {
+        assertEquals("1", "org/seasar/jface/util/ImageManager", ImageManager
+                .normalizePath("/org/seasar/jface/util/ImageManager"));
+        assertEquals("2", "org/seasar/jface/util/ImageManager", ImageManager
+                .normalizePath("org/seasar/jface/util/ImageManager"));
+        assertEquals("3", "", ImageManager.normalizePath("/"));
+        assertNull("4", ImageManager.normalizePath(null));
     }
 
     protected void loadImages() {
-        ResourceBundle imageResources = ResourceBundle
-                .getBundle("org/seasar/jface/util/ImageManagerTest");
-        ImageManager.loadImages(imageResources);
+        ImageManager.loadImages("org/seasar/jface/util/ImageManagerTest");
     }
 
     public static class Images {
