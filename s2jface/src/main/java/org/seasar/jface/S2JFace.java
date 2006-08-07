@@ -45,6 +45,11 @@ public class S2JFace {
     public S2JFace() {
         initS2Container();
     }
+    
+    public S2JFace(String configPath) {
+        SingletonS2ContainerFactory.setConfigPath(configPath);
+        initS2Container();
+    }
 
     public void openWindow(final String templatePath) {
         display = Display.getCurrent();
