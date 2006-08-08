@@ -22,66 +22,68 @@ import org.seasar.jface.util.SWTUtil;
 
 /**
  * @author y-komori
+ * @author bskuroneko
  * 
  */
 public enum EventListenerType {
 
-    // ArmListener
-    ARM,
+    // Key
+    KEY_DOWN, KEY_UP,
 
-    // ControlListener
-    MOVE, RESIZE,
+    // Mouse
+    MOUSE_DOWN, MOUSE_UP, MOUSE_MOVE, MOUSE_ENTER, MOUSE_EXIT,
+    MOUSE_DOUBLE_CLICK, MOUSE_HOVER,
 
-    // DisposeListener
-    DISPOSE,
-
-    // FocusListener
-    FOCUS_IN, FOCUS_OUT,
-
-    // HelpListener
-    HELP,
-
-    // KeyListener
-    KEY_PRESSED, KEY_RELEASED,
-
-    // MenuListener
-    HIDE, SHOW,
-
-    // ModifyListener
-    MODIFY,
-
-    // MouseListener
-    MOUSE_DOUBLE_CLICK, MOUSE_DOWN, MOUSE_UP,
-
-    // MouseMoveListener
-    MOUSE_MOVE,
-
-    // MouseTrackListener
-    MOUSE_ENTER, MOUSE_EXIT, MOUSE_HOVER,
-
-    // PaintListener
+    // Paint
     PAINT,
 
-    // SelectionListener
-    DEFAULT_SELECTION, SELECTION,
+    // Controll
+    MOVE, RESIZE,
 
-    // ShellListener
-    ACTIVATE, CLOSE, DEACTIVATE, DEICONIFY, ICONIFY,
+    // Dispose
+    DISPOSE,
 
-    // TraverseListener
+    // Selection
+    SELECTION, DEFAULT_SELECTION,
+
+    // Focus
+    FOCUS_IN, FOCUS_OUT,
+
+    // Tree
+    EXPAND, COLLAPSE,
+
+    // Shell
+    ICONIFY, DEICONIFY, CLOSE, ACTIVATE, DEACTIVATE,
+
+    // Menu or Controll's visible change
+    SHOW, HIDE,
+
+    // Modify
+    MODIFY,
+
+    // Verify
+    VERIFY,
+
+    // Help
+    HELP,
+
+    // Arm
+    ARM,
+
+    // Traverse
     TRAVERSE,
 
-    // TreeListener
-    COLLAPSE, EXPAND,
-
-    // VerifyListener
-    VERIFY;
+    // Others
+    DRAG_DETECT,
+    HARD_KEY_DOWN, HARD_KEY_UP,
+    MENU_DETECT,
+    SET_DATA,
+    MOUSE_WHEEL;
 
     public String getName() {
-        return toString().toLowerCase();
+        return capitalizeConstantName(toString());
     }
 
-    // TODO 面倒でもSWT.Xxxを直接参照した方がコンパイルエラーになってよいかも
     public int getSWTEventType() {
         String swtConstantName = capitalizeConstantName(toString());
         return SWTUtil.getSWTConstant(swtConstantName);
