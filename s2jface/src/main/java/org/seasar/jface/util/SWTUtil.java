@@ -56,19 +56,6 @@ public class SWTUtil {
         }
     }
 
-    static {
-        Field[] fields = SWT.class.getFields();
-        for (Field field : fields) {
-            if (Modifier.isStatic(field.getModifiers())
-                    && (field.getType() == Integer.TYPE)) {
-                try {
-                    constants.put(field.getName(), field.getInt(null));
-                } catch (Exception ignore) {
-                }
-            }
-        }
-    }
-
     /**
      * <code>SWT</code>クラスの持つ定数を返します。<br>
      * 
