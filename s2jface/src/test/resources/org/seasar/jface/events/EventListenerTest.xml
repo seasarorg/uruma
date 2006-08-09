@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="EventListenrTest">
+	<window id="eventListenerTest" layout="grid"
+		layoutParam="numColumns=2">
+		<composite type="box" layout="fill"
+			layoutParam="spacing=20; marginWidth=20">
+			<layoutData name="horizontalSpan">2</layoutData>
+			<control type="button" id="go">
+				<property name="text">Go!</property>
+			</control>
+			<control type="button" id="stop">
+				<property name="text">Stop!</property>
+			</control>
+		</composite>
+	</window>
+</template>

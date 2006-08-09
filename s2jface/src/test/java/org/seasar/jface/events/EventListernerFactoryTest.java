@@ -24,7 +24,7 @@ public class EventListernerFactoryTest {
     @Test
     public void setup() {
         s2JFace = new S2JFace(
-                "org/seasar/jface/events/eventListenerTestAction.dicon");
-        s2JFace.openWindow("org/seasar/jface/events/eventListenerTest.xml");
+                "org/seasar/jface/events/EventListenerTestAction.dicon");
+        s2JFace.openWindow("org/seasar/jface/events/EventListenerTest.xml");
     }
 }
