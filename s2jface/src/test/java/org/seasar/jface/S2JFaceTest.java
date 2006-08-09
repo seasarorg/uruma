@@ -23,13 +23,13 @@ import junit.framework.TestCase;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 
 public class S2JFaceTest extends TestCase {
-    private static final String PATH = "org/seasar/jface/test.dicon";
+    private static final String PATH = "org/seasar/jface/S2JFaceTest.dicon";
 
     public void testInit() {
         if (SingletonS2ContainerFactory.hasContainer()) {
             SingletonS2ContainerFactory.destroy();
         }
-        
+
         new S2JFace(PATH);
         assertTrue(SingletonS2ContainerFactory.hasContainer());
         List list = (List) SingletonS2ContainerFactory.getContainer()
