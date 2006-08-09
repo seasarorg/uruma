@@ -56,7 +56,10 @@ public class TextRenderer extends AbstractControlRenderer<Text> {
     }
 
     protected void renderText(Text text, ControlComponent controlComponent) {
-        text.setText(controlComponent.getPropertyValue(TEXT_PROP));
+        String textString = controlComponent.getPropertyValue(TEXT_PROP);
+        if (textString != null) {
+            text.setText(textString);
+        }
     }
 
     protected void renderTextLimit(Text text, ControlComponent controlComponent) {
