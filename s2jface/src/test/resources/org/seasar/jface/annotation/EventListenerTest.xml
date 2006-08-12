@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN" 
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="eventListenerTest">
+	<window id="eventListenerTest" layout="grid" layoutParam="numColumns=1">
+		<property name="title">EventListenerTest</property>
+		<property name="height">400</property>
+		<property name="width">600</property>
+		
+		<composite type="box" layout="grid" layoutParam="numColumns=3">
+           	<layoutData name="horizontalAlignment">FILL</layoutData>
+           	<layoutData name="verticalAlignment">FILL</layoutData>
+           	
+			<control type="button" id="button">
+           		<layoutData name="grabExcessHorizontalSpace">true</layoutData>
+           		<layoutData name="horizontalAlignment">FILL</layoutData>
+           		<layoutData name="grabExcessVerticalSpace">true</layoutData>
+           		<layoutData name="verticalAlignment">FILL</layoutData>
+				<property name="text">button</property>
+			</control>
+		
+			<control type="label" id="mouseLabel" style="BORDER">
+           		<layoutData name="grabExcessVerticalSpace">true</layoutData>
+           		<layoutData name="verticalAlignment">FILL</layoutData>
+				<property name="text">listen Mouse events</property>
+			</control>
+			
+			<control type="textArea" id="text">
+           		<layoutData name="grabExcessVerticalSpace">true</layoutData>
+           		<layoutData name="verticalAlignment">FILL</layoutData>
+				<property name="text">
+Text
+
+  and
+
+MouseWheel
+				</property>
+			</control>
+		</composite>
+		
+        <control type="label" style="SEPARATOR, HORIZONTAL">
+            <layoutData name="horizontalAlignment">FILL</layoutData>
+        </control>
+
+		<control type="textArea" id="eventLog">
+            <layoutData name="grabExcessHorizontalSpace">true</layoutData>
+            <layoutData name="horizontalAlignment">FILL</layoutData>
+            <layoutData name="grabExcessVerticalSpace">true</layoutData>
+            <layoutData name="verticalAlignment">FILL</layoutData>
+		    
+		</control>
+	</window>
+</template>

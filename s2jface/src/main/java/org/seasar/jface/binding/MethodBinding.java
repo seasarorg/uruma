@@ -16,6 +16,8 @@
 package org.seasar.jface.binding;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.seasar.framework.util.MethodUtil;
 import org.seasar.jface.util.AssertionUtil;
@@ -29,6 +31,8 @@ public class MethodBinding {
 
     private Method method;
 
+    private List<ArgumentsFilter> argumentsFilterList = new ArrayList<ArgumentsFilter>();
+
     public MethodBinding(Object target, Method method) {
         AssertionUtil.assertNotNull("target", target);
         AssertionUtil.assertNotNull("method", method);
@@ -38,7 +42,19 @@ public class MethodBinding {
     }
 
     public Object invoke() {
-        return MethodUtil.invoke(method, target, null);
+        return invoke(null);
+    }
+
+    public Object invoke(Object[] args) {
+        Object[] filtedArgs = args;
+        for (ArgumentsFilter filter : argumentsFilterList) {
+            filtedArgs = filter.filter(filtedArgs);
+        }
+        return MethodUtil.invoke(method, target, filtedArgs);
+    }
+
+    public void addArgumentsFilter(ArgumentsFilter argumentsFilter) {
+        this.argumentsFilterList.add(argumentsFilter);
     }
 
     public Method getMethod() {

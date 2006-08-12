@@ -13,20 +13,13 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.events;
+package org.seasar.jface.binding;
 
-import org.seasar.framework.container.annotation.tiger.Component;
-import org.seasar.jface.annotation.EventListener;
-
-@Component(name = "eventListenerTestAction")
-public class EventListenerTestAction {
-    @EventListener(id = "go")
-    public void go() {
-        System.out.println("Go!");
-    }
-
-    @EventListener(id = "stop")
-    public void stop() {
-        System.out.println("Stop!");
-    }
+/**
+ * @author bskuroneko
+ *
+ */
+public interface ArgumentsFilter {
+    
+    Object[] filter(Object[] args);
 }

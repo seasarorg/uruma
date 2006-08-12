@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target( { ElementType.METHOD })
 public @interface EventListener {
-    EventListenerType eventListenerType() default EventListenerType.SELECTION;
+    EventListenerType type() default EventListenerType.SELECTION;
 
     String id() default "";
 }

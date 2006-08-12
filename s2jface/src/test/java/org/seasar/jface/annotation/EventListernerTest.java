@@ -13,18 +13,22 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.events;
+package org.seasar.jface.annotation;
 
 import org.junit.Test;
 import org.seasar.jface.S2JFace;
 
-public class EventListernerFactoryTest {
+/**
+ * @author bskuroneko
+ * 
+ */
+public class EventListernerTest {
     private S2JFace s2JFace;
 
     @Test
     public void setup() {
         s2JFace = new S2JFace(
-                "org/seasar/jface/events/EventListenerTestAction.dicon");
-        s2JFace.openWindow("org/seasar/jface/events/EventListenerTest.xml");
+                "org/seasar/jface/annotation/EventListenerTestAction.dicon");
+        s2JFace.openWindow("org/seasar/jface/annotation/EventListenerTest.xml");
     }
 }

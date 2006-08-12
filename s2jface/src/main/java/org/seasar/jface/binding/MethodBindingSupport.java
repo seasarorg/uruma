@@ -76,9 +76,13 @@ public class MethodBindingSupport {
                 Method targetMethod = eventListenerDef.getTargetMethod();
                 MethodBinding methodBinding = new MethodBinding(action,
                         targetMethod);
+                methodBinding.addArgumentsFilter(new OmissionArgumentsFilter(
+                        targetMethod));
+                methodBinding.addArgumentsFilter(new TypedEventArgumentsFilter(
+                        targetMethod));
 
                 EventListenerType listenerType = eventListenerDef
-                        .getEventListener().eventListenerType();
+                        .getEventListener().type();
 
                 Listener listener = ListenerFactory.getListener(context,
                         methodBinding);
