@@ -12,7 +12,7 @@
 <!ATTLIST extends replace (true | false) "false">
 <!ATTLIST extends property CDATA #IMPLIED>
 
-<!ELEMENT window (composite | control | property | layoutData)*>
+<!ELEMENT window (composite | control | menu | property | layoutData)*>
 <!ATTLIST window id CDATA #REQUIRED>
 <!ATTLIST window style CDATA #IMPLIED>
 <!ATTLIST window layout CDATA #IMPLIED>
@@ -40,3 +40,14 @@
 
 <!ELEMENT item (#PCDATA | item)*>
 <!ATTLIST item label CDATA #IMPLIED>
+
+<!ELEMENT menu (menuItem)*>
+<!ATTLIST menu id CDATA #IMPLIED>
+<!ATTLIST menu label CDATA #IMPLIED>
+
+<!ELEMENT menuItem EMPTY>
+<!ATTLIST menuItem itemId CDATA #IMPLIED>
+<!ATTLIST menuItem type (action|radio|check|separator) "action">
+<!ATTLIST menuItem label CDATA #IMPLIED>
+<!ATTLIST menuItem image CDATA #IMPLIED>
+<!ATTLIST menuItem actionComponent CDATA #IMPLIED>

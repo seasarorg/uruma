@@ -15,18 +15,26 @@
  */
 package org.seasar.jface.component.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.Inheritance;
+import org.seasar.jface.component.Menu;
+import org.seasar.jface.component.Window;
 import org.seasar.jface.renderer.info.WindowInfo;
 
 /**
  * @author y-komori
  * 
  */
-public class WindowComponent extends CompositeComponent {
+public class WindowComponent extends CompositeComponent implements Window {
+    protected Menu menuBar;
+
+    protected List<Menu> menuList = new ArrayList<Menu>();
 
     public WindowComponent() {
         super();
@@ -54,5 +62,27 @@ public class WindowComponent extends CompositeComponent {
         renderChild((Composite) widget, context);
 
         renderer.renderAfter(widget, this, parent, context);
+    }
+
+    public void addMenu(final Menu menu) {
+        this.menuList.add(menu);
+    }
+
+    public Menu findMenu(final String id) {
+        for (Menu menu : menuList) {
+            String menuId = menu.getId();
+            if ((menuId != null) && (menuId.equals(id))) {
+                return menu;
+            }
+        }
+        return null;
+    }
+
+    public Menu getMenuBar() {
+        return this.menuBar;
+    }
+
+    public void setMenuAsMenuBar(final Menu menu) {
+        this.menuBar = menu;
     }
 }

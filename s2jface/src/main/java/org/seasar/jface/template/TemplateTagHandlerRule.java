@@ -34,6 +34,8 @@ public class TemplateTagHandlerRule extends TagHandlerRule {
         addTagHandler(PropertyTagHandler.class);
         addTagHandler(LayoutDataTagHandler.class);
         addTagHandler(ItemTagHandler.class);
+        addTagHandler(MenuTagHandler.class);
+        addTagHandler(MenuItemTagHandler.class);
     }
 
     protected void addTagHandler(Class<? extends AbstractTagHandler> clazz) {
