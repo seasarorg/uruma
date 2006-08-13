@@ -41,7 +41,7 @@
 <!ELEMENT item (#PCDATA | item)*>
 <!ATTLIST item label CDATA #IMPLIED>
 
-<!ELEMENT menu (menuItem)*>
+<!ELEMENT menu (menu | menuItem)*>
 <!ATTLIST menu id CDATA #IMPLIED>
 <!ATTLIST menu label CDATA #IMPLIED>
 
