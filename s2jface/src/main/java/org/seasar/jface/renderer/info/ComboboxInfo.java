@@ -15,14 +15,10 @@
  */
 package org.seasar.jface.renderer.info;
 
-import org.seasar.jface.component.Inheritance;
 
 
 /**
  * @author dkameya
  */
 public class ComboboxInfo extends ControlInfo {
-    public static final String STYLE_PROP = "style";
-    
-    public static final Inheritance style_INHERITANCE = Inheritance.NONE;
 }

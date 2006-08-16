@@ -19,15 +19,13 @@
           <item label="Item1-3" />
         </control>
 
-        <control type="combobox">
-          <property name="style">DROP_DOWN</property>
+        <control type="combobox" style="DROP_DOWN">
           <item label="Item2-1" />
           <item label="Item2-2" />
           <item label="Item2-3" />
         </control>
 
-        <control type="combobox">
-          <property name="style">READ_ONLY</property>
+        <control type="combobox" style="READ_ONLY">
           <item label="Item3-1" />
           <item label="Item3-2" />
           <item label="Item3-3" />

@@ -21,10 +21,6 @@ import org.seasar.jface.component.Inheritance;
  * @author dkameya
  */
 public class SliderInfo extends ControlInfo {
-    public static final String STYLE_PROP = "style";
-    
-    public static final Inheritance style_INHERITANCE = Inheritance.NONE;
-    
     public static final String MIN_PROP = "min";
 
     public static final Inheritance min_INHERITANCE = Inheritance.NONE;

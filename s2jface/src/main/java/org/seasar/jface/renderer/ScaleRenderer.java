@@ -19,9 +19,7 @@ import static org.seasar.jface.renderer.info.ScaleInfo.INCREMENT_PROP;
 import static org.seasar.jface.renderer.info.ScaleInfo.MAX_PROP;
 import static org.seasar.jface.renderer.info.ScaleInfo.MIN_PROP;
 import static org.seasar.jface.renderer.info.ScaleInfo.SELECTION_PROP;
-import static org.seasar.jface.renderer.info.ScaleInfo.STYLE_PROP;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Scale;
 import org.seasar.framework.util.IntegerConversionUtil;
 import org.seasar.jface.component.impl.ControlComponent;
@@ -34,13 +32,6 @@ import org.seasar.jface.renderer.info.ScaleInfo;
  * @author dkameya
  */
 public class ScaleRenderer extends AbstractControlRenderer<Scale> {
-
-    @Override
-    protected int getStyle(final ControlComponent controlComponent) {
-        String style = controlComponent.getPropertyValue(STYLE_PROP);
-        int styleValue = (style == null) ? SWT.HORIZONTAL : SWT.VERTICAL;
-        return styleValue;
-    }
 
     @Override
     protected void doRender(final Scale scale,

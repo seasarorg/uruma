@@ -15,13 +15,11 @@
  */
 package org.seasar.jface.renderer;
 
-import static org.seasar.jface.renderer.info.SliderInfo.STYLE_PROP;
+import static org.seasar.jface.renderer.info.SliderInfo.INCREMENT_PROP;
 import static org.seasar.jface.renderer.info.SliderInfo.MAX_PROP;
 import static org.seasar.jface.renderer.info.SliderInfo.MIN_PROP;
 import static org.seasar.jface.renderer.info.SliderInfo.SELECTION_PROP;
-import static org.seasar.jface.renderer.info.SliderInfo.INCREMENT_PROP;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Slider;
 import org.seasar.framework.util.IntegerConversionUtil;
 import org.seasar.jface.component.impl.ControlComponent;
@@ -34,13 +32,6 @@ import org.seasar.jface.renderer.info.SliderInfo;
  * @author dkameya
  */
 public class SliderRenderer extends AbstractControlRenderer<Slider> {
-
-    @Override
-    protected int getStyle(final ControlComponent controlComponent) {
-        String style = controlComponent.getPropertyValue(STYLE_PROP);
-        int styleValue = (style == null) ? SWT.HORIZONTAL : SWT.VERTICAL;
-        return styleValue;
-    }
 
     @Override
     protected void doRender(final Slider slider,

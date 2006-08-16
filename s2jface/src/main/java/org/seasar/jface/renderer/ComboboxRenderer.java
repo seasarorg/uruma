@@ -15,15 +15,12 @@
  */
 package org.seasar.jface.renderer;
 
-import static org.seasar.jface.renderer.info.ScaleInfo.STYLE_PROP;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
 import org.seasar.jface.component.Item;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.renderer.info.ComboboxInfo;
 import org.seasar.jface.renderer.info.ComponentInfo;
-import org.seasar.jface.util.SWTUtil;
 
 /**
  * <code>Combobox</code> のレンダリングを行うクラスです。<br/>
@@ -33,10 +30,8 @@ import org.seasar.jface.util.SWTUtil;
 public class ComboboxRenderer extends AbstractControlRenderer<Combo> {
 
     @Override
-    protected int getStyle(final ControlComponent controlComponent) {
-        String style = controlComponent.getPropertyValue(STYLE_PROP);
-        int styleValue = SWTUtil.getStyle(style, SWT.SIMPLE);
-        return styleValue;
+    protected int getDefaultStyle() {
+        return SWT.SIMPLE;
     }
 
     @Override

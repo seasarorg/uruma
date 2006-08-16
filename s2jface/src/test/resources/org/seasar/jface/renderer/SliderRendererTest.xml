@@ -18,11 +18,10 @@
         <property name="incriment">5</property>
       </control>
 
-      <control type="slider">
+      <control type="slider" style="VERTICAL">
         <property name="max">100</property>
         <property name="min">0</property>
         <property name="incriment">5</property>
-        <property name="style">VARTICAL</property>
       </control>
 
     </composite>
