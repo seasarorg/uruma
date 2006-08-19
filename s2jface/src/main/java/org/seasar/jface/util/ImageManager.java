@@ -54,14 +54,26 @@ public class ImageManager {
     }
 
     /**
-     * 指定されたキーで登録された <code>Image</code> オブジェクトを返します。<br>
+     * 指定されたキーで登録された画像の <code>Image</code> オブジェクトを返します。<br>
      * 
      * @param key
      *            キー
-     * @return Imageオブジェクト。見つからない場合は<code>null</code>。
+     * @return 見つかった <code>Image</code> オブジェクト。見つからない場合は<code>null</code>。
      */
     public static Image getImage(final String key) {
         return imageRegistry.get(key);
+    }
+
+    /**
+     * 指定されたキーで登録された画像の <code>ImageDescriptor</code> オブジェクトを返します。<br>
+     * 
+     * @param key
+     *            キー
+     * @return 見つかった <code>ImageDescriptor</code> オブジェクト。見つからない場合は
+     *         <code>null</code>。
+     */
+    public static ImageDescriptor getImageDescriptor(final String key) {
+        return imageRegistry.getDescriptor(key);
     }
 
     /**
@@ -88,7 +100,6 @@ public class ImageManager {
      * 
      * @param path
      *            イメージのパス/キー
-     * 
      * @return 見つかった <code>Image</code> オブジェクト
      * @throws org.seasar.framework.exception.ResourceNotFoundRuntimeException
      *             指定されたリソースが見つからなかった場合
@@ -99,6 +110,29 @@ public class ImageManager {
             image = putImage(path, path);
         }
         return image;
+    }
+
+    /**
+     * <code>path</code> で指定された <code>ImageDescriptor</code>
+     * オブジェクトを検索し、存在しなければクラスパスからロードします。<br>
+     * <p>
+     * <code>Image</code> オブジェクトではなく <code>ImageDescriptor</code>
+     * オブジェクトを返すという点を除き、本メソッドは loadImage() メソッドと同じです。<br />
+     * 詳細は loadImage() メソッドの説明をご覧ください。
+     * </p>
+     * 
+     * @param path
+     *            イメージのパス/キー
+     * @return 見つかった <code>ImageDescriptor</code> オブジェクト
+     * @throws org.seasar.framework.exception.ResourceNotFoundRuntimeException
+     *             指定されたリソースが見つからなかった場合
+     */
+    public static ImageDescriptor loadImageDescriptor(final String path) {
+        ImageDescriptor descriptor = getImageDescriptor(path);
+        if (descriptor == null) {
+            descriptor = putImageDescriptor(path, path);
+        }
+        return descriptor;
     }
 
     /**
@@ -138,15 +172,18 @@ public class ImageManager {
      *            キー
      * @param path
      *            リソースのパス
+     * @return 登録した <code>ImageDescriptor</code> オブジェクト
      * @throws org.seasar.framework.exception.ResourceNotFoundRuntimeException
      *             指定されたリソースが見つからなかった場合
      */
-    public static void putImageDescriptor(final String key, final String path) {
+    public static ImageDescriptor putImageDescriptor(final String key,
+            final String path) {
         checkKey(key);
 
         URL url = ResourceUtil.getResource(normalizePath(path));
         ImageDescriptor descriptor = ImageDescriptor.createFromURL(url);
         imageRegistry.put(key, descriptor);
+        return descriptor;
     }
 
     /**
@@ -217,10 +254,10 @@ public class ImageManager {
      * という名前のキーで登録されたオブジェクトをインジェクションします。
      * 
      * <pre>
-     *                 public class ImageHolder() {
-     *                     public static Image IMAGE_A;
-     *                     public static ImageDescriptor IMAGE_B;
-     *                 }
+     *                         public class ImageHolder() {
+     *                             public static Image IMAGE_A;
+     *                             public static ImageDescriptor IMAGE_B;
+     *                         }
      * </pre>
      * <pre>
      * ImageManager.injectImages(ImageHolder.class);

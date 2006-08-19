@@ -46,30 +46,40 @@ public class ImageManagerTest extends TestCase {
     }
 
     public void testPutImage() {
-        ImageManager.putImage("ARG_IMG", "images/arg.gif");
-        assertNotNull("1", ImageManager.getImage("ARG_IMG"));
+        Image image = ImageManager.putImage("ARG_IMG", "images/arg.gif");
+        Image getImage = ImageManager.getImage("ARG_IMG");
+        assertNotNull("1", getImage);
+        assertEquals("2", image, getImage);
+
+        // 登録した Image を ImageDecriptor として取得
+        assertNotNull("3", ImageManager.getImageDescriptor("ARG_IMG"));
 
         ImageManager.putImage("COMPONENT_IMG", "/images/component.gif");
-        assertNotNull("2", ImageManager.getImage("ARG_IMG"));
+        assertNotNull("4", ImageManager.getImage("ARG_IMG"));
 
         try {
             ImageManager.putImage("DUMMY_IMG", "dummy");
-            fail("3");
+            fail("5");
         } catch (ResourceNotFoundRuntimeException ex) {
             assertTrue(true);
         }
     }
 
     public void testPutImageDescriptor() {
-        ImageManager.putImageDescriptor("ARG_IMG", "images/arg.gif");
-        Image argImage = ImageManager.getImage("ARG_IMG");
-        assertNotNull("1", argImage);
+        ImageDescriptor desc = ImageManager.putImageDescriptor("ARG_IMG",
+                "images/arg.gif");
+        ImageDescriptor getDesc = ImageManager.getImageDescriptor("ARG_IMG");
+        assertNotNull("1", desc);
+        assertEquals("2", desc, getDesc);
+
+        // 登録した ImageDecriptor を Image として取得
+        assertNotNull("3", ImageManager.getImage("ARG_IMG"));
 
         try {
             ImageManager.putImageDescriptor("DUMMY_IMG", "dummy");
             fail();
         } catch (ResourceNotFoundRuntimeException ex) {
-            assertTrue(true);
+            assertTrue("4", true);
         }
     }
 
@@ -79,6 +89,16 @@ public class ImageManagerTest extends TestCase {
         Image argImg2 = ImageManager.loadImage("images/arg.gif");
         assertNotNull("2", argImg2);
         assertSame("3", argImg1, argImg2);
+    }
+
+    public void testLoadImageDescriptor() {
+        ImageDescriptor desc1 = ImageManager
+                .loadImageDescriptor("images/arg.gif");
+        assertNotNull("1", desc1);
+        ImageDescriptor desc2 = ImageManager
+                .loadImageDescriptor("images/arg.gif");
+        assertNotNull("2", desc2);
+        assertSame("3", desc1, desc2);
     }
 
     public void testGetImage() {
