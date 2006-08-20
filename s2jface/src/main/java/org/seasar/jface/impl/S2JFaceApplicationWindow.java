@@ -83,21 +83,6 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         }
     }
 
-    // protected void setupMenuBar() {
-    // // addMenuBar() は shell の生成前に呼び出さなければならないため、
-    // // MenuManagerRenderer のみ別扱いでレンダリングを行っている
-    // WindowComponent windowComponent = template.getWindowComponent();
-    // String rendererName = (new MenuManagerRenderer()).getRendererName();
-    // for (UIComponent component : windowComponent.getChildren()) {
-    // if (rendererName.equals(component.getRendererType())) {
-    // component.render(null, context);
-    // if (context.getMenuBar() != null) {
-    // addMenuBar();
-    // }
-    // }
-    // }
-    // }
-
     @Override
     protected Control createContents(Composite parent) {
         registMenuToContext();
@@ -117,8 +102,6 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         MenuManager menuManager = menuManagerBuilder.createMenuManager(menuBar);
 
         return menuManager;
-
-        // return context.getMenuBar();
     }
 
     protected void registMenuToContext() {
