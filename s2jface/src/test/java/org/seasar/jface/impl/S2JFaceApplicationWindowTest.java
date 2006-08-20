@@ -15,23 +15,11 @@
  */
 package org.seasar.jface.impl;
 
-import org.seasar.framework.unit.S2FrameworkTestCase;
-import org.seasar.jface.component.impl.TemplateComponent;
-import org.seasar.jface.template.TemplateBuilder;
+import org.seasar.jface.renderer.AbstractRendererTest;
 
 /**
  * @author y-komori
  * 
  */
-public class S2JFaceApplicationWindowTest extends S2FrameworkTestCase {
-    public void test() {
-        TemplateBuilder builder = new TemplateBuilder();
-        TemplateComponent template = builder
-                .build("org/seasar/jface/template/TemplateBuilderTest.xml");
-
-        S2JFaceApplicationWindow templateWindow = new S2JFaceApplicationWindow(
-                template);
-        templateWindow.setBlockOnOpen(true);
-        templateWindow.open();
-    }
+public class S2JFaceApplicationWindowTest extends AbstractRendererTest {
 }

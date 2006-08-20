@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.template;
 
+import org.seasar.framework.util.BooleanConversionUtil;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Menu;
 import org.seasar.jface.component.Window;
@@ -31,14 +32,22 @@ public class MenuTagHandler extends AbstractTagHandler {
 
     protected static final String ID_ATTR = "id";
 
-    protected static final String LABEL_ATTR = "label";
+    protected static final String TEXT_ATTR = "text";
+
+    protected static final String ENABLED_ATTR = "enabled";
+
+    protected static final String VISIBLE_ATTR = "visible";
 
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
         Menu menu = new MenuComponent();
+        menu.setSourceLocation(context.getLocator());
         menu.setId(attributes.getValue(ID_ATTR));
-        menu.setLabel(attributes.getValue(LABEL_ATTR));
-        context.push(menu);
+        menu.setText(attributes.getValue(TEXT_ATTR));
+        menu.setEnabled(BooleanConversionUtil.toBoolean(attributes
+                .getValue(ENABLED_ATTR)));
+        menu.setVisible(BooleanConversionUtil.toBoolean(attributes
+                .getValue(VISIBLE_ATTR)));
 
         Object parent = context.peek();
         if (parent instanceof Window) {
@@ -52,6 +61,7 @@ public class MenuTagHandler extends AbstractTagHandler {
             Menu parentMenu = (Menu) parent;
             parentMenu.addChild(menu);
         }
+        context.push(menu);
     }
 
     @Override

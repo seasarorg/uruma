@@ -43,11 +43,18 @@
 
 <!ELEMENT menu (menu | menuItem)*>
 <!ATTLIST menu id CDATA #IMPLIED>
-<!ATTLIST menu label CDATA #IMPLIED>
+<!ATTLIST menu text CDATA #IMPLIED>
+<!ATTLIST menu enabled (true | false) #IMPLIED>
+<!ATTLIST menu visible (true | false) #IMPLIED>
 
 <!ELEMENT menuItem EMPTY>
-<!ATTLIST menuItem itemId CDATA #IMPLIED>
-<!ATTLIST menuItem type (action|radio|check|separator) "action">
-<!ATTLIST menuItem label CDATA #IMPLIED>
+<!ATTLIST menuItem id CDATA #IMPLIED>
+<!ATTLIST menuItem type (action | radio | check | separator) "action">
+<!ATTLIST menuItem text CDATA #IMPLIED>
+<!ATTLIST menuItem description CDATA #IMPLIED>
+<!ATTLIST menuItem toolTipText CDATA #IMPLIED>
 <!ATTLIST menuItem image CDATA #IMPLIED>
-<!ATTLIST menuItem actionComponent CDATA #IMPLIED>
+<!ATTLIST menuItem disabledImage CDATA #IMPLIED>
+<!ATTLIST menuItem hoverImage CDATA #IMPLIED>
+<!ATTLIST menuItem checked (true | false) #IMPLIED>
+<!ATTLIST menuItem enabled (true | false) #IMPLIED>

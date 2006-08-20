@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
+	"http://www.seasar.org/dtd/s2jface01.dtd">
+<template name="s2JFaceApplicationWindowTest">
+  <window id="s2JFaceApplicationWindowTest" layout="grid"
+    layoutParam="numColumns=1">
+    <property name="title">S2JFaceApplicationWindowTest</property>
+    <property name="width">50%</property>
+    <property name="height">50%</property>
+    <property name="x">center</property>
+    <property name="y">middle</property>
+    <property name="image">../template/container.gif</property>
+
+    <menu id="menuBar">
+      <menu text="ファイル(&amp;F)">
+        <menuItem text="開く(&amp;O)@Ctrl+O"
+          image="/org/seasar/jface/template/container.gif"
+          toolTipText="ファイルを開きます" />
+        <menuItem id="closeMenu" text="閉じる" />
+        <menuItem type="separator" />
+        <menu text="ラジオボタンメニューテスト">
+          <menuItem type="radio" text="ラジオ1" checked="true"/>
+          <menuItem type="radio" text="ラジオ2" />
+          <menuItem type="radio" text="ラジオ3" />
+        </menu>
+        <menu text="チェックボタンメニューテスト">
+          <menuItem type="check" text="チェック1" checked="true"/>
+          <menuItem type="check" text="チェック2" />
+          <menuItem type="check" text="チェック3" checked="true"/>
+        </menu>
+      </menu>
+      <menu text="編集(&amp;E)">
+        <menuItem text="開く" />
+        <menuItem id="closeMenu" text="閉じる" />
+      </menu>
+      <menu text="ヘルプ(&amp;H)">
+        <menuItem text="開く" />
+        <menuItem id="closeMenu" text="閉じる" />
+      </menu>
+    </menu>
+
+    <control type="label" style="SEPARATOR, HORIZONTAL">
+      <layoutData name="horizontalAlignment">FILL</layoutData>
+    </control>
+
+    <composite type="box" layout="fill"
+      layoutParam="type=HORIZONTAL; spacing=5">
+      <layoutData name="horizontalAlignment">FILL</layoutData>
+      <control type="button" id="okButton">
+        <property name="text">OK</property>
+      </control>
+      <control type="button" id="ngButton">
+        <property name="text">NG</property>
+      </control>
+    </composite>
+  </window>
+</template>

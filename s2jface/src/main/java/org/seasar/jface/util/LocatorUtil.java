@@ -13,19 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component;
+package org.seasar.jface.util;
+
+import org.xml.sax.Locator;
 
 /**
- * メニュー情報を保持するオブジェクトのためのインターフェースです。<br />
- * 
  * @author y-komori
+ * 
  */
-public interface Menu extends MenuItem, Iterable<MenuItem> {
-    public Boolean isVisible();
-
-    public void setVisible(Boolean visible);
-
-    public void addChild(MenuItem menuItem);
-
-    public MenuItem findMenuItem(String id);
+public class LocatorUtil {
+    public static String toString(final Locator locator) {
+        return locator.getSystemId() + "(" + locator.getLineNumber() + ")";
+    }
 }

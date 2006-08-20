@@ -15,29 +15,55 @@
  */
 package org.seasar.jface.component;
 
+import org.xml.sax.Locator;
+
 /**
  * メニューアイテムに関する情報を保持するオブジェクトのためのインターフェースです。<br />
  * 
  * @author y-komori
  */
 public interface MenuItem {
+    public String getSourceLocation();
+
+    public void setSourceLocation(Locator locator);
+
     public String getId();
 
     public void setId(String id);
 
-    public String getLabel();
+    public MenuItemType getType();
 
-    public void setLabel(String label);
+    public void setType(MenuItemType type);
+
+    public String getText();
+
+    public void setText(String text);
+
+    public String getDescription();
+
+    public void setDescription(String description);
+
+    public String getToolTipText();
+
+    public void setToolTipText(String toolTipText);
 
     public String getImage();
 
     public void setImage(String image);
 
-    public String getActionComponent();
+    public String getDisabledImage();
 
-    public void setActionComponent(String actionComponent);
+    public void setDisabledImage(String image);
 
-    public MenuItemType getType();
+    public String getHoverImage();
 
-    public void setType(MenuItemType type);
+    public void setHoverImage(String image);
+
+    public Boolean isChecked();
+
+    public void setChecked(Boolean checked);
+
+    public Boolean isEnabled();
+
+    public void setEnabled(Boolean enabled);
 }

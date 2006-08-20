@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.template;
 
+import org.seasar.framework.util.BooleanConversionUtil;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Menu;
 import org.seasar.jface.component.MenuItem;
@@ -30,27 +31,45 @@ public class MenuItemTagHandler extends AbstractTagHandler {
 
     private static final long serialVersionUID = 6310926726574728898L;
 
-    protected static final String ITEM_ID_ATTR = "itemId";
+    protected static final String ID_ATTR = "id";
 
     protected static final String TYPE_ATTR = "type";
 
-    protected static final String LABEL_ATTR = "label";
+    protected static final String TEXT_ATTR = "text";
+
+    protected static final String DESCRIPTION_ATTR = "description";
+
+    protected static final String TOOL_TIP_TEXT_ATTR = "toolTipText";
 
     protected static final String IMAGE_ATTR = "image";
 
-    protected static final String ACTION_COMPONENT_ATTR = "actionComponent";
+    protected static final String DISABLED_IMAGE_ATTR = "disabledImage";
+
+    protected static final String HOVER_IMAGE_ATTR = "hoverImage";
+
+    protected static final String CHECKED_ATTR = "checked";
+
+    protected static final String ENABLED_ATTR = "enabled";
 
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
         Menu parentMenu = (Menu) context.peek();
 
         MenuItem item = new MenuItemComponent();
-        item.setId(attributes.getValue(ITEM_ID_ATTR));
+        item.setSourceLocation(context.getLocator());
+        item.setId(attributes.getValue(ID_ATTR));
         item.setType(MenuItemType.getMenuItemType(attributes
                 .getValue(TYPE_ATTR)));
-        item.setLabel(attributes.getValue(LABEL_ATTR));
+        item.setText(attributes.getValue(TEXT_ATTR));
+        item.setDescription(attributes.getValue(DESCRIPTION_ATTR));
+        item.setToolTipText(attributes.getValue(TOOL_TIP_TEXT_ATTR));
         item.setImage(attributes.getValue(IMAGE_ATTR));
-        item.setActionComponent(attributes.getValue(ACTION_COMPONENT_ATTR));
+        item.setDisabledImage(attributes.getValue(DISABLED_IMAGE_ATTR));
+        item.setHoverImage(attributes.getValue(HOVER_IMAGE_ATTR));
+        item.setEnabled(BooleanConversionUtil.toBoolean(attributes
+                .getValue(ENABLED_ATTR)));
+        item.setChecked(BooleanConversionUtil.toBoolean(attributes
+                .getValue(CHECKED_ATTR)));
 
         parentMenu.addChild(item);
     }

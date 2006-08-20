@@ -13,19 +13,26 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component;
+package org.seasar.jface;
+
+import org.eclipse.jface.action.MenuManager;
+import org.seasar.jface.component.Menu;
 
 /**
- * メニュー情報を保持するオブジェクトのためのインターフェースです。<br />
+ * <code>MenuManager</code> を構築するクラスのためのインターフェースです。<br/>
  * 
  * @author y-komori
  */
-public interface Menu extends MenuItem, Iterable<MenuItem> {
-    public Boolean isVisible();
+public interface MenuManagerBuilder {
 
-    public void setVisible(Boolean visible);
-
-    public void addChild(MenuItem menuItem);
-
-    public MenuItem findMenuItem(String id);
+    /**
+     * <code>Menu</code> オブジェクトから <code>MenuManager</code> を構築します。<br />
+     * 
+     * @param menu
+     *            <code>Menu</code> オブジェクト
+     * @return 構築した <code>MenuManager</code> オブジェクト
+     * @see Menu
+     * @see MenuManager
+     */
+    public MenuManager createMenuManager(Menu menu);
 }

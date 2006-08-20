@@ -20,8 +20,6 @@ import java.util.Iterator;
 
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.framework.container.S2Container;
-import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.EventListenerType;
@@ -29,6 +27,7 @@ import org.seasar.jface.container.EventListenerDef;
 import org.seasar.jface.container.S2JFaceComponentDef;
 import org.seasar.jface.events.ListenerFactory;
 import org.seasar.jface.exception.NotFoundException;
+import org.seasar.jface.util.S2ContainerUtil;
 
 /**
  * メソッドバインディングの生成をサポートするクラスです。</br>
@@ -94,17 +93,8 @@ public class MethodBindingSupport {
     }
 
     protected static S2JFaceComponentDef getActionComponentDef(String windowName) {
-        String actionComponentName = getActionComponentName(windowName);
-        S2Container container = SingletonS2ContainerFactory.getContainer();
-        if (container.hasComponentDef(actionComponentName)) {
-            return (S2JFaceComponentDef) container
-                    .getComponentDef(actionComponentName);
-        } else {
-            return null;
-        }
-    }
-
-    protected static String getActionComponentName(String windowName) {
-        return StringUtil.decapitalize(windowName) + "Action";
+        String actionComponentName = StringUtil.decapitalize(windowName)
+                + "Action";
+        return S2ContainerUtil.getS2JFaceComponentDef(actionComponentName);
     }
 }

@@ -13,19 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component;
+package org.seasar.jface.impl;
 
-/**
- * メニュー情報を保持するオブジェクトのためのインターフェースです。<br />
- * 
- * @author y-komori
- */
-public interface Menu extends MenuItem, Iterable<MenuItem> {
-    public Boolean isVisible();
+import org.eclipse.jface.action.Action;
+import org.seasar.framework.container.annotation.tiger.AutoBindingType;
+import org.seasar.framework.container.annotation.tiger.Component;
 
-    public void setVisible(Boolean visible);
+@Component(autoBinding = AutoBindingType.NONE)
+public class CloseMenuAction extends Action {
 
-    public void addChild(MenuItem menuItem);
+    public CloseMenuAction() {
+        super();
+    }
 
-    public MenuItem findMenuItem(String id);
+    @Override
+    public void run() {
+        System.out.println(getClass().getName() + "が実行されました.");
+    }
 }

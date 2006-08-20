@@ -22,38 +22,65 @@ import java.util.List;
 import org.seasar.jface.component.Menu;
 import org.seasar.jface.component.MenuItem;
 import org.seasar.jface.component.MenuItemType;
+import org.seasar.jface.util.LocatorUtil;
+import org.xml.sax.Locator;
 
 /**
  * @author y-komori
  * 
  */
 public class MenuComponent implements Menu {
+    protected String sourceLocation;
+
     protected String id;
 
-    protected String label;
+    protected String text;
 
-    protected String image;
+    protected Boolean enabled;
+
+    protected Boolean visible;
 
     protected List<MenuItem> children = new ArrayList<MenuItem>();
 
-    public void setId(final String id) {
-        this.id = id;
+    public String getSourceLocation() {
+        return this.sourceLocation;
+    }
+
+    public void setSourceLocation(Locator locator) {
+        this.sourceLocation = LocatorUtil.toString(locator);
     }
 
     public String getId() {
         return this.id;
     }
 
-    public void setLabel(final String label) {
-        this.label = label;
+    public void setId(final String id) {
+        this.id = id;
     }
 
-    public String getLabel() {
-        return this.label;
+    public String getText() {
+        return this.text;
     }
 
-    public void addChildMenu(Menu menu) {
-        this.children.add(menu);
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public Boolean isVisible() {
+        return this.visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public MenuItem findMenuItem(String id) {
@@ -74,14 +101,6 @@ public class MenuComponent implements Menu {
         this.children.add(menuItem);
     }
 
-    public String getImage() {
-        return this.image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public MenuItemType getType() {
         return MenuItemType.MENU;
     }
@@ -90,11 +109,51 @@ public class MenuComponent implements Menu {
         throw new UnsupportedOperationException();
     }
 
-    public String getActionComponent() {
+    public String getDescription() {
         throw new UnsupportedOperationException();
     }
 
-    public void setActionComponent(String actionComponent) {
+    public void setDescription(String description) {
+        throw new UnsupportedOperationException();
+    }
+
+    public String getToolTipText() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setToolTipText(String toolTipText) {
+        throw new UnsupportedOperationException();
+    }
+
+    public String getImage() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setImage(String image) {
+        throw new UnsupportedOperationException();
+    }
+
+    public String getDisabledImage() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setDisabledImage(String image) {
+        throw new UnsupportedOperationException();
+    }
+
+    public String getHoverImage() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setHoverImage(String image) {
+        throw new UnsupportedOperationException();
+    }
+
+    public Boolean isChecked() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setChecked(Boolean checked) {
         throw new UnsupportedOperationException();
     }
 }

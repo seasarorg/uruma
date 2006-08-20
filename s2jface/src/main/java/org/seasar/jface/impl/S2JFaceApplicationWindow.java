@@ -19,25 +19,49 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.seasar.framework.container.annotation.tiger.AutoBindingType;
+import org.seasar.framework.container.annotation.tiger.Binding;
+import org.seasar.framework.container.annotation.tiger.BindingType;
+import org.seasar.framework.container.annotation.tiger.Component;
+import org.seasar.jface.MenuManagerBuilder;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.MethodBindingSupport;
-import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.Menu;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.impl.WindowComponent;
-import org.seasar.jface.renderer.MenuManagerRenderer;
 import org.seasar.jface.renderer.WindowRenderer;
 
 /**
  * @author y-komori
  * 
  */
+@Component(autoBinding = AutoBindingType.NONE)
 public class S2JFaceApplicationWindow extends ApplicationWindow {
     private TemplateComponent template;
 
     private WindowContext context;
 
+    private MenuManagerBuilder menuManagerBuilder;
+
+    public S2JFaceApplicationWindow() {
+        super(null);
+    }
+
     public S2JFaceApplicationWindow(TemplateComponent template) {
         super(null);
+        init(template);
+    }
+
+    /**
+     * <code>S2JFaceApplicationWindow</code> を初期化します。<br/>
+     * <p>
+     * デフォルトコンストラクタを使用して本クラスを生成した場合は、必ず本メソッドを呼び出してから利用してください。
+     * </p>
+     * 
+     * @param template
+     *            テンプレートオブジェクト
+     */
+    public void init(TemplateComponent template) {
         this.template = template;
         this.context = new WindowContextImpl();
 
@@ -52,22 +76,32 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
     }
 
     protected void setupMenuBar() {
-        // addMenuBar() は shell の生成前に呼び出さなければならないため、
-        // MenuManagerRenderer のみ別扱いでレンダリングを行っている
         WindowComponent windowComponent = template.getWindowComponent();
-        String rendererName = (new MenuManagerRenderer()).getRendererName();
-        for (UIComponent component : windowComponent.getChildren()) {
-            if (rendererName.equals(component.getRendererType())) {
-                component.render(null, context);
-                if (context.getMenuBar() != null) {
-                    addMenuBar();
-                }
-            }
+        Menu menuBar = windowComponent.getMenuBar();
+        if (menuBar != null) {
+            addMenuBar();
         }
     }
 
+    // protected void setupMenuBar() {
+    // // addMenuBar() は shell の生成前に呼び出さなければならないため、
+    // // MenuManagerRenderer のみ別扱いでレンダリングを行っている
+    // WindowComponent windowComponent = template.getWindowComponent();
+    // String rendererName = (new MenuManagerRenderer()).getRendererName();
+    // for (UIComponent component : windowComponent.getChildren()) {
+    // if (rendererName.equals(component.getRendererType())) {
+    // component.render(null, context);
+    // if (context.getMenuBar() != null) {
+    // addMenuBar();
+    // }
+    // }
+    // }
+    // }
+
     @Override
     protected Control createContents(Composite parent) {
+        registMenuToContext();
+
         WindowComponent windowComponent = template.getWindowComponent();
         windowComponent.render(parent, context);
 
@@ -78,6 +112,28 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
 
     @Override
     protected MenuManager createMenuManager() {
-        return context.getMenuBar();
+        WindowComponent windowComponent = template.getWindowComponent();
+        Menu menuBar = windowComponent.getMenuBar();
+        MenuManager menuManager = menuManagerBuilder.createMenuManager(menuBar);
+
+        return menuManager;
+
+        // return context.getMenuBar();
     }
+
+    protected void registMenuToContext() {
+        Menu menuBar = template.getWindowComponent().getMenuBar();
+        if (menuBar != null) {
+            String id = menuBar.getId();
+            if (id != null) {
+                context.putComponent(id, getMenuBarManager().getMenu());
+            }
+        }
+    }
+
+    @Binding(bindingType = BindingType.MUST)
+    public void setMenuManagerBuilder(MenuManagerBuilder menuManagerBuilder) {
+        this.menuManagerBuilder = menuManagerBuilder;
+    }
+
 }

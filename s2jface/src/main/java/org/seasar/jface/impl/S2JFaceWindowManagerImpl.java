@@ -19,12 +19,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jface.window.WindowManager;
+import org.seasar.jface.MenuManagerBuilder;
 import org.seasar.jface.S2JFaceWindowManager;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.exception.WindowManagerException;
 import org.seasar.jface.template.TemplateBuilder;
 import org.seasar.jface.util.AssertionUtil;
+import org.seasar.jface.util.S2ContainerUtil;
 
 /**
  * ウィンドウを管理するためのクラスです。</br>
@@ -53,7 +55,11 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
         }
 
         TemplateComponent template = loadTemplate(templatePath);
-        S2JFaceApplicationWindow window = new S2JFaceApplicationWindow(template);
+        S2JFaceApplicationWindow window = new S2JFaceApplicationWindow();
+        window.setMenuManagerBuilder((MenuManagerBuilder) S2ContainerUtil
+                .getComponent(MenuManagerBuilder.class));
+        window.init(template);
+
         window.setBlockOnOpen(blockOnOpen);
         windowManager.add(window);
         window.open();

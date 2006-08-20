@@ -17,27 +17,41 @@ package org.seasar.jface.component.impl;
 
 import org.seasar.jface.component.MenuItem;
 import org.seasar.jface.component.MenuItemType;
+import org.seasar.jface.util.LocatorUtil;
+import org.xml.sax.Locator;
 
 /**
  * @author y-komori
  */
 public class MenuItemComponent implements MenuItem {
+    protected String sourceLocation;
+
     protected String id;
 
     protected MenuItemType type;
 
-    protected String label;
+    protected String text;
+
+    protected String description;
+
+    protected String toolTipText;
 
     protected String image;
 
-    protected String actionComponent;
+    protected String disabledImage;
 
-    public String getActionComponent() {
-        return this.actionComponent;
+    protected String hoverImage;
+
+    protected Boolean checked;
+
+    protected Boolean enabled;
+
+    public String getSourceLocation() {
+        return sourceLocation;
     }
 
-    public void setActionComponent(final String actionComponent) {
-        this.actionComponent = actionComponent;
+    public void setSourceLocation(Locator locator) {
+        this.sourceLocation = LocatorUtil.toString(locator);
     }
 
     public String getImage() {
@@ -56,12 +70,12 @@ public class MenuItemComponent implements MenuItem {
         this.id = id;
     }
 
-    public String getLabel() {
-        return this.label;
+    public String getText() {
+        return this.text;
     }
 
-    public void setLabel(final String label) {
-        this.label = label;
+    public void setText(final String label) {
+        this.text = label;
     }
 
     public MenuItemType getType() {
@@ -70,5 +84,53 @@ public class MenuItemComponent implements MenuItem {
 
     public void setType(final MenuItemType type) {
         this.type = type;
+    }
+
+    public Boolean isChecked() {
+        return this.checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
+    }
+
+    public Boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDisabledImage() {
+        return this.disabledImage;
+    }
+
+    public void setDisabledImage(String disabledImage) {
+        this.disabledImage = disabledImage;
+    }
+
+    public String getHoverImage() {
+        return this.hoverImage;
+    }
+
+    public void setHoverImage(String hoverImage) {
+        this.hoverImage = hoverImage;
+    }
+
+    public String getToolTipText() {
+        return this.toolTipText;
+    }
+
+    public void setToolTipText(String toolTipText) {
+        this.toolTipText = toolTipText;
     }
 }
