@@ -13,20 +13,19 @@
 
     <menu id="menuBar">
       <menu text="ファイル(&amp;F)">
-        <menuItem text="開く(&amp;O)@Ctrl+O"
-          image="/org/seasar/jface/template/container.gif"
+        <menuItem text="開く(&amp;O)@Ctrl+O" image="/images/container.gif"
           toolTipText="ファイルを開きます" />
-        <menuItem id="closeMenu" text="閉じる" />
+        <menuItem id="closeMenu" text="閉じる" image="/images/cross.png"/>
         <menuItem type="separator" />
         <menu text="ラジオボタンメニューテスト">
-          <menuItem type="radio" text="ラジオ1" checked="true"/>
+          <menuItem type="radio" text="ラジオ1" checked="true" />
           <menuItem type="radio" text="ラジオ2" />
           <menuItem type="radio" text="ラジオ3" />
         </menu>
         <menu text="チェックボタンメニューテスト">
-          <menuItem type="check" text="チェック1" checked="true"/>
+          <menuItem type="check" text="チェック1" checked="true" />
           <menuItem type="check" text="チェック2" />
-          <menuItem type="check" text="チェック3" checked="true"/>
+          <menuItem type="check" text="チェック3" checked="true" />
         </menu>
       </menu>
       <menu text="編集(&amp;E)">
@@ -34,7 +33,10 @@
         <menuItem id="closeMenu" text="閉じる" />
       </menu>
       <menu text="ヘルプ(&amp;H)">
-        <menuItem text="開く" />
+        <menuItem text="使用不可" enabled="false" />
+        <menuItem id="closeMenu" text="閉じる" />
+      </menu>
+      <menu text="表示されないメニュー" visible="false">
         <menuItem id="closeMenu" text="閉じる" />
       </menu>
     </menu>

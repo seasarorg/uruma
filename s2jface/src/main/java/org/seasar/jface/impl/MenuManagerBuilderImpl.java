@@ -238,7 +238,7 @@ public class MenuManagerBuilderImpl implements MenuManagerBuilder {
      */
     protected void logActionTypeMissMatch(final String componentName,
             final MenuItem menuItem) {
-        logger.log("WJFC0203", new Object[] { menuItem.getType(),
+        logger.log("EJFC0203", new Object[] { menuItem.getType(),
                 componentName, menuItem.getSourceLocation() });
     }
 
@@ -314,7 +314,8 @@ public class MenuManagerBuilderImpl implements MenuManagerBuilder {
      *            <code>MenuItem</code> オブジェクト
      */
     protected void setDisableImage(final IAction action, final MenuItem item) {
-        String imgPath = item.getImage();
+        // TODO 動作未確認。ActionContributionItemを利用する必要あり
+        String imgPath = item.getDisabledImage();
         if (imgPath != null) {
             ImageDescriptor imgDesc = ImageManager.loadImageDescriptor(imgPath);
             if (imgDesc != null) {
@@ -332,7 +333,8 @@ public class MenuManagerBuilderImpl implements MenuManagerBuilder {
      *            <code>MenuItem</code> オブジェクト
      */
     protected void setHoverImage(final IAction action, final MenuItem item) {
-        String imgPath = item.getImage();
+        // TODO 動作未確認。ActionContributionItemを利用する必要あり
+        String imgPath = item.getHoverImage();
         if (imgPath != null) {
             ImageDescriptor imgDesc = ImageManager.loadImageDescriptor(imgPath);
             if (imgDesc != null) {
