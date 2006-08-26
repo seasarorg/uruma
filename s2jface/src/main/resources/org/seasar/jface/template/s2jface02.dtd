@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.2//EN" 
+	"http://www.seasar.org/dtd/s2jface02.dtd">
+-->
+
+<!-- TODO クラス名、フィールド名と定義名を一致させる -->
+<!--==================== ENTITY ====================-->
+<!-- type -->
+<!ENTITY % boolean
+  "(true | false)"
+>
+<!ENTITY % int
+  "CDATA"
+>
+<!ENTITY % String
+  "CDATA"
+>
+<!-- TODO SWTConstの部分を各場所ごとに指定できる候補の補完にする -->
+<!ENTITY % SWTConst
+  "CDATA"
+>
+<!ENTITY % Color
+  "CDATA"
+>
+<!ENTITY % Image
+  "CDATA"
+>
+<!ENTITY % Accelerator
+  "CDATA"
+>
+
+<!-- attributes -->
+<!ENTITY % widgetAttrs
+ "id       ID          #IMPLIED
+  style    %SWTConst;  #IMPLIED
+  replace  %boolean;   'false'"
+>
+<!ENTITY % controlAttrs
+ "background       %Color;      #IMPLIED
+  backgroundImage  %Image;      #IMPLIED
+  x                %int;        #IMPLIED
+  y                %int;        #IMPLIED
+  width            %int;        #IMPLIED
+  height           %int;        #IMPLIED
+  enabled          %boolean;    'true'
+  fontHeight       %int;        #IMPLIED
+  fontName         %String;     #IMPLIED
+  fontStyle        %SWTConst;   #IMPLIED
+  foreground       %Color;      #IMPLIED
+  toolTipText      %String;     #IMPLIED
+  visible          %boolean;    'true'"
+>
+
+<!-- layout -->
+<!-- TODO レイアウト追加 -->
+<!ENTITY % layout
+  "fillLayout | gridLayout | rowLayout"
+>
+<!ENTITY % layoutData
+  "gridData | rowData"
+>
+
+<!-- control -->
+<!-- TODO コントロール定義追加 -->
+<!ENTITY % composite
+ "box | combobox | group | customTab | spinner | tab | table | tree | composite"
+>
+<!ENTITY % control
+ "button | label | list | progressBar | scale | slider | text | textArea | control"
+>
+
+<!-- elements -->
+<!ENTITY % compositeElems
+  "((%layout;)?, (%layoutData;)?, menu?, tabList?, (%composite; | %control; | include)*)"
+>
+<!ENTITY % controlElems
+  "((%layoutData;)?, menu?)"
+>
+
+
+<!--==================== ELEMENT ====================-->
+<!-- template -->
+<!ELEMENT template (window | componentDef)>
+<!ATTLIST template
+  name     %String;  #REQUIRED
+  extends  %String;  #IMPLIED
+>
+
+<!-- window -->
+<!ELEMENT window ((%layout;)?, (%layoutData;)?, (menu | menuManager)?, (%composite; | %control; | include)*)>
+<!ATTLIST window
+  %widgetAttrs;
+  %controlAttrs;
+>
+
+<!-- componentDef -->
+<!ELEMENT componentDef (param*, (%composite; | %control;))>
+
+<!ELEMENT param (#PCDATA)>
+<!ATTLIST param
+  name  %String;  #REQUIRED
+>
+
+<!-- include -->
+<!ELEMENT include (param*, (%composite; | %control;))>
+<!ATTLIST include
+  name  %String;  #REQUIRED
+>
+
+<!-- composite -->
+<!ELEMENT box %compositeElems;>
+<!ATTLIST box
+  %widgetAttrs;
+  %controlAttrs;
+>
+
+<!ELEMENT combobox (%compositeElems;, item*)>
+<!ATTLIST combobox
+  %widgetAttrs;
+  %controlAttrs;
+  orientation       %SWTConst;  #IMPLIED
+  select            %int;       #IMPLIED
+  text              %String;    #IMPLIED
+  textLimit         %int;       #IMPLIED
+  visibleItemCount  %int;       #IMPLIED
+>
+
+<!-- TODO composite記述追加 -->
+
+
+<!-- control -->
+<!ELEMENT button %controlElems;>
+<!ATTLIST button
+  %widgetAttrs;
+  %controlAttrs;
+  alignment  %SWTConst;  #IMPLIED
+  image      %Image;     #IMPLIED
+  selection  %boolean;   #IMPLIED
+  text       %String;    #IMPLIED
+>
+
+<!ELEMENT label %controlElems;>
+<!ATTLIST label
+  %widgetAttrs;
+  %controlAttrs;
+  alignment  %SWTConst;  #IMPLIED
+  image      %Image;     #IMPLIED
+  text       %String;    #IMPLIED
+>
+
+<!ELEMENT list (%controlElems;, item*)>
+<!ATTLIST list
+  %widgetAttrs;
+  %controlAttrs;
+  select    %String;  #IMPLIED
+  topIndex  %int;     #IMPLIED
+>
+
+<!ELEMENT progressBar %controlElems;>
+<!ATTLIST progressBar
+  %widgetAttrs;
+  %controlAttrs;
+  maximum    %int;  #IMPLIED
+  minimum    %int;  #IMPLIED
+  selection  %int;  #IMPLIED
+>
+
+<!-- TODO control記述追加 -->
+
+
+<!-- custom -->
+<!ELEMENT composite ((%layout;)?, property*, (%composite; | %control; | include)*)>
+<!ATTLIST composite
+  type  %String;  #REQUIRED
+  %widgetAttrs;
+  %controlAttrs;
+>
+
+<!ELEMENT control (property*)>
+<!ATTLIST control
+  type  %String;  #REQUIRED
+  %widgetAttrs;
+  %controlAttrs;
+>
+
+<!ELEMENT property (#PCDATA)>
+<!ATTLIST property
+  name  %String;  #REQUIRED
+>
+
+
+<!-- layout -->
+<!ELEMENT fillLayout EMPTY>
+<!ATTLIST fillLayout
+  marginHeight  %int;       #IMPLIED
+  marginWidth   %int;       #IMPLIED
+  spacing       %int;       #IMPLIED
+  type          %SWTConst;  #IMPLIED
+>
+
+<!ELEMENT gridLayout EMPTY>
+<!ATTLIST gridLayout
+  horizontalSpacing      %int;      #IMPLIED
+  makeColumnsEqualWidth  %boolean;  'false'
+  marginBottom           %int;      #IMPLIED
+  marginHeight           %int;      #IMPLIED
+  marginLeft             %int;      #IMPLIED
+  marginRight            %int;      #IMPLIED
+  marginTop              %int;      #IMPLIED
+  marginWidth            %int;      #IMPLIED
+  numColumns             %int;      #IMPLIED
+  verticalSpacing        %int;      #IMPLIED
+>
+
+<!ELEMENT rowLayout EMPTY>
+<!ATTLIST rowLayout
+  fill          %boolean;   'false'
+  justify       %boolean;   'false'
+  marginBottom  %int;       #IMPLIED
+  marginHeight  %int;       #IMPLIED
+  marginLeft    %int;       #IMPLIED
+  marginRight   %int;       #IMPLIED
+  marginTop     %int;       #IMPLIED
+  marginWidth   %int;       #IMPLIED
+  pack          %boolean;   'true'
+  spacing       %int;       #IMPLIED
+  type          %SWTConst;  #IMPLIED
+  wrap          %boolean;   #IMPLIED
+>
+
+<!ELEMENT gridData EMPTY>
+<!ATTLIST gridData
+  exclude                    %boolean;   'false'
+  grabExcessHorizontalSpace  %boolean;   'false'
+  grabExcessVerticalSpace    %boolean;   'false'
+  heightHint                 %int;       #IMPLIED
+  horizontalAlignment        %SWTConst;  #IMPLIED
+  horizontalIndent           %int;       #IMPLIED
+  horizontalSpan             %int;       #IMPLIED
+  minimumHeight              %int;       #IMPLIED
+  minimumWidth               %int;       #IMPLIED
+  verticalAlignment          %SWTConst;  #IMPLIED
+  verticalIndent             %int;       #IMPLIED
+  verticalSpan               %int;       #IMPLIED
+  widthHint                  %int;       #IMPLIED
+>
+
+<!ELEMENT rowData EMPTY>
+<!ATTLIST rowData
+  exclude  %boolean;  'false'
+  height   %int;      #IMPLIED
+  width    %int;      #IMPLIED
+>
+
+<!-- tabList -->
+<!ELEMENT tabList (controlRef*)>
+
+<!ELEMENT controlRef EMPTY>
+<!ATTLIST controlRef
+  idref  IDREF  #REQUIRED
+>
+
+<!-- item -->
+<!ELEMENT item (#PCDATA)*>
+<!ATTLIST item
+  text  %String;  #IMPLIED
+>
+
+<!-- menu -->
+<!ELEMENT menu (menu | menuItem)*>
+<!ATTLIST menu
+  %widgetAttrs;
+  defaultItem  IDREF      #IMPLIED
+  enabled      %boolean;  #IMPLIED
+  x            %int;      #IMPLIED
+  y            %int;      #IMPLIED
+  visible      %boolean;  'true'
+>
+
+<!ELEMENT menuItem (menu | menuItem)*>
+<!ATTLIST menuItem
+  %widgetAttrs;
+  accelerator  %Accelerator;  #IMPLIED
+  enabled      %boolean;      #IMPLIED
+  image        %Image;        #IMPLIED
+  selection    %boolean;      #IMPLIED
+  text         %String;       #IMPLIED
+>
+
+<!-- TODO MenuManagerがwindow以外にもつけられる場合はcontrolElemsなどに追加 -->
+<!ELEMENT menuManager (action | separator | menuManager)*>
+<!ATTLIST menuManager
+  text  %String;  #IMPLIED
+>
+
+<!ELEMENT action (#PCDATA)>
+
+<!ELEMENT separator EMPTY>
+
