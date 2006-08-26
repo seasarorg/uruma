@@ -258,7 +258,7 @@
 
 <!ELEMENT controlRef EMPTY>
 <!ATTLIST controlRef
-  idref  IDREF  #REQUIRED
+  idref  %String;  #REQUIRED
 >
 
 <!-- item -->
@@ -271,7 +271,7 @@
 <!ELEMENT menu (menu | menuItem)*>
 <!ATTLIST menu
   %widgetAttrs;
-  defaultItem  IDREF      #IMPLIED
+  defaultItem  %String;   #IMPLIED
   enabled      %boolean;  #IMPLIED
   x            %int;      #IMPLIED
   y            %int;      #IMPLIED
