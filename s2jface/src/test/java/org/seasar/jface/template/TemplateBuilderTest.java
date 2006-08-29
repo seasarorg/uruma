@@ -150,4 +150,16 @@ public class TemplateBuilderTest extends S2FrameworkTestCase {
         assertEquals("7", "testApp", window.getId());
         assertEquals("8", "テストアプリケーション", window.getPropertyValue("title"));
     }
+
+    /**
+     * 画面定義XMLのビルドに関するテスト。</br>
+     */
+    public void testBuildDtd02() {
+        TemplateComponent template = (TemplateComponent) builder
+                .build(convertPath("TemplateBuilderTestDTD02.xml"));
+
+        assertNotNull(template);
+
+        // assertNotNull(template.getWindowComponent());
+    }
 }

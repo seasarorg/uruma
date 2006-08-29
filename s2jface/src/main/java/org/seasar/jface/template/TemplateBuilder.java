@@ -15,8 +15,11 @@
  */
 package org.seasar.jface.template;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -31,6 +34,7 @@ import org.seasar.framework.xml.SaxHandlerParser;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Property;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.factory.S2JFaceTagHandlerRule;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.component.impl.TemplateComponent.ExtendPoint;
@@ -44,11 +48,13 @@ import org.seasar.jface.util.PathUtil;
 public class TemplateBuilder {
     public static final String PUBLIC_ID_01 = "-//SEASAR//DTD S2JFace 0.1//EN";
 
+    public static final String PUBLIC_ID_02 = "-//SEASAR//DTD S2JFace 0.2//EN";
+
     public static final String DTD_PATH_01 = "org/seasar/jface/template/s2jface01.dtd";
 
-    protected ResourceResolver resourceResolver = new ClassPathResourceResolver();
+    public static final String DTD_PATH_02 = "org/seasar/jface/template/s2jface02.dtd";
 
-    protected TemplateTagHandlerRule rule = new TemplateTagHandlerRule();
+    protected ResourceResolver resourceResolver = new ClassPathResourceResolver();
 
     public TemplateComponent build(final String path) {
         final SaxHandlerParser parser = createSaxHandlerParser(path);
@@ -61,7 +67,6 @@ public class TemplateBuilder {
         } finally {
             InputStreamUtil.close(is);
         }
-
     }
 
     protected InputStream getInputStream(final String path) {
@@ -78,8 +83,7 @@ public class TemplateBuilder {
 
         final SAXParser saxParser = SAXParserFactoryUtil.newSAXParser(factory);
 
-        final SaxHandler handler = new SaxHandler(rule);
-        handler.registerDtdPath(PUBLIC_ID_01, DTD_PATH_01);
+        final SaxHandler handler = createSaxHandler(path);
 
         final TagHandlerContext ctx = handler.getTagHandlerContext();
         ctx.addParameter("path", path);
@@ -213,5 +217,36 @@ public class TemplateBuilder {
         throw new NotFoundException(NotFoundException.UICOMPONENT, target
                 .getSourcePath()
                 + ":" + extendPoint.getId());
+    }
+
+    // TODO XMLファイルを読み込んでDTDの指定によってTagHandlerRuleを切り替える。DTD変更のための暫定メソッド
+    protected SaxHandler createSaxHandler(final String path) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    getInputStream(path)));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                if (line.indexOf(PUBLIC_ID_02) > 0) {
+                    return create02SaxHandler();
+                } else if (line.indexOf(PUBLIC_ID_01) > 0) {
+                    return create01SaxHandler();
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return create01SaxHandler();
+    }
+
+    protected SaxHandler create01SaxHandler() {
+        SaxHandler handler = new SaxHandler(new TemplateTagHandlerRule());
+        handler.registerDtdPath(PUBLIC_ID_01, DTD_PATH_01);
+        return handler;
+    }
+
+    protected SaxHandler create02SaxHandler() {
+        SaxHandler handler = new SaxHandler(new S2JFaceTagHandlerRule());
+        handler.registerDtdPath(PUBLIC_ID_02, DTD_PATH_02);
+        return handler;
     }
 }
