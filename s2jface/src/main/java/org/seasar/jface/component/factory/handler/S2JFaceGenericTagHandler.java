@@ -15,11 +15,12 @@
  */
 package org.seasar.jface.component.factory.handler;
 
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.annotation.xml.Attribute;
-import org.seasar.jface.annotation.xml.ComponentClass;
-import org.seasar.jface.annotation.xml.ComponentProperties;
-import org.seasar.jface.annotation.xml.ElementName;
+import org.seasar.jface.annotation.xml.ComponentMapping;
 import org.seasar.jface.component.Property;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.factory.S2JFaceTagHandler;
@@ -49,33 +50,30 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
      */
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
-        // 要素に対応するコンポーネント情報クラスを取得
+        // コンポーネント情報を保持するアノテーションを取得
         Class<? extends ComponentInfo> componentInfo = getComponentInfoClass();
+        ComponentMapping mappingInfo = componentInfo
+                .getAnnotation(ComponentMapping.class);
 
-        // 要素に対応するコンポーネントを生成
-        UIComponent uiComponent = createUIComponent(componentInfo);
-        setBasePath(uiComponent, context);
+        if (mappingInfo != null) {
+            // 要素に対応するコンポーネントを生成
+            UIComponent uiComponent = createUIComponent(mappingInfo);
+            setBasePath(uiComponent, context);
 
-        // コンポーネント情報クラスから属性名を取得
-        ComponentProperties properties = componentInfo
-                .getAnnotation(ComponentProperties.class);
-        if (properties != null) {
-            Attribute[] attributeInfoList = properties.value();
-            if (attributeInfoList != null) {
-                for (Attribute attribute : attributeInfoList) {
-                    String attrName = attribute.value();
-                    String attrValue = attributes.getValue(attrName);
-                    if (attrValue != null) {
-                        // TODO プロパティにXMLのライン数を持たせる(解釈に失敗した場合のエラー表示のため)
-                        Property property = new PropertyComponent(attrName,
-                                attrValue);
-                        uiComponent.addProperty(property);
-                    }
+            // コンポーネント情報クラスから属性名を取得
+            Attribute[] attributeInfoList = mappingInfo.attributes();
+            for (Attribute attribute : attributeInfoList) {
+                String attrName = attribute.value();
+                String attrValue = attributes.getValue(attrName);
+                if (attrValue != null) {
+                    setProperty(uiComponent, attrName, attrValue);
                 }
             }
-        }
 
-        context.push(uiComponent);
+            context.push(uiComponent);
+        } else {
+            // TODO アノテーションが存在しない場合の例外処理
+        }
     }
 
     /*
@@ -88,30 +86,18 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
     }
 
     /**
-     * <code>ComponentInfo</code> の保持する <code>ComponentClass</code>
-     * アノテーションにしたがって <code>UIComponent</code> オブジェクトを生成します。<br />
+     * <code>ComponentMapping</code> アノテーションにしたがって <code>UIComponent</code>
+     * オブジェクトを生成します。<br />
      * 
-     * @param componentInfo
-     *            <code>ComponentInfo</code> のクラスオブジェクト
+     * @param componentMapping
+     *            <code>ComponentMapping</code> アノテーション
      * @return <code>UIComponent</code> オブジェクト
      */
     protected UIComponent createUIComponent(
-            final Class<? extends ComponentInfo> componentInfo) {
-        ComponentClass componentClassInfo = componentInfo
-                .getAnnotation(ComponentClass.class);
-        if (componentClassInfo != null) {
-            Class<? extends UIComponent> componentClass = componentClassInfo
-                    .value();
-            if (componentClass != null) {
-                return ClassUtil.<UIComponent> newInstance(componentClass);
-            } else {
-                // TODO 例外処理
-                return null;
-            }
-        } else {
-            // TODO 例外処理
-            return null;
-        }
+            final ComponentMapping componentMapping) {
+        Class<? extends UIComponent> componentClass = componentMapping
+                .componentClass();
+        return ClassUtil.<UIComponent> newInstance(componentClass);
     }
 
     /**
@@ -139,13 +125,40 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
         return this.componentInfo;
     }
 
+    /**
+     * <code>UIComponent</code> へプロパティを設定します。<br />
+     * <p>
+     * <code>name</code>に対応したsetterメソッドが存在すればそれを利用して値を設定します。<br />
+     * setterが存在しない場合、<code>addProperty()</code> メソッドによって設定します。
+     * </p>
+     * 
+     * @param uiComponent
+     *            <code>UIComponent</code> オブジェクト
+     * @param name
+     *            プロパティ名
+     * @param value
+     *            値
+     */
+    protected void setProperty(final UIComponent uiComponent,
+            final String name, final String value) {
+        BeanDesc desc = BeanDescFactory.getBeanDesc(uiComponent.getClass());
+        PropertyDesc pd = desc.getPropertyDesc(name);
+        if ((pd != null) && pd.hasWriteMethod()) {
+            pd.setValue(uiComponent, value);
+        } else {
+            // TODO プロパティにXMLのライン数を持たせる(解釈に失敗した場合のエラー表示のため)
+            Property property = new PropertyComponent(name, value);
+            uiComponent.addProperty(property);
+        }
+    }
+
     @Override
     public String getElementName() {
         Class<? extends ComponentInfo> componentClass = getComponentInfoClass();
-        ElementName elementName = componentClass
-                .getAnnotation(ElementName.class);
-        if (elementName != null) {
-            return elementName.value();
+        ComponentMapping mapping = componentClass
+                .getAnnotation(ComponentMapping.class);
+        if (mapping != null) {
+            return mapping.element();
         } else {
             return null;
         }

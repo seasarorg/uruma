@@ -23,12 +23,19 @@ import java.lang.annotation.Target;
 import org.seasar.jface.component.UIComponent;
 
 /**
- * コンポーネントクラスを表すアノテーションです。<br />
+ * XML要素とコンポーネントのマッピング情報を保持するアノテーションです。<br />
  * 
  * @author y-komori
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface ComponentClass {
-    Class<? extends UIComponent> value();
+public @interface ComponentMapping {
+    /** XML要素名 */
+    String element();
+
+    /** マッピング先クラス */
+    Class<? extends UIComponent> componentClass();
+
+    /** 属性マッピング情報 */
+    Attribute[] attributes();
 }

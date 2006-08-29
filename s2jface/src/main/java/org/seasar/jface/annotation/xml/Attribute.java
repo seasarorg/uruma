@@ -28,5 +28,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface Attribute {
+    /** XML の属性名を表します。 */
     String value();
 }

@@ -16,9 +16,7 @@
 package org.seasar.jface.component.info.impl;
 
 import org.seasar.jface.annotation.xml.Attribute;
-import org.seasar.jface.annotation.xml.ComponentClass;
-import org.seasar.jface.annotation.xml.ComponentProperties;
-import org.seasar.jface.annotation.xml.ElementName;
+import org.seasar.jface.annotation.xml.ComponentMapping;
 import org.seasar.jface.component.impl.TemplateComponent;
 import org.seasar.jface.component.info.ComponentInfo;
 
@@ -27,8 +25,7 @@ import org.seasar.jface.component.info.ComponentInfo;
  * 
  * @author y-komori
  */
-@ComponentClass(TemplateComponent.class)
-@ElementName("template")
-@ComponentProperties( { @Attribute("name"), @Attribute("extends") })
+@ComponentMapping(element = "template", componentClass = TemplateComponent.class, attributes = {
+        @Attribute("name"), @Attribute("extends") })
 public class TemplateComponentInfo implements ComponentInfo {
 }
