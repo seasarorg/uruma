@@ -4,7 +4,6 @@
 	"http://www.seasar.org/dtd/s2jface02.dtd">
 -->
 
-<!-- TODO クラス名、フィールド名と定義名を一致させる -->
 <!--==================== ENTITY ====================-->
 <!-- type -->
 <!ENTITY % boolean
@@ -37,19 +36,35 @@
   replace  %boolean;   'false'"
 >
 <!ENTITY % controlAttrs
- "background       %Color;      #IMPLIED
+ "%widgetAttrs;
+  background       %Color;      #IMPLIED
   backgroundImage  %Image;      #IMPLIED
   x                %int;        #IMPLIED
   y                %int;        #IMPLIED
   width            %int;        #IMPLIED
   height           %int;        #IMPLIED
-  enabled          %boolean;    'true'
+  enabled          %boolean;    #IMPLIED
   fontHeight       %int;        #IMPLIED
   fontName         %String;     #IMPLIED
   fontStyle        %SWTConst;   #IMPLIED
   foreground       %Color;      #IMPLIED
   toolTipText      %String;     #IMPLIED
-  visible          %boolean;    'true'"
+  visible          %boolean;    #IMPLIED"
+>
+<!ENTITY % compositeAttrs
+ "%controlAttrs;
+  tabList  %String;  #IMPLIED"
+>
+<!ENTITY % decorationsAttrs
+ "%compositeAttrs;
+  defaultButton  %String;  #IMPLIED
+  images         %String;  #IMPLIED
+  text           %String;  #IMPLIED"
+>
+<!ENTITY % itemAttrs
+ "%widgetAttrs;
+  image  %Image;   #IMPLIED
+  text   %String;  #IMPLIED"
 >
 
 <!-- layout -->
@@ -64,34 +79,39 @@
 <!-- control -->
 <!-- TODO コントロール定義追加 -->
 <!ENTITY % composite
- "box | combobox | group | customTab | spinner | tab | table | tree | composite"
+ "combo | composite | group | customTab | spinner | tabFolder | table | tree | customComposite"
 >
 <!ENTITY % control
- "button | label | list | progressBar | scale | slider | text | textArea | control"
+ "button | label | list | progressBar | scale | slider | text | textArea | customControl"
 >
 
 <!-- elements -->
-<!ENTITY % compositeElems
-  "((%layout;)?, (%layoutData;)?, menu?, tabList?, (%composite; | %control; | include)*)"
+<!ENTITY % controlElem
+  "%layoutData; | menu"
 >
-<!ENTITY % controlElems
-  "((%layoutData;)?, menu?)"
+<!ENTITY % compositeElem
+  "%controlElem; | %layout;"
+>
+<!ENTITY % compositeChild
+  "%composite; | %control; | include"
 >
 
 
 <!--==================== ELEMENT ====================-->
 <!-- template -->
-<!ELEMENT template (window | componentDef)>
+<!ELEMENT template (shell | componentDef)>
 <!ATTLIST template
   name     %String;  #REQUIRED
   extends  %String;  #IMPLIED
 >
 
-<!-- window -->
-<!ELEMENT window ((%layout;)?, (%layoutData;)?, (menu | menuManager)?, (%composite; | %control; | include)*)>
-<!ATTLIST window
-  %widgetAttrs;
-  %controlAttrs;
+<!-- shell -->
+<!ELEMENT shell ((%compositeElem; | menuManager)*, (%compositeChild;)*)>
+<!ATTLIST shell
+  %decorationsAttrs;
+  imeInputMode   %SWTConst;  #IMPLIED
+  minimumWidth   %int;       #IMPLIED
+  minimumHeight  %int;       #IMPLIED
 >
 
 <!-- componentDef -->
@@ -103,22 +123,20 @@
 >
 
 <!-- include -->
-<!ELEMENT include (param*, (%composite; | %control;))>
+<!ELEMENT include (param*, (%composite; | %control;)*)>
 <!ATTLIST include
   name  %String;  #REQUIRED
 >
 
 <!-- composite -->
-<!ELEMENT box %compositeElems;>
-<!ATTLIST box
-  %widgetAttrs;
-  %controlAttrs;
+<!ELEMENT composite ((%compositeElem;)*, (%compositeChild;)*)>
+<!ATTLIST composite
+  %compositeAttrs;
 >
 
-<!ELEMENT combobox (%compositeElems;, item*)>
-<!ATTLIST combobox
-  %widgetAttrs;
-  %controlAttrs;
+<!ELEMENT combo ((%compositeElem;)* , item*, (%compositeChild;)*)>
+<!ATTLIST combo
+  %compositeAttrs;
   orientation       %SWTConst;  #IMPLIED
   select            %int;       #IMPLIED
   text              %String;    #IMPLIED
@@ -126,13 +144,69 @@
   visibleItemCount  %int;       #IMPLIED
 >
 
+<!ELEMENT group ((%compositeElem;)*, (%compositeChild;)*)>
+<!ATTLIST group
+  %compositeAttrs;
+  text  %String;  #IMPLIED
+>
+
+<!ELEMENT spinner ((%compositeElem;)*, (%compositeChild;)*)>
+<!ATTLIST spinner
+  %compositeAttrs;
+  digits         %int;  #IMPLIED
+  increment      %int;  #IMPLIED
+  maximum        %int;  #IMPLIED
+  minimum        %int;  #IMPLIED
+  pageIncrement  %int;  #IMPLIED
+  selection      %int;  #IMPLIED
+>
+
+<!ELEMENT tabFolder ((%compositeElem;)* , tabItem*, (%compositeChild;)*)>
+<!ATTLIST tabFolder
+  %compositeAttrs;
+  selection  %int;  #IMPLIED
+>
+
+<!ELEMENT tabItem EMPTY>
+<!ATTLIST tabItem
+  %itemAttrs;
+  control      %String;  #IMPLIED
+  toolTipText  %String;  #IMPLIED
+>
+
+<!ELEMENT table ((%compositeElem;)* , tableColumn*, tableItem*, (%compositeChild;)*)>
+<!ATTLIST table
+  %compositeAttrs;
+  columnOrder    %String;   #IMPLIED
+  headerVisible  %boolean;  #IMPLIED
+  itemCount      %int;      #IMPLIED
+  linesVisible   %boolean;  #IMPLIED
+  selection      %String;   #IMPLIED
+  topIndex       %int;      #IMPLIED
+>
+
+<!ELEMENT tableColumn EMPTY>
+<!ATTLIST tableColumn
+  %itemAttrs;
+  alignment    %SWTConst;  #IMPLIED
+  moveable     %boolean;   #IMPLIED
+  resizable    %boolean;   #IMPLIED
+  toolTipText  %String;    #IMPLIED
+  width        %int;       #IMPLIED
+>
+
+<!-- TODO TableItemの詳細記述 -->
+<!ELEMENT tableItem EMPTY>
+<!ATTLIST tableItem
+  %itemAttrs;
+>
+
 <!-- TODO composite記述追加 -->
 
 
 <!-- control -->
-<!ELEMENT button %controlElems;>
+<!ELEMENT button (%controlElem;)*>
 <!ATTLIST button
-  %widgetAttrs;
   %controlAttrs;
   alignment  %SWTConst;  #IMPLIED
   image      %Image;     #IMPLIED
@@ -140,47 +214,63 @@
   text       %String;    #IMPLIED
 >
 
-<!ELEMENT label %controlElems;>
+<!ELEMENT label (%controlElem;)*>
 <!ATTLIST label
-  %widgetAttrs;
   %controlAttrs;
   alignment  %SWTConst;  #IMPLIED
   image      %Image;     #IMPLIED
   text       %String;    #IMPLIED
 >
 
-<!ELEMENT list (%controlElems;, item*)>
+<!ELEMENT list ((%controlElem;)*, item*)>
 <!ATTLIST list
-  %widgetAttrs;
   %controlAttrs;
   select    %String;  #IMPLIED
   topIndex  %int;     #IMPLIED
 >
 
-<!ELEMENT progressBar %controlElems;>
+<!ELEMENT progressBar (%controlElem;)*>
 <!ATTLIST progressBar
-  %widgetAttrs;
   %controlAttrs;
   maximum    %int;  #IMPLIED
   minimum    %int;  #IMPLIED
   selection  %int;  #IMPLIED
 >
 
+<!ELEMENT scale (%controlElem;)*>
+<!ATTLIST scale
+  %controlAttrs;
+  increment      %int;  #IMPLIED
+  maximum        %int;  #IMPLIED
+  minimum        %int;  #IMPLIED
+  pageIncrement  %int;  #IMPLIED
+  selection      %int;  #IMPLIED
+>
+
+<!ELEMENT slider (%controlElem;)*>
+<!ATTLIST slider
+  %controlAttrs;
+  increment      %int;  #IMPLIED
+  maximum        %int;  #IMPLIED
+  minimum        %int;  #IMPLIED
+  pageIncrement  %int;  #IMPLIED
+  selection      %int;  #IMPLIED
+  thumb          %int;  #IMPLIED
+>
+
 <!-- TODO control記述追加 -->
 
 
 <!-- custom -->
-<!ELEMENT composite ((%layout;)?, property*, (%composite; | %control; | include)*)>
-<!ATTLIST composite
+<!ELEMENT customComposite ((%compositeElem;)*, property*, (%compositeChild;)*)>
+<!ATTLIST customComposite
   type  %String;  #REQUIRED
-  %widgetAttrs;
-  %controlAttrs;
+  %compositeAttrs;
 >
 
-<!ELEMENT control (property*)>
-<!ATTLIST control
+<!ELEMENT customControl ((%controlElem;)*, property*)>
+<!ATTLIST customControl
   type  %String;  #REQUIRED
-  %widgetAttrs;
   %controlAttrs;
 >
 
@@ -202,7 +292,7 @@
 <!ELEMENT gridLayout EMPTY>
 <!ATTLIST gridLayout
   horizontalSpacing      %int;      #IMPLIED
-  makeColumnsEqualWidth  %boolean;  'false'
+  makeColumnsEqualWidth  %boolean;  #IMPLIED
   marginBottom           %int;      #IMPLIED
   marginHeight           %int;      #IMPLIED
   marginLeft             %int;      #IMPLIED
@@ -215,15 +305,15 @@
 
 <!ELEMENT rowLayout EMPTY>
 <!ATTLIST rowLayout
-  fill          %boolean;   'false'
-  justify       %boolean;   'false'
+  fill          %boolean;   #IMPLIED
+  justify       %boolean;   #IMPLIED
   marginBottom  %int;       #IMPLIED
   marginHeight  %int;       #IMPLIED
   marginLeft    %int;       #IMPLIED
   marginRight   %int;       #IMPLIED
   marginTop     %int;       #IMPLIED
   marginWidth   %int;       #IMPLIED
-  pack          %boolean;   'true'
+  pack          %boolean;   #IMPLIED
   spacing       %int;       #IMPLIED
   type          %SWTConst;  #IMPLIED
   wrap          %boolean;   #IMPLIED
@@ -231,9 +321,9 @@
 
 <!ELEMENT gridData EMPTY>
 <!ATTLIST gridData
-  exclude                    %boolean;   'false'
-  grabExcessHorizontalSpace  %boolean;   'false'
-  grabExcessVerticalSpace    %boolean;   'false'
+  exclude                    %boolean;   #IMPLIED
+  grabExcessHorizontalSpace  %boolean;   #IMPLIED
+  grabExcessVerticalSpace    %boolean;   #IMPLIED
   heightHint                 %int;       #IMPLIED
   horizontalAlignment        %SWTConst;  #IMPLIED
   horizontalIndent           %int;       #IMPLIED
@@ -248,17 +338,9 @@
 
 <!ELEMENT rowData EMPTY>
 <!ATTLIST rowData
-  exclude  %boolean;  'false'
+  exclude  %boolean;  #IMPLIED
   height   %int;      #IMPLIED
   width    %int;      #IMPLIED
->
-
-<!-- tabList -->
-<!ELEMENT tabList (controlRef*)>
-
-<!ELEMENT controlRef EMPTY>
-<!ATTLIST controlRef
-  idref  %String;  #REQUIRED
 >
 
 <!-- item -->
@@ -275,17 +357,16 @@
   enabled      %boolean;  #IMPLIED
   x            %int;      #IMPLIED
   y            %int;      #IMPLIED
-  visible      %boolean;  'true'
+  visible      %boolean;  #IMPLIED
 >
 
 <!ELEMENT menuItem (menu | menuItem)*>
 <!ATTLIST menuItem
   %widgetAttrs;
+  %itemAttrs;
   accelerator  %Accelerator;  #IMPLIED
   enabled      %boolean;      #IMPLIED
-  image        %Image;        #IMPLIED
   selection    %boolean;      #IMPLIED
-  text         %String;       #IMPLIED
 >
 
 <!-- TODO MenuManagerがwindow以外にもつけられる場合はcontrolElemsなどに追加 -->
