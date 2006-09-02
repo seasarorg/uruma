@@ -15,6 +15,9 @@
  */
 package org.seasar.jface.component.factory.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
@@ -61,12 +64,20 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
             setBasePath(uiComponent, context);
 
             // コンポーネント情報クラスから属性名を取得
-            Attribute[] attributeInfoList = mappingInfo.attributes();
-            for (Attribute attribute : attributeInfoList) {
+            List<Attribute> attributeList = getAttributeList(componentInfo);
+            for (Attribute attribute : attributeList) {
                 String attrName = attribute.value();
                 String attrValue = attributes.getValue(attrName);
                 if (attrValue != null) {
                     setProperty(uiComponent, attrName, attrValue);
+                }
+            }
+
+            // 親コンポーネントが存在すれば子として登録する
+            if (!context.isEmpty()) {
+                UIComponent parent = (UIComponent) context.peek();
+                if (parent != null) {
+                    parent.addChild(uiComponent);
                 }
             }
 
@@ -142,14 +153,31 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
     protected void setProperty(final UIComponent uiComponent,
             final String name, final String value) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(uiComponent.getClass());
-        PropertyDesc pd = desc.getPropertyDesc(name);
-        if ((pd != null) && pd.hasWriteMethod()) {
-            pd.setValue(uiComponent, value);
+        if (desc.hasPropertyDesc(name)) {
+            PropertyDesc pd = desc.getPropertyDesc(name);
+            if ((pd != null) && pd.hasWriteMethod()) {
+                pd.setValue(uiComponent, value);
+            }
         } else {
             // TODO プロパティにXMLのライン数を持たせる(解釈に失敗した場合のエラー表示のため)
             Property property = new PropertyComponent(name, value);
             uiComponent.addProperty(property);
         }
+    }
+
+    protected List<Attribute> getAttributeList(final Class componentInfo) {
+        List<Attribute> attributeList = new ArrayList<Attribute>();
+        for (Class clazz = componentInfo; clazz != Object.class; clazz = clazz
+                .getSuperclass()) {
+            ComponentMapping componentMapping = clazz
+                    .<ComponentMapping> getAnnotation(ComponentMapping.class);
+            if (componentMapping != null) {
+                for (Attribute attribute : componentMapping.attributes()) {
+                    attributeList.add(attribute);
+                }
+            }
+        }
+        return attributeList;
     }
 
     @Override
