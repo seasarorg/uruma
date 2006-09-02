@@ -15,17 +15,14 @@
  */
 package org.seasar.jface.component.info.impl;
 
-import org.seasar.jface.annotation.xml.Attribute;
 import org.seasar.jface.annotation.xml.ComponentMapping;
-import org.seasar.jface.component.impl.TemplateComponent;
-import org.seasar.jface.component.info.ComponentInfo;
+import org.seasar.jface.component.impl.CompositeComponent;
 
 /**
- * <code>template</code> 要素のコンポーネント情報を保持するクラスです。<br />
+ * <code>composite</code> 要素に関するコンポーネント情報を保持するクラスです。
  * 
  * @author y-komori
  */
-@ComponentMapping(element = "template", componentClass = TemplateComponent.class, attributes = {
-        @Attribute("name"), @Attribute("extends") })
-public class TemplateComponentInfo implements ComponentInfo {
+@ComponentMapping(element = "composite", componentClass = CompositeComponent.class)
+public class CompositeComponentInfo extends ControlComponentInfo {
 }

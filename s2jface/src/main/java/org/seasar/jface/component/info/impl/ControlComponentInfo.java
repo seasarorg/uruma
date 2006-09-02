@@ -17,15 +17,20 @@ package org.seasar.jface.component.info.impl;
 
 import org.seasar.jface.annotation.xml.Attribute;
 import org.seasar.jface.annotation.xml.ComponentMapping;
-import org.seasar.jface.component.impl.TemplateComponent;
+import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.component.info.ComponentInfo;
 
 /**
- * <code>template</code> 要素のコンポーネント情報を保持するクラスです。<br />
+ * <code>control</code> 要素のコンポーネント情報を保持するクラスです。
  * 
  * @author y-komori
  */
-@ComponentMapping(element = "template", componentClass = TemplateComponent.class, attributes = {
-        @Attribute("name"), @Attribute("extends") })
-public class TemplateComponentInfo implements ComponentInfo {
+@ComponentMapping(element = "control", componentClass = ControlComponent.class, attributes = {
+        @Attribute("id"), @Attribute("style"), @Attribute("background"),
+        @Attribute("backgroundImage"), @Attribute("x"), @Attribute("y"),
+        @Attribute("width"), @Attribute("height"), @Attribute("enabled"),
+        @Attribute("fontHeight"), @Attribute("fontName"),
+        @Attribute("fontStyle"), @Attribute("foreground"),
+        @Attribute("toolTipText"), @Attribute("visible") })
+public class ControlComponentInfo implements ComponentInfo {
 }
