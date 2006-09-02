@@ -37,5 +37,5 @@ public @interface ComponentMapping {
     Class<? extends UIComponent> componentClass();
 
     /** 属性マッピング情報 */
-    Attribute[] attributes();
+    Attribute[] attributes() default {};
 }
