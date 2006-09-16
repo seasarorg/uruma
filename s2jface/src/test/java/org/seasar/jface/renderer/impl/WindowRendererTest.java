@@ -15,47 +15,9 @@
  */
 package org.seasar.jface.renderer.impl;
 
-import org.eclipse.swt.widgets.Shell;
-import org.seasar.framework.container.S2Container;
-import org.seasar.framework.container.factory.S2ContainerFactory;
-import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
-import org.seasar.framework.unit.S2FrameworkTestCase;
-import org.seasar.jface.S2JFace;
-
 /**
  * @author y-komori
  * 
  */
-public class WindowRendererTest extends S2FrameworkTestCase {
-    protected S2JFace s2JFace;
-
-    protected Shell shell;
-
-    private static boolean result;
-
-    @Override
-    protected void setUp() throws Exception {
-        s2JFace = new S2JFace();
-        S2Container container = SingletonS2ContainerFactory.getContainer();
-        // container.register(createActionComponentDef());
-
-        // クラス名と同名のdiconファイルが存在すればインクルードする
-        try {
-            S2Container child = S2ContainerFactory
-                    .create(convertPath(getClass().getSimpleName() + ".dicon"));
-            container.include(child);
-        } catch (ResourceNotFoundRuntimeException ex) {
-            // do nothing.
-        }
-
-        result = false;
-
-    }
-
-    public void testRender() {
-        String path = convertPath(getClass().getSimpleName() + ".xml");
-        s2JFace.openWindow(path);
-        assertTrue(path, result);
-    }
+public class WindowRendererTest extends AbstractRendererTest {
 }

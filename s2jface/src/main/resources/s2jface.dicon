@@ -3,5 +3,7 @@
 	"http://www.seasar.org/dtd/components23.dtd">
 <components>
 	<component name="windowManager" class="org.seasar.jface.impl.S2JFaceWindowManagerImpl" instance="singleton" />
+<!--
 	<component class="org.seasar.jface.impl.MenuManagerBuilderImpl" instance="singleton" />
+-->
 </components>
