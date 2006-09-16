@@ -38,7 +38,7 @@ import org.seasar.jface.component.impl.Template;
 public class ComponentTreeBuilder {
     public static final String PUBLIC_ID_02 = "-//SEASAR//DTD S2JFace 0.2//EN";
 
-    public static final String DTD_PATH_02 = "org/seasar/jface/template/s2jface02.dtd";
+    public static final String DTD_PATH_02 = "org/seasar/jface/component/factory/s2jface02.dtd";
 
     protected ResourceResolver resourceResolver = new ClassPathResourceResolver();
 
