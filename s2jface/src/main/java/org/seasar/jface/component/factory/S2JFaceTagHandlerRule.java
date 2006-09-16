@@ -22,14 +22,14 @@ import org.seasar.jface.component.factory.handler.LayoutTagHandler;
 import org.seasar.jface.component.factory.handler.S2JFaceGenericTagHandler;
 import org.seasar.jface.component.factory.handler.TemplateTagHandler;
 import org.seasar.jface.component.factory.handler.WindowTagHandler;
-import org.seasar.jface.component2.impl.ButtonComponent;
-import org.seasar.jface.component2.impl.CompositeComponent;
-import org.seasar.jface.component2.impl.FillLayoutInfo;
-import org.seasar.jface.component2.impl.GridDataInfo;
-import org.seasar.jface.component2.impl.GridLayoutInfo;
-import org.seasar.jface.component2.impl.LabelComponent;
-import org.seasar.jface.component2.impl.RowDataInfo;
-import org.seasar.jface.component2.impl.RowLayoutInfo;
+import org.seasar.jface.component.impl.ButtonComponent;
+import org.seasar.jface.component.impl.CompositeComponent;
+import org.seasar.jface.component.impl.FillLayoutInfo;
+import org.seasar.jface.component.impl.GridDataInfo;
+import org.seasar.jface.component.impl.GridLayoutInfo;
+import org.seasar.jface.component.impl.LabelComponent;
+import org.seasar.jface.component.impl.RowDataInfo;
+import org.seasar.jface.component.impl.RowLayoutInfo;
 
 /**
  * S2JFace の画面定義XMLをパースするためのタグハンドラを保持するクラスです。<br />

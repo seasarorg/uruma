@@ -13,13 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.impl;
+package org.seasar.jface.renderer;
 
-import org.seasar.jface.renderer.impl.AbstractRendererTest;
+import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.STRING;
+import static org.seasar.jface.annotation.component.ComponentAttribute.TargetType.FIELD;
+
+import org.seasar.jface.annotation.component.ComponentAttribute;
 
 /**
  * @author y-komori
- * 
  */
-public class S2JFaceApplicationWindowTest extends AbstractRendererTest {
+public class SrcObject4 {
+    @ComponentAttribute(targetType = FIELD, conversionType = STRING)
+    private String intField = "123";
+
+    public String getIntField() {
+        return this.intField;
+    }
 }

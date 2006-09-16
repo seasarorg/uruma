@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.2//EN" 
+  "http://www.seasar.org/dtd/s2jface02.dtd">
+<template name="WindowRendererTest">
+  <window title="WindowRendererTest" image="/images/component.gif"
+    width="50%" height="50%" minimumWidth="200" minimumHeight="150">
+    <fillLayout />
+    <button id="okButton" text="OK" />
+    <button id="ngButton" text="NG" />
+  </window>
+</template>

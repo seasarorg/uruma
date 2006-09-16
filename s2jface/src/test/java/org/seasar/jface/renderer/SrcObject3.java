@@ -13,13 +13,20 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.impl;
+package org.seasar.jface.renderer;
 
-import org.seasar.jface.renderer.impl.AbstractRendererTest;
+import org.seasar.jface.annotation.component.ComponentAttribute;
+import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
 
 /**
  * @author y-komori
- * 
  */
-public class S2JFaceApplicationWindowTest extends AbstractRendererTest {
+public class SrcObject3 {
+    @ComponentAttribute(targetType = TargetType.FIELD, conversionType = ConversionType.STRING)
+    public String nonExistTargetField;
+
+    public String getNonExistTargetField() {
+        return this.nonExistTargetField = "dummy";
+    }
 }

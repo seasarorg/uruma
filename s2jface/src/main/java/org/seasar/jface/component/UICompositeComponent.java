@@ -13,13 +13,24 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.impl;
+package org.seasar.jface.component;
 
-import org.seasar.jface.renderer.impl.AbstractRendererTest;
+import java.util.List;
 
 /**
  * @author y-komori
  * 
  */
-public class S2JFaceApplicationWindowTest extends AbstractRendererTest {
+public interface UICompositeComponent extends UIComponent {
+    public void addChild(UIComponent child);
+
+    public List<UIComponent> getChildren();
+
+    public LayoutInfo getLayoutInfo();
+
+    public void setLayoutInfo(LayoutInfo layoutInfo);
+
+    public void setCommonAttributes(CommonAttributes commonAttributes);
+
+    public CommonAttributes getCommonAttributes();
 }

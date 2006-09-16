@@ -13,13 +13,22 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.impl;
+package org.seasar.jface.component.impl;
 
-import org.seasar.jface.renderer.impl.AbstractRendererTest;
+import org.seasar.jface.component.UIElement;
 
 /**
  * @author y-komori
  * 
  */
-public class S2JFaceApplicationWindowTest extends AbstractRendererTest {
+public abstract class AbstractUIElement implements UIElement {
+    private String basePath;
+
+    public String getBasePath() {
+        return this.basePath;
+    }
+
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
+    }
 }

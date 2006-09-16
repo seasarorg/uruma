@@ -13,13 +13,23 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.impl;
+package org.seasar.jface.renderer.impl;
 
-import org.seasar.jface.renderer.impl.AbstractRendererTest;
+import org.seasar.jface.WindowContext;
+import org.seasar.jface.renderer.Renderer;
 
 /**
  * @author y-komori
  * 
  */
-public class S2JFaceApplicationWindowTest extends AbstractRendererTest {
+public abstract class AbstractRenderer implements Renderer {
+    private WindowContext context;
+
+    protected WindowContext getContext() {
+        return this.context;
+    }
+
+    protected void setContext(WindowContext context) {
+        this.context = context;
+    }
 }

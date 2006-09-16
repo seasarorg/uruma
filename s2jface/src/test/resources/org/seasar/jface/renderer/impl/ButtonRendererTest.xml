@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.2//EN" 
+  "http://www.seasar.org/dtd/s2jface02.dtd">
+<template name="WindowRendererTest">
+  <window id="ButtonRendererTest" title="ButtonRendererTest"
+    image="/images/component.gif" defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+
+    <composite id="contents">
+      <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
+        spacing="10" />
+      <commonAttributes fontHeight="20" />
+
+      <composite>
+        <rowLayout type="VERTICAL" spacing="10" />
+        <button text="プッシュボタン" toolTipText="ツールチップテキスト" />
+        <button style="FLAT" text="フラットボタン" />
+        <button style="CHECK" text="チェックボタン(OFF)" />
+        <button style="CHECK" text="チェックボタン(ON)" selection="true" />
+        <button style="TOGGLE" text="トグルボタン(OFF)" />
+        <button style="TOGGLE" text="トグルボタン(ON)" selection="true" />
+        <button text="フォントを変更" fontName="ＭＳ 明朝" fontHeight="15"
+          fontStyle="BOLD, ITALIC" />
+      </composite>
+
+      <composite>
+        <rowLayout type="VERTICAL" spacing="10">
+          <rowData width="30" height="30" />
+        </rowLayout>
+
+        <button style="ARROW, UP" />
+        <button style="ARROW, RIGHT" />
+        <button style="ARROW, DOWN" />
+        <button style="ARROW, LEFT" />
+      </composite>
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

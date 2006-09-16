@@ -21,8 +21,8 @@ import java.util.Map;
 import org.eclipse.jface.window.WindowManager;
 import org.seasar.jface.S2JFaceWindowManager;
 import org.seasar.jface.component.factory.ComponentTreeBuilder;
-import org.seasar.jface.component2.impl.Template;
-import org.seasar.jface.component2.impl.WindowComponent;
+import org.seasar.jface.component.impl.Template;
+import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.exception.WindowManagerException;
 import org.seasar.jface.util.AssertionUtil;
 

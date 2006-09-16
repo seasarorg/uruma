@@ -13,13 +13,29 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.impl;
+package org.seasar.jface.renderer.impl;
 
-import org.seasar.jface.renderer.impl.AbstractRendererTest;
+import org.eclipse.swt.widgets.Composite;
+import org.seasar.jface.component.impl.CompositeComponent;
 
 /**
+ * <code>Composite</code>のレンダリングを行うクラスです。<br />
+ * 
  * @author y-komori
+ * @see org.eclipse.swt.widgets.Composite
  * 
  */
-public class S2JFaceApplicationWindowTest extends AbstractRendererTest {
+public class CompositeRenderer extends
+        AbstractCompositeRenderer<CompositeComponent, Composite> {
+
+    @Override
+    protected void doRenderComposite(CompositeComponent compositeComponent,
+            Composite composite) {
+        // Do nothing.
+    }
+
+    @Override
+    protected Class<Composite> getControlType() {
+        return Composite.class;
+    }
 }

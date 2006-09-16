@@ -13,13 +13,10 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.impl;
-
-import org.seasar.jface.renderer.impl.AbstractRendererTest;
+package org.seasar.jface.renderer.impl;
 
 /**
  * @author y-komori
- * 
  */
-public class S2JFaceApplicationWindowTest extends AbstractRendererTest {
+public class ButtonRendererTest extends AbstractRendererTest {
 }
