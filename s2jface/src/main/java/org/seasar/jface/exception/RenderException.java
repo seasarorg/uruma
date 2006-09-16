@@ -25,7 +25,13 @@ public class RenderException extends S2JFaceRuntimeException {
 
     public static final String IACTION = "EJFC0301";
 
+    public static final String MAPPING_ERORR = "EJFC0302";
+
     public RenderException(String messageCode, Object... args) {
         super(messageCode, args);
+    }
+
+    public RenderException(String messageCode, Throwable cause, Object... args) {
+        super(messageCode, cause, args);
     }
 }

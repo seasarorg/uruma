@@ -22,6 +22,8 @@ package org.seasar.jface.exception;
 public class ParseException extends S2JFaceRuntimeException {
     private static final long serialVersionUID = -2200546651277420749L;
 
+    public static final String PROPERTY_NOT_FOUND = "EJFC0110";
+
     public ParseException(final String messageCode, final Object... args) {
         super(messageCode, args);
     }

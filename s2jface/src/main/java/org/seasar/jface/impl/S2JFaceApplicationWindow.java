@@ -15,21 +15,16 @@
  */
 package org.seasar.jface.impl;
 
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
-import org.seasar.framework.container.annotation.tiger.Binding;
-import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
-import org.seasar.jface.MenuManagerBuilder;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.MethodBindingSupport;
-import org.seasar.jface.component.Menu;
-import org.seasar.jface.component.impl.TemplateComponent;
-import org.seasar.jface.component.impl.WindowComponent;
-import org.seasar.jface.renderer.WindowRenderer;
+import org.seasar.jface.component2.impl.Template;
+import org.seasar.jface.component2.impl.WindowComponent;
+import org.seasar.jface.renderer2.impl.WindowRenderer;
 
 /**
  * @author y-komori
@@ -37,17 +32,17 @@ import org.seasar.jface.renderer.WindowRenderer;
  */
 @Component(autoBinding = AutoBindingType.NONE)
 public class S2JFaceApplicationWindow extends ApplicationWindow {
-    private TemplateComponent template;
+    private Template template;
 
     private WindowContext context;
 
-    private MenuManagerBuilder menuManagerBuilder;
+    // private MenuManagerBuilder menuManagerBuilder;
 
     public S2JFaceApplicationWindow() {
         super(null);
     }
 
-    public S2JFaceApplicationWindow(TemplateComponent template) {
+    public S2JFaceApplicationWindow(Template template) {
         super(null);
         init(template);
     }
@@ -61,31 +56,31 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
      * @param template
      *            テンプレートオブジェクト
      */
-    public void init(TemplateComponent template) {
+    public void init(Template template) {
         this.template = template;
         this.context = new WindowContextImpl();
 
-        setupMenuBar();
+        // setupMenuBar();
         setupShellStyle(template.getWindowComponent());
     }
 
     protected void setupShellStyle(final WindowComponent component) {
-        int style = ((WindowRenderer) component.getRenderer())
-                .getShellStyle(component);
+        WindowRenderer renderer = (WindowRenderer) component.getRenderer();
+        int style = (renderer.getShellStyle(component));
         setShellStyle(style);
     }
 
-    protected void setupMenuBar() {
-        WindowComponent windowComponent = template.getWindowComponent();
-        Menu menuBar = windowComponent.getMenuBar();
-        if (menuBar != null) {
-            addMenuBar();
-        }
-    }
+    // protected void setupMenuBar() {
+    // WindowComponent windowComponent = template.getWindowComponent();
+    // Menu menuBar = windowComponent.getMenuBar();
+    // if (menuBar != null) {
+    // addMenuBar();
+    // }
+    // }
 
     @Override
     protected Control createContents(Composite parent) {
-        registMenuToContext();
+        // registMenuToContext();
 
         WindowComponent windowComponent = template.getWindowComponent();
         windowComponent.render(parent, context);
@@ -95,28 +90,29 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         return parent;
     }
 
-    @Override
-    protected MenuManager createMenuManager() {
-        WindowComponent windowComponent = template.getWindowComponent();
-        Menu menuBar = windowComponent.getMenuBar();
-        MenuManager menuManager = menuManagerBuilder.createMenuManager(menuBar);
+    // @Override
+    // protected MenuManager createMenuManager() {
+    // WindowComponent windowComponent = template.getWindowComponent();
+    // Menu menuBar = windowComponent.getMenuBar();
+    // MenuManager menuManager = menuManagerBuilder.createMenuManager(menuBar);
+    //
+    // return menuManager;
+    // }
 
-        return menuManager;
-    }
+    // protected void registMenuToContext() {
+    // Menu menuBar = template.getWindowComponent().getMenuBar();
+    // if (menuBar != null) {
+    // String id = menuBar.getId();
+    // if (id != null) {
+    // context.putComponent(id, getMenuBarManager().getMenu());
+    // }
+    // }
+    // }
 
-    protected void registMenuToContext() {
-        Menu menuBar = template.getWindowComponent().getMenuBar();
-        if (menuBar != null) {
-            String id = menuBar.getId();
-            if (id != null) {
-                context.putComponent(id, getMenuBarManager().getMenu());
-            }
-        }
-    }
-
-    @Binding(bindingType = BindingType.MUST)
-    public void setMenuManagerBuilder(MenuManagerBuilder menuManagerBuilder) {
-        this.menuManagerBuilder = menuManagerBuilder;
-    }
+    // @Binding(bindingType = BindingType.MUST)
+    // public void setMenuManagerBuilder(MenuManagerBuilder menuManagerBuilder)
+    // {
+    // this.menuManagerBuilder = menuManagerBuilder;
+    // }
 
 }

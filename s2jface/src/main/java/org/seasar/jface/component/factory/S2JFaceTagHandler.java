@@ -22,5 +22,5 @@ import org.seasar.framework.xml.TagHandler;
  * 
  */
 public abstract class S2JFaceTagHandler extends TagHandler {
-    public abstract String getElementName();
+    public abstract String getElementPath();
 }

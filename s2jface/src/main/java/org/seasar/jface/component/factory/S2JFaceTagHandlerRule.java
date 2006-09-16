@@ -16,9 +16,20 @@
 package org.seasar.jface.component.factory;
 
 import org.seasar.framework.xml.TagHandlerRule;
+import org.seasar.jface.component.factory.handler.CommonAttributesTagHandler;
+import org.seasar.jface.component.factory.handler.LayoutDataTagHandler;
+import org.seasar.jface.component.factory.handler.LayoutTagHandler;
 import org.seasar.jface.component.factory.handler.S2JFaceGenericTagHandler;
-import org.seasar.jface.component.info.impl.TemplateComponentInfo;
-import org.seasar.jface.util.ClassUtil;
+import org.seasar.jface.component.factory.handler.TemplateTagHandler;
+import org.seasar.jface.component.factory.handler.WindowTagHandler;
+import org.seasar.jface.component2.impl.ButtonComponent;
+import org.seasar.jface.component2.impl.CompositeComponent;
+import org.seasar.jface.component2.impl.FillLayoutInfo;
+import org.seasar.jface.component2.impl.GridDataInfo;
+import org.seasar.jface.component2.impl.GridLayoutInfo;
+import org.seasar.jface.component2.impl.LabelComponent;
+import org.seasar.jface.component2.impl.RowDataInfo;
+import org.seasar.jface.component2.impl.RowLayoutInfo;
 
 /**
  * S2JFace の画面定義XMLをパースするためのタグハンドラを保持するクラスです。<br />
@@ -29,16 +40,32 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
     private static final long serialVersionUID = -6918247426777293347L;
 
     public S2JFaceTagHandlerRule() {
-        addTagHandler(new S2JFaceGenericTagHandler(TemplateComponentInfo.class));
+        addTagHandler(new TemplateTagHandler());
+        addTagHandler(new WindowTagHandler());
+
+        addTagHandler(new CommonAttributesTagHandler());
+
+        // Layout
+        addTagHandler("fillLayout", new LayoutTagHandler(FillLayoutInfo.class));
+        addTagHandler("rowLayout", new LayoutTagHandler(RowLayoutInfo.class));
+        addTagHandler("gridLayout", new LayoutTagHandler(GridLayoutInfo.class));
+
+        // LayoutData
+        addTagHandler("rowData", new LayoutDataTagHandler(RowDataInfo.class));
+        addTagHandler("gridData", new LayoutDataTagHandler(GridDataInfo.class));
+
+        // Composite
+        addTagHandler("composite", new S2JFaceGenericTagHandler(
+                CompositeComponent.class));
+
+        // Control
+        addTagHandler("label", new S2JFaceGenericTagHandler(
+                LabelComponent.class));
+        addTagHandler("button", new S2JFaceGenericTagHandler(
+                ButtonComponent.class));
     }
 
     protected void addTagHandler(S2JFaceTagHandler tagHandler) {
-        addTagHandler(tagHandler.getElementName(), tagHandler);
-    }
-
-    protected void addTagHandler(Class<? extends S2JFaceTagHandler> clazz) {
-        S2JFaceTagHandler tagHandler = ClassUtil
-                .<S2JFaceTagHandler> newInstance(clazz);
-        addTagHandler(tagHandler.getElementName(), tagHandler);
+        addTagHandler(tagHandler.getElementPath(), tagHandler);
     }
 }

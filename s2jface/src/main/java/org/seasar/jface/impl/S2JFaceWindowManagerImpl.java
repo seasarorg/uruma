@@ -19,14 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jface.window.WindowManager;
-import org.seasar.jface.MenuManagerBuilder;
 import org.seasar.jface.S2JFaceWindowManager;
-import org.seasar.jface.component.impl.TemplateComponent;
-import org.seasar.jface.component.impl.WindowComponent;
+import org.seasar.jface.component.factory.ComponentTreeBuilder;
+import org.seasar.jface.component2.impl.Template;
+import org.seasar.jface.component2.impl.WindowComponent;
 import org.seasar.jface.exception.WindowManagerException;
-import org.seasar.jface.template.TemplateBuilder;
 import org.seasar.jface.util.AssertionUtil;
-import org.seasar.jface.util.S2ContainerUtil;
 
 /**
  * ウィンドウを管理するためのクラスです。</br>
@@ -41,9 +39,9 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
 
     private Map<String, WindowComponent> windowMap = new HashMap<String, WindowComponent>();
 
-    private Map<String, TemplateComponent> templateCache = new HashMap<String, TemplateComponent>();
+    private Map<String, Template> templateCache = new HashMap<String, Template>();
 
-    private TemplateBuilder builder = new TemplateBuilder();
+    private ComponentTreeBuilder builder = new ComponentTreeBuilder();
 
     /*
      * @see org.seasar.jface.S2JFaceWindowManager#open(java.lang.String,
@@ -54,10 +52,10 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
             startBlocking();
         }
 
-        TemplateComponent template = loadTemplate(templatePath);
+        Template template = loadTemplate(templatePath);
         S2JFaceApplicationWindow window = new S2JFaceApplicationWindow();
-        window.setMenuManagerBuilder((MenuManagerBuilder) S2ContainerUtil
-                .getComponent(MenuManagerBuilder.class));
+        // window.setMenuManagerBuilder((MenuManagerBuilder) S2ContainerUtil
+        // .getComponent(MenuManagerBuilder.class));
         window.init(template);
 
         window.setBlockOnOpen(blockOnOpen);
@@ -76,10 +74,10 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
         open(templatePath, false);
     }
 
-    protected TemplateComponent loadTemplate(final String path) {
-        TemplateComponent template = getTemplate(path);
+    protected Template loadTemplate(final String path) {
+        Template template = getTemplate(path);
         if (template == null) {
-            template = (TemplateComponent) builder.build(path);
+            template = (Template) builder.build(path);
             if (template != null) {
                 registTemplate(template);
                 return template;
@@ -88,13 +86,13 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
         return template;
     }
 
-    protected TemplateComponent getTemplate(final String path) {
+    protected Template getTemplate(final String path) {
         return templateCache.get(path);
     }
 
-    protected void registTemplate(final TemplateComponent template) {
+    protected void registTemplate(final Template template) {
         AssertionUtil.assertNotNull("template", template);
-        templateCache.put(template.getSourcePath(), template);
+        templateCache.put(template.getBasePath(), template);
         WindowComponent window = template.getWindowComponent();
         windowMap.put(window.getId(), window);
     }

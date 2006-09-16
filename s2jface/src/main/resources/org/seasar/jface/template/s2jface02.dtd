@@ -32,8 +32,7 @@
 <!-- attributes -->
 <!ENTITY % widgetAttrs
  "id       ID          #IMPLIED
-  style    %SWTConst;  #IMPLIED
-  replace  %boolean;   'false'"
+  style    %SWTConst;  #IMPLIED"
 >
 <!ENTITY % controlAttrs
  "%widgetAttrs;
@@ -57,9 +56,9 @@
 >
 <!ENTITY % decorationsAttrs
  "%compositeAttrs;
-  defaultButton  %String;  #IMPLIED
-  images         %String;  #IMPLIED
-  text           %String;  #IMPLIED"
+  defaultButtonId	%String;  #IMPLIED
+  image         	%String;  #IMPLIED
+  title           	%String;  #IMPLIED"
 >
 <!ENTITY % itemAttrs
  "%widgetAttrs;
@@ -90,7 +89,7 @@
   "%layoutData; | menu"
 >
 <!ENTITY % compositeElem
-  "%controlElem; | %layout;"
+  "%controlElem; | %layout; | commonAttributes"
 >
 <!ENTITY % compositeChild
   "%composite; | %control; | include"
@@ -99,19 +98,23 @@
 
 <!--==================== ELEMENT ====================-->
 <!-- template -->
-<!ELEMENT template (shell | componentDef)>
+<!ELEMENT template (window | componentDef)>
 <!ATTLIST template
   name     %String;  #REQUIRED
   extends  %String;  #IMPLIED
 >
 
-<!-- shell -->
-<!ELEMENT shell ((%compositeElem; | menuManager)*, (%compositeChild;)*)>
-<!ATTLIST shell
+<!-- window -->
+<!ELEMENT window ((%compositeElem; | menuManager)*, (%compositeChild;)*)>
+<!ATTLIST window
   %decorationsAttrs;
-  imeInputMode   %SWTConst;  #IMPLIED
-  minimumWidth   %int;       #IMPLIED
-  minimumHeight  %int;       #IMPLIED
+  imeInputMode   	%SWTConst;  #IMPLIED
+  width          	%int;       #IMPLIED
+  height         	%int;       #IMPLIED
+  x              	%int;       #IMPLIED
+  y              	%int;       #IMPLIED
+  minimumWidth   	%int;       #IMPLIED
+  minimumHeight  	%int;       #IMPLIED
 >
 
 <!-- componentDef -->
@@ -126,6 +129,18 @@
 <!ELEMENT include (param*, (%composite; | %control;)*)>
 <!ATTLIST include
   name  %String;  #REQUIRED
+>
+
+<!-- commonAttributes -->
+<!ELEMENT commonAttributes EMPTY>
+<!ATTLIST commonAttributes
+  background       %Color;      #IMPLIED
+  foreground       %Color;      #IMPLIED
+  width            %int;        #IMPLIED
+  height           %int;        #IMPLIED
+  fontHeight       %int;        #IMPLIED
+  fontName         %String;     #IMPLIED
+  fontStyle        %SWTConst;   #IMPLIED
 >
 
 <!-- composite -->
@@ -289,7 +304,7 @@
   type          %SWTConst;  #IMPLIED
 >
 
-<!ELEMENT gridLayout EMPTY>
+<!ELEMENT gridLayout (gridData)?>
 <!ATTLIST gridLayout
   horizontalSpacing      %int;      #IMPLIED
   makeColumnsEqualWidth  %boolean;  #IMPLIED
@@ -303,7 +318,7 @@
   verticalSpacing        %int;      #IMPLIED
 >
 
-<!ELEMENT rowLayout EMPTY>
+<!ELEMENT rowLayout (rowData)?>
 <!ATTLIST rowLayout
   fill          %boolean;   #IMPLIED
   justify       %boolean;   #IMPLIED

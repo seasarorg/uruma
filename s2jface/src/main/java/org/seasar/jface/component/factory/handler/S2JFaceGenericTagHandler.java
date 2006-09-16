@@ -15,36 +15,34 @@
  */
 package org.seasar.jface.component.factory.handler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.xml.TagHandlerContext;
-import org.seasar.jface.annotation.xml.Attribute;
-import org.seasar.jface.annotation.xml.ComponentMapping;
-import org.seasar.jface.component.Property;
-import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.factory.S2JFaceTagHandler;
-import org.seasar.jface.component.impl.PropertyComponent;
-import org.seasar.jface.component.info.ComponentInfo;
+import org.seasar.jface.component2.UIComponent;
+import org.seasar.jface.component2.UICompositeComponent;
+import org.seasar.jface.component2.UIElement;
+import org.seasar.jface.exception.NotFoundException;
+import org.seasar.jface.exception.ParseException;
+import org.seasar.jface.renderer2.Renderer;
+import org.seasar.jface.renderer2.RendererFactrory;
 import org.seasar.jface.util.ClassUtil;
 import org.xml.sax.Attributes;
 
 public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
     private static final long serialVersionUID = 4075680211563734762L;
 
-    private Class<? extends ComponentInfo> componentInfo;
+    private Class<? extends UIElement> uiElementClass;
 
     /**
-     * <code>ComponentInfo</code> クラスを指定してインスタンスを構築します。
+     * 生成するクラスを指定してインスタンスを構築します。
      * 
-     * @param componentInfo
-     *            <code>ComponentInfo</code> クラスのオブジェクト。
+     * @param componentClass
      */
-    public S2JFaceGenericTagHandler(Class<? extends ComponentInfo> componentInfo) {
-        this.componentInfo = componentInfo;
+    public S2JFaceGenericTagHandler(
+            final Class<? extends UIElement> uiElementClass) {
+        this.uiElementClass = uiElementClass;
     }
 
     /*
@@ -53,38 +51,19 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
      */
     @Override
     public void start(TagHandlerContext context, Attributes attributes) {
-        // コンポーネント情報を保持するアノテーションを取得
-        Class<? extends ComponentInfo> componentInfo = getComponentInfoClass();
-        ComponentMapping mappingInfo = componentInfo
-                .getAnnotation(ComponentMapping.class);
+        UIElement uiElement = createUIElement(uiElementClass);
 
-        if (mappingInfo != null) {
-            // 要素に対応するコンポーネントを生成
-            UIComponent uiComponent = createUIComponent(mappingInfo);
-            setBasePath(uiComponent, context);
+        setBasePath(uiElement, context);
 
-            // コンポーネント情報クラスから属性名を取得
-            List<Attribute> attributeList = getAttributeList(componentInfo);
-            for (Attribute attribute : attributeList) {
-                String attrName = attribute.value();
-                String attrValue = attributes.getValue(attrName);
-                if (attrValue != null) {
-                    setProperty(uiComponent, attrName, attrValue);
-                }
-            }
+        setAttributes(uiElement, attributes);
 
-            // 親コンポーネントが存在すれば子として登録する
-            if (!context.isEmpty()) {
-                UIComponent parent = (UIComponent) context.peek();
-                if (parent != null) {
-                    parent.addChild(uiComponent);
-                }
-            }
-
-            context.push(uiComponent);
-        } else {
-            // TODO アノテーションが存在しない場合の例外処理
+        if (uiElement instanceof UIComponent) {
+            setRenderer((UIComponent) uiElement);
         }
+
+        setParent(uiElement, context);
+
+        context.push(uiElement);
     }
 
     /*
@@ -97,98 +76,122 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
     }
 
     /**
-     * <code>ComponentMapping</code> アノテーションにしたがって <code>UIComponent</code>
-     * オブジェクトを生成します。<br />
+     * <code>UIElement</code> オブジェクトを生成します。<br />
      * 
-     * @param componentMapping
-     *            <code>ComponentMapping</code> アノテーション
-     * @return <code>UIComponent</code> オブジェクト
+     * @param uiElementClass
+     *            <code>UIElement</code> クラス
+     * @return <code>UIElement</code> オブジェクト
      */
-    protected UIComponent createUIComponent(
-            final ComponentMapping componentMapping) {
-        Class<? extends UIComponent> componentClass = componentMapping
-                .componentClass();
-        return ClassUtil.<UIComponent> newInstance(componentClass);
+    protected UIElement createUIElement(
+            final Class<? extends UIElement> uiElementClass) {
+        return ClassUtil.<UIElement> newInstance(uiElementClass);
     }
 
     /**
-     * <code>UIComponent</code> へXMLのパスを設定します。<br />
+     * <code>UIElement</code> へXMLのパスを設定します。<br />
      * 
-     * @param component
-     *            <code>UIComponent</code> オブジェクト
+     * @param uiElement
+     *            <code>UIElement</code> オブジェクト
      * @param context
      *            コンテクスト情報
      */
-    protected void setBasePath(final UIComponent component,
+    protected void setBasePath(final UIElement uiElement,
             final TagHandlerContext context) {
-        component.setBasePath((String) context.getParameter("basePath"));
+        uiElement.setBasePath((String) context.getParameter("basePath"));
     }
 
     /**
-     * コンポーネント情報クラスを取得するメソッドです。<br />
-     * <p>
-     * 本クラスをサブクラス化する際、コンポーネント情報クラスを固定化したい場合にオーバーライドしてください。<br />
-     * </p>
+     * <code>UIElement</code> へ属性の値をセットします。<br />
      * 
-     * @return コンポーネント情報クラスの <code>Class</code> オブジェクト
+     * @param uiElement
+     *            <code>UIElement</code> オブジェクト
+     * @param attributes
+     *            <code>ComponentAttribute</code> オブジェクト
      */
-    protected Class<? extends ComponentInfo> getComponentInfoClass() {
-        return this.componentInfo;
+    protected void setAttributes(final UIElement uiElement,
+            final Attributes attributes) {
+        int length = attributes.getLength();
+
+        for (int i = 0; i < length; i++) {
+            String name = attributes.getQName(i);
+            String value = attributes.getValue(i);
+            setProperty(uiElement, name, value);
+        }
     }
 
     /**
-     * <code>UIComponent</code> へプロパティを設定します。<br />
+     * <code>UIElement</code> へプロパティを設定します。<br />
      * <p>
      * <code>name</code>に対応したsetterメソッドが存在すればそれを利用して値を設定します。<br />
-     * setterが存在しない場合、<code>addProperty()</code> メソッドによって設定します。
      * </p>
      * 
-     * @param uiComponent
-     *            <code>UIComponent</code> オブジェクト
+     * @param uiElement
+     *            <code>UIElement</code> オブジェクト
      * @param name
      *            プロパティ名
      * @param value
      *            値
      */
-    protected void setProperty(final UIComponent uiComponent,
-            final String name, final String value) {
-        BeanDesc desc = BeanDescFactory.getBeanDesc(uiComponent.getClass());
+    protected void setProperty(final UIElement uiElement, final String name,
+            final String value) {
+        // TODO UIElementにXMLのライン数を持たせる(解釈に失敗した場合のエラー表示のため)
+        BeanDesc desc = BeanDescFactory.getBeanDesc(uiElement.getClass());
         if (desc.hasPropertyDesc(name)) {
             PropertyDesc pd = desc.getPropertyDesc(name);
-            if ((pd != null) && pd.hasWriteMethod()) {
-                pd.setValue(uiComponent, value);
+            if (pd.hasWriteMethod()) {
+                pd.setValue(uiElement, value);
+            } else {
+                throw new ParseException(ParseException.PROPERTY_NOT_FOUND,
+                        name, uiElement.getClass().getName());
             }
         } else {
-            // TODO プロパティにXMLのライン数を持たせる(解釈に失敗した場合のエラー表示のため)
-            Property property = new PropertyComponent(name, value);
-            uiComponent.addProperty(property);
+            throw new ParseException(ParseException.PROPERTY_NOT_FOUND, name,
+                    uiElement.getClass().getName());
         }
     }
 
-    protected List<Attribute> getAttributeList(final Class componentInfo) {
-        List<Attribute> attributeList = new ArrayList<Attribute>();
-        for (Class clazz = componentInfo; clazz != Object.class; clazz = clazz
-                .getSuperclass()) {
-            ComponentMapping componentMapping = clazz
-                    .<ComponentMapping> getAnnotation(ComponentMapping.class);
-            if (componentMapping != null) {
-                for (Attribute attribute : componentMapping.attributes()) {
-                    attributeList.add(attribute);
-                }
+    /**
+     * 生成した <code>UIElement</code> を <code>TagHandlerContext</code>
+     * 内に存在する親へ設定します。<br />
+     * 
+     * @param uiElement
+     *            <code>UIElement</code> オブジェクト
+     * @param context
+     *            <code>TagHandlerContext</code> オブジェクト
+     */
+    protected void setParent(final UIElement uiElement,
+            final TagHandlerContext context) {
+        if (!context.isEmpty()) {
+            Object parent = context.peek();
+            if (UICompositeComponent.class.isAssignableFrom(parent.getClass())
+                    && UIComponent.class.isAssignableFrom(uiElement.getClass())) {
+                UICompositeComponent parentComponent = UICompositeComponent.class
+                        .cast(parent);
+                UIComponent child = UIComponent.class.cast(uiElement);
+                parentComponent.addChild(child);
             }
         }
-        return attributeList;
+    }
+
+    /**
+     * <code>UIComponent</code> に対応するレンダラをセットします。<br />
+     * 
+     * @param uiComponent
+     *            <code>UIComponent</code> オブジェクト
+     */
+    protected void setRenderer(final UIComponent uiComponent) {
+        Renderer renderer = RendererFactrory
+                .getRenderer(uiComponent.getClass());
+        if (renderer != null) {
+            uiComponent.setRenderer(renderer);
+        } else {
+            throw new NotFoundException(NotFoundException.RENDERER, uiComponent
+                    .getClass().getName());
+        }
     }
 
     @Override
-    public String getElementName() {
-        Class<? extends ComponentInfo> componentClass = getComponentInfoClass();
-        ComponentMapping mapping = componentClass
-                .getAnnotation(ComponentMapping.class);
-        if (mapping != null) {
-            return mapping.element();
-        } else {
-            return null;
-        }
+    public String getElementPath() {
+        return null;
     }
 }
