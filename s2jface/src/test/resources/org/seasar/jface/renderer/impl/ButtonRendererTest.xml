@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.2//EN" 
-  "http://www.seasar.org/dtd/s2jface02.dtd">
-<template name="WindowRendererTest">
+<template name="WindowRendererTest" xmlns="http://s2jface.sandbox.seasar.org">
   <window id="ButtonRendererTest" title="ButtonRendererTest"
     image="/images/component.gif" defaultButtonId="okButton">
     <gridLayout numColumns="1">

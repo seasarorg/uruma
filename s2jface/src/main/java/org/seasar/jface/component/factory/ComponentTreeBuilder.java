@@ -18,27 +18,31 @@ package org.seasar.jface.component.factory;
 import java.io.File;
 import java.io.InputStream;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.seasar.framework.container.factory.ClassPathResourceResolver;
 import org.seasar.framework.container.factory.ResourceResolver;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
+import org.seasar.framework.exception.SAXRuntimeException;
 import org.seasar.framework.util.InputStreamUtil;
 import org.seasar.framework.util.SAXParserFactoryUtil;
 import org.seasar.framework.xml.SaxHandler;
 import org.seasar.framework.xml.SaxHandlerParser;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.impl.Template;
+import org.xml.sax.SAXException;
 
 /**
  * @author y-komori
  * 
  */
 public class ComponentTreeBuilder {
-    public static final String PUBLIC_ID_02 = "-//SEASAR//DTD S2JFace 0.2//EN";
-
-    public static final String DTD_PATH_02 = "org/seasar/jface/component/factory/s2jface02.dtd";
+    public static final String SCHEMA_PATH = "org/seasar/jface/component/factory/s2jface.xsd";
 
     protected ResourceResolver resourceResolver = new ClassPathResourceResolver();
 
@@ -63,10 +67,21 @@ public class ComponentTreeBuilder {
 
     protected SaxHandlerParser createSaxHandlerParser(final String path) {
         final SAXParserFactory factory = SAXParserFactoryUtil.newInstance();
-        factory.setValidating(true);
+        factory.setNamespaceAware(true);
 
+        final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        InputStream is = getInputStream(SCHEMA_PATH);
+        try {
+            final Schema schema = schemaFactory.newSchema(new StreamSource(is));
+            factory.setSchema(schema);
+        } catch (SAXException ex) {
+            throw new SAXRuntimeException(ex);
+        }
+        finally {
+            InputStreamUtil.close(is);
+        }
+        
         final SAXParser saxParser = SAXParserFactoryUtil.newSAXParser(factory);
-
         final SaxHandler handler = createSaxHandler();
 
         final TagHandlerContext ctx = handler.getTagHandlerContext();
@@ -78,7 +93,6 @@ public class ComponentTreeBuilder {
 
     protected SaxHandler createSaxHandler() {
         SaxHandler handler = new SaxHandler(new S2JFaceTagHandlerRule());
-        handler.registerDtdPath(PUBLIC_ID_02, DTD_PATH_02);
         return handler;
     }
 }
