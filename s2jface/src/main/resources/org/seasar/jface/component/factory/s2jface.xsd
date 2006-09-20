@@ -9,7 +9,7 @@
       <xs:sequence>
         <xs:element ref="tns:param" minOccurs="0" maxOccurs="unbounded" />
         <xs:choice>
-          <xs:element ref="tns:shell" />
+          <xs:element ref="tns:window" />
           <xs:element ref="tns:componentDef" />
         </xs:choice>
       </xs:sequence>
@@ -18,7 +18,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="shell">
+  <xs:element name="window">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="tns:Decorations">
@@ -80,8 +80,21 @@
     <xs:choice>
       <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
       <xs:element ref="tns:layout" minOccurs="0" maxOccurs="1" />
+      <xs:element ref="tns:commonAttributes" minOccurs="0" maxOccurs="1" />
     </xs:choice>
   </xs:group>
+
+  <xs:element name="commonAttributes">
+    <xs:complexType>
+      <xs:attribute name="background" type="tns:Color" />
+      <xs:attribute name="width" type="xs:string" />
+      <xs:attribute name="height" type="xs:string" />
+      <xs:attribute name="fontHeight" type="xs:int" />
+      <xs:attribute name="fontName" type="xs:string" />
+      <xs:attribute name="fontStyle" type="tns:SWTConst" />
+      <xs:attribute name="foreground" type="tns:Color" />
+    </xs:complexType>
+  </xs:element>
 
   <!-- abstract -->
   <xs:element name="compositeChild" abstract="true" type="tns:IdItem" />
@@ -103,6 +116,9 @@
   </xs:element>
   <xs:element name="gridLayout" substitutionGroup="tns:layout">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tns:gridData" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
       <xs:attribute name="horizontalSpacing" type="xs:int" />
       <xs:attribute name="makeColumnsEqualWidth" type="xs:boolean" />
       <xs:attribute name="marginBottom" type="xs:int" />
@@ -117,6 +133,9 @@
   </xs:element>
   <xs:element name="rowLayout" substitutionGroup="tns:layout">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tns:rowData" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
       <xs:attribute name="fill" type="xs:boolean" />
       <xs:attribute name="justify" type="xs:boolean" />
       <xs:attribute name="marginBottom" type="xs:int" />
@@ -133,6 +152,9 @@
   </xs:element>
   <xs:element name="formLayout" substitutionGroup="tns:layout">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tns:formData" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
       <xs:attribute name="marginBottom" type="xs:int" />
       <xs:attribute name="marginHeight" type="xs:int" />
       <xs:attribute name="marginLeft" type="xs:int" />
@@ -272,7 +294,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element ref="tns:item" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="orientation" type="tns:SWTConst" />
@@ -291,7 +314,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element ref="tns:coolItem" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="locked" type="xs:boolean" />
@@ -362,7 +386,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element ref="tns:tabItem" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="selection" type="xs:int" />
@@ -390,7 +415,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element ref="tns:tableColumn" minOccurs="0"
               maxOccurs="unbounded" />
             <xs:element ref="tns:tableItem" minOccurs="0" maxOccurs="unbounded" />
@@ -457,7 +483,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element ref="tns:toolItem" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
         </xs:extension>
@@ -489,8 +516,10 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
-            <xs:element ref="tns:treeColumn" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
+            <xs:element ref="tns:treeColumn" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element ref="tns:treeItem" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="headerVisible" type="xs:boolean" />
@@ -696,7 +725,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="text" type="xs:string" />
           <xs:attribute name="url" type="xs:string" />
@@ -711,7 +741,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element ref="tns:item" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="editable" type="xs:boolean" />
@@ -730,7 +761,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element name="backgroundGradient" type="tns:GradientColor"
               minOccurs="0" maxOccurs="1" />
           </xs:sequence>
@@ -755,7 +787,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element name="selectionBackgroundGradient"
               type="tns:GradientColor" minOccurs="0" maxOccurs="1" />
             <xs:element name="topRight" minOccurs="0" maxOccurs="unbounded">
@@ -834,7 +867,8 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:choice minOccurs="0" maxOccurs="unbounded">
               <xs:element name="lineBackground" minOccurs="0"
                 maxOccurs="unbounded">
@@ -875,15 +909,16 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
-            <xs:element name="topLeft" type="tns:hasCompositeChild" minOccurs="0"
-              maxOccurs="1" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
+            <xs:element name="topLeft" type="tns:hasCompositeChild"
+              minOccurs="0" maxOccurs="1" />
             <xs:element name="topCenter" type="tns:hasCompositeChild"
               minOccurs="0" maxOccurs="1" />
             <xs:element name="topRight" type="tns:hasCompositeChild"
               minOccurs="0" maxOccurs="1" />
-            <xs:element name="content" type="tns:hasCompositeChild" minOccurs="0"
-              maxOccurs="1" />
+            <xs:element name="content" type="tns:hasCompositeChild"
+              minOccurs="0" maxOccurs="1" />
           </xs:sequence>
           <xs:attribute name="horizontalSpacing" type="xs:int" />
           <xs:attribute name="marginHeight" type="xs:int" />
@@ -919,7 +954,8 @@
       <xs:complexContent>
         <xs:extension base="tns:ControlClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0" maxOccurs="unbounded" />
+            <xs:group ref="tns:controlElems" minOccurs="0"
+              maxOccurs="unbounded" />
             <xs:element ref="tns:property" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="type" use="required" type="xs:string" />
@@ -961,10 +997,10 @@
       <xs:extension base="tns:Widget">
         <xs:attribute name="background" type="tns:Color" />
         <xs:attribute name="backgroundImage" type="tns:Image" />
-        <xs:attribute name="x" type="xs:int" />
-        <xs:attribute name="y" type="xs:int" />
-        <xs:attribute name="width" type="xs:int" />
-        <xs:attribute name="height" type="xs:int" />
+        <xs:attribute name="x" type="xs:string" />
+        <xs:attribute name="y" type="xs:string" />
+        <xs:attribute name="width" type="xs:string" />
+        <xs:attribute name="height" type="xs:string" />
         <xs:attribute name="enabled" type="xs:boolean" />
         <xs:attribute name="fontHeight" type="xs:int" />
         <xs:attribute name="fontName" type="xs:string" />
@@ -986,10 +1022,10 @@
 
   <xs:complexType name="Decorations">
     <xs:complexContent>
-      <xs:extension base="tns:ControlClass">
-        <xs:attribute name="defaultButton" type="xs:string" />
-        <xs:attribute name="images" type="xs:string" />
-        <xs:attribute name="text" type="xs:string" />
+      <xs:extension base="tns:CompositeClass">
+        <xs:attribute name="defaultButtonId" type="xs:string" />
+        <xs:attribute name="image" type="xs:string" />
+        <xs:attribute name="title" type="xs:string" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
