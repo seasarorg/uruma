@@ -27,6 +27,8 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         UIComponent {
     private String id;
 
+    private String replace;
+
     private String style;
 
     private Renderer renderer;
@@ -39,6 +41,14 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     public void setId(String id) {
         this.id = id;
+    }
+    
+    public String getReplace() {
+        return this.replace;
+    }
+
+    public void setReplace(String replace) {
+        this.replace = replace;
     }
 
     public String getStyle() {
