@@ -21,11 +21,11 @@ import org.eclipse.swt.widgets.Control;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.component.impl.ButtonComponent;
+import org.seasar.jface.component.impl.CommonAttriburtesImpl;
 import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.component.impl.GridDataInfo;
 import org.seasar.jface.component.impl.GridLayoutInfo;
-import org.seasar.jface.renderer.impl.AbstractControlRenderer;
 
 public class AbstractControlRendererTest extends TestCase {
     private ControlRenderer controlRenderer;
@@ -60,6 +60,23 @@ public class AbstractControlRendererTest extends TestCase {
         assertEquals("3", "50", gridDataInfo.getMinimumHeight());
         assertEquals("4", "100", gridDataInfo.getMinimumWidth());
         assertEquals("5", "3", gridDataInfo.getHorizontalSpan());
+    }
+
+    public void testSetCommonAttributes() {
+        UICompositeComponent parentComponent = new CompositeComponent();
+        CommonAttriburtesImpl commonAttributes = new CommonAttriburtesImpl();
+        commonAttributes.setBackGround("WHITE");
+        commonAttributes.setFontHeight("20");
+        parentComponent.setCommonAttributes(commonAttributes);
+
+        ButtonComponent component = new ButtonComponent();
+        parentComponent.addChild(component);
+        component.setFontHeight("15");
+
+        controlRenderer.setCommonAttributes(component);
+
+        assertEquals("1", "WHITE", component.getBackground());
+        assertEquals("2", "15", component.getFontHeight());
     }
 
     private class ControlRenderer extends

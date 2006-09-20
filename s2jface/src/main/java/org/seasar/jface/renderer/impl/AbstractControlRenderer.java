@@ -193,7 +193,10 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
                 PropertyDesc commonPd = commonDesc.getPropertyDesc(i);
                 PropertyDesc uiPd = uiDesc.getPropertyDesc(commonPd
                         .getPropertyName());
-                uiPd.setValue(uiComponent, commonPd.getValue(commonAttributes));
+                // 未設定の属性のみ設定する
+                if (uiPd.getValue(uiComponent) == null) {
+                    uiPd.setValue(uiComponent, commonPd.getValue(commonAttributes));
+                }
             }
         }
     }
