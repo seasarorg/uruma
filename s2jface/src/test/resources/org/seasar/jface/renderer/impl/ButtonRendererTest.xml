@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<template name="WindowRendererTest" xmlns="http://s2jface.sandbox.seasar.org">
+<template xmlns="http://s2jface.sandbox.seasar.org">
   <window id="ButtonRendererTest" title="ButtonRendererTest"
-    image="/images/component.gif" defaultButtonId="okButton">
+    image="/images/component.gif" defaultButtonId="okButton"
+    style="TITLE">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>

@@ -16,8 +16,8 @@
 package org.seasar.jface.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
+import org.seasar.jface.component.Template;
 import org.seasar.jface.component.UIElement;
-import org.seasar.jface.component.impl.Template;
 import org.seasar.jface.component.impl.WindowComponent;
 
 /**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<template name="DIdeJanken" xmlns="http://s2jface.sandbox.seasar.org">
+<template xmlns="http://s2jface.sandbox.seasar.org">
   <window id="janken" title="DIでジャンケン" image="container.gif" background="white">
     <commonAttributes background="white" foreground="black" fontHeight="50"/>
     <gridLayout numColumns="3" marginHeight="5" marginWidth="5">

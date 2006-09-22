@@ -17,7 +17,7 @@ package org.seasar.jface.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.UIElement;
-import org.seasar.jface.component.impl.Template;
+import org.seasar.jface.component.impl.TemplateImpl;
 
 /**
  * <code>template</code> 要素に対するタグハンドラです。<br />
@@ -28,7 +28,7 @@ public class TemplateTagHandler extends S2JFaceGenericTagHandler {
     private static final long serialVersionUID = 3868107810048728261L;
 
     public TemplateTagHandler() {
-        super(Template.class);
+        super(TemplateImpl.class);
     }
 
     @Override

@@ -16,7 +16,7 @@
 package org.seasar.jface.component.factory;
 
 import org.seasar.framework.unit.S2FrameworkTestCase;
-import org.seasar.jface.component.impl.Template;
+import org.seasar.jface.component.Template;
 
 public class ComponentTreeBuilderTest extends S2FrameworkTestCase {
     private ComponentTreeBuilder builder;

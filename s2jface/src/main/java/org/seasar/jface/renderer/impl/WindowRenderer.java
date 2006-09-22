@@ -111,12 +111,14 @@ public class WindowRenderer extends
 
     protected void setDefaultButton(final WindowComponent windowComponent,
             final WindowContext context) {
-        Widget defaultButton = context.getComponent(windowComponent
+        Widget defaultButtonWidget = context.getComponent(windowComponent
                 .getDefaultButtonId());
-        if (defaultButton instanceof Button) {
+        if (defaultButtonWidget instanceof Button) {
+            Button defaultButton = (Button) defaultButtonWidget;
             Shell shell = (Shell) context.getComponent(WindowContext.SHELL_ID);
             if (shell != null) {
-                shell.setDefaultButton((Button) defaultButton);
+                shell.setDefaultButton(defaultButton);
+                defaultButton.forceFocus();
             }
         }
     }

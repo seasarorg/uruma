@@ -20,8 +20,9 @@ import java.util.Map;
 
 import org.eclipse.jface.window.WindowManager;
 import org.seasar.jface.S2JFaceWindowManager;
+import org.seasar.jface.component.Template;
 import org.seasar.jface.component.factory.ComponentTreeBuilder;
-import org.seasar.jface.component.impl.Template;
+import org.seasar.jface.component.impl.TemplateImpl;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.exception.WindowManagerException;
 import org.seasar.jface.util.AssertionUtil;
@@ -39,7 +40,7 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
 
     private Map<String, WindowComponent> windowMap = new HashMap<String, WindowComponent>();
 
-    private Map<String, Template> templateCache = new HashMap<String, Template>();
+    private Map<String, TemplateImpl> templateCache = new HashMap<String, TemplateImpl>();
 
     private ComponentTreeBuilder builder = new ComponentTreeBuilder();
 
@@ -75,9 +76,9 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
     }
 
     protected Template loadTemplate(final String path) {
-        Template template = getTemplate(path);
+        TemplateImpl template = getTemplate(path);
         if (template == null) {
-            template = (Template) builder.build(path);
+            template = (TemplateImpl) builder.build(path);
             if (template != null) {
                 registTemplate(template);
                 return template;
@@ -86,11 +87,11 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
         return template;
     }
 
-    protected Template getTemplate(final String path) {
+    protected TemplateImpl getTemplate(final String path) {
         return templateCache.get(path);
     }
 
-    protected void registTemplate(final Template template) {
+    protected void registTemplate(final TemplateImpl template) {
         AssertionUtil.assertNotNull("template", template);
         templateCache.put(template.getBasePath(), template);
         WindowComponent window = template.getWindowComponent();

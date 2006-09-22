@@ -15,13 +15,13 @@
  */
 package org.seasar.jface.component.impl;
 
+import org.seasar.jface.component.Template;
+
 /**
  * @author y-komori
  */
-public class Template extends AbstractUIElement {
+public class TemplateImpl extends AbstractUIElement implements Template {
     private WindowComponent windowComponent;
-
-    private String name;
 
     private String extendsPath;
 
@@ -39,13 +39,5 @@ public class Template extends AbstractUIElement {
 
     public void setExtends(String extendsPath) {
         this.extendsPath = extendsPath;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

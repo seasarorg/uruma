@@ -34,7 +34,7 @@ import org.seasar.framework.util.SAXParserFactoryUtil;
 import org.seasar.framework.xml.SaxHandler;
 import org.seasar.framework.xml.SaxHandlerParser;
 import org.seasar.framework.xml.TagHandlerContext;
-import org.seasar.jface.component.impl.Template;
+import org.seasar.jface.component.Template;
 import org.xml.sax.SAXException;
 
 /**
@@ -69,18 +69,18 @@ public class ComponentTreeBuilder {
         final SAXParserFactory factory = SAXParserFactoryUtil.newInstance();
         factory.setNamespaceAware(true);
 
-        final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        final SchemaFactory schemaFactory = SchemaFactory
+                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         InputStream is = getInputStream(SCHEMA_PATH);
         try {
             final Schema schema = schemaFactory.newSchema(new StreamSource(is));
             factory.setSchema(schema);
         } catch (SAXException ex) {
             throw new SAXRuntimeException(ex);
-        }
-        finally {
+        } finally {
             InputStreamUtil.close(is);
         }
-        
+
         final SAXParser saxParser = SAXParserFactoryUtil.newSAXParser(factory);
         final SaxHandler handler = createSaxHandler();
 

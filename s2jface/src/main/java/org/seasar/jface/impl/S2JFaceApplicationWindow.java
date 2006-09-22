@@ -22,7 +22,7 @@ import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.MethodBindingSupport;
-import org.seasar.jface.component.impl.Template;
+import org.seasar.jface.component.Template;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.renderer.impl.WindowRenderer;
 
