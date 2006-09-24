@@ -20,6 +20,7 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.UIComponentDecorator;
 import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.component.UIElement;
 import org.seasar.jface.component.factory.S2JFaceTagHandler;
@@ -169,6 +170,11 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
                         .cast(parent);
                 UIComponent child = UIComponent.class.cast(uiElement);
                 parentComponent.addChild(child);
+            } else if (UIComponentDecorator.class.isAssignableFrom(parent.getClass())
+                    && UIComponent.class.isAssignableFrom(uiElement.getClass())) {
+                UIComponentDecorator decoratorComponent = UIComponentDecorator.class.cast(parent);
+                UIComponent control = UIComponent.class.cast(uiElement);
+                decoratorComponent.setControl(control);
             }
         }
     }

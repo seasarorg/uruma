@@ -13,20 +13,26 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.renderer;
+package org.seasar.jface.component.impl;
 
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
-import org.seasar.jface.component.impl.AbstractUIElement;
 
 /**
- * @author y-komori
+ * @author bskuroneko
+ * 
  */
-public class SrcObject2 extends AbstractUIElement {
-    @ComponentAttribute(conversionType = ConversionType.STRING)
-    public String nonExistTargetField;
+public class TabFolderComponent extends CompositeComponent {
 
-    public String getNonExistTargetField() {
-        return this.nonExistTargetField = "dummy";
+    @ComponentAttribute(conversionType = ConversionType.INT)
+    private String selection;
+
+    public String getSelection() {
+        return this.selection;
     }
+
+    public void setSelection(String selection) {
+        this.selection = selection;
+    }
+
 }

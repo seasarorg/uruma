@@ -45,7 +45,7 @@ public class S2JFace {
     public S2JFace() {
         initS2Container();
     }
-    
+
     public S2JFace(String configPath) {
         SingletonS2ContainerFactory.setConfigPath(configPath);
         initS2Container();
@@ -56,13 +56,15 @@ public class S2JFace {
         if (display == null) {
             display = new Display();
         }
-        setupImageManager();
+        try {
+            setupImageManager();
 
-        S2JFaceWindowManager windowManager = (S2JFaceWindowManager) container
-                .getComponent(S2JFaceWindowManager.class);
-        windowManager.open(templatePath, true);
-
-        dispose();
+            S2JFaceWindowManager windowManager = (S2JFaceWindowManager) container
+                    .getComponent(S2JFaceWindowManager.class);
+            windowManager.open(templatePath, true);
+        } finally {
+            dispose();
+        }
     }
 
     protected void initS2Container() {

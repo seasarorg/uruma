@@ -21,15 +21,17 @@ import static org.seasar.jface.annotation.component.ComponentAttribute.Conversio
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.STRING;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.SWT_CONST;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.TEXT;
+import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.IMAGE;
 import static org.seasar.jface.annotation.component.ComponentAttribute.TargetType.FIELD;
 import static org.seasar.jface.annotation.component.ComponentAttribute.TargetType.NONE;
 
 import org.seasar.jface.annotation.component.ComponentAttribute;
+import org.seasar.jface.component.impl.AbstractUIElement;
 
 /**
  * @author y-komori
  */
-public class SrcObject {
+public class SrcObject extends AbstractUIElement {
     @ComponentAttribute(targetType = NONE)
     private String nonTargetField = "NonTarget";
 
@@ -51,6 +53,9 @@ public class SrcObject {
     @ComponentAttribute(targetType = FIELD, conversionType = SWT_CONST)
     private String swtConstField = "YES";
 
+    @ComponentAttribute(targetType = FIELD, conversionType = IMAGE)
+    private String imageField = "/images/container.gif";
+
     @ComponentAttribute(conversionType = STRING)
     private String stringProperty = "StringField2";
 
@@ -68,6 +73,9 @@ public class SrcObject {
 
     @ComponentAttribute(conversionType = SWT_CONST)
     private String swtConstProperty = "NO";
+
+    @ComponentAttribute(conversionType = IMAGE)
+    private String imageProperty = "../template/container.gif";
 
     public String getNonTargetField() {
         return this.nonTargetField;
@@ -120,4 +128,13 @@ public class SrcObject {
     public String getTextProperty() {
         return this.textProperty;
     }
+
+    public String getImageField() {
+        return this.imageField;
+    }
+
+    public String getImageProperty() {
+        return this.imageProperty;
+    }
+
 }

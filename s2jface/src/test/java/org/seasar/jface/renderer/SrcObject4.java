@@ -19,11 +19,12 @@ import static org.seasar.jface.annotation.component.ComponentAttribute.Conversio
 import static org.seasar.jface.annotation.component.ComponentAttribute.TargetType.FIELD;
 
 import org.seasar.jface.annotation.component.ComponentAttribute;
+import org.seasar.jface.component.impl.AbstractUIElement;
 
 /**
  * @author y-komori
  */
-public class SrcObject4 {
+public class SrcObject4 extends AbstractUIElement {
     @ComponentAttribute(targetType = FIELD, conversionType = STRING)
     private String intField = "123";
 

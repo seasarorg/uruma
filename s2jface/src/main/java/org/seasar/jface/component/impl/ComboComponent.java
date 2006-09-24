@@ -19,32 +19,29 @@ import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 
 /**
- * @author y-komori
+ * @author bskuroneko
+ * 
  */
-public class LabelComponent extends ControlComponent {
-    @ComponentAttribute(conversionType = ConversionType.TEXT)
-    private String text;
-
-    @ComponentAttribute(conversionType = ConversionType.IMAGE)
-    private String image;
+public class ComboComponent extends SimpleItemCompositeComponent {
 
     @ComponentAttribute(conversionType = ConversionType.SWT_CONST)
-    private String alignment;
+    private String orientation;
 
-    public String getAlignment() {
-        return this.alignment;
+    @ComponentAttribute(conversionType = ConversionType.STRING)
+    private String text;
+
+    @ComponentAttribute(conversionType = ConversionType.INT)
+    private String textLimit;
+
+    @ComponentAttribute(conversionType = ConversionType.INT)
+    private String visibleItemCount;
+
+    public String getOrientation() {
+        return this.orientation;
     }
 
-    public void setAlignment(String alignment) {
-        this.alignment = alignment;
-    }
-
-    public String getImage() {
-        return this.image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setOrientation(String orientation) {
+        this.orientation = orientation;
     }
 
     public String getText() {
@@ -54,4 +51,21 @@ public class LabelComponent extends ControlComponent {
     public void setText(String text) {
         this.text = text;
     }
+
+    public String getTextLimit() {
+        return this.textLimit;
+    }
+
+    public void setTextLimit(String textLimit) {
+        this.textLimit = textLimit;
+    }
+
+    public String getVisibleItemCount() {
+        return this.visibleItemCount;
+    }
+
+    public void setVisibleItemCount(String visibleItemCount) {
+        this.visibleItemCount = visibleItemCount;
+    }
+
 }

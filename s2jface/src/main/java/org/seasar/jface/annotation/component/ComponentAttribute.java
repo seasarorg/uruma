@@ -59,7 +59,9 @@ public @interface ComponentAttribute {
          */
         COLOR,
         /** 対象が int 型の {@link org.eclipse.swt.SWT} 定数であることを示します。転送元は定数名の文字列で表します。<br /> */
-        SWT_CONST
+        SWT_CONST,
+        /** 対象が {@link org.eclipse.swt.graphics.Image} 型であることを示します。転送元は画像ファイルへのパス文字列で表します。<br /> */
+        IMAGE
     }
 
     /**

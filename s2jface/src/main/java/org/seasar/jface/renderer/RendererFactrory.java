@@ -20,13 +20,19 @@ import java.util.Map;
 
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.ButtonComponent;
+import org.seasar.jface.component.impl.ComboComponent;
 import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.LabelComponent;
+import org.seasar.jface.component.impl.TabFolderComponent;
+import org.seasar.jface.component.impl.TabItemComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.exception.NotFoundException;
 import org.seasar.jface.renderer.impl.ButtonRenderer;
+import org.seasar.jface.renderer.impl.ComboRenderer;
 import org.seasar.jface.renderer.impl.CompositeRenderer;
 import org.seasar.jface.renderer.impl.LabelRenderer;
+import org.seasar.jface.renderer.impl.TabFolderRenderer;
+import org.seasar.jface.renderer.impl.TabItemRenderer;
 import org.seasar.jface.renderer.impl.WindowRenderer;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -41,6 +47,9 @@ public class RendererFactrory {
     static {
         addRenderer(WindowComponent.class, new WindowRenderer());
         addRenderer(CompositeComponent.class, new CompositeRenderer());
+        addRenderer(ComboComponent.class, new ComboRenderer());
+        addRenderer(TabFolderComponent.class, new TabFolderRenderer());
+        addRenderer(TabItemComponent.class, new TabItemRenderer());
 
         addRenderer(ButtonComponent.class, new ButtonRenderer());
         addRenderer(LabelComponent.class, new LabelRenderer());

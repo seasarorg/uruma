@@ -18,8 +18,8 @@ package org.seasar.jface.renderer.impl;
 import junit.framework.TestCase;
 
 import org.eclipse.swt.widgets.Control;
-import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.UICompositeComponent;
+import org.seasar.jface.component.UIControlComponent;
 import org.seasar.jface.component.impl.ButtonComponent;
 import org.seasar.jface.component.impl.CommonAttriburtesImpl;
 import org.seasar.jface.component.impl.CompositeComponent;
@@ -45,7 +45,7 @@ public class AbstractControlRendererTest extends TestCase {
         parentGridData.setMinimumHeight("150");
         gridLayoutInfo.setCommonLayoutDataInfo(parentGridData);
 
-        UIComponent component = new ButtonComponent();
+        UIControlComponent component = new ButtonComponent();
         parentComponent.addChild(component);
         GridDataInfo gridDataInfo = new GridDataInfo();
         gridDataInfo.setMinimumHeight("50");
@@ -83,12 +83,12 @@ public class AbstractControlRendererTest extends TestCase {
             AbstractControlRenderer<ControlComponent, Control> {
 
         @Override
-        protected void doRender(ControlComponent controlComponent,
+        protected void doRenderControl(ControlComponent controlComponent,
                 Control control) {
         }
 
         @Override
-        protected Class<Control> getControlType() {
+        protected Class<Control> getWidgetType() {
             return Control.class;
         }
     }

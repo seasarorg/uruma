@@ -15,8 +15,11 @@
  */
 package org.seasar.jface.component.impl;
 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.renderer.Renderer;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -25,6 +28,8 @@ import org.seasar.jface.util.AssertionUtil;
  */
 public abstract class AbstractUIComponent extends AbstractUIElement implements
         UIComponent {
+    private UICompositeComponent parent;
+
     private String id;
 
     private String replace;
@@ -75,5 +80,30 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
     public void setWidget(Widget widget) {
         AssertionUtil.assertNotNull("widget", widget);
         this.widget = widget;
+    }
+    
+    public void render(final Composite parent, final WindowContext context) {
+        Widget widget = getRenderer().render(this, parent, context);
+        setWidget(widget);
+
+        if ((getId() != null) && (widget != null)) {
+            context.putComponent(getId(), widget);
+        }
+        
+        renderChild(widget, context);
+        
+        getRenderer().renderAfter(widget, this, parent, context);
+    }
+
+    protected void renderChild(Widget widget, WindowContext context) {
+        // do Nothing.
+    }
+
+    public UICompositeComponent getParent() {
+        return parent;
+    }
+
+    public void setParent(UICompositeComponent parent) {
+        this.parent = parent;
     }
 }

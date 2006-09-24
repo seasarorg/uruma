@@ -16,6 +16,7 @@
 package org.seasar.jface.component;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.renderer.Renderer;
 
@@ -27,16 +28,20 @@ public interface UIComponent extends UIElement {
 
     public void setId(String id);
 
+    public String getStyle();
+
+    public void setStyle(String style);
+
     public void setParent(UICompositeComponent parent);
 
     public UICompositeComponent getParent();
 
-    public LayoutDataInfo getLayoutDataInfo();
-
-    public void setLayoutDataInfo(LayoutDataInfo layoutDataInfo);
-
     public void setRenderer(Renderer renderer);
 
+    public Widget getWidget();
+
+    public void setWidget(Widget widget);
+    
     /**
      * 設定されたレンダラを利用して、レンダリングを行います。</br>
      * 

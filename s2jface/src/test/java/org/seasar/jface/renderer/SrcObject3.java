@@ -18,11 +18,12 @@ package org.seasar.jface.renderer;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.seasar.jface.component.impl.AbstractUIElement;
 
 /**
  * @author y-komori
  */
-public class SrcObject3 {
+public class SrcObject3 extends AbstractUIElement {
     @ComponentAttribute(targetType = TargetType.FIELD, conversionType = ConversionType.STRING)
     public String nonExistTargetField;
 

@@ -16,6 +16,7 @@
 package org.seasar.jface.renderer;
 
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 
 /**
  * @author y-komori
@@ -34,6 +35,8 @@ public class DestObject {
     public Color colorField;
 
     public int swtConstField;
+    
+    public Image imageField;
 
     private String stringProperty;
 
@@ -46,6 +49,8 @@ public class DestObject {
     private Color colorProperty;
 
     private int swtConstProperty;
+    
+    private Image imageProperty;
 
     public boolean getBooleanProperty() {
         return this.booleanProperty;
@@ -94,4 +99,13 @@ public class DestObject {
     public void setTextProperty(String textProperty) {
         this.textProperty = textProperty;
     }
+
+    public Image getImageProperty() {
+        return this.imageProperty;
+    }
+
+    public void setImageProperty(Image imageProperty) {
+        this.imageProperty = imageProperty;
+    }
+    
 }

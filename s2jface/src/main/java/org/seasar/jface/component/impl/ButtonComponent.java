@@ -16,7 +16,6 @@
 package org.seasar.jface.component.impl;
 
 import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 
 /**
@@ -27,7 +26,7 @@ public class ButtonComponent extends ControlComponent {
     @ComponentAttribute(conversionType = ConversionType.SWT_CONST)
     private String alignment;
 
-    @ComponentAttribute(targetType = TargetType.NONE)
+    @ComponentAttribute(conversionType = ConversionType.IMAGE)
     private String image;
 
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)

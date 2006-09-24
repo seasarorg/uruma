@@ -297,8 +297,7 @@
               maxOccurs="unbounded" />
             <xs:element ref="tns:item" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
-          <xs:attribute name="orientation" type="tns:SWTConst" />
-          <xs:attribute name="select" type="xs:int" />
+          <xs:attribute name="orientation" type="tns:Orientation" />
           <xs:attribute name="text" type="xs:string" />
           <xs:attribute name="textLimit" type="xs:int" />
           <xs:attribute name="visibleItemCount" type="xs:int" />
@@ -600,7 +599,7 @@
           <xs:sequence>
             <xs:group ref="tns:controlElems" />
           </xs:sequence>
-          <xs:attribute name="alignment" type="tns:SWTConst" />
+          <xs:attribute name="alignment" type="tns:Alignment" />
           <xs:attribute name="image" type="tns:Image" />
           <xs:attribute name="text" type="xs:string" />
         </xs:extension>
@@ -715,7 +714,11 @@
   </xs:element>
 
   <!-- item (combo, list) -->
-  <xs:element name="item" type="xs:string" />
+  <xs:element name="item">
+    <xs:complexType>
+      <xs:attribute name="text" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
 
   <!--===== custom =====-->
   <!-- browser -->
@@ -1084,5 +1087,19 @@
     </xs:restriction>
   </xs:simpleType>
 
-
+  <xs:simpleType name="Orientation">
+    <xs:restriction base="tns:SWTConst">
+      <xs:enumeration value="RIGHT_TO_LEFT"/>
+      <xs:enumeration value="LEFT_TO_RIGHT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="Alignment">
+    <xs:restriction base="tns:SWTConst">
+      <xs:enumeration value="LEFT"/>
+      <xs:enumeration value="CENTER"/>
+      <xs:enumeration value="RIGHT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
 </xs:schema>

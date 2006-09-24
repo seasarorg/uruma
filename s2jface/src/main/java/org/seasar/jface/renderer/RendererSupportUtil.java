@@ -16,14 +16,21 @@
 package org.seasar.jface.renderer;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
+import org.eclipse.swt.graphics.Image;
 import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.MethodNotFoundRuntimeException;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.util.FieldUtil;
+import org.seasar.framework.util.MethodUtil;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+import org.seasar.jface.component.UIElement;
 import org.seasar.jface.exception.RenderException;
+import org.seasar.jface.util.ImageManager;
+import org.seasar.jface.util.PathUtil;
 import org.seasar.jface.util.SWTUtil;
 
 /**
@@ -46,7 +53,7 @@ public class RendererSupportUtil {
      * @param dest
      *            転送先オブジェクト
      */
-    public static void setAttributes(final Object src, final Object dest) {
+    public static void setAttributes(final UIElement src, final Object dest) {
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(src.getClass());
         int fieldSize = beanDesc.getFieldSize();
         for (int i = 0; i < fieldSize; i++) {
@@ -56,13 +63,13 @@ public class RendererSupportUtil {
             if (attr != null) {
                 String value = getSrcValue(src, beanDesc, field);
                 if (value != null) {
-                    setValue(dest, field, attr, value);
+                    setValue(src, dest, field, attr, value);
                 }
             }
         }
     }
 
-    private static String getSrcValue(final Object src,
+    private static String getSrcValue(final UIElement src,
             final BeanDesc beanDesc, final Field field) {
         if (field.getType() == String.class) {
             String fieldName = field.getName();
@@ -76,20 +83,19 @@ public class RendererSupportUtil {
         return null;
     }
 
-    private static void setValue(final Object dest, final Field field,
-            final ComponentAttribute attr, final String value) {
+    private static void setValue(final UIElement src, final Object dest,
+            final Field field, final ComponentAttribute attr, final String value) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(dest.getClass());
 
         try {
             if (attr.targetType() == ComponentAttribute.TargetType.PROPERTY) {
                 PropertyDesc pd = desc.getPropertyDesc(field.getName());
                 if (pd.hasWriteMethod()) {
-                    pd.setValue(dest, convertValue(value, attr));
+                    pd.setValue(dest, convertValue(src, value, attr));
                 }
             } else if (attr.targetType() == ComponentAttribute.TargetType.FIELD) {
                 Field destField = desc.getField(field.getName());
-                Class fieldType = destField.getType();
-                FieldUtil.set(destField, dest, convertValue(value, attr));
+                FieldUtil.set(destField, dest, convertValue(src, value, attr));
             }
         } catch (Exception ex) {
             throw new RenderException(RenderException.MAPPING_ERORR, ex, field
@@ -97,7 +103,7 @@ public class RendererSupportUtil {
         }
     }
 
-    private static Object convertValue(final String value,
+    private static Object convertValue(final UIElement src, final String value,
             final ComponentAttribute attr) {
         if (attr.conversionType() == ConversionType.STRING) {
             return value;
@@ -116,6 +122,13 @@ public class RendererSupportUtil {
             return SWTUtil.getStyle(value);
         } else if (attr.conversionType() == ConversionType.COLOR) {
             return SWTUtil.getColor(value);
+        } else if (attr.conversionType() == ConversionType.IMAGE) {
+            Image image = ImageManager.getImage(value);
+            if (image == null) {
+                String path = PathUtil.createPath(src.getBasePath(), value);
+                image = ImageManager.loadImage(path);
+            }
+            return image;
         }
         return null;
     }

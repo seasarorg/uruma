@@ -31,4 +31,5 @@ public class EventListernerTest {
                 "org/seasar/jface/annotation/EventListenerTestAction.dicon");
         s2JFace.openWindow("org/seasar/jface/annotation/EventListenerTest.xml");
     }
+    
 }

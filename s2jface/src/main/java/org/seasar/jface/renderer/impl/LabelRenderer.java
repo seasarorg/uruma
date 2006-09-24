@@ -15,11 +15,8 @@
  */
 package org.seasar.jface.renderer.impl;
 
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Label;
 import org.seasar.jface.component.impl.LabelComponent;
-import org.seasar.jface.util.ImageManager;
-import org.seasar.jface.util.PathUtil;
 
 /**
  * <code>Label</code> のレンダリングを行うクラスです。<br />
@@ -30,26 +27,11 @@ public class LabelRenderer extends
         AbstractControlRenderer<LabelComponent, Label> {
 
     @Override
-    protected void doRender(LabelComponent controlComponent, Label control) {
-        renderImage(control, controlComponent);
-    }
-
-    protected void renderImage(Label label, LabelComponent labelComponent) {
-        String imgSrc = labelComponent.getImage();
-        if (imgSrc != null) {
-            Image image = ImageManager.getImage(imgSrc);
-            if (image == null) {
-                imgSrc = PathUtil.createPath(labelComponent.getBasePath(),
-                        imgSrc);
-                image = ImageManager.loadImage(imgSrc);
-            }
-
-            label.setImage(image);
-        }
+    protected void doRenderControl(LabelComponent controlComponent, Label control) {
     }
 
     @Override
-    protected Class<Label> getControlType() {
+    protected Class<Label> getWidgetType() {
         return Label.class;
     }
 }

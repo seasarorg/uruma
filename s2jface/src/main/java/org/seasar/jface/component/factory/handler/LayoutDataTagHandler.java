@@ -18,7 +18,7 @@ package org.seasar.jface.component.factory.handler;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.LayoutDataInfo;
 import org.seasar.jface.component.LayoutInfo;
-import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.UIControlComponent;
 import org.seasar.jface.component.UIElement;
 
 /**
@@ -38,9 +38,9 @@ public class LayoutDataTagHandler extends S2JFaceGenericTagHandler {
     @Override
     protected void setParent(UIElement uiElement, TagHandlerContext context) {
         Object parent = context.peek();
-        if (parent instanceof UIComponent) {
-            UIComponent uiComponent = (UIComponent) parent;
-            uiComponent.setLayoutDataInfo((LayoutDataInfo) uiElement);
+        if (parent instanceof UIControlComponent) {
+            UIControlComponent uiControl = (UIControlComponent) parent;
+            uiControl.setLayoutDataInfo((LayoutDataInfo) uiElement);
         } else if (parent instanceof LayoutInfo) {
             LayoutInfo layoutInfo = (LayoutInfo) parent;
             layoutInfo.setCommonLayoutDataInfo((LayoutDataInfo) uiElement);

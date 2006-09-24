@@ -21,7 +21,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.seasar.jface.exception.RenderException;
-import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.util.ImageManager;
 
 /**
@@ -49,6 +48,7 @@ public class RenderSupportUtilTest extends TestCase {
 
     public void testSetAttributes1() {
         SrcObject src = new SrcObject();
+        src.setBasePath("org/seasar/jface/renderer");
         DestObject dest = new DestObject();
 
         RendererSupportUtil.setAttributes(src, dest);
@@ -59,16 +59,18 @@ public class RenderSupportUtilTest extends TestCase {
         assertTrue("4", dest.booleanField);
         assertEquals("5", new Color(display, 255, 255, 255), dest.colorField);
         assertEquals("6", SWT.YES, dest.swtConstField);
+        assertEquals("7", ImageManager.getImage("/images/container.gif"), dest.imageField);
 
-        assertEquals("7", "StringField2", dest.getStringProperty());
-        assertEquals("8", "Text\tField2\nText\tField2\n", dest
+        assertEquals("8", "StringField2", dest.getStringProperty());
+        assertEquals("9", "Text\tField2\nText\tField2\n", dest
                 .getTextProperty());
-        assertEquals("9", 456, dest.getIntProperty());
-        assertFalse("10", dest.getBooleanProperty());
-        assertEquals("11", new Color(display, 0, 0, 0), dest.getColorProperty());
-        assertEquals("12", SWT.NO, dest.getSwtConstProperty());
+        assertEquals("10", 456, dest.getIntProperty());
+        assertFalse("11", dest.getBooleanProperty());
+        assertEquals("12", new Color(display, 0, 0, 0), dest.getColorProperty());
+        assertEquals("13", SWT.NO, dest.getSwtConstProperty());
+        assertEquals("14", ImageManager.getImage("org/seasar/jface/renderer/../template/container.gif"), dest.getImageProperty());
 
-        assertNull("13", dest.nonTargetField);
+        assertNull("15", dest.nonTargetField);
     }
 
     public void testSetAttributes2() {

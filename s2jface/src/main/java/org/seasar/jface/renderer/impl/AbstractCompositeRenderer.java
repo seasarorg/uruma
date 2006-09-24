@@ -60,7 +60,8 @@ public abstract class AbstractCompositeRenderer<COMPONENT_TYPE extends Composite
             COMPONENT_TYPE compositeComponent, COMPOSITE_TYPE composite);
 
     @Override
-    protected final void doRender(final COMPONENT_TYPE compositeComponent,
+    protected final void doRenderControl(
+            final COMPONENT_TYPE compositeComponent,
             final COMPOSITE_TYPE control) {
         // レイアウトを設定する
         setLayout(compositeComponent, control);
@@ -68,8 +69,7 @@ public abstract class AbstractCompositeRenderer<COMPONENT_TYPE extends Composite
         // 親から共通属性を引き継ぐ
         inheritCommonAttributes(compositeComponent);
 
-        doRenderComposite((COMPONENT_TYPE) compositeComponent, getControlType()
-                .cast(control));
+        doRenderComposite(compositeComponent, control);
     }
 
     protected void setLayout(final COMPONENT_TYPE compositeComponent,

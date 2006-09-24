@@ -30,7 +30,6 @@ import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.util.GeometryUtil;
 import org.seasar.jface.util.ImageManager;
 import org.seasar.jface.util.PathUtil;
-import org.seasar.jface.util.SWTUtil;
 
 /**
  * <code>Window</code> のレンダリングを行うためのクラスです。<br />
@@ -40,12 +39,7 @@ import org.seasar.jface.util.SWTUtil;
 public class WindowRenderer extends
         AbstractCompositeRenderer<WindowComponent, Composite> {
     public int getShellStyle(final WindowComponent uiComponent) {
-        String styleString = uiComponent.getStyle();
-        if (styleString != null) {
-            return SWTUtil.getStyle(styleString);
-        } else {
-            return getDefaultStyle();
-        }
+        return getStyle(uiComponent);
     }
 
     @Override
@@ -133,7 +127,7 @@ public class WindowRenderer extends
     }
 
     @Override
-    protected Class<Composite> getControlType() {
+    protected Class<Composite> getWidgetType() {
         return Composite.class;
     }
 

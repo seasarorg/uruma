@@ -19,25 +19,22 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.component.CommonAttributes;
 import org.seasar.jface.component.LayoutDataInfo;
 import org.seasar.jface.component.LayoutInfo;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.UICompositeComponent;
+import org.seasar.jface.component.UIControlComponent;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.renderer.layout.LayoutSupport;
 import org.seasar.jface.renderer.layout.LayoutSupportFactory;
 import org.seasar.jface.util.AnnotationUtil;
-import org.seasar.jface.util.ClassUtil;
 import org.seasar.jface.util.FontManager;
 import org.seasar.jface.util.SWTUtil;
 
@@ -47,40 +44,23 @@ import org.seasar.jface.util.SWTUtil;
  * @author y-komori
  */
 public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComponent, CONTROL_TYPE extends Control>
-        extends AbstractRenderer {
+        extends AbstractWidgetRenderer<COMPONENT_TYPE, CONTROL_TYPE> {
 
-    public Widget render(UIComponent uiComponent, Composite parent,
-            WindowContext context) {
-        setContext(context);
-
-        ControlComponent controlComponent = (ControlComponent) uiComponent;
-
+    public final void doRender(COMPONENT_TYPE uiComponent, CONTROL_TYPE control) {
         // 親コンポーネントの持つ共通属性を設定する
         setCommonAttributes(uiComponent);
 
         // レイアウトデータの一括指定
-        inheritLayoutData(uiComponent);
+        inheritLayoutData((UIControlComponent) uiComponent);
+        
+        ControlComponent controlComponent = (ControlComponent) uiComponent;
 
-        Control control = createControl(parent, getStyle(controlComponent));
-
-        RendererSupportUtil.setAttributes(controlComponent, control);
         setLayoutData(controlComponent, control);
         setLocation(controlComponent, control);
         setSize(controlComponent, control);
         setFont(controlComponent, control);
 
-        // TODO レンダリング中に発生したRuntimeExceptionのハンドリングが必要
-        doRender((COMPONENT_TYPE) controlComponent, getControlType().cast(
-                control));
-
-        control.setData(this);
-
-        return (Widget) control;
-    }
-
-    public void renderAfter(Widget widget, UIComponent uiComponent,
-            Composite parent, WindowContext context) {
-        // do nothing.
+        doRenderControl(uiComponent, control);
     }
 
     protected void setLocation(final ControlComponent controlComponent,
@@ -132,7 +112,7 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         control.setFont(FontManager.get(fontName, height, style));
     }
 
-    protected void setLayoutData(final UIComponent uiComponent,
+    protected void setLayoutData(final UIControlComponent uiComponent,
             final Control control) {
         UICompositeComponent parent = uiComponent.getParent();
         if (parent != null) {
@@ -150,21 +130,6 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
                 }
             }
         }
-    }
-
-    protected int getStyle(final ControlComponent controlComponent) {
-        return SWTUtil.getStyle(controlComponent.getStyle(), getDefaultStyle());
-    }
-
-    protected int getDefaultStyle() {
-        return SWT.NONE;
-    }
-
-    protected Control createControl(Composite parent, int style) {
-        Class<? extends Control> controlClass = getControlType();
-        Control control = ClassUtil.<Control> newInstance(controlClass, parent,
-                style);
-        return control;
     }
 
     protected ControlComponent getParentComponent(ControlComponent component) {
@@ -201,7 +166,7 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         }
     }
 
-    protected void inheritLayoutData(final UIComponent uiComponent) {
+    protected void inheritLayoutData(final UIControlComponent uiComponent) {
         LayoutDataInfo parentLayoutDataInfo = getParentLayoutDataInfo(uiComponent);
 
         // 親が一括指定すべきレイアウトデータを持っていない場合は何もしない
@@ -244,8 +209,6 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         return null;
     }
 
-    protected abstract void doRender(COMPONENT_TYPE controlComponent,
+    protected abstract void doRenderControl(COMPONENT_TYPE controlComponent,
             CONTROL_TYPE control);
-
-    protected abstract Class<CONTROL_TYPE> getControlType();
 }

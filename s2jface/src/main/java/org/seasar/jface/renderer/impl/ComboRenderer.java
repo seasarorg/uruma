@@ -16,28 +16,36 @@
 package org.seasar.jface.renderer.impl;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.seasar.jface.component.impl.ButtonComponent;
+import org.eclipse.swt.widgets.Combo;
+import org.seasar.jface.component.impl.ComboComponent;
+import org.seasar.jface.component.impl.SimpleItemComponent;
 
 /**
- * <code>Button</code> のレンダリングを行うクラスです。<br />
+ * <code>Combo</code> のレンダリングを行うクラスです。<br />
  * 
- * @author y-komori
+ * @author bskuroneko
  */
-public class ButtonRenderer extends
-        AbstractControlRenderer<ButtonComponent, Button> {
+public class ComboRenderer extends
+        AbstractCompositeRenderer<ComboComponent, Combo> {
 
     @Override
     protected int getDefaultStyle() {
-        return SWT.PUSH;
+        return SWT.SIMPLE;
     }
 
     @Override
-    protected void doRenderControl(ButtonComponent controlComponent, Button control) {
+    protected void doRenderComposite(ComboComponent controlComponent, Combo control) {
+        addItems(controlComponent, control);
     }
 
+    private void addItems(ComboComponent controlComponent, Combo control) {
+        for (SimpleItemComponent item : controlComponent.getItems()) {
+            control.add(item.getText());
+        }
+    }
+    
     @Override
-    protected Class<Button> getWidgetType() {
-        return Button.class;
+    protected Class<Combo> getWidgetType() {
+        return Combo.class;
     }
 }

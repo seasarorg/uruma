@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.CommonAttributes;
 import org.seasar.jface.component.LayoutDataInfo;
@@ -39,16 +40,10 @@ public class CompositeComponent extends ControlComponent implements
 
     private CommonAttributes commonAttributes;
 
-    @Override
-    public void render(Composite parent, WindowContext context) {
-        super.render(parent, context);
-        renderChild((Composite) getWidget(), context);
-    }
-
-    protected void renderChild(final Composite parent,
+    protected void renderChild(final Widget parent,
             final WindowContext context) {
         for (UIComponent child : children) {
-            child.render(parent, context);
+            child.render((Composite) parent, context);
         }
     }
 

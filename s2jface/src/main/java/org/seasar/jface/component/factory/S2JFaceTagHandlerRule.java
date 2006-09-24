@@ -20,9 +20,11 @@ import org.seasar.jface.component.factory.handler.CommonAttributesTagHandler;
 import org.seasar.jface.component.factory.handler.LayoutDataTagHandler;
 import org.seasar.jface.component.factory.handler.LayoutTagHandler;
 import org.seasar.jface.component.factory.handler.S2JFaceGenericTagHandler;
+import org.seasar.jface.component.factory.handler.SimpleItemTagHandler;
 import org.seasar.jface.component.factory.handler.TemplateTagHandler;
 import org.seasar.jface.component.factory.handler.WindowTagHandler;
 import org.seasar.jface.component.impl.ButtonComponent;
+import org.seasar.jface.component.impl.ComboComponent;
 import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.FillLayoutInfo;
 import org.seasar.jface.component.impl.GridDataInfo;
@@ -30,6 +32,8 @@ import org.seasar.jface.component.impl.GridLayoutInfo;
 import org.seasar.jface.component.impl.LabelComponent;
 import org.seasar.jface.component.impl.RowDataInfo;
 import org.seasar.jface.component.impl.RowLayoutInfo;
+import org.seasar.jface.component.impl.TabFolderComponent;
+import org.seasar.jface.component.impl.TabItemComponent;
 
 /**
  * S2JFace の画面定義XMLをパースするためのタグハンドラを保持するクラスです。<br />
@@ -57,12 +61,21 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
         // Composite
         addTagHandler("composite", new S2JFaceGenericTagHandler(
                 CompositeComponent.class));
+        addTagHandler("combo", new S2JFaceGenericTagHandler(
+                ComboComponent.class));
+        addTagHandler("tabFolder", new S2JFaceGenericTagHandler(
+                TabFolderComponent.class));
+        addTagHandler("tabItem", new S2JFaceGenericTagHandler(
+                TabItemComponent.class));
 
         // Control
         addTagHandler("label", new S2JFaceGenericTagHandler(
                 LabelComponent.class));
         addTagHandler("button", new S2JFaceGenericTagHandler(
                 ButtonComponent.class));
+        
+        // SimpleItem
+        addTagHandler(new SimpleItemTagHandler());
     }
 
     protected void addTagHandler(S2JFaceTagHandler tagHandler) {

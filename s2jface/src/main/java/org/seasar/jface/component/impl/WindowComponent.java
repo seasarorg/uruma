@@ -17,11 +17,9 @@ package org.seasar.jface.component.impl;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
-import org.seasar.jface.renderer.Renderer;
 
 /**
  * <code>Window</code> のコンポーネント情報を保持するためのクラスです。<br />
@@ -61,23 +59,8 @@ public class WindowComponent extends CompositeComponent {
         if (parent instanceof Shell) {
             context.putComponent(WindowContext.SHELL_ID, parent);
         }
-
-        Widget widget = null;
-        Renderer renderer = getRenderer();
-        if (renderer != null) {
-            widget = renderer.render(this, parent, context);
-            setWidget(widget);
-
-            if (getId() != null) {
-                context.putComponent(getId(), widget);
-            }
-        }
-
-        renderChild((Composite) widget, context);
-
-        if (renderer != null) {
-            renderer.renderAfter(widget, this, parent, context);
-        }
+        
+        super.render(parent, context);
     }
 
     public String getTitle() {

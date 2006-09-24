@@ -35,7 +35,7 @@ public class CompositeRenderer extends
     }
 
     @Override
-    protected Class<Composite> getControlType() {
+    protected Class<Composite> getWidgetType() {
         return Composite.class;
     }
 }

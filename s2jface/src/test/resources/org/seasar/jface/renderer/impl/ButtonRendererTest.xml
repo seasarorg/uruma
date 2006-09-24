@@ -8,9 +8,11 @@
     </gridLayout>
 
     <composite id="contents">
+      <gridData horizontalAlignment="FILL"/>
       <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
-        spacing="10" />
-      <commonAttributes fontHeight="20" />
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="20"/>
 
       <composite>
         <rowLayout type="VERTICAL" spacing="10" />
@@ -22,6 +24,7 @@
         <button style="TOGGLE" text="トグルボタン(ON)" selection="true" />
         <button text="フォントを変更" fontName="ＭＳ 明朝" fontHeight="15"
           fontStyle="BOLD, ITALIC" />
+        <button image="/images/component.gif" />
       </composite>
 
       <composite>

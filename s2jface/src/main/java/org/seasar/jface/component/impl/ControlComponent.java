@@ -15,21 +15,17 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
 import org.seasar.jface.component.LayoutDataInfo;
-import org.seasar.jface.component.UICompositeComponent;
+import org.seasar.jface.component.UIControlComponent;
 
 /**
  * @author y-komori
  */
-public abstract class ControlComponent extends AbstractUIComponent {
-    private UICompositeComponent parent;
-
+public abstract class ControlComponent extends AbstractUIComponent implements
+        UIControlComponent {
     private LayoutDataInfo layoutDataInfo;
 
     @ComponentAttribute(conversionType = ConversionType.COLOR)
@@ -183,20 +179,4 @@ public abstract class ControlComponent extends AbstractUIComponent {
         this.layoutDataInfo = layoutDataInfo;
     }
 
-    public void render(final Composite parent, final WindowContext context) {
-        Widget widget = getRenderer().render(this, parent, context);
-        setWidget(widget);
-
-        if ((getId() != null) && (widget != null)) {
-            context.putComponent(getId(), widget);
-        }
-    }
-
-    public UICompositeComponent getParent() {
-        return parent;
-    }
-
-    public void setParent(UICompositeComponent parent) {
-        this.parent = parent;
-    }
 }
