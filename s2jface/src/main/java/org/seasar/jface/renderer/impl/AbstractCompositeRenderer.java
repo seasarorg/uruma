@@ -60,14 +60,17 @@ public abstract class AbstractCompositeRenderer<COMPONENT_TYPE extends Composite
             COMPONENT_TYPE compositeComponent, COMPOSITE_TYPE composite);
 
     @Override
+    protected void inherit(COMPONENT_TYPE uiComponent) {
+        super.inherit(uiComponent);
+        inheritCommonAttributes(uiComponent);
+    }
+    
+    @Override
     protected final void doRenderControl(
             final COMPONENT_TYPE compositeComponent,
             final COMPOSITE_TYPE control) {
         // レイアウトを設定する
         setLayout(compositeComponent, control);
-
-        // 親から共通属性を引き継ぐ
-        inheritCommonAttributes(compositeComponent);
 
         doRenderComposite(compositeComponent, control);
     }

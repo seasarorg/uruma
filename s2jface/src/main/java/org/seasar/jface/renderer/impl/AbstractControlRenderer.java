@@ -31,7 +31,6 @@ import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.component.UIControlComponent;
 import org.seasar.jface.component.impl.ControlComponent;
-import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.renderer.layout.LayoutSupport;
 import org.seasar.jface.renderer.layout.LayoutSupportFactory;
 import org.seasar.jface.util.AnnotationUtil;
@@ -46,13 +45,17 @@ import org.seasar.jface.util.SWTUtil;
 public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComponent, CONTROL_TYPE extends Control>
         extends AbstractWidgetRenderer<COMPONENT_TYPE, CONTROL_TYPE> {
 
-    public final void doRender(COMPONENT_TYPE uiComponent, CONTROL_TYPE control) {
+    @Override
+    protected void inherit(COMPONENT_TYPE uiComponent) {
         // 親コンポーネントの持つ共通属性を設定する
         setCommonAttributes(uiComponent);
 
         // レイアウトデータの一括指定
         inheritLayoutData((UIControlComponent) uiComponent);
-        
+    }
+            
+    @Override
+    public final void doRender(COMPONENT_TYPE uiComponent, CONTROL_TYPE control) {
         ControlComponent controlComponent = (ControlComponent) uiComponent;
 
         setLayoutData(controlComponent, control);
@@ -62,7 +65,7 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
 
         doRenderControl(uiComponent, control);
     }
-
+    
     protected void setLocation(final ControlComponent controlComponent,
             final Control control) {
         String xStr = controlComponent.getX();

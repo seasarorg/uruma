@@ -35,16 +35,22 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
     public Widget render(UIComponent uiComponent, Composite parent,
             WindowContext context) {
         setContext(context);
-        
+
+        inherit((COMPONENT_TYPE) uiComponent);
+
         Widget widget = createWidget(parent, getStyle(uiComponent));
         RendererSupportUtil.setAttributes(uiComponent, widget);
 
         // TODO レンダリング中に発生したRuntimeExceptionのハンドリングが必要
         doRender((COMPONENT_TYPE) uiComponent, getWidgetType().cast(widget));
-        
+
         widget.setData(this);
-        
+
         return widget;
+    }
+
+    protected void inherit(COMPONENT_TYPE uiComponent) {
+        // do nothing.
     }
 
     public void renderAfter(Widget widget, UIComponent uiComponent,
@@ -68,7 +74,7 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
     }
 
     protected abstract Class<WIDGET_TYPE> getWidgetType();
-    
+
     protected abstract void doRender(COMPONENT_TYPE uiComponent,
             WIDGET_TYPE widget);
 }
