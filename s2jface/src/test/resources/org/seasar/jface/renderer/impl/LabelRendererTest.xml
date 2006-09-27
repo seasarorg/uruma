@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://s2jface.sandbox.seasar.org">
-  <window id="labelRendererTest">
+  <window id="labelRendererTest" title="LabelRendererTest">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>

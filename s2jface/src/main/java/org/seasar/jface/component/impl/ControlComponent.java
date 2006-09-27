@@ -27,7 +27,7 @@ import org.seasar.jface.component.UIControlComponent;
 public abstract class ControlComponent extends AbstractUIComponent implements
         UIControlComponent {
     private LayoutDataInfo layoutDataInfo;
-
+    
     @ComponentAttribute(conversionType = ConversionType.COLOR)
     private String background;
 
@@ -178,5 +178,4 @@ public abstract class ControlComponent extends AbstractUIComponent implements
     public void setLayoutDataInfo(LayoutDataInfo layoutDataInfo) {
         this.layoutDataInfo = layoutDataInfo;
     }
-
 }

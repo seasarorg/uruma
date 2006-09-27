@@ -43,19 +43,20 @@ public class WindowRenderer extends
     }
 
     @Override
-    public Widget render(UIComponent uiComponent, Composite parent,
+    public Widget render(UIComponent uiComponent, Widget parent,
             WindowContext context) {
         configureShell((WindowComponent) uiComponent, (Shell) context
                 .getComponent(WindowContext.SHELL_ID));
         return super.render(uiComponent, parent, context);
     }
 
+    @Override
     public void renderAfter(final Widget widget, final UIComponent uiComponent,
-            final Composite parent, final WindowContext context) {
+            final Widget parent, final WindowContext context) {
         // デフォルトボタンの設定
         setDefaultButton((WindowComponent) uiComponent, context);
     }
-
+    
     protected void configureShell(final WindowComponent window,
             final Shell shell) {
         // タイトルの設定

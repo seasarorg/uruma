@@ -23,6 +23,8 @@ import org.seasar.jface.component.impl.ButtonComponent;
 import org.seasar.jface.component.impl.ComboComponent;
 import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.LabelComponent;
+import org.seasar.jface.component.impl.MenuComponent;
+import org.seasar.jface.component.impl.MenuItemComponent;
 import org.seasar.jface.component.impl.TabFolderComponent;
 import org.seasar.jface.component.impl.TabItemComponent;
 import org.seasar.jface.component.impl.WindowComponent;
@@ -31,6 +33,8 @@ import org.seasar.jface.renderer.impl.ButtonRenderer;
 import org.seasar.jface.renderer.impl.ComboRenderer;
 import org.seasar.jface.renderer.impl.CompositeRenderer;
 import org.seasar.jface.renderer.impl.LabelRenderer;
+import org.seasar.jface.renderer.impl.MenuItemRenderer;
+import org.seasar.jface.renderer.impl.MenuRenderer;
 import org.seasar.jface.renderer.impl.TabFolderRenderer;
 import org.seasar.jface.renderer.impl.TabItemRenderer;
 import org.seasar.jface.renderer.impl.WindowRenderer;
@@ -53,6 +57,9 @@ public class RendererFactrory {
 
         addRenderer(ButtonComponent.class, new ButtonRenderer());
         addRenderer(LabelComponent.class, new LabelRenderer());
+
+        addRenderer(MenuComponent.class, new MenuRenderer());
+        addRenderer(MenuItemComponent.class, new MenuItemRenderer());
     }
 
     /**

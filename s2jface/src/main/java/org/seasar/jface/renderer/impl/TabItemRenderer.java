@@ -15,7 +15,8 @@
  */
 package org.seasar.jface.renderer.impl;
 
-import org.eclipse.swt.widgets.Composite;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Widget;
@@ -36,14 +37,14 @@ public class TabItemRenderer extends
     }
     
     @Override
-    public void renderAfter(Widget widget, UIComponent uiComponent, Composite parent, WindowContext context) {
+    public void renderAfter(Widget widget, UIComponent uiComponent, Widget parent, WindowContext context) {
         setControl((TabItem) widget, (TabItemComponent) uiComponent);
     }
     
     private void setControl(TabItem tabItem, TabItemComponent tabItemComponent) {
-        UIComponent controlComponent = tabItemComponent.getControl();
-        if (controlComponent != null) {
-            tabItem.setControl((Control) controlComponent.getWidget());
+        List<UIComponent> children = tabItemComponent.getChildren();
+        if (children.size() == 1) {
+            tabItem.setControl((Control) children.get(0).getWidget());
         }
     }
 

@@ -30,6 +30,8 @@ import org.seasar.jface.component.impl.FillLayoutInfo;
 import org.seasar.jface.component.impl.GridDataInfo;
 import org.seasar.jface.component.impl.GridLayoutInfo;
 import org.seasar.jface.component.impl.LabelComponent;
+import org.seasar.jface.component.impl.MenuComponent;
+import org.seasar.jface.component.impl.MenuItemComponent;
 import org.seasar.jface.component.impl.RowDataInfo;
 import org.seasar.jface.component.impl.RowLayoutInfo;
 import org.seasar.jface.component.impl.TabFolderComponent;
@@ -76,6 +78,10 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
         
         // SimpleItem
         addTagHandler(new SimpleItemTagHandler());
+        
+        // Menu
+        addTagHandler("menu", new S2JFaceGenericTagHandler(MenuComponent.class));
+        addTagHandler("menuItem", new S2JFaceGenericTagHandler(MenuItemComponent.class));
     }
 
     protected void addTagHandler(S2JFaceTagHandler tagHandler) {

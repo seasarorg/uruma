@@ -15,8 +15,11 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.eclipse.swt.widgets.Composite;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
@@ -27,6 +30,7 @@ import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
  * @author y-komori
  */
 public class WindowComponent extends CompositeComponent {
+    
     @ComponentAttribute(targetType = TargetType.NONE)
     private String title;
 
@@ -55,7 +59,7 @@ public class WindowComponent extends CompositeComponent {
     private String defaultButtonId;
 
     @Override
-    public void render(Composite parent, WindowContext context) {
+    public void render(Widget parent, WindowContext context) {
         if (parent instanceof Shell) {
             context.putComponent(WindowContext.SHELL_ID, parent);
         }

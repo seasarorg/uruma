@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://s2jface.sandbox.seasar.org">
+  <window id="menuRendererTest" title="MenuRendererTest"
+    defaultButtonId="okButton" background="WHITE">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+
+    <menu>
+      <menuItem text="Menu1" style="CASCADE">
+        <menu>
+          <menuItem text="Menu1-1" />
+          <menuItem text="Menu1-2" />
+          <menuItem text="separrator" style="SEPARATOR" />
+          <menuItem text="Menu1-3" style="CASCADE">
+            <menu>
+              <menuItem text="Menu1-3-1"/>
+              <menuItem text="Menu1-3-2"/>
+            </menu>
+          </menuItem>
+        </menu>
+      </menuItem>
+      <menuItem text="Menu2" style="CASCADE">
+        <menu defaultItemId="defaultItem">
+          <menuItem text="チェック(select)" style="CHECK" selection="true"/>
+          <menuItem text="チェック" style="CHECK" />
+          <menuItem text="separrator" style="SEPARATOR" />
+          <menuItem text="ラジオ1" style="RADIO" />
+          <menuItem text="ラジオ2(select)" style="RADIO" selection="true"/>
+          <menuItem text="ラジオ3" style="RADIO" />
+          <menuItem text="separrator" style="SEPARATOR" />
+          <menuItem id="defaultItem" text="デフォルト" />
+          <menuItem text="disable" enabled="false" />
+          <menuItem image="/images/container.gif" text="イメージ" />
+        </menu>
+      </menuItem>
+      <menuItem text="DisableMenu" style="CASCADE">
+        <menu enabled="false">
+          <menuItem text="disable1" style="CHECK" selection="true"/>
+          <menuItem text="disable2" style="CHECK" />
+        </menu>
+      </menuItem>
+    </menu>
+
+    <menu style="POP_UP">
+      <menuItem text="Menu1" style="CASCADE">
+        <menu>
+          <menuItem text="Menu1-1"></menuItem>
+          <menuItem text="Menu1-2"></menuItem>
+          <menuItem text="separrator" style="SEPARATOR" />
+          <menuItem text="Menu1-3" style="CASCADE">
+            <menu>
+              <menuItem text="Menu1-3-1"/>
+              <menuItem text="Menu1-3-2"/>
+            </menu>
+          </menuItem>
+        </menu>
+      </menuItem>
+      <menuItem text="Menu2" />
+    </menu>
+
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="20" />
+
+      <label text="ポップアップメニュー" style="BORDER">
+        <menu>
+          <menuItem text="コンテキストメニュー1"></menuItem>
+          <menuItem text="コンテキストメニュー2"></menuItem>
+          <menuItem style="SEPARATOR" />
+          <menuItem text="コンテキストメニュー3" style="CASCADE">
+            <menu>
+              <menuItem text="3-1"></menuItem>
+              <menuItem text="3-2"></menuItem>
+            </menu>
+          </menuItem>
+        </menu>
+      </label>
+      
+      <label text="ロケーション指定" style="BORDER">
+        <menu x="100" y="200">
+          <menuItem text="コンテキストメニュー1"></menuItem>
+          <menuItem text="コンテキストメニュー2"></menuItem>
+          <menuItem style="SEPARATOR" />
+          <menuItem text="コンテキストメニュー3" style="CASCADE">
+            <menu>
+              <menuItem text="3-1"></menuItem>
+              <menuItem text="3-2"></menuItem>
+            </menu>
+          </menuItem>
+        </menu>
+      </label>
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

@@ -16,7 +16,6 @@
 package org.seasar.jface.renderer.impl;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
@@ -32,7 +31,7 @@ import org.seasar.jface.util.SWTUtil;
 public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent, WIDGET_TYPE extends Widget>
         extends AbstractRenderer {
 
-    public Widget render(UIComponent uiComponent, Composite parent,
+    public Widget render(UIComponent uiComponent, Widget parent,
             WindowContext context) {
         setContext(context);
 
@@ -54,11 +53,11 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
     }
 
     public void renderAfter(Widget widget, UIComponent uiComponent,
-            Composite parent, WindowContext context) {
+            Widget parent, WindowContext context) {
         // do nothing.
     }
 
-    protected Widget createWidget(Composite parent, int style) {
+    protected Widget createWidget(Widget parent, int style) {
         Class<? extends Widget> widgetClass = getWidgetType();
         Widget widget = ClassUtil.<Widget> newInstance(widgetClass, parent,
                 style);

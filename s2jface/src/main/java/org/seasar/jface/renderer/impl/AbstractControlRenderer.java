@@ -117,20 +117,28 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
 
     protected void setLayoutData(final UIControlComponent uiComponent,
             final Control control) {
-        UICompositeComponent parent = uiComponent.getParent();
-        if (parent != null) {
-            LayoutInfo layoutInfo = parent.getLayoutInfo();
-            if (layoutInfo != null) {
-                LayoutSupport support = LayoutSupportFactory
-                        .getLayoutSupport(layoutInfo.getClass());
-                LayoutDataInfo layoutDataInfo = uiComponent.getLayoutDataInfo();
-                if ((support != null) && (layoutDataInfo != null)) {
-                    Object layoutData = support.createLayoutData(uiComponent,
-                            layoutDataInfo);
-                    if (layoutData != null) {
-                        control.setLayoutData(layoutData);
-                    }
-                }
+        UIComponent parent = uiComponent.getParent();
+        if (parent == null) {
+            return;
+        }
+        
+        if (!(parent instanceof UICompositeComponent)) {
+            return;
+        }
+        
+        LayoutInfo layoutInfo = ((UICompositeComponent)parent).getLayoutInfo();
+        if (layoutInfo == null) {
+            return;
+        }
+        
+        LayoutSupport support = LayoutSupportFactory
+                .getLayoutSupport(layoutInfo.getClass());
+        LayoutDataInfo layoutDataInfo = uiComponent.getLayoutDataInfo();
+        if ((support != null) && (layoutDataInfo != null)) {
+            Object layoutData = support.createLayoutData(uiComponent,
+                    layoutDataInfo);
+            if (layoutData != null) {
+                control.setLayoutData(layoutData);
             }
         }
     }
@@ -145,26 +153,32 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
     }
 
     protected void setCommonAttributes(final UIComponent uiComponent) {
-        UICompositeComponent parent = uiComponent.getParent();
+        UIComponent parent = uiComponent.getParent();
         if (parent == null) {
             return;
         }
 
-        CommonAttributes commonAttributes = parent.getCommonAttributes();
-        if (commonAttributes != null) {
-            BeanDesc commonDesc = BeanDescFactory.getBeanDesc(commonAttributes
-                    .getClass());
-            BeanDesc uiDesc = BeanDescFactory.getBeanDesc(uiComponent
-                    .getClass());
-            int size = commonDesc.getPropertyDescSize();
-            for (int i = 0; i < size; i++) {
-                PropertyDesc commonPd = commonDesc.getPropertyDesc(i);
-                PropertyDesc uiPd = uiDesc.getPropertyDesc(commonPd
-                        .getPropertyName());
-                // 未設定の属性のみ設定する
-                if (uiPd.getValue(uiComponent) == null) {
-                    uiPd.setValue(uiComponent, commonPd.getValue(commonAttributes));
-                }
+        if (!(parent instanceof UICompositeComponent)) {
+            return;
+        }
+        
+        CommonAttributes commonAttributes = ((UICompositeComponent) parent).getCommonAttributes();
+        if (commonAttributes == null) {
+            return;
+        }
+        
+        BeanDesc commonDesc = BeanDescFactory.getBeanDesc(commonAttributes
+                .getClass());
+        BeanDesc uiDesc = BeanDescFactory.getBeanDesc(uiComponent
+                .getClass());
+        int size = commonDesc.getPropertyDescSize();
+        for (int i = 0; i < size; i++) {
+            PropertyDesc commonPd = commonDesc.getPropertyDesc(i);
+            PropertyDesc uiPd = uiDesc.getPropertyDesc(commonPd
+                    .getPropertyName());
+            // 未設定の属性のみ設定する
+            if (uiPd.getValue(uiComponent) == null) {
+                uiPd.setValue(uiComponent, commonPd.getValue(commonAttributes));
             }
         }
     }
@@ -202,12 +216,18 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
 
     protected LayoutDataInfo getParentLayoutDataInfo(
             final UIComponent uiComponent) {
-        UICompositeComponent parent = uiComponent.getParent();
-        if (parent != null) {
-            LayoutInfo layoutInfo = parent.getLayoutInfo();
-            if (layoutInfo != null) {
-                return layoutInfo.getCommonLayoutDataInfo();
-            }
+        UIComponent parent = uiComponent.getParent();
+        if (parent == null) {
+            return null;
+        }
+        
+        if (!(parent instanceof UICompositeComponent)) {
+            return null;
+        }
+        
+        LayoutInfo layoutInfo = ((UICompositeComponent) parent).getLayoutInfo();
+        if (layoutInfo != null) {
+            return layoutInfo.getCommonLayoutDataInfo();
         }
         return null;
     }

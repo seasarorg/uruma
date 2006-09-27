@@ -216,11 +216,10 @@
             <xs:element ref="tns:menu" />
             <xs:element ref="tns:menuItem" />
           </xs:choice>
-          <xs:attribute name="defaultItem" type="xs:string" />
+          <xs:attribute name="defaultItemId" type="xs:string" />
           <xs:attribute name="enabled" type="xs:boolean" />
           <xs:attribute name="x" type="xs:int" />
           <xs:attribute name="y" type="xs:int" />
-          <xs:attribute name="visible" type="xs:boolean" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -230,9 +229,8 @@
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="tns:Item">
-          <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:choice minOccurs="0" maxOccurs="1">
             <xs:element ref="tns:menu" />
-            <xs:element ref="tns:menuItem" />
           </xs:choice>
           <xs:attribute name="accelerator" type="tns:Accelerator" />
           <xs:attribute name="enabled" type="xs:boolean" />

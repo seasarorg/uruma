@@ -15,22 +15,18 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.component.UIComponent;
-import org.seasar.jface.component.UIComponentDecorator;
 
 /**
  * @author bskuroneko
  * 
  */
-public class TabItemComponent extends AbstractItemComponent implements UIComponentDecorator {
+public class TabItemComponent extends AbstractItemComponent {
     
-    private UIComponent control;
-
     @ComponentAttribute(conversionType = ConversionType.STRING)
     private String toolTipText;
 
@@ -41,21 +37,16 @@ public class TabItemComponent extends AbstractItemComponent implements UICompone
     public void setToolTipText(String toolTipText) {
         this.toolTipText = toolTipText;
     }
-
-    public void setControl(UIComponent control) {
-        this.control = control;
-        control.setParent(getParent());
+    
+    @Override
+    public void addChild(UIComponent child) {
+        super.addChild(child);
+        child.setParent(getParent());
     }
 
-    public UIComponent getControl() {
-        return control;
+    @Override
+    protected void renderChild(Widget parent, WindowContext context) {
+        super.renderChild(getParent().getWidget(), context);
     }
     
-    protected void renderChild(final Widget parent,
-            final WindowContext context) {
-        if (control != null) {
-            control.render((Composite) getParent().getWidget(), context);
-        }
-    }
-
 }

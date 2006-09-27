@@ -13,19 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component;
-
+package org.seasar.jface.renderer.impl;
 
 /**
- * @author y-komori
+ * @author bskuroneko
  * 
  */
-public interface UICompositeComponent extends UIComponent {
-    public LayoutInfo getLayoutInfo();
-
-    public void setLayoutInfo(LayoutInfo layoutInfo);
-
-    public void setCommonAttributes(CommonAttributes commonAttributes);
-
-    public CommonAttributes getCommonAttributes();
+public class MenuRendererTest extends AbstractRendererTest {
 }

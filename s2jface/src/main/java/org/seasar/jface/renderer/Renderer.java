@@ -15,7 +15,6 @@
  */
 package org.seasar.jface.renderer;
 
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
@@ -32,14 +31,14 @@ public interface Renderer {
      * @param uiComponent
      *            レンダリング対象の情報を持つ <code>UIComponent</code> オブジェクト
      * @param parent
-     *            親コンポジット
+     *            親となる <code>Widget</code> オブジェクト
      * @param context
      *            画面情報を収めた <code>WindowContext</code> オブジェクト
      * @return レンダリングしたウィジット
      * @see Widget
      * @see Composite
      */
-    public Widget render(UIComponent uiComponent, Composite parent,
+    public Widget render(UIComponent uiComponent, Widget parent,
             WindowContext context);
 
     /**
@@ -52,12 +51,12 @@ public interface Renderer {
      * @param uiComponent
      *            レンダリング対象の情報を持つ <code>UIComponent</code> オブジェクト
      * @param parent
-     *            親コンポジット
+     *            親となる <code>Widget</code> オブジェクト
      * @param context
      *            画面情報を収めた <code>WindowContext</code> オブジェクト
      * @see Widget
      * @see Composite
      */
     public void renderAfter(Widget widget, UIComponent uiComponent,
-            Composite parent, WindowContext context);
+            Widget parent, WindowContext context);
 }

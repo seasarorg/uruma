@@ -1,0 +1,71 @@
+/*
+ * Copyright 2004-2006 the Seasar Foundation and the Others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+package org.seasar.jface.component.impl;
+
+import org.seasar.jface.annotation.component.ComponentAttribute;
+import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+
+/**
+ * @author bskuroneko
+ * 
+ */
+public class MenuComponent extends AbstractUIComponent {
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String defaultItemId;
+
+    @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
+    private String enabled;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String x;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String y;
+
+    public String getDefaultItemId() {
+        return this.defaultItemId;
+    }
+
+    public void setDefaultItemId(String defaultItemId) {
+        this.defaultItemId = defaultItemId;
+    }
+
+    public String getEnabled() {
+        return this.enabled;
+    }
+
+    public void setEnabled(String enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getX() {
+        return this.x;
+    }
+
+    public void setX(String x) {
+        this.x = x;
+    }
+
+    public String getY() {
+        return this.y;
+    }
+
+    public void setY(String y) {
+        this.y = y;
+    }
+}

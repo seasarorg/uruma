@@ -22,6 +22,7 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.jface.component.CommonAttributes;
 import org.seasar.jface.component.LayoutInfo;
+import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.renderer.layout.LayoutSupport;
@@ -89,12 +90,16 @@ public abstract class AbstractCompositeRenderer<COMPONENT_TYPE extends Composite
 
     protected void inheritCommonAttributes(
             final COMPONENT_TYPE compositeComponent) {
-        UICompositeComponent parent = compositeComponent.getParent();
+        UIComponent parent = compositeComponent.getParent();
         if (parent == null) {
             return;
         }
+        
+        if (!(parent instanceof UICompositeComponent)) {
+            return;
+        }
 
-        CommonAttributes parentAttributes = parent.getCommonAttributes();
+        CommonAttributes parentAttributes = ((UICompositeComponent) parent).getCommonAttributes();
         if (parentAttributes == null) {
             return;
         }

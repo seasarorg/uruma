@@ -15,11 +15,12 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.eclipse.swt.widgets.Composite;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
-import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.renderer.Renderer;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -28,7 +29,7 @@ import org.seasar.jface.util.AssertionUtil;
  */
 public abstract class AbstractUIComponent extends AbstractUIElement implements
         UIComponent {
-    private UICompositeComponent parent;
+    private UIComponent parent;
 
     private String id;
 
@@ -39,6 +40,8 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
     private Renderer renderer;
 
     private Widget widget;
+
+    private List<UIComponent> children = new ArrayList<UIComponent>();
 
     public String getId() {
         return this.id;
@@ -82,7 +85,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         this.widget = widget;
     }
     
-    public void render(final Composite parent, final WindowContext context) {
+    public void render(final Widget parent, final WindowContext context) {
         Widget widget = getRenderer().render(this, parent, context);
         setWidget(widget);
 
@@ -95,15 +98,27 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         getRenderer().renderAfter(widget, this, parent, context);
     }
 
-    protected void renderChild(Widget widget, WindowContext context) {
-        // do Nothing.
+    protected void renderChild(final Widget parent,
+            final WindowContext context) {
+        for (UIComponent child : children) {
+            child.render(parent, context);
+        }
     }
 
-    public UICompositeComponent getParent() {
+    public void addChild(final UIComponent child) {
+        this.children.add(child);
+        child.setParent(this);
+    }
+
+    public List<UIComponent> getChildren() {
+        return children;
+    }
+
+    public UIComponent getParent() {
         return parent;
     }
 
-    public void setParent(UICompositeComponent parent) {
+    public void setParent(UIComponent parent) {
         this.parent = parent;
     }
 }
