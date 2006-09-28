@@ -15,9 +15,21 @@
  */
 package org.seasar.jface.renderer.impl;
 
+import org.seasar.jface.annotation.EventListener;
+
 /**
  * @author bskuroneko
  * 
  */
 public class MenuRendererTest extends AbstractRendererTest {
+    
+    @EventListener(id="accelerator1")
+    public void accelerator1() {
+        System.out.println("accelerator1 selected");
+    }
+
+    @EventListener(id="accelerator2")
+    public void accelerator2() {
+        System.out.println("accelerator2 selected");
+    }
 }

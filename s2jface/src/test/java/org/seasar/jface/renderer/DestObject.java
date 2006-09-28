@@ -38,6 +38,8 @@ public class DestObject {
     
     public Image imageField;
 
+    public int acceleratorField;
+    
     private String stringProperty;
 
     private String textProperty;
@@ -51,6 +53,8 @@ public class DestObject {
     private int swtConstProperty;
     
     private Image imageProperty;
+
+    private int acceleratorProperty;
 
     public boolean getBooleanProperty() {
         return this.booleanProperty;
@@ -106,6 +110,14 @@ public class DestObject {
 
     public void setImageProperty(Image imageProperty) {
         this.imageProperty = imageProperty;
+    }
+
+    public int getAcceleratorProperty() {
+        return this.acceleratorProperty;
+    }
+
+    public void setAcceleratorProperty(int acceleratorProperty) {
+        this.acceleratorProperty = acceleratorProperty;
     }
     
 }

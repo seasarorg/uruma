@@ -18,7 +18,7 @@
 
       <tabFolder>
         <tabItem text="画像" image="/images/container.gif"></tabItem>
-        <tabItem text="ツールチップ" toolTipText="ツールチップ"></tabItem>
+        <tabItem text="ツールチップ" toolTipText="ツールチップ\nテキスト"></tabItem>
         <tabItem text="コントロール">
           <label text="ラベル" />
         </tabItem>

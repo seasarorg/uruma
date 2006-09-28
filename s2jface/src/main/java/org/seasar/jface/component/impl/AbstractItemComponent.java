@@ -27,7 +27,7 @@ public abstract class AbstractItemComponent extends AbstractUIComponent {
     @ComponentAttribute(conversionType = ConversionType.IMAGE)
     private String image;
 
-    @ComponentAttribute(conversionType = ConversionType.STRING)
+    @ComponentAttribute(conversionType = ConversionType.TEXT)
     private String text;
 
     public String getImage() {

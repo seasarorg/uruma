@@ -7,15 +7,15 @@
     </gridLayout>
 
     <menu>
-      <menuItem text="Menu1" style="CASCADE">
+      <menuItem text="Menu1(&amp;M)" style="CASCADE">
         <menu>
-          <menuItem text="Menu1-1" />
-          <menuItem text="Menu1-2" />
+          <menuItem text="Menu1-1(&amp;1)" />
+          <menuItem text="Menu1-2(&amp;2)" />
           <menuItem text="separrator" style="SEPARATOR" />
-          <menuItem text="Menu1-3" style="CASCADE">
+          <menuItem text="Menu1-3(&amp;3)" style="CASCADE">
             <menu>
-              <menuItem text="Menu1-3-1"/>
-              <menuItem text="Menu1-3-2"/>
+              <menuItem id="accelerator1" text="Accelerator1\tF2" accelerator="F2"/>
+              <menuItem id="accelerator2" text="Accelerator2\tCtrl+M" accelerator="Ctrl+M"/>
             </menu>
           </menuItem>
         </menu>
@@ -34,7 +34,7 @@
           <menuItem image="/images/container.gif" text="イメージ" />
         </menu>
       </menuItem>
-      <menuItem text="DisableMenu" style="CASCADE">
+      <menuItem text="DisableMenu(&amp;D)" style="CASCADE">
         <menu enabled="false">
           <menuItem text="disable1" style="CHECK" selection="true"/>
           <menuItem text="disable2" style="CHECK" />

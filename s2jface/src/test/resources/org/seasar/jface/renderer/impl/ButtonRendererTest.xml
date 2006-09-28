@@ -16,7 +16,7 @@
 
       <composite>
         <rowLayout type="VERTICAL" spacing="10" />
-        <button text="プッシュボタン" toolTipText="ツールチップテキスト" />
+        <button text="プッシュボタン" toolTipText="ツールチップ\nテキスト" />
         <button style="FLAT" text="フラットボタン" />
         <button style="CHECK" text="チェックボタン(OFF)" />
         <button style="CHECK" text="チェックボタン(ON)" selection="true" />

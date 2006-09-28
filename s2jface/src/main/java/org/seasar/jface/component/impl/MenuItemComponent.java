@@ -25,8 +25,7 @@ import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
  */
 public class MenuItemComponent extends AbstractItemComponent {
 
-    // TODO accelerator 対応
-    @ComponentAttribute(targetType = TargetType.NONE)
+    @ComponentAttribute(conversionType = ConversionType.ACCELERATOR)
     private String accelerator;
 
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)

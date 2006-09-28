@@ -16,15 +16,13 @@
 package org.seasar.jface.renderer;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
+import org.eclipse.jface.action.LegacyActionTools;
 import org.eclipse.swt.graphics.Image;
 import org.seasar.framework.beans.BeanDesc;
-import org.seasar.framework.beans.MethodNotFoundRuntimeException;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.util.FieldUtil;
-import org.seasar.framework.util.MethodUtil;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.component.UIElement;
@@ -129,6 +127,8 @@ public class RendererSupportUtil {
                 image = ImageManager.loadImage(path);
             }
             return image;
+        } else if (attr.conversionType() == ConversionType.ACCELERATOR) {
+            return LegacyActionTools.convertAccelerator(value);
         }
         return null;
     }

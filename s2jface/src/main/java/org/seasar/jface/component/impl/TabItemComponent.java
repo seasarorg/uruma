@@ -27,7 +27,7 @@ import org.seasar.jface.component.UIComponent;
  */
 public class TabItemComponent extends AbstractItemComponent {
     
-    @ComponentAttribute(conversionType = ConversionType.STRING)
+    @ComponentAttribute(conversionType = ConversionType.TEXT)
     private String toolTipText;
 
     public String getToolTipText() {

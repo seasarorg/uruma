@@ -52,7 +52,7 @@ public abstract class ControlComponent extends AbstractUIComponent implements
     @ComponentAttribute(targetType = TargetType.NONE)
     private String height;
 
-    @ComponentAttribute(conversionType = ConversionType.STRING)
+    @ComponentAttribute(conversionType = ConversionType.TEXT)
     private String toolTipText;
 
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)

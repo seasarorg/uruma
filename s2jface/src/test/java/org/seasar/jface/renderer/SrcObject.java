@@ -15,13 +15,14 @@
  */
 package org.seasar.jface.renderer;
 
+import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.ACCELERATOR;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.BOOLEAN;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.COLOR;
+import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.IMAGE;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.INT;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.STRING;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.SWT_CONST;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.TEXT;
-import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.IMAGE;
 import static org.seasar.jface.annotation.component.ComponentAttribute.TargetType.FIELD;
 import static org.seasar.jface.annotation.component.ComponentAttribute.TargetType.NONE;
 
@@ -56,6 +57,9 @@ public class SrcObject extends AbstractUIElement {
     @ComponentAttribute(targetType = FIELD, conversionType = IMAGE)
     private String imageField = "/images/container.gif";
 
+    @ComponentAttribute(targetType = FIELD, conversionType = ACCELERATOR)
+    private String acceleratorField = "Ctrl+Alt+A";
+
     @ComponentAttribute(conversionType = STRING)
     private String stringProperty = "StringField2";
 
@@ -76,6 +80,9 @@ public class SrcObject extends AbstractUIElement {
 
     @ComponentAttribute(conversionType = IMAGE)
     private String imageProperty = "../template/container.gif";
+
+    @ComponentAttribute(conversionType = ACCELERATOR)
+    private String acceleratorProperty = "F2";
 
     public String getNonTargetField() {
         return this.nonTargetField;
@@ -135,6 +142,14 @@ public class SrcObject extends AbstractUIElement {
 
     public String getImageProperty() {
         return this.imageProperty;
+    }
+
+    public String getAcceleratorField() {
+        return this.acceleratorField;
+    }
+
+    public String getAcceleratorProperty() {
+        return this.acceleratorProperty;
     }
 
 }

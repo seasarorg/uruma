@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.impl;
 
+import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.renderer.impl.AbstractRendererTest;
 
 /**
@@ -22,4 +23,9 @@ import org.seasar.jface.renderer.impl.AbstractRendererTest;
  * 
  */
 public class S2JFaceApplicationWindowTest extends AbstractRendererTest {
+    
+    @EventListener(id="openFile")
+    public void openFile() {
+        System.out.println("ファイルを開く");
+    }
 }

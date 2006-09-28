@@ -15,9 +15,6 @@
  */
 package org.seasar.jface.component.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;

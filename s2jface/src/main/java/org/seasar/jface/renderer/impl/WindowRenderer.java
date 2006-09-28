@@ -16,6 +16,7 @@
 package org.seasar.jface.renderer.impl;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -79,8 +80,12 @@ public class WindowRenderer extends
         // アイコンの設定
         String img = window.getImage();
         if (!StringUtil.isEmpty(img)) {
-            img = PathUtil.createPath(window.getBasePath(), img);
-            shell.setImage(ImageManager.loadImage(img));
+            Image image = ImageManager.getImage(img);
+            if (image == null) {
+                String path = PathUtil.createPath(window.getBasePath(), img);
+                image = ImageManager.loadImage(path);
+            }
+            shell.setImage(image);
         }
     }
 

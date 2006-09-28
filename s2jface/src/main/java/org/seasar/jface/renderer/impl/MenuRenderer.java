@@ -20,11 +20,12 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
-import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.component.impl.MenuComponent;
+import org.seasar.jface.component.impl.MenuItemComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.util.ClassUtil;
 
@@ -55,6 +56,13 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
     @Override
     protected void doRender(MenuComponent uiComponent, Menu widget) {
         setLocation(uiComponent, widget);
+        setToParentMenu(uiComponent, widget);
+    }
+
+    @Override
+    public void renderAfter(Widget widget, UIComponent uiComponent,
+            Widget parent, WindowContext context) {
+        setDefaultItem((Menu) widget, (MenuComponent) uiComponent);
     }
 
     protected void setLocation(final MenuComponent controlComponent,
@@ -66,10 +74,25 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
         }
     }
 
-    @Override
-    public void renderAfter(Widget widget, UIComponent uiComponent,
-            Widget parent, WindowContext context) {
-        setDefaultItem((Menu) widget, (MenuComponent) uiComponent);
+    private void setToParentMenu(MenuComponent uiComponent, Menu widget) {
+        if (uiComponent.getParent() instanceof WindowComponent) {
+            if ((SWT.BAR & getStyle(uiComponent)) != 0) {
+                Shell shell = (Shell) getContext().getComponent(WindowContext.SHELL_ID);
+                shell.setMenuBar((Menu) widget);
+            }
+            else {
+                Control control = (Control) uiComponent.getParent().getWidget();
+                control.setMenu(widget);
+            }
+        }
+        else if (uiComponent.getParent() instanceof MenuItemComponent) {
+            MenuItem item = (MenuItem) uiComponent.getParent().getWidget();
+            item.setMenu(widget);
+        }
+        else {
+            Control control = (Control) uiComponent.getParent().getWidget();
+            control.setMenu(widget);
+        }
     }
 
     private void setDefaultItem(Menu widget, MenuComponent uiComponent) {
@@ -84,28 +107,14 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
     protected Class<Menu> getWidgetType() {
         return Menu.class;
     }
-
+    
     @Override
     protected Widget createWidget(Widget parent, int style) {
         if (parent instanceof Decorations) {
-            Decorations decorations = (Decorations) parent;
-            Widget widget = super.createWidget(parent, style);
-            if ((SWT.BAR & style) != 0) {
-                decorations.setMenuBar((Menu) widget);
-            } else {
-                decorations.setMenu((Menu) widget);
-            }
-            return widget;
+            return super.createWidget(parent, style);
         } else {
             Class<? extends Widget> widgetClass = getWidgetType();
-            Widget widget = ClassUtil.<Widget> newInstance(widgetClass, parent);
-
-            if (parent instanceof Control) {
-                ((Control) parent).setMenu((Menu) widget);
-            } else if (parent instanceof MenuItem) {
-                ((MenuItem) parent).setMenu((Menu) widget);
-            }
-            return widget;
+            return ClassUtil.<Widget> newInstance(widgetClass, parent);
         }
     }
 }

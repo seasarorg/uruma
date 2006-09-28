@@ -60,17 +60,19 @@ public class RenderSupportUtilTest extends TestCase {
         assertEquals("5", new Color(display, 255, 255, 255), dest.colorField);
         assertEquals("6", SWT.YES, dest.swtConstField);
         assertEquals("7", ImageManager.getImage("/images/container.gif"), dest.imageField);
+        assertEquals("8", SWT.CTRL | SWT.ALT | 'A', dest.acceleratorField);
 
-        assertEquals("8", "StringField2", dest.getStringProperty());
-        assertEquals("9", "Text\tField2\nText\tField2\n", dest
+        assertEquals("9", "StringField2", dest.getStringProperty());
+        assertEquals("10", "Text\tField2\nText\tField2\n", dest
                 .getTextProperty());
-        assertEquals("10", 456, dest.getIntProperty());
-        assertFalse("11", dest.getBooleanProperty());
-        assertEquals("12", new Color(display, 0, 0, 0), dest.getColorProperty());
-        assertEquals("13", SWT.NO, dest.getSwtConstProperty());
-        assertEquals("14", ImageManager.getImage("org/seasar/jface/renderer/../template/container.gif"), dest.getImageProperty());
+        assertEquals("11", 456, dest.getIntProperty());
+        assertFalse("12", dest.getBooleanProperty());
+        assertEquals("13", new Color(display, 0, 0, 0), dest.getColorProperty());
+        assertEquals("14", SWT.NO, dest.getSwtConstProperty());
+        assertEquals("15", ImageManager.getImage("org/seasar/jface/renderer/../template/container.gif"), dest.getImageProperty());
+        assertEquals("16", SWT.F2, dest.getAcceleratorProperty());
 
-        assertNull("15", dest.nonTargetField);
+        assertNull("17", dest.nonTargetField);
     }
 
     public void testSetAttributes2() {

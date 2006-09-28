@@ -43,7 +43,8 @@ public class TabItemRenderer extends
     
     private void setControl(TabItem tabItem, TabItemComponent tabItemComponent) {
         List<UIComponent> children = tabItemComponent.getChildren();
-        if (children.size() == 1) {
+        if (children.size() > 0) {
+            assert children.size() == 1;
             tabItem.setControl((Control) children.get(0).getWidget());
         }
     }

@@ -225,10 +225,28 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:complexType name="PreMenuItem">
+    <xs:complexContent>
+      <xs:restriction base="tns:Item">
+          <xs:attribute name="style">
+            <xs:simpleType>
+              <xs:restriction base="tns:SWTConst">
+                <xs:enumeration value="CASCADE" />
+                <xs:enumeration value="SEPARATOR" />
+                <xs:enumeration value="CHECK" />
+                <xs:enumeration value="RADIO" />
+                <xs:enumeration value="PUSH" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:element name="menuItem">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="tns:Item">
+        <xs:extension base="tns:PreMenuItem">
           <xs:choice minOccurs="0" maxOccurs="1">
             <xs:element ref="tns:menu" />
           </xs:choice>

@@ -61,7 +61,12 @@ public @interface ComponentAttribute {
         /** 対象が int 型の {@link org.eclipse.swt.SWT} 定数であることを示します。転送元は定数名の文字列で表します。<br /> */
         SWT_CONST,
         /** 対象が {@link org.eclipse.swt.graphics.Image} 型であることを示します。転送元は画像ファイルへのパス文字列で表します。<br /> */
-        IMAGE
+        IMAGE,
+        /**
+         * 対象がアクセラレータであることを示します。
+         * 転送元は {@link org.eclipse.jface.action.Action} で使用するアクセラレータ表記文字列で表します。
+         */
+        ACCELERATOR
     }
 
     /**
