@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<template name="eventListenerTest" xmlns="http://s2jface.sandbox.seasar.org">
+<template xmlns="http://s2jface.sandbox.seasar.org">
   <window id="eventListenerTest" title="EventListenerTest" height="400"
-    width="600">
+    width="600" defaultButtonId="okButton">
     <gridLayout numColumns="1" />
 
     <composite>
@@ -15,10 +15,7 @@
           grabExcessVerticalSpace="true" verticalAlignment="FILL" />
       </button>
       <label id="mouseLabel" style="BORDER" text="listen Mouse events" />
-      <text id="text" style="MULTI"
-        text="Text
-          and
-          MouseWheel" />
+      <text id="text" style="MULTI" text="Text\nand\nMouseWheel" />
     </composite>
 
     <label style="SEPARATOR, HORIZONTAL">
@@ -29,5 +26,16 @@
       <gridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"
         grabExcessVerticalSpace="true" verticalAlignment="FILL" />
     </text>
+    
+    <label style="SEPARATOR, HORIZONTAL">
+      <gridData horizontalAlignment="FILL" />
+    </label>
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
   </window>
 </template>

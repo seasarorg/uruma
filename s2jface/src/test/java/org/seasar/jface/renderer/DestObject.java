@@ -30,6 +30,8 @@ public class DestObject {
 
     public int intField;
 
+    public int[] intArrayField;
+
     public boolean booleanField;
 
     public Color colorField;
@@ -40,11 +42,15 @@ public class DestObject {
 
     public int acceleratorField;
     
+    public char charField;
+    
     private String stringProperty;
 
     private String textProperty;
 
     private int intProperty;
+
+    private int[] intArrayProperty;
 
     private boolean booleanProperty;
 
@@ -56,6 +62,8 @@ public class DestObject {
 
     private int acceleratorProperty;
 
+    private char charProperty;
+    
     public boolean getBooleanProperty() {
         return this.booleanProperty;
     }
@@ -118,6 +126,22 @@ public class DestObject {
 
     public void setAcceleratorProperty(int acceleratorProperty) {
         this.acceleratorProperty = acceleratorProperty;
+    }
+
+    public char getCharProperty() {
+        return this.charProperty;
+    }
+
+    public void setCharProperty(char charProperty) {
+        this.charProperty = charProperty;
+    }
+
+    public int[] getIntArrayProperty() {
+        return this.intArrayProperty;
+    }
+
+    public void setIntArrayProperty(int[] intArrayProperty) {
+        this.intArrayProperty = intArrayProperty;
     }
     
 }

@@ -60,9 +60,8 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
     }
 
     @Override
-    public void renderAfter(Widget widget, UIComponent uiComponent,
-            Widget parent, WindowContext context) {
-        setDefaultItem((Menu) widget, (MenuComponent) uiComponent);
+    protected void doRenderAfter(Menu widget, MenuComponent uiComponent, Widget parent, WindowContext context) {
+        setDefaultItem(widget, uiComponent);
     }
 
     protected void setLocation(final MenuComponent controlComponent,

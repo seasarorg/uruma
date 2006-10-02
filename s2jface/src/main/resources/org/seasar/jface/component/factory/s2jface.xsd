@@ -437,7 +437,6 @@
           </xs:sequence>
           <xs:attribute name="columnOrder" type="xs:string" />
           <xs:attribute name="headerVisible" type="xs:boolean" />
-          <xs:attribute name="itemCount" type="xs:int" />
           <xs:attribute name="linesVisible" type="xs:boolean" />
           <xs:attribute name="selection" type="xs:string" />
           <xs:attribute name="topIndex" type="xs:int" />
@@ -446,11 +445,19 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:complexType name="PreTableColumn">
+    <xs:complexContent>
+      <xs:restriction base="tns:Item">
+        <xs:attribute name="style" type="tns:Alignment" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:element name="tableColumn">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="tns:Item">
-          <xs:attribute name="alignment" type="tns:SWTConst" />
+        <xs:extension base="tns:PreTableColumn">
+          <xs:attribute name="alignment" type="tns:Alignment" />
           <xs:attribute name="moveable" type="xs:boolean" />
           <xs:attribute name="resizable" type="xs:boolean" />
           <xs:attribute name="toolTipText" type="xs:string" />
@@ -717,7 +724,7 @@
           <xs:attribute name="doubleClickEnabled" type="xs:boolean" />
           <xs:attribute name="echoChar" type="tns:char" />
           <xs:attribute name="editable" type="xs:boolean" />
-          <xs:attribute name="orientation" type="tns:SWTConst" />
+          <xs:attribute name="orientation" type="tns:Orientation" />
           <xs:attribute name="selectionStart" type="xs:int" />
           <xs:attribute name="selectionEnd" type="xs:int" />
           <xs:attribute name="tabs" type="xs:int" />

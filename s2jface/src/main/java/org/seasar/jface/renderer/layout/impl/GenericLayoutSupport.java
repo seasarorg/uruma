@@ -16,6 +16,7 @@
 package org.seasar.jface.renderer.layout.impl;
 
 import org.eclipse.swt.widgets.Layout;
+import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
 import org.seasar.jface.component.LayoutDataInfo;
 import org.seasar.jface.component.LayoutInfo;
 import org.seasar.jface.component.UIComponent;
@@ -45,7 +46,7 @@ public class GenericLayoutSupport implements LayoutSupport {
 
     public Layout createLayout(LayoutInfo layoutInfo) {
         Layout layout = createLayout();
-        RendererSupportUtil.setAttributes(layoutInfo, layout);
+        RendererSupportUtil.setAttributes(layoutInfo, layout, SetTiming.RENDER);
         return layout;
     }
 
@@ -61,7 +62,7 @@ public class GenericLayoutSupport implements LayoutSupport {
             LayoutDataInfo layoutDataInfo) {
         if (layoutDataClass != null) {
             Object layoutData = createLayoutData();
-            RendererSupportUtil.setAttributes(layoutDataInfo, layoutData);
+            RendererSupportUtil.setAttributes(layoutDataInfo, layoutData, SetTiming.RENDER);
             return layoutData;
         } else {
             return null;

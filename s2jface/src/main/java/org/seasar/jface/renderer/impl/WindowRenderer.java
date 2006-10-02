@@ -52,10 +52,8 @@ public class WindowRenderer extends
     }
 
     @Override
-    public void renderAfter(final Widget widget, final UIComponent uiComponent,
-            final Widget parent, final WindowContext context) {
-        // デフォルトボタンの設定
-        setDefaultButton((WindowComponent) uiComponent, context);
+    protected void doRenderAfter(Composite widget, WindowComponent uiComponent, Widget parent, WindowContext context) {
+        setDefaultButton(uiComponent, context);
     }
     
     protected void configureShell(final WindowComponent window,

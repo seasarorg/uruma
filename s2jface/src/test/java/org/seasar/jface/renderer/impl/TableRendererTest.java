@@ -13,23 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.annotation;
+package org.seasar.jface.renderer.impl;
 
-import junit.framework.TestCase;
-
-import org.seasar.jface.S2JFace;
 
 /**
  * @author bskuroneko
- * 
  */
-public class EventListernerTest extends TestCase {
-    private S2JFace s2JFace;
-
-    public void test() {
-        s2JFace = new S2JFace(
-                "org/seasar/jface/annotation/EventListenerTestAction.dicon");
-        s2JFace.openWindow("org/seasar/jface/annotation/EventListenerTest.xml");
-    }
-    
+public class TableRendererTest extends AbstractRendererTest {
 }

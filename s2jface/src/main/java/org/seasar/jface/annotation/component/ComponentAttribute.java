@@ -53,6 +53,10 @@ public @interface ComponentAttribute {
         INT,
         /** 対象が boolean 型であることを示します。<br /> */
         BOOLEAN,
+        /** 対象が char 型であることを示します。<br /> */
+        CHAR,
+        /** 対象が int の配列型であることを示します。転送元は数値のカンマ区切り文字列で表します。<br /> */
+        INT_ARRAY,
         /**
          * 対象が {@link org.eclipse.swt.graphics.Color} 型であることを示します。転送元は #RGB
          * 形式の文字列で表します。<br />
@@ -68,6 +72,13 @@ public @interface ComponentAttribute {
          */
         ACCELERATOR
     }
+    
+    public enum SetTiming {
+        /** コンポーネントのレンダリング時に設定することを示します。<br/> */
+        RENDER,
+        /** 子コンポーネントのレンダリング後に設定することを示します。<br/> */
+        RENDER_AFTER
+    }
 
     /**
      * 対象への設定方式を表します。<br />
@@ -82,4 +93,11 @@ public @interface ComponentAttribute {
      * @return 対象への変換方式
      */
     public ConversionType conversionType() default ConversionType.STRING;
+    
+    /**
+     * 対象への設定タイミングを表します。<br />
+     * 
+     * @return 対象への設定タイミング
+     */
+    public SetTiming setTiming() default SetTiming.RENDER;
 }

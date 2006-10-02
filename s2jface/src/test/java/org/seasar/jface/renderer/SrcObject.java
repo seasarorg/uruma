@@ -17,9 +17,11 @@ package org.seasar.jface.renderer;
 
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.ACCELERATOR;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.BOOLEAN;
+import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.CHAR;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.COLOR;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.IMAGE;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.INT;
+import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.INT_ARRAY;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.STRING;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.SWT_CONST;
 import static org.seasar.jface.annotation.component.ComponentAttribute.ConversionType.TEXT;
@@ -45,6 +47,9 @@ public class SrcObject extends AbstractUIElement {
     @ComponentAttribute(targetType = FIELD, conversionType = INT)
     private String intField = "123";
 
+    @ComponentAttribute(targetType = FIELD, conversionType = INT_ARRAY)
+    private String intArrayField = "1, 2, 3";
+
     @ComponentAttribute(targetType = FIELD, conversionType = BOOLEAN)
     private String booleanField = "true";
 
@@ -60,6 +65,9 @@ public class SrcObject extends AbstractUIElement {
     @ComponentAttribute(targetType = FIELD, conversionType = ACCELERATOR)
     private String acceleratorField = "Ctrl+Alt+A";
 
+    @ComponentAttribute(targetType = FIELD, conversionType = CHAR)
+    private String charField = "A";
+
     @ComponentAttribute(conversionType = STRING)
     private String stringProperty = "StringField2";
 
@@ -68,6 +76,9 @@ public class SrcObject extends AbstractUIElement {
 
     @ComponentAttribute(conversionType = INT)
     private String intProperty = "456";
+
+    @ComponentAttribute(conversionType = INT_ARRAY)
+    private String intArrayProperty = "3";
 
     @ComponentAttribute(conversionType = BOOLEAN)
     private String booleanProperty = "false";
@@ -83,6 +94,9 @@ public class SrcObject extends AbstractUIElement {
 
     @ComponentAttribute(conversionType = ACCELERATOR)
     private String acceleratorProperty = "F2";
+
+    @ComponentAttribute(conversionType = CHAR)
+    private String charProperty = "x";
 
     public String getNonTargetField() {
         return this.nonTargetField;
@@ -110,6 +124,14 @@ public class SrcObject extends AbstractUIElement {
 
     public String getIntProperty() {
         return this.intProperty;
+    }
+
+    public String getIntArrayField() {
+        return this.intArrayField;
+    }
+
+    public String getIntArrayProperty() {
+        return this.intArrayProperty;
     }
 
     public String getStringField() {
@@ -150,6 +172,14 @@ public class SrcObject extends AbstractUIElement {
 
     public String getAcceleratorProperty() {
         return this.acceleratorProperty;
+    }
+
+    public String getCharField() {
+        return this.charField;
+    }
+
+    public String getCharProperty() {
+        return this.charProperty;
     }
 
 }

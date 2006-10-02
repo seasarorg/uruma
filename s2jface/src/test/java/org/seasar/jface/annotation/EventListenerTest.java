@@ -21,15 +21,14 @@ import java.util.Date;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Text;
-import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.renderer.impl.AbstractRendererTest;
 
 /**
  * @author bskuroneko
- *
+ * 
  */
-@Component(name="eventListenerTestAction")
-public class EventListenerTestAction {
+public class EventListenerTest extends AbstractRendererTest {
     
     private SimpleDateFormat format = new SimpleDateFormat("mm:ss.SSS");
     
@@ -223,8 +222,6 @@ public class EventListenerTestAction {
     public void onTextMouseWheel(Event event) {
         logEvent("textMouseWheel", event);
     }
-    
-    
     
 // logger
     private void logEvent(String message, Object event) {

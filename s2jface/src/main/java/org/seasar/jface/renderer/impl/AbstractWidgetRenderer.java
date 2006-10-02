@@ -18,6 +18,7 @@ package org.seasar.jface.renderer.impl;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.util.ClassUtil;
@@ -38,7 +39,7 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
         inherit((COMPONENT_TYPE) uiComponent);
 
         Widget widget = createWidget(parent, getStyle(uiComponent));
-        RendererSupportUtil.setAttributes(uiComponent, widget);
+        RendererSupportUtil.setAttributes(uiComponent, widget, SetTiming.RENDER);
 
         // TODO レンダリング中に発生したRuntimeExceptionのハンドリングが必要
         doRender((COMPONENT_TYPE) uiComponent, getWidgetType().cast(widget));
@@ -53,6 +54,12 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
     }
 
     public void renderAfter(Widget widget, UIComponent uiComponent,
+            Widget parent, WindowContext context) {
+        RendererSupportUtil.setAttributes(uiComponent, widget, SetTiming.RENDER_AFTER);
+        doRenderAfter((WIDGET_TYPE) widget, (COMPONENT_TYPE) uiComponent, parent, context);
+    }
+    
+    protected void doRenderAfter(WIDGET_TYPE widget, COMPONENT_TYPE uiComponent,
             Widget parent, WindowContext context) {
         // do nothing.
     }

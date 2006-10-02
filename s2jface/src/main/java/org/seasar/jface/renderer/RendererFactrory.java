@@ -27,6 +27,10 @@ import org.seasar.jface.component.impl.MenuComponent;
 import org.seasar.jface.component.impl.MenuItemComponent;
 import org.seasar.jface.component.impl.TabFolderComponent;
 import org.seasar.jface.component.impl.TabItemComponent;
+import org.seasar.jface.component.impl.TableColumnComponent;
+import org.seasar.jface.component.impl.TableComponent;
+import org.seasar.jface.component.impl.TableItemComponent;
+import org.seasar.jface.component.impl.TextComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.exception.NotFoundException;
 import org.seasar.jface.renderer.impl.ButtonRenderer;
@@ -37,6 +41,10 @@ import org.seasar.jface.renderer.impl.MenuItemRenderer;
 import org.seasar.jface.renderer.impl.MenuRenderer;
 import org.seasar.jface.renderer.impl.TabFolderRenderer;
 import org.seasar.jface.renderer.impl.TabItemRenderer;
+import org.seasar.jface.renderer.impl.TableColumnRenderer;
+import org.seasar.jface.renderer.impl.TableItemRenderer;
+import org.seasar.jface.renderer.impl.TableRenderer;
+import org.seasar.jface.renderer.impl.TextRenderer;
 import org.seasar.jface.renderer.impl.WindowRenderer;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -54,9 +62,13 @@ public class RendererFactrory {
         addRenderer(ComboComponent.class, new ComboRenderer());
         addRenderer(TabFolderComponent.class, new TabFolderRenderer());
         addRenderer(TabItemComponent.class, new TabItemRenderer());
+        addRenderer(TableComponent.class, new TableRenderer());
+        addRenderer(TableColumnComponent.class, new TableColumnRenderer());
+        addRenderer(TableItemComponent.class, new TableItemRenderer());
 
         addRenderer(ButtonComponent.class, new ButtonRenderer());
         addRenderer(LabelComponent.class, new LabelRenderer());
+        addRenderer(TextComponent.class, new TextRenderer());
 
         addRenderer(MenuComponent.class, new MenuRenderer());
         addRenderer(MenuItemComponent.class, new MenuItemRenderer());

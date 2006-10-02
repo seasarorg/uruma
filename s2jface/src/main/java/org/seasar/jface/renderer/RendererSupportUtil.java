@@ -16,6 +16,7 @@
 package org.seasar.jface.renderer;
 
 import java.lang.reflect.Field;
+import java.util.StringTokenizer;
 
 import org.eclipse.jface.action.LegacyActionTools;
 import org.eclipse.swt.graphics.Image;
@@ -25,6 +26,7 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
 import org.seasar.jface.component.UIElement;
 import org.seasar.jface.exception.RenderException;
 import org.seasar.jface.util.ImageManager;
@@ -41,8 +43,8 @@ public class RendererSupportUtil {
      * <code>src</code> でアノテートされたフィールドを <code>dest</code> へコピーします。<br />
      * <p>
      * src オブジェクトの持つフィールドのうち、{@link ComponentAttribute}
-     * アノテーションが指定されたフィールドを、アノテーションの示す方法で変換して <code>dest</code>
-     * の同名フィールドへコピーします。<br />
+     * アノテーションが指定されたフィールドで、現在のタイミングと同じタイミングが指定されたフィールドを、
+     * アノテーションの示す方法で変換して <code>dest</code> の同名フィールドへコピーします。<br />
      * コピー方法の詳細は、{@link ComponentAttribute} のドキュメントを参照してください。<br />
      * </p>
      * 
@@ -50,15 +52,17 @@ public class RendererSupportUtil {
      *            転送元オブジェクト
      * @param dest
      *            転送先オブジェクト
+     * @param nowTiming
+     *            現在のタイミング
      */
-    public static void setAttributes(final UIElement src, final Object dest) {
+    public static void setAttributes(final UIElement src, final Object dest, final SetTiming nowTiming) {
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(src.getClass());
         int fieldSize = beanDesc.getFieldSize();
         for (int i = 0; i < fieldSize; i++) {
             Field field = beanDesc.getField(i);
             ComponentAttribute attr = field
                     .getAnnotation(ComponentAttribute.class);
-            if (attr != null) {
+            if (attr != null && attr.setTiming() == nowTiming) {
                 String value = getSrcValue(src, beanDesc, field);
                 if (value != null) {
                     setValue(src, dest, field, attr, value);
@@ -89,11 +93,11 @@ public class RendererSupportUtil {
             if (attr.targetType() == ComponentAttribute.TargetType.PROPERTY) {
                 PropertyDesc pd = desc.getPropertyDesc(field.getName());
                 if (pd.hasWriteMethod()) {
-                    pd.setValue(dest, convertValue(src, value, attr));
+                    pd.setValue(dest, convertValue(src, value, attr.conversionType()));
                 }
             } else if (attr.targetType() == ComponentAttribute.TargetType.FIELD) {
                 Field destField = desc.getField(field.getName());
-                FieldUtil.set(destField, dest, convertValue(src, value, attr));
+                FieldUtil.set(destField, dest, convertValue(src, value, attr.conversionType()));
             }
         } catch (Exception ex) {
             throw new RenderException(RenderException.MAPPING_ERORR, ex, field
@@ -101,33 +105,44 @@ public class RendererSupportUtil {
         }
     }
 
-    private static Object convertValue(final UIElement src, final String value,
-            final ComponentAttribute attr) {
-        if (attr.conversionType() == ConversionType.STRING) {
+    public static Object convertValue(final UIElement src, final String value,
+            final ConversionType conversionType) {
+        if (conversionType == ConversionType.STRING) {
             return value;
-        } else if (attr.conversionType() == ConversionType.TEXT) {
+        } else if (conversionType == ConversionType.TEXT) {
             String text = value.replace("\\n", "\n");
             text = text.replace("\\t", "\t");
             if (text.startsWith("\"") && text.endsWith("\"")) {
                 text = text.substring(1, text.length() - 1);
             }
             return text;
-        } else if (attr.conversionType() == ConversionType.BOOLEAN) {
+        } else if (conversionType == ConversionType.BOOLEAN) {
             return Boolean.valueOf(value);
-        } else if (attr.conversionType() == ConversionType.INT) {
+        } else if (conversionType == ConversionType.INT) {
             return new Integer(value);
-        } else if (attr.conversionType() == ConversionType.SWT_CONST) {
+        } else if (conversionType == ConversionType.INT_ARRAY) {
+            StringTokenizer tokenizer = new StringTokenizer(value, ",");
+            int[] result = new int[tokenizer.countTokens()];
+            for (int i = 0; tokenizer.hasMoreTokens(); i++) {
+                String token = tokenizer.nextToken();
+                result[i] = Integer.parseInt(token.trim());
+            }
+            return result;
+        } else if (conversionType == ConversionType.CHAR) {
+            assert value.length() == 1;
+            return new Character(value.charAt(0));
+        } else if (conversionType == ConversionType.SWT_CONST) {
             return SWTUtil.getStyle(value);
-        } else if (attr.conversionType() == ConversionType.COLOR) {
+        } else if (conversionType == ConversionType.COLOR) {
             return SWTUtil.getColor(value);
-        } else if (attr.conversionType() == ConversionType.IMAGE) {
+        } else if (conversionType == ConversionType.IMAGE) {
             Image image = ImageManager.getImage(value);
             if (image == null) {
                 String path = PathUtil.createPath(src.getBasePath(), value);
                 image = ImageManager.loadImage(path);
             }
             return image;
-        } else if (attr.conversionType() == ConversionType.ACCELERATOR) {
+        } else if (conversionType == ConversionType.ACCELERATOR) {
             return LegacyActionTools.convertAccelerator(value);
         }
         return null;

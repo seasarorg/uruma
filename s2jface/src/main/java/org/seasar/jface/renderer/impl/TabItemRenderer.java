@@ -37,8 +37,8 @@ public class TabItemRenderer extends
     }
     
     @Override
-    public void renderAfter(Widget widget, UIComponent uiComponent, Widget parent, WindowContext context) {
-        setControl((TabItem) widget, (TabItemComponent) uiComponent);
+    protected void doRenderAfter(TabItem widget, TabItemComponent uiComponent, Widget parent, WindowContext context) {
+        setControl(widget, uiComponent);
     }
     
     private void setControl(TabItem tabItem, TabItemComponent tabItemComponent) {
