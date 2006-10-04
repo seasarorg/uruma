@@ -25,6 +25,7 @@ import org.seasar.jface.component.impl.CompositeComponent;
 import org.seasar.jface.component.impl.LabelComponent;
 import org.seasar.jface.component.impl.MenuComponent;
 import org.seasar.jface.component.impl.MenuItemComponent;
+import org.seasar.jface.component.impl.ProgressBarComponent;
 import org.seasar.jface.component.impl.TabFolderComponent;
 import org.seasar.jface.component.impl.TabItemComponent;
 import org.seasar.jface.component.impl.TableColumnComponent;
@@ -39,6 +40,7 @@ import org.seasar.jface.renderer.impl.CompositeRenderer;
 import org.seasar.jface.renderer.impl.LabelRenderer;
 import org.seasar.jface.renderer.impl.MenuItemRenderer;
 import org.seasar.jface.renderer.impl.MenuRenderer;
+import org.seasar.jface.renderer.impl.ProgressBarRenderer;
 import org.seasar.jface.renderer.impl.TabFolderRenderer;
 import org.seasar.jface.renderer.impl.TabItemRenderer;
 import org.seasar.jface.renderer.impl.TableColumnRenderer;
@@ -69,6 +71,7 @@ public class RendererFactrory {
         addRenderer(ButtonComponent.class, new ButtonRenderer());
         addRenderer(LabelComponent.class, new LabelRenderer());
         addRenderer(TextComponent.class, new TextRenderer());
+        addRenderer(ProgressBarComponent.class, new ProgressBarRenderer());
 
         addRenderer(MenuComponent.class, new MenuRenderer());
         addRenderer(MenuItemComponent.class, new MenuItemRenderer());

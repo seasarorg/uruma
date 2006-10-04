@@ -19,6 +19,9 @@ import java.lang.reflect.Field;
 import java.util.StringTokenizer;
 
 import org.eclipse.jface.action.LegacyActionTools;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
@@ -29,6 +32,7 @@ import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
 import org.seasar.jface.component.UIElement;
 import org.seasar.jface.exception.RenderException;
+import org.seasar.jface.util.FontManager;
 import org.seasar.jface.util.ImageManager;
 import org.seasar.jface.util.PathUtil;
 import org.seasar.jface.util.SWTUtil;
@@ -146,5 +150,30 @@ public class RendererSupportUtil {
             return LegacyActionTools.convertAccelerator(value);
         }
         return null;
+    }
+    
+    public static Font getFont(Font defaultFont, String fontName, String fontStyle, String fontHeight) {
+        FontData fontData = defaultFont.getFontData()[0];
+
+        if (fontName == null) {
+            fontName = fontData.getName();
+        }
+
+        int style;
+        if (fontStyle != null) {
+            style = SWTUtil.getStyle(fontStyle);
+            style = (style == SWT.NONE) ? SWT.NORMAL : style;
+        } else {
+            style = fontData.getStyle();
+        }
+
+        int height;
+        if (fontHeight != null) {
+            height = Integer.parseInt(fontHeight);
+        } else {
+            height = fontData.getHeight();
+        }
+
+        return FontManager.get(fontName, height, style);
     }
 }

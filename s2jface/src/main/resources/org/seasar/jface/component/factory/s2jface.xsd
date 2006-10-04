@@ -110,7 +110,7 @@
       <xs:attribute name="marginHeight" type="xs:int" />
       <xs:attribute name="marginWidth" type="xs:int" />
       <xs:attribute name="spacing" type="xs:int" />
-      <xs:attribute name="type" type="tns:SWTConst" />
+      <xs:attribute name="type" type="tns:Direction" />
     </xs:complexType>
   </xs:element>
   <xs:element name="gridLayout" substitutionGroup="tns:layout">
@@ -145,7 +145,7 @@
       <xs:attribute name="marginWidth" type="xs:int" />
       <xs:attribute name="pack" type="xs:boolean" />
       <xs:attribute name="spacing" type="xs:int" />
-      <xs:attribute name="type" type="tns:SWTConst" />
+      <xs:attribute name="type" type="tns:Direction" />
       <xs:attribute name="wrap" type="xs:boolean" />
     </xs:complexType>
   </xs:element>
@@ -1122,6 +1122,13 @@
       <xs:enumeration value="LEFT"/>
       <xs:enumeration value="CENTER"/>
       <xs:enumeration value="RIGHT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="Direction">
+    <xs:restriction base="tns:SWTConst">
+      <xs:enumeration value="HORIZONTAL"/>
+      <xs:enumeration value="VERTICAL"/>
     </xs:restriction>
   </xs:simpleType>
   

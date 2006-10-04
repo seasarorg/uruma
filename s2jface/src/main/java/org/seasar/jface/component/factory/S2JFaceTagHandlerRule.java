@@ -33,6 +33,7 @@ import org.seasar.jface.component.impl.GridLayoutInfo;
 import org.seasar.jface.component.impl.LabelComponent;
 import org.seasar.jface.component.impl.MenuComponent;
 import org.seasar.jface.component.impl.MenuItemComponent;
+import org.seasar.jface.component.impl.ProgressBarComponent;
 import org.seasar.jface.component.impl.RowDataInfo;
 import org.seasar.jface.component.impl.RowLayoutInfo;
 import org.seasar.jface.component.impl.TabFolderComponent;
@@ -89,6 +90,8 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
                 ButtonComponent.class));
         addTagHandler("text", new S2JFaceGenericTagHandler(
                 TextComponent.class));
+        addTagHandler("progressBar", new S2JFaceGenericTagHandler(
+                ProgressBarComponent.class));
         
         // SimpleItem
         addTagHandler(new SimpleItemTagHandler());

@@ -17,8 +17,7 @@ package org.seasar.jface.renderer.impl;
 
 import java.util.List;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
@@ -31,11 +30,10 @@ import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.component.UIControlComponent;
 import org.seasar.jface.component.impl.ControlComponent;
+import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.renderer.layout.LayoutSupport;
 import org.seasar.jface.renderer.layout.LayoutSupportFactory;
 import org.seasar.jface.util.AnnotationUtil;
-import org.seasar.jface.util.FontManager;
-import org.seasar.jface.util.SWTUtil;
 
 /**
  * <code>Control</code> のレンダリングを行うための基底クラスです。<br />
@@ -53,7 +51,7 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         // レイアウトデータの一括指定
         inheritLayoutData((UIControlComponent) uiComponent);
     }
-            
+
     @Override
     public final void doRender(COMPONENT_TYPE uiComponent, CONTROL_TYPE control) {
         ControlComponent controlComponent = (ControlComponent) uiComponent;
@@ -65,7 +63,7 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
 
         doRenderControl(uiComponent, control);
     }
-    
+
     protected void setLocation(final ControlComponent controlComponent,
             final Control control) {
         String xStr = controlComponent.getX();
@@ -87,32 +85,16 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
 
     protected void setFont(final ControlComponent controlComponent,
             final Control control) {
-        FontData fontData = control.getFont().getFontData()[0];
-
-        String fontName = controlComponent.getFontName();
-        if (fontName == null) {
-            fontName = fontData.getName();
+        if (controlComponent.getFontName() == null
+                && controlComponent.getFontStyle() == null
+                && controlComponent.getFontHeight() == null) {
+            return;
         }
-
-        String fontStyle = controlComponent.getFontStyle();
-        int style;
-        if (fontStyle != null) {
-            style = SWTUtil.getStyle(fontStyle);
-            style = (style == SWT.NONE) ? SWT.NORMAL : style;
-        } else {
-            style = fontData.getStyle();
-        }
-
-        String heightStr = controlComponent.getFontHeight();
-        int height;
-        if (heightStr != null) {
-            height = Integer.parseInt(heightStr);
-        } else {
-            height = fontData.getHeight();
-
-        }
-
-        control.setFont(FontManager.get(fontName, height, style));
+        Font font = RendererSupportUtil.getFont(control.getFont(),
+                controlComponent.getFontName(),
+                controlComponent.getFontStyle(), controlComponent
+                        .getFontHeight());
+        control.setFont(font);
     }
 
     protected void setLayoutData(final UIControlComponent uiComponent,
@@ -121,16 +103,16 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         if (parent == null) {
             return;
         }
-        
+
         if (!(parent instanceof UICompositeComponent)) {
             return;
         }
-        
-        LayoutInfo layoutInfo = ((UICompositeComponent)parent).getLayoutInfo();
+
+        LayoutInfo layoutInfo = ((UICompositeComponent) parent).getLayoutInfo();
         if (layoutInfo == null) {
             return;
         }
-        
+
         LayoutSupport support = LayoutSupportFactory
                 .getLayoutSupport(layoutInfo.getClass());
         LayoutDataInfo layoutDataInfo = uiComponent.getLayoutDataInfo();
@@ -161,16 +143,16 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         if (!(parent instanceof UICompositeComponent)) {
             return;
         }
-        
-        CommonAttributes commonAttributes = ((UICompositeComponent) parent).getCommonAttributes();
+
+        CommonAttributes commonAttributes = ((UICompositeComponent) parent)
+                .getCommonAttributes();
         if (commonAttributes == null) {
             return;
         }
-        
+
         BeanDesc commonDesc = BeanDescFactory.getBeanDesc(commonAttributes
                 .getClass());
-        BeanDesc uiDesc = BeanDescFactory.getBeanDesc(uiComponent
-                .getClass());
+        BeanDesc uiDesc = BeanDescFactory.getBeanDesc(uiComponent.getClass());
         int size = commonDesc.getPropertyDescSize();
         for (int i = 0; i < size; i++) {
             PropertyDesc commonPd = commonDesc.getPropertyDesc(i);
@@ -220,11 +202,11 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         if (parent == null) {
             return null;
         }
-        
+
         if (!(parent instanceof UICompositeComponent)) {
             return null;
         }
-        
+
         LayoutInfo layoutInfo = ((UICompositeComponent) parent).getLayoutInfo();
         if (layoutInfo != null) {
             return layoutInfo.getCommonLayoutDataInfo();

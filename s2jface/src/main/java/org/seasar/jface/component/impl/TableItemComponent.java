@@ -35,7 +35,6 @@ public class TableItemComponent extends AbstractItemComponent {
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private String checked;
 
-    // TODO フォント対応
     @ComponentAttribute(targetType = TargetType.NONE)
     private String fontHeight;
 
@@ -51,6 +50,12 @@ public class TableItemComponent extends AbstractItemComponent {
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private String grayed;
 
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String image;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String text;
+    
     public String getBackground() {
         return this.background;
     }
@@ -113,6 +118,22 @@ public class TableItemComponent extends AbstractItemComponent {
 
     public List<TableCellComponent> getTableCells() {
         return tableCells;
+    }
+
+    public String getImage() {
+        return this.image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
 }

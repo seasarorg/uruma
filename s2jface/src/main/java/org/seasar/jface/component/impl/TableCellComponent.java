@@ -26,7 +26,6 @@ public class TableCellComponent extends AbstractUIElement {
     @ComponentAttribute(targetType = TargetType.NONE)
     private String background;
     
-    // TODO フォント対応
     @ComponentAttribute(targetType = TargetType.NONE)
     private String fontHeight;
 

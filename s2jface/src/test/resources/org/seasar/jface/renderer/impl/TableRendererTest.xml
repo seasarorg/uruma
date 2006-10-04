@@ -29,11 +29,6 @@
             fontStyle="BOLD, ITALIC" />
         </tableItem>
 
-        <tableItem text="属性全指定" background="GREEN" checked="true"
-          foreground="RED" image="/images/container.gif" fontHeight="15"
-          fontName="ＭＳ 明朝" fontStyle="BOLD, ITALIC">
-        </tableItem>
-
       </table>
 
       <table style="FULL_SELECTION, MULTI, H_SCROLL, V_SCROLL" headerVisible="true"
@@ -55,6 +50,15 @@
         <tableItem text="アイテム4" />
         <tableItem text="アイテム5" />
 
+      </table>
+
+      <table style="BORDER, FULL_SELECTION, MULTI, CHECK">
+
+        <tableItem checked="true" text="チェック" />
+        <tableItem text="フォント" fontHeight="12" fontName="ＭＳ 明朝" fontStyle="BOLD, ITALIC"/>
+        <tableItem text="色" background="GREEN" foreground="RED" />
+        <tableItem checked="true" text="グレーチェック" grayed="true" />
+        <tableItem text="イメージ" image="/images/container.gif" />
       </table>
 
     </composite>

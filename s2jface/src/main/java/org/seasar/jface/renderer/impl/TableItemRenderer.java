@@ -17,17 +17,14 @@ package org.seasar.jface.renderer.impl;
 
 import java.util.Iterator;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableItem;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.component.impl.TableCellComponent;
 import org.seasar.jface.component.impl.TableItemComponent;
 import org.seasar.jface.renderer.RendererSupportUtil;
-import org.seasar.jface.util.FontManager;
-import org.seasar.jface.util.SWTUtil;
 
 /**
  * <code>TableItem</code> のレンダリングを行うクラスです。<br />
@@ -39,7 +36,40 @@ public class TableItemRenderer extends
 
     @Override
     protected void doRender(TableItemComponent uiComponent, TableItem widget) {
+        setFont(uiComponent, widget);
+        setImage(uiComponent, widget);
+        setText(uiComponent, widget);
         renderCells(uiComponent, widget);
+    }
+
+    private void setImage(TableItemComponent uiComponent, TableItem widget) {
+        String strImage = uiComponent.getImage();
+        if (strImage == null) {
+            return;
+        }
+        Image image = (Image) RendererSupportUtil.convertValue(uiComponent, strImage, ConversionType.IMAGE);
+        widget.setImage(image);
+    }
+
+    private void setText(TableItemComponent uiComponent, TableItem widget) {
+        String text = uiComponent.getText();
+        if (text == null) {
+            return;
+        }
+        String convertedText = (String) RendererSupportUtil.convertValue(uiComponent, text, ConversionType.TEXT);
+        widget.setText(convertedText);
+    }
+
+    private void setFont(TableItemComponent uiComponent, TableItem widget) {
+        if (uiComponent.getFontName() == null
+                && uiComponent.getFontStyle() == null
+                && uiComponent.getFontHeight() == null) {
+            return;
+        }
+        Font font = RendererSupportUtil.getFont(widget.getFont(), uiComponent
+                .getFontName(), uiComponent.getFontStyle(), uiComponent
+                .getFontHeight());
+        widget.setFont(font);
     }
 
     private void renderCells(TableItemComponent uiComponent, TableItem widget) {
@@ -60,65 +90,56 @@ public class TableItemRenderer extends
         setFont(index, cell, tableItemComponent, tableItem);
     }
 
-    private void setText(int index, TableCellComponent cell, TableItemComponent tableItemComponent, TableItem tableItem) {
+    private void setText(int index, TableCellComponent cell,
+            TableItemComponent tableItemComponent, TableItem tableItem) {
         if (cell.getText() == null) {
             return;
         }
-        String text = (String) RendererSupportUtil.convertValue(tableItemComponent, cell.getText(), ConversionType.TEXT);
+        String text = (String) RendererSupportUtil.convertValue(
+                tableItemComponent, cell.getText(), ConversionType.TEXT);
         tableItem.setText(index, text);
     }
 
-    private void setBackground(int index, TableCellComponent cell, TableItemComponent tableItemComponent, TableItem tableItem) {
+    private void setBackground(int index, TableCellComponent cell,
+            TableItemComponent tableItemComponent, TableItem tableItem) {
         if (cell.getBackground() == null) {
             return;
         }
-        Color color = (Color) RendererSupportUtil.convertValue(tableItemComponent, cell.getBackground(), ConversionType.COLOR);
+        Color color = (Color) RendererSupportUtil.convertValue(
+                tableItemComponent, cell.getBackground(), ConversionType.COLOR);
         tableItem.setBackground(index, color);
     }
 
-    private void setForeground(int index, TableCellComponent cell, TableItemComponent tableItemComponent, TableItem tableItem) {
+    private void setForeground(int index, TableCellComponent cell,
+            TableItemComponent tableItemComponent, TableItem tableItem) {
         if (cell.getForeground() == null) {
             return;
         }
-        Color color = (Color) RendererSupportUtil.convertValue(tableItemComponent, cell.getForeground(), ConversionType.COLOR);
+        Color color = (Color) RendererSupportUtil.convertValue(
+                tableItemComponent, cell.getForeground(), ConversionType.COLOR);
         tableItem.setForeground(index, color);
     }
 
-    private void setImage(int index, TableCellComponent cell, TableItemComponent tableItemComponent, TableItem tableItem) {
+    private void setImage(int index, TableCellComponent cell,
+            TableItemComponent tableItemComponent, TableItem tableItem) {
         if (cell.getImage() == null) {
             return;
         }
-        Image image = (Image) RendererSupportUtil.convertValue(tableItemComponent, cell.getImage(), ConversionType.IMAGE);
+        Image image = (Image) RendererSupportUtil.convertValue(
+                tableItemComponent, cell.getImage(), ConversionType.IMAGE);
         tableItem.setImage(index, image);
     }
 
-    private void setFont(int index, TableCellComponent cell, TableItemComponent tableItemComponent, TableItem tableItem) {
-        FontData fontData = tableItem.getFont(index).getFontData()[0];
-
-        String fontName = cell.getFontName();
-        if (fontName == null) {
-            fontName = fontData.getName();
+    private void setFont(int index, TableCellComponent cell,
+            TableItemComponent tableItemComponent, TableItem tableItem) {
+        if (cell.getFontName() == null && cell.getFontStyle() == null
+                && cell.getFontHeight() == null) {
+            return;
         }
-
-        String fontStyle = cell.getFontStyle();
-        int style;
-        if (fontStyle != null) {
-            style = SWTUtil.getStyle(fontStyle);
-            style = (style == SWT.NONE) ? SWT.NORMAL : style;
-        } else {
-            style = fontData.getStyle();
-        }
-
-        String heightStr = cell.getFontHeight();
-        int height;
-        if (heightStr != null) {
-            height = Integer.parseInt(heightStr);
-        } else {
-            height = fontData.getHeight();
-
-        }
-
-        tableItem.setFont(index, FontManager.get(fontName, height, style));
+        Font defaultFont = tableItem.getFont(index);
+        Font font = RendererSupportUtil.getFont(defaultFont,
+                cell.getFontName(), cell.getFontStyle(), cell.getFontHeight());
+        tableItem.setFont(index, font);
     }
 
     @Override
