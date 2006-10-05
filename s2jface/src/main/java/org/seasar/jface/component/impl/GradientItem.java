@@ -15,24 +15,26 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+public class GradientItem extends AbstractUIElement {
 
-/**
- * @author bskuroneko
- * 
- */
-public class TabFolderComponent extends CompositeComponent {
+    private String color;
 
-    @ComponentAttribute(targetType = TargetType.NONE)
-    private String selection;
+    private String percent;
 
-    public String getSelection() {
-        return this.selection;
+    public String getColor() {
+        return this.color;
     }
 
-    public void setSelection(String selection) {
-        this.selection = selection;
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getPercent() {
+        return this.percent;
+    }
+
+    public void setPercent(String percent) {
+        this.percent = percent;
     }
 
 }

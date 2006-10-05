@@ -13,26 +13,10 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component.impl;
-
-import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+package org.seasar.jface.renderer.impl;
 
 /**
  * @author bskuroneko
- * 
  */
-public class TabFolderComponent extends CompositeComponent {
-
-    @ComponentAttribute(targetType = TargetType.NONE)
-    private String selection;
-
-    public String getSelection() {
-        return this.selection;
-    }
-
-    public void setSelection(String selection) {
-        this.selection = selection;
-    }
-
+public class SliderRendererTest extends AbstractRendererTest {
 }

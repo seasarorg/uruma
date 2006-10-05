@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:tns="http://s2jface.sandbox.seasar.org"
-  targetNamespace="http://s2jface.sandbox.seasar.org">
+  targetNamespace="http://s2jface.sandbox.seasar.org"
+  elementFormDefault="qualified">
 
   <!--========== element ==========-->
   <xs:element name="template">
@@ -499,7 +500,7 @@
   </xs:element>
 
   <!-- toolBar -->
-  <xs:element name="toolBar">
+  <xs:element name="toolBar" substitutionGroup="tns:control">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
@@ -513,10 +514,28 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:complexType name="PreToolItem">
+    <xs:complexContent>
+      <xs:restriction base="tns:Item">
+        <xs:attribute name="style">
+          <xs:simpleType>
+            <xs:restriction base="tns:SWTConst">
+              <xs:enumeration value="PUSH" />
+              <xs:enumeration value="CHECK" />
+              <xs:enumeration value="RADIO" />
+              <xs:enumeration value="SEPARATOR" />
+              <xs:enumeration value="DROP_DOWN" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  
   <xs:element name="toolItem">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="tns:Item">
+        <xs:extension base="tns:PreToolItem">
           <xs:sequence>
             <xs:element ref="tns:compositeChild" minOccurs="0" maxOccurs="1" />
           </xs:sequence>
@@ -801,8 +820,8 @@
 
   <xs:element name="gradientItem">
     <xs:complexType>
-      <xs:attribute name="color" type="tns:Color" />
-      <xs:attribute name="percent" type="xs:int" />
+      <xs:attribute name="color" type="tns:Color" use="required" />
+      <xs:attribute name="percent" type="xs:int" use="required" />
     </xs:complexType>
   </xs:element>
 
@@ -1068,6 +1087,7 @@
       <xs:element ref="tns:gradientItem" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute name="vertical" type="xs:boolean" />
+    <xs:attribute name="startColor" type="tns:Color" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="StyleRange">

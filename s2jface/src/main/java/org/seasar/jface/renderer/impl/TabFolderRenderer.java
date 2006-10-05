@@ -16,6 +16,8 @@
 package org.seasar.jface.renderer.impl;
 
 import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.impl.TabFolderComponent;
 
 /**
@@ -27,9 +29,25 @@ public class TabFolderRenderer extends
         AbstractCompositeRenderer<TabFolderComponent, TabFolder> {
 
     @Override
-    protected void doRenderComposite(TabFolderComponent controlComponent, TabFolder control) {
+    protected void doRenderComposite(TabFolderComponent controlComponent,
+            TabFolder control) {
     }
-    
+
+    @Override
+    protected void doRenderAfter(TabFolder widget,
+            TabFolderComponent uiComponent, Widget parent, WindowContext context) {
+        setSelection(uiComponent, widget);
+    }
+
+    private void setSelection(TabFolderComponent controlComponent,
+            TabFolder control) {
+        String value = controlComponent.getSelection();
+        if (value == null) {
+            return;
+        }
+        control.setSelection(Integer.parseInt(value));
+    }
+
     @Override
     protected Class<TabFolder> getWidgetType() {
         return TabFolder.class;

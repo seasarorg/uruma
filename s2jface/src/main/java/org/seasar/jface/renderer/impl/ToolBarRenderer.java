@@ -13,26 +13,25 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component.impl;
+package org.seasar.jface.renderer.impl;
 
-import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.eclipse.swt.widgets.ToolBar;
+import org.seasar.jface.component.impl.ToolBarComponent;
 
 /**
- * @author bskuroneko
+ * <code>ToolBar</code> のレンダリングを行うクラスです。<br />
  * 
+ * @author bskuroneko
  */
-public class TabFolderComponent extends CompositeComponent {
+public class ToolBarRenderer extends
+        AbstractCompositeRenderer<ToolBarComponent, ToolBar> {
 
-    @ComponentAttribute(targetType = TargetType.NONE)
-    private String selection;
-
-    public String getSelection() {
-        return this.selection;
+    @Override
+    protected void doRenderComposite(ToolBarComponent controlComponent, ToolBar control) {
     }
-
-    public void setSelection(String selection) {
-        this.selection = selection;
+    
+    @Override
+    protected Class<ToolBar> getWidgetType() {
+        return ToolBar.class;
     }
-
 }

@@ -13,26 +13,25 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component.impl;
+package org.seasar.jface.renderer.impl;
 
-import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.eclipse.swt.widgets.Slider;
+import org.seasar.jface.component.impl.SliderComponent;
 
 /**
- * @author bskuroneko
+ * <code>Slider</code> のレンダリングを行うクラスです。<br />
  * 
+ * @author bskuroneko
  */
-public class TabFolderComponent extends CompositeComponent {
+public class SliderRenderer extends
+        AbstractControlRenderer<SliderComponent, Slider> {
 
-    @ComponentAttribute(targetType = TargetType.NONE)
-    private String selection;
-
-    public String getSelection() {
-        return this.selection;
+    @Override
+    protected void doRenderControl(SliderComponent controlComponent, Slider control) {
     }
 
-    public void setSelection(String selection) {
-        this.selection = selection;
+    @Override
+    protected Class<Slider> getWidgetType() {
+        return Slider.class;
     }
-
 }

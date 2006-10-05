@@ -13,26 +13,31 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component.impl;
+package org.seasar.jface.renderer.impl;
 
-import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Spinner;
+import org.seasar.jface.component.impl.SpinnerComponent;
 
 /**
- * @author bskuroneko
+ * <code>Spinner</code> のレンダリングを行うクラスです。<br />
  * 
+ * @author bskuroneko
  */
-public class TabFolderComponent extends CompositeComponent {
+public class SpinnerRenderer extends
+        AbstractCompositeRenderer<SpinnerComponent, Spinner> {
 
-    @ComponentAttribute(targetType = TargetType.NONE)
-    private String selection;
-
-    public String getSelection() {
-        return this.selection;
+    @Override
+    protected void doRenderComposite(SpinnerComponent controlComponent, Spinner control) {
+    }
+    
+    @Override
+    protected int getDefaultStyle() {
+        return SWT.BORDER;
     }
 
-    public void setSelection(String selection) {
-        this.selection = selection;
+    @Override
+    protected Class<Spinner> getWidgetType() {
+        return Spinner.class;
     }
-
 }

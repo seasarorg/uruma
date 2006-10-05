@@ -15,24 +15,11 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
 
 /**
  * @author bskuroneko
  * 
  */
-public class TabFolderComponent extends CompositeComponent {
-
-    @ComponentAttribute(targetType = TargetType.NONE)
-    private String selection;
-
-    public String getSelection() {
-        return this.selection;
-    }
-
-    public void setSelection(String selection) {
-        this.selection = selection;
-    }
-
+public class ToolBarComponent extends CompositeComponent {
+    
 }

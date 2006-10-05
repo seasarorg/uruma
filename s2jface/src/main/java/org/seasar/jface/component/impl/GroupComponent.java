@@ -16,23 +16,23 @@
 package org.seasar.jface.component.impl;
 
 import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 
 /**
  * @author bskuroneko
  * 
  */
-public class TabFolderComponent extends CompositeComponent {
+public class GroupComponent extends CompositeComponent {
+    
+    @ComponentAttribute(conversionType = ConversionType.STRING)
+    private String text;
 
-    @ComponentAttribute(targetType = TargetType.NONE)
-    private String selection;
-
-    public String getSelection() {
-        return this.selection;
+    public String getText() {
+        return this.text;
     }
 
-    public void setSelection(String selection) {
-        this.selection = selection;
+    public void setText(String text) {
+        this.text = text;
     }
-
+    
 }
