@@ -24,11 +24,21 @@ import org.seasar.jface.component.UIElement;
 public abstract class AbstractUIElement implements UIElement {
     private String basePath;
 
+    private String location;
+
     public String getBasePath() {
         return this.basePath;
     }
 
     public void setBasePath(String basePath) {
         this.basePath = basePath;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

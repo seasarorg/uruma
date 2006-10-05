@@ -54,6 +54,8 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
 
         setBasePath(uiElement, context);
 
+        setLocation(uiElement, context);
+
         setAttributes(uiElement, attributes);
 
         if (uiElement instanceof UIComponent) {
@@ -97,6 +99,19 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
     protected void setBasePath(final UIElement uiElement,
             final TagHandlerContext context) {
         uiElement.setBasePath((String) context.getParameter("basePath"));
+    }
+
+    /**
+     * {@link UIElement} へXML上のロケーション情報を設定します。<br />
+     * 
+     * @param uiElement
+     *            {@link UIElement} オブジェクト
+     * @param context
+     *            コンテクスト情報
+     */
+    protected void setLocation(final UIElement uiElement,
+            final TagHandlerContext context) {
+        uiElement.setLocation(context.getLocator().toString());
     }
 
     /**

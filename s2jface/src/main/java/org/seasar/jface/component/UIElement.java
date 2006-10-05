@@ -23,4 +23,8 @@ public interface UIElement {
     public void setBasePath(String basePath);
 
     public String getBasePath();
+
+    public void setLocation(String location);
+
+    public String getLocation();
 }
