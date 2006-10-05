@@ -16,8 +16,9 @@
 package org.seasar.jface.component;
 
 /**
- * @author y-komori
+ * 画面定義データの要素を表すインターフェースです。<br />
  * 
+ * @author y-komori
  */
 public interface UIElement {
     public void setBasePath(String basePath);
