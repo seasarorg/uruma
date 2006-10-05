@@ -21,11 +21,38 @@ package org.seasar.jface.component;
  * @author y-komori
  */
 public interface UIElement {
+    /**
+     * 画面定義データファイルのパスを設定します。<br />
+     * <code>basePath</code> は
+     * {@link org.seasar.jface.component.factory.S2JFaceTagHandler} によって設定されます。
+     * 
+     * @param basePath
+     *            画面定義データファイルのパス
+     */
     public void setBasePath(String basePath);
 
+    /**
+     * 画面定義データファイルのパスを取得します。<br />
+     * 
+     * @return 画面定義データファイルのパス
+     */
     public String getBasePath();
 
+    /**
+     * 画面定義データファイル中の要素の位置を設定します。<br />
+     * <code>location</code> は
+     * {@link org.seasar.jface.component.factory.S2JFaceTagHandler}
+     * によって設定され、主にエラーが発生時の参照のために利用されます。<br/>
+     * 
+     * @param location
+     *            画面定義データファイル中の要素の位置
+     */
     public void setLocation(String location);
 
+    /**
+     * 画面定義データファイル中の要素の位置を取得します。<br />
+     * 
+     * @return 画面定義データファイル中の要素の位置
+     */
     public String getLocation();
 }
