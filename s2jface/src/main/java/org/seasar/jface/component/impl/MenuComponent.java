@@ -108,8 +108,7 @@ public class MenuComponent extends AbstractUIComponent implements Menu {
     }
 
     @Override
-    public void render(Widget parent, WindowContext context) {
-        super.render(parent, context);
+    protected void doRender(Widget parent, WindowContext context) {
         for (MenuItem menuItem : menuItems) {
             menuItem.render(getWidget(), context);
         }

@@ -62,11 +62,10 @@ public class TabItemComponent extends AbstractItemComponent implements
     }
 
     @Override
-    public void render(Widget parent, WindowContext context) {
+    protected void doRender(Widget parent, WindowContext context) {
         UIComponent content = getChild();
         if (content != null) {
             content.render(getParent().getWidget(), context);
         }
-        super.render(parent, context);
     }
 }

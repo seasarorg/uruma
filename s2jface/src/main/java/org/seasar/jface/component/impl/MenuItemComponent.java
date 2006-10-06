@@ -83,8 +83,7 @@ public class MenuItemComponent extends AbstractItemComponent implements
     }
 
     @Override
-    public void render(Widget parent, WindowContext context) {
-        super.render(parent, context);
+    protected void doRender(Widget parent, WindowContext context) {
         if (childMenu != null) {
             childMenu.render(getWidget(), context);
         }
