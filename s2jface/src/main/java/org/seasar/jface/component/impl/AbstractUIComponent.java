@@ -129,6 +129,13 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     /**
      * レンダラ呼び出し中に独自のレンダリング処理を追加するためのメソッドです。<br />
+     * <p>
+     * 本メソッドは render メソッドの中で、レンダラの render() メソッドと renderAfter()
+     * メソッドを呼び出す間に呼び出されます。
+     * </p>
+     * <p>
+     * このタイミングでサブクラスで独自のレンダリング処理を行う場合、本メソッドをオーバーライドしてください。
+     * </p>
      * 
      * @param parent
      *            親 {@link Widget} オブジェクト
