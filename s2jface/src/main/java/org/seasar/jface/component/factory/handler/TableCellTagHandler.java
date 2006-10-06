@@ -26,6 +26,8 @@ import org.seasar.jface.component.impl.TableItemComponent;
  */
 public class TableCellTagHandler extends S2JFaceGenericTagHandler {
 
+    private static final long serialVersionUID = 3939806738083124492L;
+
     public TableCellTagHandler() {
         super(TableCellComponent.class);
     }
@@ -36,9 +38,9 @@ public class TableCellTagHandler extends S2JFaceGenericTagHandler {
     }
 
     @Override
-    protected void setParent(final UIElement uiElement, final TagHandlerContext context) {
-        final TableItemComponent parent = (TableItemComponent) context
-                .peek();
+    protected void setParent(final UIElement uiElement,
+            final TagHandlerContext context) {
+        final TableItemComponent parent = (TableItemComponent) context.peek();
         parent.addTableCell((TableCellComponent) uiElement);
     }
 }

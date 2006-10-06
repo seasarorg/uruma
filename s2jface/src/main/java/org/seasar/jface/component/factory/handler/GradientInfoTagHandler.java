@@ -26,6 +26,8 @@ import org.seasar.jface.component.impl.GradientInfo;
  */
 public class GradientInfoTagHandler extends S2JFaceGenericTagHandler {
 
+    private static final long serialVersionUID = 8861789564014377279L;
+
     public GradientInfoTagHandler() {
         super(GradientInfo.class);
     }
