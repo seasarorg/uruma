@@ -15,37 +15,105 @@
  */
 package org.seasar.jface.component;
 
-import java.util.List;
-
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.renderer.Renderer;
 
 /**
+ * レンダリング可能な画面要素を表すインターフェースです。<br />
+ * 
  * @author y-komori
  */
 public interface UIComponent extends UIElement {
+    /**
+     * ID を取得します。<br />
+     * 
+     * @return ID
+     */
     public String getId();
 
+    /**
+     * ID を設定します。<br />
+     * 
+     * @param id
+     *            ID
+     */
     public void setId(String id);
 
+    /**
+     * スタイルを表す文字列を取得します。<br />
+     * 
+     * @return スタイル
+     */
     public String getStyle();
 
+    /**
+     * スタイルを表す文字列を設定します。<br />
+     * 
+     * @param style
+     *            スタイル
+     */
     public void setStyle(String style);
 
-    public void setParent(UIComponent parent);
+    /**
+     * 親となる {@link UICompositeComponent} を設定します。
+     * 
+     * @param parent
+     *            親コンポーネント
+     */
+    public void setParent(UIContainer parent);
 
-    public UIComponent getParent();
+    /**
+     * 親となる {@link UICompositeComponent} を取得します。
+     * 
+     * @return 親コンポーネント
+     */
+    public UIContainer getParent();
 
-    public void setRenderer(Renderer renderer);
-
+    /**
+     * 本コンポーネントに対応する SWT の {@link Widget} を取得します。
+     * 
+     * @return {@link Widget} オブジェクト
+     */
     public Widget getWidget();
 
+    /**
+     * 本コンポーネントに対応する SWT の {@link Widget} を設定します。
+     * 
+     * @param widget
+     *            {@link Widget} オブジェクト
+     */
     public void setWidget(Widget widget);
-    
-    public void addChild(UIComponent child);
 
-    public List<UIComponent> getChildren();
+    /**
+     * メニューを取得します。<br />
+     * 
+     * @return メニュー
+     */
+    public Menu getMenu();
+
+    /**
+     * メニューを設定します。<br />
+     * 
+     * @param menu
+     *            メニュー
+     */
+    public void setMenu(Menu menu);
+
+    /**
+     * レンダラを取得します。
+     * 
+     * @return レンダラオブジェクト
+     */
+    public Renderer getRenderer();
+
+    /**
+     * レンダラを設定します。<br />
+     * 
+     * @param renderer
+     *            レンダラオブジェクト
+     */
+    public void setRenderer(Renderer renderer);
 
     /**
      * 設定されたレンダラを利用して、レンダリングを行います。</br>

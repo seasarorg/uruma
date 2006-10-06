@@ -15,12 +15,12 @@
  */
 package org.seasar.jface.component.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.Menu;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.UIContainer;
 import org.seasar.jface.renderer.Renderer;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -29,7 +29,7 @@ import org.seasar.jface.util.AssertionUtil;
  */
 public abstract class AbstractUIComponent extends AbstractUIElement implements
         UIComponent {
-    private UIComponent parent;
+    private UIContainer parent;
 
     private String id;
 
@@ -41,7 +41,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     private Widget widget;
 
-    private List<UIComponent> children = new ArrayList<UIComponent>();
+    private Menu menu;
 
     public String getId() {
         return this.id;
@@ -50,11 +50,13 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
     public void setId(String id) {
         this.id = id;
     }
-    
+
+    // TODO 見直しが必要
     public String getReplace() {
         return this.replace;
     }
 
+    // TODO 見直しが必要
     public void setReplace(String replace) {
         this.replace = replace;
     }
@@ -84,7 +86,15 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         AssertionUtil.assertNotNull("widget", widget);
         this.widget = widget;
     }
-    
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
     public void render(final Widget parent, final WindowContext context) {
         Widget widget = getRenderer().render(this, parent, context);
         setWidget(widget);
@@ -92,33 +102,39 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         if ((getId() != null) && (widget != null)) {
             context.putComponent(getId(), widget);
         }
-        
-        renderChild(widget, context);
-        
+
+        renderMenu(parent, context);
+        doRender(parent, context);
+
         getRenderer().renderAfter(widget, this, parent, context);
     }
 
-    protected void renderChild(final Widget parent,
-            final WindowContext context) {
-        for (UIComponent child : children) {
-            child.render(parent, context);
-        }
-    }
-
-    public void addChild(final UIComponent child) {
-        this.children.add(child);
-        child.setParent(this);
-    }
-
-    public List<UIComponent> getChildren() {
-        return children;
-    }
-
-    public UIComponent getParent() {
+    public UIContainer getParent() {
         return parent;
     }
 
-    public void setParent(UIComponent parent) {
+    public void setParent(UIContainer parent) {
         this.parent = parent;
+    }
+
+    protected void renderMenu(final Widget parent, final WindowContext context) {
+        if (menu != null) {
+            if (parent instanceof Decorations) {
+                menu.render(parent, context);
+            } else {
+                menu.render(widget, context);
+            }
+        }
+    }
+
+    /**
+     * レンダラ呼び出し中に独自のレンダリング処理を追加するためのメソッドです。<br />
+     * 
+     * @param parent
+     *            親 {@link Widget} オブジェクト
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     */
+    protected void doRender(final Widget parent, final WindowContext context) {
     }
 }

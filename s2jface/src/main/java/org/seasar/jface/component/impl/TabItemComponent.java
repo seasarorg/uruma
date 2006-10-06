@@ -15,20 +15,27 @@
  */
 package org.seasar.jface.component.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.UIContainer;
 
 /**
  * @author bskuroneko
  * 
  */
-public class TabItemComponent extends AbstractItemComponent {
-    
+public class TabItemComponent extends AbstractItemComponent implements
+        UIContainer {
+
     @ComponentAttribute(conversionType = ConversionType.TEXT)
     private String toolTipText;
+
+    private List<UIComponent> children = new ArrayList<UIComponent>();
 
     public String getToolTipText() {
         return this.toolTipText;
@@ -37,16 +44,29 @@ public class TabItemComponent extends AbstractItemComponent {
     public void setToolTipText(String toolTipText) {
         this.toolTipText = toolTipText;
     }
-    
-    @Override
+
     public void addChild(UIComponent child) {
-        super.addChild(child);
-        child.setParent(getParent());
+        children.add(child);
+    }
+
+    public List<UIComponent> getChildren() {
+        return children;
+    }
+
+    public UIComponent getChild() {
+        if (children.size() > 0) {
+            return children.get(0);
+        } else {
+            return null;
+        }
     }
 
     @Override
-    protected void renderChild(Widget parent, WindowContext context) {
-        super.renderChild(getParent().getWidget(), context);
+    public void render(Widget parent, WindowContext context) {
+        UIComponent content = getChild();
+        if (content != null) {
+            content.render(getParent().getWidget(), context);
+        }
+        super.render(parent, context);
     }
-    
 }

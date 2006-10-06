@@ -15,8 +15,6 @@
  */
 package org.seasar.jface.renderer.impl;
 
-import java.util.List;
-
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Widget;
@@ -35,17 +33,17 @@ public class TabItemRenderer extends
     @Override
     protected void doRender(TabItemComponent controlComponent, TabItem control) {
     }
-    
+
     @Override
-    protected void doRenderAfter(TabItem widget, TabItemComponent uiComponent, Widget parent, WindowContext context) {
+    protected void doRenderAfter(TabItem widget, TabItemComponent uiComponent,
+            Widget parent, WindowContext context) {
         setControl(widget, uiComponent);
     }
-    
+
     private void setControl(TabItem tabItem, TabItemComponent tabItemComponent) {
-        List<UIComponent> children = tabItemComponent.getChildren();
-        if (children.size() > 0) {
-            assert children.size() == 1;
-            tabItem.setControl((Control) children.get(0).getWidget());
+        UIComponent content = tabItemComponent.getChild();
+        if (content != null) {
+            tabItem.setControl((Control) content.getWidget());
         }
     }
 

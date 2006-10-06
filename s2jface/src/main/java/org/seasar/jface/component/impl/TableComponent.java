@@ -24,19 +24,19 @@ import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
  * @author bskuroneko
  */
 public class TableComponent extends CompositeComponent {
-    
+
     @ComponentAttribute(conversionType = ConversionType.INT_ARRAY, setTiming = SetTiming.RENDER_AFTER)
     private String columnOrder;
-    
+
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private String headerVisible;
-    
+
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private String linesVisible;
-    
+
     @ComponentAttribute(targetType = TargetType.NONE)
     private String selection;
-    
+
     @ComponentAttribute(conversionType = ConversionType.INT, setTiming = SetTiming.RENDER_AFTER)
     private String topIndex;
 
@@ -79,5 +79,4 @@ public class TableComponent extends CompositeComponent {
     public void setTopIndex(String topIndex) {
         this.topIndex = topIndex;
     }
-    
 }

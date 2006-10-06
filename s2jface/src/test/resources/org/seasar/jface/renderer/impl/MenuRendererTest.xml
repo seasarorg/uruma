@@ -42,23 +42,6 @@
       </menuItem>
     </menu>
 
-    <menu style="POP_UP">
-      <menuItem text="Menu1" style="CASCADE">
-        <menu>
-          <menuItem text="Menu1-1"></menuItem>
-          <menuItem text="Menu1-2"></menuItem>
-          <menuItem text="separrator" style="SEPARATOR" />
-          <menuItem text="Menu1-3" style="CASCADE">
-            <menu>
-              <menuItem text="Menu1-3-1"/>
-              <menuItem text="Menu1-3-2"/>
-            </menu>
-          </menuItem>
-        </menu>
-      </menuItem>
-      <menuItem text="Menu2" />
-    </menu>
-
     <composite id="contents">
       <gridData horizontalAlignment="FILL" />
       <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"

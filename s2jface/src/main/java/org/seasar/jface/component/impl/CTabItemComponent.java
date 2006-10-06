@@ -15,18 +15,21 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.WindowContext;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.UIContainer;
 
 /**
  * @author bskuroneko
  * 
  */
-public class CTabItemComponent extends AbstractItemComponent {
+public class CTabItemComponent extends AbstractItemComponent implements
+        UIContainer {
 
     @ComponentAttribute(conversionType = ConversionType.TEXT)
     private String toolTipText;
@@ -39,6 +42,8 @@ public class CTabItemComponent extends AbstractItemComponent {
 
     @ComponentAttribute(targetType = TargetType.NONE)
     private String fontStyle;
+
+    private List<UIComponent> children = new ArrayList<UIComponent>();
 
     public String getToolTipText() {
         return this.toolTipText;
@@ -72,15 +77,11 @@ public class CTabItemComponent extends AbstractItemComponent {
         this.fontStyle = fontStyle;
     }
 
-    @Override
     public void addChild(UIComponent child) {
-        super.addChild(child);
-        child.setParent(getParent());
+        children.add(child);
     }
 
-    @Override
-    protected void renderChild(Widget parent, WindowContext context) {
-        super.renderChild(getParent().getWidget(), context);
+    public List<UIComponent> getChildren() {
+        return children;
     }
-
 }

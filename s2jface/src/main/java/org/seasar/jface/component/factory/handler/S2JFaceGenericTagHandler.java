@@ -20,6 +20,7 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.UIComponent;
+import org.seasar.jface.component.UIContainer;
 import org.seasar.jface.component.UIElement;
 import org.seasar.jface.component.factory.S2JFaceTagHandler;
 import org.seasar.jface.exception.NotFoundException;
@@ -111,7 +112,7 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
      */
     protected void setLocation(final UIElement uiElement,
             final TagHandlerContext context) {
-        uiElement.setLocation(context.getLocator().toString());
+        uiElement.setLocation(context.getDetailPath());
     }
 
     /**
@@ -148,7 +149,6 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
      */
     protected void setProperty(final UIElement uiElement, final String name,
             final String value) {
-        // TODO UIElementにXMLのライン数を持たせる(解釈に失敗した場合のエラー表示のため)
         BeanDesc desc = BeanDescFactory.getBeanDesc(uiElement.getClass());
         if (desc.hasPropertyDesc(name)) {
             PropertyDesc pd = desc.getPropertyDesc(name);
@@ -177,9 +177,9 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
             final TagHandlerContext context) {
         if (!context.isEmpty()) {
             Object parent = context.peek();
-            if (UIComponent.class.isAssignableFrom(parent.getClass())
+            if (UIContainer.class.isAssignableFrom(parent.getClass())
                     && UIComponent.class.isAssignableFrom(uiElement.getClass())) {
-                UIComponent parentComponent = UIComponent.class.cast(parent);
+                UIContainer parentComponent = UIContainer.class.cast(parent);
                 UIComponent child = UIComponent.class.cast(uiElement);
                 parentComponent.addChild(child);
             }

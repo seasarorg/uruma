@@ -15,15 +15,19 @@
  */
 package org.seasar.jface.component.impl;
 
+import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.seasar.jface.component.Menu;
+import org.seasar.jface.component.MenuItem;
 
 /**
  * @author bskuroneko
  * 
  */
-public class MenuItemComponent extends AbstractItemComponent {
+public class MenuItemComponent extends AbstractItemComponent implements
+        MenuItem {
 
     @ComponentAttribute(conversionType = ConversionType.ACCELERATOR)
     private String accelerator;
@@ -33,6 +37,10 @@ public class MenuItemComponent extends AbstractItemComponent {
 
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private String selection;
+
+    private Menu parentMenu;
+
+    private Menu childMenu;
 
     public String getAccelerator() {
         return this.accelerator;
@@ -58,4 +66,27 @@ public class MenuItemComponent extends AbstractItemComponent {
         this.selection = selection;
     }
 
+    public Menu getParentMenu() {
+        return this.parentMenu;
+    }
+
+    public void setParentMenu(Menu parentMenu) {
+        this.parentMenu = parentMenu;
+    }
+
+    public void setChildMenu(Menu menu) {
+        this.childMenu = menu;
+    }
+
+    public Menu getChildMenu() {
+        return childMenu;
+    }
+
+    @Override
+    public void render(Widget parent, WindowContext context) {
+        super.render(parent, context);
+        if (childMenu != null) {
+            childMenu.render(getWidget(), context);
+        }
+    }
 }

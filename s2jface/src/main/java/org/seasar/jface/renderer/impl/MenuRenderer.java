@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.MenuComponent;
-import org.seasar.jface.component.impl.MenuItemComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.util.ClassUtil;
 
@@ -60,7 +59,8 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
     }
 
     @Override
-    protected void doRenderAfter(Menu widget, MenuComponent uiComponent, Widget parent, WindowContext context) {
+    protected void doRenderAfter(Menu widget, MenuComponent uiComponent,
+            Widget parent, WindowContext context) {
         setDefaultItem(widget, uiComponent);
     }
 
@@ -73,24 +73,29 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
         }
     }
 
-    private void setToParentMenu(MenuComponent uiComponent, Menu widget) {
-        if (uiComponent.getParent() instanceof WindowComponent) {
-            if ((SWT.BAR & getStyle(uiComponent)) != 0) {
-                Shell shell = (Shell) getContext().getComponent(WindowContext.SHELL_ID);
-                shell.setMenuBar((Menu) widget);
-            }
-            else {
-                Control control = (Control) uiComponent.getParent().getWidget();
+    private void setToParentMenu(MenuComponent menu, Menu widget) {
+        UIComponent menuHolder = menu.getMenuHolder();
+        if (menuHolder != null) {
+            if (menuHolder instanceof WindowComponent) {
+                // メニューバーの設定
+                if ((SWT.BAR & getStyle(menu)) != 0) {
+                    Shell shell = (Shell) getContext().getComponent(
+                            WindowContext.SHELL_ID);
+                    shell.setMenuBar((Menu) widget);
+                } else {
+                    Control control = (Control) menuHolder.getWidget();
+                    control.setMenu(widget);
+                }
+            } else {
+                // コンテクストメニューの設定
+                Control control = (Control) menuHolder.getWidget();
                 control.setMenu(widget);
             }
-        }
-        else if (uiComponent.getParent() instanceof MenuItemComponent) {
-            MenuItem item = (MenuItem) uiComponent.getParent().getWidget();
+
+        } else if (menu.getParentMenuItem() != null) {
+            // サブメニューの設定
+            MenuItem item = (MenuItem) menu.getParentMenuItem().getWidget();
             item.setMenu(widget);
-        }
-        else {
-            Control control = (Control) uiComponent.getParent().getWidget();
-            control.setMenu(widget);
         }
     }
 
@@ -106,7 +111,7 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
     protected Class<Menu> getWidgetType() {
         return Menu.class;
     }
-    
+
     @Override
     protected Widget createWidget(Widget parent, int style) {
         if (parent instanceof Decorations) {

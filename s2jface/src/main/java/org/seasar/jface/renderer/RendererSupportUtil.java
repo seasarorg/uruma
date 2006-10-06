@@ -47,8 +47,8 @@ public class RendererSupportUtil {
      * <code>src</code> でアノテートされたフィールドを <code>dest</code> へコピーします。<br />
      * <p>
      * src オブジェクトの持つフィールドのうち、{@link ComponentAttribute}
-     * アノテーションが指定されたフィールドで、現在のタイミングと同じタイミングが指定されたフィールドを、
-     * アノテーションの示す方法で変換して <code>dest</code> の同名フィールドへコピーします。<br />
+     * アノテーションが指定されたフィールドで、現在のタイミングと同じタイミングが指定されたフィールドを、 アノテーションの示す方法で変換して
+     * <code>dest</code> の同名フィールドへコピーします。<br />
      * コピー方法の詳細は、{@link ComponentAttribute} のドキュメントを参照してください。<br />
      * </p>
      * 
@@ -59,7 +59,8 @@ public class RendererSupportUtil {
      * @param nowTiming
      *            現在のタイミング
      */
-    public static void setAttributes(final UIElement src, final Object dest, final SetTiming nowTiming) {
+    public static void setAttributes(final UIElement src, final Object dest,
+            final SetTiming nowTiming) {
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(src.getClass());
         int fieldSize = beanDesc.getFieldSize();
         for (int i = 0; i < fieldSize; i++) {
@@ -97,13 +98,17 @@ public class RendererSupportUtil {
             if (attr.targetType() == ComponentAttribute.TargetType.PROPERTY) {
                 PropertyDesc pd = desc.getPropertyDesc(field.getName());
                 if (pd.hasWriteMethod()) {
-                    pd.setValue(dest, convertValue(src, value, attr.conversionType()));
+                    pd.setValue(dest, convertValue(src, value, attr
+                            .conversionType()));
                 }
             } else if (attr.targetType() == ComponentAttribute.TargetType.FIELD) {
                 Field destField = desc.getField(field.getName());
-                FieldUtil.set(destField, dest, convertValue(src, value, attr.conversionType()));
+                FieldUtil.set(destField, dest, convertValue(src, value, attr
+                        .conversionType()));
             }
         } catch (Exception ex) {
+            // TODO 後で削除
+            ex.printStackTrace();
             throw new RenderException(RenderException.MAPPING_ERORR, ex, field
                     .getName(), dest.getClass().getName(), value);
         }
@@ -151,8 +156,9 @@ public class RendererSupportUtil {
         }
         return null;
     }
-    
-    public static Font getFont(Font defaultFont, String fontName, String fontStyle, String fontHeight) {
+
+    public static Font getFont(Font defaultFont, String fontName,
+            String fontStyle, String fontHeight) {
         FontData fontData = defaultFont.getFontData()[0];
 
         if (fontName == null) {

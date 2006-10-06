@@ -15,9 +15,15 @@
  */
 package org.seasar.jface.component.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.CommonAttributes;
 import org.seasar.jface.component.LayoutDataInfo;
 import org.seasar.jface.component.LayoutInfo;
+import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.UICompositeComponent;
 
 /**
@@ -30,6 +36,8 @@ public class CompositeComponent extends ControlComponent implements
     private LayoutDataInfo childLayoutDataInfo;
 
     private CommonAttributes commonAttributes;
+
+    private List<UIComponent> children = new ArrayList<UIComponent>();
 
     public LayoutInfo getLayoutInfo() {
         return this.layoutInfo;
@@ -53,5 +61,25 @@ public class CompositeComponent extends ControlComponent implements
 
     public void setCommonAttributes(CommonAttributes commonAttributes) {
         this.commonAttributes = commonAttributes;
+    }
+
+    public void addChild(final UIComponent child) {
+        this.children.add(child);
+        child.setParent(this);
+    }
+
+    public List<UIComponent> getChildren() {
+        return children;
+    }
+
+    @Override
+    protected void doRender(Widget parent, WindowContext context) {
+        renderChild(getWidget(), context);
+    }
+
+    protected void renderChild(final Widget parent, final WindowContext context) {
+        for (UIComponent child : children) {
+            child.render(parent, context);
+        }
     }
 }

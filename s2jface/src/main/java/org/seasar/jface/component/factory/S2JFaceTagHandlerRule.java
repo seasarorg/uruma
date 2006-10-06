@@ -21,6 +21,8 @@ import org.seasar.jface.component.factory.handler.GradientInfoTagHandler;
 import org.seasar.jface.component.factory.handler.GradientItemTagHandler;
 import org.seasar.jface.component.factory.handler.LayoutDataTagHandler;
 import org.seasar.jface.component.factory.handler.LayoutTagHandler;
+import org.seasar.jface.component.factory.handler.MenuItemTagHandler;
+import org.seasar.jface.component.factory.handler.MenuTagHandler;
 import org.seasar.jface.component.factory.handler.S2JFaceGenericTagHandler;
 import org.seasar.jface.component.factory.handler.SimpleItemTagHandler;
 import org.seasar.jface.component.factory.handler.TableCellTagHandler;
@@ -36,8 +38,6 @@ import org.seasar.jface.component.impl.GridDataInfo;
 import org.seasar.jface.component.impl.GridLayoutInfo;
 import org.seasar.jface.component.impl.GroupComponent;
 import org.seasar.jface.component.impl.LabelComponent;
-import org.seasar.jface.component.impl.MenuComponent;
-import org.seasar.jface.component.impl.MenuItemComponent;
 import org.seasar.jface.component.impl.ProgressBarComponent;
 import org.seasar.jface.component.impl.RowDataInfo;
 import org.seasar.jface.component.impl.RowLayoutInfo;
@@ -124,9 +124,8 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
         addTagHandler(new SimpleItemTagHandler());
 
         // Menu
-        addTagHandler("menu", new S2JFaceGenericTagHandler(MenuComponent.class));
-        addTagHandler("menuItem", new S2JFaceGenericTagHandler(
-                MenuItemComponent.class));
+        addTagHandler(new MenuTagHandler());
+        addTagHandler(new MenuItemTagHandler());
     }
 
     protected void addTagHandler(S2JFaceTagHandler tagHandler) {

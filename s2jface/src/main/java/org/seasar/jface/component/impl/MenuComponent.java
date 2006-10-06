@@ -15,15 +15,23 @@
  */
 package org.seasar.jface.component.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.seasar.jface.component.Menu;
+import org.seasar.jface.component.MenuItem;
+import org.seasar.jface.component.UIComponent;
 
 /**
  * @author bskuroneko
  * 
  */
-public class MenuComponent extends AbstractUIComponent {
+public class MenuComponent extends AbstractUIComponent implements Menu {
 
     @ComponentAttribute(targetType = TargetType.NONE)
     private String defaultItemId;
@@ -36,6 +44,12 @@ public class MenuComponent extends AbstractUIComponent {
 
     @ComponentAttribute(targetType = TargetType.NONE)
     private String y;
+
+    private MenuItem parentMenuItem;
+
+    private List<MenuItem> menuItems = new ArrayList<MenuItem>();
+
+    private UIComponent menuHolder;
 
     public String getDefaultItemId() {
         return this.defaultItemId;
@@ -67,5 +81,37 @@ public class MenuComponent extends AbstractUIComponent {
 
     public void setY(String y) {
         this.y = y;
+    }
+
+    public void addMenuItem(MenuItem menuItem) {
+        menuItems.add(menuItem);
+    }
+
+    public List<MenuItem> getMenuItemList() {
+        return menuItems;
+    }
+
+    public MenuItem getParentMenuItem() {
+        return this.parentMenuItem;
+    }
+
+    public void setParentMenuItem(MenuItem parentMenuItemComponent) {
+        this.parentMenuItem = parentMenuItemComponent;
+    }
+
+    public UIComponent getMenuHolder() {
+        return this.menuHolder;
+    }
+
+    public void setMenuHolder(UIComponent menuHolder) {
+        this.menuHolder = menuHolder;
+    }
+
+    @Override
+    public void render(Widget parent, WindowContext context) {
+        super.render(parent, context);
+        for (MenuItem menuItem : menuItems) {
+            menuItem.render(getWidget(), context);
+        }
     }
 }

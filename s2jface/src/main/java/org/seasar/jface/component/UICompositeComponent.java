@@ -15,17 +15,39 @@
  */
 package org.seasar.jface.component;
 
-
 /**
- * @author y-komori
+ * 子を持ち、レイアウト指定できる画面要素を表すインターフェースです。<br />
  * 
+ * @author y-komori
  */
-public interface UICompositeComponent extends UIComponent {
+public interface UICompositeComponent extends UIContainer {
+    /**
+     * レイアウトデータオブジェクトを取得します。<br />
+     * 
+     * @return レイアウトデータオブジェクト
+     */
     public LayoutInfo getLayoutInfo();
 
+    /**
+     * レイアウトデータオブジェクトを設定します。<br />
+     * 
+     * @param layoutInfo
+     *            レイアウトデータオブジェクト
+     */
     public void setLayoutInfo(LayoutInfo layoutInfo);
 
+    /**
+     * 一括設定属性オブジェクトを設定します。<br />
+     * 
+     * @param commonAttributes
+     *            一括設定属性オブジェクト
+     */
     public void setCommonAttributes(CommonAttributes commonAttributes);
 
+    /**
+     * 一括設定属性オブジェクトを取得します。<br />
+     * 
+     * @return 一括設定属性オブジェクト
+     */
     public CommonAttributes getCommonAttributes();
 }
