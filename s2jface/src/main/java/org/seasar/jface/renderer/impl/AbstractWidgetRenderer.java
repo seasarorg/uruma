@@ -39,7 +39,8 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
         inherit((COMPONENT_TYPE) uiComponent);
 
         Widget widget = createWidget(parent, getStyle(uiComponent));
-        RendererSupportUtil.setAttributes(uiComponent, widget, SetTiming.RENDER);
+        RendererSupportUtil
+                .setAttributes(uiComponent, widget, SetTiming.RENDER);
 
         // TODO レンダリング中に発生したRuntimeExceptionのハンドリングが必要
         doRender((COMPONENT_TYPE) uiComponent, getWidgetType().cast(widget));
@@ -55,12 +56,14 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
 
     public void renderAfter(Widget widget, UIComponent uiComponent,
             Widget parent, WindowContext context) {
-        RendererSupportUtil.setAttributes(uiComponent, widget, SetTiming.RENDER_AFTER);
-        doRenderAfter((WIDGET_TYPE) widget, (COMPONENT_TYPE) uiComponent, parent, context);
+        RendererSupportUtil.setAttributes(uiComponent, widget,
+                SetTiming.RENDER_AFTER);
+        doRenderAfter(getWidgetType().cast(widget),
+                (COMPONENT_TYPE) uiComponent, parent, context);
     }
-    
-    protected void doRenderAfter(WIDGET_TYPE widget, COMPONENT_TYPE uiComponent,
-            Widget parent, WindowContext context) {
+
+    protected void doRenderAfter(WIDGET_TYPE widget,
+            COMPONENT_TYPE uiComponent, Widget parent, WindowContext context) {
         // do nothing.
     }
 
