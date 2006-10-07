@@ -117,6 +117,10 @@ public interface UIComponent extends UIElement {
 
     /**
      * 設定されたレンダラを利用して、レンダリングを行います。</br>
+     * <p>
+     * 本メソッドは JFace の {@link org.eclipse.jface.window.ApplicationWindow}#createContents()
+     * メソッド内で呼び出されます。
+     * </p>
      * 
      * @param parent
      *            親となる <code>Widget</code> オブジェクト
