@@ -33,6 +33,8 @@ import org.seasar.jface.component.impl.CTabFolderComponent;
 import org.seasar.jface.component.impl.CTabItemComponent;
 import org.seasar.jface.component.impl.ComboComponent;
 import org.seasar.jface.component.impl.CompositeComponent;
+import org.seasar.jface.component.impl.CoolBarComponent;
+import org.seasar.jface.component.impl.CoolItemComponent;
 import org.seasar.jface.component.impl.FillLayoutInfo;
 import org.seasar.jface.component.impl.GridDataInfo;
 import org.seasar.jface.component.impl.GridLayoutInfo;
@@ -106,6 +108,10 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
                 ToolBarComponent.class));
         addTagHandler("toolItem", new S2JFaceGenericTagHandler(
                 ToolItemComponent.class));
+        addTagHandler("coolBar", new S2JFaceGenericTagHandler(
+                CoolBarComponent.class));
+        addTagHandler("coolItem", new S2JFaceGenericTagHandler(
+                CoolItemComponent.class));
 
         // Control
         addTagHandler("label", new S2JFaceGenericTagHandler(

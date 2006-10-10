@@ -15,24 +15,12 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 
 /**
  * @author bskuroneko
  * 
  */
-public class TabItemComponent extends AbstractUIContainerItemComponent {
+public class CoolItemComponent extends AbstractUIContainerItemComponent {
 
-    @ComponentAttribute(conversionType = ConversionType.TEXT)
-    private String toolTipText;
-
-    public String getToolTipText() {
-        return this.toolTipText;
-    }
-
-    public void setToolTipText(String toolTipText) {
-        this.toolTipText = toolTipText;
-    }
-
+    
 }

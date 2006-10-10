@@ -13,26 +13,10 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component.impl;
-
-import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+package org.seasar.jface.renderer.impl;
 
 /**
  * @author bskuroneko
- * 
  */
-public class TabItemComponent extends AbstractUIContainerItemComponent {
-
-    @ComponentAttribute(conversionType = ConversionType.TEXT)
-    private String toolTipText;
-
-    public String getToolTipText() {
-        return this.toolTipText;
-    }
-
-    public void setToolTipText(String toolTipText) {
-        this.toolTipText = toolTipText;
-    }
-
+public class CoolBarRendererTest extends AbstractRendererTest {
 }

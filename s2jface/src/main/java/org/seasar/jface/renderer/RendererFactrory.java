@@ -24,6 +24,8 @@ import org.seasar.jface.component.impl.CTabFolderComponent;
 import org.seasar.jface.component.impl.CTabItemComponent;
 import org.seasar.jface.component.impl.ComboComponent;
 import org.seasar.jface.component.impl.CompositeComponent;
+import org.seasar.jface.component.impl.CoolBarComponent;
+import org.seasar.jface.component.impl.CoolItemComponent;
 import org.seasar.jface.component.impl.GroupComponent;
 import org.seasar.jface.component.impl.LabelComponent;
 import org.seasar.jface.component.impl.MenuComponent;
@@ -47,6 +49,8 @@ import org.seasar.jface.renderer.impl.CTabFolderRenderer;
 import org.seasar.jface.renderer.impl.CTabItemRenderer;
 import org.seasar.jface.renderer.impl.ComboRenderer;
 import org.seasar.jface.renderer.impl.CompositeRenderer;
+import org.seasar.jface.renderer.impl.CoolBarRenderer;
+import org.seasar.jface.renderer.impl.CoolItemRenderer;
 import org.seasar.jface.renderer.impl.GroupRenderer;
 import org.seasar.jface.renderer.impl.LabelRenderer;
 import org.seasar.jface.renderer.impl.MenuItemRenderer;
@@ -89,6 +93,8 @@ public class RendererFactrory {
         addRenderer(GroupComponent.class, new GroupRenderer());
         addRenderer(ToolBarComponent.class, new ToolBarRenderer());
         addRenderer(ToolItemComponent.class, new ToolItemRenderer());
+        addRenderer(CoolBarComponent.class, new CoolBarRenderer());
+        addRenderer(CoolItemComponent.class, new CoolItemRenderer());
 
         addRenderer(ButtonComponent.class, new ButtonRenderer());
         addRenderer(LabelComponent.class, new LabelRenderer());

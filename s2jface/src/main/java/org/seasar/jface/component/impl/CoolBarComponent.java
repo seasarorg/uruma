@@ -17,22 +17,35 @@ package org.seasar.jface.component.impl;
 
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
+
 
 /**
  * @author bskuroneko
  * 
  */
-public class TabItemComponent extends AbstractUIContainerItemComponent {
+public class CoolBarComponent extends CompositeComponent {
+    
+    @ComponentAttribute(conversionType = ConversionType.BOOLEAN, setTiming = SetTiming.RENDER_AFTER)
+    private String locked;
+    
+    @ComponentAttribute(conversionType = ConversionType.INT_ARRAY, setTiming = SetTiming.RENDER_AFTER)
+    private String wrapIndices;
 
-    @ComponentAttribute(conversionType = ConversionType.TEXT)
-    private String toolTipText;
-
-    public String getToolTipText() {
-        return this.toolTipText;
+    public String getLocked() {
+        return this.locked;
     }
 
-    public void setToolTipText(String toolTipText) {
-        this.toolTipText = toolTipText;
+    public void setLocked(String locked) {
+        this.locked = locked;
     }
 
+    public String getWrapIndices() {
+        return this.wrapIndices;
+    }
+
+    public void setWrapIndices(String wrapIndices) {
+        this.wrapIndices = wrapIndices;
+    }
+    
 }

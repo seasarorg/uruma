@@ -329,7 +329,7 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0"
+            <xs:group ref="tns:compositeElems" minOccurs="0"
               maxOccurs="unbounded" />
             <xs:element ref="tns:coolItem" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
@@ -347,10 +347,6 @@
           <xs:sequence>
             <xs:element ref="tns:compositeChild" minOccurs="0" maxOccurs="1" />
           </xs:sequence>
-          <xs:attribute name="minimumHeight" type="xs:int" />
-          <xs:attribute name="minimumWidth" type="xs:int" />
-          <xs:attribute name="height" type="xs:int" />
-          <xs:attribute name="width" type="xs:int" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -379,9 +375,7 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:compositeElems" minOccurs="0"
-              maxOccurs="unbounded" />
-            <xs:element ref="tns:compositeChild" minOccurs="0"
+            <xs:group ref="tns:controlElems" minOccurs="0"
               maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="digits" type="xs:int" />
@@ -401,7 +395,7 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0"
+            <xs:group ref="tns:compositeElems" minOccurs="0"
               maxOccurs="unbounded" />
             <xs:element ref="tns:tabItem" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
@@ -831,7 +825,7 @@
       <xs:complexContent>
         <xs:extension base="tns:CompositeClass">
           <xs:sequence>
-            <xs:group ref="tns:controlElems" minOccurs="0"
+            <xs:group ref="tns:compositeElems" minOccurs="0"
               maxOccurs="unbounded" />
             <xs:element name="selectionBackgroundGradient"
               type="tns:GradientColor" minOccurs="0" maxOccurs="1" />

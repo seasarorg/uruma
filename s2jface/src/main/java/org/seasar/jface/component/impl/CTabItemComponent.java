@@ -15,21 +15,15 @@
  */
 package org.seasar.jface.component.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
-import org.seasar.jface.component.UIComponent;
-import org.seasar.jface.component.UIContainer;
 
 /**
  * @author bskuroneko
  * 
  */
-public class CTabItemComponent extends AbstractItemComponent implements
-        UIContainer {
+public class CTabItemComponent extends AbstractUIContainerItemComponent {
 
     @ComponentAttribute(conversionType = ConversionType.TEXT)
     private String toolTipText;
@@ -42,8 +36,6 @@ public class CTabItemComponent extends AbstractItemComponent implements
 
     @ComponentAttribute(targetType = TargetType.NONE)
     private String fontStyle;
-
-    private List<UIComponent> children = new ArrayList<UIComponent>();
 
     public String getToolTipText() {
         return this.toolTipText;
@@ -75,13 +67,5 @@ public class CTabItemComponent extends AbstractItemComponent implements
 
     public void setFontStyle(String fontStyle) {
         this.fontStyle = fontStyle;
-    }
-
-    public void addChild(UIComponent child) {
-        children.add(child);
-    }
-
-    public List<UIComponent> getChildren() {
-        return children;
     }
 }
