@@ -24,6 +24,7 @@ import org.seasar.jface.component.factory.handler.LayoutTagHandler;
 import org.seasar.jface.component.factory.handler.MenuItemTagHandler;
 import org.seasar.jface.component.factory.handler.MenuTagHandler;
 import org.seasar.jface.component.factory.handler.S2JFaceGenericTagHandler;
+import org.seasar.jface.component.factory.handler.SeparatorTagHandler;
 import org.seasar.jface.component.factory.handler.SimpleItemTagHandler;
 import org.seasar.jface.component.factory.handler.TableCellTagHandler;
 import org.seasar.jface.component.factory.handler.TemplateTagHandler;
@@ -132,6 +133,7 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
         // Menu
         addTagHandler(new MenuTagHandler());
         addTagHandler(new MenuItemTagHandler());
+        addTagHandler(new SeparatorTagHandler());
     }
 
     protected void addTagHandler(S2JFaceTagHandler tagHandler) {

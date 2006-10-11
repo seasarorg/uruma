@@ -10,7 +10,7 @@
       <menu text="Menu1(&amp;M)">
         <menuItem text="Menu1-1(&amp;1)" />
         <menuItem text="Menu1-2(&amp;2)" />
-        <menuItem text="separrator" style="SEPARATOR" />
+        <separator />
         <menu text="Menu1-3(&amp;3)">
           <menuItem id="accelerator1" text="Accelerator1\tF2"
             accelerator="F2" />
@@ -22,11 +22,11 @@
       <menu text="Menu2" defaultItemId="defaultItem">
         <menuItem text="チェック(select)" style="CHECK" selection="true" />
         <menuItem text="チェック" style="CHECK" />
-        <menuItem text="separrator" style="SEPARATOR" />
+        <separator />
         <menuItem text="ラジオ1" style="RADIO" />
         <menuItem text="ラジオ2(select)" style="RADIO" selection="true" />
         <menuItem text="ラジオ3" style="RADIO" />
-        <menuItem text="separrator" style="SEPARATOR" />
+        <separator />
         <menuItem id="defaultItem" text="デフォルト" />
         <menuItem text="disable" enabled="false" />
         <menuItem image="/images/container.gif" text="イメージ" />
@@ -49,7 +49,7 @@
         <menu>
           <menuItem text="コンテキストメニュー1"></menuItem>
           <menuItem text="コンテキストメニュー2"></menuItem>
-          <menuItem style="SEPARATOR" />
+          <separator />
           <menu text="コンテキストメニュー3">
             <menuItem text="3-1"></menuItem>
             <menuItem text="3-2"></menuItem>
@@ -61,7 +61,7 @@
         <menu x="100" y="200">
           <menuItem text="コンテキストメニュー1"></menuItem>
           <menuItem text="コンテキストメニュー2"></menuItem>
-          <menuItem style="SEPARATOR" />
+          <separator />
           <menu text="コンテキストメニュー3">
             <menuItem text="3-1"></menuItem>
             <menuItem text="3-2"></menuItem>
