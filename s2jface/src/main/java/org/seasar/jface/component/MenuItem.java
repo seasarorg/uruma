@@ -15,14 +15,14 @@
  */
 package org.seasar.jface.component;
 
+/**
+ * メニュー項目情報を保持するためのインターフェースです。<br />
+ * 
+ * @author y-komori
+ */
 public interface MenuItem extends UIComponent {
 
     public Menu getParentMenu();
 
     public void setParentMenu(Menu parentMenu);
-
-    public void setChildMenu(Menu menu);
-
-    public Menu getChildMenu();
-
 }

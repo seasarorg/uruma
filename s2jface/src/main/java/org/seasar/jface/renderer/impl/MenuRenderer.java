@@ -22,10 +22,13 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.framework.util.BooleanConversionUtil;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.MenuComponent;
 import org.seasar.jface.component.impl.WindowComponent;
+import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.util.ClassUtil;
 
 /**
@@ -36,15 +39,36 @@ import org.seasar.jface.util.ClassUtil;
 public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
 
     @Override
-    public Widget render(UIComponent uiComponent, Widget parent,
-            WindowContext context) {
+    public Widget render(final UIComponent uiComponent, final Widget parent,
+            final WindowContext context) {
         Widget menuParent = parent;
         if (uiComponent.getParent() instanceof WindowComponent) {
             if ((getStyle(uiComponent) & SWT.BAR) != 0) {
                 menuParent = context.getComponent(WindowContext.SHELL_ID);
             }
         }
-        return super.render(uiComponent, menuParent, context);
+
+        // サブメニューの場合は MenuItem を親として用意する
+        MenuItem subMenuItem = null;
+        if (parent instanceof Menu) {
+            subMenuItem = new MenuItem((Menu) parent, SWT.CASCADE);
+            RendererSupportUtil.setAttributes(uiComponent, subMenuItem,
+                    SetTiming.RENDER);
+        }
+
+        setContext(context);
+
+        Menu menu = (Menu) createWidget(menuParent, getStyle(uiComponent));
+        // サブメニューの場合、MenuItem へ Menu をセットする
+        if (subMenuItem != null) {
+            subMenuItem.setMenu(menu);
+        }
+
+        doRender((MenuComponent) uiComponent, menu);
+
+        menu.setData(uiComponent);
+
+        return menu;
     }
 
     @Override
@@ -53,9 +77,10 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
     }
 
     @Override
-    protected void doRender(MenuComponent uiComponent, Menu widget) {
-        setLocation(uiComponent, widget);
-        setToParentMenu(uiComponent, widget);
+    protected void doRender(MenuComponent menuComponent, Menu menu) {
+        setEnabled(menuComponent, menu);
+        setLocation(menuComponent, menu);
+        setToParentMenu(menuComponent, menu);
     }
 
     @Override
@@ -64,38 +89,41 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
         setDefaultItem(widget, uiComponent);
     }
 
-    protected void setLocation(final MenuComponent controlComponent,
-            final Menu control) {
-        String xStr = controlComponent.getX();
-        String yStr = controlComponent.getY();
-        if ((xStr != null) && (yStr != null)) {
-            control.setLocation(Integer.parseInt(xStr), Integer.parseInt(yStr));
+    protected void setEnabled(final MenuComponent menuComponent, final Menu menu) {
+        String enabledStr = menuComponent.getEnabled();
+        if (enabledStr != null) {
+            menu.setEnabled(BooleanConversionUtil
+                    .toPrimitiveBoolean(enabledStr));
         }
     }
 
-    private void setToParentMenu(MenuComponent menu, Menu widget) {
-        UIComponent menuHolder = menu.getMenuHolder();
+    protected void setLocation(final MenuComponent menuComponent,
+            final Menu menu) {
+        String xStr = menuComponent.getX();
+        String yStr = menuComponent.getY();
+        if ((xStr != null) && (yStr != null)) {
+            menu.setLocation(Integer.parseInt(xStr), Integer.parseInt(yStr));
+        }
+    }
+
+    private void setToParentMenu(MenuComponent menuComponent, Menu menu) {
+        UIComponent menuHolder = menuComponent.getMenuHolder();
         if (menuHolder != null) {
             if (menuHolder instanceof WindowComponent) {
                 // メニューバーの設定
-                if ((SWT.BAR & getStyle(menu)) != 0) {
+                if ((SWT.BAR & getStyle(menuComponent)) != 0) {
                     Shell shell = (Shell) getContext().getComponent(
                             WindowContext.SHELL_ID);
-                    shell.setMenuBar((Menu) widget);
+                    shell.setMenuBar(menu);
                 } else {
                     Control control = (Control) menuHolder.getWidget();
-                    control.setMenu(widget);
+                    control.setMenu(menu);
                 }
             } else {
                 // コンテクストメニューの設定
                 Control control = (Control) menuHolder.getWidget();
-                control.setMenu(widget);
+                control.setMenu(menu);
             }
-
-        } else if (menu.getParentMenuItem() != null) {
-            // サブメニューの設定
-            MenuItem item = (MenuItem) menu.getParentMenuItem().getWidget();
-            item.setMenu(widget);
         }
     }
 
@@ -115,10 +143,11 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
     @Override
     protected Widget createWidget(Widget parent, int style) {
         if (parent instanceof Decorations) {
+            // メニューバーの場合
             return super.createWidget(parent, style);
         } else {
-            Class<? extends Widget> widgetClass = getWidgetType();
-            return ClassUtil.<Widget> newInstance(widgetClass, parent);
+            Class<Menu> widgetClass = getWidgetType();
+            return ClassUtil.<Menu> newInstance(widgetClass, parent);
         }
     }
 }

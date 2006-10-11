@@ -216,7 +216,9 @@
           <xs:choice minOccurs="0" maxOccurs="unbounded">
             <xs:element ref="tns:menu" />
             <xs:element ref="tns:menuItem" />
+            <xs:element ref="tns:separator" />
           </xs:choice>
+          <xs:attribute name="text" type="xs:string" />
           <xs:attribute name="defaultItemId" type="xs:string" />
           <xs:attribute name="enabled" type="xs:boolean" />
           <xs:attribute name="x" type="xs:int" />
@@ -248,9 +250,6 @@
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="tns:PreMenuItem">
-          <xs:choice minOccurs="0" maxOccurs="1">
-            <xs:element ref="tns:menu" />
-          </xs:choice>
           <xs:attribute name="accelerator" type="tns:Accelerator" />
           <xs:attribute name="enabled" type="xs:boolean" />
           <xs:attribute name="selection" type="xs:boolean" />

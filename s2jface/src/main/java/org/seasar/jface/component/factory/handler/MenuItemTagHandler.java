@@ -21,8 +21,9 @@ import org.seasar.jface.component.UIElement;
 import org.seasar.jface.component.impl.MenuItemComponent;
 
 /**
- * @author y-komori
+ * <code>menuItem</code> 要素に対するタグハンドラです。<br />
  * 
+ * @author y-komori
  */
 public class MenuItemTagHandler extends S2JFaceGenericTagHandler {
 

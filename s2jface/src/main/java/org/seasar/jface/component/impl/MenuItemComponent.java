@@ -15,16 +15,16 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.component.Menu;
 import org.seasar.jface.component.MenuItem;
 
 /**
- * @author bskuroneko
+ * メニュー項目情報を保持するためのこんぽーねんとです。<br />
  * 
+ * @author bskuroneko
+ * @author y-komori
  */
 public class MenuItemComponent extends AbstractItemComponent implements
         MenuItem {
@@ -39,8 +39,6 @@ public class MenuItemComponent extends AbstractItemComponent implements
     private String selection;
 
     private Menu parentMenu;
-
-    private Menu childMenu;
 
     public String getAccelerator() {
         return this.accelerator;
@@ -72,20 +70,5 @@ public class MenuItemComponent extends AbstractItemComponent implements
 
     public void setParentMenu(Menu parentMenu) {
         this.parentMenu = parentMenu;
-    }
-
-    public void setChildMenu(Menu menu) {
-        this.childMenu = menu;
-    }
-
-    public Menu getChildMenu() {
-        return childMenu;
-    }
-
-    @Override
-    protected void doRender(Widget parent, WindowContext context) {
-        if (childMenu != null) {
-            childMenu.render(getWidget(), context);
-        }
     }
 }

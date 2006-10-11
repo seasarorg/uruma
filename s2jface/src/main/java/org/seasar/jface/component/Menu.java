@@ -22,15 +22,11 @@ import java.util.List;
  * 
  * @author y-komori
  */
-public interface Menu extends UIComponent {
+public interface Menu extends MenuItem {
 
     public List<MenuItem> getMenuItemList();
 
     public void addMenuItem(MenuItem menuItem);
-
-    public MenuItem getParentMenuItem();
-
-    public void setParentMenuItem(MenuItem parentMenuItemComponent);
 
     /**
      * メニューを保持する親コンポーネントを設定します。

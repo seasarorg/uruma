@@ -28,10 +28,12 @@ import org.seasar.jface.component.MenuItem;
 import org.seasar.jface.component.UIComponent;
 
 /**
- * @author bskuroneko
+ * メニュー情報を保持するためのコンポーネントです。<br />
  * 
+ * @author bskuroneko
+ * @author y-komori
  */
-public class MenuComponent extends AbstractUIComponent implements Menu {
+public class MenuComponent extends MenuItemComponent implements Menu {
 
     @ComponentAttribute(targetType = TargetType.NONE)
     private String defaultItemId;
@@ -44,8 +46,6 @@ public class MenuComponent extends AbstractUIComponent implements Menu {
 
     @ComponentAttribute(targetType = TargetType.NONE)
     private String y;
-
-    private MenuItem parentMenuItem;
 
     private List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
@@ -89,14 +89,6 @@ public class MenuComponent extends AbstractUIComponent implements Menu {
 
     public List<MenuItem> getMenuItemList() {
         return menuItems;
-    }
-
-    public MenuItem getParentMenuItem() {
-        return this.parentMenuItem;
-    }
-
-    public void setParentMenuItem(MenuItem parentMenuItemComponent) {
-        this.parentMenuItem = parentMenuItemComponent;
     }
 
     public UIComponent getMenuHolder() {

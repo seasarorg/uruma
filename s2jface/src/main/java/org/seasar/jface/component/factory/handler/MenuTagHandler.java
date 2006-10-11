@@ -17,14 +17,14 @@ package org.seasar.jface.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Menu;
-import org.seasar.jface.component.MenuItem;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.UIElement;
 import org.seasar.jface.component.impl.MenuComponent;
 
 /**
- * @author y-komori
+ * <code>menu</code> 要素に対するタグハンドラです。<br/>
  * 
+ * @author y-komori
  */
 public class MenuTagHandler extends S2JFaceGenericTagHandler {
 
@@ -43,10 +43,10 @@ public class MenuTagHandler extends S2JFaceGenericTagHandler {
     protected void setParent(UIElement uiElement, TagHandlerContext context) {
         Menu menu = (Menu) uiElement;
         Object parent = context.peek();
-        if (parent instanceof MenuItem) {
-            MenuItem parentMenuItem = (MenuItem) parent;
-            parentMenuItem.setChildMenu(menu);
-            menu.setParentMenuItem(parentMenuItem);
+        if (parent instanceof Menu) {
+            Menu parentMenu = (Menu) parent;
+            parentMenu.addMenuItem(menu);
+            menu.setParentMenu(parentMenu);
         } else if (parent instanceof UIComponent) {
             UIComponent parentComponent = (UIComponent) parent;
             parentComponent.setMenu(menu);

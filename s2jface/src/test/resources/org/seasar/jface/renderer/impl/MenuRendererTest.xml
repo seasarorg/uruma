@@ -7,39 +7,35 @@
     </gridLayout>
 
     <menu>
-      <menuItem text="Menu1(&amp;M)" style="CASCADE">
-        <menu>
-          <menuItem text="Menu1-1(&amp;1)" />
-          <menuItem text="Menu1-2(&amp;2)" />
-          <menuItem text="separrator" style="SEPARATOR" />
-          <menuItem text="Menu1-3(&amp;3)" style="CASCADE">
-            <menu>
-              <menuItem id="accelerator1" text="Accelerator1\tF2" accelerator="F2"/>
-              <menuItem id="accelerator2" text="Accelerator2\tCtrl+M" accelerator="Ctrl+M"/>
-            </menu>
-          </menuItem>
+      <menu text="Menu1(&amp;M)">
+        <menuItem text="Menu1-1(&amp;1)" />
+        <menuItem text="Menu1-2(&amp;2)" />
+        <menuItem text="separrator" style="SEPARATOR" />
+        <menu text="Menu1-3(&amp;3)">
+          <menuItem id="accelerator1" text="Accelerator1\tF2"
+            accelerator="F2" />
+          <menuItem id="accelerator2" text="Accelerator2\tCtrl+M"
+            accelerator="Ctrl+M" />
         </menu>
-      </menuItem>
-      <menuItem text="Menu2" style="CASCADE">
-        <menu defaultItemId="defaultItem">
-          <menuItem text="チェック(select)" style="CHECK" selection="true"/>
-          <menuItem text="チェック" style="CHECK" />
-          <menuItem text="separrator" style="SEPARATOR" />
-          <menuItem text="ラジオ1" style="RADIO" />
-          <menuItem text="ラジオ2(select)" style="RADIO" selection="true"/>
-          <menuItem text="ラジオ3" style="RADIO" />
-          <menuItem text="separrator" style="SEPARATOR" />
-          <menuItem id="defaultItem" text="デフォルト" />
-          <menuItem text="disable" enabled="false" />
-          <menuItem image="/images/container.gif" text="イメージ" />
-        </menu>
-      </menuItem>
-      <menuItem text="DisableMenu(&amp;D)" style="CASCADE">
-        <menu enabled="false">
-          <menuItem text="disable1" style="CHECK" selection="true"/>
-          <menuItem text="disable2" style="CHECK" />
-        </menu>
-      </menuItem>
+      </menu>
+
+      <menu text="Menu2" defaultItemId="defaultItem">
+        <menuItem text="チェック(select)" style="CHECK" selection="true" />
+        <menuItem text="チェック" style="CHECK" />
+        <menuItem text="separrator" style="SEPARATOR" />
+        <menuItem text="ラジオ1" style="RADIO" />
+        <menuItem text="ラジオ2(select)" style="RADIO" selection="true" />
+        <menuItem text="ラジオ3" style="RADIO" />
+        <menuItem text="separrator" style="SEPARATOR" />
+        <menuItem id="defaultItem" text="デフォルト" />
+        <menuItem text="disable" enabled="false" />
+        <menuItem image="/images/container.gif" text="イメージ" />
+      </menu>
+
+      <menu text="DisableMenu(&amp;D)" enabled="false">
+        <menuItem text="disable1" style="CHECK" selection="true" />
+        <menuItem text="disable2" style="CHECK" />
+      </menu>
     </menu>
 
     <composite id="contents">
@@ -54,26 +50,22 @@
           <menuItem text="コンテキストメニュー1"></menuItem>
           <menuItem text="コンテキストメニュー2"></menuItem>
           <menuItem style="SEPARATOR" />
-          <menuItem text="コンテキストメニュー3" style="CASCADE">
-            <menu>
-              <menuItem text="3-1"></menuItem>
-              <menuItem text="3-2"></menuItem>
-            </menu>
-          </menuItem>
+          <menu text="コンテキストメニュー3">
+            <menuItem text="3-1"></menuItem>
+            <menuItem text="3-2"></menuItem>
+          </menu>
         </menu>
       </label>
-      
+
       <label text="ロケーション指定" style="BORDER">
         <menu x="100" y="200">
           <menuItem text="コンテキストメニュー1"></menuItem>
           <menuItem text="コンテキストメニュー2"></menuItem>
           <menuItem style="SEPARATOR" />
-          <menuItem text="コンテキストメニュー3" style="CASCADE">
-            <menu>
-              <menuItem text="3-1"></menuItem>
-              <menuItem text="3-2"></menuItem>
-            </menu>
-          </menuItem>
+          <menu text="コンテキストメニュー3">
+            <menuItem text="3-1"></menuItem>
+            <menuItem text="3-2"></menuItem>
+          </menu>
         </menu>
       </label>
     </composite>
