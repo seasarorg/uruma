@@ -890,8 +890,8 @@
             <xs:element ref="tns:compositeChild" minOccurs="0"
               maxOccurs="unbounded" />
           </xs:sequence>
-          <xs:attribute name="maximizedControl" type="xs:string" />
-          <xs:attribute name="orientation" type="tns:SWTConst" />
+          <xs:attribute name="maximizedControlId" type="xs:string" />
+          <xs:attribute name="orientation" type="tns:Direction" />
           <xs:attribute name="weights" type="xs:string" />
         </xs:extension>
       </xs:complexContent>

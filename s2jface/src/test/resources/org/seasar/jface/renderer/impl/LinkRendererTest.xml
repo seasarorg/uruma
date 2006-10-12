@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://s2jface.sandbox.seasar.org">
+  <window id="linkRendererTest" title="LinkRendererTest" defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="VERTICAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="20" />
+
+      <link text="&lt;a href=&quot;link.html&quot;&gt;リンク&lt;/a&gt;" toolTipText="ツールチップ\nテキスト"/>
+      
+      <link text="aタグなし"/>
+      
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>
