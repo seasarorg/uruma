@@ -8,49 +8,6 @@
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
 
-    <menu id="menuBar">
-      <menuItem text="ファイル(&amp;F)" style="CASCADE">
-        <menu>
-          <menuItem id="openFile" text="開く(&amp;O)" image="/images/container.gif" accelerator="Ctrl+O"/>
-          <menuItem id="closeMenu" text="閉じる" image="/images/cross.png" />
-          <menuItem style="SEPARATOR" />
-          <menuItem text="ラジオボタンメニューテスト" style="CASCADE">
-            <menu>
-              <menuItem style="RADIO" text="ラジオ1" selection="true" />
-              <menuItem style="RADIO" text="ラジオ2" />
-              <menuItem style="RADIO" text="ラジオ3" />
-            </menu>
-          </menuItem>
-          <menuItem text="チェックボタンメニューテスト" style="CASCADE">
-            <menu>
-              <menuItem style="CHECK" text="チェック1" selection="true" />
-              <menuItem style="CHECK" text="チェック2" />
-              <menuItem style="CHECK" text="チェック3" selection="true" />
-            </menu>
-          </menuItem>
-        </menu>
-      </menuItem>
-      <menuItem text="編集(&amp;E)" style="CASCADE">
-        <menu>
-          <menuItem text="開く" />
-          <menuItem id="closeMenu2" text="閉じる" />
-        </menu>
-      </menuItem>
-      <menuItem text="ヘルプ(&amp;H)" style="CASCADE">
-        <menu>
-          <menuItem text="使用不可" enabled="false" />
-          <menuItem id="closeMenu3" text="閉じる" />
-        </menu>
-      </menuItem>
-      <!-- 
-      <menuItem text="表示されないメニュー" visible="false">
-        <menu>
-          <menuItem id="closeMenu4" text="閉じる" />
-        </menu>
-      </menuItem>
-     -->
-    </menu>
-
     <label style="SEPARATOR, HORIZONTAL" />
 
     <composite>
