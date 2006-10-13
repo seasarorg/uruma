@@ -20,11 +20,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.binding.ActionDesc;
+import org.seasar.jface.binding.ActionDescFactory;
 import org.seasar.jface.binding.MethodBindingSupport;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.renderer.impl.WindowRenderer;
+import org.seasar.jface.util.S2ContainerUtil;
 
 /**
  * @author y-komori
@@ -32,9 +36,14 @@ import org.seasar.jface.renderer.impl.WindowRenderer;
  */
 @Component(autoBinding = AutoBindingType.NONE)
 public class S2JFaceApplicationWindow extends ApplicationWindow {
+
     private Template template;
 
     private WindowContext context;
+
+    private ActionDesc actionDesc;
+
+    private Object actionComponent;
 
     // private MenuManagerBuilder menuManagerBuilder;
 
@@ -60,8 +69,19 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         this.template = template;
         this.context = new WindowContextImpl();
 
+        setupActionComponent();
         // setupMenuBar();
         setupShellStyle(template.getWindowComponent());
+    }
+
+    protected void setupActionComponent() {
+        String actionComponentName = getActionComponentName();
+        actionComponent = S2ContainerUtil
+                .getComponentNoException(actionComponentName);
+        if (actionComponent != null) {
+            actionDesc = ActionDescFactory.getActionDesc(actionComponent
+                    .getClass());
+        }
     }
 
     protected void setupShellStyle(final WindowComponent component) {
@@ -115,4 +135,17 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
     // this.menuManagerBuilder = menuManagerBuilder;
     // }
 
+    public String getActionComponentName() {
+        return StringUtil.decapitalize(template.getWindowComponent().getId())
+                + "Action";
+    }
+
+    /**
+     * アクションコンポーネントの初期化メソッドを呼び出します。<br />
+     */
+    public void initActionComponent() {
+        if (actionComponent != null) {
+            actionDesc.invokeInitializeMethod(actionComponent);
+        }
+    }
 }

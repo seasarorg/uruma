@@ -59,6 +59,8 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
         // .getComponent(MenuManagerBuilder.class));
         window.init(template);
 
+        window.initActionComponent();
+
         window.setBlockOnOpen(blockOnOpen);
         windowManager.add(window);
         window.open();

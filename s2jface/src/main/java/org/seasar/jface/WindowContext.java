@@ -15,12 +15,15 @@
  */
 package org.seasar.jface;
 
+import java.lang.reflect.Method;
+
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Widget;
 
 /**
- * @author y-komori
+ * ウィンドウに関する各種情報を保持するためのインターフェースです。<br />
  * 
+ * @author y-komori
  */
 public interface WindowContext {
 
@@ -28,6 +31,42 @@ public interface WindowContext {
      * 自ウィンドウのShellオブジェクトが登録されるIDです。
      */
     public static final String SHELL_ID = "shell";
+
+    /**
+     * 本ウィンドウに対応するアクションクラスのオブジェクトを設定します。<br />
+     * 
+     * @param actionObject
+     *            アクションクラスのオブジェクト
+     */
+    public void setActionObject(Object actionObject);
+
+    /**
+     * 本ウィンドウに対応するアクションクラスのオブジェクトを取得します。<br />
+     * 
+     * @return アクションクラスのオブジェクト
+     */
+    public Object getActionObject();
+
+    /**
+     * アクションクラスのイニシャライズメソッドを設定します。<br />
+     * <p>
+     * イニシャライズメソッドは {@link org.seasar.jface.annotation.InitializeMethod}
+     * アノテーションが付加されたメソッドです。<br />
+     * イニシャライズメソッドは1つのアクションクラスにつき1つのみ存在が許されます。<br />
+     * イニシャライズメソッドは、引数および戻り値を持たないメソッドです。<br />
+     * </p>
+     * 
+     * @param method
+     *            イニシャライズメソッド
+     */
+    public void setInitializeMethod(Method method);
+
+    /**
+     * アクションクラスのイニシャライズメソッドを取得します。<br />
+     * 
+     * @return イニシャライズメソッド
+     */
+    public Method getInitializeMethod();
 
     /**
      * 画面コンポーネント(SWTウィジット)を登録します。</br>
@@ -62,6 +101,7 @@ public interface WindowContext {
      *            <code>MenuManager</code>オブジェクト
      * @see MenuManager
      */
+    @Deprecated
     public void setMenuBar(MenuManager menuManager);
 
     /**
@@ -70,5 +110,6 @@ public interface WindowContext {
      * @return <code>MenuManager</code> のインスタンス
      * @see MenuManager
      */
+    @Deprecated
     public MenuManager getMenuBar();
 }

@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.impl;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,12 +27,43 @@ import org.seasar.jface.util.AssertionUtil;
 
 /**
  * @author y-komori
- * 
  */
 public class WindowContextImpl implements WindowContext {
     protected Map<String, Widget> componentMap = new HashMap<String, Widget>();
 
+    private Object actionObject;
+
+    private Method initializeMethod;
+
     protected MenuManager menuBar;
+
+    /*
+     * @see org.seasar.jface.WindowContext#getActionObject()
+     */
+    public Object getActionObject() {
+        return actionObject;
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#getInitializeMethod()
+     */
+    public Method getInitializeMethod() {
+        return initializeMethod;
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#setActionObject(java.lang.Object)
+     */
+    public void setActionObject(Object actionObject) {
+        this.actionObject = actionObject;
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#setInitializeMethod(java.lang.reflect.Method)
+     */
+    public void setInitializeMethod(Method method) {
+        this.initializeMethod = method;
+    }
 
     /*
      * @see org.seasar.jface.WindowContext#getComponent(java.lang.String)
