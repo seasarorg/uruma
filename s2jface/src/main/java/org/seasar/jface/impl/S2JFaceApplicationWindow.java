@@ -79,6 +79,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         actionComponent = S2ContainerUtil
                 .getComponentNoException(actionComponentName);
         if (actionComponent != null) {
+            context.setActionComponent(actionComponent);
             actionDesc = ActionDescFactory.getActionDesc(actionComponent
                     .getClass());
         }

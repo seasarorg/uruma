@@ -15,7 +15,9 @@
  */
 package org.seasar.jface.binding;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * アクションクラスに関する詳細情報を保持するインターフェースです。<br />
@@ -23,7 +25,37 @@ import java.lang.reflect.Method;
  * @author y-komori
  */
 public interface ActionDesc {
+    /**
+     * {@link org.seasar.jface.annotation.InitializeMethod}
+     * アノテーションが付加されたメソッドを取得します。<br />
+     * 
+     * @return {@link org.seasar.jface.annotation.InitializeMethod}
+     *         アノテーションが付加されたメソッド
+     */
     public Method getInitializeMethod();
 
+    /**
+     * {@link org.seasar.jface.annotation.InitializeMethod}
+     * アノテーションが付加されたメソッドを実行します。<br />
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     */
     public void invokeInitializeMethod(Object target);
+
+    /**
+     * {@link org.seasar.jface.annotation.ImportValue}
+     * アノテーションが付加されたフィールドのリストを取得します。<br />
+     * 
+     * @return {@link Field}のリスト
+     */
+    public List<Field> getImportFields();
+
+    /**
+     * {@link org.seasar.jface.annotation.ExportValue}
+     * アノテーションが付加されたフィールドのリストを取得します。<br />
+     * 
+     * @return {@link Field}のリスト
+     */
+    public List<Field> getExportFields();
 }

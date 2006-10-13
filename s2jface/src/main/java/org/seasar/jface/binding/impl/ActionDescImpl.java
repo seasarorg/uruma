@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.binding.impl;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.seasar.framework.exception.EmptyRuntimeException;
+import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.binding.ActionDesc;
 import org.seasar.jface.exception.InitializeMethodException;
@@ -37,6 +40,12 @@ public class ActionDescImpl implements ActionDesc {
 
     private Map<String, List<Method>> methodsCache = new HashMap<String, List<Method>>();
 
+    private Map<String, Field> fieldsCache = new HashMap<String, Field>();
+
+    private List<Field> importFields = new ArrayList<Field>();
+
+    private List<Field> exportFields = new ArrayList<Field>();
+
     public ActionDescImpl(Class actionClass) throws EmptyRuntimeException {
         if (actionClass == null) {
             throw new EmptyRuntimeException("actionClass");
@@ -45,6 +54,7 @@ public class ActionDescImpl implements ActionDesc {
         this.actionClass = actionClass;
 
         setupMethods();
+        setupFields();
     }
 
     protected void setupMethods() {
@@ -67,7 +77,7 @@ public class ActionDescImpl implements ActionDesc {
         }
     }
 
-    protected void setupInitializeMethod(Method method) {
+    protected void setupInitializeMethod(final Method method) {
         if (method.isAnnotationPresent(InitializeMethod.class)) {
             if ((method.getReturnType() == Void.TYPE)
                     && (method.getParameterTypes().length == 0)) {
@@ -85,11 +95,52 @@ public class ActionDescImpl implements ActionDesc {
         }
     }
 
+    protected void setupFields() {
+        setupFieldsByClass(actionClass);
+        Class superClass = actionClass.getSuperclass();
+        if (superClass != Object.class && superClass != null) {
+            setupFieldsByClass(superClass);
+        }
+    }
+
+    protected void setupFieldsByClass(final Class targetClass) {
+        Field[] fields = targetClass.getDeclaredFields();
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            String fieldName = field.getName();
+            if (!fieldsCache.containsKey(fieldName)) {
+                field.setAccessible(true);
+                fieldsCache.put(fieldName, field);
+
+                setupExportField(field);
+                setupImportField(field);
+            }
+        }
+    }
+
+    protected void setupExportField(final Field field) {
+        if (field.isAnnotationPresent(ExportValue.class)) {
+            exportFields.add(field);
+        }
+    }
+
+    protected void setupImportField(final Field field) {
+        if (field.isAnnotationPresent(ImportValue.class)) {
+            importFields.add(field);
+        }
+    }
+
+    /*
+     * @see org.seasar.jface.binding.ActionDesc#getInitializeMethod()
+     */
     public Method getInitializeMethod() {
         return initializeMethod;
     }
 
-    public void invokeInitializeMethod(Object target) {
+    /*
+     * @see org.seasar.jface.binding.ActionDesc#invokeInitializeMethod(java.lang.Object)
+     */
+    public void invokeInitializeMethod(final Object target) {
         if (initializeMethod != null) {
             AssertionUtil.assertNotNull("target", target);
             try {
@@ -99,5 +150,19 @@ public class ActionDescImpl implements ActionDesc {
                         initializeMethod, target);
             }
         }
+    }
+
+    /*
+     * @see org.seasar.jface.binding.ActionDesc#getExportFields()
+     */
+    public List<Field> getExportFields() {
+        return exportFields;
+    }
+
+    /*
+     * @see org.seasar.jface.binding.ActionDesc#getImportFields()
+     */
+    public List<Field> getImportFields() {
+        return importFields;
     }
 }

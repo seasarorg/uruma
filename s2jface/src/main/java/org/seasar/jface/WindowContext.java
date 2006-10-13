@@ -33,19 +33,19 @@ public interface WindowContext {
     public static final String SHELL_ID = "shell";
 
     /**
-     * 本ウィンドウに対応するアクションクラスのオブジェクトを設定します。<br />
+     * 本ウィンドウに対応するアクションコンポーネントを設定します。<br />
      * 
-     * @param actionObject
-     *            アクションクラスのオブジェクト
+     * @param actionComponent
+     *            アクションコンポーネント
      */
-    public void setActionObject(Object actionObject);
+    public void setActionComponent(Object actionComponent);
 
     /**
-     * 本ウィンドウに対応するアクションクラスのオブジェクトを取得します。<br />
+     * 本ウィンドウに対応するアクションコンポーネントを取得します。<br />
      * 
-     * @return アクションクラスのオブジェクト
+     * @return アクションコンポーネント
      */
-    public Object getActionObject();
+    public Object getActionComponent();
 
     /**
      * アクションクラスのイニシャライズメソッドを設定します。<br />

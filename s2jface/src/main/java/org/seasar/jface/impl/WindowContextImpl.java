@@ -31,7 +31,7 @@ import org.seasar.jface.util.AssertionUtil;
 public class WindowContextImpl implements WindowContext {
     protected Map<String, Widget> componentMap = new HashMap<String, Widget>();
 
-    private Object actionObject;
+    private Object actionComponent;
 
     private Method initializeMethod;
 
@@ -40,8 +40,8 @@ public class WindowContextImpl implements WindowContext {
     /*
      * @see org.seasar.jface.WindowContext#getActionObject()
      */
-    public Object getActionObject() {
-        return actionObject;
+    public Object getActionComponent() {
+        return actionComponent;
     }
 
     /*
@@ -54,8 +54,8 @@ public class WindowContextImpl implements WindowContext {
     /*
      * @see org.seasar.jface.WindowContext#setActionObject(java.lang.Object)
      */
-    public void setActionObject(Object actionObject) {
-        this.actionObject = actionObject;
+    public void setActionComponent(Object actionObject) {
+        this.actionComponent = actionObject;
     }
 
     /*
