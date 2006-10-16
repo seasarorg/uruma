@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://s2jface.sandbox.seasar.org">
+  <window id="regist" style="TITLE, CLOSE, PRIMARY_MODAL" title="従業員情報登録"
+    image="images/title.gif" defaultButtonId="ok">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    <composite>
+      <gridLayout numColumns="2">
+        <gridData horizontalAlignment="FILL" />
+      </gridLayout>
+      <label text="従業員No." />
+      <text id="empNo" />
+      <label text="従業員名" />
+      <text id="empName" />
+      <label text="役職" />
+      <text id="job" />
+      <label text="管理者" />
+      <text id="manager" />
+      <label text="雇用日" />
+      <text id="hireDate" />
+      <label text="給与" />
+      <text id="salary" />
+      <label text="Commission" />
+      <text id="commission" />
+      <label text="部署" />
+      <combo id="department" style="DROP_DOWN, READ_ONLY" />
+    </composite>
+    <composite>
+      <fillLayout type="HORIZONTAL" />
+      <button id="ok" text="OK" />
+      <button id="cancel" text="キャンセル" />
+    </composite>
+  </window>
+</template>

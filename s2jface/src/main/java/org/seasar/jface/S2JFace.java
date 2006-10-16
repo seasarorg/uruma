@@ -70,11 +70,14 @@ public class S2JFace {
     protected void initS2Container() {
         TigerAnnotationHandler
                 .addComponentDefBuilder(new S2JFaceComponentDefBuilder());
-        SingletonS2ContainerFactory.init();
-
-        container = SingletonS2ContainerFactory.getContainer();
-        container.include(S2ContainerFactory
-                .create(S2JFaceConstants.S2JFACE_DICON_PATH));
+        
+        S2Container s2JFaceContainer = S2ContainerFactory.create(S2JFaceConstants.S2JFACE_DICON_PATH);
+        String configPath = SingletonS2ContainerFactory.getConfigPath();
+        container = S2ContainerFactory.create(configPath);
+        container.include(s2JFaceContainer);
+        
+        container.init();
+        SingletonS2ContainerFactory.setContainer(container);
     }
 
     protected void setupImageManager() {

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://s2jface.sandbox.seasar.org">
+  <window id="main" title="従業員管理" height="450" width="680"
+    image="images/title.gif">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true" />
+    </gridLayout>
+    <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+      grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
+
+    <menu>
+      <menu text="ファイル(&amp;F)">
+        <menuItem id="menuRegist" text="新規登録(&amp;N)\tCtrl+N"
+          accelerator="Ctrl+N" />
+        <separator />
+        <menuItem id="menuExit" text="終了(&amp;X)" />
+      </menu>
+      <menu text="編集(&amp;E)">
+        <menuItem id="menuEdit" text="編集(&amp;E)\tCtrl+E" accelerator="Ctrl+E"
+          enabled="false" />
+        <menuItem id="menuDelete" text="削除(&amp;D)\tDelete" accelerator="Delete"
+          enabled="false" />
+      </menu>
+      <menu text="表示(&amp;V)">
+        <menuItem id="menuInquire" text="詳細表示(&amp;I)\tCtrl+I"
+          accelerator="Ctrl+I" enabled="false" />
+      </menu>
+      <menu text="検索(&amp;S)">
+        <menuItem id="menuSearch" text="検索(&amp;F)\tCtrl+F" />
+      </menu>
+      <menu text="ヘルプ(&amp;H)">
+        <menuItem id="menuAbout" text="従業員管理について(&amp;A)" />
+      </menu>
+    </menu>
+
+    <toolBar>
+      <toolItem id="toolRegist" toolTipText="新規登録" image="images/regist.gif" />
+      <toolItem style="SEPARATOR" />
+      <toolItem id="toolEdit" toolTipText="編集" image="images/edit.gif"
+        enabled="false" />
+      <toolItem id="toolDelete" toolTipText="削除" image="images/delete.gif"
+        enabled="false" />
+      <toolItem id="toolInquire" toolTipText="詳細表示" image="images/inquire.gif"
+        enabled="false" />
+      <toolItem style="SEPARATOR" />
+      <toolItem id="toolSearch" toolTipText="検索" image="images/search.gif" />
+    </toolBar>
+
+    <table id="employeeTable" style="FULL_SELECTION" headerVisible="true"
+      linesVisible="true">
+      <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+        grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
+      <tableColumn width="80" text="従業員No." />
+      <tableColumn width="80" text="従業員名" />
+      <tableColumn width="80" text="役職" />
+      <tableColumn width="80" text="管理者" />
+      <tableColumn width="80" text="雇用日" />
+      <tableColumn width="80" text="給与" />
+      <tableColumn width="80" text="Commission" />
+      <tableColumn width="80" text="部署名" />
+
+      <tableItem text="0001" />
+      <tableItem text="0002" />
+      <tableItem text="0003" />
+    </table>
+
+  </window>
+</template>
