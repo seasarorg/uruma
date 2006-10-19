@@ -26,6 +26,8 @@ public class SearchAction {
     public void onOk() {
         // TODO validate
         
+        // TODO search
+        
         // TODO return Value
         shell.close();
     }

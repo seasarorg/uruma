@@ -5,6 +5,7 @@
 	<component name="mainAction" class="org.seasar.jface.example.employee.MainAction" />
 	<component name="searchAction" class="org.seasar.jface.example.employee.SearchAction" />
 	<component name="registAction" class="org.seasar.jface.example.employee.RegistAction" />
+	<component name="aboutAction" class="org.seasar.jface.example.employee.AboutAction" />
 	
 	<component name="traceInterceptor" class="org.seasar.framework.aop.interceptors.TraceInterceptor" />
 </components>

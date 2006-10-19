@@ -15,9 +15,8 @@
  */
 package org.seasar.jface.example.employee;
 
-import org.eclipse.swt.SWT;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.ToolItem;
@@ -30,15 +29,19 @@ public class MainAction {
     private Shell shell;
 
     private S2JFaceWindowManager windowManager;
-    
+
     private MenuItem menuDelete;
+
     private MenuItem menuEdit;
+
     private MenuItem menuInquire;
-    
+
     private ToolItem toolDelete;
+
     private ToolItem toolEdit;
+
     private ToolItem toolInquire;
-    
+
     private Table employeeTable;
 
     @EventListener(id = "shell", type = EventListenerType.SHOW)
@@ -46,93 +49,63 @@ public class MainAction {
         searchEmployee();
     }
 
-    @EventListener(id = "menuRegist")
-    public void onMenuRegist() {
-        registEmployee();
+    @EventListener(id = { "menuSearch", "toolSearch" })
+    public void searchEmployee() {
+        windowManager
+                .open("org/seasar/jface/example/employee/search.xml", true);
+        // TODO 結果を受け取って表示更新
     }
 
-    @EventListener(id = "toolRegist")
-    public void onToolRegist() {
-        registEmployee();
-    }
-
-    @EventListener(id = "menuDelete")
-    public void onMenuDelete() {
-        deleteEmployee();
-    }
-
-    @EventListener(id = "toolDelete")
-    public void onToolDelete() {
-        deleteEmployee();
-    }
-
-    @EventListener(id = "menuSearch")
-    public void onMenuSearch() {
-        searchEmployee();
-    }
-
-    @EventListener(id = "toolSearch")
-    public void onToolSearch() {
-        searchEmployee();
-    }
-
-    @EventListener(id = "menuEdit")
-    public void onMenuEdit() {
-        editEmployee();
-    }
-
-    @EventListener(id = "toolEdit")
-    public void onToolEdit() {
-        editEmployee();
-    }
-
-    @EventListener(id = "menuExit")
-    public void onMenuExit() {
-        exit();
-    }
-
-    @EventListener(id = "employeeTable", type=EventListenerType.SELECTION)
-    public void onEmployeeTableSelectionChange() {
-        boolean selected = employeeTable.getSelectionCount() > 0;
-        menuEdit.setEnabled(selected);
-        menuDelete.setEnabled(selected);
-        menuInquire.setEnabled(selected);
-        
-        toolEdit.setEnabled(selected);
-        toolDelete.setEnabled(selected);
-        toolInquire.setEnabled(selected);
-    }
-
-    private void registEmployee() {
+    @EventListener(id = { "menuRegist", "toolRegist" })
+    public void registEmployee() {
         windowManager
                 .open("org/seasar/jface/example/employee/regist.xml", true);
-        // TODO 戻り値判定
-        // TODO 登録実行（必要なら砂時計表示）
+        // TODO 結果を受け取って表示更新
     }
 
-    private void editEmployee() {
-        // TODO 編集実装
-    }
-
-    private void deleteEmployee() {
-        MessageBox dialog = new MessageBox(shell, SWT.OK | SWT.CANCEL);
-        dialog.setMessage("選択された従業員情報を削除しますか？");
-        dialog.setText("削除確認");
-        int result = dialog.open();
-        if (result == SWT.OK) {
+    @EventListener(id = { "menuDelete", "toolDelete" })
+    public void deleteEmployee() {
+        boolean result = MessageDialog.openConfirm(shell, "削除確認",
+                "選択された従業員情報を削除しますか？");
+        if (result) {
             // TODO 削除実行
         }
     }
 
-    private void searchEmployee() {
-        windowManager
-                .open("org/seasar/jface/example/employee/search.xml", true);
-        // TODO 戻り値判定
-        // TODO search実行（必要なら砂時計表示）
+    @EventListener(id = { "menuEdit", "toolEdit" })
+    public void editEmployee() {
+        windowManager.open("org/seasar/jface/example/employee/edit.xml", true);
+        // TODO 結果を受け取って表示更新
     }
 
-    private void exit() {
+    @EventListener(id = { "menuInquire", "toolInquire" })
+    public void inquireEmployee() {
+        windowManager.open("org/seasar/jface/example/employee/inquire.xml", true);
+        // TODO 結果を受け取って表示更新
+    }
+
+    @EventListener(id = "menuAbout")
+    public void showAbout() {
+        windowManager.open("org/seasar/jface/example/employee/about.xml", true);
+    }
+
+    @EventListener(id = "menuExit")
+    public void exit() {
         shell.close();
+    }
+
+    @EventListener(id = "employeeTable")
+    public void onEmployeeTableSelectionChange() {
+        boolean multiSelected = employeeTable.getSelectionCount() > 0;
+        boolean oneSelected = employeeTable.getSelectionCount() == 1;
+        
+        menuEdit.setEnabled(oneSelected);
+        menuDelete.setEnabled(multiSelected);
+        menuInquire.setEnabled(oneSelected);
+
+        toolEdit.setEnabled(oneSelected);
+        toolDelete.setEnabled(multiSelected);
+        toolInquire.setEnabled(oneSelected);
     }
 
     public void setWindowManager(S2JFaceWindowManager windowManager) {

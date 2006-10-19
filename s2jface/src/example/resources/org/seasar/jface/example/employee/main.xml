@@ -46,7 +46,7 @@
       <toolItem id="toolSearch" toolTipText="検索" image="images/search.gif" />
     </toolBar>
 
-    <table id="employeeTable" style="FULL_SELECTION" headerVisible="true"
+    <table id="employeeTable" style="FULL_SELECTION, MULTI" headerVisible="true"
       linesVisible="true">
       <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
         grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />

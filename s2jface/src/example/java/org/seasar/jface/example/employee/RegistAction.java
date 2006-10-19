@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.example.employee;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.jface.S2JFaceWindowManager;
 import org.seasar.jface.annotation.EventListener;

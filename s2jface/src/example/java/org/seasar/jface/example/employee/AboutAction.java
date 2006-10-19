@@ -13,21 +13,23 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.annotation;
+package org.seasar.jface.example.employee;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.eclipse.swt.program.Program;
+import org.eclipse.swt.widgets.Shell;
+import org.seasar.jface.annotation.EventListener;
 
-/**
- * @author y-komori
- * 
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.METHOD })
-public @interface EventListener {
-    EventListenerType type() default EventListenerType.SELECTION;
+public class AboutAction {
 
-    String[] id() default {};
+    Shell shell;
+
+    @EventListener(id = "S2JFaceLink")
+    public void onS2JFaceLink() {
+        Program.launch("http://s2jface.sandbox.seasar.org/");
+    }
+
+    @EventListener(id = "ok")
+    public void onOk() {
+        shell.close();
+    }
 }

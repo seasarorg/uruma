@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://s2jface.sandbox.seasar.org">
+  <window id="about" style="TITLE, CLOSE, PRIMARY_MODAL" title="従業員管理について"
+    image="images/title.gif" defaultButtonId="ok">
+    <gridLayout numColumns="1" marginLeft="10" marginRight="10">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+
+    <label alignment="CENTER" image="images/seasar.gif">
+      <gridData horizontalAlignment="FILL" />
+    </label>
+
+    <label text="S2JFaceのサンプルプログラムです。" />
+    <link id="S2JFaceLink"
+      text="&lt;a&gt;http://s2jface.sandbox.seasar.org/&lt;/a&gt;"
+      toolTipText="プロジェクト ホームページ" />
+
+    <label />
+    <label text="Copyright 2004-2006 the Seasar Foundation and the Others." />
+
+    <label alignment="CENTER" style="SEPARATOR, HORIZONTAL" />
+    <button id="ok" text="OK">
+      <gridData horizontalAlignment="RIGHT" widthHint="100" />
+    </button>
+  </window>
+</template>
