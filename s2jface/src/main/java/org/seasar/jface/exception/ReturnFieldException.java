@@ -13,19 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee;
+package org.seasar.jface.exception;
 
-import org.seasar.jface.S2JFace;
+import java.lang.reflect.Field;
 
-public class EmployeeManagement {
+/**
+ * @author bskuroneko
+ */
+public class ReturnFieldException extends S2JFaceRuntimeException {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        S2JFace s2JFace = new S2JFace("employee.dicon");
-        s2JFace.setImageBundleName("employeeImages");
-        s2JFace.openWindow("org/seasar/jface/example/employee/main.xml");
+    private static final long serialVersionUID = 816517114587326374L;
+
+    public static final String DUPLICATE = "EJFC0209";
+
+    public ReturnFieldException(String messageCode, Class clazz, Field field) {
+        super(messageCode, new Object[] { clazz.getName(), field });
     }
 
 }

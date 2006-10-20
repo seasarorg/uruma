@@ -13,15 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.container;
+package examples.jsf.exception;
 
-import org.seasar.framework.container.ComponentDef;
+public class EmployeeNotFoundRuntimeException extends AppRuntimeException {
 
-/**
- * @author y-komori
- * 
- */
-public interface S2JFaceComponentDef extends ComponentDef,
-        EventListenerDefAware {
+	private int empno;
 
+	public EmployeeNotFoundRuntimeException(int empno) {
+		super("examples.jsf.EmployeeNotFound", new Object[]{String.valueOf(empno)});
+		this.empno = empno;
+	}
+	
+	public int getEmpno() {
+		return empno;
+	}
 }

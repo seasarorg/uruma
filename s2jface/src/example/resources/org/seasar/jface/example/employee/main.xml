@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://s2jface.sandbox.seasar.org">
   <window id="main" title="従業員管理" height="450" width="680"
-    image="images/title.gif">
+    image="title">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true" />
     </gridLayout>
@@ -34,16 +34,16 @@
     </menu>
 
     <toolBar>
-      <toolItem id="toolRegist" toolTipText="新規登録" image="images/regist.gif" />
+      <toolItem id="toolRegist" toolTipText="新規登録" image="regist" />
       <toolItem style="SEPARATOR" />
-      <toolItem id="toolEdit" toolTipText="編集" image="images/edit.gif"
+      <toolItem id="toolEdit" toolTipText="編集" image="edit"
         enabled="false" />
-      <toolItem id="toolDelete" toolTipText="削除" image="images/delete.gif"
+      <toolItem id="toolDelete" toolTipText="削除" image="delete"
         enabled="false" />
-      <toolItem id="toolInquire" toolTipText="詳細表示" image="images/inquire.gif"
+      <toolItem id="toolInquire" toolTipText="詳細表示" image="inquire"
         enabled="false" />
       <toolItem style="SEPARATOR" />
-      <toolItem id="toolSearch" toolTipText="検索" image="images/search.gif" />
+      <toolItem id="toolSearch" toolTipText="検索" image="search" />
     </toolBar>
 
     <table id="employeeTable" style="FULL_SELECTION, MULTI" headerVisible="true"

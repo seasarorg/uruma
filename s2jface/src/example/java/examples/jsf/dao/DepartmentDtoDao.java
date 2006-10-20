@@ -13,20 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.container;
+package examples.jsf.dao;
 
-import java.lang.reflect.Method;
+import java.util.List;
 
-import org.seasar.jface.annotation.EventListener;
+import examples.jsf.dto.DepartmentDto;
 
-/**
- * @author y-komori
- * 
- */
-public interface EventListenerDef {
+public interface DepartmentDtoDao {
 
-    public EventListener getEventListener();
+	public Class BEAN = DepartmentDto.class;
 
-    public Method getTargetMethod();
+	public List getAllDepartments();
+	
+	public String getDname_ARGS = "deptno";
 
+	public String getDname(Integer deptno);
 }

@@ -13,16 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.container;
+package examples.jsf.exception;
 
-import java.util.Iterator;
+public class EmployeeAlreadyExistRuntimeException extends AppRuntimeException {
 
-/**
- * @author y-komori
- * 
- */
-public interface EventListenerDefAware {
-    public void addEventListenerDef(EventListenerDef eventListenerDef);
+	private int empno;
 
-    public Iterator<EventListenerDef> eventListenerDefIterator();
+	public EmployeeAlreadyExistRuntimeException(int empno) {
+		super("examples.jsf.EmployeeAlreadyExist", new Object[]{String.valueOf(empno)});
+		this.empno = empno;
+	}
+	
+	public int getEmpno() {
+		return empno;
+	}
 }

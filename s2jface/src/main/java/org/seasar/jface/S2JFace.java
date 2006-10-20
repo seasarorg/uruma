@@ -19,8 +19,6 @@ import org.eclipse.swt.widgets.Display;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.framework.container.factory.TigerAnnotationHandler;
-import org.seasar.jface.container.factory.S2JFaceComponentDefBuilder;
 import org.seasar.jface.util.ImageManager;
 
 /**
@@ -31,6 +29,8 @@ public class S2JFace {
     protected S2Container container;
 
     private Display display;
+    
+    private String imageBundleName = "s2JFaceImages";
 
     public static void main(String[] args) {
         if (args.length >= 1) {
@@ -61,16 +61,13 @@ public class S2JFace {
 
             S2JFaceWindowManager windowManager = (S2JFaceWindowManager) container
                     .getComponent(S2JFaceWindowManager.class);
-            windowManager.open(templatePath, true);
+            windowManager.openModal(templatePath);
         } finally {
             dispose();
         }
     }
 
     protected void initS2Container() {
-        TigerAnnotationHandler
-                .addComponentDefBuilder(new S2JFaceComponentDefBuilder());
-        
         S2Container s2JFaceContainer = S2ContainerFactory.create(S2JFaceConstants.S2JFACE_DICON_PATH);
         String configPath = SingletonS2ContainerFactory.getConfigPath();
         container = S2ContainerFactory.create(configPath);
@@ -79,9 +76,13 @@ public class S2JFace {
         container.init();
         SingletonS2ContainerFactory.setContainer(container);
     }
+    
+    public void setImageBundleName(String imageBundleName) {
+        this.imageBundleName = imageBundleName;
+    }
 
     protected void setupImageManager() {
-        ImageManager.loadImages("s2JFaceImages");
+        ImageManager.loadImages(imageBundleName);
     }
 
     protected void dispose() {

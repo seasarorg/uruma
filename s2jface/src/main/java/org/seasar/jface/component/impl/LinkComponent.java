@@ -16,13 +16,13 @@
 package org.seasar.jface.component.impl;
 
 import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
 
 /**
  * @author bskuroneko
  */
 public class LinkComponent extends ControlComponent {
-    @ComponentAttribute(conversionType = ConversionType.TEXT)
+    @ComponentAttribute(targetType = TargetType.NONE)
     private String text;
 
     public String getText() {

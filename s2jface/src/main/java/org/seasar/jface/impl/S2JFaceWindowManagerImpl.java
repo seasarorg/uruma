@@ -42,28 +42,36 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
     private ComponentTreeBuilder builder = new ComponentTreeBuilder();
 
     /*
-     * @see org.seasar.jface.S2JFaceWindowManager#open(java.lang.String,
-     *      boolean)
+     * @see org.seasar.jface.S2JFaceWindowManager#openModal(String)
      */
-    public void open(String templatePath, boolean blockOnOpen) {
+    public Object openModal(String templatePath) {
+        S2JFaceApplicationWindow window = openWindow(templatePath, true);
+        return window.getReturnValue();
+    }
+
+    /*
+     * @see org.seasar.jface.S2JFaceWindowManager#openModeless(String)
+     */
+    public Object openModeless(String templatePath) {
+        S2JFaceApplicationWindow window = openWindow(templatePath, false);
+        return window.getActionComponent();
+    }
+
+    public S2JFaceApplicationWindow openWindow(String templatePath, boolean modal) {
         Template template = loadTemplate(templatePath);
         S2JFaceApplicationWindow window = new S2JFaceApplicationWindow();
         // window.setMenuManagerBuilder((MenuManagerBuilder) S2ContainerUtil
         // .getComponent(MenuManagerBuilder.class));
-        window.init(template);
+        window.init(template, modal);
 
         window.initActionComponent();
 
-        window.setBlockOnOpen(blockOnOpen);
+        if (modal) {
+            window.setBlockOnOpen(true);
+        }
         windowManager.add(window);
         window.open();
-    }
-
-    /*
-     * @see org.seasar.jface.S2JFaceWindowManager#open(java.lang.String)
-     */
-    public void open(String templatePath) {
-        open(templatePath, false);
+        return window;
     }
 
     protected Template loadTemplate(final String path) {

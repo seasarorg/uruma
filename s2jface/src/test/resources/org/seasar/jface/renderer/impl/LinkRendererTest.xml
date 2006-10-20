@@ -13,7 +13,9 @@
 
       <link text="&lt;a href=&quot;link.html&quot;&gt;リンク&lt;/a&gt;" toolTipText="ツールチップ\nテキスト"/>
       
-      <link text="aタグなし"/>
+      <link text="文字列の途中だけ&lt;a&gt;リンク&lt;/a&gt;する" />
+      
+      <link text="aタグがなければ全体をリンクとする"/>
       
     </composite>
 

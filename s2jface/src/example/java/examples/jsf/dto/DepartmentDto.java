@@ -13,29 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee;
+package examples.jsf.dto;
 
-import org.eclipse.swt.widgets.Shell;
-import org.seasar.jface.annotation.EventListener;
+import examples.jsf.entity.Department;
 
-public class SearchAction {
-    
-    private Shell shell;
-    
-    @EventListener(id="ok")
-    public void onOk() {
-        // TODO validate
-        
-        // TODO search
-        
-        // TODO return Value
-        shell.close();
-    }
+public class DepartmentDto extends Department {
 
-    @EventListener(id="cancel")
-    public void onCancel() {
-        // TODO return Value
-        shell.close();
-    }
-    
+    private static final long serialVersionUID = 1L;
+
 }

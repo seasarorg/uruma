@@ -16,6 +16,7 @@
 package org.seasar.jface.impl;
 
 import org.eclipse.jface.window.ApplicationWindow;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
@@ -51,9 +52,9 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         super(null);
     }
 
-    public S2JFaceApplicationWindow(Template template) {
+    public S2JFaceApplicationWindow(Template template, boolean modal) {
         super(null);
-        init(template);
+        init(template, modal);
     }
 
     /**
@@ -65,13 +66,13 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
      * @param template
      *            テンプレートオブジェクト
      */
-    public void init(Template template) {
+    public void init(Template template, boolean modal) {
         this.template = template;
         this.context = new WindowContextImpl();
 
         setupActionComponent();
         // setupMenuBar();
-        setupShellStyle(template.getWindowComponent());
+        setupShellStyle(template.getWindowComponent(), modal);
     }
 
     protected void setupActionComponent() {
@@ -85,12 +86,21 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         }
     }
 
-    protected void setupShellStyle(final WindowComponent component) {
+    protected void setupShellStyle(final WindowComponent component, boolean modal) {
         WindowRenderer renderer = (WindowRenderer) component.getRenderer();
         int style = (renderer.getShellStyle(component));
+        
+        if (modal) {
+            if ((style & (SWT.APPLICATION_MODAL | SWT.PRIMARY_MODAL | SWT.SYSTEM_MODAL)) == 0) {
+                style |= SWT.PRIMARY_MODAL;
+            }
+        }
+        else {
+            style &= ~(SWT.APPLICATION_MODAL | SWT.PRIMARY_MODAL | SWT.SYSTEM_MODAL);
+        }
         setShellStyle(style);
     }
-
+    
     // protected void setupMenuBar() {
     // WindowComponent windowComponent = template.getWindowComponent();
     // Menu menuBar = windowComponent.getMenuBar();
@@ -106,7 +116,9 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         WindowComponent windowComponent = template.getWindowComponent();
         windowComponent.render(parent, context);
 
-        MethodBindingSupport.createListeners(windowComponent.getId(), context);
+        if (actionDesc != null) {
+            MethodBindingSupport.createListeners(actionDesc, context);
+        }
 
         return parent;
     }
@@ -148,5 +160,13 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         if (actionComponent != null) {
             actionDesc.invokeInitializeMethod(actionComponent);
         }
+    }
+
+    Object getActionComponent() {
+        return actionComponent;
+    }
+
+    public Object getReturnValue() {
+        return actionDesc.getReturnValue(actionComponent);
     }
 }

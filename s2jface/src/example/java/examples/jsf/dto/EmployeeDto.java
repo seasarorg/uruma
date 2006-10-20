@@ -13,33 +13,31 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.container.impl;
+package examples.jsf.dto;
 
-import java.lang.reflect.Method;
+import examples.jsf.entity.Employee;
 
-import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.container.EventListenerDef;
+public class EmployeeDto extends Employee {
 
-/**
- * @author y-komori
- * 
- */
-public class EventListenerDefImpl implements EventListenerDef {
-    private Method targetMethod;
+    private static final long serialVersionUID = 1L;
 
-    private EventListener eventListener;
+    private String dname;
 
-    public EventListenerDefImpl(Method target, EventListener eventListener) {
-        this.targetMethod = target;
-        this.eventListener = eventListener;
+    public EmployeeDto() {
     }
 
-    public EventListener getEventListener() {
-        return this.eventListener;
+    public String getDname() {
+        return dname;
     }
 
-    public Method getTargetMethod() {
-        return this.targetMethod;
+    public void setDname(String dname) {
+        this.dname = dname;
+    }
+
+    protected void setupToString(StringBuffer buf) {
+        super.setupToString(buf);
+        buf.append(", ");
+        buf.append(dname);
     }
 
 }

@@ -19,15 +19,21 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.seasar.framework.exception.EmptyRuntimeException;
+import org.seasar.framework.util.FieldUtil;
+import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
+import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.binding.ActionDesc;
+import org.seasar.jface.binding.EventListenerDef;
 import org.seasar.jface.exception.InitializeMethodException;
+import org.seasar.jface.exception.ReturnFieldException;
 import org.seasar.jface.util.AssertionUtil;
 
 /**
@@ -45,6 +51,10 @@ public class ActionDescImpl implements ActionDesc {
     private List<Field> importFields = new ArrayList<Field>();
 
     private List<Field> exportFields = new ArrayList<Field>();
+
+    private Field returnField = null;
+
+    private List<EventListenerDef> eventListenerDefs = new ArrayList<EventListenerDef>();
 
     public ActionDescImpl(Class actionClass) throws EmptyRuntimeException {
         if (actionClass == null) {
@@ -69,6 +79,7 @@ public class ActionDescImpl implements ActionDesc {
             methodList.add(methods[i]);
 
             setupInitializeMethod(methods[i]);
+            setupEventListenerMethod(methods[i]);
         }
 
         for (String methodName : methodListMap.keySet()) {
@@ -95,6 +106,15 @@ public class ActionDescImpl implements ActionDesc {
         }
     }
 
+    protected void setupEventListenerMethod(Method method) {
+        EventListener eventListener = method.getAnnotation(EventListener.class);
+        if (eventListener != null) {
+            EventListenerDef eventListenerDef = new EventListenerDefImpl(
+                    method, eventListener);
+            eventListenerDefs.add(eventListenerDef);
+        }
+    }
+
     protected void setupFields() {
         setupFieldsByClass(actionClass);
         Class superClass = actionClass.getSuperclass();
@@ -114,6 +134,7 @@ public class ActionDescImpl implements ActionDesc {
 
                 setupExportField(field);
                 setupImportField(field);
+                setupReturnField(field);
             }
         }
     }
@@ -127,6 +148,17 @@ public class ActionDescImpl implements ActionDesc {
     protected void setupImportField(final Field field) {
         if (field.isAnnotationPresent(ImportValue.class)) {
             importFields.add(field);
+        }
+    }
+
+    protected void setupReturnField(final Field field) {
+        if (field.isAnnotationPresent(ReturnValue.class)) {
+            if (returnField != null) {
+                throw new ReturnFieldException (
+                        ReturnFieldException.DUPLICATE, actionClass,
+                        field);
+            }
+            returnField = field;
         }
     }
 
@@ -165,4 +197,27 @@ public class ActionDescImpl implements ActionDesc {
     public List<Field> getImportFields() {
         return importFields;
     }
+
+    /*
+     * @see org.seasar.jface.binding.ActionDesc#getReturnField()
+     */
+    public Field getReturnField() {
+        return returnField;
+    }
+
+    /*
+     * @see org.seasar.jface.binding.ActionDesc#getReturnField()
+     */
+    public Object getReturnValue(Object target) {
+        Object result = null;
+        if (returnField != null) {
+            result = FieldUtil.get(returnField, target);
+        }
+        return result;
+    }
+
+    public Iterator<EventListenerDef> eventListenerDefIterator() {
+        return eventListenerDefs.iterator();
+    }
+
 }

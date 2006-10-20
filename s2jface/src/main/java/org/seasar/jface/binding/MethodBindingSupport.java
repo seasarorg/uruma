@@ -20,14 +20,10 @@ import java.util.Iterator;
 
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.EventListenerType;
-import org.seasar.jface.container.EventListenerDef;
-import org.seasar.jface.container.S2JFaceComponentDef;
 import org.seasar.jface.events.ListenerFactory;
 import org.seasar.jface.exception.NotFoundException;
-import org.seasar.jface.util.S2ContainerUtil;
 
 /**
  * メソッドバインディングの生成をサポートするクラスです。</br>
@@ -58,34 +54,30 @@ public class MethodBindingSupport {
      * @see org.seasar.jface.annotation.EventListener
      * @see WindowContext
      */
-    public static void createListeners(String windowName, WindowContext context) {
-        S2JFaceComponentDef componentDef = getActionComponentDef(windowName);
-        if (componentDef == null) {
-            return;
-        }
-        Object action = componentDef.getComponent();
+    public static void createListeners(ActionDesc actionDesc,
+            WindowContext context) {
+        Object action = context.getActionComponent();
 
-        Iterator<EventListenerDef> iter = componentDef
-                .eventListenerDefIterator();
+        Iterator<EventListenerDef> iter = actionDesc.eventListenerDefIterator();
         while (iter.hasNext()) {
             EventListenerDef eventListenerDef = iter.next();
+            Method targetMethod = eventListenerDef.getTargetMethod();
+            MethodBinding methodBinding = new MethodBinding(action,
+                    targetMethod);
+            methodBinding.addArgumentsFilter(new OmissionArgumentsFilter(
+                    targetMethod));
+            methodBinding.addArgumentsFilter(new TypedEventArgumentsFilter(
+                    targetMethod));
+
+            EventListenerType listenerType = eventListenerDef
+                    .getEventListener().type();
+
+            Listener listener = ListenerFactory.getListener(context,
+                    methodBinding);
             String[] ids = eventListenerDef.getEventListener().id();
             for (String id : ids) {
                 Widget widget = context.getComponent(id);
                 if (widget != null) {
-                    Method targetMethod = eventListenerDef.getTargetMethod();
-                    MethodBinding methodBinding = new MethodBinding(action,
-                            targetMethod);
-                    methodBinding.addArgumentsFilter(new OmissionArgumentsFilter(
-                            targetMethod));
-                    methodBinding.addArgumentsFilter(new TypedEventArgumentsFilter(
-                            targetMethod));
-    
-                    EventListenerType listenerType = eventListenerDef
-                            .getEventListener().type();
-    
-                    Listener listener = ListenerFactory.getListener(context,
-                            methodBinding);
                     ListenerBinder.bindListener(listenerType, listener, widget);
                 } else {
                     throw new NotFoundException(NotFoundException.WIDGET, id);
@@ -94,9 +86,4 @@ public class MethodBindingSupport {
         }
     }
 
-    protected static S2JFaceComponentDef getActionComponentDef(String windowName) {
-        String actionComponentName = StringUtil.decapitalize(windowName)
-                + "Action";
-        return S2ContainerUtil.getS2JFaceComponentDef(actionComponentName);
-    }
 }

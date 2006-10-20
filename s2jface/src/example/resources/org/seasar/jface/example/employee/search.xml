@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://s2jface.sandbox.seasar.org">
   <window id="search" style="TITLE, CLOSE, PRIMARY_MODAL" title="従業員検索"
-    image="images/title.gif" defaultButtonId="ok">
+    image="title" defaultButtonId="ok">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>

@@ -13,9 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee;
+package org.seasar.jface.example.employee.action;
+
+import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -46,20 +49,26 @@ public class MainAction {
 
     @EventListener(id = "shell", type = EventListenerType.SHOW)
     public void onInit() {
-        searchEmployee();
+        Display.getCurrent().asyncExec(new Runnable() {
+            public void run() {
+                searchEmployee();
+            }
+        });
     }
 
     @EventListener(id = { "menuSearch", "toolSearch" })
     public void searchEmployee() {
-        windowManager
-                .open("org/seasar/jface/example/employee/search.xml", true);
-        // TODO 結果を受け取って表示更新
+        List employees = (List) windowManager
+                .openModal("org/seasar/jface/example/employee/search.xml");
+        
+        // TODO 結果をテーブルにバインディング
+        System.out.println(employees);
     }
 
     @EventListener(id = { "menuRegist", "toolRegist" })
     public void registEmployee() {
         windowManager
-                .open("org/seasar/jface/example/employee/regist.xml", true);
+                .openModal("org/seasar/jface/example/employee/regist.xml");
         // TODO 結果を受け取って表示更新
     }
 
@@ -74,19 +83,19 @@ public class MainAction {
 
     @EventListener(id = { "menuEdit", "toolEdit" })
     public void editEmployee() {
-        windowManager.open("org/seasar/jface/example/employee/edit.xml", true);
+        windowManager.openModal("org/seasar/jface/example/employee/edit.xml");
         // TODO 結果を受け取って表示更新
     }
 
     @EventListener(id = { "menuInquire", "toolInquire" })
     public void inquireEmployee() {
-        windowManager.open("org/seasar/jface/example/employee/inquire.xml", true);
+        windowManager.openModal("org/seasar/jface/example/employee/inquire.xml");
         // TODO 結果を受け取って表示更新
     }
 
     @EventListener(id = "menuAbout")
     public void showAbout() {
-        windowManager.open("org/seasar/jface/example/employee/about.xml", true);
+        windowManager.openModal("org/seasar/jface/example/employee/about.xml");
     }
 
     @EventListener(id = "menuExit")

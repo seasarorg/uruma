@@ -13,19 +13,30 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee;
+package examples.jsf.logic;
 
-import org.seasar.jface.S2JFace;
+import java.util.List;
 
-public class EmployeeManagement {
+import examples.jsf.dto.EmployeeDto;
+import examples.jsf.dto.EmployeeSearchDto;
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        S2JFace s2JFace = new S2JFace("employee.dicon");
-        s2JFace.setImageBundleName("employeeImages");
-        s2JFace.openWindow("org/seasar/jface/example/employee/main.xml");
-    }
+public interface EmployeeLogic {
 
+	public int getSearchCount(EmployeeSearchDto dto);
+
+	public List searchEmployeeDtoList(EmployeeSearchDto dto);
+	
+	public EmployeeDto getEmployeeDto(Integer empno);
+	
+	public boolean existEmployee(Integer empno);
+	
+	public List getAllDepartments();
+	
+	public String getDname(Integer deptno);
+	
+	public void insert(EmployeeDto dto);
+	
+	public void update(EmployeeDto dto);
+	
+	public void delete(EmployeeDto dto);
 }

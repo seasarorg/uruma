@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://s2jface.sandbox.seasar.org">
   <window id="about" style="TITLE, CLOSE, PRIMARY_MODAL" title="従業員管理について"
-    image="images/title.gif" defaultButtonId="ok">
+    image="title" defaultButtonId="ok">
     <gridLayout numColumns="1" marginLeft="10" marginRight="10">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
 
-    <label alignment="CENTER" image="images/seasar.gif">
+    <label image="seasar" background="WHITE">
       <gridData horizontalAlignment="FILL" />
     </label>
 
     <label text="S2JFaceのサンプルプログラムです。" />
     <link id="S2JFaceLink"
-      text="&lt;a&gt;http://s2jface.sandbox.seasar.org/&lt;/a&gt;"
+      text="http://s2jface.sandbox.seasar.org/"
       toolTipText="プロジェクト ホームページ" />
 
     <label />

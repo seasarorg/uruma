@@ -17,7 +17,9 @@ package org.seasar.jface.binding;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Iterator;
 import java.util.List;
+
 
 /**
  * アクションクラスに関する詳細情報を保持するインターフェースです。<br />
@@ -58,4 +60,24 @@ public interface ActionDesc {
      * @return {@link Field}のリスト
      */
     public List<Field> getExportFields();
+    
+    /**
+     * {@link org.seasar.jface.annotation.ReturnValue}
+     * アノテーションが付加されたフィールドを取得します。<br />
+     * 
+     * @return {@link Field}
+     */
+    public Field getReturnField();
+    
+    /**
+     * {@link org.seasar.jface.annotation.ReturnValue}
+     * アノテーションが付加されたフィールドの値を取得します。<br />
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     * @return フィールドの値
+     */
+    public Object getReturnValue(Object target);
+    
+    public Iterator<EventListenerDef> eventListenerDefIterator();
 }

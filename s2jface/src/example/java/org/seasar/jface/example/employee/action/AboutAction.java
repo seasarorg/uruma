@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee;
+package org.seasar.jface.example.employee.action;
 
 import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Shell;
@@ -21,7 +21,7 @@ import org.seasar.jface.annotation.EventListener;
 
 public class AboutAction {
 
-    Shell shell;
+    private Shell shell;
 
     @EventListener(id = "S2JFaceLink")
     public void onS2JFaceLink() {

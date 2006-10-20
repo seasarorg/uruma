@@ -18,7 +18,6 @@ package org.seasar.jface.util;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.jface.container.S2JFaceComponentDef;
 
 /**
  * S2Container を利用するためのユーティリティクラスです。<br />
@@ -26,28 +25,6 @@ import org.seasar.jface.container.S2JFaceComponentDef;
  * @author y-komori
  */
 public class S2ContainerUtil {
-    /**
-     * 指定された名前のコンポーネントに対応する <code>S2JFaceComponentDef</code> を
-     * <code>S2Container</code> から取得して返します。<br />
-     * <p>
-     * コンポーネントが存在しない場合は例外をスローせず、<code>null</code> を返します。
-     * </p>
-     * 
-     * @param componentName
-     *            コンポーネント名称
-     * @return <code>S2JFaceComponentDef</code> オブジェクト
-     */
-    public static S2JFaceComponentDef getS2JFaceComponentDef(
-            final String componentName) {
-        S2Container container = SingletonS2ContainerFactory.getContainer();
-        if (container.hasComponentDef(componentName)) {
-            return (S2JFaceComponentDef) container
-                    .getComponentDef(componentName);
-        } else {
-            return null;
-        }
-    }
-
     /**
      * 指定された名前に対応するコンポーネントを <code>S2Container</code> から取得して返します。<br />
      * <p>

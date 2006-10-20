@@ -13,19 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee;
+package org.seasar.jface.annotation;
 
-import org.seasar.jface.S2JFace;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class EmployeeManagement {
-
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        S2JFace s2JFace = new S2JFace("employee.dicon");
-        s2JFace.setImageBundleName("employeeImages");
-        s2JFace.openWindow("org/seasar/jface/example/employee/main.xml");
-    }
-
+/**
+ * 画面からの戻り値として使用されるフィールドを示すためのアノテーションです。<br />
+ * 
+ * @author bskuroneko
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target( { ElementType.FIELD })
+public @interface ReturnValue {
 }

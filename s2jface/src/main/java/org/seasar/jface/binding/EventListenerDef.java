@@ -13,32 +13,20 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee;
+package org.seasar.jface.binding;
 
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.seasar.jface.S2JFaceWindowManager;
+import java.lang.reflect.Method;
+
 import org.seasar.jface.annotation.EventListener;
 
-public class RegistAction {
-    
-    private S2JFaceWindowManager windowManager;
+/**
+ * @author y-komori
+ * 
+ */
+public interface EventListenerDef {
 
-    private Shell shell;
-    
-    @EventListener(id="ok")
-    public void onOk() {
-        // TODO return Value
-        shell.close();
-    }
+    public EventListener getEventListener();
 
-    @EventListener(id="cancel")
-    public void onCancel() {
-        // TODO return Value
-        shell.close();
-    }
+    public Method getTargetMethod();
 
-    public void setWindowManager(S2JFaceWindowManager windowManager) {
-        this.windowManager = windowManager;
-    }
 }
