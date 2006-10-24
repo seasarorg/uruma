@@ -18,7 +18,11 @@ package org.seasar.jface.binding;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.binding.impl.ComboValueBinder;
+import org.seasar.jface.binding.impl.WidgetPropertyValueBinder;
 
 /**
  * {@link WidgetValueBinder} を取得するためのファクトリクラスです。<br />
@@ -29,11 +33,18 @@ public class WidgetValueBinderFactory {
     private static final Map<Class<? extends Widget>, WidgetValueBinder> binderMap = new HashMap<Class<? extends Widget>, WidgetValueBinder>();
 
     static {
-
+        addBinder(new WidgetPropertyValueBinder(Label.class, "text"));
+        addBinder(new WidgetPropertyValueBinder(Text.class, "text"));
+        addBinder(new ComboValueBinder());
     }
 
     public static WidgetValueBinder getBinder(
             Class<? extends Widget> widgetClass) {
         return binderMap.get(widgetClass);
     }
+
+    public static void addBinder(WidgetValueBinder binder) {
+        binderMap.put(binder.getWidgetType(), binder);
+    }
+
 }

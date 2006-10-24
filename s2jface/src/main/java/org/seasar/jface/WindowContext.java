@@ -112,4 +112,19 @@ public interface WindowContext {
      */
     @Deprecated
     public MenuManager getMenuBar();
+
+    /**
+     * 有効/無効 を他のコンポーネントに依存するウィジットを追加します。
+     * 
+     * @param widget ウィジット
+     * @param enabledDelegationId 依存するコンポーネントのid
+     * @param enabledDelegationType 依存タイプ
+     */
+    public void addEnabledDelegationWidget(Widget widget, String enabledDelegationId, String enabledDelegationType);
+
+    /**
+     * 有効/無効 の依存関係をバインドします。
+     */
+    public void bindEnabledDelegation();
+    
 }

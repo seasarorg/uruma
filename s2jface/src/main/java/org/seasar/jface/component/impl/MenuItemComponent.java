@@ -15,8 +15,11 @@
  */
 package org.seasar.jface.component.impl;
 
+import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
 import org.seasar.jface.component.Menu;
 import org.seasar.jface.component.MenuItem;
 
@@ -37,6 +40,12 @@ public class MenuItemComponent extends AbstractItemComponent implements
 
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private String selection;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String enabledDelegationId;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String enabledDelegationType;
 
     private Menu parentMenu;
 
@@ -64,11 +73,33 @@ public class MenuItemComponent extends AbstractItemComponent implements
         this.selection = selection;
     }
 
+    public String getEnabledDelegationId() {
+        return this.enabledDelegationId;
+    }
+
+    public void setEnabledDelegationId(String enabledDelegationId) {
+        this.enabledDelegationId = enabledDelegationId;
+    }
+
+    public String getEnabledDelegationType() {
+        return this.enabledDelegationType;
+    }
+
+    public void setEnabledDelegationType(String enabledDelegationType) {
+        this.enabledDelegationType = enabledDelegationType;
+    }
+
     public Menu getParentMenu() {
         return this.parentMenu;
     }
 
     public void setParentMenu(Menu parentMenu) {
         this.parentMenu = parentMenu;
+    }
+
+    @Override
+    protected void doRender(Widget parent, WindowContext context) {
+        context.addEnabledDelegationWidget(getWidget(), enabledDelegationId,
+                enabledDelegationType);
     }
 }

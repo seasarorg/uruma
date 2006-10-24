@@ -36,6 +36,8 @@ public class WindowContextImpl implements WindowContext {
     private Method initializeMethod;
 
     protected MenuManager menuBar;
+    
+    private EnabledDelegationControl enabledDelegationControl = new EnabledDelegationControl();
 
     /*
      * @see org.seasar.jface.WindowContext#getActionObject()
@@ -99,5 +101,13 @@ public class WindowContextImpl implements WindowContext {
      */
     public void setMenuBar(MenuManager menuManager) {
         this.menuBar = menuManager;
+    }
+
+    public void addEnabledDelegationWidget(Widget widget, String id, String type) {
+        enabledDelegationControl.addDelegation(widget, id, type);
+    }
+    
+    public void bindEnabledDelegation() {
+        enabledDelegationControl.bind(this);
     }
 }

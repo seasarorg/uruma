@@ -26,6 +26,7 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.ActionDesc;
 import org.seasar.jface.binding.ActionDescFactory;
 import org.seasar.jface.binding.MethodBindingSupport;
+import org.seasar.jface.binding.ValueBinder;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.renderer.impl.WindowRenderer;
@@ -119,7 +120,10 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         if (actionDesc != null) {
             MethodBindingSupport.createListeners(actionDesc, context);
         }
-
+        
+        context.bindEnabledDelegation();
+        
+        ValueBinder.exportValue(context);
         return parent;
     }
 

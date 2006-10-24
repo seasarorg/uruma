@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.MethodBinding;
+import org.seasar.jface.binding.ValueBinder;
 import org.seasar.jface.binding.WidgetBinder;
 
 /**
@@ -39,8 +40,9 @@ public class S2JFaceListener implements Listener {
     public void handleEvent(Event event) {
         if (methodBinding != null) {
             WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
-            // TODO ここでValueBinderを呼び出す
+            ValueBinder.importValue(context);
             methodBinding.invoke(new Object[] { event });
+            ValueBinder.exportValue(context);
         }
     }
 

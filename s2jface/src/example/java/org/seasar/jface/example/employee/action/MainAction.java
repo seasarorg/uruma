@@ -62,7 +62,12 @@ public class MainAction {
                 .openModal("org/seasar/jface/example/employee/search.xml");
         
         // TODO 結果をテーブルにバインディング
-        System.out.println(employees);
+        System.out.println("検索結果: " + employees);
+        int count = 0;
+        if (employees != null) {
+            count = employees.size();
+        }
+        System.out.println("結果件数: " + count);
     }
 
     @EventListener(id = { "menuRegist", "toolRegist" })

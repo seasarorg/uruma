@@ -13,26 +13,23 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.exception;
+package org.seasar.jface.impl;
 
-import java.lang.reflect.Field;
+import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 
 /**
- * @author y-komori
+ * @author bskuroneko
+ *
  */
-public class ValueBindingException extends S2JFaceRuntimeException {
+public class EnabledDelegationControl {
 
-    private static final long serialVersionUID = 4452747426693887995L;
-
-    public static final String WIDGET_NOT_SUPPORTED = "EJFC0207";
-
-    public static final String IMPORT_SOURCE_NOT_FOUND = "EJFC0208";
-
-    public static final String EXPORT_COMPONENT_NOT_FOUND = "EJFC0210";
-
-    public ValueBindingException(String messageCode, String id, Class clazz,
-            Field field) {
-        super(messageCode,
-                new Object[] { id, clazz.getName(), field.getName() });
+    public void addDelegation(Widget widget, String id, String type) {
+        // TODO 
     }
+
+    public void bind(WindowContext windowContext) {
+        // TODO 
+    }
+
 }

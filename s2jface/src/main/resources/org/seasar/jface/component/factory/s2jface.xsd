@@ -223,6 +223,9 @@
           <xs:attribute name="enabled" type="xs:boolean" />
           <xs:attribute name="x" type="xs:int" />
           <xs:attribute name="y" type="xs:int" />
+          <xs:attribute name="enabledDelegationId" type="xs:string" />
+          <xs:attribute name="enabledDelegationType"
+            type="tns:EnabledDelegationType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -231,17 +234,17 @@
   <xs:complexType name="PreMenuItem">
     <xs:complexContent>
       <xs:restriction base="tns:Item">
-          <xs:attribute name="style">
-            <xs:simpleType>
-              <xs:restriction base="tns:SWTConst">
-                <xs:enumeration value="CASCADE" />
-                <xs:enumeration value="SEPARATOR" />
-                <xs:enumeration value="CHECK" />
-                <xs:enumeration value="RADIO" />
-                <xs:enumeration value="PUSH" />
-              </xs:restriction>
-            </xs:simpleType>
-          </xs:attribute>
+        <xs:attribute name="style">
+          <xs:simpleType>
+            <xs:restriction base="tns:SWTConst">
+              <xs:enumeration value="CASCADE" />
+              <xs:enumeration value="SEPARATOR" />
+              <xs:enumeration value="CHECK" />
+              <xs:enumeration value="RADIO" />
+              <xs:enumeration value="PUSH" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
       </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
@@ -253,6 +256,9 @@
           <xs:attribute name="accelerator" type="tns:Accelerator" />
           <xs:attribute name="enabled" type="xs:boolean" />
           <xs:attribute name="selection" type="xs:boolean" />
+          <xs:attribute name="enabledDelegationId" type="xs:string" />
+          <xs:attribute name="enabledDelegationType"
+            type="tns:EnabledDelegationType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -524,7 +530,7 @@
       </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
-  
+
   <xs:element name="toolItem">
     <xs:complexType>
       <xs:complexContent>
@@ -538,6 +544,9 @@
           <xs:attribute name="selection" type="xs:boolean" />
           <xs:attribute name="toolTipText" type="xs:string" />
           <xs:attribute name="width" type="xs:int" />
+          <xs:attribute name="enabledDelegationId" type="xs:string" />
+          <xs:attribute name="enabledDelegationType"
+            type="tns:EnabledDelegationType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -1045,6 +1054,9 @@
         <xs:attribute name="foreground" type="tns:Color" />
         <xs:attribute name="toolTipText" type="xs:string" />
         <xs:attribute name="visible" type="xs:boolean" />
+        <xs:attribute name="enabledDelegationId" type="xs:string" />
+        <xs:attribute name="enabledDelegationType"
+          type="tns:EnabledDelegationType" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -1080,7 +1092,7 @@
       <xs:element ref="tns:gradientItem" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute name="vertical" type="xs:boolean" />
-    <xs:attribute name="startColor" type="tns:Color" use="required"/>
+    <xs:attribute name="startColor" type="tns:Color" use="required" />
   </xs:complexType>
 
   <xs:complexType name="StyleRange">
@@ -1125,24 +1137,37 @@
 
   <xs:simpleType name="Orientation">
     <xs:restriction base="tns:SWTConst">
-      <xs:enumeration value="RIGHT_TO_LEFT"/>
-      <xs:enumeration value="LEFT_TO_RIGHT"/>
+      <xs:enumeration value="RIGHT_TO_LEFT" />
+      <xs:enumeration value="LEFT_TO_RIGHT" />
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="Alignment">
     <xs:restriction base="tns:SWTConst">
-      <xs:enumeration value="LEFT"/>
-      <xs:enumeration value="CENTER"/>
-      <xs:enumeration value="RIGHT"/>
+      <xs:enumeration value="LEFT" />
+      <xs:enumeration value="CENTER" />
+      <xs:enumeration value="RIGHT" />
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="Direction">
     <xs:restriction base="tns:SWTConst">
-      <xs:enumeration value="HORIZONTAL"/>
-      <xs:enumeration value="VERTICAL"/>
+      <xs:enumeration value="HORIZONTAL" />
+      <xs:enumeration value="VERTICAL" />
     </xs:restriction>
   </xs:simpleType>
-  
+
+  <xs:simpleType name="EnabledDelegationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SELECTION" />
+      <xs:enumeration value="SINGLE" />
+      <!-- TODO
+        <xs:enumeration value="NO_SELECTION" />
+        <xs:enumeration value="PAIR" />
+        <xs:enumeration value="EXCEPT_TOP" />
+        <xs:enumeration value="EXCEPT_BOTTOM" />
+      -->
+    </xs:restriction>
+  </xs:simpleType>
+
 </xs:schema>

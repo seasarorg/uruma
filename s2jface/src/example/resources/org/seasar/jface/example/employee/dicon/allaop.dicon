@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<include path="dxo.dicon"/>
+	<include path="examples/jsf/dicon/allaop.dicon"/>
+
+	<component
+		name="dxoInterceptorChain"
+		class="org.seasar.framework.aop.interceptors.InterceptorChain"
+	>
+		<initMethod name="add"><arg>dxo.interceptor</arg></initMethod>
+	</component>
+
+</components>

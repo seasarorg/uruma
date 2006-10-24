@@ -17,7 +17,7 @@
       </menu>
       <menu text="編集(&amp;E)">
         <menuItem id="menuEdit" text="編集(&amp;E)\tCtrl+E" accelerator="Ctrl+E"
-          enabled="false" />
+          enabled="false" enabledDelegationId="employeeTable" enabledDelegationType="SINGLE" />
         <menuItem id="menuDelete" text="削除(&amp;D)\tDelete" accelerator="Delete"
           enabled="false" />
       </menu>
@@ -46,7 +46,7 @@
       <toolItem id="toolSearch" toolTipText="検索" image="search" />
     </toolBar>
 
-    <table id="employeeTable" style="FULL_SELECTION, MULTI" headerVisible="true"
+    <table id="employeeTable" style="FULL_SELECTION, MULTI, BORDER" headerVisible="true"
       linesVisible="true">
       <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
         grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />

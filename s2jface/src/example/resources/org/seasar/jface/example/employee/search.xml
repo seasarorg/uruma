@@ -10,29 +10,29 @@
         <gridData horizontalAlignment="FILL" />
       </gridLayout>
       <label text="従業員No." />
-      <text id="empNo" />
+      <text id="empno" />
       <label text="従業員名" />
-      <text id="empName" />
+      <text id="ename" />
       <label text="役職" />
       <text id="job" />
       <label text="管理者" />
-      <text id="manager" />
+      <text id="mgr" />
       <label text="雇用日" />
       <composite>
         <gridLayout numColumns="3" marginWidth="0" marginHeight="0" />
-        <text id="hireDateGt" />
+        <text id="fromHiredate" />
         <label text="～" />
-        <text id="hireDateLt" />
+        <text id="toHiredate" />
       </composite>
       <label text="給与" />
       <composite>
         <gridLayout numColumns="3" marginWidth="0" marginHeight="0" />
-        <text id="salaryGt" />
+        <text id="fromSal" />
         <label text="～" />
-        <text id="salaryLt" />
+        <text id="toSal" />
       </composite>
       <label text="部署" />
-      <combo id="department" style="DROP_DOWN, READ_ONLY" />
+      <combo id="dept" style="DROP_DOWN, READ_ONLY" />
     </composite>
     <composite>
       <fillLayout type="HORIZONTAL" />

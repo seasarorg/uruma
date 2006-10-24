@@ -32,17 +32,25 @@ public interface WidgetValueBinder {
      * ウィジットからフィールドへ値を設定します。<br />
      * 
      * @param src
-     *            {@link Widget} オブジェクト
-     * @param dest
-     *            {@link Field} オブジェクト
+     *            設定元 {@link Widget}
+     * @param destObject
+     *            設定先オブジェクト
+     * @param destField
+     *            設定先 {@link Field}
      */
-    public void importValue(Widget src, Field dest);
+    public void importValue(Widget src, Object destObject, Field destField);
 
     /**
-     * @param src
+     * フィールドからウィジットへ値を設定します。<br />
+     * 
+     * @param srcObject
+     *            設定元オブジェクト
+     * @param srcField
+     *            設定元 {@link Field}
      * @param dest
+     *            設定先 {@link Widget}
      */
-    public void exportValue(Field src, Widget dest);
+    public void exportValue(Object srcObject, Field srcField, Widget dest);
 
     /**
      * 対応するウィジットの型を返します。<br />
