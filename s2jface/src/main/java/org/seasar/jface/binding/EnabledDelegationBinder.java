@@ -13,23 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.impl;
+package org.seasar.jface.binding;
 
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.WindowContext;
 
 /**
  * @author bskuroneko
- *
+ * 
  */
-public class EnabledDelegationControl {
+public interface EnabledDelegationBinder {
 
-    public void addDelegation(Widget widget, String id, String type) {
-        // TODO 
-    }
+    public void bind(Widget widget, Widget delegatedWidget,
+            EnabledDelegationType type);
 
-    public void bind(WindowContext windowContext) {
-        // TODO 
-    }
-
+    public Class<? extends Widget> getWidgetType();
 }

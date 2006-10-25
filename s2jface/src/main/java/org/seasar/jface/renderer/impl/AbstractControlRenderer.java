@@ -62,6 +62,8 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         setFont(controlComponent, control);
 
         doRenderControl(uiComponent, control);
+        
+        addEnabledDelegation(control, uiComponent);
     }
 
     protected void setLocation(final ControlComponent controlComponent,

@@ -18,6 +18,7 @@ package org.seasar.jface.component.impl;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.seasar.jface.component.EnabledDelegatable;
 import org.seasar.jface.component.LayoutDataInfo;
 import org.seasar.jface.component.UIControlComponent;
 
@@ -25,9 +26,9 @@ import org.seasar.jface.component.UIControlComponent;
  * @author y-komori
  */
 public abstract class ControlComponent extends AbstractUIComponent implements
-        UIControlComponent {
+        UIControlComponent, EnabledDelegatable {
     private LayoutDataInfo layoutDataInfo;
-    
+
     @ComponentAttribute(conversionType = ConversionType.COLOR)
     private String background;
 
@@ -66,6 +67,12 @@ public abstract class ControlComponent extends AbstractUIComponent implements
 
     @ComponentAttribute(targetType = TargetType.NONE)
     private String y;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String enabledDelegationId;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String enabledDelegationType;
 
     public String getBackground() {
         return this.background;
@@ -178,4 +185,21 @@ public abstract class ControlComponent extends AbstractUIComponent implements
     public void setLayoutDataInfo(LayoutDataInfo layoutDataInfo) {
         this.layoutDataInfo = layoutDataInfo;
     }
+
+    public String getEnabledDelegationId() {
+        return this.enabledDelegationId;
+    }
+
+    public void setEnabledDelegationId(String enabledDelegationId) {
+        this.enabledDelegationId = enabledDelegationId;
+    }
+
+    public String getEnabledDelegationType() {
+        return this.enabledDelegationType;
+    }
+
+    public void setEnabledDelegationType(String enabledDelegationType) {
+        this.enabledDelegationType = enabledDelegationType;
+    }
+
 }

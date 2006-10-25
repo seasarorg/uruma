@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://s2jface.sandbox.seasar.org">
-  <window id="main" title="従業員管理" height="450" width="680"
-    image="title">
+  <window id="main" title="従業員管理" height="450" width="680" image="title">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true" />
     </gridLayout>
@@ -15,19 +14,24 @@
         <separator />
         <menuItem id="menuExit" text="終了(&amp;X)" />
       </menu>
+
       <menu text="編集(&amp;E)">
         <menuItem id="menuEdit" text="編集(&amp;E)\tCtrl+E" accelerator="Ctrl+E"
-          enabled="false" enabledDelegationId="employeeTable" enabledDelegationType="SINGLE" />
+          enabledDelegationId="employeeTable" enabledDelegationType="SINGLE" />
         <menuItem id="menuDelete" text="削除(&amp;D)\tDelete" accelerator="Delete"
-          enabled="false" />
+          enabledDelegationId="employeeTable" enabledDelegationType="SELECTION" />
       </menu>
+
       <menu text="表示(&amp;V)">
         <menuItem id="menuInquire" text="詳細表示(&amp;I)\tCtrl+I"
-          accelerator="Ctrl+I" enabled="false" />
+          accelerator="Ctrl+I" enabledDelegationId="employeeTable"
+          enabledDelegationType="SINGLE" />
       </menu>
+
       <menu text="検索(&amp;S)">
         <menuItem id="menuSearch" text="検索(&amp;F)\tCtrl+F" />
       </menu>
+
       <menu text="ヘルプ(&amp;H)">
         <menuItem id="menuAbout" text="従業員管理について(&amp;A)" />
       </menu>
@@ -36,18 +40,20 @@
     <toolBar>
       <toolItem id="toolRegist" toolTipText="新規登録" image="regist" />
       <toolItem style="SEPARATOR" />
+
       <toolItem id="toolEdit" toolTipText="編集" image="edit"
-        enabled="false" />
+        enabledDelegationId="employeeTable" enabledDelegationType="SINGLE" />
       <toolItem id="toolDelete" toolTipText="削除" image="delete"
-        enabled="false" />
+        enabledDelegationId="employeeTable" enabledDelegationType="SELECTION" />
       <toolItem id="toolInquire" toolTipText="詳細表示" image="inquire"
-        enabled="false" />
+        enabledDelegationId="employeeTable" enabledDelegationType="SINGLE" />
       <toolItem style="SEPARATOR" />
+
       <toolItem id="toolSearch" toolTipText="検索" image="search" />
     </toolBar>
 
-    <table id="employeeTable" style="FULL_SELECTION, MULTI, BORDER" headerVisible="true"
-      linesVisible="true">
+    <table id="employeeTable" style="FULL_SELECTION, MULTI, BORDER"
+      headerVisible="true" linesVisible="true">
       <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
         grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
       <tableColumn width="80" text="従業員No." />

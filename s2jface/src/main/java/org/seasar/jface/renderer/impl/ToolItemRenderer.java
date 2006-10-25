@@ -28,6 +28,7 @@ public class ToolItemRenderer extends
 
     @Override
     protected void doRender(ToolItemComponent toolItemComponent, ToolItem control) {
+        addEnabledDelegation(control, toolItemComponent);
     }
     
     @Override

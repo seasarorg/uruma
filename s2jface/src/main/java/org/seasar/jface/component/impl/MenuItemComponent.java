@@ -15,22 +15,21 @@
  */
 package org.seasar.jface.component.impl;
 
-import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.seasar.jface.component.EnabledDelegatable;
 import org.seasar.jface.component.Menu;
 import org.seasar.jface.component.MenuItem;
 
 /**
- * メニュー項目情報を保持するためのこんぽーねんとです。<br />
+ * メニュー項目情報を保持するためのコンポーネントです。<br />
  * 
  * @author bskuroneko
  * @author y-komori
  */
 public class MenuItemComponent extends AbstractItemComponent implements
-        MenuItem {
+        MenuItem, EnabledDelegatable {
 
     @ComponentAttribute(conversionType = ConversionType.ACCELERATOR)
     private String accelerator;
@@ -73,6 +72,14 @@ public class MenuItemComponent extends AbstractItemComponent implements
         this.selection = selection;
     }
 
+    public Menu getParentMenu() {
+        return this.parentMenu;
+    }
+
+    public void setParentMenu(Menu parentMenu) {
+        this.parentMenu = parentMenu;
+    }
+
     public String getEnabledDelegationId() {
         return this.enabledDelegationId;
     }
@@ -89,17 +96,4 @@ public class MenuItemComponent extends AbstractItemComponent implements
         this.enabledDelegationType = enabledDelegationType;
     }
 
-    public Menu getParentMenu() {
-        return this.parentMenu;
-    }
-
-    public void setParentMenu(Menu parentMenu) {
-        this.parentMenu = parentMenu;
-    }
-
-    @Override
-    protected void doRender(Widget parent, WindowContext context) {
-        context.addEnabledDelegationWidget(getWidget(), enabledDelegationId,
-                enabledDelegationType);
-    }
 }

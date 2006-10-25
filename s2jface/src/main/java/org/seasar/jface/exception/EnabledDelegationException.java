@@ -13,27 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.renderer.impl;
-
-import org.eclipse.swt.widgets.MenuItem;
-import org.seasar.jface.component.impl.MenuItemComponent;
+package org.seasar.jface.exception;
 
 /**
- * <code>MenuItem</code> のレンダリングを行うクラスです。<br />
- * 
  * @author bskuroneko
+ *
  */
-public class MenuItemRenderer extends
-        AbstractWidgetRenderer<MenuItemComponent, MenuItem> {
+public class EnabledDelegationException extends S2JFaceRuntimeException {
 
-    @Override
-    protected void doRender(MenuItemComponent menuItemComponent,
-            MenuItem control) {
-        addEnabledDelegation(control, menuItemComponent);
+    public static final String DELEGATION_WIDGET_NOT_SUPPORTED = "EJFC0211";
+
+    public static final String DELEGATION_TYPE_NOT_SUPPORTED = "EJFC0212";
+
+    public EnabledDelegationException(final String messageCode,
+            final Object... args) {
+        super(messageCode, args);
     }
 
-    @Override
-    protected Class<MenuItem> getWidgetType() {
-        return MenuItem.class;
-    }
 }

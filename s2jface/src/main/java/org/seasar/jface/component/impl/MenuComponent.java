@@ -21,8 +21,8 @@ import java.util.List;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.seasar.jface.component.EnabledDelegatable;
 import org.seasar.jface.component.Menu;
 import org.seasar.jface.component.MenuItem;
 import org.seasar.jface.component.UIComponent;
@@ -33,12 +33,13 @@ import org.seasar.jface.component.UIComponent;
  * @author bskuroneko
  * @author y-komori
  */
-public class MenuComponent extends MenuItemComponent implements Menu {
+public class MenuComponent extends MenuItemComponent implements Menu,
+        EnabledDelegatable {
 
     @ComponentAttribute(targetType = TargetType.NONE)
     private String defaultItemId;
 
-    @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute(targetType = TargetType.NONE)
     private String enabled;
 
     @ComponentAttribute(targetType = TargetType.NONE)
@@ -46,6 +47,12 @@ public class MenuComponent extends MenuItemComponent implements Menu {
 
     @ComponentAttribute(targetType = TargetType.NONE)
     private String y;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String enabledDelegationId;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String enabledDelegationType;
 
     private List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
@@ -97,6 +104,22 @@ public class MenuComponent extends MenuItemComponent implements Menu {
 
     public void setMenuHolder(UIComponent menuHolder) {
         this.menuHolder = menuHolder;
+    }
+
+    public String getEnabledDelegationId() {
+        return this.enabledDelegationId;
+    }
+
+    public void setEnabledDelegationId(String enabledDelegationId) {
+        this.enabledDelegationId = enabledDelegationId;
+    }
+
+    public String getEnabledDelegationType() {
+        return this.enabledDelegationType;
+    }
+
+    public void setEnabledDelegationType(String enabledDelegationType) {
+        this.enabledDelegationType = enabledDelegationType;
     }
 
     @Override

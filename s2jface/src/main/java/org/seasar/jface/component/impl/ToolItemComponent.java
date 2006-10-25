@@ -17,12 +17,15 @@ package org.seasar.jface.component.impl;
 
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.seasar.jface.component.EnabledDelegatable;
 
 /**
  * @author bskuroneko
  * 
  */
-public class ToolItemComponent extends AbstractItemComponent {
+public class ToolItemComponent extends AbstractItemComponent implements
+        EnabledDelegatable {
 
     @ComponentAttribute(conversionType = ConversionType.IMAGE)
     private String disabledImage;
@@ -41,6 +44,12 @@ public class ToolItemComponent extends AbstractItemComponent {
 
     @ComponentAttribute(conversionType = ConversionType.INT)
     private String width;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String enabledDelegationId;
+
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String enabledDelegationType;
 
     public String getDisabledImage() {
         return this.disabledImage;
@@ -90,4 +99,19 @@ public class ToolItemComponent extends AbstractItemComponent {
         this.width = width;
     }
 
+    public String getEnabledDelegationId() {
+        return this.enabledDelegationId;
+    }
+
+    public void setEnabledDelegationId(String enabledDelegationId) {
+        this.enabledDelegationId = enabledDelegationId;
+    }
+
+    public String getEnabledDelegationType() {
+        return this.enabledDelegationType;
+    }
+
+    public void setEnabledDelegationType(String enabledDelegationType) {
+        this.enabledDelegationType = enabledDelegationType;
+    }
 }

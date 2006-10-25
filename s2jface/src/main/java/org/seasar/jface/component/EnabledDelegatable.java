@@ -13,27 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.renderer.impl;
-
-import org.eclipse.swt.widgets.MenuItem;
-import org.seasar.jface.component.impl.MenuItemComponent;
+package org.seasar.jface.component;
 
 /**
- * <code>MenuItem</code> のレンダリングを行うクラスです。<br />
- * 
  * @author bskuroneko
+ *
  */
-public class MenuItemRenderer extends
-        AbstractWidgetRenderer<MenuItemComponent, MenuItem> {
+public interface EnabledDelegatable {
 
-    @Override
-    protected void doRender(MenuItemComponent menuItemComponent,
-            MenuItem control) {
-        addEnabledDelegation(control, menuItemComponent);
-    }
+    public String getEnabledDelegationId();
 
-    @Override
-    protected Class<MenuItem> getWidgetType() {
-        return MenuItem.class;
-    }
+    public String getEnabledDelegationType();
+
 }

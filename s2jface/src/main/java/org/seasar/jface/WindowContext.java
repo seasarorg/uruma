@@ -16,9 +16,12 @@
 package org.seasar.jface;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.binding.EnabledDelegation;
+import org.seasar.jface.binding.EnabledDelegationBinder;
 
 /**
  * ウィンドウに関する各種情報を保持するためのインターフェースです。<br />
@@ -113,18 +116,8 @@ public interface WindowContext {
     @Deprecated
     public MenuManager getMenuBar();
 
-    /**
-     * 有効/無効 を他のコンポーネントに依存するウィジットを追加します。
-     * 
-     * @param widget ウィジット
-     * @param enabledDelegationId 依存するコンポーネントのid
-     * @param enabledDelegationType 依存タイプ
-     */
-    public void addEnabledDelegationWidget(Widget widget, String enabledDelegationId, String enabledDelegationType);
-
-    /**
-     * 有効/無効 の依存関係をバインドします。
-     */
-    public void bindEnabledDelegation();
+    public void addEnabledDelegation(EnabledDelegation enabledDelegation);
     
+    public List<EnabledDelegation> getEnabledDelegations();
+
 }

@@ -1161,12 +1161,9 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="SELECTION" />
       <xs:enumeration value="SINGLE" />
-      <!-- TODO
-        <xs:enumeration value="NO_SELECTION" />
-        <xs:enumeration value="PAIR" />
-        <xs:enumeration value="EXCEPT_TOP" />
-        <xs:enumeration value="EXCEPT_BOTTOM" />
-      -->
+      <xs:enumeration value="PAIR" />
+      <xs:enumeration value="MULTI" />
+      <xs:enumeration value="NONE" />
     </xs:restriction>
   </xs:simpleType>
 

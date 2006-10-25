@@ -19,6 +19,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
+import org.seasar.jface.binding.EnabledDelegation;
+import org.seasar.jface.binding.EnabledDelegationType;
+import org.seasar.jface.component.EnabledDelegatable;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.util.ClassUtil;
@@ -80,6 +83,20 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
 
     protected int getDefaultStyle() {
         return SWT.NONE;
+    }
+
+    protected void addEnabledDelegation(Widget widget,
+            EnabledDelegatable delegatable) {
+        if (delegatable.getEnabledDelegationId() == null
+                || delegatable.getEnabledDelegationType() == null) {
+            // TODO どちらか一方のみが入っていた場合は例外とする
+            return;
+        }
+
+        EnabledDelegation delegation = new EnabledDelegation(widget,
+                delegatable.getEnabledDelegationId(), EnabledDelegationType
+                        .valueOf(delegatable.getEnabledDelegationType()));
+        getContext().addEnabledDelegation(delegation);
     }
 
     protected abstract Class<WIDGET_TYPE> getWidgetType();

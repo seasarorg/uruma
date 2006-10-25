@@ -19,10 +19,7 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.ToolItem;
 import org.seasar.jface.S2JFaceWindowManager;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.EventListenerType;
@@ -32,20 +29,6 @@ public class MainAction {
     private Shell shell;
 
     private S2JFaceWindowManager windowManager;
-
-    private MenuItem menuDelete;
-
-    private MenuItem menuEdit;
-
-    private MenuItem menuInquire;
-
-    private ToolItem toolDelete;
-
-    private ToolItem toolEdit;
-
-    private ToolItem toolInquire;
-
-    private Table employeeTable;
 
     @EventListener(id = "shell", type = EventListenerType.SHOW)
     public void onInit() {
@@ -106,20 +89,6 @@ public class MainAction {
     @EventListener(id = "menuExit")
     public void exit() {
         shell.close();
-    }
-
-    @EventListener(id = "employeeTable")
-    public void onEmployeeTableSelectionChange() {
-        boolean multiSelected = employeeTable.getSelectionCount() > 0;
-        boolean oneSelected = employeeTable.getSelectionCount() == 1;
-        
-        menuEdit.setEnabled(oneSelected);
-        menuDelete.setEnabled(multiSelected);
-        menuInquire.setEnabled(oneSelected);
-
-        toolEdit.setEnabled(oneSelected);
-        toolDelete.setEnabled(multiSelected);
-        toolInquire.setEnabled(oneSelected);
     }
 
     public void setWindowManager(S2JFaceWindowManager windowManager) {

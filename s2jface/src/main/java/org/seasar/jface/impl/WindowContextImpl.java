@@ -16,12 +16,15 @@
 package org.seasar.jface.impl;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.binding.EnabledDelegation;
 import org.seasar.jface.exception.DuplicateComponentIdException;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -29,6 +32,7 @@ import org.seasar.jface.util.AssertionUtil;
  * @author y-komori
  */
 public class WindowContextImpl implements WindowContext {
+
     protected Map<String, Widget> componentMap = new HashMap<String, Widget>();
 
     private Object actionComponent;
@@ -36,8 +40,8 @@ public class WindowContextImpl implements WindowContext {
     private Method initializeMethod;
 
     protected MenuManager menuBar;
-    
-    private EnabledDelegationControl enabledDelegationControl = new EnabledDelegationControl();
+
+    private List<EnabledDelegation> enabledDelegations = new ArrayList<EnabledDelegation>();
 
     /*
      * @see org.seasar.jface.WindowContext#getActionObject()
@@ -103,11 +107,11 @@ public class WindowContextImpl implements WindowContext {
         this.menuBar = menuManager;
     }
 
-    public void addEnabledDelegationWidget(Widget widget, String id, String type) {
-        enabledDelegationControl.addDelegation(widget, id, type);
+    public void addEnabledDelegation(EnabledDelegation enabledDelegation) {
+        enabledDelegations.add(enabledDelegation);
     }
-    
-    public void bindEnabledDelegation() {
-        enabledDelegationControl.bind(this);
+
+    public List<EnabledDelegation> getEnabledDelegations() {
+        return this.enabledDelegations;
     }
 }

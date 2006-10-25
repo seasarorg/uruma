@@ -62,6 +62,11 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
         // サブメニューの場合、MenuItem へ Menu をセットする
         if (subMenuItem != null) {
             subMenuItem.setMenu(menu);
+            setEnabled((MenuComponent) uiComponent, subMenuItem);
+            addEnabledDelegation(subMenuItem, (MenuComponent) uiComponent);
+        } else {
+            setEnabled((MenuComponent) uiComponent, menu);
+            addEnabledDelegation(menu, (MenuComponent) uiComponent);
         }
 
         doRender((MenuComponent) uiComponent, menu);
@@ -78,7 +83,6 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
 
     @Override
     protected void doRender(MenuComponent menuComponent, Menu menu) {
-        setEnabled(menuComponent, menu);
         setLocation(menuComponent, menu);
         setToParentMenu(menuComponent, menu);
     }
@@ -93,6 +97,15 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
         String enabledStr = menuComponent.getEnabled();
         if (enabledStr != null) {
             menu.setEnabled(BooleanConversionUtil
+                    .toPrimitiveBoolean(enabledStr));
+        }
+    }
+
+    protected void setEnabled(final MenuComponent menuComponent,
+            final MenuItem menuItem) {
+        String enabledStr = menuComponent.getEnabled();
+        if (enabledStr != null) {
+            menuItem.setEnabled(BooleanConversionUtil
                     .toPrimitiveBoolean(enabledStr));
         }
     }
