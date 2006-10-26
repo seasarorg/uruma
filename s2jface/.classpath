@@ -9,16 +9,16 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/seasar2"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/s2-tiger"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.core.runtime_3.2.0.v20060603.jar"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.equinox.common_3.2.0.v20060603.jar"/>
-	<classpathentry sourcepath="C:/eclipse/plugins/org.eclipse.rcp.source_3.2.0.v20060609m-SVDNgVrNoh-MeGG/src/org.eclipse.jface_3.2.0.I20060605-1400/src.zip" kind="lib" path="lib/org.eclipse.jface_3.2.0.I20060605-1400.jar">
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.core.runtime_3.2.0.v20060603.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.equinox.common_3.2.0.v20060603.jar"/>
+	<classpathentry exported="true" sourcepath="C:/eclipse/plugins/org.eclipse.rcp.source_3.2.0.v20060609m-SVDNgVrNoh-MeGG/src/org.eclipse.jface_3.2.0.I20060605-1400/src.zip" kind="lib" path="lib/org.eclipse.jface_3.2.0.I20060605-1400.jar">
 		<attributes>
 			<attribute value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/" name="javadoc_location"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/org.eclipse.osgi_3.2.0.v20060601.jar"/>
-	<classpathentry sourcepath="C:/eclipse/plugins/org.eclipse.rcp.source.win32.win32.x86_3.2.0.v20060609m-SVDNgVrNoh-MeGG/src/org.eclipse.swt.win32.win32.x86_3.2.0.v3232m/src.zip" kind="lib" path="lib/org.eclipse.swt.win32.win32.x86_3.2.0.v3232m.jar">
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.osgi_3.2.0.v20060601.jar"/>
+	<classpathentry exported="true" sourcepath="C:/eclipse/plugins/org.eclipse.rcp.source.win32.win32.x86_3.2.0.v20060609m-SVDNgVrNoh-MeGG/src/org.eclipse.swt.win32.win32.x86_3.2.0.v3232m/src.zip" kind="lib" path="lib/org.eclipse.swt.win32.win32.x86_3.2.0.v3232m.jar">
 		<attributes>
 			<attribute value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/" name="javadoc_location"/>
 		</attributes>
