@@ -13,29 +13,20 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee.action;
+package org.seasar.jface.example.employee.dxo;
 
-import org.seasar.jface.example.employee.dxo.RegistActionDxo;
+import org.seasar.extension.dxo.annotation.DatePattern;
+import org.seasar.jface.example.employee.action.AbstractEditAction;
 
 import examples.jsf.dto.EmployeeDto;
 
 /**
  * @author bskuroneko
- * 
+ *
  */
-public class RegistAction extends AbstractEditAction {
-
-    private RegistActionDxo registActionDxo;
+public interface RegistActionDxo {
     
-    @Override
-    protected EmployeeDto doInsertOrUpdate() {
-        EmployeeDto employee = registActionDxo.convert(this);
-        employeeService.insert(employee);
-        return employee;
-    }
-
-    public void setRegistActionDxo(RegistActionDxo registActionDxo) {
-        this.registActionDxo = registActionDxo;
-    }
+    @DatePattern("yyyy/MM/dd")
+    EmployeeDto convert(AbstractEditAction action);
 
 }

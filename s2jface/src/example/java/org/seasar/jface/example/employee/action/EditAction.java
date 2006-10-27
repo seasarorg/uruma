@@ -15,7 +15,9 @@
  */
 package org.seasar.jface.example.employee.action;
 
-import org.seasar.jface.example.employee.dxo.RegistActionDxo;
+import org.seasar.jface.annotation.ArgumentValue;
+import org.seasar.jface.annotation.InitializeMethod;
+import org.seasar.jface.example.employee.dxo.EditActionDxo;
 
 import examples.jsf.dto.EmployeeDto;
 
@@ -23,19 +25,29 @@ import examples.jsf.dto.EmployeeDto;
  * @author bskuroneko
  * 
  */
-public class RegistAction extends AbstractEditAction {
-
-    private RegistActionDxo registActionDxo;
+public class EditAction extends AbstractEditAction {
+    
+    private EditActionDxo editActionDxo;
+    
+    @ArgumentValue
+    private EmployeeDto editEmployee;
     
     @Override
-    protected EmployeeDto doInsertOrUpdate() {
-        EmployeeDto employee = registActionDxo.convert(this);
-        employeeService.insert(employee);
-        return employee;
+    @InitializeMethod
+    public void initialize() {
+        super.initialize();
+        editActionDxo.convert(editEmployee, this);
     }
 
-    public void setRegistActionDxo(RegistActionDxo registActionDxo) {
-        this.registActionDxo = registActionDxo;
+    @Override
+    protected EmployeeDto doInsertOrUpdate() {
+        editActionDxo.convert(this, editEmployee);
+        employeeService.update(editEmployee);
+        return editEmployee;
+    }
+
+    public void setEditActionDxo(EditActionDxo editActionDxo) {
+        this.editActionDxo = editActionDxo;
     }
 
 }

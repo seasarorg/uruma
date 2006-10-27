@@ -15,49 +15,55 @@
  */
 package org.seasar.jface.example.employee.action;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.seasar.jface.S2JFaceWindowManager;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.EventListenerType;
+import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.example.employee.service.EmployeeService;
+
+import examples.jsf.dto.EmployeeDto;
 
 public class MainAction {
+
+    private EmployeeService employeeService;
 
     private Shell shell;
 
     private S2JFaceWindowManager windowManager;
 
+    private Table employeeTable;
+
+    @ExportValue(id = "employeeTable")
+    private List<EmployeeDto> employees;
+
     @EventListener(id = "shell", type = EventListenerType.SHOW)
-    public void onInit() {
-        Display.getCurrent().asyncExec(new Runnable() {
-            public void run() {
-                searchEmployee();
-            }
-        });
+    public void onShow() {
+        searchEmployee();
     }
 
     @EventListener(id = { "menuSearch", "toolSearch" })
     public void searchEmployee() {
-        List employees = (List) windowManager
+        List<EmployeeDto> result = (List<EmployeeDto>) windowManager
                 .openModal("org/seasar/jface/example/employee/search.xml");
-        
-        // TODO 結果をテーブルにバインディング
-        System.out.println("検索結果: " + employees);
-        int count = 0;
-        if (employees != null) {
-            count = employees.size();
+        if (result != null) {
+            employees = result;
         }
-        System.out.println("結果件数: " + count);
     }
 
     @EventListener(id = { "menuRegist", "toolRegist" })
     public void registEmployee() {
-        windowManager
+        EmployeeDto result = (EmployeeDto) windowManager
                 .openModal("org/seasar/jface/example/employee/regist.xml");
-        // TODO 結果を受け取って表示更新
+        if (result != null) {
+            employees.add(result);
+        }
     }
 
     @EventListener(id = { "menuDelete", "toolDelete" })
@@ -65,20 +71,40 @@ public class MainAction {
         boolean result = MessageDialog.openConfirm(shell, "削除確認",
                 "選択された従業員情報を削除しますか？");
         if (result) {
-            // TODO 削除実行
+            int[] selections = employeeTable.getSelectionIndices();
+            Arrays.sort(selections);
+            LinkedList<Integer> toRemoveList = new LinkedList<Integer>();
+            try {
+                for (int selection : selections) {
+                    EmployeeDto dto = employees.get(selection);
+                    employeeService.delete(dto);
+                    toRemoveList.addFirst(selection);
+                }
+            } finally {
+                for (int toRemove : toRemoveList) {
+                    employees.remove(toRemove);
+                }
+            }
         }
     }
 
     @EventListener(id = { "menuEdit", "toolEdit" })
     public void editEmployee() {
-        windowManager.openModal("org/seasar/jface/example/employee/edit.xml");
-        // TODO 結果を受け取って表示更新
+        int selection = employeeTable.getSelectionIndex();
+        EmployeeDto employee = employees.get(selection);
+        EmployeeDto edited = (EmployeeDto) windowManager.openModal(
+                "org/seasar/jface/example/employee/edit.xml", employee);
+        if (edited != null) {
+            employees.set(selection, edited);
+        }
     }
 
     @EventListener(id = { "menuInquire", "toolInquire" })
     public void inquireEmployee() {
-        windowManager.openModal("org/seasar/jface/example/employee/inquire.xml");
-        // TODO 結果を受け取って表示更新
+        int selection = employeeTable.getSelectionIndex();
+        EmployeeDto employee = employees.get(selection);
+        windowManager.openModal(
+                "org/seasar/jface/example/employee/inquire.xml", employee);
     }
 
     @EventListener(id = "menuAbout")
@@ -93,6 +119,10 @@ public class MainAction {
 
     public void setWindowManager(S2JFaceWindowManager windowManager) {
         this.windowManager = windowManager;
+    }
+
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
 }

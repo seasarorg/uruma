@@ -129,7 +129,9 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
 
         bindEnabledDelegations();
 
-        ValueBinder.exportValue(context);
+        if (actionDesc != null) {
+            ValueBinder.exportValue(context);
+        }
         return parent;
     }
 
@@ -186,9 +188,13 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
 
     /**
      * アクションコンポーネントの初期化メソッドを呼び出します。<br />
+     * 
+     * @param argument
+     *            ウィンドウへの引数
      */
-    public void initActionComponent() {
+    public void initActionComponent(Object argument) {
         if (actionComponent != null) {
+            actionDesc.setArgumentValue(actionComponent, argument);
             actionDesc.invokeInitializeMethod(actionComponent);
         }
     }
@@ -198,6 +204,9 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
     }
 
     public Object getReturnValue() {
+        if (actionDesc == null) {
+            return null;
+        }
         return actionDesc.getReturnValue(actionComponent);
     }
 }

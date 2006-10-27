@@ -54,6 +54,7 @@ public class WindowRenderer extends
     @Override
     protected void doRenderAfter(Composite widget, WindowComponent uiComponent, Widget parent, WindowContext context) {
         setDefaultButton(uiComponent, context);
+        setDefaultFocus(uiComponent, context);
     }
     
     protected void configureShell(final WindowComponent window,
@@ -118,6 +119,16 @@ public class WindowRenderer extends
                 shell.setDefaultButton(defaultButton);
                 defaultButton.forceFocus();
             }
+        }
+    }
+
+    protected void setDefaultFocus(final WindowComponent windowComponent,
+            final WindowContext context) {
+        Widget defaultFocusWidget = context.getComponent(windowComponent
+                .getDefaultFocusId());
+        if (defaultFocusWidget instanceof Control) {
+            Control control = (Control) defaultFocusWidget;
+            control.setFocus();
         }
     }
 

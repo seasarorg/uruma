@@ -15,42 +15,36 @@
  */
 package org.seasar.jface.binding.impl;
 
-import java.lang.reflect.Field;
-
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.framework.util.FieldUtil;
+import org.seasar.jface.annotation.ExportValue;
 
-public class ComboValueBinder extends WidgetPropertyValueBinder {
+public class ComboValueBinder extends AbstractIterableWidgetValueBinder {
 
     public ComboValueBinder() {
-        super(Combo.class, "text");
+        super(Combo.class);
     }
 
-    public void exportValue(Object srcObject, Field srcField, Widget dest) {
-        Class fieldType = srcField.getType();
-        if (fieldType.isArray()) {
-            Object[] array = (Object[]) FieldUtil.get(srcField, srcObject);
-            for (Object value : array) {
-                exportOne(value, srcField, dest);
-            }
-        }
-        else if (Iterable.class.isAssignableFrom(fieldType)) {
-            Iterable iterable = (Iterable) FieldUtil.get(srcField, srcObject);
-            for (Object value : iterable) {
-                exportOne(value, srcField, dest);
-            }
-        }
-        else {
-            super.exportValue(srcObject, srcField, dest);
-        }
+    @Override
+    protected Object getWidgetValue(Widget widget) {
+        Combo combo = (Combo) widget;
+        return combo.getText();
     }
 
-    private void exportOne(Object value, Field srcField, Widget dest) {
-        Object exportedValue = getAnnotatedExportValue(value, srcField);
-        Combo combo = (Combo) dest;
-        // TODO String への型変換
-        combo.add((String) exportedValue);
+    @Override
+    protected void clearWidgetValue(Widget widget) {
+        Combo combo = (Combo) widget;
+        combo.removeAll();
+    }
+
+    @Override
+    protected void addWidgetValue(Widget widget, Object value,
+            ExportValue annotation) {
+        Object[] labelValues = getLabelValues(value, annotation);
+
+        Combo combo = (Combo) widget;
+        String convertedValue = (String) convertValue(labelValues[0], String.class);
+        combo.add((String) convertedValue);
     }
 
 }

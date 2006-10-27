@@ -33,6 +33,7 @@
           <xs:attribute name="imeInputMode" type="tns:SWTConst" />
           <xs:attribute name="minimumWidth" type="xs:int" />
           <xs:attribute name="minimumHeight" type="xs:int" />
+          <xs:attribute name="defaultFocusId" type="xs:string" />
           <!-- TODO region -->
         </xs:extension>
       </xs:complexContent>

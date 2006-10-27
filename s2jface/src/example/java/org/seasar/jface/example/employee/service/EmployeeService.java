@@ -13,29 +13,22 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee.action;
+package org.seasar.jface.example.employee.service;
 
-import org.seasar.jface.example.employee.dxo.RegistActionDxo;
+import java.util.List;
 
+import examples.jsf.dto.DepartmentDto;
 import examples.jsf.dto.EmployeeDto;
 
-/**
- * @author bskuroneko
- * 
- */
-public class RegistAction extends AbstractEditAction {
 
-    private RegistActionDxo registActionDxo;
-    
-    @Override
-    protected EmployeeDto doInsertOrUpdate() {
-        EmployeeDto employee = registActionDxo.convert(this);
-        employeeService.insert(employee);
-        return employee;
-    }
+public interface EmployeeService {
 
-    public void setRegistActionDxo(RegistActionDxo registActionDxo) {
-        this.registActionDxo = registActionDxo;
-    }
+    void delete(EmployeeDto dto);
+
+    void insert(EmployeeDto dto);
+
+    void update(EmployeeDto dto);
+
+    List<DepartmentDto> getAllDepartments();
 
 }

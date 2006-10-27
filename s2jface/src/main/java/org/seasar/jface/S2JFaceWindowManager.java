@@ -15,7 +15,6 @@
  */
 package org.seasar.jface;
 
-
 /**
  * ウィンドウを管理するクラスのためのインターフェースです。<br>
  * 
@@ -68,6 +67,32 @@ public interface S2JFaceWindowManager {
     public Object openModal(String templatePath);
 
     /**
+     * 指定されたパスの画面定義XMLを読み込み、モーダルウィンドウとして開きます。</br>
+     * <p>
+     * 画面定義XMLに記述されているスタイルに PRIMARY_MODAL, APPLICATION_MODAL, SYSTEM_MODAL
+     * のいずれも含まれていない場合、PRIMARY_MODAL スタイルを適用します。
+     * </p>
+     * <p>
+     * 開いたウィンドウが閉じられるか、例外が発生するまで、このメソッドは制御を返しません。
+     * </p>
+     * <p>
+     * argument に指定されたオブジェクトは開いたウィンドウへの引数として使用します。
+     * </p>
+     * <p>
+     * 開いたウィンドウが閉じられると、ウィンドウからの戻り値を返します。
+     * </p>
+     * 
+     * @param templatePath
+     *            画面定義XMLのパス
+     * @param argument
+     *            開く画面への引数
+     * @return 開いたウィンドウからの戻り値
+     * @throws org.seasar.jface.exception.NotFoundException
+     *             指定された画面名称を持つウィンドウが登録されていなかった場合。
+     */
+    public Object openModal(String templatePath, Object argument);
+
+    /**
      * 指定されたパスの画面定義XMLを読み込み、モードレスウィンドウとして開きます。</br>
      * <p>
      * 画面定義XMLに記述されているスタイルに PRIMARY_MODAL, APPLICATION_MODAL, SYSTEM_MODAL
@@ -84,5 +109,28 @@ public interface S2JFaceWindowManager {
      *             指定された画面名称を持つウィンドウが登録されていなかった場合。
      */
     public Object openModeless(String templatePath);
+    
+    /**
+     * 指定されたパスの画面定義XMLを読み込み、モードレスウィンドウとして開きます。</br>
+     * <p>
+     * 画面定義XMLに記述されているスタイルに PRIMARY_MODAL, APPLICATION_MODAL, SYSTEM_MODAL
+     * が含まれていた場合、それらのスタイルは除去されます。
+     * </p>
+     * <p>
+     * 開いたウィンドウのアクションを返します。
+     * </p>
+     * <p>
+     * argument に指定されたオブジェクトは開いたウィンドウへの引数として使用します。
+     * </p>
+     * 
+     * @param templatePath
+     *            画面定義XMLのパス
+     * @param argument
+     *            開く画面への引数
+     * @return 開いたウィンドウからの戻り値
+     * @throws org.seasar.jface.exception.NotFoundException
+     *             指定された画面名称を持つウィンドウが登録されていなかった場合。
+     */
+    public Object openModeless(String templatePath, Object argument);
 
 }

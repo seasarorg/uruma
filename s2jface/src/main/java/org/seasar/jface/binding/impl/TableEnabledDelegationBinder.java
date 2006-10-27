@@ -45,12 +45,13 @@ public class TableEnabledDelegationBinder implements EnabledDelegationBinder {
         setWidgetEnabled(setEnabledMethod, widget, delegationEnabled(table,
                 type));
 
-        delegatedWidget.addListener(SWT.Selection, new Listener() {
+        Listener listener = new Listener() {
             public void handleEvent(Event event) {
                 setWidgetEnabled(setEnabledMethod, widget, delegationEnabled(
                         table, type));
             }
-        });
+        };
+        delegatedWidget.addListener(SWT.Selection, listener);
     }
 
     protected void setWidgetEnabled(Method setEnabledMethod, Widget widget,

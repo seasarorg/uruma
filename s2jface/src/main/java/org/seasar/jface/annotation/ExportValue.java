@@ -30,5 +30,5 @@ import java.lang.annotation.Target;
 public @interface ExportValue {
     String id() default "";
 
-    String label() default "";
+    String[] label() default {};
 }

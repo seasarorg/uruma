@@ -15,60 +15,45 @@
  */
 package org.seasar.jface.binding.impl;
 
-import java.lang.reflect.Field;
-
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.framework.util.FieldUtil;
-import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.binding.WidgetValueBinder;
 
-public class WidgetPropertyValueBinder implements WidgetValueBinder {
-
-    private Class<? extends Widget> widgetType;
+public class WidgetPropertyValueBinder extends AbstractWidgetValueBinder {
 
     private PropertyDesc propertyDesc;
-    
+
     public WidgetPropertyValueBinder(Class<? extends Widget> widgetType,
             String propertyName) {
-        this.widgetType = widgetType;
+        super(widgetType);
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(widgetType);
         this.propertyDesc = beanDesc.getPropertyDesc(propertyName);
     }
 
-    public void importValue(Widget src, Object destObject, Field destField) {
-        Object srcValue = propertyDesc.getValue(src);
-        // TODO バリデーションを含む型変換処理
-        
+    @Override
+    protected Object getWidgetValue(Widget widget) {
+        Object value = propertyDesc.getValue(widget);
         // 空文字列の入力は null として扱う
-        if (srcValue instanceof String && ((String) srcValue).length() == 0) {
-            srcValue = null;
+        if (value instanceof String && ((String) value).length() == 0) {
+            value = null;
         }
-        FieldUtil.set(destField, destObject, srcValue);
+        return value;
     }
 
-    public void exportValue(Object srcObject, Field srcField, Widget dest) {
-        Object srcValue = FieldUtil.get(srcField, srcObject);
-        srcValue = getAnnotatedExportValue(srcValue, srcField);
-        propertyDesc.setValue(dest, srcValue);
-    }
-    
-    protected Object getAnnotatedExportValue(Object object, Field field) {
-        ExportValue annotation = field.getAnnotation(ExportValue.class);
-        String label = annotation.label();
-        if (! StringUtil.isEmpty(label)) {
-            BeanDesc bd = BeanDescFactory.getBeanDesc(object.getClass());
-            PropertyDesc pd =  bd.getPropertyDesc(label);
-            object = pd.getValue(object);
+    @Override
+    protected void putWidgetValue(Widget widget, Object value, ExportValue annotation) {
+        Object labelValue = getLabelValue(value, annotation);
+        
+        // プロパティが文字列の場合は null を空文字列として扱う
+        if (labelValue == null && String.class.isAssignableFrom(propertyDesc.getPropertyType())) {
+            labelValue = "";
         }
-        return object;
-    }
-
-    public Class<? extends Widget> getWidgetType() {
-        return widgetType;
+        
+        Object convertedValue = convertValue(labelValue, propertyDesc
+                .getPropertyType());
+        propertyDesc.setValue(widget, convertedValue);
     }
 
 }

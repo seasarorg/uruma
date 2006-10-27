@@ -52,6 +52,10 @@ public class S2JFace {
     }
 
     public void openWindow(final String templatePath) {
+        openWindow(templatePath, null);
+    }
+    
+    public void openWindow(final String templatePath, Object argument) {
         display = Display.getCurrent();
         if (display == null) {
             display = new Display();
@@ -61,7 +65,7 @@ public class S2JFace {
 
             S2JFaceWindowManager windowManager = (S2JFaceWindowManager) container
                     .getComponent(S2JFaceWindowManager.class);
-            windowManager.openModal(templatePath);
+            windowManager.openModal(templatePath, argument);
         } finally {
             dispose();
         }
@@ -89,5 +93,6 @@ public class S2JFace {
         ImageManager.dispose();
         display.dispose();
         display = null;
+        container.destroy();
     }
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://s2jface.sandbox.seasar.org">
-  <window id="search" style="TITLE, CLOSE, PRIMARY_MODAL" title="従業員検索"
-    image="title" defaultButtonId="ok" defaultFocusId="empno">
+  <!-- TODO 継承を使ってregistと共有する -->
+  <window id="edit" style="TITLE, CLOSE, PRIMARY_MODAL" title="従業員情報編集"
+    image="title" defaultButtonId="ok" defaultFocusId="ename">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
@@ -10,7 +11,7 @@
         <gridData horizontalAlignment="FILL" />
       </gridLayout>
       <label text="従業員No." />
-      <text id="empno" />
+      <text id="empno" editable="false"/>
       <label text="従業員名" />
       <text id="ename" />
       <label text="役職" />
@@ -18,19 +19,11 @@
       <label text="管理者" />
       <text id="mgr" />
       <label text="雇用日" />
-      <composite>
-        <gridLayout numColumns="3" marginWidth="0" marginHeight="0" />
-        <text id="fromHiredate" />
-        <label text="～" />
-        <text id="toHiredate" />
-      </composite>
+      <text id="hiredate" />
       <label text="給与" />
-      <composite>
-        <gridLayout numColumns="3" marginWidth="0" marginHeight="0" />
-        <text id="fromSal" />
-        <label text="～" />
-        <text id="toSal" />
-      </composite>
+      <text id="sal" />
+      <label text="Commission" />
+      <text id="comm" />
       <label text="部署" />
       <combo id="dept" style="DROP_DOWN, READ_ONLY" />
     </composite>

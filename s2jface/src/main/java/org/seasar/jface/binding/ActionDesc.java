@@ -62,12 +62,31 @@ public interface ActionDesc {
     public List<Field> getExportFields();
     
     /**
+     * {@link org.seasar.jface.annotation.ArgumentValue}
+     * アノテーションが付加されたフィールドを取得します。<br />
+     * 
+     * @return {@link Field}
+     */
+    public Field getArgumentField();
+    
+    /**
      * {@link org.seasar.jface.annotation.ReturnValue}
      * アノテーションが付加されたフィールドを取得します。<br />
      * 
      * @return {@link Field}
      */
     public Field getReturnField();
+    
+    /**
+     * {@link org.seasar.jface.annotation.ArgumentValue}
+     * アノテーションが付加されたフィールドの値を設定します。<br />
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     * @param value
+     *            設定する値
+     */
+    public void setArgumentValue(Object target, Object value);
     
     /**
      * {@link org.seasar.jface.annotation.ReturnValue}

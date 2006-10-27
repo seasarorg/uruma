@@ -20,6 +20,10 @@ import org.seasar.jface.example.employee.action.SearchAction;
 
 import examples.jsf.dto.EmployeeSearchDto;
 
+/**
+ * @author bskuroneko
+ *
+ */
 public interface SearchActionDxo {
     
     @DatePattern("yyyy/MM/dd")

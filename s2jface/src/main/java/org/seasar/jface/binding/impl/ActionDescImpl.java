@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.framework.util.FieldUtil;
+import org.seasar.jface.annotation.ArgumentValue;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.ImportValue;
@@ -32,6 +33,7 @@ import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.binding.ActionDesc;
 import org.seasar.jface.binding.EventListenerDef;
+import org.seasar.jface.exception.ArgumentFieldException;
 import org.seasar.jface.exception.InitializeMethodException;
 import org.seasar.jface.exception.ReturnFieldException;
 import org.seasar.jface.util.AssertionUtil;
@@ -51,6 +53,8 @@ public class ActionDescImpl implements ActionDesc {
     private List<Field> importFields = new ArrayList<Field>();
 
     private List<Field> exportFields = new ArrayList<Field>();
+
+    private Field argumentField = null;
 
     private Field returnField = null;
 
@@ -118,8 +122,9 @@ public class ActionDescImpl implements ActionDesc {
     protected void setupFields() {
         setupFieldsByClass(actionClass);
         Class superClass = actionClass.getSuperclass();
-        if (superClass != Object.class && superClass != null) {
+        while (superClass != Object.class && superClass != null) {
             setupFieldsByClass(superClass);
+            superClass = superClass.getSuperclass();
         }
     }
 
@@ -134,6 +139,7 @@ public class ActionDescImpl implements ActionDesc {
 
                 setupExportField(field);
                 setupImportField(field);
+                setupArgumentField(field);
                 setupReturnField(field);
             }
         }
@@ -148,6 +154,17 @@ public class ActionDescImpl implements ActionDesc {
     protected void setupImportField(final Field field) {
         if (field.isAnnotationPresent(ImportValue.class)) {
             importFields.add(field);
+        }
+    }
+
+    protected void setupArgumentField(final Field field) {
+        if (field.isAnnotationPresent(ArgumentValue.class)) {
+            if (argumentField != null) {
+                throw new ArgumentFieldException (
+                        ArgumentFieldException.DUPLICATE, actionClass,
+                        field);
+            }
+            argumentField = field;
         }
     }
 
@@ -201,8 +218,24 @@ public class ActionDescImpl implements ActionDesc {
     /*
      * @see org.seasar.jface.binding.ActionDesc#getReturnField()
      */
+    public Field getArgumentField() {
+        return returnField;
+    }
+
+    /*
+     * @see org.seasar.jface.binding.ActionDesc#getReturnField()
+     */
     public Field getReturnField() {
         return returnField;
+    }
+
+    /*
+     * @see org.seasar.jface.binding.ActionDesc#getReturnField()
+     */
+    public void setArgumentValue(Object target, Object value) {
+        if (argumentField != null) {
+            FieldUtil.set(argumentField, target, value);
+        }
     }
 
     /*

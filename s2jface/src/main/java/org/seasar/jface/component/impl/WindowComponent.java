@@ -27,7 +27,7 @@ import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
  * @author y-komori
  */
 public class WindowComponent extends CompositeComponent {
-    
+
     @ComponentAttribute(targetType = TargetType.NONE)
     private String title;
 
@@ -55,12 +55,15 @@ public class WindowComponent extends CompositeComponent {
     @ComponentAttribute(targetType = TargetType.NONE)
     private String defaultButtonId;
 
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String defaultFocusId;
+
     @Override
     public void render(Widget parent, WindowContext context) {
         if (parent instanceof Shell) {
             context.putComponent(WindowContext.SHELL_ID, parent);
         }
-        
+
         super.render(parent, context);
     }
 
@@ -135,4 +138,13 @@ public class WindowComponent extends CompositeComponent {
     public void setDefaultButtonId(String defaultButtonId) {
         this.defaultButtonId = defaultButtonId;
     }
+
+    public String getDefaultFocusId() {
+        return this.defaultFocusId;
+    }
+
+    public void setDefaultFocusId(String defaultFocusId) {
+        this.defaultFocusId = defaultFocusId;
+    }
+
 }

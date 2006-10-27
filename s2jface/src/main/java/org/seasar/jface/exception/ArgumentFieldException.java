@@ -13,29 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee.action;
+package org.seasar.jface.exception;
 
-import org.seasar.jface.example.employee.dxo.RegistActionDxo;
-
-import examples.jsf.dto.EmployeeDto;
+import java.lang.reflect.Field;
 
 /**
  * @author bskuroneko
- * 
  */
-public class RegistAction extends AbstractEditAction {
+public class ArgumentFieldException extends S2JFaceRuntimeException {
 
-    private RegistActionDxo registActionDxo;
-    
-    @Override
-    protected EmployeeDto doInsertOrUpdate() {
-        EmployeeDto employee = registActionDxo.convert(this);
-        employeeService.insert(employee);
-        return employee;
-    }
+    public static final String DUPLICATE = "EJFC0213";
 
-    public void setRegistActionDxo(RegistActionDxo registActionDxo) {
-        this.registActionDxo = registActionDxo;
+    public ArgumentFieldException(String messageCode, Class clazz, Field field) {
+        super(messageCode, new Object[] { clazz.getName(), field });
     }
 
 }

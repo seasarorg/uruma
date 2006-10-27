@@ -6,6 +6,15 @@
 	<include path="examples/jsf/dicon/allaop.dicon"/>
 
 	<component
+		name="serviceInterceptorChain"
+		class="org.seasar.framework.aop.interceptors.InterceptorChain"
+	>
+		<initMethod name="add"><arg>aop.traceThrowsInterceptor</arg></initMethod>
+		<initMethod name="add"><arg>aop.traceInterceptor</arg></initMethod>
+		<initMethod name="add"><arg>j2ee.requiredTx</arg></initMethod>
+	</component>
+
+	<component
 		name="dxoInterceptorChain"
 		class="org.seasar.framework.aop.interceptors.InterceptorChain"
 	>

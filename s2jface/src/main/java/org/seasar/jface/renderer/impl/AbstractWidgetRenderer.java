@@ -48,7 +48,7 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
         // TODO レンダリング中に発生したRuntimeExceptionのハンドリングが必要
         doRender((COMPONENT_TYPE) uiComponent, getWidgetType().cast(widget));
 
-        widget.setData(this);
+        widget.setData(uiComponent);
 
         return widget;
     }

@@ -101,4 +101,22 @@ public class PropertyUtil {
             return null;
         }
     }
+
+    /**
+     * 指定されたオブジェクトのプロパティから値を取得します。<br>
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     * @param propertyName
+     *            プロパティ名
+     * @return プロパティの値
+     * @throws org.seasar.framework.beans.PropertyNotFoundRuntimeException
+     *             指定されたプロパティが見つからなかった場合
+     */
+    public static Object getProperty(Object target, String propertyName) {
+        BeanDesc beanDesc = BeanDescFactory.getBeanDesc(target.getClass());
+        PropertyDesc propDesc = beanDesc.getPropertyDesc(propertyName);
+        return propDesc.getValue(target);
+    }
+
 }
