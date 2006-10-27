@@ -30,6 +30,7 @@ import org.seasar.jface.util.AssertionUtil;
  * ウィンドウを管理するためのクラスです。</br>
  * 
  * @author y-komori
+ * @author bskuroneko
  */
 public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
     // 現在開いているウィンドウを管理するためのクラス
@@ -52,7 +53,8 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
      * @see org.seasar.jface.S2JFaceWindowManager#openModal(String, Object)
      */
     public Object openModal(String templatePath, Object argument) {
-        S2JFaceApplicationWindow window = openWindow(templatePath, true, argument);
+        S2JFaceApplicationWindow window = openWindow(templatePath, true,
+                argument);
         return window.getReturnValue();
     }
 
@@ -67,7 +69,8 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
      * @see org.seasar.jface.S2JFaceWindowManager#openModeless(String, Object)
      */
     public Object openModeless(String templatePath, Object argument) {
-        S2JFaceApplicationWindow window = openWindow(templatePath, false, argument);
+        S2JFaceApplicationWindow window = openWindow(templatePath, false,
+                argument);
         return window.getActionComponent();
     }
 

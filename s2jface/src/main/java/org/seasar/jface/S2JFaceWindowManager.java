@@ -19,32 +19,9 @@ package org.seasar.jface;
  * ウィンドウを管理するクラスのためのインターフェースです。<br>
  * 
  * @author y-komori
+ * @author bskuroneko
  */
 public interface S2JFaceWindowManager {
-    // /**
-    // * 指定されたパスの画面定義XMLを読み込み、ウィンドウを開きます。</br>
-    // *
-    // * @param templatePath
-    // * 画面定義XMLのパス
-    // * @param blockOnOpen
-    // * <code>true</code>の場合、画面が閉じるまでスレッドをブロックします。
-    // */
-    // public void open(String templatePath, boolean blockOnOpen);
-    //
-    // /**
-    // * 指定されたパスの画面定義XMLを読み込み、ウィンドウを開きます。</br>
-    // * <p>
-    // * ウィンドウオープン時、スレッドのブロックは行いません。(<code>open(templatePath, false)</code>
-    // * を実行したのと同じ動作をします)
-    // * </p>
-    // *
-    // * @param templatePath
-    // * 画面定義XMLのパス
-    // * @throws org.seasar.jface.exception.NotFoundException
-    // * 指定された画面名称を持つウィンドウが登録されていなかった場合。
-    // */
-    // public void open(String templatePath);
-
     /**
      * 指定されたパスの画面定義XMLを読み込み、モーダルウィンドウとして開きます。</br>
      * <p>
@@ -109,7 +86,7 @@ public interface S2JFaceWindowManager {
      *             指定された画面名称を持つウィンドウが登録されていなかった場合。
      */
     public Object openModeless(String templatePath);
-    
+
     /**
      * 指定されたパスの画面定義XMLを読み込み、モードレスウィンドウとして開きます。</br>
      * <p>
