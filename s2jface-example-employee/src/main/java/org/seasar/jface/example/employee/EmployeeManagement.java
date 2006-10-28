@@ -23,8 +23,7 @@ public class EmployeeManagement {
      * @param args
      */
     public static void main(String[] args) {
-        S2JFace s2JFace = new S2JFace("employee.dicon");
-        s2JFace.setImageBundleName("employeeImages");
+        S2JFace s2JFace = new S2JFace();
         s2JFace.openWindow("org/seasar/jface/example/employee/main.xml");
     }
 
