@@ -18,8 +18,9 @@ package org.seasar.jface.binding;
 import org.eclipse.swt.widgets.Widget;
 
 /**
- * @author bskuroneko
+ * ウィジットの状態によって、他のウィジットのイネーブル状態を変化させるクラスのためのインターフェースです。<br />
  * 
+ * @author bskuroneko
  */
 public interface EnabledDelegationBinder {
 

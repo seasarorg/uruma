@@ -30,8 +30,9 @@ import org.seasar.jface.binding.EnabledDelegationType;
 import org.seasar.jface.exception.EnabledDelegationException;
 
 /**
- * @author bskuroneko
+ * {@link Table} ウィジットのための {@link EnabledDelegationBinder} です。<br />
  * 
+ * @author bskuroneko
  */
 public class TableEnabledDelegationBinder implements EnabledDelegationBinder {
 

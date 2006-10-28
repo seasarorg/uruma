@@ -21,6 +21,11 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.jface.annotation.ExportValue;
 
+/**
+ * 単一プロパティに対するバインディングを行うための汎用クラスです。<br />
+ * 
+ * @author bskuroneko
+ */
 public class WidgetPropertyValueBinder extends AbstractWidgetValueBinder {
 
     private PropertyDesc propertyDesc;
@@ -43,14 +48,17 @@ public class WidgetPropertyValueBinder extends AbstractWidgetValueBinder {
     }
 
     @Override
-    protected void putWidgetValue(Widget widget, Object value, ExportValue annotation) {
+    protected void putWidgetValue(Widget widget, Object value,
+            ExportValue annotation) {
         Object labelValue = getLabelValue(value, annotation);
-        
+
         // プロパティが文字列の場合は null を空文字列として扱う
-        if (labelValue == null && String.class.isAssignableFrom(propertyDesc.getPropertyType())) {
+        if (labelValue == null
+                && String.class
+                        .isAssignableFrom(propertyDesc.getPropertyType())) {
             labelValue = "";
         }
-        
+
         Object convertedValue = convertValue(labelValue, propertyDesc
                 .getPropertyType());
         propertyDesc.setValue(widget, convertedValue);

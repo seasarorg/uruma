@@ -26,8 +26,9 @@ import org.seasar.jface.binding.WidgetValueBinder;
 import org.seasar.jface.util.PropertyUtil;
 
 /**
- * @author bskuroneko
+ * {@link org.seasar.jface.binding.ValueBinder} のための基底クラスです。<br />
  * 
+ * @author bskuroneko
  */
 public abstract class AbstractWidgetValueBinder implements WidgetValueBinder {
 
@@ -45,7 +46,8 @@ public abstract class AbstractWidgetValueBinder implements WidgetValueBinder {
 
     protected Object convertValue(Object srcValue, Class<?> destType) {
         // TODO PropertyDescImplに依存しないようにする？
-        PropertyDesc propDesc = new PropertyDescImpl("dummy", destType, null, null, null);
+        PropertyDesc propDesc = new PropertyDescImpl("dummy", destType, null,
+                null, null);
         Object result = propDesc.convertIfNeed(srcValue);
         if (result != null && destType.equals(String.class)) {
             result = result.toString();

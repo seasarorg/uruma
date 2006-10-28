@@ -21,12 +21,12 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.component.impl.TableColumnComponent;
-import org.seasar.jface.component.impl.TableComponent;
 import org.seasar.jface.util.PropertyUtil;
 
 /**
- * @author bskuroneko
+ * {@link Table} ウィジットに対する {@link org.seasar.jface.binding.ValueBinder} です。
  * 
+ * @author bskuroneko
  */
 public class TableValueBinder extends AbstractIterableWidgetValueBinder {
 
@@ -37,7 +37,8 @@ public class TableValueBinder extends AbstractIterableWidgetValueBinder {
     @Override
     protected Object getWidgetValue(Widget widget) {
         // TODO 実装
-        throw new UnsupportedOperationException("TableValueBinder#getWidgetValueは未実装です");
+        throw new UnsupportedOperationException(
+                "TableValueBinder#getWidgetValueは未実装です");
     }
 
     @Override
