@@ -17,17 +17,17 @@
 
       <menu text="編集(&amp;E)">
         <menuItem id="menuEdit" text="編集(&amp;E)\tCtrl+E" accelerator="Ctrl+E"
-          enabledDelegationId="employeeTable" enabledDelegationType="SINGLE"
+          enabledDependId="employeeTable" enabledDependType="SINGLE"
           image="edit" />
         <menuItem id="menuDelete" text="削除(&amp;D)\tDelete" accelerator="Delete"
-          enabledDelegationId="employeeTable" enabledDelegationType="SELECTION"
+          enabledDependId="employeeTable" enabledDependType="SELECTION"
           image="delete" />
       </menu>
 
       <menu text="表示(&amp;V)">
         <menuItem id="menuInquire" text="詳細表示(&amp;I)\tCtrl+I"
-          accelerator="Ctrl+I" enabledDelegationId="employeeTable"
-          enabledDelegationType="SINGLE" image="inquire" />
+          accelerator="Ctrl+I" enabledDependId="employeeTable"
+          enabledDependType="SINGLE" image="inquire" />
       </menu>
 
       <menu text="検索(&amp;S)">
@@ -44,11 +44,11 @@
       <toolItem style="SEPARATOR" />
 
       <toolItem id="toolEdit" toolTipText="編集" image="edit"
-        enabledDelegationId="employeeTable" enabledDelegationType="SINGLE" />
+        enabledDependId="employeeTable" enabledDependType="SINGLE" />
       <toolItem id="toolDelete" toolTipText="削除" image="delete"
-        enabledDelegationId="employeeTable" enabledDelegationType="SELECTION" />
+        enabledDependId="employeeTable" enabledDependType="SELECTION" />
       <toolItem id="toolInquire" toolTipText="詳細表示" image="inquire"
-        enabledDelegationId="employeeTable" enabledDelegationType="SINGLE" />
+        enabledDependId="employeeTable" enabledDependType="SINGLE" />
       <toolItem style="SEPARATOR" />
 
       <toolItem id="toolSearch" toolTipText="検索" image="search" />
