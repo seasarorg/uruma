@@ -15,13 +15,19 @@
  */
 package org.seasar.jface.renderer.impl;
 
+import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.component.impl.TableComponent;
+import org.seasar.jface.exception.RenderException;
 import org.seasar.jface.renderer.RendererSupportUtil;
+import org.seasar.jface.util.S2ContainerUtil;
+import org.seasar.jface.viewer.S2JFaceTableViewer;
 
 /**
  * <code>Table</code> のレンダリングを行うクラスです。<br />
@@ -30,19 +36,46 @@ import org.seasar.jface.renderer.RendererSupportUtil;
  */
 public class TableRenderer extends
         AbstractCompositeRenderer<TableComponent, Table> {
+    private static final String LABEL_PROVIDER = "LabelProvider";
+
+    private static final String COLOR_PROVIDER = "ColorProvider";
+
+    private static final String FONT_PROVIDER = "FontProvider";
 
     @Override
-    protected void doRenderComposite(TableComponent compositeComponent, Table composite) {
-    }
-    
-    @Override
-    protected void doRenderAfter(Table widget, TableComponent uiComponent, Widget parent, WindowContext context) {
-        String selection = uiComponent.getSelection();
-        if (selection != null) {
-            widget.setSelection((int[]) RendererSupportUtil.convertValue(uiComponent, selection, ConversionType.INT_ARRAY));
+    protected void doRenderComposite(TableComponent tableComponent, Table table) {
+        S2JFaceTableViewer viewer = new S2JFaceTableViewer(table);
+
+        String id = tableComponent.getId();
+        if (id != null) {
+            getContext().putViewer(table, viewer);
+
+            // Sets the LabelProvider.
+            Object provider = S2ContainerUtil.getComponentNoException(id
+                    + LABEL_PROVIDER);
+            if (provider != null) {
+                if (provider instanceof ITableLabelProvider
+                        || provider instanceof ILabelProvider) {
+                    viewer.setLabelProvider((IBaseLabelProvider) provider);
+                } else {
+                    throw new RenderException(
+                            RenderException.PROVIDER_TYPE_ERROR, provider,
+                            ITableLabelProvider.class.getName());
+                }
+            }
         }
     }
-    
+
+    @Override
+    protected void doRenderAfter(Table widget, TableComponent uiComponent,
+            Widget parent, WindowContext context) {
+        String selection = uiComponent.getSelection();
+        if (selection != null) {
+            widget.setSelection((int[]) RendererSupportUtil.convertValue(
+                    uiComponent, selection, ConversionType.INT_ARRAY));
+        }
+    }
+
     @Override
     protected Class<Table> getWidgetType() {
         return Table.class;

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.EnabledDepend;
@@ -51,6 +52,8 @@ public class WindowContextImpl implements WindowContext {
     private List<ExportValueBinder> exportValueBinders = new ArrayList<ExportValueBinder>();
 
     private List<WidgetEnabledDependBinder> widgetEnabledDependBinders = new ArrayList<WidgetEnabledDependBinder>();
+
+    private Map<Widget, Viewer> viewerMap = new HashMap<Widget, Viewer>();
 
     /*
      * @see org.seasar.jface.WindowContext#getActionObject()
@@ -146,5 +149,20 @@ public class WindowContextImpl implements WindowContext {
 
     public List<WidgetEnabledDependBinder> getWidgetEnabledDependBinders() {
         return widgetEnabledDependBinders;
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#getViewer(org.eclipse.swt.widgets.Widget)
+     */
+    public Viewer getViewer(Widget widget) {
+        return viewerMap.get(widget);
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#putViewer(org.eclipse.swt.widgets.Widget,
+     *      org.eclipse.jface.viewers.Viewer)
+     */
+    public void putViewer(Widget widget, Viewer viewer) {
+        viewerMap.put(widget, viewer);
     }
 }

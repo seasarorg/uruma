@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.impl.PropertyDescImpl;
 import org.seasar.framework.util.FieldUtil;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.binding.WidgetValueBinder;
 import org.seasar.jface.util.PropertyUtil;
@@ -38,7 +39,8 @@ public abstract class AbstractWidgetValueBinder implements WidgetValueBinder {
         this.widgetType = widgetType;
     }
 
-    public void importValue(Widget src, Object destObject, Field destField) {
+    public void importValue(Widget src, Object destObject, Field destField,
+            WindowContext context) {
         Object widgetValue = getWidgetValue(src);
         Object convertedValue = convertValue(widgetValue, destField.getType());
         FieldUtil.set(destField, destObject, convertedValue);
@@ -55,7 +57,8 @@ public abstract class AbstractWidgetValueBinder implements WidgetValueBinder {
         return result;
     }
 
-    public void exportValue(Object srcObject, Field srcField, Widget dest) {
+    public void exportValue(Object srcObject, Field srcField, Widget dest,
+            WindowContext context) {
         Object fieldValue = FieldUtil.get(srcField, srcObject);
         putWidgetValue(dest, fieldValue, srcField
                 .getAnnotation(ExportValue.class));

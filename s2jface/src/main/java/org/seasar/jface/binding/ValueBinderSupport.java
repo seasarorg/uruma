@@ -28,7 +28,7 @@ import org.seasar.jface.exception.ValueBindingException;
 
 /**
  * @author bskuroneko
- *
+ * 
  */
 public class ValueBinderSupport {
 
@@ -42,7 +42,7 @@ public class ValueBinderSupport {
         for (Field field : actionDesc.getExportFields()) {
             createExportValueBinder(field, context);
         }
-        
+
         ValueBinder.exportValue(context);
     }
 
@@ -53,7 +53,7 @@ public class ValueBinderSupport {
         Widget widget = getWidget(context, id, field);
         if (widget != null) {
             context.addImportValueBinder(new ImportValueBinder(field, context
-                    .getActionComponent(), widget));
+                    .getActionComponent(), widget, context));
         } else {
             throw new ValueBindingException(
                     ValueBindingException.IMPORT_SOURCE_NOT_FOUND, id, context
@@ -67,12 +67,12 @@ public class ValueBinderSupport {
         String id = annotation.id();
         Widget widget = getWidget(context, id, field);
         if (widget != null) {
-            context.addExportValueBinder(new ExportValueBinder(field,
-                    context.getActionComponent(), widget));
+            context.addExportValueBinder(new ExportValueBinder(field, context
+                    .getActionComponent(), widget, context));
         } else {
             throw new ValueBindingException(
-                    ValueBindingException.IMPORT_SOURCE_NOT_FOUND, id,
-                    context.getActionComponent().getClass(), field);
+                    ValueBindingException.IMPORT_SOURCE_NOT_FOUND, id, context
+                            .getActionComponent().getClass(), field);
         }
     }
 

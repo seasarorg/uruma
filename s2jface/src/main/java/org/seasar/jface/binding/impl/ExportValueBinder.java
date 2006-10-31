@@ -18,16 +18,17 @@ package org.seasar.jface.binding.impl;
 import java.lang.reflect.Field;
 
 import org.eclipse.swt.widgets.Widget;
-
+import org.seasar.jface.WindowContext;
 
 /**
  * @author bskuroneko
- *
+ * 
  */
 public class ExportValueBinder extends AbstractValueBinder {
-    
-    public ExportValueBinder(Field field, Object bean, Widget widget) {
-        super(field, bean, widget);
+
+    public ExportValueBinder(Field field, Object bean, Widget widget,
+            WindowContext context) {
+        super(field, bean, widget, context);
     }
 
     public void saveOldValue() {
@@ -36,7 +37,7 @@ public class ExportValueBinder extends AbstractValueBinder {
 
     @Override
     protected void doBind() {
-        widgetValueBinder.exportValue(bean, field, widget);
+        widgetValueBinder.exportValue(bean, field, widget, context);
     }
-    
+
 }

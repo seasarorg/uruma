@@ -18,6 +18,7 @@ package org.seasar.jface.binding;
 import java.lang.reflect.Field;
 
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 
 /**
  * {@link org.eclipse.swt.widgets.Widget} 毎の ValueBinding を実現するためのインターフェースです。<br />
@@ -37,8 +38,11 @@ public interface WidgetValueBinder {
      *            設定先オブジェクト
      * @param destField
      *            設定先 {@link Field}
+     * @param context
+     *            {@link WindowContext} オブジェクト
      */
-    public void importValue(Widget src, Object destObject, Field destField);
+    public void importValue(Widget src, Object destObject, Field destField,
+            WindowContext context);
 
     /**
      * フィールドからウィジットへ値を設定します。<br />
@@ -49,8 +53,11 @@ public interface WidgetValueBinder {
      *            設定元 {@link Field}
      * @param dest
      *            設定先 {@link Widget}
+     * @param context
+     *            {@link WindowContext} オブジェクト
      */
-    public void exportValue(Object srcObject, Field srcField, Widget dest);
+    public void exportValue(Object srcObject, Field srcField, Widget dest,
+            WindowContext context);
 
     /**
      * 対応するウィジットの型を返します。<br />

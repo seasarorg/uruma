@@ -43,8 +43,8 @@ public class ComboValueBinder extends AbstractIterableWidgetValueBinder {
         Object[] labelValues = getLabelValues(value, annotation);
 
         Combo combo = (Combo) widget;
-        String convertedValue = (String) convertValue(labelValues[0], String.class);
+        String convertedValue = (String) convertValue(labelValues[0],
+                String.class);
         combo.add((String) convertedValue);
     }
-
 }

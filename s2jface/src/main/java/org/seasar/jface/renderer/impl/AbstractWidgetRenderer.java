@@ -85,17 +85,16 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
         return SWT.NONE;
     }
 
-    protected void addEnabledDepend(Widget widget,
-            EnabledDependable dependable) {
+    protected void addEnabledDepend(Widget widget, EnabledDependable dependable) {
         if (dependable.getEnabledDependId() == null
                 || dependable.getEnabledDependType() == null) {
             // TODO どちらか一方のみが入っていた場合は例外とする
             return;
         }
 
-        EnabledDepend depend = new EnabledDepend(widget,
-                dependable.getEnabledDependId(), EnabledDependType
-                        .valueOf(dependable.getEnabledDependType()));
+        EnabledDepend depend = new EnabledDepend(widget, dependable
+                .getEnabledDependId(), EnabledDependType.valueOf(dependable
+                .getEnabledDependType()));
         getContext().addEnabledDepend(depend);
     }
 

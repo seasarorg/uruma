@@ -18,27 +18,35 @@ package org.seasar.jface.binding.impl;
 import java.lang.reflect.Field;
 
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.WidgetValueBinder;
 import org.seasar.jface.binding.WidgetValueBinderFactory;
 
 /**
  * @author bskuroneko
- *
+ * 
  */
 public abstract class AbstractValueBinder {
 
     protected WidgetValueBinder widgetValueBinder;
-    
+
     protected Field field;
+
     protected Object bean;
+
     protected Widget widget;
-    
-    public AbstractValueBinder(Field field, Object bean, Widget widget) {
+
+    protected WindowContext context;
+
+    public AbstractValueBinder(Field field, Object bean, Widget widget,
+            WindowContext context) {
         this.field = field;
         this.bean = bean;
         this.widget = widget;
-        
-        this.widgetValueBinder = WidgetValueBinderFactory.getBinder(widget.getClass());
+        this.context = context;
+
+        this.widgetValueBinder = WidgetValueBinderFactory.getBinder(widget
+                .getClass());
     }
 
     public void bind() {
@@ -47,6 +55,6 @@ public abstract class AbstractValueBinder {
         }
         doBind();
     }
-    
+
     protected abstract void doBind();
 }
