@@ -24,7 +24,10 @@ import java.util.Map;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.binding.EnabledDelegation;
+import org.seasar.jface.binding.EnabledDepend;
+import org.seasar.jface.binding.WidgetEnabledDependBinder;
+import org.seasar.jface.binding.impl.ExportValueBinder;
+import org.seasar.jface.binding.impl.ImportValueBinder;
 import org.seasar.jface.exception.DuplicateComponentIdException;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -41,7 +44,13 @@ public class WindowContextImpl implements WindowContext {
 
     protected MenuManager menuBar;
 
-    private List<EnabledDelegation> enabledDelegations = new ArrayList<EnabledDelegation>();
+    private List<EnabledDepend> enabledDepends = new ArrayList<EnabledDepend>();
+
+    private List<ImportValueBinder> importValueBinders = new ArrayList<ImportValueBinder>();
+
+    private List<ExportValueBinder> exportValueBinders = new ArrayList<ExportValueBinder>();
+
+    private List<WidgetEnabledDependBinder> widgetEnabledDependBinders = new ArrayList<WidgetEnabledDependBinder>();
 
     /*
      * @see org.seasar.jface.WindowContext#getActionObject()
@@ -107,11 +116,35 @@ public class WindowContextImpl implements WindowContext {
         this.menuBar = menuManager;
     }
 
-    public void addEnabledDelegation(EnabledDelegation enabledDelegation) {
-        enabledDelegations.add(enabledDelegation);
+    public void addEnabledDepend(EnabledDepend enabledDepend) {
+        enabledDepends.add(enabledDepend);
     }
 
-    public List<EnabledDelegation> getEnabledDelegations() {
-        return this.enabledDelegations;
+    public List<EnabledDepend> getEnabledDepends() {
+        return this.enabledDepends;
+    }
+
+    public void addImportValueBinder(ImportValueBinder binder) {
+        importValueBinders.add(binder);
+    }
+
+    public List<ImportValueBinder> getImportValueBinders() {
+        return importValueBinders;
+    }
+
+    public void addExportValueBinder(ExportValueBinder binder) {
+        exportValueBinders.add(binder);
+    }
+
+    public List<ExportValueBinder> getExportValueBinders() {
+        return exportValueBinders;
+    }
+
+    public void addWidgetEnabledDependBinder(WidgetEnabledDependBinder binder) {
+        widgetEnabledDependBinders.add(binder);
+    }
+
+    public List<WidgetEnabledDependBinder> getWidgetEnabledDependBinders() {
+        return widgetEnabledDependBinders;
     }
 }

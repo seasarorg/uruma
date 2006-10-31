@@ -13,21 +13,25 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.exception;
+package org.seasar.jface.binding.impl;
 
 import java.lang.reflect.Field;
 
+import org.eclipse.swt.widgets.Widget;
+
 /**
  * @author bskuroneko
+ *
  */
-public class ArgumentFieldException extends S2JFaceRuntimeException {
+public class ImportValueBinder extends AbstractValueBinder {
 
-    private static final long serialVersionUID = -150742105184209863L;
-    
-    public static final String DUPLICATE = "EJFC0213";
+    public ImportValueBinder(Field field, Object bean, Widget widget) {
+        super(field, bean, widget);
+    }
 
-    public ArgumentFieldException(String messageCode, Class clazz, Field field) {
-        super(messageCode, new Object[] { clazz.getName(), field });
+    @Override
+    protected void doBind() {
+        widgetValueBinder.importValue(widget, bean, field);
     }
 
 }

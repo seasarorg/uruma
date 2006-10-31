@@ -20,8 +20,10 @@ import java.util.List;
 
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.binding.EnabledDelegation;
-import org.seasar.jface.binding.EnabledDelegationBinder;
+import org.seasar.jface.binding.EnabledDepend;
+import org.seasar.jface.binding.WidgetEnabledDependBinder;
+import org.seasar.jface.binding.impl.ExportValueBinder;
+import org.seasar.jface.binding.impl.ImportValueBinder;
 
 /**
  * ウィンドウに関する各種情報を保持するためのインターフェースです。<br />
@@ -116,8 +118,20 @@ public interface WindowContext {
     @Deprecated
     public MenuManager getMenuBar();
 
-    public void addEnabledDelegation(EnabledDelegation enabledDelegation);
+    public void addEnabledDepend(EnabledDepend enabledDepend);
     
-    public List<EnabledDelegation> getEnabledDelegations();
+    public List<EnabledDepend> getEnabledDepends();
+
+    public void addImportValueBinder(ImportValueBinder binder);
+    
+    public List<ImportValueBinder> getImportValueBinders();
+    
+    public void addExportValueBinder(ExportValueBinder binder);
+
+    public List<ExportValueBinder> getExportValueBinders();
+
+    public void addWidgetEnabledDependBinder(WidgetEnabledDependBinder binder);
+
+    public List<WidgetEnabledDependBinder> getWidgetEnabledDependBinders();
 
 }

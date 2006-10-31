@@ -18,7 +18,7 @@ package org.seasar.jface.component.impl;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
-import org.seasar.jface.component.EnabledDelegatable;
+import org.seasar.jface.component.EnabledDependable;
 import org.seasar.jface.component.LayoutDataInfo;
 import org.seasar.jface.component.UIControlComponent;
 
@@ -26,7 +26,7 @@ import org.seasar.jface.component.UIControlComponent;
  * @author y-komori
  */
 public abstract class ControlComponent extends AbstractUIComponent implements
-        UIControlComponent, EnabledDelegatable {
+        UIControlComponent, EnabledDependable {
     private LayoutDataInfo layoutDataInfo;
 
     @ComponentAttribute(conversionType = ConversionType.COLOR)
@@ -69,10 +69,10 @@ public abstract class ControlComponent extends AbstractUIComponent implements
     private String y;
 
     @ComponentAttribute(targetType = TargetType.NONE)
-    private String enabledDelegationId;
+    private String enabledDependId;
 
     @ComponentAttribute(targetType = TargetType.NONE)
-    private String enabledDelegationType;
+    private String enabledDependType;
 
     public String getBackground() {
         return this.background;
@@ -186,20 +186,20 @@ public abstract class ControlComponent extends AbstractUIComponent implements
         this.layoutDataInfo = layoutDataInfo;
     }
 
-    public String getEnabledDelegationId() {
-        return this.enabledDelegationId;
+    public String getEnabledDependId() {
+        return this.enabledDependId;
     }
 
-    public void setEnabledDelegationId(String enabledDelegationId) {
-        this.enabledDelegationId = enabledDelegationId;
+    public void setEnabledDependId(String enabledDependId) {
+        this.enabledDependId = enabledDependId;
     }
 
-    public String getEnabledDelegationType() {
-        return this.enabledDelegationType;
+    public String getEnabledDependType() {
+        return this.enabledDependType;
     }
 
-    public void setEnabledDelegationType(String enabledDelegationType) {
-        this.enabledDelegationType = enabledDelegationType;
+    public void setEnabledDependType(String enabledDependType) {
+        this.enabledDependType = enabledDependType;
     }
 
 }

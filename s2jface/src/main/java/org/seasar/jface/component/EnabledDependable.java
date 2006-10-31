@@ -13,21 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.exception;
-
-import java.lang.reflect.Field;
+package org.seasar.jface.component;
 
 /**
  * @author bskuroneko
+ *
  */
-public class ArgumentFieldException extends S2JFaceRuntimeException {
+public interface EnabledDependable {
 
-    private static final long serialVersionUID = -150742105184209863L;
-    
-    public static final String DUPLICATE = "EJFC0213";
+    public String getEnabledDependId();
 
-    public ArgumentFieldException(String messageCode, Class clazz, Field field) {
-        super(messageCode, new Object[] { clazz.getName(), field });
-    }
+    public String getEnabledDependType();
 
 }

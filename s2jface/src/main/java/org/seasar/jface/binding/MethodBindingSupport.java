@@ -56,32 +56,33 @@ public class MethodBindingSupport {
      */
     public static void createListeners(ActionDesc actionDesc,
             WindowContext context) {
-        Object action = context.getActionComponent();
-
         Iterator<EventListenerDef> iter = actionDesc.eventListenerDefIterator();
         while (iter.hasNext()) {
-            EventListenerDef eventListenerDef = iter.next();
-            Method targetMethod = eventListenerDef.getTargetMethod();
-            MethodBinding methodBinding = new MethodBinding(action,
-                    targetMethod);
-            methodBinding.addArgumentsFilter(new OmissionArgumentsFilter(
-                    targetMethod));
-            methodBinding.addArgumentsFilter(new TypedEventArgumentsFilter(
-                    targetMethod));
+            createListener(context, iter.next());
+        }
+    }
 
-            EventListenerType listenerType = eventListenerDef
-                    .getEventListener().type();
+    private static void createListener(WindowContext context,
+            EventListenerDef eventListenerDef) {
+        Method targetMethod = eventListenerDef.getTargetMethod();
+        MethodBinding methodBinding = new MethodBinding(context
+                .getActionComponent(), targetMethod);
+        methodBinding.addArgumentsFilter(new OmissionArgumentsFilter(
+                targetMethod));
+        methodBinding.addArgumentsFilter(new TypedEventArgumentsFilter(
+                targetMethod));
+        
+        EventListenerType listenerType = eventListenerDef.getEventListener()
+                .type();
 
-            Listener listener = ListenerFactory.getListener(context,
-                    methodBinding);
-            String[] ids = eventListenerDef.getEventListener().id();
-            for (String id : ids) {
-                Widget widget = context.getComponent(id);
-                if (widget != null) {
-                    ListenerBinder.bindListener(listenerType, listener, widget);
-                } else {
-                    throw new NotFoundException(NotFoundException.WIDGET, id);
-                }
+        Listener listener = ListenerFactory.getListener(context, methodBinding);
+        String[] ids = eventListenerDef.getEventListener().id();
+        for (String id : ids) {
+            Widget widget = context.getComponent(id);
+            if (widget != null) {
+                ListenerBinder.bindListener(listenerType, listener, widget);
+            } else {
+                throw new NotFoundException(NotFoundException.WIDGET, id);
             }
         }
     }

@@ -63,7 +63,7 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
 
         doRenderControl(uiComponent, control);
         
-        addEnabledDelegation(control, uiComponent);
+        addEnabledDepend(control, uiComponent);
     }
 
     protected void setLocation(final ControlComponent controlComponent,

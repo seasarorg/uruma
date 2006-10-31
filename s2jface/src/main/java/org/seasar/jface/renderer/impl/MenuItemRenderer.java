@@ -29,7 +29,7 @@ public class MenuItemRenderer extends
     @Override
     protected void doRender(MenuItemComponent menuItemComponent,
             MenuItem control) {
-        addEnabledDelegation(control, menuItemComponent);
+        addEnabledDepend(control, menuItemComponent);
     }
 
     @Override

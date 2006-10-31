@@ -19,22 +19,15 @@ import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.ActionDesc;
 import org.seasar.jface.binding.ActionDescFactory;
-import org.seasar.jface.binding.EnabledDelegation;
-import org.seasar.jface.binding.EnabledDelegationBinder;
-import org.seasar.jface.binding.EnabledDelegationBinderFactory;
-import org.seasar.jface.binding.MethodBindingSupport;
-import org.seasar.jface.binding.ValueBinder;
+import org.seasar.jface.binding.BindingFacade;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.impl.WindowComponent;
-import org.seasar.jface.exception.EnabledDelegationException;
-import org.seasar.jface.exception.NotFoundException;
 import org.seasar.jface.renderer.impl.WindowRenderer;
 import org.seasar.jface.util.S2ContainerUtil;
 
@@ -123,37 +116,9 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         WindowComponent windowComponent = template.getWindowComponent();
         windowComponent.render(parent, context);
 
-        if (actionDesc != null) {
-            MethodBindingSupport.createListeners(actionDesc, context);
-        }
+        BindingFacade.bindAll(actionDesc, context);
 
-        bindEnabledDelegations();
-
-        if (actionDesc != null) {
-            ValueBinder.exportValue(context);
-        }
         return parent;
-    }
-
-    protected void bindEnabledDelegations() {
-        for (EnabledDelegation delegation : context.getEnabledDelegations()) {
-            Widget delegationWidget = context.getComponent(delegation
-                    .getDelegationId());
-            if (delegationWidget == null) {
-                throw new NotFoundException(NotFoundException.UICOMPONENT,
-                        delegation.getDelegationId());
-            }
-
-            EnabledDelegationBinder delegator = EnabledDelegationBinderFactory
-                    .getEnabledDelegationBinder(delegationWidget.getClass());
-            if (delegator == null) {
-                throw new EnabledDelegationException(
-                        EnabledDelegationException.DELEGATION_WIDGET_NOT_SUPPORTED,
-                        delegationWidget.getClass());
-            }
-            delegator.bind(delegation.getWidget(), delegationWidget, delegation
-                    .getType());
-        }
     }
 
     // @Override

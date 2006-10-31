@@ -13,21 +13,30 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.exception;
+package org.seasar.jface.binding.impl;
+
+import java.lang.reflect.Field;
+
+import org.eclipse.swt.widgets.Widget;
+
 
 /**
  * @author bskuroneko
  *
  */
-public class EnabledDelegationException extends S2JFaceRuntimeException {
-
-    public static final String DELEGATION_WIDGET_NOT_SUPPORTED = "EJFC0211";
-
-    public static final String DELEGATION_TYPE_NOT_SUPPORTED = "EJFC0212";
-
-    public EnabledDelegationException(final String messageCode,
-            final Object... args) {
-        super(messageCode, args);
+public class ExportValueBinder extends AbstractValueBinder {
+    
+    public ExportValueBinder(Field field, Object bean, Widget widget) {
+        super(field, bean, widget);
     }
 
+    public void saveOldValue() {
+        // TODO 自動生成されたメソッド・スタブ
+    }
+
+    @Override
+    protected void doBind() {
+        widgetValueBinder.exportValue(bean, field, widget);
+    }
+    
 }

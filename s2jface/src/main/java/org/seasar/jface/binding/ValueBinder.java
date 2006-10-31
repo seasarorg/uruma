@@ -15,15 +15,9 @@
  */
 package org.seasar.jface.binding;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
-import org.eclipse.swt.widgets.Widget;
-import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportValue;
-import org.seasar.jface.exception.ValueBindingException;
+import org.seasar.jface.binding.impl.ExportValueBinder;
+import org.seasar.jface.binding.impl.ImportValueBinder;
 
 /**
  * @author y-komori
@@ -37,37 +31,8 @@ public class ValueBinder {
      *            {@link WindowContext} オブジェクト
      */
     public static void importValue(WindowContext context) {
-        Object target = context.getActionComponent();
-        ActionDesc desc = ActionDescFactory.getActionDesc(target.getClass());
-
-        List<Field> importFields = desc.getImportFields();
-        for (Field field : importFields) {
-            ImportValue annotation = field.getAnnotation(ImportValue.class);
-            String id = annotation.id();
-            if (StringUtil.isEmpty(id)) {
-                id = field.getName();
-            }
-
-            Widget widget = context.getComponent(id);
-            if (widget.isDisposed()) {
-                continue;
-            }
-            if (widget != null) {
-                WidgetValueBinder binder = WidgetValueBinderFactory
-                        .getBinder(widget.getClass());
-                if (binder != null) {
-                    binder.importValue(widget, context.getActionComponent(), field);
-                } else {
-                    throw new ValueBindingException(
-                            ValueBindingException.WIDGET_NOT_SUPPORTED, widget
-                                    .getClass().getName(), target.getClass(),
-                            field);
-                }
-            } else {
-                throw new ValueBindingException(
-                        ValueBindingException.IMPORT_SOURCE_NOT_FOUND, id,
-                        target.getClass(), field);
-            }
+        for (ImportValueBinder binder : context.getImportValueBinders()) {
+            binder.bind();
         }
     }
 
@@ -78,37 +43,15 @@ public class ValueBinder {
      *            {@link WindowContext} オブジェクト
      */
     public static void exportValue(WindowContext context) {
-        Object target = context.getActionComponent();
-        ActionDesc desc = ActionDescFactory.getActionDesc(target.getClass());
-
-        List<Field> exportFields = desc.getExportFields();
-        for (Field field : exportFields) {
-            ExportValue annotation = field.getAnnotation(ExportValue.class);
-            String id = annotation.id();
-            if (StringUtil.isEmpty(id)) {
-                id = field.getName();
-            }
-
-            Widget widget = context.getComponent(id);
-            if (widget.isDisposed()) {
-                continue;
-            }
-            if (widget != null) {
-                WidgetValueBinder binder = WidgetValueBinderFactory
-                        .getBinder(widget.getClass());
-                if (binder != null) {
-                    binder.exportValue(context.getActionComponent(), field, widget);
-                } else {
-                    throw new ValueBindingException(
-                            ValueBindingException.WIDGET_NOT_SUPPORTED, widget
-                                    .getClass().getName(), target.getClass(),
-                            field);
-                }
-            } else {
-                throw new ValueBindingException(
-                        ValueBindingException.EXPORT_COMPONENT_NOT_FOUND, id,
-                        target.getClass(), field);
-            }
+        for (ExportValueBinder binder : context.getExportValueBinders()) {
+            binder.bind();
         }
     }
+
+    public static void saveOldExportValues(WindowContext context) {
+        for (ExportValueBinder binder : context.getExportValueBinders()) {
+            binder.saveOldValue();
+        }
+    }
+    
 }

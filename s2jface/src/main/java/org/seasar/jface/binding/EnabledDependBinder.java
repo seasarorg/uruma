@@ -13,16 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component;
+package org.seasar.jface.binding;
+
+import org.seasar.jface.WindowContext;
 
 /**
  * @author bskuroneko
  *
  */
-public interface EnabledDelegatable {
-
-    public String getEnabledDelegationId();
-
-    public String getEnabledDelegationType();
-
+public class EnabledDependBinder {
+    
+    public static void updateEnabled(WindowContext context) {
+        for (WidgetEnabledDependBinder binder : context.getWidgetEnabledDependBinders()) {
+            binder.updateEnabled();
+        }
+    }
 }

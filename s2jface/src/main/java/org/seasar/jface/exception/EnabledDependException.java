@@ -13,39 +13,23 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.binding;
-
-import org.eclipse.swt.widgets.Widget;
+package org.seasar.jface.exception;
 
 /**
  * @author bskuroneko
- * 
+ *
  */
-public class EnabledDelegation {
+public class EnabledDependException extends S2JFaceRuntimeException {
 
-    private Widget widget;
+    private static final long serialVersionUID = 4389038436556164706L;
 
-    private String delegationId;
+    public static final String DEPEND_WIDGET_NOT_SUPPORTED = "EJFC0211";
 
-    private EnabledDelegationType type;
+    public static final String DEPEND_TYPE_NOT_SUPPORTED = "EJFC0212";
 
-    public EnabledDelegation(Widget widget, String delegationId,
-            EnabledDelegationType type) {
-        this.widget = widget;
-        this.delegationId = delegationId;
-        this.type = type;
-    }
-
-    public String getDelegationId() {
-        return this.delegationId;
-    }
-
-    public EnabledDelegationType getType() {
-        return this.type;
-    }
-
-    public Widget getWidget() {
-        return this.widget;
+    public EnabledDependException(final String messageCode,
+            final Object... args) {
+        super(messageCode, args);
     }
 
 }

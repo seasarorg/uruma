@@ -15,17 +15,24 @@
  */
 package org.seasar.jface.binding;
 
-import org.eclipse.swt.widgets.Widget;
-
 /**
- * ウィジットの状態によって、他のウィジットのイネーブル状態を変化させるクラスのためのインターフェースです。<br />
- * 
  * @author bskuroneko
+ * 
  */
-public interface EnabledDelegationBinder {
+public enum EnabledDependType {
 
-    public void bind(Widget widget, Widget delegatedWidget,
-            EnabledDelegationType type);
+    /** 選択が１つでも存在する場合に true */
+    SELECTION,
 
-    public Class<? extends Widget> getWidgetType();
+    /** 選択が１つの場合にのみ true */
+    SINGLE,
+
+    /** 選択が２つの場合にのみ true */
+    PAIR,
+
+    /** 選択が１つもされていない場合に true */
+    NONE,
+
+    /** 選択が２つ以上の場合にのみ true */
+    MULTI
 }

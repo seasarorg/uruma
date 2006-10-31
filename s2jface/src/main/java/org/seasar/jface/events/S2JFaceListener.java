@@ -18,6 +18,7 @@ package org.seasar.jface.events;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.binding.EnabledDependBinder;
 import org.seasar.jface.binding.MethodBinding;
 import org.seasar.jface.binding.ValueBinder;
 import org.seasar.jface.binding.WidgetBinder;
@@ -41,8 +42,10 @@ public class S2JFaceListener implements Listener {
         if (methodBinding != null) {
             WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
             ValueBinder.importValue(context);
+            ValueBinder.saveOldExportValues(context);
             methodBinding.invoke(new Object[] { event });
             ValueBinder.exportValue(context);
+            EnabledDependBinder.updateEnabled(context);
         }
     }
 

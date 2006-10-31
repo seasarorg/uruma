@@ -15,24 +15,15 @@
  */
 package org.seasar.jface.binding;
 
+
 /**
- * @author bskuroneko
+ * 他のウィジットの状態に依存してイネーブル状態を変化させるためのインターフェースです。<br />
  * 
+ * @author bskuroneko
  */
-public enum EnabledDelegationType {
+public interface WidgetEnabledDependBinder {
 
-    /** 選択が１つでも存在する場合に true */
-    SELECTION,
-
-    /** 選択が１つの場合にのみ true */
-    SINGLE,
-
-    /** 選択が２つの場合にのみ true */
-    PAIR,
-
-    /** 選択が１つもされていない場合に true */
-    NONE,
-
-    /** 選択が２つ以上の場合にのみ true */
-    MULTI
+    public void bindEventListeners();
+    
+    public void updateEnabled();
 }

@@ -63,10 +63,10 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
         if (subMenuItem != null) {
             subMenuItem.setMenu(menu);
             setEnabled((MenuComponent) uiComponent, subMenuItem);
-            addEnabledDelegation(subMenuItem, (MenuComponent) uiComponent);
+            addEnabledDepend(subMenuItem, (MenuComponent) uiComponent);
         } else {
             setEnabled((MenuComponent) uiComponent, menu);
-            addEnabledDelegation(menu, (MenuComponent) uiComponent);
+            addEnabledDepend(menu, (MenuComponent) uiComponent);
         }
 
         doRender((MenuComponent) uiComponent, menu);

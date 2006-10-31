@@ -224,9 +224,9 @@
           <xs:attribute name="enabled" type="xs:boolean" />
           <xs:attribute name="x" type="xs:int" />
           <xs:attribute name="y" type="xs:int" />
-          <xs:attribute name="enabledDelegationId" type="xs:string" />
-          <xs:attribute name="enabledDelegationType"
-            type="tns:EnabledDelegationType" />
+          <xs:attribute name="enabledDependId" type="xs:string" />
+          <xs:attribute name="enabledDependType"
+            type="tns:EnabledDependType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -257,9 +257,9 @@
           <xs:attribute name="accelerator" type="tns:Accelerator" />
           <xs:attribute name="enabled" type="xs:boolean" />
           <xs:attribute name="selection" type="xs:boolean" />
-          <xs:attribute name="enabledDelegationId" type="xs:string" />
-          <xs:attribute name="enabledDelegationType"
-            type="tns:EnabledDelegationType" />
+          <xs:attribute name="enabledDependId" type="xs:string" />
+          <xs:attribute name="enabledDependType"
+            type="tns:EnabledDependType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -545,9 +545,9 @@
           <xs:attribute name="selection" type="xs:boolean" />
           <xs:attribute name="toolTipText" type="xs:string" />
           <xs:attribute name="width" type="xs:int" />
-          <xs:attribute name="enabledDelegationId" type="xs:string" />
-          <xs:attribute name="enabledDelegationType"
-            type="tns:EnabledDelegationType" />
+          <xs:attribute name="enabledDependId" type="xs:string" />
+          <xs:attribute name="enabledDependType"
+            type="tns:EnabledDependType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -1055,9 +1055,9 @@
         <xs:attribute name="foreground" type="tns:Color" />
         <xs:attribute name="toolTipText" type="xs:string" />
         <xs:attribute name="visible" type="xs:boolean" />
-        <xs:attribute name="enabledDelegationId" type="xs:string" />
-        <xs:attribute name="enabledDelegationType"
-          type="tns:EnabledDelegationType" />
+        <xs:attribute name="enabledDependId" type="xs:string" />
+        <xs:attribute name="enabledDependType"
+          type="tns:EnabledDependType" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -1158,7 +1158,7 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="EnabledDelegationType">
+  <xs:simpleType name="EnabledDependType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="SELECTION" />
       <xs:enumeration value="SINGLE" />

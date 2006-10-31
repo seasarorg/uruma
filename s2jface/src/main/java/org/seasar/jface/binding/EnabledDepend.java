@@ -15,30 +15,37 @@
  */
 package org.seasar.jface.binding;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.binding.impl.TableEnabledDelegationBinder;
 
 /**
  * @author bskuroneko
  * 
  */
-public class EnabledDelegationBinderFactory {
+public class EnabledDepend {
+    
+    private Widget widget;
 
-    private static final Map<Class<? extends Widget>, EnabledDelegationBinder> binderMap = new HashMap<Class<? extends Widget>, EnabledDelegationBinder>();
+    private String targetId;
 
-    static {
-        addBinder(new TableEnabledDelegationBinder());
+    private EnabledDependType type;
+    
+    public EnabledDepend(Widget widget, String targetId,
+            EnabledDependType type) {
+        this.widget = widget;
+        this.targetId = targetId;
+        this.type = type;
     }
 
-    public static EnabledDelegationBinder getEnabledDelegationBinder(
-            Class<? extends Widget> widgetType) {
-        return binderMap.get(widgetType);
+    public String getTargetId() {
+        return this.targetId;
     }
 
-    public static void addBinder(EnabledDelegationBinder binder) {
-        binderMap.put(binder.getWidgetType(), binder);
+    public EnabledDependType getType() {
+        return this.type;
     }
+
+    public Widget getWidget() {
+        return this.widget;
+    }
+
 }
