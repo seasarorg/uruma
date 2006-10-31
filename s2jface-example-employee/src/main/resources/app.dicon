@@ -74,5 +74,5 @@
 		</initMethod>
 	</component>
 	
-	
+	<component name="employeeTableLabelProvider" class="org.seasar.jface.example.employee.provider.EmployeeTableLabelProvider" />
 </components>
