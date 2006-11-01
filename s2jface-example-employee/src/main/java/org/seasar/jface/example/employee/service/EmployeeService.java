@@ -19,6 +19,7 @@ import java.util.List;
 
 import examples.jsf.dto.DepartmentDto;
 import examples.jsf.dto.EmployeeDto;
+import examples.jsf.dto.EmployeeSearchDto;
 
 
 public interface EmployeeService {
@@ -30,5 +31,7 @@ public interface EmployeeService {
     void update(EmployeeDto dto);
 
     List<DepartmentDto> getAllDepartments();
+
+    List<EmployeeDto> searchEmployeeDtoList(EmployeeSearchDto dto);
 
 }

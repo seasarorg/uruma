@@ -21,6 +21,7 @@ import org.seasar.jface.example.employee.service.EmployeeService;
 
 import examples.jsf.dto.DepartmentDto;
 import examples.jsf.dto.EmployeeDto;
+import examples.jsf.dto.EmployeeSearchDto;
 import examples.jsf.exception.EmployeeAlreadyExistRuntimeException;
 import examples.jsf.exception.EmployeeNotFoundRuntimeException;
 import examples.jsf.logic.EmployeeLogic;
@@ -56,6 +57,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public void setEmployeeLogic(EmployeeLogic employeeLogic) {
         this.employeeLogic = employeeLogic;
+    }
+
+    public List<EmployeeDto> searchEmployeeDtoList(EmployeeSearchDto dto) {
+        return employeeLogic.searchEmployeeDtoList(dto);
     }
 
 }

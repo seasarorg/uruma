@@ -24,14 +24,14 @@ import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.example.employee.dxo.SearchActionDxo;
+import org.seasar.jface.example.employee.service.EmployeeService;
 
 import examples.jsf.dto.DepartmentDto;
 import examples.jsf.dto.EmployeeSearchDto;
-import examples.jsf.logic.EmployeeLogic;
 
 public class SearchAction {
 
-    private EmployeeLogic employeeLogic;
+    private EmployeeService employeeService;
 
     private SearchActionDxo dxo;
 
@@ -74,7 +74,7 @@ public class SearchAction {
 
     @InitializeMethod
     public void initialize() {
-        deptList = employeeLogic.getAllDepartments();
+        deptList = employeeService.getAllDepartments();
     }
 
     @EventListener(id = "ok")
@@ -82,7 +82,7 @@ public class SearchAction {
         bindDept();
 
         EmployeeSearchDto searchDto = dxo.convert(this);
-        searchResult = employeeLogic.searchEmployeeDtoList(searchDto);
+        searchResult = employeeService.searchEmployeeDtoList(searchDto);
         shell.close();
     }
 
@@ -104,8 +104,8 @@ public class SearchAction {
         }
     }
 
-    public void setEmployeeLogic(EmployeeLogic employeeLogic) {
-        this.employeeLogic = employeeLogic;
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     public void setDxo(SearchActionDxo dxo) {
