@@ -48,10 +48,4 @@ public class ValueBinder {
         }
     }
 
-    public static void saveOldExportValues(WindowContext context) {
-        for (ExportValueBinder binder : context.getExportValueBinders()) {
-            binder.saveOldValue();
-        }
-    }
-    
 }

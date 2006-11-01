@@ -31,10 +31,6 @@ public class ExportValueBinder extends AbstractValueBinder {
         super(field, bean, widget, context);
     }
 
-    public void saveOldValue() {
-        // TODO 自動生成されたメソッド・スタブ
-    }
-
     @Override
     protected void doBind() {
         widgetValueBinder.exportValue(bean, field, widget, context);
