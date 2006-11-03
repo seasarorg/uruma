@@ -18,9 +18,9 @@ package org.seasar.jface.example.employee.action;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
+import org.seasar.jface.annotation.BindType;
+import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.example.employee.dxo.SearchActionDxo;
@@ -37,34 +37,34 @@ public class SearchAction {
 
     private Shell shell;
 
-    @ImportValue
+    @BindingValue(type = BindType.Import)
     private String empno;
 
-    @ImportValue
+    @BindingValue(type = BindType.Import)
     private String ename;
 
-    @ImportValue
+    @BindingValue(type = BindType.Import)
     private String job;
 
-    @ImportValue
+    @BindingValue(type = BindType.Import)
     private String mgr;
 
-    @ImportValue
+    @BindingValue(type = BindType.Import)
     private String fromHiredate;
 
-    @ImportValue
+    @BindingValue(type = BindType.Import)
     private String toHiredate;
 
-    @ImportValue
+    @BindingValue(type = BindType.Import)
     private String fromSal;
 
-    @ImportValue
+    @BindingValue(type = BindType.Import)
     private String toSal;
 
-    @ImportValue(id = "dept")
+    @BindingValue(type = BindType.Import, id = "dept")
     private String deptName;
 
-    @ExportValue(id = "dept", label = "dname")
+    @BindingValue(type = BindType.Export, id = "dept", label = "dname")
     private List<DepartmentDto> deptList;
 
     private Integer deptno;

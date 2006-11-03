@@ -23,8 +23,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.seasar.jface.S2JFaceWindowManager;
+import org.seasar.jface.annotation.BindType;
+import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.example.employee.service.EmployeeService;
 
@@ -41,17 +42,19 @@ public class MainAction {
 
     private Table employeeTable;
 
-    @ExportValue(id = "employeeTable")
+    @BindingValue(type = BindType.Export, id = "employeeTable")
     private List<EmployeeDto> employees;
 
     @InitializeMethod
     public void initialize() {
-        employees = employeeService.searchEmployeeDtoList(new EmployeeSearchDto());
+        employees = employeeService
+                .searchEmployeeDtoList(new EmployeeSearchDto());
     }
 
     @EventListener(id = { "menuSearch", "toolSearch" })
     public void searchEmployee() {
-        List<EmployeeDto> result = (List<EmployeeDto>) windowManager.openModal("org/seasar/jface/example/employee/search.xml");
+        List<EmployeeDto> result = (List<EmployeeDto>) windowManager
+                .openModal("org/seasar/jface/example/employee/search.xml");
         if (result != null) {
             employees = result;
         }
@@ -59,7 +62,8 @@ public class MainAction {
 
     @EventListener(id = { "menuRegist", "toolRegist" })
     public void registEmployee() {
-        EmployeeDto result = (EmployeeDto) windowManager.openModal("org/seasar/jface/example/employee/regist.xml");
+        EmployeeDto result = (EmployeeDto) windowManager
+                .openModal("org/seasar/jface/example/employee/regist.xml");
         if (result != null) {
             employees.add(result);
         }
@@ -67,7 +71,8 @@ public class MainAction {
 
     @EventListener(id = { "menuDelete", "toolDelete" })
     public void deleteEmployee() {
-        boolean result = MessageDialog.openConfirm(shell, "çÌèúämîF", "ëIëÇ≥ÇÍÇΩè]ã∆àıèÓïÒÇçÌèúÇµÇ‹Ç∑Ç©ÅH");
+        boolean result = MessageDialog.openConfirm(shell, "ÔøΩÌèúÔøΩmÔøΩF",
+                "ÔøΩIÔøΩ‚≥ÇÍÇΩÔøΩ]ÔøΩ∆àÔøΩÔøΩÔøΩÔøΩÌèúÔøΩÔøΩÔøΩ‹ÇÔøΩÔøΩÔøΩÔøΩH");
         if (result) {
             int[] selections = employeeTable.getSelectionIndices();
             Arrays.sort(selections);
@@ -90,7 +95,8 @@ public class MainAction {
     public void editEmployee() {
         int selection = employeeTable.getSelectionIndex();
         EmployeeDto employee = employees.get(selection);
-        EmployeeDto edited = (EmployeeDto) windowManager.openModal("org/seasar/jface/example/employee/edit.xml", employee);
+        EmployeeDto edited = (EmployeeDto) windowManager.openModal(
+                "org/seasar/jface/example/employee/edit.xml", employee);
         if (edited != null) {
             employees.set(selection, edited);
         }
@@ -100,7 +106,8 @@ public class MainAction {
     public void inquireEmployee() {
         int selection = employeeTable.getSelectionIndex();
         EmployeeDto employee = employees.get(selection);
-        windowManager.openModal("org/seasar/jface/example/employee/inquire.xml", employee);
+        windowManager.openModal(
+                "org/seasar/jface/example/employee/inquire.xml", employee);
     }
 
     @EventListener(id = "menuAbout")

@@ -16,40 +16,31 @@
 package org.seasar.jface.example.employee.action;
 
 import org.eclipse.swt.widgets.Shell;
-import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportValue;
+import org.seasar.jface.annotation.BindingValue;
 
 public class AbstractOneEmployeeAction {
 
     protected Shell shell;
 
-    @ImportValue
-    @ExportValue
+    @BindingValue
     private String empno;
 
-    @ImportValue
-    @ExportValue
+    @BindingValue
     private String ename;
 
-    @ImportValue
-    @ExportValue
+    @BindingValue
     private String job;
 
-    @ImportValue
-    @ExportValue
+    @BindingValue
     private String mgr;
 
-    @ImportValue
-    @ExportValue
+    @BindingValue
     private String hiredate;
 
-    @ImportValue
-    @ExportValue
+    @BindingValue
     private String sal;
 
-    @ImportValue
-    @ExportValue
+    @BindingValue
     private String comm;
 
     public String getComm() {
