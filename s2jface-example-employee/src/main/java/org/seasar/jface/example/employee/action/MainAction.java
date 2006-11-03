@@ -71,8 +71,8 @@ public class MainAction {
 
     @EventListener(id = { "menuDelete", "toolDelete" })
     public void deleteEmployee() {
-        boolean result = MessageDialog.openConfirm(shell, "�폜�m�F",
-                "�I�Ⳃꂽ�]�ƈ����폜���܂����H");
+        boolean result = MessageDialog.openConfirm(shell, "削除確認",
+                "選択された従業員情報を削除しますか？");
         if (result) {
             int[] selections = employeeTable.getSelectionIndices();
             Arrays.sort(selections);
