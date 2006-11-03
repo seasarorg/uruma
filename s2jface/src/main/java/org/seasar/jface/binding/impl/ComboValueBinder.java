@@ -17,7 +17,7 @@ package org.seasar.jface.binding.impl;
 
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.BindingValue;
 
 public class ComboValueBinder extends AbstractIterableWidgetValueBinder {
 
@@ -39,7 +39,7 @@ public class ComboValueBinder extends AbstractIterableWidgetValueBinder {
 
     @Override
     protected void addWidgetValue(Widget widget, Object value,
-            ExportValue annotation) {
+            BindingValue annotation) {
         Object[] labelValues = getLabelValues(value, annotation);
 
         Combo combo = (Combo) widget;

@@ -19,7 +19,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.component.impl.TableColumnComponent;
 import org.seasar.jface.util.PropertyUtil;
 
@@ -49,7 +49,7 @@ public class TableValueBinder extends AbstractIterableWidgetValueBinder {
 
     @Override
     protected void addWidgetValue(Widget widget, Object value,
-            ExportValue annotation) {
+            BindingValue annotation) {
         Table table = (Table) widget;
         TableItem item = new TableItem(table, SWT.NONE);
 

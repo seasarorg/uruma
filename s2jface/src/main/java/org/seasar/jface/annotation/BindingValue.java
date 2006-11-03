@@ -21,14 +21,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 画面へ値をバインドするフィールドを示すためのアノテーションです。<br />
+ * 値をバインドするフィールドを示すためのアノテーションです。<br />
  * 
  * @author y-komori
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target( { ElementType.FIELD })
-public @interface ExportValue {
+public @interface BindingValue {
     String id() default "";
+
+    BindType type() default BindType.ImportExport;
 
     String[] label() default {};
 }

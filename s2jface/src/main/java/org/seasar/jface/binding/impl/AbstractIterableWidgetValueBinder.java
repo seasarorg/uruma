@@ -16,7 +16,7 @@
 package org.seasar.jface.binding.impl;
 
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.BindingValue;
 
 /**
  * 複数項目を保持するウィジットに対する {@link org.seasar.jface.binding.ValueBinder} の基底クラスです。
@@ -32,7 +32,7 @@ public abstract class AbstractIterableWidgetValueBinder extends
 
     @Override
     protected void putWidgetValue(Widget widget, Object value,
-            ExportValue annotation) {
+            BindingValue annotation) {
         clearWidgetValue(widget);
 
         if (value == null) {
@@ -58,6 +58,6 @@ public abstract class AbstractIterableWidgetValueBinder extends
     protected abstract void clearWidgetValue(Widget widget);
 
     protected abstract void addWidgetValue(Widget widget, Object value,
-            ExportValue annotation);
+            BindingValue annotation);
 
 }

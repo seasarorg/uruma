@@ -22,7 +22,7 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.impl.PropertyDescImpl;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.binding.WidgetValueBinder;
 import org.seasar.jface.util.PropertyUtil;
 
@@ -61,10 +61,10 @@ public abstract class AbstractWidgetValueBinder implements WidgetValueBinder {
             WindowContext context) {
         Object fieldValue = FieldUtil.get(srcField, srcObject);
         putWidgetValue(dest, fieldValue, srcField
-                .getAnnotation(ExportValue.class));
+                .getAnnotation(BindingValue.class));
     }
 
-    protected Object getLabelValue(Object srcObject, ExportValue annotation) {
+    protected Object getLabelValue(Object srcObject, BindingValue annotation) {
         Object result = srcObject;
         if (annotation.label().length > 0) {
             // ラベルが２つ以上あっても２つ目以降は無視する
@@ -73,7 +73,7 @@ public abstract class AbstractWidgetValueBinder implements WidgetValueBinder {
         return result;
     }
 
-    protected Object[] getLabelValues(Object srcObject, ExportValue annotation) {
+    protected Object[] getLabelValues(Object srcObject, BindingValue annotation) {
         Object[] result;
         String[] labels = annotation.label();
         if (labels.length == 0) {
@@ -94,6 +94,6 @@ public abstract class AbstractWidgetValueBinder implements WidgetValueBinder {
     protected abstract Object getWidgetValue(Widget widget);
 
     protected abstract void putWidgetValue(Widget widget, Object value,
-            ExportValue annotation);
+            BindingValue annotation);
 
 }

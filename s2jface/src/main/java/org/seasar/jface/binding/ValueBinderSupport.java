@@ -20,8 +20,7 @@ import java.lang.reflect.Field;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportValue;
+import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.binding.impl.ExportValueBinder;
 import org.seasar.jface.binding.impl.ImportValueBinder;
 import org.seasar.jface.exception.ValueBindingException;
@@ -48,7 +47,7 @@ public class ValueBinderSupport {
 
     private static void createImportValueBinder(Field field,
             WindowContext context) {
-        ImportValue annotation = field.getAnnotation(ImportValue.class);
+        BindingValue annotation = field.getAnnotation(BindingValue.class);
         String id = annotation.id();
         Widget widget = getWidget(context, id, field);
         if (widget != null) {
@@ -63,7 +62,7 @@ public class ValueBinderSupport {
 
     private static void createExportValueBinder(Field field,
             WindowContext context) {
-        ExportValue annotation = field.getAnnotation(ExportValue.class);
+        BindingValue annotation = field.getAnnotation(BindingValue.class);
         String id = annotation.id();
         Widget widget = getWidget(context, id, field);
         if (widget != null) {

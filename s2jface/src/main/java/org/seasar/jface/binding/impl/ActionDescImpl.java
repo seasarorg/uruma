@@ -26,9 +26,9 @@ import java.util.Map;
 import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.annotation.ArgumentValue;
+import org.seasar.jface.annotation.BindType;
+import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.binding.ActionDesc;
@@ -146,13 +146,19 @@ public class ActionDescImpl implements ActionDesc {
     }
 
     protected void setupExportField(final Field field) {
-        if (field.isAnnotationPresent(ExportValue.class)) {
+        BindingValue bindingValue = field.getAnnotation(BindingValue.class);
+        if (bindingValue != null
+                && (bindingValue.type() == BindType.Export || bindingValue
+                        .type() == BindType.ImportExport)) {
             exportFields.add(field);
         }
     }
 
     protected void setupImportField(final Field field) {
-        if (field.isAnnotationPresent(ImportValue.class)) {
+        BindingValue bindingValue = field.getAnnotation(BindingValue.class);
+        if (bindingValue != null
+                && (bindingValue.type() == BindType.Import || bindingValue
+                        .type() == BindType.ImportExport)) {
             importFields.add(field);
         }
     }
@@ -160,9 +166,8 @@ public class ActionDescImpl implements ActionDesc {
     protected void setupArgumentField(final Field field) {
         if (field.isAnnotationPresent(ArgumentValue.class)) {
             if (argumentField != null) {
-                throw new ArgumentFieldException (
-                        ArgumentFieldException.DUPLICATE, actionClass,
-                        field);
+                throw new ArgumentFieldException(
+                        ArgumentFieldException.DUPLICATE, actionClass, field);
             }
             argumentField = field;
         }
@@ -171,9 +176,8 @@ public class ActionDescImpl implements ActionDesc {
     protected void setupReturnField(final Field field) {
         if (field.isAnnotationPresent(ReturnValue.class)) {
             if (returnField != null) {
-                throw new ReturnFieldException (
-                        ReturnFieldException.DUPLICATE, actionClass,
-                        field);
+                throw new ReturnFieldException(ReturnFieldException.DUPLICATE,
+                        actionClass, field);
             }
             returnField = field;
         }
