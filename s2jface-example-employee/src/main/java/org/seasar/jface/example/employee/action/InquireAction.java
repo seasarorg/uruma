@@ -35,6 +35,9 @@ public class InquireAction extends AbstractOneEmployeeAction {
     @BindingValue(type = BindType.Export)
     private String dname;
 
+    @BindingValue(type = BindType.Export)
+    private String mname;
+    
     @ArgumentValue
     private EmployeeDto inquireEmployee;
 
@@ -59,5 +62,13 @@ public class InquireAction extends AbstractOneEmployeeAction {
     public void setDname(String dname) {
         this.dname = dname;
     }
+
+	public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
 
 }

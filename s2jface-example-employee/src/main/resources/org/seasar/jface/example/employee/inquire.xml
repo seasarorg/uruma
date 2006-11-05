@@ -16,13 +16,15 @@
       <text id="ename" editable="false" />
       <label text="役職" />
       <text id="job" editable="false" />
-      <label text="管理者" />
+      <label text="管理者No." />
       <text id="mgr" editable="false" />
+      <label text="管理者名" />
+      <text id="mname" editable="false" />
       <label text="雇用日" />
       <text id="hiredate" editable="false" />
       <label text="給与" />
       <text id="sal" editable="false" />
-      <label text="Commission" />
+      <label text="報奨金" />
       <text id="comm" editable="false" />
       <label text="部署" />
       <text id="dname" editable="false" />

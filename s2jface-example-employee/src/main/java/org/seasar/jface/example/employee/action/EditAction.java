@@ -42,8 +42,7 @@ public class EditAction extends AbstractEditAction {
     @Override
     protected EmployeeDto doInsertOrUpdate() {
         editActionDxo.convert(this, editEmployee);
-        employeeService.update(editEmployee);
-        return editEmployee;
+        return employeeService.update(editEmployee);
     }
 
     public void setEditActionDxo(EditActionDxo editActionDxo) {

@@ -16,13 +16,13 @@
       <text id="ename" />
       <label text="役職" />
       <text id="job" />
-      <label text="管理者" />
+      <label text="管理者No." />
       <text id="mgr" />
       <label text="雇用日" />
       <text id="hiredate" />
       <label text="給与" />
       <text id="sal" />
-      <label text="Commission" />
+      <label text="報奨金" />
       <text id="comm" />
       <label text="部署" />
       <combo id="dept" style="DROP_DOWN, READ_ONLY" />

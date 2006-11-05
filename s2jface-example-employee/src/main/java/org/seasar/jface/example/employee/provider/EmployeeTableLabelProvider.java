@@ -51,8 +51,8 @@ public class EmployeeTableLabelProvider implements ITableLabelProvider {
             return job != null ? job : "";
 
         case 3:
-            Integer mgr = dto.getMgr();
-            return mgr != null ? mgr.toString() : "";
+            String mgrName = dto.getMname();
+            return mgrName != null ? mgrName : "";
 
         case 4:
             Date hiredate = dto.getHiredate();

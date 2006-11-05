@@ -1,5 +1,5 @@
 select count(*)
-from emp e left outer join dept d on e.deptno = d.deptno
+from emp e left outer join dept d on e.deptno = d.deptno left outer join emp m on e.mgr = m.empno
 /*BEGIN*/
 where 
 /*IF dto.empno != null*/empno = /*dto.empno*/7788/*END*/

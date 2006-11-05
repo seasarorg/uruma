@@ -15,8 +15,10 @@
       <text id="ename" />
       <label text="役職" />
       <text id="job" />
-      <label text="管理者" />
+      <label text="管理者No." />
       <text id="mgr" />
+      <label text="管理者名" />
+      <text id="mname" />
       <label text="雇用日" />
       <composite>
         <gridLayout numColumns="3" marginWidth="0" marginHeight="0" />

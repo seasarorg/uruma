@@ -91,7 +91,7 @@ public class AbstractOneEmployeeAction {
         this.mgr = mgr;
     }
 
-    public String getSal() {
+	public String getSal() {
         return this.sal;
     }
 

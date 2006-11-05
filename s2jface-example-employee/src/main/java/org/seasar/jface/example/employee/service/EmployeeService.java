@@ -26,9 +26,9 @@ public interface EmployeeService {
 
     void delete(EmployeeDto dto);
 
-    void insert(EmployeeDto dto);
+    EmployeeDto insert(EmployeeDto dto);
 
-    void update(EmployeeDto dto);
+    EmployeeDto update(EmployeeDto dto);
 
     List<DepartmentDto> getAllDepartments();
 

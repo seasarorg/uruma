@@ -50,6 +50,9 @@ public class SearchAction {
     private String mgr;
 
     @BindingValue(type = BindType.Import)
+    private String mname;
+
+    @BindingValue(type = BindType.Import)
     private String fromHiredate;
 
     @BindingValue(type = BindType.Import)
@@ -136,7 +139,11 @@ public class SearchAction {
         return this.mgr;
     }
 
-    public String getToHiredate() {
+    public String getMname() {
+		return mname;
+	}
+
+	public String getToHiredate() {
         return this.toHiredate;
     }
 

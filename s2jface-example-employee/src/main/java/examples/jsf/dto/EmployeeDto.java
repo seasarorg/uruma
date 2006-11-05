@@ -23,6 +23,8 @@ public class EmployeeDto extends Employee {
 
     private String dname;
 
+    private String mname;
+
     public EmployeeDto() {
     }
 
@@ -34,10 +36,20 @@ public class EmployeeDto extends Employee {
         this.dname = dname;
     }
 
+	public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
     protected void setupToString(StringBuffer buf) {
         super.setupToString(buf);
         buf.append(", ");
         buf.append(dname);
+        buf.append(", ");
+        buf.append(mname);
     }
 
 }

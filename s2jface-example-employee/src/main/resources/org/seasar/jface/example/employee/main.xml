@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://s2jface.sandbox.seasar.org">
-  <window id="main" title="従業員管理" height="450" width="680" image="title">
+  <window id="main" title="従業員管理" height="400" width="604" image="title">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true" />
     </gridLayout>
@@ -58,14 +58,14 @@
       headerVisible="true" linesVisible="true">
       <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
         grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
-      <tableColumn id="empno" width="80" text="従業員No." />
-      <tableColumn id="ename" width="80" text="従業員名" />
+      <tableColumn id="empno" width="70" text="従業員No." />
+      <tableColumn id="ename" width="70" text="従業員名" />
       <tableColumn id="job" width="80" text="役職" />
-      <tableColumn id="mgr" width="80" text="管理者" />
+      <tableColumn id="mname" width="70" text="管理者名" />
       <tableColumn id="hiredate" width="80" text="雇用日" />
-      <tableColumn id="sal" width="80" text="給与" />
-      <tableColumn id="comm" width="80" text="Commission" />
-      <tableColumn id="dname" width="80" text="部署名" />
+      <tableColumn id="sal" width="52" text="給与" alignment="RIGHT"/>
+      <tableColumn id="comm" width="52" text="報奨金" alignment="RIGHT" />
+      <tableColumn id="dname" width="90" text="部署名" />
     </table>
 
   </window>

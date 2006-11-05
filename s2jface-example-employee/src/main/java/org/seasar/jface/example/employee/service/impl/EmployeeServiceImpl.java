@@ -37,18 +37,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeLogic.delete(dto);
     }
 
-    public void insert(EmployeeDto dto) {
+    public EmployeeDto insert(EmployeeDto dto) {
         if (employeeLogic.existEmployee(dto.getEmpno())) {
             throw new EmployeeAlreadyExistRuntimeException(dto.getEmpno());
         }
         employeeLogic.insert(dto);
+        return employeeLogic.getEmployeeDto(dto.getEmpno());
     }
 
-    public void update(EmployeeDto dto) {
+    public EmployeeDto update(EmployeeDto dto) {
         if (!employeeLogic.existEmployee(dto.getEmpno())) {
             throw new EmployeeNotFoundRuntimeException(dto.getEmpno());
         }
         employeeLogic.update(dto);
+        return employeeLogic.getEmployeeDto(dto.getEmpno());
     }
 
     public List<DepartmentDto> getAllDepartments() {

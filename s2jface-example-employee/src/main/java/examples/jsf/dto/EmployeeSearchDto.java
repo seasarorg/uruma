@@ -32,6 +32,8 @@ public class EmployeeSearchDto implements Serializable {
 
     private Short mgr;
 
+    private String mname;
+
     private java.util.Date fromHiredate;
 
     private java.util.Date toHiredate;
@@ -77,7 +79,15 @@ public class EmployeeSearchDto implements Serializable {
         this.mgr = mgr;
     }
 
-    public java.util.Date getFromHiredate() {
+    public String getMname() {
+		return mname;
+	}
+
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+
+	public java.util.Date getFromHiredate() {
         return this.fromHiredate;
     }
 
