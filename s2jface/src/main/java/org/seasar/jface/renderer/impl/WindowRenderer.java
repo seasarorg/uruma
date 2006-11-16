@@ -23,13 +23,13 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.eclipse.common.util.GeometryUtil;
+import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.impl.ControlComponent;
 import org.seasar.jface.component.impl.WindowComponent;
-import org.seasar.jface.util.GeometryUtil;
-import org.seasar.jface.util.ImageManager;
 import org.seasar.jface.util.PathUtil;
 
 /**
@@ -52,11 +52,12 @@ public class WindowRenderer extends
     }
 
     @Override
-    protected void doRenderAfter(Composite widget, WindowComponent uiComponent, Widget parent, WindowContext context) {
+    protected void doRenderAfter(Composite widget, WindowComponent uiComponent,
+            Widget parent, WindowContext context) {
         setDefaultButton(uiComponent, context);
         setDefaultFocus(uiComponent, context);
     }
-    
+
     protected void configureShell(final WindowComponent window,
             final Shell shell) {
         // タイトルの設定

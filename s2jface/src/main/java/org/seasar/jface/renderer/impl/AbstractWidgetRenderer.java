@@ -17,6 +17,7 @@ package org.seasar.jface.renderer.impl;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
 import org.seasar.jface.binding.EnabledDepend;
@@ -25,7 +26,6 @@ import org.seasar.jface.component.EnabledDependable;
 import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.util.ClassUtil;
-import org.seasar.jface.util.SWTUtil;
 
 /**
  * <code>Widget</code> のレンダリングを行うための基底クラスです。<br />

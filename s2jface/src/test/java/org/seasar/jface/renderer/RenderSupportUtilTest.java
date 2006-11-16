@@ -20,9 +20,9 @@ import junit.framework.TestCase;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
+import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
 import org.seasar.jface.exception.RenderException;
-import org.seasar.jface.util.ImageManager;
 
 /**
  * @author y-komori
@@ -60,7 +60,8 @@ public class RenderSupportUtilTest extends TestCase {
         assertTrue("4", dest.booleanField);
         assertEquals("5", new Color(display, 255, 255, 255), dest.colorField);
         assertEquals("6", SWT.YES, dest.swtConstField);
-        assertEquals("7", ImageManager.getImage("/images/container.gif"), dest.imageField);
+        assertEquals("7", ImageManager.getImage("/images/container.gif"),
+                dest.imageField);
         assertEquals("8", SWT.CTRL | SWT.ALT | 'A', dest.acceleratorField);
         assertEquals("9", 'A', dest.charField);
         assertEquals("10", 3, dest.intArrayField.length);
@@ -75,7 +76,11 @@ public class RenderSupportUtilTest extends TestCase {
         assertFalse("17", dest.getBooleanProperty());
         assertEquals("18", new Color(display, 0, 0, 0), dest.getColorProperty());
         assertEquals("19", SWT.NO, dest.getSwtConstProperty());
-        assertEquals("20", ImageManager.getImage("org/seasar/jface/renderer/../template/container.gif"), dest.getImageProperty());
+        assertEquals(
+                "20",
+                ImageManager
+                        .getImage("org/seasar/jface/renderer/../template/container.gif"),
+                dest.getImageProperty());
         assertEquals("21", SWT.F2, dest.getAcceleratorProperty());
         assertEquals("22", 'x', dest.getCharProperty());
         assertEquals("23", 1, dest.getIntArrayProperty().length);

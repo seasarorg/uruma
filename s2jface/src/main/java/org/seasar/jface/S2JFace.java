@@ -16,10 +16,10 @@
 package org.seasar.jface;
 
 import org.eclipse.swt.widgets.Display;
+import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.jface.util.ImageManager;
 
 /**
  * @author y-komori
@@ -29,7 +29,7 @@ public class S2JFace {
     protected S2Container container;
 
     private Display display;
-    
+
     private String imageBundleName = "s2JFaceImages";
 
     public static void main(String[] args) {
@@ -54,7 +54,7 @@ public class S2JFace {
     public void openWindow(final String templatePath) {
         openWindow(templatePath, null);
     }
-    
+
     public void openWindow(final String templatePath, Object argument) {
         display = Display.getCurrent();
         if (display == null) {
@@ -72,15 +72,16 @@ public class S2JFace {
     }
 
     protected void initS2Container() {
-        S2Container s2JFaceContainer = S2ContainerFactory.create(S2JFaceConstants.S2JFACE_DICON_PATH);
+        S2Container s2JFaceContainer = S2ContainerFactory
+                .create(S2JFaceConstants.S2JFACE_DICON_PATH);
         String configPath = SingletonS2ContainerFactory.getConfigPath();
         container = S2ContainerFactory.create(configPath);
         container.include(s2JFaceContainer);
-        
+
         container.init();
         SingletonS2ContainerFactory.setContainer(container);
     }
-    
+
     public void setImageBundleName(String imageBundleName) {
         this.imageBundleName = imageBundleName;
     }

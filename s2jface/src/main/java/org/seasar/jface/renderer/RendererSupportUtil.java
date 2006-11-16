@@ -23,6 +23,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
+import org.seasar.eclipse.common.util.FontManager;
+import org.seasar.eclipse.common.util.ImageManager;
+import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
@@ -32,10 +35,7 @@ import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.SetTiming;
 import org.seasar.jface.component.UIElement;
 import org.seasar.jface.exception.RenderException;
-import org.seasar.jface.util.FontManager;
-import org.seasar.jface.util.ImageManager;
 import org.seasar.jface.util.PathUtil;
-import org.seasar.jface.util.SWTUtil;
 
 /**
  * レンダリングのサポートを行うユーティリティクラスです。<br />

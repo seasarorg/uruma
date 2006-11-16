@@ -17,8 +17,8 @@ package org.seasar.jface.annotation;
 
 import java.util.StringTokenizer;
 
+import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.util.StringUtil;
-import org.seasar.jface.util.SWTUtil;
 
 /**
  * @author y-komori
@@ -31,8 +31,7 @@ public enum EventListenerType {
     KEY_DOWN, KEY_UP,
 
     // Mouse
-    MOUSE_DOWN, MOUSE_UP, MOUSE_MOVE, MOUSE_ENTER, MOUSE_EXIT,
-    MOUSE_DOUBLE_CLICK, MOUSE_HOVER,
+    MOUSE_DOWN, MOUSE_UP, MOUSE_MOVE, MOUSE_ENTER, MOUSE_EXIT, MOUSE_DOUBLE_CLICK, MOUSE_HOVER,
 
     // Paint
     PAINT,
@@ -74,11 +73,7 @@ public enum EventListenerType {
     TRAVERSE,
 
     // Others
-    DRAG_DETECT,
-    HARD_KEY_DOWN, HARD_KEY_UP,
-    MENU_DETECT,
-    SET_DATA,
-    MOUSE_WHEEL;
+    DRAG_DETECT, HARD_KEY_DOWN, HARD_KEY_UP, MENU_DETECT, SET_DATA, MOUSE_WHEEL;
 
     public String getName() {
         return capitalizeConstantName(toString());

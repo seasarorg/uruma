@@ -23,5 +23,6 @@
 			<attribute value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/" name="javadoc_location"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.seasar.eclipse.common.plugin"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
