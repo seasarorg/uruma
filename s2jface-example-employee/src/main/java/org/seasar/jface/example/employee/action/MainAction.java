@@ -31,6 +31,9 @@ import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
 import org.seasar.jface.example.employee.logic.EmployeeLogic;
 
+/**
+ * @author bskuroneko
+ */
 public class MainAction {
 
     private EmployeeLogic employeeLogic;

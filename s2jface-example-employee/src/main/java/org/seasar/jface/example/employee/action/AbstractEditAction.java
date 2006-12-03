@@ -26,8 +26,10 @@ import org.seasar.jface.example.employee.dto.DepartmentDto;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.logic.EmployeeLogic;
 
+/**
+ * @author bskuroneko
+ */
 public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
-
     protected EmployeeLogic employeeLogic;
 
     @BindingValue(type = BindType.Import, id = "dept")

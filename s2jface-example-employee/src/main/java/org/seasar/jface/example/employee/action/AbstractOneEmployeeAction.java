@@ -18,6 +18,9 @@ package org.seasar.jface.example.employee.action;
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.jface.annotation.BindingValue;
 
+/**
+ * @author bskuroneko
+ */
 public class AbstractOneEmployeeAction {
 
     protected Shell shell;
@@ -91,7 +94,7 @@ public class AbstractOneEmployeeAction {
         this.mgr = mgr;
     }
 
-	public String getSal() {
+    public String getSal() {
         return this.sal;
     }
 

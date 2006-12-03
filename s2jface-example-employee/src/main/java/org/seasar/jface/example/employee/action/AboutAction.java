@@ -19,6 +19,9 @@ import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.jface.annotation.EventListener;
 
+/**
+ * @author bskuroneko
+ */
 public class AboutAction {
 
     private Shell shell;
