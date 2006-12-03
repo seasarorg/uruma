@@ -21,8 +21,9 @@ import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 
 /**
- * @author bskuroneko
+ * フィールドから画面へのエクスポートバインディングを行うためのクラスです。<br />
  * 
+ * @author bskuroneko
  */
 public class ExportValueBinder extends AbstractValueBinder {
 
@@ -35,5 +36,4 @@ public class ExportValueBinder extends AbstractValueBinder {
     protected void doBind() {
         widgetValueBinder.exportValue(bean, field, widget, context);
     }
-
 }

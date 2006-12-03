@@ -21,8 +21,9 @@ import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 
 /**
- * @author bskuroneko
+ * 画面からフィールドへのインポートバインディングを行うためのクラスです。<br />
  * 
+ * @author bskuroneko
  */
 public class ImportValueBinder extends AbstractValueBinder {
 

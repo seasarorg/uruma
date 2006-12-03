@@ -18,19 +18,31 @@ package org.seasar.jface.binding;
 import org.eclipse.swt.widgets.Widget;
 
 /**
- * @author bskuroneko
+ * 他のウィジットのイベントに応じてイベントのイネーブル状態を変更するウィジットを表すクラスです。<br />
  * 
+ * @author bskuroneko
  */
 public class EnabledDepend {
-    
+
     private Widget widget;
 
     private String targetId;
 
     private EnabledDependType type;
-    
-    public EnabledDepend(Widget widget, String targetId,
-            EnabledDependType type) {
+
+    /**
+     * {@link EnabledDepend} オブジェクトを構築します。<br />
+     * <code>targetId</code> で指定した id を持つコンポーネントが、<code>type</code>
+     * の表す状態になった場合、<code>widget</code> がイネーブルとなります。
+     * 
+     * @param widget
+     *            イネーブル状態を変更するウィジット
+     * @param targetId
+     *            監視するターゲットコンポーネントの id
+     * @param type
+     *            <code>widget</code> をイネーブルにする条件となるターゲットコンポーネントの状態
+     */
+    public EnabledDepend(Widget widget, String targetId, EnabledDependType type) {
         this.widget = widget;
         this.targetId = targetId;
         this.type = type;
@@ -47,5 +59,4 @@ public class EnabledDepend {
     public Widget getWidget() {
         return this.widget;
     }
-
 }

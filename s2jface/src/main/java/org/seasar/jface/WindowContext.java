@@ -119,20 +119,64 @@ public interface WindowContext {
     @Deprecated
     public MenuManager getMenuBar();
 
-    public void addEnabledDepend(EnabledDepend enabledDepend);
-
-    public List<EnabledDepend> getEnabledDepends();
-
+    /**
+     * {@link ImportValueBinder} を登録します。<br />
+     * 
+     * @param binder
+     *            {@link ImportValueBinder} オブジェクト。
+     */
     public void addImportValueBinder(ImportValueBinder binder);
 
+    /**
+     * {@link ImportValueBinder} のリストを取得します。<br />
+     * 
+     * @return {@link ImportValueBinder} のリスト。
+     */
     public List<ImportValueBinder> getImportValueBinders();
 
+    /**
+     * {@link ExportValueBinder} を登録します。<br />
+     * 
+     * @param binder
+     *            {@link ExportValueBinder} オブジェクト。
+     */
     public void addExportValueBinder(ExportValueBinder binder);
 
+    /**
+     * {@link ExportValueBinder} のリストを取得します。<br />
+     * 
+     * @return {@link ExportValueBinder} のリスト。
+     */
     public List<ExportValueBinder> getExportValueBinders();
 
+    /**
+     * {@link EnabledDepend} を登録します。<br />
+     * 
+     * @param enabledDepend
+     *            {@link EnabledDepend} オブジェクト。
+     */
+    public void addEnabledDepend(EnabledDepend enabledDepend);
+
+    /**
+     * {@link EnabledDepend} のリストを取得します。<br />
+     * 
+     * @return {@link EnabledDepend} のリスト。
+     */
+    public List<EnabledDepend> getEnabledDepends();
+
+    /**
+     * {@link WidgetEnabledDependBinder} を登録します。<br />
+     * 
+     * @param binder
+     *            {@link WidgetEnabledDependBinder} オブジェクト。
+     */
     public void addWidgetEnabledDependBinder(WidgetEnabledDependBinder binder);
 
+    /**
+     * {@link WidgetEnabledDependBinder} のリストを取得します。<br />
+     * 
+     * @return {@link WidgetEnabledDependBinder} のリスト。
+     */
     public List<WidgetEnabledDependBinder> getWidgetEnabledDependBinders();
 
     /**

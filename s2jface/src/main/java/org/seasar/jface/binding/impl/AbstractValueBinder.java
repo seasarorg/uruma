@@ -23,8 +23,9 @@ import org.seasar.jface.binding.WidgetValueBinder;
 import org.seasar.jface.binding.WidgetValueBinderFactory;
 
 /**
- * @author bskuroneko
+ * １つのフィールドに対する ValueBinding を行うための基底クラスです。<br />
  * 
+ * @author bskuroneko
  */
 public abstract class AbstractValueBinder {
 
