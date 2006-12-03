@@ -6,4 +6,6 @@
 		class="org.seasar.framework.aop.interceptors.TraceInterceptor"/>
 	<component name="traceThrowsInterceptor"
 		class="org.seasar.framework.aop.interceptors.TraceThrowsInterceptor"/>
+	<component name="propertyIntertype"
+		class="org.seasar.framework.aop.intertype.PropertyInterType"/>
 </components>
