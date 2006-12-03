@@ -30,11 +30,8 @@ import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
 import org.seasar.jface.example.employee.logic.EmployeeLogic;
-import org.seasar.jface.example.employee.service.EmployeeService;
 
 public class MainAction {
-
-    private EmployeeService employeeService;
 
     private EmployeeLogic employeeLogic;
 
@@ -49,7 +46,7 @@ public class MainAction {
 
     @InitializeMethod
     public void initialize() {
-        employees = employeeService
+        employees = employeeLogic
                 .searchEmployeeDtoList(new EmployeeSearchDto());
     }
 
@@ -82,7 +79,7 @@ public class MainAction {
             try {
                 for (int selection : selections) {
                     EmployeeDto dto = employees.get(selection);
-                    employeeService.delete(dto);
+                    employeeLogic.delete(dto);
                     toRemoveList.addFirst(selection);
                 }
             } finally {
@@ -124,10 +121,6 @@ public class MainAction {
 
     public void setWindowManager(S2JFaceWindowManager windowManager) {
         this.windowManager = windowManager;
-    }
-
-    public void setEmployeeService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
     }
 
     public void setEmployeeLogic(EmployeeLogic employeeLogic) {

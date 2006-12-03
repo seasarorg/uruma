@@ -19,16 +19,30 @@ import java.util.List;
 
 import org.seasar.jface.example.employee.dao.DepartmentDao;
 import org.seasar.jface.example.employee.dao.EmployeeDao;
+import org.seasar.jface.example.employee.dto.DepartmentDto;
+import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
+import org.seasar.jface.example.employee.dxo.DepartmentDxo;
+import org.seasar.jface.example.employee.dxo.EmployeeDxo;
 import org.seasar.jface.example.employee.entity.Department;
 import org.seasar.jface.example.employee.entity.Employee;
+import org.seasar.jface.example.employee.exception.EmployeeAlreadyExistRuntimeException;
+import org.seasar.jface.example.employee.exception.EmployeeNotFoundRuntimeException;
 import org.seasar.jface.example.employee.logic.EmployeeLogic;
 
+/**
+ * @author bskuroneko
+ * @author y-komori
+ */
 public class EmployeeLogicImpl implements EmployeeLogic {
 
     private EmployeeDao employeeDao;
 
     private DepartmentDao departmentDao;
+
+    private EmployeeDxo employeeDxo;
+
+    private DepartmentDxo departmentDxo;
 
     public void setDepartmentDao(DepartmentDao departmentDao) {
         this.departmentDao = departmentDao;
@@ -38,35 +52,60 @@ public class EmployeeLogicImpl implements EmployeeLogic {
         this.employeeDao = employeeDao;
     }
 
+    public void setDepartmentDxo(DepartmentDxo departmentDxo) {
+        this.departmentDxo = departmentDxo;
+    }
+
+    public void setEmployeeDxo(EmployeeDxo employeeDxo) {
+        this.employeeDxo = employeeDxo;
+    }
+
     public int getSearchCount(EmployeeSearchDto dto) {
         return employeeDao.getSearchCount(dto);
     }
 
-    public List<Employee> searchEmployeeList(EmployeeSearchDto dto) {
-        return employeeDao.searchEmployeeList(dto);
+    public List<EmployeeDto> searchEmployeeDtoList(EmployeeSearchDto dto) {
+        List<Employee> employeeList = employeeDao.searchEmployeeList(dto);
+        return employeeDxo.convert(employeeList);
     }
 
     public Employee getEmployee(Integer empno) {
         return employeeDao.getEmployee(empno);
     }
 
-    public List<Department> getAllDepartments() {
-        return departmentDao.getAllDepartments();
+    public List<DepartmentDto> getAllDepartments() {
+        List<Department> departmentList = departmentDao.getAllDepartments();
+        return departmentDxo.convert(departmentList);
     }
 
     public String getDname(Integer deptno) {
         return departmentDao.getDname(deptno);
     }
 
-    public void insert(Employee employee) {
-        employeeDao.insert(employee);
+    public EmployeeDto insert(EmployeeDto dto) {
+        if (existEmployee(dto.getEmpno())) {
+            throw new EmployeeAlreadyExistRuntimeException(dto.getEmpno());
+        }
+        employeeDao.insert(employeeDxo.convert(dto));
+        Employee employee = getEmployee(dto.getEmpno());
+        return employeeDxo.convert(employee);
     }
 
-    public void update(Employee employee) {
-        employeeDao.update(employee);
+    public EmployeeDto update(EmployeeDto dto) {
+        if (!existEmployee(dto.getEmpno())) {
+            throw new EmployeeNotFoundRuntimeException(dto.getEmpno());
+        }
+        employeeDao.update(employeeDxo.convert(dto));
+        Employee employee = getEmployee(dto.getEmpno());
+        return employeeDxo.convert(employee);
     }
 
-    public void delete(Employee employee) {
+    public void delete(EmployeeDto dto) {
+        if (!existEmployee(dto.getEmpno())) {
+            throw new EmployeeNotFoundRuntimeException(dto.getEmpno());
+        }
+        Employee employee = new Employee();
+        employee.setEmpno(dto.getEmpno());
         employeeDao.delete(employee);
     }
 

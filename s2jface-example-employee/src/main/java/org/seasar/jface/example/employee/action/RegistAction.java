@@ -29,7 +29,7 @@ public class RegistAction extends AbstractEditAction {
     @Override
     protected EmployeeDto doInsertOrUpdate() {
         EmployeeDto employee = registActionDxo.convert(this);
-        return employeeService.insert(employee);
+        return employeeLogic.insert(employee);
     }
 
     public void setRegistActionDxo(RegistActionDxo registActionDxo) {

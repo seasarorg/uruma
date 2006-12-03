@@ -16,21 +16,6 @@
     
    	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
 		<initMethod name="addClassPattern">
-			<arg>"org.seasar.jface.example.employee.service.impl"</arg>
-			<arg>".*ServiceImpl"</arg>
-		</initMethod>
-	</component>
-
-	<component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
-		<property name="interceptor">serviceInterceptorChain</property>
-		<initMethod name="addClassPattern">
-			<arg>"org.seasar.jface.example.employee.service.impl"</arg>
-			<arg>".*ServiceImpl"</arg>
-		</initMethod>
-	</component>
-	
-   	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
-		<initMethod name="addClassPattern">
 			<arg>"org.seasar.jface.example.employee.logic.impl"</arg>
 			<arg>".*LogicImpl"</arg>
 		</initMethod>

@@ -17,27 +17,32 @@ package org.seasar.jface.example.employee.logic;
 
 import java.util.List;
 
+import org.seasar.jface.example.employee.dto.DepartmentDto;
+import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
-import org.seasar.jface.example.employee.entity.Department;
 import org.seasar.jface.example.employee.entity.Employee;
 
+/**
+ * @author bskuroneko
+ * @author y-komori
+ */
 public interface EmployeeLogic {
 
     public int getSearchCount(EmployeeSearchDto dto);
 
-    public List<Employee> searchEmployeeList(EmployeeSearchDto dto);
+    public List<EmployeeDto> searchEmployeeDtoList(EmployeeSearchDto dto);
 
     public Employee getEmployee(Integer empno);
 
     public boolean existEmployee(Integer empno);
 
-    public List<Department> getAllDepartments();
+    public List<DepartmentDto> getAllDepartments();
 
     public String getDname(Integer deptno);
 
-    public void insert(Employee employee);
+    public EmployeeDto insert(EmployeeDto employee);
 
-    public void update(Employee employee);
+    public EmployeeDto update(EmployeeDto employee);
 
-    public void delete(Employee employee);
+    public void delete(EmployeeDto employee);
 }

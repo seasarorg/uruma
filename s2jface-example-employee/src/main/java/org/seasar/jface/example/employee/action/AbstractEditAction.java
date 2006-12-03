@@ -24,11 +24,11 @@ import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.example.employee.dto.DepartmentDto;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
-import org.seasar.jface.example.employee.service.EmployeeService;
+import org.seasar.jface.example.employee.logic.EmployeeLogic;
 
 public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
 
-    protected EmployeeService employeeService;
+    protected EmployeeLogic employeeLogic;
 
     @BindingValue(type = BindType.Import, id = "dept")
     private String dname;
@@ -43,7 +43,7 @@ public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
 
     @InitializeMethod
     public void initialize() {
-        deptList = employeeService.getAllDepartments();
+        deptList = employeeLogic.getAllDepartments();
     }
 
     @EventListener(id = "ok")
@@ -84,8 +84,7 @@ public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
         return this.dname;
     }
 
-    public void setEmployeeService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public void setEmployeeLogic(EmployeeLogic employeeLogic) {
+        this.employeeLogic = employeeLogic;
     }
-
 }
