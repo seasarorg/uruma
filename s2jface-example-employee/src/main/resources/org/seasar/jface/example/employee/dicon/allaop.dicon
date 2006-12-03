@@ -2,16 +2,26 @@
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 	"http://www.seasar.org/dtd/components21.dtd">
 <components>
+	<include path="aop.dicon"/>
+	<include path="dao.dicon"/>
+	<include path="j2ee.dicon"/>
 	<include path="dxo.dicon"/>
-	<include path="examples/jsf/dicon/allaop.dicon"/>
 
 	<component
-		name="serviceInterceptorChain"
+		name="logicInterceptorChain"
 		class="org.seasar.framework.aop.interceptors.InterceptorChain"
 	>
 		<initMethod name="add"><arg>aop.traceThrowsInterceptor</arg></initMethod>
 		<initMethod name="add"><arg>aop.traceInterceptor</arg></initMethod>
 		<initMethod name="add"><arg>j2ee.requiredTx</arg></initMethod>
+	</component>
+
+	<component
+		name="daoInterceptorChain"
+		class="org.seasar.framework.aop.interceptors.InterceptorChain"
+	>
+		<initMethod name="add"><arg>aop.traceInterceptor</arg></initMethod>
+		<initMethod name="add"><arg>dao.interceptor</arg></initMethod>
 	</component>
 
 	<component
