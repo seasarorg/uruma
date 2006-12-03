@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package examples.jsf.dto;
+package org.seasar.jface.example.employee.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -80,14 +80,14 @@ public class EmployeeSearchDto implements Serializable {
     }
 
     public String getMname() {
-		return mname;
-	}
+        return mname;
+    }
 
-	public void setMname(String mname) {
-		this.mname = mname;
-	}
+    public void setMname(String mname) {
+        this.mname = mname;
+    }
 
-	public java.util.Date getFromHiredate() {
+    public java.util.Date getFromHiredate() {
         return this.fromHiredate;
     }
 
@@ -140,5 +140,4 @@ public class EmployeeSearchDto implements Serializable {
         buf.append(deptno).append("]");
         return buf.toString();
     }
-
 }

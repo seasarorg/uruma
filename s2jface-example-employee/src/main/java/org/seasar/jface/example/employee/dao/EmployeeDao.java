@@ -13,19 +13,32 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee.dxo;
+package org.seasar.jface.example.employee.dao;
 
-import org.seasar.extension.dxo.annotation.DatePattern;
-import org.seasar.jface.example.employee.action.SearchAction;
+import java.util.List;
+
 import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
+import org.seasar.jface.example.employee.entity.Employee;
 
-/**
- * @author bskuroneko
- * 
- */
-public interface SearchActionDxo {
+public interface EmployeeDao {
 
-    @DatePattern("yyyy/MM/dd")
-    EmployeeSearchDto convert(SearchAction action);
+    public Class BEAN = Employee.class;
 
+    public String searchEmployeeList_ARGS = "dto";
+
+    public List<Employee> searchEmployeeList(EmployeeSearchDto dto);
+
+    public String getSearchCount_ARGS = "dto";
+
+    public int getSearchCount(EmployeeSearchDto dto);
+
+    public String getEmployee_ARGS = "empno";
+
+    public Employee getEmployee(Integer empno);
+
+    public void insert(Employee employee);
+
+    public void update(Employee employee);
+
+    public void delete(Employee employee);
 }

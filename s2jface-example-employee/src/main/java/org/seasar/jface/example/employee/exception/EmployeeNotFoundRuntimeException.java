@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package examples.jsf.exception;
+package org.seasar.jface.example.employee.exception;
 
 public class EmployeeNotFoundRuntimeException extends AppRuntimeException {
 

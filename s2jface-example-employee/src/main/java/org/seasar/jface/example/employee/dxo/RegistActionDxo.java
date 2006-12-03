@@ -17,15 +17,14 @@ package org.seasar.jface.example.employee.dxo;
 
 import org.seasar.extension.dxo.annotation.DatePattern;
 import org.seasar.jface.example.employee.action.AbstractEditAction;
-
-import examples.jsf.dto.EmployeeDto;
+import org.seasar.jface.example.employee.dto.EmployeeDto;
 
 /**
  * @author bskuroneko
- *
+ * 
  */
 public interface RegistActionDxo {
-    
+
     @DatePattern("yyyy/MM/dd")
     EmployeeDto convert(AbstractEditAction action);
 

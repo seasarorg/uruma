@@ -31,7 +31,7 @@
 	
    	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
 		<initMethod name="addClassPattern">
-			<arg>"examples.jsf.logic.impl"</arg>
+			<arg>"org.seasar.jface.example.employee.logic.impl"</arg>
 			<arg>".*LogicImpl"</arg>
 		</initMethod>
 	</component>
@@ -39,14 +39,14 @@
 	<component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
 		<property name="interceptor">logicInterceptorChain</property>
 		<initMethod name="addClassPattern">
-			<arg>"examples.jsf.logic.impl"</arg>
+			<arg>"org.seasar.jface.example.employee.logic.impl"</arg>
 			<arg>".*LogicImpl"</arg>
 		</initMethod>
 	</component>
 	
    	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
 		<initMethod name="addClassPattern">
-			<arg>"examples.jsf.dao"</arg>
+			<arg>"org.seasar.jface.example.employee.dao"</arg>
 			<arg>".*Dao"</arg>
 		</initMethod>
 	</component>
@@ -54,7 +54,7 @@
 	<component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
 		<property name="interceptor">daoInterceptorChain</property>
 		<initMethod name="addClassPattern">
-			<arg>"examples.jsf.dao"</arg>
+			<arg>"org.seasar.jface.example.employee.dao"</arg>
 			<arg>".*Dao"</arg>
 		</initMethod>
 	</component>
@@ -73,6 +73,4 @@
 			<arg>".*Dxo"</arg>
 		</initMethod>
 	</component>
-	
-	<component name="employeeTableLabelProvider" class="org.seasar.jface.example.employee.provider.EmployeeTableLabelProvider" />
 </components>

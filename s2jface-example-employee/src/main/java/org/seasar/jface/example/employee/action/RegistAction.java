@@ -15,9 +15,8 @@
  */
 package org.seasar.jface.example.employee.action;
 
+import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dxo.RegistActionDxo;
-
-import examples.jsf.dto.EmployeeDto;
 
 /**
  * @author bskuroneko
@@ -26,7 +25,7 @@ import examples.jsf.dto.EmployeeDto;
 public class RegistAction extends AbstractEditAction {
 
     private RegistActionDxo registActionDxo;
-    
+
     @Override
     protected EmployeeDto doInsertOrUpdate() {
         EmployeeDto employee = registActionDxo.convert(this);

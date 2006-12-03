@@ -13,12 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package examples.jsf.dto;
+package org.seasar.jface.example.employee.exception;
 
-import examples.jsf.entity.Department;
+public class EmployeeAlreadyExistRuntimeException extends AppRuntimeException {
 
-public class DepartmentDto extends Department {
+	private int empno;
 
-    private static final long serialVersionUID = 1L;
-
+	public EmployeeAlreadyExistRuntimeException(int empno) {
+		super("examples.jsf.EmployeeAlreadyExist", new Object[]{String.valueOf(empno)});
+		this.empno = empno;
+	}
+	
+	public int getEmpno() {
+		return empno;
+	}
 }

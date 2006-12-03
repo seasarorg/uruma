@@ -17,21 +17,20 @@ package org.seasar.jface.example.employee.action;
 
 import org.seasar.jface.annotation.ArgumentValue;
 import org.seasar.jface.annotation.InitializeMethod;
+import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dxo.EditActionDxo;
-
-import examples.jsf.dto.EmployeeDto;
 
 /**
  * @author bskuroneko
  * 
  */
 public class EditAction extends AbstractEditAction {
-    
+
     private EditActionDxo editActionDxo;
-    
+
     @ArgumentValue
     private EmployeeDto editEmployee;
-    
+
     @Override
     @InitializeMethod
     public void initialize() {

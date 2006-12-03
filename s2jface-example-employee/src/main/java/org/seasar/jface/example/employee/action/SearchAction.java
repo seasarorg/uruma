@@ -23,11 +23,10 @@ import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
+import org.seasar.jface.example.employee.dto.DepartmentDto;
+import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
 import org.seasar.jface.example.employee.dxo.SearchActionDxo;
 import org.seasar.jface.example.employee.service.EmployeeService;
-
-import examples.jsf.dto.DepartmentDto;
-import examples.jsf.dto.EmployeeSearchDto;
 
 public class SearchAction {
 
@@ -140,10 +139,10 @@ public class SearchAction {
     }
 
     public String getMname() {
-		return mname;
-	}
+        return mname;
+    }
 
-	public String getToHiredate() {
+    public String getToHiredate() {
         return this.toHiredate;
     }
 

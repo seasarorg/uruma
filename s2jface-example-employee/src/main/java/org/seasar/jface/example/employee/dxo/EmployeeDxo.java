@@ -15,17 +15,27 @@
  */
 package org.seasar.jface.example.employee.dxo;
 
+import java.util.List;
+
+import org.seasar.extension.dxo.annotation.ConversionRule;
 import org.seasar.extension.dxo.annotation.DatePattern;
-import org.seasar.jface.example.employee.action.InquireAction;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
+import org.seasar.jface.example.employee.entity.Employee;
 
 /**
- * @author bskuroneko
+ * @author y-komori
  * 
  */
-public interface InquireActionDxo {
+public interface EmployeeDxo {
 
     @DatePattern("yyyy/MM/dd")
-    void convert(EmployeeDto employee, InquireAction action);
+    @ConversionRule("'mname' : manager != null ? manager.ename : null")
+    List<EmployeeDto> convert(List<Employee> employeeList);
 
+    @DatePattern("yyyy/MM/dd")
+    Employee convert(EmployeeDto employeeDto);
+
+    @DatePattern("yyyy/MM/dd")
+    @ConversionRule("'mname' : manager != null ? manager.ename : null")
+    EmployeeDto convert(Employee employee);
 }

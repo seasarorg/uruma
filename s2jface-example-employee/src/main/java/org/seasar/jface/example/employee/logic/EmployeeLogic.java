@@ -13,30 +13,31 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package examples.jsf.logic;
+package org.seasar.jface.example.employee.logic;
 
 import java.util.List;
 
-import examples.jsf.dto.EmployeeDto;
-import examples.jsf.dto.EmployeeSearchDto;
+import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
+import org.seasar.jface.example.employee.entity.Department;
+import org.seasar.jface.example.employee.entity.Employee;
 
 public interface EmployeeLogic {
 
-	public int getSearchCount(EmployeeSearchDto dto);
+    public int getSearchCount(EmployeeSearchDto dto);
 
-	public List searchEmployeeDtoList(EmployeeSearchDto dto);
-	
-	public EmployeeDto getEmployeeDto(Integer empno);
-	
-	public boolean existEmployee(Integer empno);
-	
-	public List getAllDepartments();
-	
-	public String getDname(Integer deptno);
-	
-	public void insert(EmployeeDto dto);
-	
-	public void update(EmployeeDto dto);
-	
-	public void delete(EmployeeDto dto);
+    public List<Employee> searchEmployeeList(EmployeeSearchDto dto);
+
+    public Employee getEmployee(Integer empno);
+
+    public boolean existEmployee(Integer empno);
+
+    public List<Department> getAllDepartments();
+
+    public String getDname(Integer deptno);
+
+    public void insert(Employee employee);
+
+    public void update(Employee employee);
+
+    public void delete(Employee employee);
 }

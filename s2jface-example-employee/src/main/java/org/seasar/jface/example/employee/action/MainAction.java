@@ -27,14 +27,16 @@ import org.seasar.jface.annotation.BindType;
 import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.InitializeMethod;
+import org.seasar.jface.example.employee.dto.EmployeeDto;
+import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
+import org.seasar.jface.example.employee.logic.EmployeeLogic;
 import org.seasar.jface.example.employee.service.EmployeeService;
-
-import examples.jsf.dto.EmployeeDto;
-import examples.jsf.dto.EmployeeSearchDto;
 
 public class MainAction {
 
     private EmployeeService employeeService;
+
+    private EmployeeLogic employeeLogic;
 
     private Shell shell;
 
@@ -128,4 +130,7 @@ public class MainAction {
         this.employeeService = employeeService;
     }
 
+    public void setEmployeeLogic(EmployeeLogic employeeLogic) {
+        this.employeeLogic = employeeLogic;
+    }
 }

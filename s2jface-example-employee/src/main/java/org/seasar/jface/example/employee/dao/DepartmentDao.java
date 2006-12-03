@@ -13,19 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package examples.jsf.dao;
+package org.seasar.jface.example.employee.dao;
 
 import java.util.List;
 
-import examples.jsf.dto.DepartmentDto;
+import org.seasar.jface.example.employee.entity.Department;
 
-public interface DepartmentDtoDao {
+public interface DepartmentDao {
 
-	public Class BEAN = DepartmentDto.class;
+    public Class BEAN = Department.class;
 
-	public List getAllDepartments();
-	
-	public String getDname_ARGS = "deptno";
+    public List<Department> getAllDepartments();
 
-	public String getDname(Integer deptno);
+    public String getDname_ARGS = "deptno";
+
+    public String getDname(Integer deptno);
 }

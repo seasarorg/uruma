@@ -17,11 +17,13 @@ package org.seasar.jface.example.employee.service;
 
 import java.util.List;
 
-import examples.jsf.dto.DepartmentDto;
-import examples.jsf.dto.EmployeeDto;
-import examples.jsf.dto.EmployeeSearchDto;
+import org.seasar.jface.example.employee.dto.DepartmentDto;
+import org.seasar.jface.example.employee.dto.EmployeeDto;
+import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
 
-
+/**
+ * @author bskuroneko
+ */
 public interface EmployeeService {
 
     void delete(EmployeeDto dto);

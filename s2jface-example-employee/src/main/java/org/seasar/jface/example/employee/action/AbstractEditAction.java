@@ -22,10 +22,9 @@ import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
+import org.seasar.jface.example.employee.dto.DepartmentDto;
+import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.service.EmployeeService;
-
-import examples.jsf.dto.DepartmentDto;
-import examples.jsf.dto.EmployeeDto;
 
 public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
 

@@ -20,9 +20,8 @@ import org.seasar.jface.annotation.BindType;
 import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.InitializeMethod;
+import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dxo.InquireActionDxo;
-
-import examples.jsf.dto.EmployeeDto;
 
 /**
  * @author bskuroneko
@@ -37,7 +36,7 @@ public class InquireAction extends AbstractOneEmployeeAction {
 
     @BindingValue(type = BindType.Export)
     private String mname;
-    
+
     @ArgumentValue
     private EmployeeDto inquireEmployee;
 
@@ -63,12 +62,12 @@ public class InquireAction extends AbstractOneEmployeeAction {
         this.dname = dname;
     }
 
-	public String getMname() {
-		return mname;
-	}
+    public String getMname() {
+        return mname;
+    }
 
-	public void setMname(String mname) {
-		this.mname = mname;
-	}
+    public void setMname(String mname) {
+        this.mname = mname;
+    }
 
 }

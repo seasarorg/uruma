@@ -13,32 +13,13 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package examples.jsf.dao;
+package org.seasar.jface.example.employee.dxo;
 
 import java.util.List;
 
-import examples.jsf.dto.EmployeeDto;
-import examples.jsf.dto.EmployeeSearchDto;
+import org.seasar.jface.example.employee.dto.DepartmentDto;
+import org.seasar.jface.example.employee.entity.Department;
 
-public interface EmployeeDtoDao {
-
-	public Class BEAN = EmployeeDto.class;
-
-	public String searchEmployeeDtoList_ARGS = "dto";
-
-	public List searchEmployeeDtoList(EmployeeSearchDto dto);
-	
-	public String getSearchCount_ARGS = "dto";
-
-	public int getSearchCount(EmployeeSearchDto dto);
-	
-	public String getEmployeeDto_ARGS = "empno";
-	
-	public EmployeeDto getEmployeeDto(Integer empno);
-	
-	public void insert(EmployeeDto dto);
-	
-	public void update(EmployeeDto dto);
-	
-	public void delete(EmployeeDto dto);
+public interface DepartmentDxo {
+    List<DepartmentDto> convert(List<Department> departmentList);
 }
