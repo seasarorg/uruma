@@ -27,6 +27,7 @@ import org.seasar.jface.component.impl.TableComponent;
 import org.seasar.jface.exception.RenderException;
 import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.util.S2ContainerUtil;
+import org.seasar.jface.viewer.GenericTableLabelProvider;
 import org.seasar.jface.viewer.S2JFaceTableViewer;
 
 /**
@@ -62,6 +63,10 @@ public class TableRenderer extends
                             RenderException.PROVIDER_TYPE_ERROR, provider,
                             ITableLabelProvider.class.getName());
                 }
+            } else {
+                // ユーザー定義のLabelProviderが存在しない場合、
+                // デフォルトのLabelProviderを設定する
+                viewer.setLabelProvider(new GenericTableLabelProvider());
             }
         }
     }

@@ -18,11 +18,13 @@ package org.seasar.jface.binding.impl;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.WidgetValueBinder;
+import org.seasar.jface.viewer.GenericTableLabelProvider;
 import org.seasar.jface.viewer.S2JFaceTableViewer;
 
 /**
@@ -36,18 +38,35 @@ public class TableViewerValueBinder implements WidgetValueBinder {
             WindowContext context) {
         S2JFaceTableViewer viewer = (S2JFaceTableViewer) context
                 .getViewer(dest);
+        IBaseLabelProvider provider = viewer.getLabelProvider();
 
         Class type = srcField.getType();
         Object contents = FieldUtil.get(srcField, srcObject);
         if (contents != null) {
             if (type.isArray()) {
                 viewer.setContents((Object[]) contents);
+                setClassToGenericTableLabelProvider(provider, type
+                        .getComponentType());
             } else if (List.class.isAssignableFrom(type)) {
-                viewer.setContents((List) contents);
+                List listContents = (List) contents;
+                viewer.setContents(listContents);
+
+                Object content = listContents.get(0);
+                setClassToGenericTableLabelProvider(provider, content
+                        .getClass());
             } else {
                 viewer.setContents(new Object[] { contents });
+                setClassToGenericTableLabelProvider(provider, contents
+                        .getClass());
             }
             viewer.setInput(contents);
+        }
+    }
+
+    private void setClassToGenericTableLabelProvider(
+            IBaseLabelProvider provider, Class clazz) {
+        if (provider instanceof GenericTableLabelProvider) {
+            ((GenericTableLabelProvider) provider).setTargetClass(clazz);
         }
     }
 

@@ -7,8 +7,8 @@
 	<classpathentry kind="src" path="src/example/java"/>
 	<classpathentry kind="src" path="src/example/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/seasar2"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/s2-tiger"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/seasar2"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/s2-tiger"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.core.runtime_3.2.0.v20060603.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.equinox.common_3.2.0.v20060603.jar"/>
