@@ -70,8 +70,8 @@ public class ValueBinderSupport {
                     .getActionComponent(), widget, context));
         } else {
             throw new ValueBindingException(
-                    ValueBindingException.IMPORT_SOURCE_NOT_FOUND, id, context
-                            .getActionComponent().getClass(), field);
+                    ValueBindingException.EXPORT_COMPONENT_NOT_FOUND, id,
+                    context.getActionComponent().getClass(), field);
         }
     }
 
