@@ -15,10 +15,13 @@
  */
 package org.seasar.jface.binding.impl;
 
+import java.lang.reflect.Field;
+
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.BindingValue;
 
 /**
@@ -64,4 +67,13 @@ public class WidgetPropertyValueBinder extends AbstractWidgetValueBinder {
         propertyDesc.setValue(widget, convertedValue);
     }
 
+    public void exportSelection(Object srcObject, Field srcField, Widget dest,
+            WindowContext context) {
+        // Do nothing.
+    }
+
+    public void importSelection(Widget src, Object destObject, Field destField,
+            WindowContext context) {
+        // Do nothing.
+    }
 }

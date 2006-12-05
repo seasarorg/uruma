@@ -20,35 +20,35 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.exception.NotFoundException;
 
 /**
+ * 各種バインディングに関する準備を行うためのクラスです。<br />
+ * 
  * @author bskuroneko
- *
  */
 public class BindingFacade {
 
     public static void bindAll(ActionDesc actionDesc, WindowContext context) {
         if (actionDesc != null) {
             MethodBindingSupport.createListeners(actionDesc, context);
-            ValueBinderSupport.createValueBinders(actionDesc, context);
         }
-        
+
         createEnabledDependBinders(context);
     }
 
     private static void createEnabledDependBinders(WindowContext context) {
         for (EnabledDepend depend : context.getEnabledDepends()) {
-            Widget targetWidget = context.getComponent(depend
-                    .getTargetId());
+            Widget targetWidget = context.getComponent(depend.getTargetId());
             if (targetWidget == null) {
                 throw new NotFoundException(NotFoundException.UICOMPONENT,
                         depend.getTargetId());
             }
 
             WidgetEnabledDependBinder binder = WidgetEnabledDependBinderFactory
-                    .getBinder(depend.getWidget(), targetWidget, depend.getType());
+                    .getBinder(depend.getWidget(), targetWidget, depend
+                            .getType());
             context.addWidgetEnabledDependBinder(binder);
             binder.bindEventListeners();
             binder.updateEnabled();
         }
     }
-    
+
 }

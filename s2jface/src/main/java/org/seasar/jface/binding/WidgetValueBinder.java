@@ -60,6 +60,36 @@ public interface WidgetValueBinder {
             WindowContext context);
 
     /**
+     * ウィジットで選択されているオブジェクトをフィールドへ設定します。<br />
+     * 
+     * @param src
+     *            選択状態にある {@link Widget}
+     * @param destObject
+     *            設定先オブジェクト
+     * @param destField
+     *            設定先 {@link Field}
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     */
+    public void importSelection(Widget src, Object destObject, Field destField,
+            WindowContext context);
+
+    /**
+     * フィールドのオブジェクトでウィジットを選択状態にします。<br />
+     * 
+     * @param srcObject
+     *            設定元オブジェクト
+     * @param srcField
+     *            設定元 {@link Field}
+     * @param dest
+     *            設定先 {@link Widget}
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     */
+    public void exportSelection(Object srcObject, Field srcField, Widget dest,
+            WindowContext context);
+
+    /**
      * 対応するウィジットの型を返します。<br />
      * 
      * @return ウィジットの型

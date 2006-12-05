@@ -81,4 +81,16 @@ public class TableViewerValueBinder implements WidgetValueBinder {
     public Class<? extends Widget> getWidgetType() {
         return Table.class;
     }
+
+    public void exportSelection(Object srcObject, Field srcField, Widget dest,
+            WindowContext context) {
+        // TODO exportSelection の実装
+
+    }
+
+    public void importSelection(Widget src, Object destObject, Field destField,
+            WindowContext context) {
+        // TODO importSelection の実装
+
+    }
 }

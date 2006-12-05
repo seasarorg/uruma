@@ -13,24 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.exception;
+package org.seasar.jface.binding.impl;
 
-import java.lang.reflect.Field;
+import org.seasar.jface.binding.WidgetValueBinder;
+import org.seasar.jface.binding.WidgetValueBinderCommand;
 
 /**
+ * {@link WidgetValueBinderCommand} の実装クラスのための基底クラスです。<br />
+ * 
  * @author y-komori
  */
-public class ValueBindingException extends S2JFaceRuntimeException {
+public abstract class AbstractWidgetValueBinderCommand implements
+        WidgetValueBinderCommand {
+    protected WidgetValueBinder binder;
 
-    private static final long serialVersionUID = 4452747426693887995L;
-
-    public static final String WIDGET_NOT_SUPPORTED = "EJFC0207";
-
-    public static final String WIDGET_NOT_FOUND = "EJFC0208";
-
-    public ValueBindingException(String messageCode, String id, Class clazz,
-            Field field) {
-        super(messageCode,
-                new Object[] { id, clazz.getName(), field.getName() });
+    public void setWidgetValueBinder(WidgetValueBinder binder) {
+        this.binder = binder;
     }
 }

@@ -23,8 +23,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.binding.EnabledDepend;
 import org.seasar.jface.binding.WidgetEnabledDependBinder;
-import org.seasar.jface.binding.impl.ExportValueBinder;
-import org.seasar.jface.binding.impl.ImportValueBinder;
 
 /**
  * ウィンドウに関する各種情報を保持するためのインターフェースです。<br />
@@ -118,36 +116,6 @@ public interface WindowContext {
      */
     @Deprecated
     public MenuManager getMenuBar();
-
-    /**
-     * {@link ImportValueBinder} を登録します。<br />
-     * 
-     * @param binder
-     *            {@link ImportValueBinder} オブジェクト。
-     */
-    public void addImportValueBinder(ImportValueBinder binder);
-
-    /**
-     * {@link ImportValueBinder} のリストを取得します。<br />
-     * 
-     * @return {@link ImportValueBinder} のリスト。
-     */
-    public List<ImportValueBinder> getImportValueBinders();
-
-    /**
-     * {@link ExportValueBinder} を登録します。<br />
-     * 
-     * @param binder
-     *            {@link ExportValueBinder} オブジェクト。
-     */
-    public void addExportValueBinder(ExportValueBinder binder);
-
-    /**
-     * {@link ExportValueBinder} のリストを取得します。<br />
-     * 
-     * @return {@link ExportValueBinder} のリスト。
-     */
-    public List<ExportValueBinder> getExportValueBinders();
 
     /**
      * {@link EnabledDepend} を登録します。<br />

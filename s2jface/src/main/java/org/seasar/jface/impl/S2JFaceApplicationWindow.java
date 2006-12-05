@@ -26,6 +26,7 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.ActionDesc;
 import org.seasar.jface.binding.ActionDescFactory;
 import org.seasar.jface.binding.BindingFacade;
+import org.seasar.jface.binding.ValueBinder;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.renderer.impl.WindowRenderer;
@@ -117,6 +118,9 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         windowComponent.render(parent, context);
 
         BindingFacade.bindAll(actionDesc, context);
+
+        // 画面初期表示時の、Action から 画面への ExportValue 処理を実施
+        ValueBinder.exportValue(context);
 
         return parent;
     }

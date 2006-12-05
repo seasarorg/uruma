@@ -127,22 +127,6 @@ public class WindowContextImpl implements WindowContext {
         return this.enabledDepends;
     }
 
-    public void addImportValueBinder(ImportValueBinder binder) {
-        importValueBinders.add(binder);
-    }
-
-    public List<ImportValueBinder> getImportValueBinders() {
-        return importValueBinders;
-    }
-
-    public void addExportValueBinder(ExportValueBinder binder) {
-        exportValueBinders.add(binder);
-    }
-
-    public List<ExportValueBinder> getExportValueBinders() {
-        return exportValueBinders;
-    }
-
     public void addWidgetEnabledDependBinder(WidgetEnabledDependBinder binder) {
         widgetEnabledDependBinders.add(binder);
     }

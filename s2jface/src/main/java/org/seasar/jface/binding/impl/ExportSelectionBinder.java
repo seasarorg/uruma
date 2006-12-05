@@ -13,24 +13,27 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.exception;
+package org.seasar.jface.binding.impl;
 
 import java.lang.reflect.Field;
 
+import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
+
 /**
+ * Beanのフィールドをウィジットへ選択状態として設定するためのクラスです。<br />
+ * 
  * @author y-komori
  */
-public class ValueBindingException extends S2JFaceRuntimeException {
+public class ExportSelectionBinder extends AbstractValueBinder {
 
-    private static final long serialVersionUID = 4452747426693887995L;
+    public ExportSelectionBinder(Field field, Object bean, Widget widget,
+            WindowContext context) {
+        super(field, bean, widget, context);
+    }
 
-    public static final String WIDGET_NOT_SUPPORTED = "EJFC0207";
-
-    public static final String WIDGET_NOT_FOUND = "EJFC0208";
-
-    public ValueBindingException(String messageCode, String id, Class clazz,
-            Field field) {
-        super(messageCode,
-                new Object[] { id, clazz.getName(), field.getName() });
+    @Override
+    protected void doBind() {
+        widgetValueBinder.exportSelection(bean, field, widget, context);
     }
 }

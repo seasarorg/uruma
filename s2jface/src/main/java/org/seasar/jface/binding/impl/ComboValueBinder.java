@@ -15,8 +15,11 @@
  */
 package org.seasar.jface.binding.impl;
 
+import java.lang.reflect.Field;
+
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.BindingValue;
 
 public class ComboValueBinder extends AbstractIterableWidgetValueBinder {
@@ -46,5 +49,16 @@ public class ComboValueBinder extends AbstractIterableWidgetValueBinder {
         String convertedValue = (String) convertValue(labelValues[0],
                 String.class);
         combo.add((String) convertedValue);
+    }
+
+    public void exportSelection(Object srcObject, Field srcField, Widget dest,
+            WindowContext context) {
+        // TODO exportSelection の実装
+
+    }
+
+    public void importSelection(Widget src, Object destObject, Field destField,
+            WindowContext context) {
+        // TODO importSelection の実装
     }
 }
