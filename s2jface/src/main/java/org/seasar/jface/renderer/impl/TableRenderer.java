@@ -39,10 +39,6 @@ public class TableRenderer extends
         AbstractCompositeRenderer<TableComponent, Table> {
     private static final String LABEL_PROVIDER = "LabelProvider";
 
-    private static final String COLOR_PROVIDER = "ColorProvider";
-
-    private static final String FONT_PROVIDER = "FontProvider";
-
     @Override
     protected void doRenderComposite(TableComponent tableComponent, Table table) {
         S2JFaceTableViewer viewer = new S2JFaceTableViewer(table);
