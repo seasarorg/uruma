@@ -19,13 +19,14 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.WidgetValueBinder;
 import org.seasar.jface.viewer.GenericTableLabelProvider;
-import org.seasar.jface.viewer.S2JFaceTableViewer;
+import org.seasar.jface.viewer.TableViewerAdapter;
 
 /**
  * {@link org.eclipse.jface.viewers.TableViewer} のための ValueBinder です。<br />
@@ -36,26 +37,27 @@ public class TableViewerValueBinder implements WidgetValueBinder {
 
     public void exportValue(Object srcObject, Field srcField, Widget dest,
             WindowContext context) {
-        S2JFaceTableViewer viewer = (S2JFaceTableViewer) context
-                .getViewer(dest);
+        TableViewerAdapter viewerAdapter = (TableViewerAdapter) context
+                .getViewerAdapter(dest);
+        TableViewer viewer = viewerAdapter.getViewer();
         IBaseLabelProvider provider = viewer.getLabelProvider();
 
         Class type = srcField.getType();
         Object contents = FieldUtil.get(srcField, srcObject);
         if (contents != null) {
             if (type.isArray()) {
-                viewer.setContents((Object[]) contents);
+                viewerAdapter.setContents((Object[]) contents);
                 setClassToGenericTableLabelProvider(provider, type
                         .getComponentType());
             } else if (List.class.isAssignableFrom(type)) {
                 List listContents = (List) contents;
-                viewer.setContents(listContents);
+                viewerAdapter.setContents(listContents);
 
                 Object content = listContents.get(0);
                 setClassToGenericTableLabelProvider(provider, content
                         .getClass());
             } else {
-                viewer.setContents(new Object[] { contents });
+                viewerAdapter.setContents(new Object[] { contents });
                 setClassToGenericTableLabelProvider(provider, contents
                         .getClass());
             }
@@ -72,7 +74,8 @@ public class TableViewerValueBinder implements WidgetValueBinder {
 
     public void importValue(Widget src, Object destObject, Field destField,
             WindowContext context) {
-        S2JFaceTableViewer viewer = (S2JFaceTableViewer) context.getViewer(src);
+        TableViewerAdapter viewerAdapter = (TableViewerAdapter) context
+                .getViewerAdapter(src);
 
         // TODO 要作成
 

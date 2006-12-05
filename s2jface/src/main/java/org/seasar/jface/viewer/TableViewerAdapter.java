@@ -22,60 +22,58 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.widgets.Table;
 
 /**
  * S2JFace で {@link TableViewer} を使用するためのアダプタクラスです。<br />
  * 
  * @author y-komori
  */
-public class S2JFaceTableViewer extends TableViewer {
+public class TableViewerAdapter implements ViewerAdapter<TableViewer> {
 
     private Object[] contents;
 
-    public S2JFaceTableViewer(Table table) {
-        super(table);
-        setContentProvider(new TableContentProvider());
+    private TableViewer viewer;
+
+    public TableViewerAdapter(TableViewer viewer) {
+        this.viewer = viewer;
+        viewer.setContentProvider(new TableContentProvider());
     }
 
-    /**
-     * テーブルへ表示するオブジェクトを配列形式でセットします。<br />
-     * 
-     * @param contents
-     *            テーブルへ表示するオブジェクトの配列
+    /*
+     * @see org.seasar.jface.viewer.ViewerAdapter#getViewer()
+     */
+    public TableViewer getViewer() {
+        return viewer;
+    }
+
+    /*
+     * @see org.seasar.jface.viewer.ViewerAdapter#setContents(java.lang.Object[])
      */
     public void setContents(Object[] contents) {
         this.contents = contents;
     }
 
-    /**
-     * テーブルへ表示するオブジェクトを {@link List} 形式でセットします。<br />
-     * 
-     * @param contents
-     *            テーブルへ表示するオブジェクトのリスト
+    /*
+     * @see org.seasar.jface.viewer.ViewerAdapter#setContents(java.util.List)
      */
     public void setContents(List<?> contents) {
         this.contents = (Object[]) contents
                 .toArray(new Object[contents.size()]);
     }
 
-    /**
-     * 現在選択されているオブジェクトを取得します。<br />
-     * 
-     * @return 選択中のオブジェクト
+    /*
+     * @see org.seasar.jface.viewer.ViewerAdapter#getSelectedElement()
      */
     public Object getSelectedElement() {
-        ISelection selection = getSelection();
+        ISelection selection = viewer.getSelection();
         return ((IStructuredSelection) selection).getFirstElement();
     }
 
-    /**
-     * 現在選択されている複数のオブジェクトを取得します。<br />
-     * 
-     * @return 選択中のオブジェクト
+    /*
+     * @see org.seasar.jface.viewer.ViewerAdapter#getSelectedElements()
      */
     public Object[] getSelectedElements() {
-        ISelection selection = getSelection();
+        ISelection selection = viewer.getSelection();
         return ((IStructuredSelection) selection).toArray();
     }
 

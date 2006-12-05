@@ -19,10 +19,10 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.binding.EnabledDepend;
 import org.seasar.jface.binding.WidgetEnabledDependBinder;
+import org.seasar.jface.viewer.ViewerAdapter;
 
 /**
  * ウィンドウに関する各種情報を保持するためのインターフェースです。<br />
@@ -148,22 +148,21 @@ public interface WindowContext {
     public List<WidgetEnabledDependBinder> getWidgetEnabledDependBinders();
 
     /**
-     * {@link Widget} をキーとして {@link org.eclipse.jface.viewers.Viewer} を登録します。
+     * {@link Widget} をキーとして {@link ViewerAdapter} を登録します。
      * 
      * @param id
      *            ID
-     * @param viewer
-     *            {@link org.eclipse.jface.viewers.Viewer} オブジェクト
+     * @param adapter
+     *            {@link ViewerAdapter} オブジェクト
      */
-    public void putViewer(Widget widget, Viewer viewer);
+    public void putViewerAdapter(Widget widget, ViewerAdapter adapter);
 
     /**
-     * {@link Widget} をキーとして関連づけられた {@link org.eclipse.jface.viewers.Viewer}
-     * を取得します。
+     * {@link Widget} をキーとして関連づけられた {@link ViewerAdapter} を取得します。
      * 
      * @param id
      *            ID
-     * @return {@link org.eclipse.jface.viewers.Viewer} オブジェクト
+     * @return {@link ViewerAdapter} オブジェクト
      */
-    public Viewer getViewer(Widget widget);
+    public ViewerAdapter getViewerAdapter(Widget widget);
 }

@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.EnabledDepend;
@@ -31,6 +30,7 @@ import org.seasar.jface.binding.impl.ExportValueBinder;
 import org.seasar.jface.binding.impl.ImportValueBinder;
 import org.seasar.jface.exception.DuplicateComponentIdException;
 import org.seasar.jface.util.AssertionUtil;
+import org.seasar.jface.viewer.ViewerAdapter;
 
 /**
  * @author y-komori
@@ -53,7 +53,7 @@ public class WindowContextImpl implements WindowContext {
 
     private List<WidgetEnabledDependBinder> widgetEnabledDependBinders = new ArrayList<WidgetEnabledDependBinder>();
 
-    private Map<Widget, Viewer> viewerMap = new HashMap<Widget, Viewer>();
+    private Map<Widget, ViewerAdapter> viewerAdapterMap = new HashMap<Widget, ViewerAdapter>();
 
     /*
      * @see org.seasar.jface.WindowContext#getActionObject()
@@ -136,17 +136,17 @@ public class WindowContextImpl implements WindowContext {
     }
 
     /*
-     * @see org.seasar.jface.WindowContext#getViewer(org.eclipse.swt.widgets.Widget)
+     * @see org.seasar.jface.WindowContext#getViewerAdapter(org.eclipse.swt.widgets.Widget)
      */
-    public Viewer getViewer(Widget widget) {
-        return viewerMap.get(widget);
+    public ViewerAdapter getViewerAdapter(Widget widget) {
+        return viewerAdapterMap.get(widget);
     }
 
     /*
-     * @see org.seasar.jface.WindowContext#putViewer(org.eclipse.swt.widgets.Widget,
-     *      org.eclipse.jface.viewers.Viewer)
+     * @see org.seasar.jface.WindowContext#putViewerAdapter(org.eclipse.swt.widgets.Widget,
+     *      org.seasar.jface.viewer.ViewerAdapter)
      */
-    public void putViewer(Widget widget, Viewer viewer) {
-        viewerMap.put(widget, viewer);
+    public void putViewerAdapter(Widget widget, ViewerAdapter adapter) {
+        viewerAdapterMap.put(widget, adapter);
     }
 }

@@ -18,6 +18,7 @@ package org.seasar.jface.renderer.impl;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Widget;
@@ -28,7 +29,7 @@ import org.seasar.jface.exception.RenderException;
 import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.util.S2ContainerUtil;
 import org.seasar.jface.viewer.GenericTableLabelProvider;
-import org.seasar.jface.viewer.S2JFaceTableViewer;
+import org.seasar.jface.viewer.TableViewerAdapter;
 
 /**
  * <code>Table</code> のレンダリングを行うクラスです。<br />
@@ -41,11 +42,12 @@ public class TableRenderer extends
 
     @Override
     protected void doRenderComposite(TableComponent tableComponent, Table table) {
-        S2JFaceTableViewer viewer = new S2JFaceTableViewer(table);
+        TableViewer viewer = new TableViewer(table);
+        TableViewerAdapter viewerAdapter = new TableViewerAdapter(viewer);
 
         String id = tableComponent.getId();
         if (id != null) {
-            getContext().putViewer(table, viewer);
+            getContext().putViewerAdapter(table, viewerAdapter);
 
             // Sets the LabelProvider.
             Object provider = S2ContainerUtil.getComponentNoException(id
