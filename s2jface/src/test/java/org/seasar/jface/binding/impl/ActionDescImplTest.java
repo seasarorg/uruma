@@ -71,8 +71,8 @@ public class ActionDescImplTest extends TestCase {
 
     public void testSetupFields() throws Exception {
         ActionDesc desc = new ActionDescImpl(Target01.class);
-        List<Field> importFields = desc.getImportFields();
-        List<Field> exportFields = desc.getExportFields();
+        List<Field> importFields = desc.getImportValueFields();
+        List<Field> exportFields = desc.getExportValueFields();
 
         assertEquals("1", 3, importFields.size());
         assertEquals("2", Target01.class.getField("field1"), importFields

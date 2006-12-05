@@ -35,6 +35,6 @@ public class ImportValueCommand extends AbstractWidgetValueBinderCommand {
     }
 
     public List<Field> getTargetFields(ActionDesc desc) {
-        return desc.getImportFields();
+        return desc.getImportValueFields();
     }
 }

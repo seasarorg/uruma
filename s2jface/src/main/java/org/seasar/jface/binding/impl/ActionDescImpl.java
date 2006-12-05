@@ -208,14 +208,14 @@ public class ActionDescImpl implements ActionDesc {
     /*
      * @see org.seasar.jface.binding.ActionDesc#getExportFields()
      */
-    public List<Field> getExportFields() {
+    public List<Field> getExportValueFields() {
         return exportFields;
     }
 
     /*
      * @see org.seasar.jface.binding.ActionDesc#getImportFields()
      */
-    public List<Field> getImportFields() {
+    public List<Field> getImportValueFields() {
         return importFields;
     }
 

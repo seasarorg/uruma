@@ -51,7 +51,7 @@ public interface ActionDesc {
      * 
      * @return {@link Field}のリスト
      */
-    public List<Field> getImportFields();
+    public List<Field> getImportValueFields();
 
     /**
      * {@link org.seasar.jface.annotation.ExportValue}
@@ -59,7 +59,7 @@ public interface ActionDesc {
      * 
      * @return {@link Field}のリスト
      */
-    public List<Field> getExportFields();
+    public List<Field> getExportValueFields();
     
     /**
      * {@link org.seasar.jface.annotation.ArgumentValue}

@@ -36,6 +36,6 @@ public class ExportValueCommand extends AbstractWidgetValueBinderCommand {
     }
 
     public List<Field> getTargetFields(ActionDesc desc) {
-        return desc.getExportFields();
+        return desc.getExportValueFields();
     }
 }
