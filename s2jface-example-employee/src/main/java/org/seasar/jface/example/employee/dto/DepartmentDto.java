@@ -15,12 +15,15 @@
  */
 package org.seasar.jface.example.employee.dto;
 
+import org.seasar.jface.annotation.BindingLabel;
+
 public class DepartmentDto {
 
     private static final long serialVersionUID = 1L;
 
     private int deptno;
 
+    @BindingLabel
     private String dname;
 
     public Integer getDeptno() {

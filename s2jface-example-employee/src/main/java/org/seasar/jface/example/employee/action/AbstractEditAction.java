@@ -35,7 +35,7 @@ public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
     @BindingValue(type = BindType.Import, id = "dept")
     private String dname;
 
-    @BindingValue(type = BindType.Export, id = "dept", label = "dname")
+    @BindingValue(type = BindType.Export, id = "dept")
     private List<DepartmentDto> deptList;
 
     private Integer deptno;
