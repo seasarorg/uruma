@@ -18,29 +18,28 @@ package org.seasar.jface.binding.impl;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.WidgetValueBinder;
-import org.seasar.jface.viewer.AbstractViewerAdapter;
-import org.seasar.jface.viewer.GenericTableLabelProvider;
-import org.seasar.jface.viewer.TableViewerAdapter;
+import org.seasar.jface.viewer.ComboViewerAdapter;
+import org.seasar.jface.viewer.GenericLabelProvider;
 
 /**
- * {@link org.eclipse.jface.viewers.TableViewer} のための ValueBinder です。<br />
+ * {@link org.eclipse.jface.viewers.ComboViewer} のための ValueBinder です。<br />
  * 
  * @author y-komori
  */
-public class TableViewerValueBinder implements WidgetValueBinder {
+public class ComboViewerValueBinder implements WidgetValueBinder {
 
     public void exportValue(Object srcObject, Field srcField, Widget dest,
             WindowContext context) {
-        TableViewerAdapter viewerAdapter = (TableViewerAdapter) context
+        ComboViewerAdapter viewerAdapter = (ComboViewerAdapter) context
                 .getViewerAdapter(dest);
-        TableViewer viewer = viewerAdapter.getViewer();
+        ComboViewer viewer = viewerAdapter.getViewer();
         IBaseLabelProvider provider = viewer.getLabelProvider();
 
         Class type = srcField.getType();
@@ -48,53 +47,50 @@ public class TableViewerValueBinder implements WidgetValueBinder {
         if (contents != null) {
             if (type.isArray()) {
                 viewerAdapter.setContents((Object[]) contents);
-                setClassToGenericTableLabelProvider(provider, type
+                setClassToGenericLabelProvider(provider, type
                         .getComponentType());
             } else if (List.class.isAssignableFrom(type)) {
                 List listContents = (List) contents;
                 viewerAdapter.setContents(listContents);
 
                 Object content = listContents.get(0);
-                setClassToGenericTableLabelProvider(provider, content
-                        .getClass());
+                setClassToGenericLabelProvider(provider, content.getClass());
             } else {
                 viewerAdapter.setContents(new Object[] { contents });
-                setClassToGenericTableLabelProvider(provider, contents
-                        .getClass());
+                setClassToGenericLabelProvider(provider, contents.getClass());
             }
             viewer.setInput(contents);
         }
+
     }
 
-    private void setClassToGenericTableLabelProvider(
-            IBaseLabelProvider provider, Class clazz) {
-        if (provider instanceof GenericTableLabelProvider) {
-            ((GenericTableLabelProvider) provider).setTargetClass(clazz);
+    private void setClassToGenericLabelProvider(IBaseLabelProvider provider,
+            Class clazz) {
+        if (provider instanceof GenericLabelProvider) {
+            ((GenericLabelProvider) provider).setTargetClass(clazz);
         }
-    }
-
-    public void importValue(Widget src, Object destObject, Field destField,
-            WindowContext context) {
-        AbstractViewerAdapter viewerAdapter = (AbstractViewerAdapter) context
-                .getViewerAdapter(src);
-
-        // TODO 要作成
-
-    }
-
-    public Class<? extends Widget> getWidgetType() {
-        return Table.class;
     }
 
     public void exportSelection(Object srcObject, Field srcField, Widget dest,
             WindowContext context) {
-        // TODO exportSelection の実装
+        // TODO 自動生成されたメソッド・スタブ
 
+    }
+
+    public Class<? extends Widget> getWidgetType() {
+        return Combo.class;
     }
 
     public void importSelection(Widget src, Object destObject, Field destField,
             WindowContext context) {
-        // TODO importSelection の実装
+        // TODO 自動生成されたメソッド・スタブ
 
     }
+
+    public void importValue(Widget src, Object destObject, Field destField,
+            WindowContext context) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
 }

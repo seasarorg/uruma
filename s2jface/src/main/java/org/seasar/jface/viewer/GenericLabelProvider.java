@@ -16,11 +16,9 @@
 package org.seasar.jface.viewer;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
@@ -28,48 +26,54 @@ import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.annotation.BindingLabel;
 
 /**
- * 汎用的な {@link org.eclipse.jface.viewers.ITableLabelProvider} の実装クラスです。<br />
+ * 汎用的な {@link org.eclipse.jface.viewers.ILabelProvider} の実装クラスです。<br />
  * <p>
  * <code>setTargetClass()</code> メソッドで設定されたクラスの中から
  * {@link org.seasar.jface.annotation.BindingLabel}
  * アノテーションが付加されたフィールドをテーブルのカラムとして表示します。
  * </p>
  * <p>
- * カラムの順番は、{@link org.seasar.jface.annotation.BindingLabel} アノテーションの
- * <code>column</code> 属性によって指定します。
+ * {@link org.seasar.jface.annotation.BindingLabel} アノテーションが付加されたフィールドが存在しない場合、<code>toString()</code>
+ * メソッドの戻り値をラベルに設定します。
+ * </p>
+ * <p>
+ * {@link org.seasar.jface.annotation.BindingLabel}
+ * アノテーションが付加されたフィールドが複数存在する場合、一番最初のフィールドが有効となります。
  * </p>
  * 
  * @author y-komori
  */
-public class GenericTableLabelProvider implements ITableLabelProvider {
-    protected Map<Integer, Field> columnMap = new HashMap<Integer, Field>();
+public class GenericLabelProvider implements ILabelProvider {
+    protected Field labelField;
 
-    public Image getColumnImage(Object element, int columnIndex) {
+    public Image getImage(Object element) {
         return null;
     }
 
-    public String getColumnText(Object element, int columnIndex) {
-        Field field = columnMap.get(columnIndex);
-        if (field != null) {
-            Object value = FieldUtil.get(field, element);
-
+    public String getText(Object element) {
+        if (labelField != null) {
+            Object value = FieldUtil.get(labelField, element);
             return (value != null) ? value.toString() : "";
         } else {
-            return "";
+            return element.toString();
         }
     }
 
     public void addListener(ILabelProviderListener listener) {
+        // Do nothing.
     }
 
     public void dispose() {
+        // Do nothing.
     }
 
     public boolean isLabelProperty(Object element, String property) {
+        // Do nothing.
         return false;
     }
 
     public void removeListener(ILabelProviderListener listener) {
+        // Do nothing.
     }
 
     /**
@@ -85,8 +89,8 @@ public class GenericTableLabelProvider implements ITableLabelProvider {
             Field field = desc.getField(i);
             BindingLabel annotation = field.getAnnotation(BindingLabel.class);
             if (annotation != null) {
-                int column = annotation.column();
-                columnMap.put(column, field);
+                labelField = field;
+                break;
             }
         }
     }

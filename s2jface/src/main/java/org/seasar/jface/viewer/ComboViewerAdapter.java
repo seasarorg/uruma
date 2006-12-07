@@ -15,20 +15,20 @@
  */
 package org.seasar.jface.viewer;
 
-import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.ComboViewer;
 
 /**
- * S2JFace で {@link TableViewer} を使用するためのアダプタクラスです。<br />
+ * S2JFace で {@link org.eclipse.jface.viewers.ComboViewer} を使用するためのアダプタクラスです。<br />
  * 
  * @author y-komori
  */
-public class TableViewerAdapter extends AbstractViewerAdapter<TableViewer> {
+public class ComboViewerAdapter extends AbstractViewerAdapter<ComboViewer> {
 
-    public TableViewerAdapter(TableViewer viewer) {
+    public ComboViewerAdapter(ComboViewer viewer) {
         super(viewer);
     }
 
-    public TableViewer getViewer() {
-        return TableViewer.class.cast(viewer);
+    public ComboViewer getViewer() {
+        return ComboViewer.class.cast(viewer);
     }
 }

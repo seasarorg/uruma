@@ -15,10 +15,16 @@
  */
 package org.seasar.jface.renderer.impl;
 
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
 import org.seasar.jface.component.impl.ComboComponent;
 import org.seasar.jface.component.impl.SimpleItemComponent;
+import org.seasar.jface.exception.RenderException;
+import org.seasar.jface.util.S2ContainerUtil;
+import org.seasar.jface.viewer.ComboViewerAdapter;
+import org.seasar.jface.viewer.GenericLabelProvider;
 
 /**
  * <code>Combo</code> のレンダリングを行うクラスです。<br />
@@ -28,14 +34,40 @@ import org.seasar.jface.component.impl.SimpleItemComponent;
 public class ComboRenderer extends
         AbstractCompositeRenderer<ComboComponent, Combo> {
 
+    private static final String LABEL_PROVIDER = "LabelProvider";
+
     @Override
     protected int getDefaultStyle() {
         return SWT.SIMPLE;
     }
 
     @Override
-    protected void doRenderComposite(ComboComponent controlComponent, Combo control) {
-        addItems(controlComponent, control);
+    protected void doRenderComposite(ComboComponent comboComponent, Combo combo) {
+        ComboViewer viewer = new ComboViewer(combo);
+        ComboViewerAdapter viewerAdapter = new ComboViewerAdapter(viewer);
+
+        String id = comboComponent.getId();
+        if (id != null) {
+            getContext().putViewerAdapter(combo, viewerAdapter);
+
+            Object provider = S2ContainerUtil.getComponentNoException(id
+                    + LABEL_PROVIDER);
+            if (provider != null) {
+                if (provider instanceof ILabelProvider) {
+                    viewer.setLabelProvider((ILabelProvider) provider);
+                } else {
+                    throw new RenderException(
+                            RenderException.PROVIDER_TYPE_ERROR, provider,
+                            ILabelProvider.class.getName());
+                }
+            } else {
+                // ユーザー定義のLabelProviderが存在しない場合、
+                // デフォルトのLabelProviderを設定する
+                viewer.setLabelProvider(new GenericLabelProvider());
+            }
+        }
+
+        addItems(comboComponent, combo);
     }
 
     private void addItems(ComboComponent controlComponent, Combo control) {
@@ -43,7 +75,7 @@ public class ComboRenderer extends
             control.add(item.getText());
         }
     }
-    
+
     @Override
     protected Class<Combo> getWidgetType() {
         return Combo.class;
