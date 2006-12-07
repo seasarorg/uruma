@@ -65,7 +65,13 @@ public class ValueBinder {
             BindingValue annotation = field.getAnnotation(BindingValue.class);
             String id = annotation.id();
             Widget widget = getWidget(context, id, field);
-            if (widget != null) {
+            if (widget == null) {
+                throw new ValueBindingException(
+                        ValueBindingException.WIDGET_NOT_FOUND, id, context
+                                .getActionComponent().getClass(), field);
+            }
+
+            if (!widget.isDisposed()) {
                 WidgetValueBinder binder = WidgetValueBinderFactory
                         .getBinder(widget.getClass());
                 if (binder != null) {
@@ -77,10 +83,6 @@ public class ValueBinder {
                                     .getClass().getName(), action.getClass(),
                             field);
                 }
-            } else {
-                throw new ValueBindingException(
-                        ValueBindingException.WIDGET_NOT_FOUND, id, context
-                                .getActionComponent().getClass(), field);
             }
         }
 

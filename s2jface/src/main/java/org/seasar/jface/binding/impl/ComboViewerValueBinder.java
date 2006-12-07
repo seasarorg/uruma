@@ -20,6 +20,8 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.FieldUtil;
@@ -64,6 +66,20 @@ public class ComboViewerValueBinder implements WidgetValueBinder {
 
     }
 
+    public void importValue(Widget src, Object destObject, Field destField,
+            WindowContext context) {
+        ComboViewerAdapter viewerAdapter = (ComboViewerAdapter) context
+                .getViewerAdapter(src);
+        ComboViewer viewer = viewerAdapter.getViewer();
+
+        ISelection selection = viewer.getSelection();
+        if (selection != null) {
+            Object selectedObject = ((StructuredSelection) selection)
+                    .getFirstElement();
+            FieldUtil.set(destField, destObject, selectedObject);
+        }
+    }
+
     private void setClassToGenericLabelProvider(IBaseLabelProvider provider,
             Class clazz) {
         if (provider instanceof GenericLabelProvider) {
@@ -82,12 +98,6 @@ public class ComboViewerValueBinder implements WidgetValueBinder {
     }
 
     public void importSelection(Widget src, Object destObject, Field destField,
-            WindowContext context) {
-        // TODO 自動生成されたメソッド・スタブ
-
-    }
-
-    public void importValue(Widget src, Object destObject, Field destField,
             WindowContext context) {
         // TODO 自動生成されたメソッド・スタブ
 
