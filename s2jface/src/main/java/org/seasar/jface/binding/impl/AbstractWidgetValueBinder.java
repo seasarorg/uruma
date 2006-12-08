@@ -22,9 +22,7 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.impl.PropertyDescImpl;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.binding.WidgetValueBinder;
-import org.seasar.jface.util.PropertyUtil;
 
 /**
  * {@link org.seasar.jface.binding.ValueBinder} のための基底クラスです。<br />
@@ -60,31 +58,7 @@ public abstract class AbstractWidgetValueBinder implements WidgetValueBinder {
     public void exportValue(Object srcObject, Field srcField, Widget dest,
             WindowContext context) {
         Object fieldValue = FieldUtil.get(srcField, srcObject);
-        putWidgetValue(dest, fieldValue, srcField
-                .getAnnotation(BindingValue.class));
-    }
-
-    protected Object getLabelValue(Object srcObject, BindingValue annotation) {
-        Object result = srcObject;
-        if (annotation.label().length > 0) {
-            // ラベルが２つ以上あっても２つ目以降は無視する
-            result = PropertyUtil.getProperty(srcObject, annotation.label()[0]);
-        }
-        return result;
-    }
-
-    protected Object[] getLabelValues(Object srcObject, BindingValue annotation) {
-        Object[] result;
-        String[] labels = annotation.label();
-        if (labels.length == 0) {
-            result = new Object[] { srcObject };
-        } else {
-            result = new Object[labels.length];
-            for (int i = 0; i < labels.length; i++) {
-                result[i] = PropertyUtil.getProperty(srcObject, labels[i]);
-            }
-        }
-        return result;
+        putWidgetValue(dest, fieldValue);
     }
 
     public Class<? extends Widget> getWidgetType() {
@@ -93,7 +67,6 @@ public abstract class AbstractWidgetValueBinder implements WidgetValueBinder {
 
     protected abstract Object getWidgetValue(Widget widget);
 
-    protected abstract void putWidgetValue(Widget widget, Object value,
-            BindingValue annotation);
+    protected abstract void putWidgetValue(Widget widget, Object value);
 
 }

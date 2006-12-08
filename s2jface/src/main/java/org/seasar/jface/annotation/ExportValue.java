@@ -15,18 +15,18 @@
  */
 package org.seasar.jface.annotation;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
- * バインディングの方向を指示するための列挙型です。<br />
+ * 画面コンポーネントへ値をエクスポートするフィールドを示すアノテーションです。<br />
  * 
  * @author y-komori
  */
-public enum BindType {
-    /** 画面からJavaクラスへのバインディングを指示します */
-    Import,
-
-    /** Javaクラスから画面へのバインディングを指示します */
-    Export,
-
-    /** 画面とJavaクラス双方向のバインディングを指示します */
-    ImportExport
+@Retention(RetentionPolicy.RUNTIME)
+@Target( { ElementType.FIELD })
+public @interface ExportValue {
+    String id() default "";
 }

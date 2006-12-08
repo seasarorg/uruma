@@ -21,7 +21,9 @@ import java.util.List;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.annotation.BindingValue;
+import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.ImportExportValue;
+import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.binding.impl.ExportValueCommand;
 import org.seasar.jface.binding.impl.ImportValueCommand;
 import org.seasar.jface.exception.BindingException;
@@ -62,13 +64,11 @@ public class ValueBinder {
         ActionDesc desc = ActionDescFactory.getActionDesc(action.getClass());
         List<Field> targetFields = command.getTargetFields(desc);
         for (Field field : targetFields) {
-            BindingValue annotation = field.getAnnotation(BindingValue.class);
-            String id = annotation.id();
+            String id = getId(field);
             Widget widget = getWidget(context, id, field);
             if (widget == null) {
-                throw new BindingException(
-                        BindingException.WIDGET_NOT_FOUND, id, context
-                                .getActionComponent().getClass(), field);
+                throw new BindingException(BindingException.WIDGET_NOT_FOUND,
+                        id, context.getActionComponent().getClass(), field);
             }
 
             if (!widget.isDisposed()) {
@@ -86,6 +86,29 @@ public class ValueBinder {
             }
         }
 
+    }
+
+    private static String getId(final Field field) {
+        ExportValue exportValue = field.getAnnotation(ExportValue.class);
+        if (exportValue != null) {
+            String id = exportValue.id();
+            return StringUtil.isEmpty(id) ? field.getName() : id;
+        }
+
+        ImportValue importValue = field.getAnnotation(ImportValue.class);
+        if (importValue != null) {
+            String id = importValue.id();
+            return StringUtil.isEmpty(id) ? field.getName() : id;
+        }
+
+        ImportExportValue importExportValue = field
+                .getAnnotation(ImportExportValue.class);
+        if (importExportValue != null) {
+            String id = importExportValue.id();
+            return StringUtil.isEmpty(id) ? field.getName() : id;
+        }
+
+        return field.getName();
     }
 
     private static Widget getWidget(WindowContext context, String id,

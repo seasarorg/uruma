@@ -22,7 +22,6 @@ import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.annotation.BindingValue;
 
 /**
  * 単一プロパティに対するバインディングを行うための汎用クラスです。<br />
@@ -51,19 +50,10 @@ public class WidgetPropertyValueBinder extends AbstractWidgetValueBinder {
     }
 
     @Override
-    protected void putWidgetValue(Widget widget, Object value,
-            BindingValue annotation) {
-        Object labelValue = getLabelValue(value, annotation);
-
-        // プロパティが文字列の場合は null を空文字列として扱う
-        if (labelValue == null
-                && String.class
-                        .isAssignableFrom(propertyDesc.getPropertyType())) {
-            labelValue = "";
-        }
-
-        Object convertedValue = convertValue(labelValue, propertyDesc
+    protected void putWidgetValue(Widget widget, Object value) {
+        Object convertedValue = convertValue(value, propertyDesc
                 .getPropertyType());
+        convertedValue = convertedValue == null ? "" : convertedValue;
         propertyDesc.setValue(widget, convertedValue);
     }
 

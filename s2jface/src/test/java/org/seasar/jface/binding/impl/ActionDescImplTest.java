@@ -20,8 +20,9 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import org.seasar.jface.annotation.BindType;
-import org.seasar.jface.annotation.BindingValue;
+import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.ImportExportValue;
+import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.binding.ActionDesc;
 import org.seasar.jface.exception.InitializeMethodException;
@@ -92,23 +93,23 @@ public class ActionDescImplTest extends TestCase {
     }
 
     class SuperTarget {
-        @BindingValue(type = BindType.Import)
+        @ImportValue
         public String field5;
 
-        @BindingValue(type = BindType.Export)
+        @ExportValue
         public String field6;
     }
 
     class Target01 extends SuperTarget {
         private boolean invoked;
 
-        @BindingValue(type = BindType.Import)
+        @ImportValue
         public String field1;
 
-        @BindingValue(type = BindType.Export)
+        @ExportValue
         public String field2;
 
-        @BindingValue
+        @ImportExportValue
         public String field3;
 
         @InitializeMethod

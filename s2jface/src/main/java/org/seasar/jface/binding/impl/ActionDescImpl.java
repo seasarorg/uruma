@@ -26,9 +26,10 @@ import java.util.Map;
 import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.annotation.ArgumentValue;
-import org.seasar.jface.annotation.BindType;
-import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
+import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.ImportExportValue;
+import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.binding.ActionDesc;
@@ -146,19 +147,15 @@ public class ActionDescImpl implements ActionDesc {
     }
 
     protected void setupExportField(final Field field) {
-        BindingValue bindingValue = field.getAnnotation(BindingValue.class);
-        if (bindingValue != null
-                && (bindingValue.type() == BindType.Export || bindingValue
-                        .type() == BindType.ImportExport)) {
+        if (field.isAnnotationPresent(ExportValue.class)
+                || field.isAnnotationPresent(ImportExportValue.class)) {
             exportFields.add(field);
         }
     }
 
     protected void setupImportField(final Field field) {
-        BindingValue bindingValue = field.getAnnotation(BindingValue.class);
-        if (bindingValue != null
-                && (bindingValue.type() == BindType.Import || bindingValue
-                        .type() == BindType.ImportExport)) {
+        if (field.isAnnotationPresent(ImportValue.class)
+                || field.isAnnotationPresent(ImportExportValue.class)) {
             importFields.add(field);
         }
     }

@@ -21,16 +21,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 値をバインドするフィールドを示すためのアノテーションです。<br />
+ * 画面コンポーネントからのインポートと、画面コンポーネントへのエクスポートをするフィールドを示すアノテーションです。<br />
+ * <p>
+ * 本アノテーションを指定すると、{@link ImportValue}と{@link ExportValue}の両方を指定したのと同じ効果が得られます。
+ * </p>
  * 
  * @author y-komori
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target( { ElementType.FIELD })
-public @interface BindingValue {
+public @interface ImportExportValue {
     String id() default "";
-
-    BindType type() default BindType.ImportExport;
-
-    String[] label() default {};
 }

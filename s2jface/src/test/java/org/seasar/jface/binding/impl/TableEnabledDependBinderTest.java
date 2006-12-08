@@ -18,9 +18,8 @@ package org.seasar.jface.binding.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.seasar.jface.annotation.BindType;
-import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
+import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.renderer.impl.AbstractRendererTest;
 
@@ -32,7 +31,7 @@ public class TableEnabledDependBinderTest extends AbstractRendererTest {
 
     private int nextIndex = 0;
 
-    @BindingValue(id = "table", type = BindType.Export)
+    @ExportValue(id = "table")
     private List<TableBean> tableBeans;
 
     @InitializeMethod

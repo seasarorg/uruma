@@ -19,23 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Text;
-import org.seasar.jface.annotation.BindType;
-import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
+import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.renderer.impl.AbstractRendererTest;
 
 public class ComboViewerValueBinderTest extends AbstractRendererTest {
-    @BindingValue(type = BindType.Export)
+    @ExportValue
     private List<String> combo1 = new ArrayList<String>();
 
-    @BindingValue(type = BindType.Import, id = "combo1")
+    @ImportValue(id = "combo1")
     private String combo1value;
 
-    @BindingValue(type = BindType.Export)
+    @ExportValue
     private String[] combo2 = new String[] { "111", "222", "333" };
 
-    @BindingValue(type = BindType.Export)
+    @ExportValue
     private String combo3 = "Hello";
 
     private Text text;
