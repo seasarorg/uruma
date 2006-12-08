@@ -36,7 +36,7 @@ import org.seasar.jface.viewer.GenericLabelProvider;
  * 
  * @author y-komori
  */
-public class ComboViewerValueBinder implements WidgetValueBinder {
+public class ComboValueBinder implements WidgetValueBinder {
 
     public void exportValue(Object srcObject, Field srcField, Widget dest,
             WindowContext context) {

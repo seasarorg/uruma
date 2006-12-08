@@ -21,8 +21,8 @@ import java.util.Map;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.jface.binding.impl.ComboViewerValueBinder;
-import org.seasar.jface.binding.impl.TableViewerValueBinder;
+import org.seasar.jface.binding.impl.ComboValueBinder;
+import org.seasar.jface.binding.impl.TableValueBinder;
 import org.seasar.jface.binding.impl.WidgetPropertyValueBinder;
 
 /**
@@ -36,8 +36,8 @@ public class WidgetValueBinderFactory {
     static {
         addBinder(new WidgetPropertyValueBinder(Label.class, "text"));
         addBinder(new WidgetPropertyValueBinder(Text.class, "text"));
-        addBinder(new ComboViewerValueBinder());
-        addBinder(new TableViewerValueBinder());
+        addBinder(new ComboValueBinder());
+        addBinder(new TableValueBinder());
     }
 
     public static WidgetValueBinder getBinder(

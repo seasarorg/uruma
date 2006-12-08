@@ -34,7 +34,7 @@ import org.seasar.jface.viewer.TableViewerAdapter;
  * 
  * @author y-komori
  */
-public class TableViewerValueBinder implements WidgetValueBinder {
+public class TableValueBinder implements WidgetValueBinder {
 
     public void exportValue(Object srcObject, Field srcField, Widget dest,
             WindowContext context) {
