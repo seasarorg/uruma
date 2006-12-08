@@ -16,7 +16,7 @@
 package org.seasar.jface.example.employee.action;
 
 import org.eclipse.swt.widgets.Shell;
-import org.seasar.jface.annotation.BindingValue;
+import org.seasar.jface.annotation.ImportExportValue;
 
 /**
  * @author bskuroneko
@@ -25,25 +25,25 @@ public class AbstractOneEmployeeAction {
 
     protected Shell shell;
 
-    @BindingValue
+    @ImportExportValue
     private String empno;
 
-    @BindingValue
+    @ImportExportValue
     private String ename;
 
-    @BindingValue
+    @ImportExportValue
     private String job;
 
-    @BindingValue
+    @ImportExportValue
     private String mgr;
 
-    @BindingValue
+    @ImportExportValue
     private String hiredate;
 
-    @BindingValue
+    @ImportExportValue
     private String sal;
 
-    @BindingValue
+    @ImportExportValue
     private String comm;
 
     public String getComm() {

@@ -23,9 +23,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.seasar.jface.S2JFaceWindowManager;
-import org.seasar.jface.annotation.BindType;
-import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
+import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
@@ -44,7 +43,7 @@ public class MainAction {
 
     private Table employeeTable;
 
-    @BindingValue(type = BindType.Export, id = "employeeTable")
+    @ExportValue(id = "employeeTable")
     private List<EmployeeDto> employees;
 
     @InitializeMethod

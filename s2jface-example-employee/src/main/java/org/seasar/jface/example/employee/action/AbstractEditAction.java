@@ -17,9 +17,9 @@ package org.seasar.jface.example.employee.action;
 
 import java.util.List;
 
-import org.seasar.jface.annotation.BindType;
-import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.annotation.EventListener;
+import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.example.employee.dto.DepartmentDto;
@@ -32,10 +32,10 @@ import org.seasar.jface.example.employee.logic.EmployeeLogic;
 public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
     protected EmployeeLogic employeeLogic;
 
-    @BindingValue(type = BindType.Import, id = "dept")
+    @ImportValue(id = "dept")
     private String dname;
 
-    @BindingValue(type = BindType.Export, id = "dept")
+    @ExportValue(id = "dept")
     private List<DepartmentDto> deptList;
 
     private Integer deptno;
