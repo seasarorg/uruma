@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.WidgetValueBinder;
+import org.seasar.jface.exception.BindingException;
 import org.seasar.jface.viewer.ComboViewerAdapter;
 import org.seasar.jface.viewer.GenericLabelProvider;
 
@@ -68,22 +69,13 @@ public class ComboViewerValueBinder implements WidgetValueBinder {
 
     public void importValue(Widget src, Object destObject, Field destField,
             WindowContext context) {
-        ComboViewerAdapter viewerAdapter = (ComboViewerAdapter) context
-                .getViewerAdapter(src);
-        ComboViewer viewer = viewerAdapter.getViewer();
-
-        ISelection selection = viewer.getSelection();
-        if (selection != null) {
-            Object selectedObject = ((StructuredSelection) selection)
-                    .getFirstElement();
-            FieldUtil.set(destField, destObject, selectedObject);
-        }
-    }
-
-    private void setClassToGenericLabelProvider(IBaseLabelProvider provider,
-            Class clazz) {
-        if (provider instanceof GenericLabelProvider) {
-            ((GenericLabelProvider) provider).setTargetClass(clazz);
+        Combo combo = (Combo) src;
+        String value = combo.getText();
+        if (destField.getType() == String.class) {
+            FieldUtil.set(destField, destObject, combo.getText());
+        } else {
+            throw new BindingException(BindingException.CLASS_NOT_MUTCH, null,
+                    destObject.getClass(), destField);
         }
     }
 
@@ -93,14 +85,35 @@ public class ComboViewerValueBinder implements WidgetValueBinder {
 
     }
 
+    public void importSelection(Widget src, Object destObject, Field destField,
+            WindowContext context) {
+        ComboViewerAdapter viewerAdapter = (ComboViewerAdapter) context
+                .getViewerAdapter(src);
+        ComboViewer viewer = viewerAdapter.getViewer();
+
+        ISelection selection = viewer.getSelection();
+        if (selection != null) {
+            Object selectedObject = ((StructuredSelection) selection)
+                    .getFirstElement();
+            Class<?> destFieldClass = destField.getType();
+            if (destFieldClass.isAssignableFrom(selectedObject.getClass())) {
+                FieldUtil.set(destField, destObject, selectedObject);
+            } else {
+                throw new BindingException(BindingException.CLASS_NOT_MUTCH,
+                        null, destObject.getClass(), destField);
+            }
+        }
+    }
+
     public Class<? extends Widget> getWidgetType() {
         return Combo.class;
     }
 
-    public void importSelection(Widget src, Object destObject, Field destField,
-            WindowContext context) {
-        // TODO 自動生成されたメソッド・スタブ
-
+    private void setClassToGenericLabelProvider(IBaseLabelProvider provider,
+            Class clazz) {
+        if (provider instanceof GenericLabelProvider) {
+            ((GenericLabelProvider) provider).setTargetClass(clazz);
+        }
     }
 
 }

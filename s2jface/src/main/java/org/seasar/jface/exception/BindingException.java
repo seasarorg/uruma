@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
 /**
  * @author y-komori
  */
-public class ValueBindingException extends S2JFaceRuntimeException {
+public class BindingException extends S2JFaceRuntimeException {
 
     private static final long serialVersionUID = 4452747426693887995L;
 
@@ -28,7 +28,9 @@ public class ValueBindingException extends S2JFaceRuntimeException {
 
     public static final String WIDGET_NOT_FOUND = "EJFC0208";
 
-    public ValueBindingException(String messageCode, String id, Class clazz,
+    public static final String CLASS_NOT_MUTCH = "EJFC0214";
+
+    public BindingException(String messageCode, String id, Class clazz,
             Field field) {
         super(messageCode,
                 new Object[] { id, clazz.getName(), field.getName() });

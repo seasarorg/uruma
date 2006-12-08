@@ -24,7 +24,7 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.BindingValue;
 import org.seasar.jface.binding.impl.ExportValueCommand;
 import org.seasar.jface.binding.impl.ImportValueCommand;
-import org.seasar.jface.exception.ValueBindingException;
+import org.seasar.jface.exception.BindingException;
 
 /**
  * ValueBinding を実現するためのクラスです。<br />
@@ -66,8 +66,8 @@ public class ValueBinder {
             String id = annotation.id();
             Widget widget = getWidget(context, id, field);
             if (widget == null) {
-                throw new ValueBindingException(
-                        ValueBindingException.WIDGET_NOT_FOUND, id, context
+                throw new BindingException(
+                        BindingException.WIDGET_NOT_FOUND, id, context
                                 .getActionComponent().getClass(), field);
             }
 
@@ -78,8 +78,8 @@ public class ValueBinder {
                     command.setWidgetValueBinder(binder);
                     command.doBind(widget, action, field, context);
                 } else {
-                    throw new ValueBindingException(
-                            ValueBindingException.WIDGET_NOT_SUPPORTED, widget
+                    throw new BindingException(
+                            BindingException.WIDGET_NOT_SUPPORTED, widget
                                     .getClass().getName(), action.getClass(),
                             field);
                 }

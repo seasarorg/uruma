@@ -32,10 +32,10 @@ public class ComboViewerValueBinderTest extends AbstractRendererTest {
     @BindingValue(type = BindType.Import, id = "combo1")
     private String combo1value;
 
-    @BindingValue
+    @BindingValue(type = BindType.Export)
     private String[] combo2 = new String[] { "111", "222", "333" };
 
-    @BindingValue
+    @BindingValue(type = BindType.Export)
     private String combo3 = "Hello";
 
     private Text text;
