@@ -4,17 +4,23 @@
 <components>
 	<include path="org/seasar/jface/example/employee/dicon/allaop.dicon"/>
 	
-    <component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+    <component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
 		<property name="instanceDef">
 			@org.seasar.framework.container.deployer.InstanceDefFactory@PROTOTYPE
 		</property>
+		<initMethod name="addReferenceClass">
+		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		</initMethod>
         <initMethod name="addClassPattern">
             <arg>"org.seasar.jface.example.employee.action"</arg>
             <arg>".*Action"</arg>
         </initMethod>
     </component>
     
-   	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+   	<component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
+		<initMethod name="addReferenceClass">
+		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		</initMethod>
 		<initMethod name="addClassPattern">
 			<arg>"org.seasar.jface.example.employee.logic.impl"</arg>
 			<arg>".*LogicImpl"</arg>
@@ -29,7 +35,10 @@
 		</initMethod>
 	</component>
 	
-   	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+   	<component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
+		<initMethod name="addReferenceClass">
+		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		</initMethod>
 		<initMethod name="addClassPattern">
 			<arg>"org.seasar.jface.example.employee.dao"</arg>
 			<arg>".*Dao"</arg>
@@ -44,7 +53,10 @@
 		</initMethod>
 	</component>
 	
-   	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+   	<component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
+		<initMethod name="addReferenceClass">
+		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		</initMethod>
 		<initMethod name="addClassPattern">
 			<arg>"org.seasar.jface.example.employee.dxo"</arg>
 			<arg>".*Dxo"</arg>
