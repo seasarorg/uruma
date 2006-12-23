@@ -81,8 +81,12 @@ public class ComboValueBinder implements WidgetValueBinder {
 
     public void exportSelection(Object srcObject, Field srcField, Widget dest,
             WindowContext context) {
-        // TODO 自動生成されたメソッド・スタブ
+        ComboViewerAdapter viewerAdapter = (ComboViewerAdapter) context
+                .getViewerAdapter(dest);
+        ComboViewer viewer = viewerAdapter.getViewer();
 
+        Object selection = FieldUtil.get(srcField, srcObject);
+        viewer.setSelection(new StructuredSelection(selection), true);
     }
 
     public void importSelection(Widget src, Object destObject, Field destField,
@@ -92,9 +96,9 @@ public class ComboValueBinder implements WidgetValueBinder {
         ComboViewer viewer = viewerAdapter.getViewer();
 
         ISelection selection = viewer.getSelection();
-        if (selection != null) {
-            Object selectedObject = ((StructuredSelection) selection)
-                    .getFirstElement();
+        Object selectedObject = ((StructuredSelection) selection)
+                .getFirstElement();
+        if (selectedObject != null) {
             Class<?> destFieldClass = destField.getType();
             if (destFieldClass.isAssignableFrom(selectedObject.getClass())) {
                 FieldUtil.set(destField, destObject, selectedObject);

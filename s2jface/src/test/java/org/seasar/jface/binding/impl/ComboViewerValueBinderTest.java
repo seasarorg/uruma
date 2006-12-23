@@ -20,7 +20,9 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Text;
 import org.seasar.jface.annotation.EventListener;
+import org.seasar.jface.annotation.ExportSelection;
 import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.ImportSelection;
 import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.renderer.impl.AbstractRendererTest;
@@ -32,8 +34,14 @@ public class ComboViewerValueBinderTest extends AbstractRendererTest {
     @ImportValue(id = "combo1")
     private String combo1value;
 
+    @ImportSelection(id = "combo1")
+    private String combo1Selection;
+
     @ExportValue
     private String[] combo2 = new String[] { "111", "222", "333" };
+
+    @ExportSelection(id = "combo2")
+    private String combo2selection = "222";
 
     @ExportValue
     private String combo3 = "Hello";
@@ -49,6 +57,7 @@ public class ComboViewerValueBinderTest extends AbstractRendererTest {
 
     @EventListener(id = "select")
     public void selectAction() {
-        text.setText("Combo1=" + combo1value);
+        text.setText("Combo1Value=" + combo1value + "\n" + "Combo1Selection="
+                + combo1Selection);
     }
 }

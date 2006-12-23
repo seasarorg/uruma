@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
-
 /**
  * アクションクラスに関する詳細情報を保持するインターフェースです。<br />
  * 
@@ -60,7 +59,23 @@ public interface ActionDesc {
      * @return {@link Field}のリスト
      */
     public List<Field> getExportValueFields();
-    
+
+    /**
+     * {@link org.seasar.jface.annotation.ImportSelection}
+     * アノテーションが付加されたフィールドのリストを取得します。<br />
+     * 
+     * @return {@link Field}のリスト
+     */
+    public List<Field> getImportSelectionFields();
+
+    /**
+     * {@link org.seasar.jface.annotation.ExportSelection}
+     * アノテーションが付加されたフィールドのリストを取得します。<br />
+     * 
+     * @return {@link Field}のリスト
+     */
+    public List<Field> getExportSelectionFields();
+
     /**
      * {@link org.seasar.jface.annotation.ArgumentValue}
      * アノテーションが付加されたフィールドを取得します。<br />
@@ -68,15 +83,14 @@ public interface ActionDesc {
      * @return {@link Field}
      */
     public Field getArgumentField();
-    
+
     /**
-     * {@link org.seasar.jface.annotation.ReturnValue}
-     * アノテーションが付加されたフィールドを取得します。<br />
+     * {@link org.seasar.jface.annotation.ReturnValue} アノテーションが付加されたフィールドを取得します。<br />
      * 
      * @return {@link Field}
      */
     public Field getReturnField();
-    
+
     /**
      * {@link org.seasar.jface.annotation.ArgumentValue}
      * アノテーションが付加されたフィールドの値を設定します。<br />
@@ -87,7 +101,7 @@ public interface ActionDesc {
      *            設定する値
      */
     public void setArgumentValue(Object target, Object value);
-    
+
     /**
      * {@link org.seasar.jface.annotation.ReturnValue}
      * アノテーションが付加されたフィールドの値を取得します。<br />
@@ -97,6 +111,6 @@ public interface ActionDesc {
      * @return フィールドの値
      */
     public Object getReturnValue(Object target);
-    
+
     public Iterator<EventListenerDef> eventListenerDefIterator();
 }

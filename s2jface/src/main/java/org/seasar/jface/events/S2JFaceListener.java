@@ -41,9 +41,11 @@ public class S2JFaceListener implements Listener {
     public void handleEvent(Event event) {
         if (methodBinding != null) {
             WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
+            ValueBinder.importSelection(context);
             ValueBinder.importValue(context);
             methodBinding.invoke(new Object[] { event });
             ValueBinder.exportValue(context);
+            ValueBinder.exportSelection(context);
             EnabledDependBinder.updateEnabled(context);
         }
     }

@@ -121,6 +121,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
 
         // 画面初期表示時の、Action から 画面への ExportValue 処理を実施
         ValueBinder.exportValue(context);
+        ValueBinder.exportSelection(context);
 
         return parent;
     }

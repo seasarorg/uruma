@@ -21,10 +21,14 @@ import java.util.List;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.annotation.ExportSelection;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.ImportExportValue;
+import org.seasar.jface.annotation.ImportSelection;
 import org.seasar.jface.annotation.ImportValue;
+import org.seasar.jface.binding.impl.ExportSelectionCommand;
 import org.seasar.jface.binding.impl.ExportValueCommand;
+import org.seasar.jface.binding.impl.ImportSelectionCommand;
 import org.seasar.jface.binding.impl.ImportValueCommand;
 import org.seasar.jface.exception.BindingException;
 
@@ -34,24 +38,53 @@ import org.seasar.jface.exception.BindingException;
  * @author y-komori
  */
 public class ValueBinder {
+    private static final ImportValueCommand IMPORT_VALUE_COMMAND = new ImportValueCommand();
+
+    private static final ExportValueCommand EXPORT_VALUE_COMMAND = new ExportValueCommand();
+
+    private static final ImportSelectionCommand IMPORT_SELECTION_COMMAND = new ImportSelectionCommand();
+
+    private static final ExportSelectionCommand EXPORT_SELECTION_COMMAND = new ExportSelectionCommand();
+
     /**
-     * {@link WindowContext} の保持するアクションコンポーネントに対して、ValueBinding を行います。<br />
+     * ウィジットから {@link WindowContext} の保持するアクションコンポーネントに対して、ValueBinding を行います。<br />
      * 
      * @param context
      *            {@link WindowContext} オブジェクト
      */
     public static void importValue(WindowContext context) {
-        dealFields(context, new ImportValueCommand());
+        dealFields(context, IMPORT_VALUE_COMMAND);
     }
 
     /**
-     * {@link WindowContext} の保持するアクションコンポーネントから、ValueBinding を行います。<br />
+     * {@link WindowContext} の保持するアクションコンポーネントから、ウィジットへ ValueBinding を行います。<br />
      * 
      * @param context
      *            {@link WindowContext} オブジェクト
      */
     public static void exportValue(WindowContext context) {
-        dealFields(context, new ExportValueCommand());
+        dealFields(context, EXPORT_VALUE_COMMAND);
+    }
+
+    /**
+     * ウィジットから {@link WindowContext} の保持するアクションコンポーネントに対して、SelectionBinding
+     * を行います。<br />
+     * 
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     */
+    public static void importSelection(WindowContext context) {
+        dealFields(context, IMPORT_SELECTION_COMMAND);
+    }
+
+    /**
+     * {@link WindowContext} の保持するアクションコンポーネントから、ウィジットへ SelectionBinding を行います。<br />
+     * 
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     */
+    public static void exportSelection(WindowContext context) {
+        dealFields(context, EXPORT_SELECTION_COMMAND);
     }
 
     private static void dealFields(WindowContext context,
@@ -108,6 +141,19 @@ public class ValueBinder {
             return StringUtil.isEmpty(id) ? field.getName() : id;
         }
 
+        ExportSelection exportSelection = field
+                .getAnnotation(ExportSelection.class);
+        if (exportSelection != null) {
+            String id = exportSelection.id();
+            return StringUtil.isEmpty(id) ? field.getName() : id;
+        }
+
+        ImportSelection importSelection = field
+                .getAnnotation(ImportSelection.class);
+        if (importSelection != null) {
+            String id = importSelection.id();
+            return StringUtil.isEmpty(id) ? field.getName() : id;
+        }
         return field.getName();
     }
 
