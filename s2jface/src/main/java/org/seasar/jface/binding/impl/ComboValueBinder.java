@@ -86,7 +86,9 @@ public class ComboValueBinder implements WidgetValueBinder {
         ComboViewer viewer = viewerAdapter.getViewer();
 
         Object selection = FieldUtil.get(srcField, srcObject);
-        viewer.setSelection(new StructuredSelection(selection), true);
+        if (selection != null) {
+            viewer.setSelection(new StructuredSelection(selection), true);
+        }
     }
 
     public void importSelection(Widget src, Object destObject, Field destField,
