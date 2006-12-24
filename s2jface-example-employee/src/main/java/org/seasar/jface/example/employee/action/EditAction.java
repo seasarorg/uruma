@@ -17,6 +17,7 @@ package org.seasar.jface.example.employee.action;
 
 import org.seasar.jface.annotation.ArgumentValue;
 import org.seasar.jface.annotation.InitializeMethod;
+import org.seasar.jface.example.employee.dto.DepartmentDto;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dxo.EditActionDxo;
 
@@ -36,6 +37,8 @@ public class EditAction extends AbstractEditAction {
     public void initialize() {
         super.initialize();
         editActionDxo.convert(editEmployee, this);
+        selectedDepartmentDto = new DepartmentDto();
+        selectedDepartmentDto.setDeptno(getDeptno());
     }
 
     @Override

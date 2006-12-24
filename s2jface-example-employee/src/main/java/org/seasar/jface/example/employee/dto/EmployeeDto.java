@@ -46,7 +46,7 @@ public class EmployeeDto {
 
     @BindingLabel(column = 7)
     private String dname;
-    
+
     private Integer deptno;
 
     public EmployeeDto() {
@@ -124,11 +124,11 @@ public class EmployeeDto {
         this.sal = sal;
     }
 
-	public Integer getDeptno() {
-		return deptno;
-	}
+    public Integer getDeptno() {
+        return deptno;
+    }
 
-	public void setDeptno(Integer deptno) {
-		this.deptno = deptno;
-	}
+    public void setDeptno(Integer deptno) {
+        this.deptno = deptno;
+    }
 }

@@ -18,7 +18,9 @@ package org.seasar.jface.example.employee.action;
 import java.util.List;
 
 import org.seasar.jface.annotation.EventListener;
+import org.seasar.jface.annotation.ExportSelection;
 import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.ImportSelection;
 import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
@@ -38,6 +40,10 @@ public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
     @ExportValue(id = "dept")
     private List<DepartmentDto> deptList;
 
+    @ExportSelection(id = "dept")
+    @ImportSelection(id = "dept")
+    protected DepartmentDto selectedDepartmentDto;
+
     private Integer deptno;
 
     @ReturnValue
@@ -50,24 +56,14 @@ public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
 
     @EventListener(id = "ok")
     public void onOk() {
-        bindDept();
+        if (selectedDepartmentDto != null) {
+            deptno = selectedDepartmentDto.getDeptno();
+        }
         result = doInsertOrUpdate();
         shell.close();
     }
 
     protected abstract EmployeeDto doInsertOrUpdate();
-
-    private void bindDept() {
-        if (deptList == null) {
-            return;
-        }
-        for (DepartmentDto dto : deptList) {
-            if (dto.getDname().equals(dname)) {
-                deptno = dto.getDeptno();
-                break;
-            }
-        }
-    }
 
     @EventListener(id = "cancel")
     public void onCancel() {
