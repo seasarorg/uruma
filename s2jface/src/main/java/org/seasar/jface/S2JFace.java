@@ -67,7 +67,11 @@ public class S2JFace {
                     .getComponent(S2JFaceWindowManager.class);
             windowManager.openModal(templatePath, argument);
         } finally {
-            dispose();
+            try {
+                dispose();
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
         }
     }
 
