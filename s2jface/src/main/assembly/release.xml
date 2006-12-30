@@ -9,9 +9,9 @@
       <directory>target</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>s2jface-0.1.0.jar</include>
-        <include>s2jface-0.1.0-sources.jar</include>
-        <include>s2jface-0.1.0-javadoc.jar</include>
+        <include>s2-jface-0.1.0.jar</include>
+        <include>s2-jface-0.1.0-sources.jar</include>
+        <include>s2-jface-0.1.0-javadoc.jar</include>
       </includes>
     </fileSet>
     <fileSet>
@@ -25,7 +25,8 @@
       <directory>src</directory>
       <outputDirectory>/src</outputDirectory>
       <excludes>
-        <exclude>/src/main/assembly/*.xml</exclude>
+        <exclude>main/assembly/*.*</exclude>
+        <exclude>main/assembly</exclude>
       </excludes>
     </fileSet>
     <fileSet>

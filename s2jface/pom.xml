@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.seasar.jface</groupId>
-  <artifactId>s2jface</artifactId>
+  <artifactId>s2-jface</artifactId>
   <name>S2JFace</name>
   <version>0.1.0</version>
   <url>http://s2jface.sandbox.seasar.org/</url>
