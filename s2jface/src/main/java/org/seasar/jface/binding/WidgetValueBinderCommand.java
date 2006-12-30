@@ -51,11 +51,11 @@ public interface WidgetValueBinderCommand {
             WindowContext context);
 
     /**
-     * ActionDesc からバインド対象のフィールドを取得します。<br />
+     * FormDesc からバインド対象のフィールドを取得します。<br />
      * 
      * @param desc
-     *            {@link ActionDesc} オブジェクト
+     *            {@link FormDesc} オブジェクト
      * @return バインド対象のフィールド
      */
-    public List<Field> getTargetFields(ActionDesc desc);
+    public List<Field> getTargetFields(FormDesc desc);
 }

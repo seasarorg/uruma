@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.binding.ActionDesc;
+import org.seasar.jface.binding.FormDesc;
 
 /**
  * {@link org.seasar.jface.binding.WidgetValueBinder} の
@@ -35,7 +35,7 @@ public class ExportSelectionCommand extends AbstractWidgetValueBinderCommand {
         binder.exportSelection(target, field, widget, context);
     }
 
-    public List<Field> getTargetFields(ActionDesc desc) {
+    public List<Field> getTargetFields(FormDesc desc) {
         return desc.getExportSelectionFields();
     }
 }

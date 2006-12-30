@@ -19,10 +19,14 @@ import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.annotation.Form;
 import org.seasar.jface.binding.ActionDesc;
 import org.seasar.jface.binding.ActionDescFactory;
 import org.seasar.jface.binding.BindingFacade;
@@ -72,18 +76,68 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         this.context = new WindowContextImpl();
 
         setupActionComponent();
+        setupFormComponent();
         // setupMenuBar();
         setupShellStyle(template.getWindowComponent(), modal);
     }
 
     protected void setupActionComponent() {
-        String actionComponentName = getActionComponentName();
+        String actionComponentName = StringUtil.decapitalize(template
+                .getWindowComponent().getId())
+                + "Action";
         actionComponent = S2ContainerUtil
                 .getComponentNoException(actionComponentName);
         if (actionComponent != null) {
             context.setActionComponent(actionComponent);
             actionDesc = ActionDescFactory.getActionDesc(actionComponent
                     .getClass());
+        }
+    }
+
+    protected void setupFormComponent() {
+        Object formComponent = null;
+        Object action = context.getActionComponent();
+        if (action != null) {
+            Form formAnnotation = action.getClass().getAnnotation(Form.class);
+            if (formAnnotation != null) {
+                Class<?> formClass = formAnnotation.value();
+                if (formClass == context.getActionComponent().getClass()) {
+                    formComponent = context.getActionComponent();
+                } else {
+                    formComponent = S2ContainerUtil.getComponent(formClass);
+                }
+            }
+        }
+
+        if (formComponent == null) {
+            String formComponentName = StringUtil.decapitalize(template
+                    .getWindowComponent().getId())
+                    + "Form";
+            formComponent = S2ContainerUtil
+                    .getComponentNoException(formComponentName);
+        }
+
+        if (formComponent != null) {
+            context.setFormComponent(formComponent);
+            injectFormToAction();
+        }
+    }
+
+    /**
+     * ActionオブジェクトへFormオブジェクトのプロパティが存在する場合、
+     * WindowContextが保持するFormオブジェクトをインジェクションする。
+     */
+    protected void injectFormToAction() {
+        String formComponentName = context.getFormComponent().getClass()
+                .getSimpleName();
+        BeanDesc beanDesc = BeanDescFactory.getBeanDesc(context
+                .getActionComponent().getClass());
+        if (beanDesc.hasPropertyDesc(formComponentName)) {
+            PropertyDesc pd = beanDesc.getPropertyDesc(formComponentName);
+            if (pd.hasWriteMethod()) {
+                pd.setValue(context.getActionComponent(), context
+                        .getFormComponent());
+            }
         }
     }
 
@@ -150,11 +204,6 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
     // {
     // this.menuManagerBuilder = menuManagerBuilder;
     // }
-
-    public String getActionComponentName() {
-        return StringUtil.decapitalize(template.getWindowComponent().getId())
-                + "Action";
-    }
 
     /**
      * アクションコンポーネントの初期化メソッドを呼び出します。<br />

@@ -52,6 +52,21 @@ public interface WindowContext {
     public Object getActionComponent();
 
     /**
+     * 本ウィンドウに対応するフォームコンポーネントを設定します。<br />
+     * 
+     * @param formComponent
+     *            フォームコンポーネント
+     */
+    public void setFormComponent(Object formComponent);
+
+    /**
+     * 本ウィンドウに対応するフォームコンポーネントを取得します。<br />
+     * 
+     * @return フォームコンポーネント
+     */
+    public Object getFormComponent();
+
+    /**
      * アクションクラスのイニシャライズメソッドを設定します。<br />
      * <p>
      * イニシャライズメソッドは {@link org.seasar.jface.annotation.InitializeMethod}

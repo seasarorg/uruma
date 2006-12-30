@@ -27,11 +27,6 @@ import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.annotation.ArgumentValue;
 import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportSelection;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportExportValue;
-import org.seasar.jface.annotation.ImportSelection;
-import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.binding.ActionDesc;
@@ -52,14 +47,6 @@ public class ActionDescImpl implements ActionDesc {
     private Map<String, List<Method>> methodsCache = new HashMap<String, List<Method>>();
 
     private Map<String, Field> fieldsCache = new HashMap<String, Field>();
-
-    private List<Field> importFields = new ArrayList<Field>();
-
-    private List<Field> exportFields = new ArrayList<Field>();
-
-    private List<Field> importSelectionFields = new ArrayList<Field>();
-
-    private List<Field> exportSelectionFields = new ArrayList<Field>();
 
     private Field argumentField = null;
 
@@ -144,39 +131,9 @@ public class ActionDescImpl implements ActionDesc {
                 field.setAccessible(true);
                 fieldsCache.put(fieldName, field);
 
-                setupExportField(field);
-                setupImportField(field);
-                setupExportSelectionField(field);
-                setupImportSelectionField(field);
                 setupArgumentField(field);
                 setupReturnField(field);
             }
-        }
-    }
-
-    protected void setupExportField(final Field field) {
-        if (field.isAnnotationPresent(ExportValue.class)
-                || field.isAnnotationPresent(ImportExportValue.class)) {
-            exportFields.add(field);
-        }
-    }
-
-    protected void setupImportField(final Field field) {
-        if (field.isAnnotationPresent(ImportValue.class)
-                || field.isAnnotationPresent(ImportExportValue.class)) {
-            importFields.add(field);
-        }
-    }
-
-    protected void setupExportSelectionField(final Field field) {
-        if (field.isAnnotationPresent(ExportSelection.class)) {
-            exportSelectionFields.add(field);
-        }
-    }
-
-    protected void setupImportSelectionField(final Field field) {
-        if (field.isAnnotationPresent(ImportSelection.class)) {
-            importSelectionFields.add(field);
         }
     }
 
@@ -220,28 +177,6 @@ public class ActionDescImpl implements ActionDesc {
                         initializeMethod, target);
             }
         }
-    }
-
-    /*
-     * @see org.seasar.jface.binding.ActionDesc#getExportFields()
-     */
-    public List<Field> getExportValueFields() {
-        return exportFields;
-    }
-
-    /*
-     * @see org.seasar.jface.binding.ActionDesc#getImportFields()
-     */
-    public List<Field> getImportValueFields() {
-        return importFields;
-    }
-
-    public List<Field> getExportSelectionFields() {
-        return exportSelectionFields;
-    }
-
-    public List<Field> getImportSelectionFields() {
-        return importSelectionFields;
     }
 
     /*

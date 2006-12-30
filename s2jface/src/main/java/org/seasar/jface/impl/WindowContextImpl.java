@@ -41,6 +41,8 @@ public class WindowContextImpl implements WindowContext {
 
     private Object actionComponent;
 
+    private Object formComponent;
+
     private Method initializeMethod;
 
     protected MenuManager menuBar;
@@ -63,17 +65,28 @@ public class WindowContextImpl implements WindowContext {
     }
 
     /*
-     * @see org.seasar.jface.WindowContext#getInitializeMethod()
-     */
-    public Method getInitializeMethod() {
-        return initializeMethod;
-    }
-
-    /*
      * @see org.seasar.jface.WindowContext#setActionObject(java.lang.Object)
      */
     public void setActionComponent(Object actionObject) {
         this.actionComponent = actionObject;
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#getFormComponent()
+     */
+    public Object getFormComponent() {
+        return formComponent;
+    }
+
+    public void setFormComponent(Object formComponent) {
+        this.formComponent = formComponent;
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#getInitializeMethod()
+     */
+    public Method getInitializeMethod() {
+        return initializeMethod;
     }
 
     /*

@@ -89,12 +89,12 @@ public class ValueBinder {
 
     private static void dealFields(WindowContext context,
             WidgetValueBinderCommand command) {
-        Object action = context.getActionComponent();
-        if (action == null) {
+        Object form = context.getFormComponent();
+        if (form == null) {
             return;
         }
 
-        ActionDesc desc = ActionDescFactory.getActionDesc(action.getClass());
+        FormDesc desc = FormDescFactory.getFormDesc(form.getClass());
         List<Field> targetFields = command.getTargetFields(desc);
         for (Field field : targetFields) {
             String id = getId(field);
@@ -109,11 +109,11 @@ public class ValueBinder {
                         .getBinder(widget.getClass());
                 if (binder != null) {
                     command.setWidgetValueBinder(binder);
-                    command.doBind(widget, action, field, context);
+                    command.doBind(widget, form, field, context);
                 } else {
                     throw new BindingException(
                             BindingException.WIDGET_NOT_SUPPORTED, widget
-                                    .getClass().getName(), action.getClass(),
+                                    .getClass().getName(), form.getClass(),
                             field);
                 }
             }

@@ -22,11 +22,13 @@ import org.eclipse.swt.widgets.Text;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.ExportSelection;
 import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.Form;
 import org.seasar.jface.annotation.ImportSelection;
 import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.renderer.impl.AbstractRendererTest;
 
+@Form(ComboViewerValueBinderTest.class)
 public class ComboViewerValueBinderTest extends AbstractRendererTest {
     @ExportValue
     private List<String> combo1 = new ArrayList<String>();

@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.binding.ActionDesc;
+import org.seasar.jface.binding.FormDesc;
 
 /**
  * {@link WidgetValueBinder}の <code>importValue()</code> メソッドを実行するためのコマンドです。<br />
@@ -34,7 +34,7 @@ public class ImportValueCommand extends AbstractWidgetValueBinderCommand {
         binder.importValue(widget, target, field, context);
     }
 
-    public List<Field> getTargetFields(ActionDesc desc) {
+    public List<Field> getTargetFields(FormDesc desc) {
         return desc.getImportValueFields();
     }
 }

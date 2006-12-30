@@ -15,14 +15,8 @@
  */
 package org.seasar.jface.binding.impl;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
 import junit.framework.TestCase;
 
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportExportValue;
-import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.binding.ActionDesc;
 import org.seasar.jface.exception.InitializeMethodException;
@@ -70,47 +64,8 @@ public class ActionDescImplTest extends TestCase {
         }
     }
 
-    public void testSetupFields() throws Exception {
-        ActionDesc desc = new ActionDescImpl(Target01.class);
-        List<Field> importFields = desc.getImportValueFields();
-        List<Field> exportFields = desc.getExportValueFields();
-
-        assertEquals("1", 3, importFields.size());
-        assertEquals("2", Target01.class.getField("field1"), importFields
-                .get(0));
-        assertEquals("3", Target01.class.getField("field3"), importFields
-                .get(1));
-        assertEquals("4", Target01.class.getField("field5"), importFields
-                .get(2));
-
-        assertEquals("5", 3, exportFields.size());
-        assertEquals("6", Target01.class.getField("field2"), exportFields
-                .get(0));
-        assertEquals("7", Target01.class.getField("field3"), exportFields
-                .get(1));
-        assertEquals("8", Target01.class.getField("field6"), exportFields
-                .get(2));
-    }
-
-    class SuperTarget {
-        @ImportValue
-        public String field5;
-
-        @ExportValue
-        public String field6;
-    }
-
-    class Target01 extends SuperTarget {
+    class Target01 {
         private boolean invoked;
-
-        @ImportValue
-        public String field1;
-
-        @ExportValue
-        public String field2;
-
-        @ImportExportValue
-        public String field3;
 
         @InitializeMethod
         public void initialize() {
