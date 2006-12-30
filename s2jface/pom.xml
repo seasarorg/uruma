@@ -84,6 +84,17 @@
     </pluginManagement>
     <plugins>
       <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib</classpathPrefix>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-source-plugin</artifactId>
         <executions>
           <execution>
@@ -179,6 +190,12 @@
       <groupId>org.eclipse</groupId>
       <artifactId>core-commands</artifactId>
       <version>3.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse</groupId>
+      <artifactId>equinox-common</artifactId>
+      <version>3.2.0</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
   <distributionManagement>
