@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.seasar</groupId>
-  <artifactId>jface</artifactId>
+  <groupId>org.seasar.jface</groupId>
+  <artifactId>s2jface</artifactId>
+  <name>S2JFace</name>
   <version>0.1.0</version>
   <url>http://s2jface.sandbox.seasar.org/</url>
   <issueManagement>
@@ -94,6 +95,45 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <charset>UTF-8</charset>
+          <doctitle>${project.name} ${project.version} API Specifications</doctitle>
+          <windowtitle>S2JFace API Specifications</windowtitle>
+          <links>
+            <link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
+            <link>http://java.sun.com/javaee/5/docs/api/</link>
+            <link>http://aopalliance.sourceforge.net/doc/</link>
+          </links>
+        </configuration>
+        <executions>
+          <execution>
+            <id>javadoc-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptor>src\main\assembly\release.xml</descriptor>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attached</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -145,13 +185,13 @@
       <uniqueVersion>false</uniqueVersion>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Repository</name>
-      <url>scp://maven.seasar.org/home/groups/maven/maven/maven2</url>
+      <url>scp://www.seasar.org/home/groups/sandbox/s2jface/maven/maven2</url>
     </repository>
     <snapshotRepository>
       <uniqueVersion>true</uniqueVersion>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Snapshot Repository</name>
-      <url>scp://maven.seasar.org/home/groups/maven/maven/maven2-snapshot</url>
+      <url>scp://www.seasar.org/home/groups/sandbox/s2jface/maven/maven2-snapshot</url>
     </snapshotRepository>
   </distributionManagement>
 </project>
