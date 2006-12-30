@@ -15,8 +15,6 @@
  */
 package org.seasar.jface.example.employee.action;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -26,6 +24,7 @@ import org.seasar.jface.S2JFaceWindowManager;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.Form;
+import org.seasar.jface.annotation.ImportSelection;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
@@ -48,6 +47,9 @@ public class MainAction {
 
     @ExportValue(id = "employeeTable")
     private List<EmployeeDto> employees;
+
+    @ImportSelection(id = "employeeTable")
+    private List<EmployeeDto> selectedEmployees;
 
     @InitializeMethod
     public void initialize() {
@@ -78,21 +80,14 @@ public class MainAction {
         boolean result = MessageDialog.openConfirm(shell, "削除確認",
                 "選択された従業員情報を削除しますか？");
         if (result) {
-            int[] selections = employeeTable.getSelectionIndices();
-            Arrays.sort(selections);
-            LinkedList<Integer> toRemoveList = new LinkedList<Integer>();
             try {
-                for (int selection : selections) {
-                    EmployeeDto dto = employees.get(selection);
+                for (EmployeeDto dto : selectedEmployees) {
                     Employee employee = employeeLogic.getEmployee(dto
                             .getEmpno());
                     employeeLogic.delete(employee);
-                    toRemoveList.addFirst(selection);
                 }
             } finally {
-                for (int toRemove : toRemoveList) {
-                    employees.remove(toRemove);
-                }
+                initialize();
             }
         }
     }
