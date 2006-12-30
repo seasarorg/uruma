@@ -17,6 +17,19 @@
         </initMethod>
     </component>
     
+    <component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
+		<property name="instanceDef">
+			@org.seasar.framework.container.deployer.InstanceDefFactory@PROTOTYPE
+		</property>
+		<initMethod name="addReferenceClass">
+		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		</initMethod>
+        <initMethod name="addClassPattern">
+            <arg>"org.seasar.jface.example.employee.form"</arg>
+            <arg>".*Form"</arg>
+        </initMethod>
+    </component>
+    
    	<component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
 		<initMethod name="addReferenceClass">
 		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>

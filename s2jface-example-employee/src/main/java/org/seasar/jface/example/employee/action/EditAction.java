@@ -15,40 +15,29 @@
  */
 package org.seasar.jface.example.employee.action;
 
-import org.seasar.jface.annotation.ArgumentValue;
+import org.seasar.jface.annotation.Form;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.example.employee.dto.DepartmentDto;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
-import org.seasar.jface.example.employee.dxo.EditActionDxo;
+import org.seasar.jface.example.employee.form.EmployeeEditForm;
 
 /**
  * @author bskuroneko
  * 
  */
+@Form(EmployeeEditForm.class)
 public class EditAction extends AbstractEditAction {
-
-    private EditActionDxo editActionDxo;
-
-    @ArgumentValue
-    private EmployeeDto editEmployee;
-
-    @Override
     @InitializeMethod
     public void initialize() {
+        employeeEditFormDxo.convert(editEmployee, employeeEditForm);
         super.initialize();
-        editActionDxo.convert(editEmployee, this);
-        selectedDepartmentDto = new DepartmentDto();
-        selectedDepartmentDto.setDeptno(getDeptno());
+        DepartmentDto selectedDepartment = new DepartmentDto();
+        selectedDepartment.setDeptno(employeeEditForm.getDeptno());
+        employeeEditForm.setSelectedDepartmentDto(selectedDepartment);
     }
 
     @Override
-    protected EmployeeDto doInsertOrUpdate() {
-        editActionDxo.convert(this, editEmployee);
-        return employeeLogic.update(editEmployee);
+    protected EmployeeDto doUpdateOrInsert(EmployeeDto employeeDto) {
+        return employeeLogic.update(employeeDto);
     }
-
-    public void setEditActionDxo(EditActionDxo editActionDxo) {
-        this.editActionDxo = editActionDxo;
-    }
-
 }

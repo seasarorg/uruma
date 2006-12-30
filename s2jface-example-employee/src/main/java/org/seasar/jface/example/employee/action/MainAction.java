@@ -25,14 +25,17 @@ import org.eclipse.swt.widgets.Table;
 import org.seasar.jface.S2JFaceWindowManager;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.Form;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
 import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
+import org.seasar.jface.example.employee.entity.Employee;
 import org.seasar.jface.example.employee.logic.EmployeeLogic;
 
 /**
  * @author bskuroneko
  */
+@Form(MainAction.class)
 public class MainAction {
 
     private EmployeeLogic employeeLogic;
@@ -81,7 +84,9 @@ public class MainAction {
             try {
                 for (int selection : selections) {
                     EmployeeDto dto = employees.get(selection);
-                    employeeLogic.delete(dto);
+                    Employee employee = employeeLogic.getEmployee(dto
+                            .getEmpno());
+                    employeeLogic.delete(employee);
                     toRemoveList.addFirst(selection);
                 }
             } finally {

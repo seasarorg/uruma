@@ -16,19 +16,13 @@
 package org.seasar.jface.example.employee.dxo;
 
 import org.seasar.extension.dxo.annotation.DatePattern;
-import org.seasar.jface.example.employee.action.EditAction;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
+import org.seasar.jface.example.employee.form.InquireForm;
 
 /**
- * @author bskuroneko
- * 
+ * @author y-komori
  */
-public interface EditActionDxo {
-
+public interface InquireFormDxo {
     @DatePattern("yyyy/MM/dd")
-    void convert(EmployeeDto employee, EditAction action);
-
-    @DatePattern("yyyy/MM/dd")
-    void convert(EditAction action, EmployeeDto editEmployee);
-
+    void convert(EmployeeDto employee, InquireForm inquireForm);
 }

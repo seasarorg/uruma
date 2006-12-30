@@ -16,16 +16,16 @@
 package org.seasar.jface.example.employee.dxo;
 
 import org.seasar.extension.dxo.annotation.DatePattern;
-import org.seasar.jface.example.employee.action.InquireAction;
-import org.seasar.jface.example.employee.dto.EmployeeDto;
+import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
+import org.seasar.jface.example.employee.form.SearchForm;
 
 /**
  * @author bskuroneko
  * 
  */
-public interface InquireActionDxo {
+public interface SearchFormDxo {
 
     @DatePattern("yyyy/MM/dd")
-    void convert(EmployeeDto employee, InquireAction action);
+    EmployeeSearchDto convert(SearchForm searchForm);
 
 }

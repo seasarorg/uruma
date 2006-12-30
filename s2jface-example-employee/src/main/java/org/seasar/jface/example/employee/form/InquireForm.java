@@ -13,18 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee.action;
+package org.seasar.jface.example.employee.form;
 
-import org.eclipse.swt.widgets.Shell;
+import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.ImportExportValue;
 
-/**
- * @author bskuroneko
- */
-public class AbstractOneEmployeeAction {
-
-    protected Shell shell;
-
+public class InquireForm {
     @ImportExportValue
     private String empno;
 
@@ -37,6 +31,9 @@ public class AbstractOneEmployeeAction {
     @ImportExportValue
     private String mgr;
 
+    @ExportValue
+    private String mname;
+
     @ImportExportValue
     private String hiredate;
 
@@ -46,8 +43,11 @@ public class AbstractOneEmployeeAction {
     @ImportExportValue
     private String comm;
 
+    @ExportValue
+    private String dname;
+
     public String getComm() {
-        return this.comm;
+        return comm;
     }
 
     public void setComm(String comm) {
@@ -55,7 +55,7 @@ public class AbstractOneEmployeeAction {
     }
 
     public String getEmpno() {
-        return this.empno;
+        return empno;
     }
 
     public void setEmpno(String empno) {
@@ -63,7 +63,7 @@ public class AbstractOneEmployeeAction {
     }
 
     public String getEname() {
-        return this.ename;
+        return ename;
     }
 
     public void setEname(String ename) {
@@ -71,7 +71,7 @@ public class AbstractOneEmployeeAction {
     }
 
     public String getHiredate() {
-        return this.hiredate;
+        return hiredate;
     }
 
     public void setHiredate(String hiredate) {
@@ -79,7 +79,7 @@ public class AbstractOneEmployeeAction {
     }
 
     public String getJob() {
-        return this.job;
+        return job;
     }
 
     public void setJob(String job) {
@@ -87,19 +87,34 @@ public class AbstractOneEmployeeAction {
     }
 
     public String getMgr() {
-        return this.mgr;
+        return mgr;
     }
 
     public void setMgr(String mgr) {
         this.mgr = mgr;
     }
 
+    public String getMname() {
+        return mname;
+    }
+
+    public void setMname(String mname) {
+        this.mname = mname;
+    }
+
     public String getSal() {
-        return this.sal;
+        return sal;
     }
 
     public void setSal(String sal) {
         this.sal = sal;
     }
 
+    public String getDname() {
+        return dname;
+    }
+
+    public void setDname(String dname) {
+        this.dname = dname;
+    }
 }

@@ -19,13 +19,12 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.example.employee.dto.DepartmentDto;
 import org.seasar.jface.example.employee.dto.EmployeeSearchDto;
-import org.seasar.jface.example.employee.dxo.SearchActionDxo;
+import org.seasar.jface.example.employee.dxo.SearchFormDxo;
+import org.seasar.jface.example.employee.form.SearchForm;
 import org.seasar.jface.example.employee.logic.EmployeeLogic;
 
 /**
@@ -35,58 +34,28 @@ public class SearchAction {
 
     private EmployeeLogic employeeLogic;
 
-    private SearchActionDxo dxo;
+    private SearchFormDxo searchFormDxo;
 
     private Shell shell;
 
-    @ImportValue
-    private String empno;
-
-    @ImportValue
-    private String ename;
-
-    @ImportValue
-    private String job;
-
-    @ImportValue
-    private String mgr;
-
-    @ImportValue
-    private String mname;
-
-    @ImportValue
-    private String fromHiredate;
-
-    @ImportValue
-    private String toHiredate;
-
-    @ImportValue
-    private String fromSal;
-
-    @ImportValue
-    private String toSal;
-
-    @ImportValue(id = "dept")
-    private String deptName;
-
-    @ExportValue(id = "dept")
-    private List<DepartmentDto> deptList;
-
-    private Integer deptno;
+    private SearchForm searchForm;
 
     @ReturnValue
     private List searchResult = null;
 
     @InitializeMethod
     public void initialize() {
-        deptList = employeeLogic.getAllDepartments();
+        searchForm.setDeptList(employeeLogic.getAllDepartments());
     }
 
     @EventListener(id = "ok")
     public void onOk() {
-        bindDept();
+        DepartmentDto selectedDepartment = searchForm.getSelectedDepartment();
+        if (selectedDepartment != null) {
+            searchForm.setDeptno(selectedDepartment.getDeptno());
+        }
 
-        EmployeeSearchDto searchDto = dxo.convert(this);
+        EmployeeSearchDto searchDto = searchFormDxo.convert(searchForm);
         searchResult = employeeLogic.searchEmployeeDtoList(searchDto);
         shell.close();
     }
@@ -97,64 +66,15 @@ public class SearchAction {
         shell.close();
     }
 
-    private void bindDept() {
-        if (deptList == null) {
-            return;
-        }
-        for (DepartmentDto dto : deptList) {
-            if (dto.getDname().equals(deptName)) {
-                deptno = dto.getDeptno();
-                break;
-            }
-        }
-    }
-
     public void setEmployeeLogic(EmployeeLogic employeeLogic) {
         this.employeeLogic = employeeLogic;
     }
 
-    public void setDxo(SearchActionDxo dxo) {
-        this.dxo = dxo;
+    public void setSearchFormDxo(SearchFormDxo searchFormDxo) {
+        this.searchFormDxo = searchFormDxo;
     }
 
-    public String getEmpno() {
-        return this.empno;
+    public void setSearchForm(SearchForm searchForm) {
+        this.searchForm = searchForm;
     }
-
-    public String getEname() {
-        return this.ename;
-    }
-
-    public String getFromHiredate() {
-        return this.fromHiredate;
-    }
-
-    public String getFromSal() {
-        return this.fromSal;
-    }
-
-    public String getJob() {
-        return this.job;
-    }
-
-    public String getMgr() {
-        return this.mgr;
-    }
-
-    public String getMname() {
-        return mname;
-    }
-
-    public String getToHiredate() {
-        return this.toHiredate;
-    }
-
-    public String getToSal() {
-        return this.toSal;
-    }
-
-    public Integer getDeptno() {
-        return this.deptno;
-    }
-
 }

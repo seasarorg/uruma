@@ -44,5 +44,5 @@ public interface EmployeeLogic {
 
     public EmployeeDto update(EmployeeDto employee);
 
-    public void delete(EmployeeDto employee);
+    public void delete(Employee employee);
 }

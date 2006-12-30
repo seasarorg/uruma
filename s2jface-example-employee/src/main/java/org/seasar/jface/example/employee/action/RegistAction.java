@@ -15,25 +15,18 @@
  */
 package org.seasar.jface.example.employee.action;
 
+import org.seasar.jface.annotation.Form;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
-import org.seasar.jface.example.employee.dxo.RegistActionDxo;
+import org.seasar.jface.example.employee.form.EmployeeEditForm;
 
 /**
  * @author bskuroneko
  * 
  */
+@Form(EmployeeEditForm.class)
 public class RegistAction extends AbstractEditAction {
-
-    private RegistActionDxo registActionDxo;
-
     @Override
-    protected EmployeeDto doInsertOrUpdate() {
-        EmployeeDto employee = registActionDxo.convert(this);
-        return employeeLogic.insert(employee);
+    protected EmployeeDto doUpdateOrInsert(EmployeeDto employeeDto) {
+        return employeeLogic.insert(employeeDto);
     }
-
-    public void setRegistActionDxo(RegistActionDxo registActionDxo) {
-        this.registActionDxo = registActionDxo;
-    }
-
 }

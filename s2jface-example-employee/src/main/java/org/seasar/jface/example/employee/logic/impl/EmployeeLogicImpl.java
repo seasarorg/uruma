@@ -100,12 +100,10 @@ public class EmployeeLogicImpl implements EmployeeLogic {
         return employeeDxo.convert(employee);
     }
 
-    public void delete(EmployeeDto dto) {
-        if (!existEmployee(dto.getEmpno())) {
-            throw new EmployeeNotFoundRuntimeException(dto.getEmpno());
+    public void delete(Employee employee) {
+        if (!existEmployee(employee.getEmpno())) {
+            throw new EmployeeNotFoundRuntimeException(employee.getEmpno());
         }
-        Employee employee = new Employee();
-        employee.setEmpno(dto.getEmpno());
         employeeDao.delete(employee);
     }
 

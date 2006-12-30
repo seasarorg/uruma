@@ -15,33 +15,30 @@
  */
 package org.seasar.jface.example.employee.action;
 
+import org.eclipse.swt.widgets.Shell;
 import org.seasar.jface.annotation.ArgumentValue;
 import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
-import org.seasar.jface.example.employee.dxo.InquireActionDxo;
+import org.seasar.jface.example.employee.dxo.InquireFormDxo;
+import org.seasar.jface.example.employee.form.InquireForm;
 
 /**
  * @author bskuroneko
- * 
  */
-public class InquireAction extends AbstractOneEmployeeAction {
+public class InquireAction {
+    private Shell shell;
 
-    private InquireActionDxo inquireActionDxo;
+    private InquireForm inquireForm;
 
-    @ExportValue
-    private String dname;
-
-    @ExportValue
-    private String mname;
+    private InquireFormDxo inquireFormDxo;
 
     @ArgumentValue
     private EmployeeDto inquireEmployee;
 
     @InitializeMethod
     public void initialize() {
-        inquireActionDxo.convert(inquireEmployee, this);
+        inquireFormDxo.convert(inquireEmployee, inquireForm);
     }
 
     @EventListener(id = "ok")
@@ -49,24 +46,11 @@ public class InquireAction extends AbstractOneEmployeeAction {
         shell.close();
     }
 
-    public void setInquireActionDxo(InquireActionDxo inquireActionDxo) {
-        this.inquireActionDxo = inquireActionDxo;
+    public void setInquireFormDxo(InquireFormDxo inquireFormDxo) {
+        this.inquireFormDxo = inquireFormDxo;
     }
 
-    public String getDname() {
-        return this.dname;
+    public void setInquireForm(InquireForm inquireForm) {
+        this.inquireForm = inquireForm;
     }
-
-    public void setDname(String dname) {
-        this.dname = dname;
-    }
-
-    public String getMname() {
-        return mname;
-    }
-
-    public void setMname(String mname) {
-        this.mname = mname;
-    }
-
 }

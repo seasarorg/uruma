@@ -13,46 +13,48 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.employee.dto;
+package org.seasar.jface.example.employee.form;
 
-import org.seasar.jface.annotation.BindingLabel;
+import java.util.List;
 
-public class EmployeeDto {
+import org.seasar.jface.annotation.ExportSelection;
+import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.ImportExportValue;
+import org.seasar.jface.annotation.ImportSelection;
+import org.seasar.jface.example.employee.dto.DepartmentDto;
 
-    private static final long serialVersionUID = 1L;
+public class EmployeeEditForm {
+    @ImportExportValue
+    private String empno;
 
-    @BindingLabel(column = 0)
-    private Integer empno;
-
-    @BindingLabel(column = 1)
+    @ImportExportValue
     private String ename;
 
-    @BindingLabel(column = 2)
+    @ImportExportValue
     private String job;
 
-    private Integer mgr;
+    @ImportExportValue
+    private String mgr;
 
-    @BindingLabel(column = 3)
-    private String mname;
-
-    @BindingLabel(column = 4)
+    @ImportExportValue
     private String hiredate;
 
-    @BindingLabel(column = 5)
+    @ImportExportValue
     private String sal;
 
-    @BindingLabel(column = 6)
+    @ImportExportValue
     private String comm;
 
-    @BindingLabel(column = 7)
-    private String dname;
+    @ExportValue(id = "dept")
+    private List<DepartmentDto> deptList;
+
+    @ExportSelection(id = "dept")
+    @ImportSelection(id = "dept")
+    private DepartmentDto selectedDepartmentDto;
 
     private Integer deptno;
 
     private int versionNo;
-
-    public EmployeeDto() {
-    }
 
     public String getComm() {
         return comm;
@@ -62,19 +64,27 @@ public class EmployeeDto {
         this.comm = comm;
     }
 
-    public String getDname() {
-        return dname;
+    public List<DepartmentDto> getDeptList() {
+        return deptList;
     }
 
-    public void setDname(String dname) {
-        this.dname = dname;
+    public void setDeptList(List<DepartmentDto> deptList) {
+        this.deptList = deptList;
     }
 
-    public Integer getEmpno() {
+    public Integer getDeptno() {
+        return deptno;
+    }
+
+    public void setDeptno(Integer deptno) {
+        this.deptno = deptno;
+    }
+
+    public String getEmpno() {
         return empno;
     }
 
-    public void setEmpno(Integer empno) {
+    public void setEmpno(String empno) {
         this.empno = empno;
     }
 
@@ -102,20 +112,12 @@ public class EmployeeDto {
         this.job = job;
     }
 
-    public Integer getMgr() {
+    public String getMgr() {
         return mgr;
     }
 
-    public void setMgr(Integer mgr) {
+    public void setMgr(String mgr) {
         this.mgr = mgr;
-    }
-
-    public String getMname() {
-        return mname;
-    }
-
-    public void setMname(String mname) {
-        this.mname = mname;
     }
 
     public String getSal() {
@@ -126,12 +128,12 @@ public class EmployeeDto {
         this.sal = sal;
     }
 
-    public Integer getDeptno() {
-        return deptno;
+    public DepartmentDto getSelectedDepartmentDto() {
+        return selectedDepartmentDto;
     }
 
-    public void setDeptno(Integer deptno) {
-        this.deptno = deptno;
+    public void setSelectedDepartmentDto(DepartmentDto selectedDepartmentDto) {
+        this.selectedDepartmentDto = selectedDepartmentDto;
     }
 
     public int getVersionNo() {

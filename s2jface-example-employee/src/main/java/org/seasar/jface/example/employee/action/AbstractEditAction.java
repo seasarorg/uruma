@@ -15,71 +15,61 @@
  */
 package org.seasar.jface.example.employee.action;
 
-import java.util.List;
-
+import org.eclipse.swt.widgets.Shell;
+import org.seasar.jface.annotation.ArgumentValue;
 import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportSelection;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportSelection;
-import org.seasar.jface.annotation.ImportValue;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.annotation.ReturnValue;
 import org.seasar.jface.example.employee.dto.DepartmentDto;
 import org.seasar.jface.example.employee.dto.EmployeeDto;
+import org.seasar.jface.example.employee.dxo.EmployeeEditFormDxo;
+import org.seasar.jface.example.employee.form.EmployeeEditForm;
 import org.seasar.jface.example.employee.logic.EmployeeLogic;
 
 /**
  * @author bskuroneko
  */
-public abstract class AbstractEditAction extends AbstractOneEmployeeAction {
+public abstract class AbstractEditAction {
+
+    protected Shell shell;
+
     protected EmployeeLogic employeeLogic;
 
-    @ImportValue(id = "dept")
-    private String dname;
+    protected EmployeeEditForm employeeEditForm;
 
-    @ExportValue(id = "dept")
-    private List<DepartmentDto> deptList;
+    protected EmployeeEditFormDxo employeeEditFormDxo;
 
-    @ExportSelection(id = "dept")
-    @ImportSelection(id = "dept")
-    protected DepartmentDto selectedDepartmentDto;
-
-    private Integer deptno;
+    @ArgumentValue
+    protected EmployeeDto editEmployee;
 
     @ReturnValue
     private EmployeeDto result;
 
     @InitializeMethod
     public void initialize() {
-        deptList = employeeLogic.getAllDepartments();
+        employeeEditForm.setDeptList(employeeLogic.getAllDepartments());
     }
 
     @EventListener(id = "ok")
     public void onOk() {
+        DepartmentDto selectedDepartmentDto = employeeEditForm
+                .getSelectedDepartmentDto();
         if (selectedDepartmentDto != null) {
-            deptno = selectedDepartmentDto.getDeptno();
+            employeeEditForm.setDeptno(selectedDepartmentDto.getDeptno());
         }
-        result = doInsertOrUpdate();
+        EmployeeDto employee = employeeEditFormDxo.convert(employeeEditForm);
+        result = doUpdateOrInsert(employee);
         shell.close();
     }
 
-    protected abstract EmployeeDto doInsertOrUpdate();
+    abstract protected EmployeeDto doUpdateOrInsert(EmployeeDto employeeDto);
 
-    @EventListener(id = "cancel")
-    public void onCancel() {
-        shell.close();
+    public void setEmployeeEditFormDxo(EmployeeEditFormDxo employeeEditFormDxo) {
+        this.employeeEditFormDxo = employeeEditFormDxo;
     }
 
-    public Integer getDeptno() {
-        return this.deptno;
-    }
-
-    public void setDeptno(Integer deptno) {
-        this.deptno = deptno;
-    }
-
-    public String getDname() {
-        return this.dname;
+    public void setEmployeeEditForm(EmployeeEditForm employeeEditForm) {
+        this.employeeEditForm = employeeEditForm;
     }
 
     public void setEmployeeLogic(EmployeeLogic employeeLogic) {
