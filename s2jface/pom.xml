@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.seasar</groupId>
-  <artifactId>s2jface</artifactId>
+  <artifactId>jface</artifactId>
   <version>0.1.0</version>
   <url>http://s2jface.sandbox.seasar.org/</url>
   <issueManagement>
@@ -140,4 +140,18 @@
       <version>3.2.0</version>
     </dependency>
   </dependencies>
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Repository</name>
+      <url>scp://maven.seasar.org/home/groups/maven/maven/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>true</uniqueVersion>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Snapshot Repository</name>
+      <url>scp://maven.seasar.org/home/groups/maven/maven/maven2-snapshot</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
