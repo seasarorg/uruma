@@ -57,10 +57,10 @@ public class S2ContainerUtil {
     }
 
     /**
-     * 指定された名前に対応するコンポーネントを <code>S2Container</code> から取得して返します。<br />
+     * 指定されたクラスに対応するコンポーネントを <code>S2Container</code> から取得して返します。<br />
      * 
-     * @param componentName
-     *            コンポーネント名称
+     * @param componentClass
+     *            コンポーネントクラス
      * @return コンポーネントオブジェクト
      */
     public static ComponentDef getComponentDef(final Class componentClass) {

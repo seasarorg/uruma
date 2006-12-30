@@ -38,7 +38,8 @@ public class S2JFaceGenericTagHandler extends S2JFaceTagHandler {
     /**
      * 生成するクラスを指定してインスタンスを構築します。
      * 
-     * @param componentClass
+     * @param uiElementClass
+     *            生成するクラス
      */
     public S2JFaceGenericTagHandler(
             final Class<? extends UIElement> uiElementClass) {

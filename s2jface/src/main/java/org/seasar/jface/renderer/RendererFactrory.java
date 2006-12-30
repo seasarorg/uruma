@@ -119,8 +119,8 @@ public class RendererFactrory {
     /**
      * <code>UIComponent</code> クラスをキーにして、レンダラを取得します。</br>
      * 
-     * @param type
-     *            レンダラ名称
+     * @param uiComponentClass
+     *            レンダラに対応する {@link UIComponent} クラス
      * @return レンダラオブジェクト
      * @throws NotFoundException
      *             レンダラが見つからなかった場合

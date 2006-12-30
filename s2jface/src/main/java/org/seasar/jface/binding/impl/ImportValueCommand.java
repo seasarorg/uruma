@@ -23,7 +23,8 @@ import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.FormDesc;
 
 /**
- * {@link WidgetValueBinder}の <code>importValue()</code> メソッドを実行するためのコマンドです。<br />
+ * {@link org.seasar.jface.binding.WidgetValueBinder}の
+ * <code>importValue()</code> メソッドを実行するためのコマンドです。<br />
  * 
  * @author y-komori
  */

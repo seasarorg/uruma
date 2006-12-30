@@ -26,10 +26,8 @@ import org.seasar.jface.exception.NotFoundException;
  */
 public class BindingFacade {
 
-    public static void bindAll(ActionDesc actionDesc, WindowContext context) {
-        if (actionDesc != null) {
-            MethodBindingSupport.createListeners(actionDesc, context);
-        }
+    public static void bindAll(WindowContext context) {
+        MethodBindingSupport.createListeners(context);
 
         createEnabledDependBinders(context);
     }

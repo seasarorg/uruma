@@ -171,7 +171,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         WindowComponent windowComponent = template.getWindowComponent();
         windowComponent.render(parent, context);
 
-        BindingFacade.bindAll(actionDesc, context);
+        BindingFacade.bindAll(context);
 
         // 画面初期表示時の、Action から 画面への ExportValue 処理を実施
         ValueBinder.exportValue(context);

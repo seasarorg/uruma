@@ -33,7 +33,7 @@ import org.seasar.jface.renderer.layout.impl.GenericLayoutSupport;
  * レイアウトサポートクラスを取得するためのファクトリです。</br>
  * 
  * @author y-komori
- * @see org.seasar.jface.layout.LayoutSupport
+ * @see LayoutSupport
  */
 public class LayoutSupportFactory {
     private static final Map<Class<? extends LayoutInfo>, LayoutSupport> LAYOUT_SUPPORT_MAP = new HashMap<Class<? extends LayoutInfo>, LayoutSupport>();

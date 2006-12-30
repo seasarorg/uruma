@@ -165,8 +165,9 @@ public interface WindowContext {
     /**
      * {@link Widget} をキーとして {@link ViewerAdapter} を登録します。
      * 
-     * @param id
-     *            ID
+     * @param widget
+     *            {@link Widget} オブジェクト
+     * 
      * @param adapter
      *            {@link ViewerAdapter} オブジェクト
      */
@@ -175,8 +176,8 @@ public interface WindowContext {
     /**
      * {@link Widget} をキーとして関連づけられた {@link ViewerAdapter} を取得します。
      * 
-     * @param id
-     *            ID
+     * @param widget
+     *            {@link Widget} オブジェクト
      * @return {@link ViewerAdapter} オブジェクト
      */
     public ViewerAdapter getViewerAdapter(Widget widget);

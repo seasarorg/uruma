@@ -36,7 +36,7 @@ public interface Renderer {
      *            画面情報を収めた <code>WindowContext</code> オブジェクト
      * @return レンダリングしたウィジット
      * @see Widget
-     * @see Composite
+     * @see org.eclipse.swt.widgets.Composite
      */
     public Widget render(UIComponent uiComponent, Widget parent,
             WindowContext context);
@@ -55,7 +55,7 @@ public interface Renderer {
      * @param context
      *            画面情報を収めた <code>WindowContext</code> オブジェクト
      * @see Widget
-     * @see Composite
+     * @see org.eclipse.swt.widgets.Composite
      */
     public void renderAfter(Widget widget, UIComponent uiComponent,
             Widget parent, WindowContext context);

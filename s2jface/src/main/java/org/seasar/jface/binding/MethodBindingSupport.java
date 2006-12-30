@@ -47,18 +47,20 @@ public class MethodBindingSupport {
      * </ul>
      * </p>
      * 
-     * @param windowName
-     *            ウィンドウ名称
      * @param context
-     *            WindowContext
+     *            {@link WindowContext}
      * @see org.seasar.jface.annotation.EventListener
-     * @see WindowContext
      */
-    public static void createListeners(ActionDesc actionDesc,
-            WindowContext context) {
-        Iterator<EventListenerDef> iter = actionDesc.eventListenerDefIterator();
-        while (iter.hasNext()) {
-            createListener(context, iter.next());
+    public static void createListeners(WindowContext context) {
+        Object actionComponent = context.getActionComponent();
+        if (actionComponent != null) {
+            ActionDesc actionDesc = ActionDescFactory
+                    .getActionDesc(actionComponent.getClass());
+            Iterator<EventListenerDef> iter = actionDesc
+                    .eventListenerDefIterator();
+            while (iter.hasNext()) {
+                createListener(context, iter.next());
+            }
         }
     }
 
@@ -71,7 +73,7 @@ public class MethodBindingSupport {
                 targetMethod));
         methodBinding.addArgumentsFilter(new TypedEventArgumentsFilter(
                 targetMethod));
-        
+
         EventListenerType listenerType = eventListenerDef.getEventListener()
                 .type();
 
