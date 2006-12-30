@@ -19,6 +19,13 @@
         <include>*.dll</include>
       </includes>
     </fileSet>
+    <fileSet>
+      <directory>/</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>run.bat</include>
+      </includes>
+    </fileSet>
   </fileSets>
   <dependencySets>
     <dependencySet>
