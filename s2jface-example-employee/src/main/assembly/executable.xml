@@ -9,7 +9,7 @@
       <directory>target</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>s2jface-example-employee-0.1.0.jar</include>
+        <include>s2-jface-example-employee-0.1.0.jar</include>
       </includes>
     </fileSet>
     <fileSet>
@@ -23,7 +23,8 @@
       <directory>src</directory>
       <outputDirectory>/src</outputDirectory>
       <excludes>
-        <exclude>/src/main/assembly/*.xml</exclude>
+        <exclude>main/assembly/*.*</exclude>
+        <exclude>main/assembly</exclude>
       </excludes>
     </fileSet>
     <fileSet>
