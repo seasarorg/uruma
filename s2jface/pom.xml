@@ -3,7 +3,7 @@
   <groupId>org.seasar.jface</groupId>
   <artifactId>s2-jface</artifactId>
   <name>S2JFace</name>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
   <url>http://s2jface.sandbox.seasar.org/</url>
   <issueManagement>
     <system>JIRA</system>
