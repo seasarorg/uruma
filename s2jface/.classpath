@@ -7,22 +7,21 @@
 	<classpathentry kind="src" path="src/example/java"/>
 	<classpathentry kind="src" path="src/example/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="lib/swt-win32-win32-x86-3.2.0.jar" sourcepath="lib/swt-win32-win32-x86-3.2.0-src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/core-commands-3.2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/eclipse-common-1.0-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/equinox-common-3.2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jface-3.2.0.jar" sourcepath="lib/jface-3.2.0-src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/seasar2"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/s2-tiger"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.core.runtime_3.2.0.v20060603.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.equinox.common_3.2.0.v20060603.jar"/>
-	<classpathentry exported="true" sourcepath="C:/eclipse/plugins/org.eclipse.rcp.source_3.2.0.v20060609m-SVDNgVrNoh-MeGG/src/org.eclipse.jface_3.2.0.I20060605-1400/src.zip" kind="lib" path="lib/org.eclipse.jface_3.2.0.I20060605-1400.jar">
-		<attributes>
-			<attribute value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/" name="javadoc_location"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.osgi_3.2.0.v20060601.jar"/>
-	<classpathentry exported="true" sourcepath="C:/eclipse/plugins/org.eclipse.rcp.source.win32.win32.x86_3.2.0.v20060609m-SVDNgVrNoh-MeGG/src/org.eclipse.swt.win32.win32.x86_3.2.0.v3232m/src.zip" kind="lib" path="lib/org.eclipse.swt.win32.win32.x86_3.2.0.v3232m.jar">
-		<attributes>
-			<attribute value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/" name="javadoc_location"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/org.seasar.eclipse.common.plugin"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
