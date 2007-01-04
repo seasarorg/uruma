@@ -23,7 +23,7 @@ public class EmployeeManagement {
      * @param args
      */
     public static void main(String[] args) {
-        S2JFace s2JFace = new S2JFace();
+        S2JFace s2JFace = S2JFace.getInstance();
         s2JFace.openWindow("org/seasar/jface/example/employee/main.xml");
     }
 
