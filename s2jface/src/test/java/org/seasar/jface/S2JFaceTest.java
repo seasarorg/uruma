@@ -26,12 +26,9 @@ public class S2JFaceTest extends TestCase {
     private static final String PATH = "org/seasar/jface/S2JFaceTest.dicon";
 
     public void testInit() {
-        if (SingletonS2ContainerFactory.hasContainer()) {
-            SingletonS2ContainerFactory.destroy();
-        }
-
-        new S2JFace(PATH);
-        assertTrue(SingletonS2ContainerFactory.hasContainer());
+        S2JFace.destroy();
+        S2JFace.setConfigPath(PATH);
+        S2JFace.getInstance();
         List list = (List) SingletonS2ContainerFactory.getContainer()
                 .getComponent(List.class);
         assertNotNull(list);

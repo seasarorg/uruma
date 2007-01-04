@@ -26,6 +26,8 @@ import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
  * 
  */
 public class S2JFace {
+    private static S2JFace instance;
+    
     protected S2Container container;
 
     private Display display;
@@ -35,26 +37,56 @@ public class S2JFace {
     public static void main(String[] args) {
         if (args.length >= 1) {
             String templatePath = args[0];
-            S2JFace s2JFace = new S2JFace();
+            S2JFace s2JFace = S2JFace.getInstance();
             s2JFace.openWindow(templatePath);
         } else {
             System.err.println("[Error] 第1引数に初期画面のテンプレートパスを指定してください.");
         }
     }
-
-    public S2JFace() {
+    
+    /**
+     * 本クラスのインスタンスを取得します。<br />
+     * 
+     * @return S2JFace クラスのインスタンス。
+     */
+    public synchronized static S2JFace getInstance()
+    {
+        if(instance == null){
+            instance = new S2JFace();
+        }
+        return instance;
+    }
+    
+    private S2JFace() {
         initS2Container();
     }
 
-    public S2JFace(String configPath) {
+    /**
+     * Dicon ファイルのパスを設定します。<br />
+     * デフォルトでは、<code>app.dicon</code> が使用されます。<br />
+     * 本メソッドは、S2JFace{@link #getInstance()} を最初に呼び出す前に呼び出してください。
+     * 
+     * @param configPath Dicon ファイルのパス
+     */
+    public static void setConfigPath(final String configPath) {
         SingletonS2ContainerFactory.setConfigPath(configPath);
-        initS2Container();
     }
 
+    /**
+     * 指定された画面定義XMLを読み込み、画面を表示します。<br />
+     * 
+     * @param templatePath 画面定義XMLのパス
+     */
     public void openWindow(final String templatePath) {
         openWindow(templatePath, null);
     }
 
+    /**
+     * 指定された画面定義XMLを読み込み、引数を指定して画面を表示します。<br />
+     * 
+     * @param templatePath 画面定義XMLのパス
+     * @param argument 引数オブジェクト
+     */
     public void openWindow(final String templatePath, Object argument) {
         display = Display.getCurrent();
         if (display == null) {
@@ -86,7 +118,13 @@ public class S2JFace {
         SingletonS2ContainerFactory.setContainer(container);
     }
 
-    public void setImageBundleName(String imageBundleName) {
+    /**
+     * イメージ設定用リソースバンドル名を指定します。<br />
+     * デフォルトでは、<code>s2JFaceImages</code> が使用されます。
+     * 
+     * @param imageBundleName リソースバンドル名
+     */
+    public void setImageBundleName(final String imageBundleName) {
         this.imageBundleName = imageBundleName;
     }
 
@@ -96,8 +134,19 @@ public class S2JFace {
 
     protected void dispose() {
         ImageManager.dispose();
-        display.dispose();
-        display = null;
-        container.destroy();
+        if(display != null){
+            display.dispose();
+            display = null;
+        }
+    }
+    
+    /**
+     * S2JFace のインスタンスを破棄します。
+     */
+    public static void destroy() {
+        if(instance != null){
+            instance.dispose();
+            instance = null;
+        }
     }
 }

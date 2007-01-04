@@ -44,7 +44,7 @@ public abstract class AbstractRendererTest extends S2FrameworkTestCase {
 
     @Override
     protected void setUp() throws Exception {
-        s2JFace = new S2JFace();
+        s2JFace = S2JFace.getInstance();
         S2Container container = SingletonS2ContainerFactory.getContainer();
         container.register(createActionComponentDef());
 
