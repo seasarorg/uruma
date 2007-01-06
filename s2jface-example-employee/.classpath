@@ -15,9 +15,9 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.13.jar"/>
 	<classpathentry kind="lib" path="lib/ognl-2.6.7.jar"/>
 	<classpathentry kind="lib" path="lib/poi-2.5.1-final-20040804.jar"/>
-	<classpathentry sourcepath="D:/Software/開発/Java/Seasar2/s2-dao-1.0.39.zip" kind="lib" path="lib/s2-dao-1.0.39.jar"/>
-	<classpathentry kind="lib" path="lib/s2-extension-2.4.3.jar"/>
-	<classpathentry kind="lib" path="lib/s2-framework-2.4.3.jar"/>
-	<classpathentry kind="lib" path="lib/s2-tiger-2.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/s2-dao-1.0.39.jar" sourcepath="D:/Software/開発/Java/Seasar2/s2-dao-1.0.39.zip"/>
+	<classpathentry kind="lib" path="lib/s2-extension-2.4.7.jar"/>
+	<classpathentry kind="lib" path="lib/s2-framework-2.4.7.jar"/>
+	<classpathentry kind="lib" path="lib/s2-tiger-2.4.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
