@@ -15,7 +15,12 @@
  */
 package org.seasar.jface.example.employee.action;
 
+import javax.annotation.Resource;
+
 import org.eclipse.swt.widgets.Shell;
+import org.seasar.framework.container.annotation.tiger.InterType;
+import org.seasar.framework.container.annotation.tiger.Property;
+import org.seasar.framework.container.annotation.tiger.PropertyType;
 import org.seasar.jface.annotation.ArgumentValue;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.InitializeMethod;
@@ -28,9 +33,10 @@ import org.seasar.jface.example.employee.form.InquireForm;
  */
 public class InquireAction {
     private Shell shell;
-
+    
     private InquireForm inquireForm;
-
+    
+    @Resource
     private InquireFormDxo inquireFormDxo;
 
     @ArgumentValue
@@ -45,11 +51,7 @@ public class InquireAction {
     public void onOk() {
         shell.close();
     }
-
-    public void setInquireFormDxo(InquireFormDxo inquireFormDxo) {
-        this.inquireFormDxo = inquireFormDxo;
-    }
-
+    
     public void setInquireForm(InquireForm inquireForm) {
         this.inquireForm = inquireForm;
     }

@@ -17,6 +17,8 @@ package org.seasar.jface.example.employee.action;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.InitializeMethod;
@@ -31,50 +33,43 @@ import org.seasar.jface.example.employee.logic.EmployeeLogic;
  * @author bskuroneko
  */
 public class SearchAction {
+	@Resource
+	private EmployeeLogic employeeLogic;
 
-    private EmployeeLogic employeeLogic;
+	@Resource
+	private SearchFormDxo searchFormDxo;
 
-    private SearchFormDxo searchFormDxo;
+	private Shell shell;
 
-    private Shell shell;
+	private SearchForm searchForm;
 
-    private SearchForm searchForm;
+	@ReturnValue
+	private List searchResult = null;
 
-    @ReturnValue
-    private List searchResult = null;
+	@InitializeMethod
+	public void initialize() {
+		searchForm.setDeptList(employeeLogic.getAllDepartments());
+	}
 
-    @InitializeMethod
-    public void initialize() {
-        searchForm.setDeptList(employeeLogic.getAllDepartments());
-    }
+	@EventListener(id = "ok")
+	public void onOk() {
+		DepartmentDto selectedDepartment = searchForm.getSelectedDepartment();
+		if (selectedDepartment != null) {
+			searchForm.setDeptno(selectedDepartment.getDeptno());
+		}
 
-    @EventListener(id = "ok")
-    public void onOk() {
-        DepartmentDto selectedDepartment = searchForm.getSelectedDepartment();
-        if (selectedDepartment != null) {
-            searchForm.setDeptno(selectedDepartment.getDeptno());
-        }
+		EmployeeSearchDto searchDto = searchFormDxo.convert(searchForm);
+		searchResult = employeeLogic.searchEmployeeDtoList(searchDto);
+		shell.close();
+	}
 
-        EmployeeSearchDto searchDto = searchFormDxo.convert(searchForm);
-        searchResult = employeeLogic.searchEmployeeDtoList(searchDto);
-        shell.close();
-    }
+	@EventListener(id = "cancel")
+	public void onCancel() {
+		searchResult = null;
+		shell.close();
+	}
 
-    @EventListener(id = "cancel")
-    public void onCancel() {
-        searchResult = null;
-        shell.close();
-    }
-
-    public void setEmployeeLogic(EmployeeLogic employeeLogic) {
-        this.employeeLogic = employeeLogic;
-    }
-
-    public void setSearchFormDxo(SearchFormDxo searchFormDxo) {
-        this.searchFormDxo = searchFormDxo;
-    }
-
-    public void setSearchForm(SearchForm searchForm) {
-        this.searchForm = searchForm;
-    }
+	public void setSearchForm(SearchForm searchForm) {
+		this.searchForm = searchForm;
+	}
 }

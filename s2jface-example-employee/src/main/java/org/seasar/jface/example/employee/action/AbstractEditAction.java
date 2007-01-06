@@ -15,6 +15,8 @@
  */
 package org.seasar.jface.example.employee.action;
 
+import javax.annotation.Resource;
+
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.jface.annotation.ArgumentValue;
 import org.seasar.jface.annotation.EventListener;
@@ -30,49 +32,42 @@ import org.seasar.jface.example.employee.logic.EmployeeLogic;
  * @author bskuroneko
  */
 public abstract class AbstractEditAction {
+	@Resource
+	protected EmployeeLogic employeeLogic;
 
-    protected Shell shell;
+	@Resource
+	protected EmployeeEditFormDxo employeeEditFormDxo;
 
-    protected EmployeeLogic employeeLogic;
+	protected Shell shell;
 
-    protected EmployeeEditForm employeeEditForm;
+	protected EmployeeEditForm employeeEditForm;
 
-    protected EmployeeEditFormDxo employeeEditFormDxo;
+	@ArgumentValue
+	protected EmployeeDto editEmployee;
 
-    @ArgumentValue
-    protected EmployeeDto editEmployee;
+	@ReturnValue
+	private EmployeeDto result;
 
-    @ReturnValue
-    private EmployeeDto result;
+	@InitializeMethod
+	public void initialize() {
+		employeeEditForm.setDeptList(employeeLogic.getAllDepartments());
+	}
 
-    @InitializeMethod
-    public void initialize() {
-        employeeEditForm.setDeptList(employeeLogic.getAllDepartments());
-    }
+	@EventListener(id = "ok")
+	public void onOk() {
+		DepartmentDto selectedDepartmentDto = employeeEditForm
+				.getSelectedDepartmentDto();
+		if (selectedDepartmentDto != null) {
+			employeeEditForm.setDeptno(selectedDepartmentDto.getDeptno());
+		}
+		EmployeeDto employee = employeeEditFormDxo.convert(employeeEditForm);
+		result = doUpdateOrInsert(employee);
+		shell.close();
+	}
 
-    @EventListener(id = "ok")
-    public void onOk() {
-        DepartmentDto selectedDepartmentDto = employeeEditForm
-                .getSelectedDepartmentDto();
-        if (selectedDepartmentDto != null) {
-            employeeEditForm.setDeptno(selectedDepartmentDto.getDeptno());
-        }
-        EmployeeDto employee = employeeEditFormDxo.convert(employeeEditForm);
-        result = doUpdateOrInsert(employee);
-        shell.close();
-    }
+	abstract protected EmployeeDto doUpdateOrInsert(EmployeeDto employeeDto);
 
-    abstract protected EmployeeDto doUpdateOrInsert(EmployeeDto employeeDto);
-
-    public void setEmployeeEditFormDxo(EmployeeEditFormDxo employeeEditFormDxo) {
-        this.employeeEditFormDxo = employeeEditFormDxo;
-    }
-
-    public void setEmployeeEditForm(EmployeeEditForm employeeEditForm) {
-        this.employeeEditForm = employeeEditForm;
-    }
-
-    public void setEmployeeLogic(EmployeeLogic employeeLogic) {
-        this.employeeLogic = employeeLogic;
-    }
+	public void setEmployeeEditForm(EmployeeEditForm employeeEditForm) {
+		this.employeeEditForm = employeeEditForm;
+	}
 }
