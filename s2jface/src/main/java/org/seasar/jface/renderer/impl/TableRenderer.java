@@ -78,7 +78,7 @@ public class TableRenderer extends
     private void setupSorter(Table table, TableViewer viewer, String id) {
         Object sorter = S2ContainerUtil.getComponentNoException(id + SORTER);
         if (sorter != null) {
-            if (sorter.getClass().isAssignableFrom(ViewerSorter.class)) {
+            if (sorter instanceof ViewerSorter) {
                 viewer.setSorter(ViewerSorter.class.cast(sorter));
             } else {
                 throw new RenderException(RenderException.TYPE_ERROR, sorter,
