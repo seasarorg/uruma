@@ -78,7 +78,7 @@ public class GenericTableLabelProvider implements ITableLabelProvider {
      * @param clazz
      *            レコードに対応するクラス
      */
-    public void setTargetClass(Class clazz) {
+    public void setTargetClass(final Class clazz) {
         for (Class<?> target = clazz; target != Object.class; target = target
                 .getSuperclass()) {
             BeanDesc desc = BeanDescFactory.getBeanDesc(clazz);

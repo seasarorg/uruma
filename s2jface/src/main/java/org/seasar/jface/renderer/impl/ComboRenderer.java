@@ -56,9 +56,8 @@ public class ComboRenderer extends
                 if (provider instanceof ILabelProvider) {
                     viewer.setLabelProvider((ILabelProvider) provider);
                 } else {
-                    throw new RenderException(
-                            RenderException.PROVIDER_TYPE_ERROR, provider,
-                            ILabelProvider.class.getName());
+                    throw new RenderException(RenderException.TYPE_ERROR,
+                            provider, ILabelProvider.class.getName());
                 }
             } else {
                 // ユーザー定義のLabelProviderが存在しない場合、

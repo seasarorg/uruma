@@ -19,6 +19,7 @@ import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Widget;
@@ -29,6 +30,7 @@ import org.seasar.jface.exception.RenderException;
 import org.seasar.jface.renderer.RendererSupportUtil;
 import org.seasar.jface.util.S2ContainerUtil;
 import org.seasar.jface.viewer.GenericTableLabelProvider;
+import org.seasar.jface.viewer.GenericTableViewerSorter;
 import org.seasar.jface.viewer.TableViewerAdapter;
 
 /**
@@ -40,6 +42,8 @@ public class TableRenderer extends
         AbstractCompositeRenderer<TableComponent, Table> {
     private static final String LABEL_PROVIDER = "LabelProvider";
 
+    private static final String SORTER = "Sorter";
+
     @Override
     protected void doRenderComposite(TableComponent tableComponent, Table table) {
         TableViewer viewer = new TableViewer(table);
@@ -49,23 +53,41 @@ public class TableRenderer extends
         if (id != null) {
             getContext().putViewerAdapter(table, viewerAdapter);
 
-            // Sets the LabelProvider.
-            Object provider = S2ContainerUtil.getComponentNoException(id
-                    + LABEL_PROVIDER);
-            if (provider != null) {
-                if (provider instanceof ITableLabelProvider
-                        || provider instanceof ILabelProvider) {
-                    viewer.setLabelProvider((IBaseLabelProvider) provider);
-                } else {
-                    throw new RenderException(
-                            RenderException.PROVIDER_TYPE_ERROR, provider,
-                            ITableLabelProvider.class.getName());
-                }
+            setupLabelProvider(table, viewer, id);
+        }
+    }
+
+    private void setupLabelProvider(Table table, TableViewer viewer, String id) {
+        Object provider = S2ContainerUtil.getComponentNoException(id
+                + LABEL_PROVIDER);
+        if (provider != null) {
+            if (provider instanceof ITableLabelProvider
+                    || provider instanceof ILabelProvider) {
+                viewer.setLabelProvider((IBaseLabelProvider) provider);
             } else {
-                // ユーザー定義のLabelProviderが存在しない場合、
-                // デフォルトのLabelProviderを設定する
-                viewer.setLabelProvider(new GenericTableLabelProvider());
+                throw new RenderException(RenderException.TYPE_ERROR, provider,
+                        ITableLabelProvider.class.getName());
             }
+        } else {
+            // ユーザー定義のLabelProviderが存在しない場合、
+            // デフォルトのLabelProviderを設定する
+            viewer.setLabelProvider(new GenericTableLabelProvider());
+        }
+    }
+
+    private void setupSorter(Table table, TableViewer viewer, String id) {
+        Object sorter = S2ContainerUtil.getComponentNoException(id + SORTER);
+        if (sorter != null) {
+            if (sorter.getClass().isAssignableFrom(ViewerSorter.class)) {
+                viewer.setSorter(ViewerSorter.class.cast(sorter));
+            } else {
+                throw new RenderException(RenderException.TYPE_ERROR, sorter,
+                        ViewerSorter.class.getName());
+            }
+        } else {
+            // ユーザ定義のViewerSorterが存在しない場合、
+            // デフォルトのViewerSorterを設定する
+            viewer.setSorter(new GenericTableViewerSorter(viewer));
         }
     }
 
@@ -77,6 +99,10 @@ public class TableRenderer extends
             widget.setSelection((int[]) RendererSupportUtil.convertValue(
                     uiComponent, selection, ConversionType.INT_ARRAY));
         }
+
+        String id = uiComponent.getId();
+        setupSorter(widget, (TableViewer) context.getViewerAdapter(widget)
+                .getViewer(), id);
     }
 
     @Override
