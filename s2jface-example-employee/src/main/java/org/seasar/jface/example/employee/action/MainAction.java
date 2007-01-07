@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -45,6 +46,8 @@ public class MainAction {
 	private EmployeeLogic employeeLogic;
 
 	private Shell shell;
+
+	private IStatusLineManager statusLineManager;
 
 	private Table employeeTable;
 
@@ -88,6 +91,7 @@ public class MainAction {
 					Employee employee = employeeLogic.getEmployee(dto
 							.getEmpno());
 					employeeLogic.delete(employee);
+					statusLineManager.setMessage(null);
 				}
 			} finally {
 				initialize();
@@ -122,5 +126,11 @@ public class MainAction {
 	@EventListener(id = "menuExit")
 	public void exit() {
 		shell.close();
+	}
+
+	@EventListener(id = "employeeTable")
+	public void onTableSelect() {
+		int selCount = employeeTable.getSelectionCount();
+		statusLineManager.setMessage(selCount + "個の項目が選択されています");
 	}
 }

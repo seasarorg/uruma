@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://s2jface.sandbox.seasar.org">
-  <window id="main" title="従業員管理" height="400" width="604" image="title">
+  <window id="main" title="従業員管理" height="400" width="604" image="title" statusLine="true">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true" />
     </gridLayout>
