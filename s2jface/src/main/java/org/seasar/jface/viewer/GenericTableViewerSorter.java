@@ -25,22 +25,38 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.seasar.eclipse.common.util.ImageManager;
 
 /**
- * TableViewer用汎用ソートクラスです。<br />
+ * {@link TableViewer} 用の汎用ソートクラスです。<br />
+ * <p>
+ * ソート時にヘッダに表示される矢印のアイコンを変更したい場合は、 s2JFaceImages.properties に NORMAL_SORT_ARROW,
+ * REVERSE_SORT_ARROW という名前のキーでイメージを登録してください。
+ * </p>
  * 
  * @author y-komori
  */
 public class GenericTableViewerSorter extends ViewerSorter {
-    private static final String NORMAL_MARK = " ▲";
+    private static final String NORMAL_SORT_ARROW = "NORMAL_SORT_ARROW";
 
-    private static final String REVERSE_MARK = " ▼";
+    private static final String REVERSE_SORT_ARROW = "REVERSE_SORT_ARROW";
+
+    private static final String DEFAULT_NORMAL_SORT_ARROW = "images/up_arrow.png";
+
+    private static final String DEFAULT_REVERSE_SORT_ARROW = "images/down_arrow.png";
+
+    private Image normalSortArrow;
+
+    private Image reverseSortArrow;
 
     private Map<TableColumn, Integer> columnMap = new HashMap<TableColumn, Integer>();
 
     private TableColumn sortKey;
+
+    private Image oldColumnImage;
 
     private boolean order = true;
 
@@ -62,6 +78,8 @@ public class GenericTableViewerSorter extends ViewerSorter {
         }
 
         sortKey = columns[0];
+
+        setupImage();
     }
 
     @Override
@@ -100,20 +118,29 @@ public class GenericTableViewerSorter extends ViewerSorter {
      */
     public void setSortKey(final TableColumn tableColumn) {
         if (tableColumn != null) {
-            String oldText = sortKey.getText();
-            if (oldText.endsWith(NORMAL_MARK) || oldText.endsWith(REVERSE_MARK)) {
-                sortKey.setText(oldText.substring(0, oldText.length()
-                        - NORMAL_MARK.length()));
-            }
+            sortKey.setImage(oldColumnImage);
+
             sortKey = tableColumn;
             order = order ? false : true;
 
-            String text = tableColumn.getText();
-            if (text.endsWith(NORMAL_MARK) || text.endsWith(REVERSE_MARK)) {
-                text = text.substring(0, text.length() - NORMAL_MARK.length());
+            Image oldImage = tableColumn.getImage();
+            if ((oldImage != normalSortArrow) && (oldImage != reverseSortArrow)) {
+                oldColumnImage = oldImage;
             }
-            text = text + (order ? NORMAL_MARK : REVERSE_MARK);
-            tableColumn.setText(text);
+            tableColumn.setImage(order ? normalSortArrow : reverseSortArrow);
+        }
+    }
+
+    private void setupImage() {
+        normalSortArrow = ImageManager.getImage(NORMAL_SORT_ARROW);
+        if (normalSortArrow == null) {
+            normalSortArrow = ImageManager.loadImage(DEFAULT_NORMAL_SORT_ARROW);
+        }
+
+        reverseSortArrow = ImageManager.getImage(REVERSE_SORT_ARROW);
+        if (reverseSortArrow == null) {
+            reverseSortArrow = ImageManager
+                    .loadImage(DEFAULT_REVERSE_SORT_ARROW);
         }
     }
 }

@@ -13,7 +13,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/core-commands-3.2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/eclipse-common-1.0-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/eclipse-common-1.0-SNAPSHOT.jar" sourcepath="/org.seasar.eclipse.common.plugin/src"/>
 	<classpathentry exported="true" kind="lib" path="lib/equinox-common-3.2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jface-3.2.0.jar" sourcepath="lib/jface-3.2.0-src.zip">
 		<attributes>
