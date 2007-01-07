@@ -79,14 +79,18 @@ public class GenericTableLabelProvider implements ITableLabelProvider {
      *            レコードに対応するクラス
      */
     public void setTargetClass(Class clazz) {
-        BeanDesc desc = BeanDescFactory.getBeanDesc(clazz);
-        int fieldSize = desc.getFieldSize();
-        for (int i = 0; i < fieldSize; i++) {
-            Field field = desc.getField(i);
-            BindingLabel annotation = field.getAnnotation(BindingLabel.class);
-            if (annotation != null) {
-                int column = annotation.column();
-                columnMap.put(column, field);
+        for (Class<?> target = clazz; target != Object.class; target = target
+                .getSuperclass()) {
+            BeanDesc desc = BeanDescFactory.getBeanDesc(clazz);
+            int fieldSize = desc.getFieldSize();
+            for (int i = 0; i < fieldSize; i++) {
+                Field field = desc.getField(i);
+                BindingLabel annotation = field
+                        .getAnnotation(BindingLabel.class);
+                if (annotation != null) {
+                    int column = annotation.column();
+                    columnMap.put(column, field);
+                }
             }
         }
     }
