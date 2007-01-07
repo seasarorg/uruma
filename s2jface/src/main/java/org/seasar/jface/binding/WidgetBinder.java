@@ -17,6 +17,7 @@ package org.seasar.jface.binding;
 
 import java.lang.reflect.Field;
 
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
@@ -24,10 +25,19 @@ import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.WindowContext;
 
 /**
+ * アクションクラスに対してウィジットバインディングを実行するためのクラスです。
+ * 
  * @author y-komori
- *
  */
 public class WidgetBinder {
+    /**
+     * 指定されたオブジェクトに対して、ウィジットバインディングを行います。
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     * @param context
+     *            {@link WindowContext}
+     */
     public static void bindWidgets(final Object target,
             final WindowContext context) {
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(target.getClass());
@@ -41,6 +51,9 @@ public class WidgetBinder {
                         && (fieldType.isAssignableFrom(widget.getClass()))) {
                     FieldUtil.set(field, target, widget);
                 }
+            } else if (IStatusLineManager.class.isAssignableFrom(fieldType)) {
+                // IStatusLineMnager のバインディング
+                FieldUtil.set(field, target, context.getStatusLineManager());
             }
         }
     }

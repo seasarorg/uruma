@@ -18,6 +18,7 @@ package org.seasar.jface;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.binding.EnabledDepend;
@@ -181,4 +182,19 @@ public interface WindowContext {
      * @return {@link ViewerAdapter} オブジェクト
      */
     public ViewerAdapter getViewerAdapter(Widget widget);
+
+    /**
+     * {@link IStatusLineManager} を登録します。
+     * 
+     * @param statusLineManager
+     *            {@link IStatusLineManager} のオブジェクト
+     */
+    public void setStatusLineManager(IStatusLineManager statusLineManager);
+
+    /**
+     * {@link IStatusLineManager} を取得します。
+     * 
+     * @return {@link IStatusLineManager} のオブジェクト
+     */
+    public IStatusLineManager getStatusLineManager();
 }

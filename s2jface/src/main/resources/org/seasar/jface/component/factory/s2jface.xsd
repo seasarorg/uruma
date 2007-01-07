@@ -34,6 +34,7 @@
           <xs:attribute name="minimumWidth" type="xs:int" />
           <xs:attribute name="minimumHeight" type="xs:int" />
           <xs:attribute name="defaultFocusId" type="xs:string" />
+          <xs:attribute name="statusLine" type="xs:boolean" />
           <!-- TODO region -->
         </xs:extension>
       </xs:complexContent>

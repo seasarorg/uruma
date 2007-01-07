@@ -31,6 +31,7 @@ import org.seasar.jface.binding.ActionDesc;
 import org.seasar.jface.binding.ActionDescFactory;
 import org.seasar.jface.binding.BindingFacade;
 import org.seasar.jface.binding.ValueBinder;
+import org.seasar.jface.binding.WidgetBinder;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.renderer.impl.WindowRenderer;
@@ -79,6 +80,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         setupFormComponent();
         // setupMenuBar();
         setupShellStyle(template.getWindowComponent(), modal);
+        setupStatusLine();
     }
 
     protected void setupActionComponent() {
@@ -164,6 +166,14 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
     // }
     // }
 
+    protected void setupStatusLine() {
+        String statusLine = template.getWindowComponent().getStatusLine();
+        if ("true".equals(statusLine)) {
+            addStatusLine();
+            context.setStatusLineManager(getStatusLineManager());
+        }
+    }
+
     @Override
     protected Control createContents(Composite parent) {
         // registMenuToContext();
@@ -213,6 +223,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
      */
     public void initActionComponent(Object argument) {
         if (actionComponent != null) {
+            WidgetBinder.bindWidgets(actionComponent, context);
             actionDesc.setArgumentValue(actionComponent, argument);
             actionDesc.invokeInitializeMethod(actionComponent);
         }

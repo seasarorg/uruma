@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
@@ -56,6 +57,8 @@ public class WindowContextImpl implements WindowContext {
     private List<WidgetEnabledDependBinder> widgetEnabledDependBinders = new ArrayList<WidgetEnabledDependBinder>();
 
     private Map<Widget, ViewerAdapter> viewerAdapterMap = new HashMap<Widget, ViewerAdapter>();
+
+    private IStatusLineManager statusLineManager;
 
     /*
      * @see org.seasar.jface.WindowContext#getActionObject()
@@ -161,5 +164,19 @@ public class WindowContextImpl implements WindowContext {
      */
     public void putViewerAdapter(Widget widget, ViewerAdapter adapter) {
         viewerAdapterMap.put(widget, adapter);
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#getStatusLineManager()
+     */
+    public IStatusLineManager getStatusLineManager() {
+        return this.statusLineManager;
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#setStatusLineManager(org.eclipse.jface.action.IStatusLineManager)
+     */
+    public void setStatusLineManager(IStatusLineManager statusLineManager) {
+        this.statusLineManager = statusLineManager;
     }
 }

@@ -58,6 +58,9 @@ public class WindowComponent extends CompositeComponent {
     @ComponentAttribute(targetType = TargetType.NONE)
     private String defaultFocusId;
 
+    @ComponentAttribute(targetType = TargetType.NONE)
+    private String statusLine;
+
     @Override
     public void render(Widget parent, WindowContext context) {
         if (parent instanceof Shell) {
@@ -147,4 +150,11 @@ public class WindowComponent extends CompositeComponent {
         this.defaultFocusId = defaultFocusId;
     }
 
+    public String getStatusLine() {
+        return this.statusLine;
+    }
+
+    public void setStatusLine(String statusLine) {
+        this.statusLine = statusLine;
+    }
 }
