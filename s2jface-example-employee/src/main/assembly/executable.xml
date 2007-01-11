@@ -9,7 +9,7 @@
       <directory>target</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>s2-jface-example-employee-0.1.0.jar</include>
+        <include>s2-jface-example-employee-0.2.0.jar</include>
       </includes>
     </fileSet>
     <fileSet>
