@@ -32,7 +32,7 @@ public class ComponentTreeBuilderTest extends S2FrameworkTestCase {
      */
     public void testBuild() {
         Template template = (Template) builder
-                .build(convertPath("org/seasar/jface/example/janken/DIdeJanken.xml"));
+                .build(convertPath("org/seasar/jface/component/factory/DIdeJanken.xml"));
 
         assertNotNull(template);
 

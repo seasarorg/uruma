@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://s2jface.sandbox.seasar.org">
+  <window id="janken" title="DIでジャンケン" image="container.gif" background="white">
+    <commonAttributes background="white" foreground="black" fontHeight="50"/>
+    <gridLayout numColumns="3" marginHeight="5" marginWidth="5">
+      <gridData horizontalAlignment="CENTER" verticalAlignment="CENTER" />
+    </gridLayout>
+
+    <label text="コンピュータ" />
+    <composite />
+    <label text="あなた" />
+
+    <label id="computerWinLabel" text="0 勝" />
+    <composite />
+    <label id="playerWinLabel" text="0 勝" />
+
+    <label id="computerHandImage" image="blank" />
+    <label text="vs" fontHeight="100">
+      <gridData verticalAlignment="CENTER"
+        grabExcessHorizontalSpace="true" />
+    </label>
+    <label id="playerHandImage" image="blank" />
+
+    <label id="messageLabel" text="じゃんけん・・・" alignment="CENTER">
+      <gridData horizontalSpan="3" horizontalAlignment="FILL"/>
+    </label>
+
+    <composite>
+      <fillLayout spacing="20" marginWidth="20" />
+      <gridData horizontalSpan="3" />
+
+      <button id="guButton" text="グー!" />
+      <button id="cyokiButton" text="チョキ!" />
+      <button id="paButton" text="パー!" />
+    </composite>
+  </window>
+</template>
