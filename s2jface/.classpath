@@ -4,20 +4,18 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/test/resources"/>
-	<classpathentry kind="src" path="src/example/java"/>
-	<classpathentry kind="src" path="src/example/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="lib/swt-win32-win32-x86-3.2.0.jar" sourcepath="lib/swt-win32-win32-x86-3.2.0-src.zip">
+	<classpathentry exported="true" sourcepath="lib/swt-win32-win32-x86-3.2.0-src.zip" kind="lib" path="lib/swt-win32-win32-x86-3.2.0.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/"/>
+			<attribute value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/" name="javadoc_location"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/core-commands-3.2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/eclipse-common-1.0-SNAPSHOT.jar" sourcepath="/org.seasar.eclipse.common.plugin/src"/>
+	<classpathentry exported="true" sourcepath="/org.seasar.eclipse.common.plugin/src" kind="lib" path="lib/eclipse-common-1.0-SNAPSHOT.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/equinox-common-3.2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jface-3.2.0.jar" sourcepath="lib/jface-3.2.0-src.zip">
+	<classpathentry exported="true" sourcepath="lib/jface-3.2.0-src.zip" kind="lib" path="lib/jface-3.2.0.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/"/>
+			<attribute value="http://help.eclipse.org/help32/nftopic/org.eclipse.platform.doc.isv/reference/api/" name="javadoc_location"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/seasar2"/>
