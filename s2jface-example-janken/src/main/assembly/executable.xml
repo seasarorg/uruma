@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+  <id></id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <directory>target</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>s2-jface-example-janken-0.2.0.jar</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>lib</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>*.dll</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>src</directory>
+      <outputDirectory>/src</outputDirectory>
+      <excludes>
+        <exclude>main/assembly/*.*</exclude>
+        <exclude>main/assembly</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
+      <directory>/</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>run.bat</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet>
+      <directory>/</directory>
+      <outputDirectory></outputDirectory>
+      <includes>
+        <include>LICENSE.txt</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>licenses</directory>
+      <outputDirectory>/licenses</outputDirectory>
+    </fileSet>
+  </fileSets>
+  <dependencySets>
+    <dependencySet>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+      <outputDirectory>/lib</outputDirectory>
+    </dependencySet>
+  </dependencySets>
+</assembly>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+	<component class="org.seasar.jface.example.janken.JankenAction" />
+	
+	<component class="org.seasar.jface.example.janken.impl.ComputerPlayer" />
+	
+	<component class="org.seasar.jface.example.janken.impl.RandomTactics" />
+	
+	<component name="traceInterceptor" class="org.seasar.framework.aop.interceptors.TraceInterceptor" />
+</components>
