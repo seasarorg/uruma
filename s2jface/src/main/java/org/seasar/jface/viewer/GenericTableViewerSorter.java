@@ -46,6 +46,10 @@ public class GenericTableViewerSorter extends ViewerSorter {
     public GenericTableViewerSorter(final TableViewer viewer) {
         this.table = viewer.getTable();
         TableColumn[] columns = table.getColumns();
+        if (columns.length == 0) {
+            return;
+        }
+        
         for (int i = 0; i < columns.length; i++) {
             columnMap.put(columns[i], i);
 

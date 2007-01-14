@@ -48,31 +48,34 @@ public class TableRenderer extends
     protected void doRenderComposite(TableComponent tableComponent, Table table) {
         TableViewer viewer = new TableViewer(table);
         TableViewerAdapter viewerAdapter = new TableViewerAdapter(viewer);
+        getContext().putViewerAdapter(table, viewerAdapter);
 
         String id = tableComponent.getId();
-        if (id != null) {
-            getContext().putViewerAdapter(table, viewerAdapter);
-
-            setupLabelProvider(table, viewer, id);
-        }
+        setupLabelProvider(viewer, id);
     }
 
-    private void setupLabelProvider(Table table, TableViewer viewer, String id) {
-        Object provider = S2ContainerUtil.getComponentNoException(id
-                + LABEL_PROVIDER);
-        if (provider != null) {
-            if (provider instanceof ITableLabelProvider
-                    || provider instanceof ILabelProvider) {
-                viewer.setLabelProvider((IBaseLabelProvider) provider);
-            } else {
-                throw new RenderException(RenderException.TYPE_ERROR, provider,
-                        ITableLabelProvider.class.getName());
+    private void setupLabelProvider(TableViewer viewer, String id) {
+        IBaseLabelProvider provider = null;
+        if (id != null) {
+            Object defined = S2ContainerUtil.getComponentNoException(id
+                    + LABEL_PROVIDER);
+            if (defined != null) {
+                if (defined instanceof ITableLabelProvider
+                        || defined instanceof ILabelProvider) {
+                    provider = (IBaseLabelProvider) defined;
+                } else {
+                    throw new RenderException(RenderException.TYPE_ERROR,
+                            provider, ITableLabelProvider.class.getName());
+                }
             }
-        } else {
+        }
+
+        if (provider == null) {
             // ユーザー定義のLabelProviderが存在しない場合、
             // デフォルトのLabelProviderを設定する
-            viewer.setLabelProvider(new GenericTableLabelProvider());
+            provider = new GenericTableLabelProvider();
         }
+        viewer.setLabelProvider(provider);
     }
 
     private void setupSorter(Table table, TableViewer viewer, String id) {

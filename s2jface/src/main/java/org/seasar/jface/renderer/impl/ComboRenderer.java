@@ -16,7 +16,9 @@
 package org.seasar.jface.renderer.impl;
 
 import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
 import org.seasar.jface.component.impl.ComboComponent;
@@ -25,6 +27,7 @@ import org.seasar.jface.exception.RenderException;
 import org.seasar.jface.util.S2ContainerUtil;
 import org.seasar.jface.viewer.ComboViewerAdapter;
 import org.seasar.jface.viewer.GenericLabelProvider;
+import org.seasar.jface.viewer.GenericTableLabelProvider;
 
 /**
  * <code>Combo</code> のレンダリングを行うクラスです。<br />
@@ -45,28 +48,35 @@ public class ComboRenderer extends
     protected void doRenderComposite(ComboComponent comboComponent, Combo combo) {
         ComboViewer viewer = new ComboViewer(combo);
         ComboViewerAdapter viewerAdapter = new ComboViewerAdapter(viewer);
+        getContext().putViewerAdapter(combo, viewerAdapter);
 
         String id = comboComponent.getId();
-        if (id != null) {
-            getContext().putViewerAdapter(combo, viewerAdapter);
+        setupLabelProvider(viewer, id);
 
-            Object provider = S2ContainerUtil.getComponentNoException(id
+        addItems(comboComponent, combo);
+    }
+
+    private void setupLabelProvider(ComboViewer viewer, String id) {
+        IBaseLabelProvider provider = null;
+        if (id != null) {
+            Object defined = S2ContainerUtil.getComponentNoException(id
                     + LABEL_PROVIDER);
-            if (provider != null) {
-                if (provider instanceof ILabelProvider) {
-                    viewer.setLabelProvider((ILabelProvider) provider);
+            if (defined != null) {
+                if (defined instanceof ILabelProvider) {
+                    provider = (IBaseLabelProvider) defined;
                 } else {
                     throw new RenderException(RenderException.TYPE_ERROR,
                             provider, ILabelProvider.class.getName());
                 }
-            } else {
-                // ユーザー定義のLabelProviderが存在しない場合、
-                // デフォルトのLabelProviderを設定する
-                viewer.setLabelProvider(new GenericLabelProvider());
             }
         }
 
-        addItems(comboComponent, combo);
+        if (provider == null) {
+            // ユーザー定義のLabelProviderが存在しない場合、
+            // デフォルトのLabelProviderを設定する
+            provider = new GenericLabelProvider();
+        }
+        viewer.setLabelProvider(provider);
     }
 
     private void addItems(ComboComponent controlComponent, Combo control) {

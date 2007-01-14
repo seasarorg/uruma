@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://s2jface.sandbox.seasar.org">
+  <window id="CoolBarRendererGUITest" title="CoolBarRendererGUITest"
+    defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    
+    <coolBar wrapIndices="2, 4">
+      <commonAttributes fontHeight="12"/>
+
+      <coolItem>
+        <toolBar>
+          <toolItem image="/images/container.gif" />
+          <toolItem image="/images/component.gif" />
+        </toolBar>
+      </coolItem>
+
+      <coolItem>
+        <text text="テキスト" />
+      </coolItem>
+
+      <coolItem style="DROP_DOWN">
+        <toolBar>
+          <toolItem image="/images/container.gif" />
+          <toolItem image="/images/component.gif" />
+        </toolBar>
+      </coolItem>
+
+      <coolItem>
+        <label text="←ドロップダウン" />
+      </coolItem>
+
+      <coolItem>
+        <button text="ボタン" />
+      </coolItem>
+
+      <coolItem>
+        <composite>
+          <gridLayout numColumns="2" />
+          <label text="ラベル:" />
+          <button text="ボタン" />
+        </composite>
+      </coolItem>
+
+    </coolBar>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

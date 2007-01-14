@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://s2jface.sandbox.seasar.org">
+  <window id="s2JFaceApplicationWindowGUITest" title="S2JFaceApplicationWindowGUITest"
+    width="50%" height="50%" x="center" y="middle"
+    image="../template/container.gif">
+
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

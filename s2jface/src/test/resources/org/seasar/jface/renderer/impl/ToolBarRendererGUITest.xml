@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://s2jface.sandbox.seasar.org">
+  <window id="ToolBarRendererGUITest" title="ToolBarRendererGUITest"
+    defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="VERTICAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="12" />
+
+      <toolBar>
+        <toolItem text="アイテム" toolTipText="ツールチップ\nテキスト" />
+        <toolItem text="イメージ" image="/images/container.gif" />
+        <toolItem text="使用不可イメージ" image="/images/container.gif" disabledImage="/images/component.gif" enabled="false" />
+        <toolItem text="ホットイメージ" image="/images/container.gif" hotImage="/images/component.gif" />
+        <toolItem style="SEPARATOR"/>
+        <toolItem style="CHECK" text="チェック(非選択)" />
+        <toolItem style="CHECK" text="チェック(選択)" selection="true" />
+        <toolItem style="SEPARATOR"/>
+        <toolItem style="RADIO" text="ラジオ(非選択)" />
+        <toolItem style="RADIO" text="ラジオ(選択)" selection="true"  />
+        <toolItem style="SEPARATOR"/>
+        <toolItem style="DROP_DOWN" text="ドロップダウン">
+        </toolItem>
+      </toolBar>
+      
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>
