@@ -60,10 +60,11 @@ public class TableValueBinder implements WidgetValueBinder {
             } else if (List.class.isAssignableFrom(type)) {
                 List listContents = (List) contents;
                 viewerAdapter.setContents(listContents);
-
-                Object content = listContents.get(0);
-                setClassToGenericTableLabelProvider(provider, content
-                        .getClass());
+                if (listContents.size() > 0) {
+                    Object content = listContents.get(0);
+                    setClassToGenericTableLabelProvider(provider, content
+                            .getClass());
+                }
             } else {
                 viewerAdapter.setContents(new Object[] { contents });
                 setClassToGenericTableLabelProvider(provider, contents
