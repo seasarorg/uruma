@@ -18,8 +18,10 @@ package org.seasar.jface.binding.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.seasar.jface.annotation.BindingLabel;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.Form;
 import org.seasar.jface.annotation.InitializeMethod;
 import org.seasar.jface.renderer.impl.AbstractGUITest;
 
@@ -27,6 +29,7 @@ import org.seasar.jface.renderer.impl.AbstractGUITest;
  * @author bskuroneko
  * 
  */
+@Form(TableEnabledDependBinderGUITest.class)
 public class TableEnabledDependBinderGUITest extends AbstractGUITest {
 
     private int nextIndex = 0;
@@ -61,8 +64,10 @@ public class TableEnabledDependBinderGUITest extends AbstractGUITest {
     }
 
     public static class TableBean {
+        @BindingLabel(column=0)
         private String column1;
 
+        @BindingLabel(column=1)
         private String column2;
 
         public String getColumn1() {
