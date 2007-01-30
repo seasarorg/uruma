@@ -27,8 +27,6 @@ import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.EnabledDepend;
 import org.seasar.jface.binding.WidgetEnabledDependBinder;
-import org.seasar.jface.binding.impl.ExportValueBinder;
-import org.seasar.jface.binding.impl.ImportValueBinder;
 import org.seasar.jface.exception.DuplicateComponentIdException;
 import org.seasar.jface.util.AssertionUtil;
 import org.seasar.jface.viewer.ViewerAdapter;
@@ -49,10 +47,6 @@ public class WindowContextImpl implements WindowContext {
     protected MenuManager menuBar;
 
     private List<EnabledDepend> enabledDepends = new ArrayList<EnabledDepend>();
-
-    private List<ImportValueBinder> importValueBinders = new ArrayList<ImportValueBinder>();
-
-    private List<ExportValueBinder> exportValueBinders = new ArrayList<ExportValueBinder>();
 
     private List<WidgetEnabledDependBinder> widgetEnabledDependBinders = new ArrayList<WidgetEnabledDependBinder>();
 
