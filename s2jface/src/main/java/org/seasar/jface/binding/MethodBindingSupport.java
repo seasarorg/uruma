@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.EventListenerType;
 import org.seasar.jface.events.ListenerFactory;
-import org.seasar.jface.exception.NotFoundException;
+import org.seasar.jface.exception.WidgetNotFoundException;
 
 /**
  * メソッドバインディングの生成をサポートするクラスです。</br>
@@ -84,7 +84,8 @@ public class MethodBindingSupport {
             if (widget != null) {
                 ListenerBinder.bindListener(listenerType, listener, widget);
             } else {
-                throw new NotFoundException(NotFoundException.WIDGET, id);
+                String className = targetMethod.getDeclaringClass().getName();
+                throw new WidgetNotFoundException(id, className);
             }
         }
     }

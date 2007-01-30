@@ -31,8 +31,6 @@ public class NotFoundException extends S2JFaceRuntimeException {
 
     public static final String SWT_EVENT_LISTENER = "EJFC0104";
 
-    public static final String WIDGET = "EJFC0105";
-
     public static final String WINDOW = "EJFC0300";
 
     public static final String EXTEND_TARGET_COMPONENT = "EJFC0107";
