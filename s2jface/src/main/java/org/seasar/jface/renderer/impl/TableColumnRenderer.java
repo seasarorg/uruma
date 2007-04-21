@@ -15,8 +15,13 @@
  */
 package org.seasar.jface.renderer.impl;
 
+import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.TableColumn;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.impl.TableColumnComponent;
+import org.seasar.jface.viewer.GenericTableLabelProvider;
+import org.seasar.jface.viewer.ViewerAdapter;
 
 /**
  * <code>TableColumn</code> のレンダリングを行うクラスです。<br />
@@ -28,11 +33,27 @@ public class TableColumnRenderer extends
 
     @Override
     protected void doRender(TableColumnComponent uiComponent, TableColumn widget) {
+        setupColumnMap(uiComponent, widget);
     }
-    
+
     @Override
     protected Class<TableColumn> getWidgetType() {
         return TableColumn.class;
     }
 
+    private void setupColumnMap(TableColumnComponent uiComponent,
+            TableColumn widget) {
+        int columnNo = uiComponent.getColumnNo();
+        String id = uiComponent.getId();
+
+        WindowContext context = getContext();
+        ViewerAdapter adapter = context.getViewerAdapter(widget.getParent());
+        TableViewer viewer = (TableViewer) adapter.getViewer();
+        IBaseLabelProvider baseLabelProvider = viewer.getLabelProvider();
+
+        if (baseLabelProvider instanceof GenericTableLabelProvider) {
+            GenericTableLabelProvider provider = (GenericTableLabelProvider) baseLabelProvider;
+            provider.addColumnMap(columnNo, id);
+        }
+    }
 }

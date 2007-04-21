@@ -25,7 +25,6 @@ import org.eclipse.swt.graphics.Image;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.util.FieldUtil;
-import org.seasar.jface.annotation.BindingLabel;
 
 /**
  * 汎用的な {@link org.eclipse.jface.viewers.ITableLabelProvider} の実装クラスです。<br />
@@ -42,6 +41,8 @@ import org.seasar.jface.annotation.BindingLabel;
  * @author y-komori
  */
 public class GenericTableLabelProvider implements ITableLabelProvider {
+    protected Map<String, Integer> columnNoMap = new HashMap<String, Integer>();
+
     protected Map<Integer, Field> columnMap = new HashMap<Integer, Field>();
 
     public Image getColumnImage(Object element, int columnIndex) {
@@ -79,19 +80,24 @@ public class GenericTableLabelProvider implements ITableLabelProvider {
      *            レコードに対応するクラス
      */
     public void setTargetClass(final Class clazz) {
-        for (Class<?> target = clazz; target != Object.class; target = target
-                .getSuperclass()) {
-            BeanDesc desc = BeanDescFactory.getBeanDesc(clazz);
-            int fieldSize = desc.getFieldSize();
-            for (int i = 0; i < fieldSize; i++) {
-                Field field = desc.getField(i);
-                BindingLabel annotation = field
-                        .getAnnotation(BindingLabel.class);
-                if (annotation != null) {
-                    int column = annotation.column();
-                    columnMap.put(column, field);
-                }
+        BeanDesc desc = BeanDescFactory.getBeanDesc(clazz);
+        for (String columnName : columnNoMap.keySet()) {
+            if (desc.hasField(columnName)) {
+                Field field = desc.getField(columnName);
+                columnMap.put(columnNoMap.get(columnName), field);
             }
         }
+    }
+
+    /**
+     * カラム名とカラム番号の対応を設定します。<br />
+     * 
+     * @param columnNo
+     *            カラム番号
+     * @param columnName
+     *            カラム名
+     */
+    public void addColumnMap(int columnNo, String columnName) {
+        columnNoMap.put(columnName, columnNo);
     }
 }

@@ -44,6 +44,8 @@ public class TableComponent extends CompositeComponent {
         return this.columnOrder;
     }
 
+    private int columnCount;
+
     public void setColumnOrder(String columnOrder) {
         this.columnOrder = columnOrder;
     }
@@ -79,4 +81,13 @@ public class TableComponent extends CompositeComponent {
     public void setTopIndex(String topIndex) {
         this.topIndex = topIndex;
     }
+
+    public int getColumnCount() {
+        return this.columnCount;
+    }
+
+    public void setColumnCount(int columnCount) {
+        this.columnCount = columnCount;
+    }
+
 }

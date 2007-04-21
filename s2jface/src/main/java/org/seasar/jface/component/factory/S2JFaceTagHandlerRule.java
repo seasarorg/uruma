@@ -27,6 +27,7 @@ import org.seasar.jface.component.factory.handler.S2JFaceGenericTagHandler;
 import org.seasar.jface.component.factory.handler.SeparatorTagHandler;
 import org.seasar.jface.component.factory.handler.SimpleItemTagHandler;
 import org.seasar.jface.component.factory.handler.TableCellTagHandler;
+import org.seasar.jface.component.factory.handler.TableColumnTagHandler;
 import org.seasar.jface.component.factory.handler.TemplateTagHandler;
 import org.seasar.jface.component.factory.handler.WindowTagHandler;
 import org.seasar.jface.component.impl.ButtonComponent;
@@ -52,7 +53,6 @@ import org.seasar.jface.component.impl.SliderComponent;
 import org.seasar.jface.component.impl.SpinnerComponent;
 import org.seasar.jface.component.impl.TabFolderComponent;
 import org.seasar.jface.component.impl.TabItemComponent;
-import org.seasar.jface.component.impl.TableColumnComponent;
 import org.seasar.jface.component.impl.TableComponent;
 import org.seasar.jface.component.impl.TableItemComponent;
 import org.seasar.jface.component.impl.TextComponent;
@@ -93,8 +93,7 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
                 TabItemComponent.class));
         addTagHandler("table", new S2JFaceGenericTagHandler(
                 TableComponent.class));
-        addTagHandler("tableColumn", new S2JFaceGenericTagHandler(
-                TableColumnComponent.class));
+        addTagHandler("tableColumn", new TableColumnTagHandler());
         addTagHandler("tableItem", new S2JFaceGenericTagHandler(
                 TableItemComponent.class));
         addTagHandler(new TableCellTagHandler());
@@ -133,8 +132,7 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
                 ScaleComponent.class));
         addTagHandler("slider", new S2JFaceGenericTagHandler(
                 SliderComponent.class));
-        addTagHandler("link", new S2JFaceGenericTagHandler(
-                LinkComponent.class));
+        addTagHandler("link", new S2JFaceGenericTagHandler(LinkComponent.class));
 
         // SimpleItem
         addTagHandler(new SimpleItemTagHandler());

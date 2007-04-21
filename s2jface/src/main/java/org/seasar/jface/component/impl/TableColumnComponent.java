@@ -22,21 +22,23 @@ import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
  * @author bskuroneko
  */
 public class TableColumnComponent extends AbstractItemComponent {
-    
+
     @ComponentAttribute(conversionType = ConversionType.SWT_CONST)
     private String alignment;
-    
+
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private String moveable;
-    
+
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private String resizable;
-    
+
     @ComponentAttribute(conversionType = ConversionType.TEXT)
     private String toolTipText;
-    
+
     @ComponentAttribute(conversionType = ConversionType.INT)
     private String width;
+
+    private int columnNo;
 
     public String getAlignment() {
         return this.alignment;
@@ -77,5 +79,13 @@ public class TableColumnComponent extends AbstractItemComponent {
     public void setWidth(String width) {
         this.width = width;
     }
-    
+
+    public int getColumnNo() {
+        return this.columnNo;
+    }
+
+    public void setColumnNo(int columnNo) {
+        this.columnNo = columnNo;
+    }
+
 }
