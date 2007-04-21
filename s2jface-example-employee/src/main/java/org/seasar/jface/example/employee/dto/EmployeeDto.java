@@ -15,130 +15,120 @@
  */
 package org.seasar.jface.example.employee.dto;
 
-import org.seasar.jface.annotation.BindingLabel;
-
 public class EmployeeDto {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @BindingLabel(column = 0)
-    private Integer empno;
+	private Integer empno;
 
-    @BindingLabel(column = 1)
-    private String ename;
+	private String ename;
 
-    @BindingLabel(column = 2)
-    private String job;
+	private String job;
 
-    private Integer mgr;
+	private Integer mgr;
 
-    @BindingLabel(column = 3)
-    private String mname;
+	private String mname;
 
-    @BindingLabel(column = 4)
-    private String hiredate;
+	private String hiredate;
 
-    @BindingLabel(column = 5)
-    private String sal;
+	private String sal;
 
-    @BindingLabel(column = 6)
-    private String comm;
+	private String comm;
 
-    @BindingLabel(column = 7)
-    private String dname;
+	private String dname;
 
-    private Integer deptno;
+	private Integer deptno;
 
-    private int versionNo;
+	private int versionNo;
 
-    public EmployeeDto() {
-    }
+	public EmployeeDto() {
+	}
 
-    public String getComm() {
-        return comm;
-    }
+	public String getComm() {
+		return comm;
+	}
 
-    public void setComm(String comm) {
-        this.comm = comm;
-    }
+	public void setComm(String comm) {
+		this.comm = comm;
+	}
 
-    public String getDname() {
-        return dname;
-    }
+	public String getDname() {
+		return dname;
+	}
 
-    public void setDname(String dname) {
-        this.dname = dname;
-    }
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
 
-    public Integer getEmpno() {
-        return empno;
-    }
+	public Integer getEmpno() {
+		return empno;
+	}
 
-    public void setEmpno(Integer empno) {
-        this.empno = empno;
-    }
+	public void setEmpno(Integer empno) {
+		this.empno = empno;
+	}
 
-    public String getEname() {
-        return ename;
-    }
+	public String getEname() {
+		return ename;
+	}
 
-    public void setEname(String ename) {
-        this.ename = ename;
-    }
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
 
-    public String getHiredate() {
-        return hiredate;
-    }
+	public String getHiredate() {
+		return hiredate;
+	}
 
-    public void setHiredate(String hiredate) {
-        this.hiredate = hiredate;
-    }
+	public void setHiredate(String hiredate) {
+		this.hiredate = hiredate;
+	}
 
-    public String getJob() {
-        return job;
-    }
+	public String getJob() {
+		return job;
+	}
 
-    public void setJob(String job) {
-        this.job = job;
-    }
+	public void setJob(String job) {
+		this.job = job;
+	}
 
-    public Integer getMgr() {
-        return mgr;
-    }
+	public Integer getMgr() {
+		return mgr;
+	}
 
-    public void setMgr(Integer mgr) {
-        this.mgr = mgr;
-    }
+	public void setMgr(Integer mgr) {
+		this.mgr = mgr;
+	}
 
-    public String getMname() {
-        return mname;
-    }
+	public String getMname() {
+		return mname;
+	}
 
-    public void setMname(String mname) {
-        this.mname = mname;
-    }
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
 
-    public String getSal() {
-        return sal;
-    }
+	public String getSal() {
+		return sal;
+	}
 
-    public void setSal(String sal) {
-        this.sal = sal;
-    }
+	public void setSal(String sal) {
+		this.sal = sal;
+	}
 
-    public Integer getDeptno() {
-        return deptno;
-    }
+	public Integer getDeptno() {
+		return deptno;
+	}
 
-    public void setDeptno(Integer deptno) {
-        this.deptno = deptno;
-    }
+	public void setDeptno(Integer deptno) {
+		this.deptno = deptno;
+	}
 
-    public int getVersionNo() {
-        return versionNo;
-    }
+	public int getVersionNo() {
+		return versionNo;
+	}
 
-    public void setVersionNo(int versionNo) {
-        this.versionNo = versionNo;
-    }
+	public void setVersionNo(int versionNo) {
+		this.versionNo = versionNo;
+	}
 }
