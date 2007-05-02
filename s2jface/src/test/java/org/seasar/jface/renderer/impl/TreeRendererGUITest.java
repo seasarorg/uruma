@@ -15,7 +15,10 @@
  */
 package org.seasar.jface.renderer.impl;
 
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TreeNode;
+import org.eclipse.swt.graphics.Image;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.Form;
 
@@ -31,5 +34,33 @@ public class TreeRendererGUITest extends AbstractGUITest {
         tparent = new TreeNode[2];
         tparent[0] = new TreeNode("大企業");
         tparent[1] = new TreeNode("中企業");
+    }
+
+    public static class TreeNodeLabelProvider implements ILabelProvider {
+
+        public Image getImage(Object element) {
+            return null;
+        }
+
+        public String getText(Object element) {
+            if (element instanceof TreeNode) {
+                TreeNode treeNode = (TreeNode) element;
+                return treeNode.getValue().toString();
+            }
+            return null;
+        }
+
+        public void addListener(ILabelProviderListener listener) {
+        }
+
+        public void dispose() {
+        }
+
+        public boolean isLabelProperty(Object element, String property) {
+            return false;
+        }
+
+        public void removeListener(ILabelProviderListener listener) {
+        }
     }
 }

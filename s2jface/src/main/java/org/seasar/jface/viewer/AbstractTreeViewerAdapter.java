@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.Viewer;
 
 /**
  * {@link TreeViewer} のための規定アダプタクラスです。<br />
+ * デフォルトのコンテントプロバイダとして、{@link TreeNodeContentProvider} を使用します。
  * 
  * @author y-komori
  * 
