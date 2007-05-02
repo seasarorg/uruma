@@ -36,7 +36,7 @@ public abstract class AbstractViewerAdapter<VIEWER_TYPE extends Viewer>
 
     public AbstractViewerAdapter(StructuredViewer viewer) {
         this.viewer = viewer;
-        viewer.setContentProvider(getContentProvider());
+        viewer.setContentProvider(createContentProvider());
     }
 
     public void setContents(Object[] contents) {
@@ -72,5 +72,5 @@ public abstract class AbstractViewerAdapter<VIEWER_TYPE extends Viewer>
      * 
      * @return コンテントプロバイダ
      */
-    protected abstract IStructuredContentProvider getContentProvider();
+    protected abstract IStructuredContentProvider createContentProvider();
 }

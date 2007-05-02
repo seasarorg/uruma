@@ -34,7 +34,7 @@ public abstract class AbstractStructuredViewerAdapter<VIEWER_TYPE extends Viewer
     }
 
     @Override
-    protected IStructuredContentProvider getContentProvider() {
+    protected IStructuredContentProvider createContentProvider() {
         return new GenericContentProvider();
     }
 }

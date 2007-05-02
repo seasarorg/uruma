@@ -36,7 +36,7 @@ public abstract class AbstractTreeViewerAdapter<VIEWER_TYPE extends Viewer>
     }
 
     @Override
-    protected IStructuredContentProvider getContentProvider() {
+    protected IStructuredContentProvider createContentProvider() {
         return new TreeNodeContentProvider();
     }
 }
