@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,15 @@
  */
 package org.seasar.jface.viewer;
 
-import org.eclipse.jface.viewers.ComboViewer;
-
 /**
- * S2JFace で {@link org.eclipse.jface.viewers.ComboViewer} を使用するためのアダプタクラスです。<br />
+ * コンテンツプロバイダ用のコンテンツを保持するクラスです。<br />
  * 
  * @author y-komori
  */
-public class ComboViewerAdapter extends
-        AbstractStructuredViewerAdapter<ComboViewer> {
+public abstract class ContentsHolder implements ContentsSettable {
+    protected Object[] contents;
 
-    public ComboViewerAdapter(ComboViewer viewer) {
-        super(viewer);
-    }
-
-    public ComboViewer getViewer() {
-        return ComboViewer.class.cast(viewer);
+    public void setContents(Object[] contents) {
+        this.contents = contents;
     }
 }

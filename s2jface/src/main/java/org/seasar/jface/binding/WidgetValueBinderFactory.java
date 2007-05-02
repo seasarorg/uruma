@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.binding.impl.ComboValueBinder;
 import org.seasar.jface.binding.impl.TableValueBinder;
+import org.seasar.jface.binding.impl.TreeValueBinder;
 import org.seasar.jface.binding.impl.WidgetPropertyValueBinder;
 
 /**
@@ -38,6 +39,7 @@ public class WidgetValueBinderFactory {
         addBinder(new WidgetPropertyValueBinder(Text.class, "text"));
         addBinder(new ComboValueBinder());
         addBinder(new TableValueBinder());
+        addBinder(new TreeValueBinder());
     }
 
     public static WidgetValueBinder getBinder(

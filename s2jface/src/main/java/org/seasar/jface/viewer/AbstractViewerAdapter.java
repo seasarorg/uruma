@@ -17,6 +17,7 @@ package org.seasar.jface.viewer;
 
 import java.util.List;
 
+import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -33,20 +34,19 @@ public abstract class AbstractViewerAdapter<VIEWER_TYPE extends Viewer>
 
     protected StructuredViewer viewer;
 
-    protected Object[] contents;
-    
-    public AbstractViewerAdapter(StructuredViewer viewer){
+    public AbstractViewerAdapter(StructuredViewer viewer) {
         this.viewer = viewer;
-        viewer.setContentProvider(new GenericContentProvider());
+        viewer.setContentProvider(getContentProvider());
     }
-    
+
     public void setContents(Object[] contents) {
-        this.contents = contents;
+        setContentsToProvider(contents);
     }
 
     public void setContents(List<?> contents) {
-        this.contents = (Object[]) contents
+        Object[] contentsArray = (Object[]) contents
                 .toArray(new Object[contents.size()]);
+        setContentsToProvider(contentsArray);
     }
 
     public Object getSelectedElement() {
@@ -59,16 +59,18 @@ public abstract class AbstractViewerAdapter<VIEWER_TYPE extends Viewer>
         return ((IStructuredSelection) selection).toArray();
     }
 
-    private class GenericContentProvider implements IStructuredContentProvider {
-
-        public Object[] getElements(Object inputElement) {
-            return contents;
-        }
-
-        public void dispose() {
-        }
-
-        public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+    private void setContentsToProvider(Object[] contents) {
+        IContentProvider provider = viewer.getContentProvider();
+        if (provider instanceof ContentsSettable) {
+            ContentsSettable holder = (ContentsSettable) provider;
+            holder.setContents(contents);
         }
     }
+
+    /**
+     * サブクラスでデフォルトのコンテントプロバイダを返してください。<br />
+     * 
+     * @return コンテントプロバイダ
+     */
+    protected abstract IStructuredContentProvider getContentProvider();
 }

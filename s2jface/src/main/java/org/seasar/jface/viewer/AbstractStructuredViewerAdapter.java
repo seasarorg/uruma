@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,26 @@
  */
 package org.seasar.jface.viewer;
 
-import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.jface.viewers.Viewer;
 
 /**
- * S2JFace で {@link org.eclipse.jface.viewers.ComboViewer} を使用するためのアダプタクラスです。<br />
+ * {@link StructuredViewer} のための規定アダプタクラスです。<br />
  * 
  * @author y-komori
+ * 
+ * @param <VIEWER_TYPE>
  */
-public class ComboViewerAdapter extends
-        AbstractStructuredViewerAdapter<ComboViewer> {
+public abstract class AbstractStructuredViewerAdapter<VIEWER_TYPE extends Viewer>
+        extends AbstractViewerAdapter<VIEWER_TYPE> {
 
-    public ComboViewerAdapter(ComboViewer viewer) {
+    public AbstractStructuredViewerAdapter(StructuredViewer viewer) {
         super(viewer);
     }
 
-    public ComboViewer getViewer() {
-        return ComboViewer.class.cast(viewer);
+    @Override
+    protected IStructuredContentProvider getContentProvider() {
+        return new GenericContentProvider();
     }
 }

@@ -22,7 +22,8 @@ import org.eclipse.jface.viewers.TableViewer;
  * 
  * @author y-komori
  */
-public class TableViewerAdapter extends AbstractViewerAdapter<TableViewer> {
+public class TableViewerAdapter extends
+        AbstractStructuredViewerAdapter<TableViewer> {
 
     public TableViewerAdapter(TableViewer viewer) {
         super(viewer);

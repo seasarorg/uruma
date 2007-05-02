@@ -15,21 +15,20 @@
  */
 package org.seasar.jface.viewer;
 
-import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.TreeViewer;
 
 /**
- * S2JFace で {@link org.eclipse.jface.viewers.ComboViewer} を使用するためのアダプタクラスです。<br />
+ * S2JFace で {@link TreeViewer} を使用するためのアダプタクラスです。<br />
  * 
  * @author y-komori
  */
-public class ComboViewerAdapter extends
-        AbstractStructuredViewerAdapter<ComboViewer> {
+public class TreeViewerAdapter extends AbstractTreeViewerAdapter<TreeViewer> {
 
-    public ComboViewerAdapter(ComboViewer viewer) {
+    public TreeViewerAdapter(TreeViewer viewer) {
         super(viewer);
     }
 
-    public ComboViewer getViewer() {
-        return ComboViewer.class.cast(viewer);
+    public TreeViewer getViewer() {
+        return TreeViewer.class.cast(viewer);
     }
 }

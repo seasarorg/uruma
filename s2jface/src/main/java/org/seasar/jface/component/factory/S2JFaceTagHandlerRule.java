@@ -58,6 +58,7 @@ import org.seasar.jface.component.impl.TableItemComponent;
 import org.seasar.jface.component.impl.TextComponent;
 import org.seasar.jface.component.impl.ToolBarComponent;
 import org.seasar.jface.component.impl.ToolItemComponent;
+import org.seasar.jface.component.impl.TreeComponent;
 
 /**
  * S2JFace の画面定義XMLをパースするためのタグハンドラを保持するクラスです。<br />
@@ -97,6 +98,7 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
         addTagHandler("tableItem", new S2JFaceGenericTagHandler(
                 TableItemComponent.class));
         addTagHandler(new TableCellTagHandler());
+        addTagHandler("tree", new S2JFaceGenericTagHandler(TreeComponent.class));
         addTagHandler("spinner", new S2JFaceGenericTagHandler(
                 SpinnerComponent.class));
         addTagHandler("cTabFolder", new S2JFaceGenericTagHandler(

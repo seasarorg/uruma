@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,23 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.viewer;
+package org.seasar.jface.renderer.impl;
 
-import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.TreeNode;
+import org.seasar.jface.annotation.ExportValue;
+import org.seasar.jface.annotation.Form;
 
 /**
- * S2JFace で {@link org.eclipse.jface.viewers.ComboViewer} を使用するためのアダプタクラスです。<br />
- * 
  * @author y-komori
  */
-public class ComboViewerAdapter extends
-        AbstractStructuredViewerAdapter<ComboViewer> {
+@Form(TreeRendererGUITest.class)
+public class TreeRendererGUITest extends AbstractGUITest {
+    @ExportValue(id = "tree")
+    TreeNode[] tparent;
 
-    public ComboViewerAdapter(ComboViewer viewer) {
-        super(viewer);
-    }
-
-    public ComboViewer getViewer() {
-        return ComboViewer.class.cast(viewer);
+    public TreeRendererGUITest() {
+        tparent = new TreeNode[2];
+        tparent[0] = new TreeNode("大企業");
+        tparent[1] = new TreeNode("中企業");
     }
 }
