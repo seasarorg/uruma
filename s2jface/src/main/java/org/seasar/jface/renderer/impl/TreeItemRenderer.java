@@ -15,8 +15,11 @@
  */
 package org.seasar.jface.renderer.impl;
 
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TreeItem;
+import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.jface.component.impl.TreeItemComponent;
+import org.seasar.jface.util.PathUtil;
 
 /**
  * <code>TreeItem</code> のレンダリングを行うクラスです。<br />
@@ -29,6 +32,7 @@ public class TreeItemRenderer extends
     @Override
     protected void doRender(TreeItemComponent uiComponent, TreeItem widget) {
         renderText(uiComponent, widget);
+        renderImage(uiComponent, widget);
     }
 
     @Override
@@ -40,6 +44,20 @@ public class TreeItemRenderer extends
         String text = component.getText();
         if (text != null) {
             widget.setText(text);
+        }
+    }
+
+    protected void renderImage(TreeItemComponent component, TreeItem widget) {
+        String value = component.getImage();
+
+        if (value != null) {
+            Image image = ImageManager.getImage(value);
+            if (image == null) {
+                String path = PathUtil.createPath(component.getBasePath(),
+                        value);
+                image = ImageManager.loadImage(path);
+            }
+            widget.setImage(image);
         }
     }
 }

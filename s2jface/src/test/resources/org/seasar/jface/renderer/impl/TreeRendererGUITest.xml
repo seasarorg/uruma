@@ -11,21 +11,26 @@
       <gridLayout numColumns="2">
         <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
           grabExcessHorizontalSpace="true"
-          grabExcessVerticalSpace="true" widthHint="150" heightHint="200"/>
+          grabExcessVerticalSpace="true" widthHint="150"
+          heightHint="200" />
       </gridLayout>
       <commonAttributes fontHeight="10" />
 
-      <tree id="tree1" toolTipText="ツールチップ\nテキスト" headerVisible="true" />
+      <tree id="tree1" toolTipText="ツールチップ\nテキスト" />
 
       <tree id="tree2">
-        <treeItem text="親1">
-          <treeItem text="子1">
-            <treeItem text="孫1"></treeItem>
-            <treeItem text="孫2"></treeItem>
+        <treeItem text="親1" image="folder">
+          <treeItem text="子1-1" image="folder">
+            <treeItem text="孫1-1-1" image="page" />
+            <treeItem text="孫1-1-2" image="page" />
           </treeItem>
-          <treeItem text="子2"></treeItem>
+          <treeItem text="子1-2" image="page" />
         </treeItem>
-        <treeItem text="親2" foreground="BRUE"></treeItem>
+        <treeItem text="親2" image="folder">
+          <treeItem text="子2-1(文字色変更)" image="page" foreground="red" />
+          <treeItem text="子2-2(背景色変更)" image="page" foreground="white"
+            background="blue" />
+        </treeItem>
       </tree>
     </composite>
 

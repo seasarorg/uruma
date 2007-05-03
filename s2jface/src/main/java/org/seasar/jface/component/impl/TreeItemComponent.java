@@ -33,7 +33,9 @@ public class TreeItemComponent extends AbstractUIComponent {
     // 独自にレンダリングを行う
     private String text;
 
-    @ComponentAttribute(conversionType = ConversionType.IMAGE)
+    @ComponentAttribute(targetType = TargetType.NONE)
+    // TreeItem には複数の setImage() メソッドが存在するため、
+    // 独自にレンダリングを行う
     private String image;
 
     @ComponentAttribute(conversionType = ConversionType.COLOR)
