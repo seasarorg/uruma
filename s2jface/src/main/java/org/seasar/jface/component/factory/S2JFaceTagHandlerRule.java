@@ -29,6 +29,7 @@ import org.seasar.jface.component.factory.handler.SimpleItemTagHandler;
 import org.seasar.jface.component.factory.handler.TableCellTagHandler;
 import org.seasar.jface.component.factory.handler.TableColumnTagHandler;
 import org.seasar.jface.component.factory.handler.TemplateTagHandler;
+import org.seasar.jface.component.factory.handler.TreeItemTagHandler;
 import org.seasar.jface.component.factory.handler.WindowTagHandler;
 import org.seasar.jface.component.impl.ButtonComponent;
 import org.seasar.jface.component.impl.CTabFolderComponent;
@@ -99,6 +100,7 @@ public class S2JFaceTagHandlerRule extends TagHandlerRule {
                 TableItemComponent.class));
         addTagHandler(new TableCellTagHandler());
         addTagHandler("tree", new S2JFaceGenericTagHandler(TreeComponent.class));
+        addTagHandler("treeItem", new TreeItemTagHandler());
         addTagHandler("spinner", new S2JFaceGenericTagHandler(
                 SpinnerComponent.class));
         addTagHandler("cTabFolder", new S2JFaceGenericTagHandler(

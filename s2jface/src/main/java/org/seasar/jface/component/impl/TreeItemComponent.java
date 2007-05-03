@@ -15,13 +15,25 @@
  */
 package org.seasar.jface.component.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
+import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
 
 /**
  * @author y-komori
  */
-public class TreeItemComponent extends AbstractItemComponent {
+public class TreeItemComponent extends AbstractUIComponent {
+    @ComponentAttribute(targetType = TargetType.NONE)
+    // TreeItem には複数の setText() メソッドが存在するため、
+    // 独自にレンダリングを行う
+    private String text;
+
+    @ComponentAttribute(conversionType = ConversionType.IMAGE)
+    private String image;
+
     @ComponentAttribute(conversionType = ConversionType.COLOR)
     private String background;
 
@@ -45,6 +57,26 @@ public class TreeItemComponent extends AbstractItemComponent {
 
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private boolean grayed;
+
+    private TreeItemComponent parent;
+
+    private List<TreeItemComponent> children = new ArrayList<TreeItemComponent>();
+
+    public String getImage() {
+        return this.image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getText() {
+        return this.text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
     public String getBackground() {
         return this.background;
@@ -108,5 +140,21 @@ public class TreeItemComponent extends AbstractItemComponent {
 
     public void setGrayed(boolean grayed) {
         this.grayed = grayed;
+    }
+
+    public TreeItemComponent getParentTreeItem() {
+        return this.parent;
+    }
+
+    public void setParentTreeItem(TreeItemComponent parent) {
+        this.parent = parent;
+    }
+
+    public void addTreeItem(TreeItemComponent treeItem) {
+        children.add(treeItem);
+    }
+
+    public List<TreeItemComponent> getTreeItems() {
+        return this.children;
     }
 }

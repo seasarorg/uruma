@@ -15,6 +15,9 @@
  */
 package org.seasar.jface.component.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 
@@ -27,6 +30,8 @@ public class TreeComponent extends CompositeComponent {
 
     @ComponentAttribute(conversionType = ConversionType.BOOLEAN)
     private boolean linesVisible;
+
+    private List<TreeItemComponent> children = new ArrayList<TreeItemComponent>();
 
     public boolean getHeaderVisible() {
         return this.headerVisible;
@@ -42,5 +47,13 @@ public class TreeComponent extends CompositeComponent {
 
     public void setLinesVisible(boolean linesVisible) {
         this.linesVisible = linesVisible;
+    }
+
+    public void addTreeItem(TreeItemComponent child) {
+        children.add(child);
+    }
+
+    public List<TreeItemComponent> getTreeItems() {
+        return this.children;
     }
 }

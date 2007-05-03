@@ -29,6 +29,17 @@ import org.seasar.jface.viewer.TreeViewerAdapter;
 
 /**
  * <code>Tree</code> のレンダリングを行うクラスです。<br />
+ * <p>
+ * <code>id + ContentProvider</code> という名称で {@link ITreeContentProvider}
+ * の実装クラスがS2Containerへ登録されている場合、 {@link TreeViewer} を利用したレンダリングを行います。<br />
+ * このとき、<code>tree</code> 要素の子として記述されている <code>treeItem</code>
+ * 要素はすべて無視されます。<br />
+ * また、<code>id + LabelProvider</code> という名称で {@link ILabelProvider} の実装クラスが
+ * S2Container に登録されていれば、自動的にラベルプロバイダとして設定します。<br />
+ * </p>
+ * <p>
+ * コンテントプロバイダが S2Container へ登録されていない場合には、{@link TreeViewer} によるレンダリングを行いません。<br />
+ * </p>
  * 
  * @author y-komori
  */
@@ -40,44 +51,46 @@ public class TreeRenderer extends
 
     @Override
     protected void doRenderComposite(TreeComponent treeComponent, Tree tree) {
-        TreeViewer viewer = new TreeViewer(tree);
-        TreeViewerAdapter viewerAdapter = new TreeViewerAdapter(viewer);
-        getContext().putViewerAdapter(tree, viewerAdapter);
-
         String id = treeComponent.getId();
-        setupContentProvider(viewer, id);
-        setupLabelProvider(viewer, id);
+
+        ITreeContentProvider contentProvider = getContentProvider(id);
+        if (contentProvider != null) {
+            TreeViewer viewer = new TreeViewer(tree);
+
+            viewer.setContentProvider(contentProvider);
+            setupLabelProvider(viewer, id);
+
+            TreeViewerAdapter viewerAdapter = new TreeViewerAdapter(viewer);
+            getContext().putViewerAdapter(tree, viewerAdapter);
+        }
     }
 
-    private void setupContentProvider(TreeViewer viewer, String id) {
-        ITreeContentProvider provider = null;
+    private ITreeContentProvider getContentProvider(String id) {
         if (id != null) {
-            Object defined = S2ContainerUtil.getComponentNoException(id
+            Object provider = S2ContainerUtil.getComponentNoException(id
                     + CONTENT_PROVIDER);
-            if (defined != null) {
-                if (defined instanceof ITreeContentProvider) {
-                    provider = (ITreeContentProvider) defined;
-                    viewer.setContentProvider(provider);
+            if (provider != null) {
+                if (provider instanceof ITreeContentProvider) {
+                    return (ITreeContentProvider) provider;
                 } else {
                     throw new RenderException(RenderException.TYPE_ERROR,
                             provider, ITreeContentProvider.class.getName());
                 }
-            } else {
-                // TODO ContentProviderが登録されていなかった場合、警告を出力の上、デフォルト実装を組み込む
             }
         }
+        return null;
     }
 
     private void setupLabelProvider(TreeViewer viewer, String id) {
         // TODO TableRenderer の同メソッドと共通化
         IBaseLabelProvider provider = null;
         if (id != null) {
-            Object defined = S2ContainerUtil.getComponentNoException(id
+            Object component = S2ContainerUtil.getComponentNoException(id
                     + LABEL_PROVIDER);
-            if (defined != null) {
-                if (defined instanceof ITableLabelProvider
-                        || defined instanceof ILabelProvider) {
-                    provider = (IBaseLabelProvider) defined;
+            if (component != null) {
+                if (component instanceof ITableLabelProvider
+                        || component instanceof ILabelProvider) {
+                    provider = (IBaseLabelProvider) component;
                 } else {
                     throw new RenderException(RenderException.TYPE_ERROR,
                             provider, ITableLabelProvider.class.getName());

@@ -13,6 +13,17 @@
       <commonAttributes fontHeight="10" />
 
       <tree id="tree" toolTipText="ツールチップ\nテキスト" headerVisible="true" />
+
+      <tree id="tree2">
+        <treeItem text="親1">
+          <treeItem text="子1">
+            <treeItem text="孫1"></treeItem>
+            <treeItem text="孫2"></treeItem>
+          </treeItem>
+          <treeItem text="子2"></treeItem>
+        </treeItem>
+        <treeItem text="親2"></treeItem>
+      </tree>
     </composite>
 
     <label style="SEPARATOR, HORIZONTAL" />

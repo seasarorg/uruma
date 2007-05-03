@@ -13,22 +13,29 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.viewer;
+package org.seasar.jface.renderer.impl;
 
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.TreeItem;
+import org.seasar.jface.component.impl.TreeItemComponent;
 
 /**
- * {@link TreeViewer} のための規定アダプタクラスです。<br />
+ * <code>TreeItem</code> のレンダリングを行うクラスです。<br />
  * 
  * @author y-komori
- * 
- * @param <VIEWER_TYPE>
  */
-public abstract class AbstractTreeViewerAdapter<VIEWER_TYPE extends Viewer>
-        extends AbstractViewerAdapter<VIEWER_TYPE> {
+public class TreeItemRenderer extends
+        AbstractWidgetRenderer<TreeItemComponent, TreeItem> {
 
-    public AbstractTreeViewerAdapter(TreeViewer viewer) {
-        super(viewer);
+    @Override
+    protected void doRender(TreeItemComponent uiComponent, TreeItem widget) {
+        String text = uiComponent.getText();
+        if (text != null) {
+            widget.setText(text);
+        }
+    }
+
+    @Override
+    protected Class<TreeItem> getWidgetType() {
+        return TreeItem.class;
     }
 }

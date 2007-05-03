@@ -23,6 +23,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.seasar.jface.util.AssertionUtil;
 
 /**
  * {@link ViewerAdapter} のための基底クラスです。<br />
@@ -35,25 +36,42 @@ public abstract class AbstractViewerAdapter<VIEWER_TYPE extends Viewer>
     protected StructuredViewer viewer;
 
     public AbstractViewerAdapter(StructuredViewer viewer) {
+        AssertionUtil.assertNotNull("viewer", viewer);
         this.viewer = viewer;
-        viewer.setContentProvider(createContentProvider());
+
+        IStructuredContentProvider provider = createContentProvider();
+        if (provider != null) {
+            viewer.setContentProvider(provider);
+        }
     }
 
+    /*
+     * @see org.seasar.jface.viewer.ViewerAdapter#setContents(java.lang.Object[])
+     */
     public void setContents(Object[] contents) {
         setContentsToProvider(contents);
     }
 
+    /*
+     * @see org.seasar.jface.viewer.ViewerAdapter#setContents(java.util.List)
+     */
     public void setContents(List<?> contents) {
         Object[] contentsArray = (Object[]) contents
                 .toArray(new Object[contents.size()]);
         setContentsToProvider(contentsArray);
     }
 
+    /*
+     * @see org.seasar.jface.viewer.ViewerAdapter#getSelectedElement()
+     */
     public Object getSelectedElement() {
         ISelection selection = viewer.getSelection();
         return ((IStructuredSelection) selection).getFirstElement();
     }
 
+    /*
+     * @see org.seasar.jface.viewer.ViewerAdapter#getSelectedElements()
+     */
     public Object[] getSelectedElements() {
         ISelection selection = viewer.getSelection();
         return ((IStructuredSelection) selection).toArray();
@@ -61,16 +79,20 @@ public abstract class AbstractViewerAdapter<VIEWER_TYPE extends Viewer>
 
     private void setContentsToProvider(Object[] contents) {
         IContentProvider provider = viewer.getContentProvider();
-        if (provider instanceof ContentsSettable) {
-            ContentsSettable holder = (ContentsSettable) provider;
-            holder.setContents(contents);
+        if (provider != null) {
+            if (provider instanceof ContentsSettable) {
+                ContentsSettable holder = (ContentsSettable) provider;
+                holder.setContents(contents);
+            }
         }
     }
 
     /**
-     * サブクラスでデフォルトのコンテントプロバイダを返してください。<br />
+     * デフォルトのコンテントプロバイダを用意する場合、サブクラスでオーバーライドしてください。<br />
      * 
      * @return コンテントプロバイダ
      */
-    protected abstract IStructuredContentProvider createContentProvider();
+    protected IStructuredContentProvider createContentProvider() {
+        return null;
+    }
 }

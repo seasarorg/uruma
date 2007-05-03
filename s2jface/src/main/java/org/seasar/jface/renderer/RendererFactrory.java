@@ -46,6 +46,7 @@ import org.seasar.jface.component.impl.TextComponent;
 import org.seasar.jface.component.impl.ToolBarComponent;
 import org.seasar.jface.component.impl.ToolItemComponent;
 import org.seasar.jface.component.impl.TreeComponent;
+import org.seasar.jface.component.impl.TreeItemComponent;
 import org.seasar.jface.component.impl.WindowComponent;
 import org.seasar.jface.exception.NotFoundException;
 import org.seasar.jface.renderer.impl.ButtonRenderer;
@@ -74,6 +75,7 @@ import org.seasar.jface.renderer.impl.TableRenderer;
 import org.seasar.jface.renderer.impl.TextRenderer;
 import org.seasar.jface.renderer.impl.ToolBarRenderer;
 import org.seasar.jface.renderer.impl.ToolItemRenderer;
+import org.seasar.jface.renderer.impl.TreeItemRenderer;
 import org.seasar.jface.renderer.impl.TreeRenderer;
 import org.seasar.jface.renderer.impl.WindowRenderer;
 import org.seasar.jface.util.AssertionUtil;
@@ -105,7 +107,9 @@ public class RendererFactrory {
         addRenderer(CoolItemComponent.class, new CoolItemRenderer());
         addRenderer(CanvasComponent.class, new CanvasRenderer());
         addRenderer(SashFormComponent.class, new SashFormRenderer());
+
         addRenderer(TreeComponent.class, new TreeRenderer());
+        addRenderer(TreeItemComponent.class, new TreeItemRenderer());
 
         addRenderer(ButtonComponent.class, new ButtonRenderer());
         addRenderer(LabelComponent.class, new LabelRenderer());
