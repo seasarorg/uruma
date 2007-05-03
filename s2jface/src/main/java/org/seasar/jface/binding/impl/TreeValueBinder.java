@@ -31,13 +31,6 @@ import org.seasar.jface.viewer.TreeViewerAdapter;
  */
 public class TreeValueBinder extends AbstractViewerValueBinder {
 
-    public void exportSelection(Object srcObject, Field srcField, Widget dest,
-            WindowContext context) {
-
-        // TODO 自動生成されたメソッド・スタブ
-
-    }
-
     public void exportValue(Object srcObject, Field srcField, Widget dest,
             WindowContext context) {
         TreeViewerAdapter viewerAdapter = (TreeViewerAdapter) context
@@ -52,13 +45,12 @@ public class TreeValueBinder extends AbstractViewerValueBinder {
         }
     }
 
-    public Class<? extends Widget> getWidgetType() {
-        return Tree.class;
-    }
-
     public void importValue(Widget src, Object destObject, Field destField,
             WindowContext context) {
-        // TODO 自動生成されたメソッド・スタブ
+        // TODO 未対応
+    }
 
+    public Class<? extends Widget> getWidgetType() {
+        return Tree.class;
     }
 }

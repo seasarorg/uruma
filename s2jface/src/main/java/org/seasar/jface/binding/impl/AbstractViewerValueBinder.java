@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.FieldUtil;
@@ -77,6 +78,22 @@ public abstract class AbstractViewerValueBinder implements WidgetValueBinder {
                 throw new BindingException(BindingException.CLASS_NOT_MUTCH,
                         null, destObject.getClass(), destField);
             }
+        }
+    }
+
+    /*
+     * @see org.seasar.jface.binding.WidgetValueBinder#exportSelection(java.lang.Object,
+     *      java.lang.reflect.Field, org.eclipse.swt.widgets.Widget,
+     *      org.seasar.jface.WindowContext)
+     */
+    public void exportSelection(Object srcObject, Field srcField, Widget dest,
+            WindowContext context) {
+        ViewerAdapter<?> viewerAdapter = context.getViewerAdapter(dest);
+        Viewer viewer = viewerAdapter.getViewer();
+
+        Object selection = FieldUtil.get(srcField, srcObject);
+        if (selection != null) {
+            viewer.setSelection(new StructuredSelection(selection), true);
         }
     }
 }
