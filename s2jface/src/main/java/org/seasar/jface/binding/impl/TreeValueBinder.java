@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.binding.WidgetValueBinder;
 import org.seasar.jface.viewer.TreeViewerAdapter;
 
 /**
@@ -30,7 +29,7 @@ import org.seasar.jface.viewer.TreeViewerAdapter;
  * 
  * @author y-komori
  */
-public class TreeValueBinder implements WidgetValueBinder {
+public class TreeValueBinder extends AbstractViewerValueBinder {
 
     public void exportSelection(Object srcObject, Field srcField, Widget dest,
             WindowContext context) {
@@ -57,16 +56,9 @@ public class TreeValueBinder implements WidgetValueBinder {
         return Tree.class;
     }
 
-    public void importSelection(Widget src, Object destObject, Field destField,
-            WindowContext context) {
-        // TODO 自動生成されたメソッド・スタブ
-
-    }
-
     public void importValue(Widget src, Object destObject, Field destField,
             WindowContext context) {
         // TODO 自動生成されたメソッド・スタブ
 
     }
-
 }

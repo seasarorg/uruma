@@ -15,12 +15,16 @@
  */
 package org.seasar.jface.renderer.impl;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.swt.graphics.Image;
+import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.Form;
+import org.seasar.jface.annotation.ImportSelection;
 
 /**
  * @author y-komori
@@ -29,6 +33,12 @@ import org.seasar.jface.annotation.Form;
 public class TreeRendererGUITest extends AbstractGUITest {
     @ExportValue(id = "tree1")
     TreeNode[] tparent;
+
+    @ImportSelection(id = "tree1")
+    List<TreeNode> selected;
+
+    @ImportSelection(id = "tree1")
+    TreeNode selected2;
 
     public TreeRendererGUITest() {
         tparent = new TreeNode[2];
@@ -44,6 +54,16 @@ public class TreeRendererGUITest extends AbstractGUITest {
         tgrandChild[0] = new TreeNode("孫1");
         tgrandChild[1] = new TreeNode("孫2");
         tchild[0].setChildren(tgrandChild);
+    }
+
+    @EventListener(id = "tree1")
+    public void onTreeSelected() {
+        System.out.print("呼ばれたよ:");
+        for (TreeNode selection : selected) {
+            System.out.print(selection.getValue() + ", ");
+        }
+        System.out.print("\n");
+        System.out.println(selected2.getValue());
     }
 
     public static class TreeNodeLabelProvider implements ILabelProvider {

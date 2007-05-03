@@ -60,6 +60,11 @@ public abstract class AbstractGUITest extends S2FrameworkTestCase {
         result = false;
     }
 
+    @Override
+    protected void tearDown() throws Exception {
+        S2JFace.destroy();
+    }
+
     protected ComponentDef createActionComponentDef() {
         TigerAnnotationHandler handler = new TigerAnnotationHandler();
         ComponentDef cd = handler.createComponentDef(getClass(), null, null);
