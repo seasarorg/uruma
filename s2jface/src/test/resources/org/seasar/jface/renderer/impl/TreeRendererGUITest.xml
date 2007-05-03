@@ -16,7 +16,7 @@
       </gridLayout>
       <commonAttributes fontHeight="10" />
 
-      <tree id="tree1" style="MULTI" toolTipText="ツールチップ\nテキスト" />
+      <tree id="tree1" style="MULTI, BORDER" toolTipText="ツールチップ\nテキスト" />
 
       <tree id="tree2">
         <treeItem text="親1" image="folder">
@@ -32,6 +32,16 @@
             background="blue" />
         </treeItem>
       </tree>
+    </composite>
+
+    <composite>
+      <gridLayout numColumns="1" />
+
+      <text id="textArea"
+        style="BORDER, MULTI, H_SCROLL, V_SCROLL, READ_ONLY">
+        <gridData horizontalAlignment="FILL" heightHint="100"
+          grabExcessHorizontalSpace="true" />
+      </text>
     </composite>
 
     <label style="SEPARATOR, HORIZONTAL" />

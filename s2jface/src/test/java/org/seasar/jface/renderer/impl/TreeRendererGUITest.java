@@ -21,6 +21,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Text;
 import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.Form;
@@ -40,6 +41,8 @@ public class TreeRendererGUITest extends AbstractGUITest {
     @ImportSelection(id = "tree1")
     TreeNode selected2;
 
+    Text textArea;
+
     public TreeRendererGUITest() {
         tparent = new TreeNode[2];
         tparent[0] = new TreeNode("親1");
@@ -58,12 +61,13 @@ public class TreeRendererGUITest extends AbstractGUITest {
 
     @EventListener(id = "tree1")
     public void onTreeSelected() {
-        System.out.print("呼ばれたよ:");
+        String current = textArea.getText();
+        current += "NodeSelected : ";
         for (TreeNode selection : selected) {
-            System.out.print(selection.getValue() + ", ");
+            current += selection.getValue() + ", ";
         }
-        System.out.print("\n");
-        System.out.println(selected2.getValue());
+        current += "\n";
+        textArea.setText(current);
     }
 
     public static class TreeNodeLabelProvider implements ILabelProvider {
