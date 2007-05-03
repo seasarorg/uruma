@@ -28,14 +28,18 @@ public class TreeItemRenderer extends
 
     @Override
     protected void doRender(TreeItemComponent uiComponent, TreeItem widget) {
-        String text = uiComponent.getText();
-        if (text != null) {
-            widget.setText(text);
-        }
+        renderText(uiComponent, widget);
     }
 
     @Override
     protected Class<TreeItem> getWidgetType() {
         return TreeItem.class;
+    }
+
+    protected void renderText(TreeItemComponent component, TreeItem widget) {
+        String text = component.getText();
+        if (text != null) {
+            widget.setText(text);
+        }
     }
 }

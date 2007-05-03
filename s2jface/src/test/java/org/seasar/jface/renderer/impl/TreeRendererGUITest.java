@@ -27,13 +27,23 @@ import org.seasar.jface.annotation.Form;
  */
 @Form(TreeRendererGUITest.class)
 public class TreeRendererGUITest extends AbstractGUITest {
-    @ExportValue(id = "tree")
+    @ExportValue(id = "tree1")
     TreeNode[] tparent;
 
     public TreeRendererGUITest() {
         tparent = new TreeNode[2];
-        tparent[0] = new TreeNode("大企業");
-        tparent[1] = new TreeNode("中企業");
+        tparent[0] = new TreeNode("親1");
+        tparent[1] = new TreeNode("親2");
+
+        TreeNode[] tchild = new TreeNode[2];
+        tchild[0] = new TreeNode("子1");
+        tchild[1] = new TreeNode("子2");
+        tparent[0].setChildren(tchild);
+
+        TreeNode[] tgrandChild = new TreeNode[2];
+        tgrandChild[0] = new TreeNode("孫1");
+        tgrandChild[1] = new TreeNode("孫2");
+        tchild[0].setChildren(tgrandChild);
     }
 
     public static class TreeNodeLabelProvider implements ILabelProvider {

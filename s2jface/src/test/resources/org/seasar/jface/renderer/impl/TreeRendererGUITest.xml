@@ -6,13 +6,16 @@
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
     <composite id="contents">
-      <gridData horizontalAlignment="FILL" />
-      <rowLayout type="VERTICAL" marginWidth="10" marginHeight="10"
-        spacing="10">
-      </rowLayout>
+      <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+        grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
+      <gridLayout numColumns="2">
+        <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+          grabExcessHorizontalSpace="true"
+          grabExcessVerticalSpace="true" widthHint="150" heightHint="200"/>
+      </gridLayout>
       <commonAttributes fontHeight="10" />
 
-      <tree id="tree" toolTipText="ツールチップ\nテキスト" headerVisible="true" />
+      <tree id="tree1" toolTipText="ツールチップ\nテキスト" headerVisible="true" />
 
       <tree id="tree2">
         <treeItem text="親1">
@@ -22,7 +25,7 @@
           </treeItem>
           <treeItem text="子2"></treeItem>
         </treeItem>
-        <treeItem text="親2"></treeItem>
+        <treeItem text="親2" foreground="BRUE"></treeItem>
       </tree>
     </composite>
 

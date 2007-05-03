@@ -2,6 +2,6 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
-	<component name="treeContentProvider" class="org.eclipse.jface.viewers.TreeNodeContentProvider" />
-	<component name="treeLabelProvider" class="org.seasar.jface.renderer.impl.TreeRendererGUITest$TreeNodeLabelProvider" />
+	<component name="tree1ContentProvider" class="org.eclipse.jface.viewers.TreeNodeContentProvider" />
+	<component name="tree1LabelProvider" class="org.seasar.jface.renderer.impl.TreeRendererGUITest$TreeNodeLabelProvider" />
 </components>

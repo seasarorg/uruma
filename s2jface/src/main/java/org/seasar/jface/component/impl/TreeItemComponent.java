@@ -18,6 +18,8 @@ package org.seasar.jface.component.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.component.ComponentAttribute;
 import org.seasar.jface.annotation.component.ComponentAttribute.ConversionType;
 import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
@@ -61,6 +63,17 @@ public class TreeItemComponent extends AbstractUIComponent {
     private TreeItemComponent parent;
 
     private List<TreeItemComponent> children = new ArrayList<TreeItemComponent>();
+
+    @Override
+    protected void doRender(Widget parent, WindowContext context) {
+        renderChildren(getWidget(), context);
+    }
+
+    protected void renderChildren(Widget parent, WindowContext context) {
+        for (TreeItemComponent child : children) {
+            child.render(parent, context);
+        }
+    }
 
     public String getImage() {
         return this.image;

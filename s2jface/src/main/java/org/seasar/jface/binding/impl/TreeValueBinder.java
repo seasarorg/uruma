@@ -43,11 +43,13 @@ public class TreeValueBinder implements WidgetValueBinder {
             WindowContext context) {
         TreeViewerAdapter viewerAdapter = (TreeViewerAdapter) context
                 .getViewerAdapter(dest);
-        TreeViewer viewer = viewerAdapter.getViewer();
+        if (viewerAdapter != null) {
+            TreeViewer viewer = viewerAdapter.getViewer();
 
-        Object input = FieldUtil.get(srcField, srcObject);
-        if (input != null) {
-            viewer.setInput(input);
+            Object input = FieldUtil.get(srcField, srcObject);
+            if (input != null) {
+                viewer.setInput(input);
+            }
         }
     }
 

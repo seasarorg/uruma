@@ -20,6 +20,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
 import org.seasar.jface.component.impl.TreeComponent;
 import org.seasar.jface.exception.RenderException;
@@ -103,6 +104,11 @@ public class TreeRenderer extends
         }
 
         viewer.setLabelProvider(provider);
+    }
+
+    @Override
+    protected int getDefaultStyle() {
+        return SWT.BORDER;
     }
 
     @Override
