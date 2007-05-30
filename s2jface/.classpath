@@ -9,10 +9,9 @@
 	<classpathentry kind="lib" path="lib/javassist-3.4.ga.jar"/>
 	<classpathentry kind="lib" path="lib/ognl-2.6.7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/seasar2"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/s2-tiger"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="lib" path="lib/s2-framework-2.4.13.jar" sourcepath="lib/s2-framework-2.4.13-sources.jar"/>
 	<classpathentry kind="lib" path="lib/s2-tiger-2.4.13.jar" sourcepath="lib/s2-tiger-2.4.13-sources.jar"/>
+	<classpathentry kind="lib" path="lib/junit-3.8.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
