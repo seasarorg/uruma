@@ -19,24 +19,24 @@ import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.component.UIElement;
-import org.seasar.jface.component.impl.WindowComponent;
+import org.seasar.jface.component.impl.ViewPartComponent;
 
 /**
- * <code>window</code> 要素に対するタグハンドラです。<br />
+ * <code>viewPart</code> 要素に対するタグハンドラです。<br />
  * 
  * @author y-komori
  */
-public class WindowTagHandler extends S2JFaceGenericTagHandler {
+public class ViewPartTagHandler extends S2JFaceGenericTagHandler {
 
-    private static final long serialVersionUID = 5978222763650610537L;
+    private static final long serialVersionUID = -2921723016502048308L;
 
-    public WindowTagHandler() {
-        super(WindowComponent.class);
+    public ViewPartTagHandler() {
+        super(ViewPartComponent.class);
     }
 
     @Override
     public String getElementPath() {
-        return "window";
+        return "viewPart";
     }
 
     @Override

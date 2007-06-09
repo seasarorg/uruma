@@ -13,28 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.eclipse.rcp;
-
-import org.eclipse.ui.application.IWorkbenchConfigurer;
-import org.eclipse.ui.application.WorkbenchAdvisor;
-import org.seasar.eclipse.common.util.ImageManager;
+package org.seasar.jface.component.impl;
 
 /**
- * @author y-komori
+ * <code>ViewPart</code> のコンポーネント情報を保持するためのクラスです。<br />
  * 
+ * @author y-komori
  */
-public abstract class S2RcpWorkbenchAdvisor extends WorkbenchAdvisor {
-    private String imageBundleName = "s2JFaceImages";
-
-    @Override
-    public void initialize(IWorkbenchConfigurer configurer) {
-        ImageManager.loadImages(imageBundleName);
-    }
-
-    @Override
-    public boolean preShutdown() {
-        ImageManager.dispose();
-        return true;
-    }
-
+public class ViewPartComponent extends CompositeComponent {
 }

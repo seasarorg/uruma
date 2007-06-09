@@ -26,7 +26,6 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.seasar.framework.container.factory.ClassPathResourceResolver;
-import org.seasar.framework.container.factory.ResourceResolver;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.exception.SAXRuntimeException;
 import org.seasar.framework.util.InputStreamUtil;
@@ -38,14 +37,22 @@ import org.seasar.jface.component.Template;
 import org.xml.sax.SAXException;
 
 /**
- * @author y-komori
+ * 画面定義XMLファイルを読み込み、コンポーネントツリーを生成するためのクラスです。<br />
  * 
+ * @author y-komori
  */
 public class ComponentTreeBuilder {
     public static final String SCHEMA_PATH = "org/seasar/jface/component/factory/s2jface.xsd";
 
-    protected ResourceResolver resourceResolver = new ClassPathResourceResolver();
+    protected ClassPathResourceResolver resolver = new ClassPathResourceResolver();
 
+    /**
+     * 指定されたパスの画面定義XMLを読み込み、コンポーネントツリーを生成します。<br />
+     * 
+     * @param path
+     *            画面定義XMLのパス
+     * @return {@link Template} オブジェクト
+     */
     public Template build(final String path) {
         final SaxHandlerParser parser = createSaxHandlerParser(path);
         final InputStream is = getInputStream(path);
@@ -58,7 +65,8 @@ public class ComponentTreeBuilder {
     }
 
     protected InputStream getInputStream(final String path) {
-        final InputStream is = resourceResolver.getInputStream(path);
+        final InputStream is = resolver.getInputStream(path);
+
         if (is == null) {
             throw new ResourceNotFoundRuntimeException(path);
         }

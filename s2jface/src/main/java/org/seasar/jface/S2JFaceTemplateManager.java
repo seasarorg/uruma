@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component;
+package org.seasar.jface;
+
+import org.seasar.jface.component.Template;
 
 /**
- * 画面定義テンプレートを表すインターフェースです。<br />
+ * 画面定義テンプレートを管理するためのインターフェースです。<br />
  * 
  * @author y-komori
  */
-public interface Template extends UIElement {
-
-    public UICompositeComponent getRootComponent();
-
-    public void setRootComponent(UICompositeComponent rootComponent);
-
-    public String getExtends();
-
-    public void setExtends(String extendsPath);
+public interface S2JFaceTemplateManager {
+    public Template getTemplate(final String path);
 }

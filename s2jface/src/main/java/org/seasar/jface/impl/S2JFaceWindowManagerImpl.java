@@ -19,12 +19,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jface.window.WindowManager;
+import org.seasar.jface.S2JFaceTemplateManager;
 import org.seasar.jface.S2JFaceWindowManager;
 import org.seasar.jface.component.Template;
-import org.seasar.jface.component.factory.ComponentTreeBuilder;
-import org.seasar.jface.component.impl.TemplateImpl;
 import org.seasar.jface.component.impl.WindowComponent;
-import org.seasar.jface.util.AssertionUtil;
 
 /**
  * ウィンドウを管理するためのクラスです。</br>
@@ -38,9 +36,7 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
 
     private Map<String, WindowComponent> windowMap = new HashMap<String, WindowComponent>();
 
-    private Map<String, TemplateImpl> templateCache = new HashMap<String, TemplateImpl>();
-
-    private ComponentTreeBuilder builder = new ComponentTreeBuilder();
+    private S2JFaceTemplateManager templateManager = new S2JFaceTemplateManagerImpl();
 
     /*
      * @see org.seasar.jface.S2JFaceWindowManager#openModal(String)
@@ -93,26 +89,10 @@ public class S2JFaceWindowManagerImpl implements S2JFaceWindowManager {
     }
 
     protected Template loadTemplate(final String path) {
-        TemplateImpl template = getTemplate(path);
-        if (template == null) {
-            template = (TemplateImpl) builder.build(path);
-            if (template != null) {
-                registTemplate(template);
-                return template;
-            }
-        }
-        return template;
-    }
-
-    protected TemplateImpl getTemplate(final String path) {
-        return templateCache.get(path);
-    }
-
-    protected void registTemplate(final TemplateImpl template) {
-        AssertionUtil.assertNotNull("template", template);
-        templateCache.put(template.getBasePath(), template);
-        WindowComponent window = template.getWindowComponent();
+        Template template = templateManager.getTemplate(path);
+        WindowComponent window = (WindowComponent) template.getRootComponent();
         windowMap.put(window.getId(), window);
+        return template;
     }
 
 }

@@ -58,7 +58,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
         super(null);
     }
 
-    public S2JFaceApplicationWindow(Template template, boolean modal) {
+    public S2JFaceApplicationWindow(final Template template, final boolean modal) {
         super(null);
         init(template, modal);
     }
@@ -72,20 +72,22 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
      * @param template
      *            テンプレートオブジェクト
      */
-    public void init(Template template, boolean modal) {
+    public void init(final Template template, final boolean modal) {
         this.template = template;
         this.context = new WindowContextImpl();
 
         setupActionComponent();
         setupFormComponent();
         // setupMenuBar();
-        setupShellStyle(template.getWindowComponent(), modal);
+        WindowComponent windowComponent = (WindowComponent) template
+                .getRootComponent();
+        setupShellStyle(windowComponent, modal);
         setupStatusLine();
     }
 
     protected void setupActionComponent() {
         String actionComponentName = StringUtil.decapitalize(template
-                .getWindowComponent().getId())
+                .getRootComponent().getId())
                 + "Action";
         actionComponent = S2ContainerUtil
                 .getComponentNoException(actionComponentName);
@@ -113,7 +115,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
 
         if (formComponent == null) {
             String formComponentName = StringUtil.decapitalize(template
-                    .getWindowComponent().getId())
+                    .getRootComponent().getId())
                     + "Form";
             formComponent = S2ContainerUtil
                     .getComponentNoException(formComponentName);
@@ -167,7 +169,9 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
     // }
 
     protected void setupStatusLine() {
-        String statusLine = template.getWindowComponent().getStatusLine();
+        WindowComponent windowComponent = (WindowComponent) template
+                .getRootComponent();
+        String statusLine = windowComponent.getStatusLine();
         if ("true".equals(statusLine)) {
             addStatusLine();
             context.setStatusLineManager(getStatusLineManager());
@@ -175,10 +179,11 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
     }
 
     @Override
-    protected Control createContents(Composite parent) {
+    protected Control createContents(final Composite parent) {
         // registMenuToContext();
 
-        WindowComponent windowComponent = template.getWindowComponent();
+        WindowComponent windowComponent = (WindowComponent) template
+                .getRootComponent();
         windowComponent.render(parent, context);
 
         BindingFacade.bindAll(context);
@@ -221,7 +226,7 @@ public class S2JFaceApplicationWindow extends ApplicationWindow {
      * @param argument
      *            ウィンドウへの引数
      */
-    public void initActionComponent(Object argument) {
+    public void initActionComponent(final Object argument) {
         if (actionComponent != null) {
             WidgetBinder.bindWidgets(actionComponent, context);
             actionDesc.setArgumentValue(actionComponent, argument);

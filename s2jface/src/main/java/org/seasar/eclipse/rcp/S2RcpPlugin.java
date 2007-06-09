@@ -18,42 +18,81 @@ package org.seasar.eclipse.rcp;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 import org.seasar.eclipse.common.util.LogUtil;
+import org.seasar.framework.container.S2Container;
+import org.seasar.jface.S2JFaceTemplateManager;
+import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.Template;
+import org.seasar.jface.impl.S2JFaceTemplateManagerImpl;
 
 /**
- * @author y-komori
+ * S2RCP のプラグインクラスです。<br />
  * 
+ * @author y-komori
  */
 public class S2RcpPlugin extends Plugin {
 
-    // The shared instance.
     private static S2RcpPlugin plugin;
 
+    private S2JFaceTemplateManager templateManager = new S2JFaceTemplateManagerImpl();
+
+    private S2ContainerManager containerManager = new S2ContainerManager();
+
+    private WindowContextManager contextManager = new WindowContextManager();
+
     /**
-     * The constructor.
+     * {@link S2RcpPlugin} を構築します。<br />
      */
     public S2RcpPlugin() {
         plugin = this;
     }
 
-    /**
-     * This method is called upon plug-in activation
+    /*
+     * @see org.eclipse.core.runtime.Plugin#start(org.osgi.framework.BundleContext)
      */
+    @Override
     public void start(BundleContext context) throws Exception {
     }
 
-    /**
-     * This method is called when the plug-in is stopped
+    /*
+     * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
      */
+    @Override
     public void stop(BundleContext context) throws Exception {
         super.stop(context);
         plugin = null;
     }
 
     /**
-     * Returns the shared instance.
+     * {@link S2RcpPlugin} のインスタンスを取得します。<br />
+     * 
+     * @return {@link S2RcpPlugin} のインスタンス
      */
     public static S2RcpPlugin getDefault() {
         return plugin;
+    }
+
+    /**
+     * <code>pluginId</code> で指定されたプラグイン専用の {@link S2Container} インスタンスを取得します。<br />
+     * 
+     * @param pluginId
+     *            プラグインID
+     * @return {@link S2Container} のインスタンス
+     */
+    public S2Container getS2Container(final String pluginId) {
+        return containerManager.getS2Container(pluginId);
+    }
+
+    /**
+     * <code>pluginId</code> で指定されたプラグイン専用の {@link WindowContext}
+     * インスタンスを取得します。<br />
+     * 
+     * @param pluginId
+     *            プラグインID
+     * @return {@link WindowContext} のインスタンス
+     */
+    public WindowContext getWindowContext(final String pluginId) {
+        return contextManager.getWindowContext(pluginId);
+
     }
 
     public static void log(String msg) {
@@ -62,5 +101,13 @@ public class S2RcpPlugin extends Plugin {
 
     public static void log(Throwable throwable) {
         LogUtil.log(getDefault(), throwable);
+    }
+
+    public Template getTemplate(final String path) {
+        Template template = templateManager.getTemplate(path);
+        if (template == null) {
+            // TODO エラーログ出力
+        }
+        return template;
     }
 }

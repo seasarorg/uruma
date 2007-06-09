@@ -16,21 +16,22 @@
 package org.seasar.jface.component.impl;
 
 import org.seasar.jface.component.Template;
+import org.seasar.jface.component.UICompositeComponent;
 
 /**
  * @author y-komori
  */
 public class TemplateImpl extends AbstractUIElement implements Template {
-    private WindowComponent windowComponent;
+    private UICompositeComponent rootComponent;
 
     private String extendsPath;
 
-    public WindowComponent getWindowComponent() {
-        return this.windowComponent;
+    public UICompositeComponent getRootComponent() {
+        return this.rootComponent;
     }
 
-    public void setWindowComponent(WindowComponent windowComponent) {
-        this.windowComponent = windowComponent;
+    public void setRootComponent(final UICompositeComponent rootComponent) {
+        this.rootComponent = rootComponent;
     }
 
     public String getExtends() {

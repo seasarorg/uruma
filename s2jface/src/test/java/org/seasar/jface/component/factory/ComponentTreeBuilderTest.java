@@ -36,6 +36,6 @@ public class ComponentTreeBuilderTest extends S2FrameworkTestCase {
 
         assertNotNull(template);
 
-        assertNotNull(template.getWindowComponent());
+        assertNotNull(template.getRootComponent());
     }
 }
