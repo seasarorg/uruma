@@ -29,6 +29,9 @@ public class MenuItemTagHandler extends S2JFaceGenericTagHandler {
 
     private static final long serialVersionUID = -5380844837424058319L;
 
+    /**
+     * {@link MenuItemTagHandler} を構築します。
+     */
     public MenuItemTagHandler() {
         super(MenuItemComponent.class);
     }

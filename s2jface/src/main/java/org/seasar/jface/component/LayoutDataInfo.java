@@ -16,8 +16,9 @@
 package org.seasar.jface.component;
 
 /**
- * @author y-komori
+ * レイアウトデータの情報を保持するためのインターフェースです。<br />
  * 
+ * @author y-komori
  */
 public interface LayoutDataInfo extends UIElement {
 }

@@ -70,6 +70,9 @@ import org.seasar.jface.component.impl.TreeComponent;
 public class S2JFaceTagHandlerRule extends TagHandlerRule {
     private static final long serialVersionUID = -6918247426777293347L;
 
+    /**
+     * {@link S2JFaceTagHandlerRule} クラスを構築します。<br />
+     */
     public S2JFaceTagHandlerRule() {
         addTagHandler(new TemplateTagHandler());
         addTagHandler(new WindowTagHandler());

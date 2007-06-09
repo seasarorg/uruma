@@ -30,6 +30,9 @@ public class ViewPartTagHandler extends S2JFaceGenericTagHandler {
 
     private static final long serialVersionUID = -2921723016502048308L;
 
+    /**
+     * {@link ViewPartTagHandler} を構築します。<br />
+     */
     public ViewPartTagHandler() {
         super(ViewPartComponent.class);
     }

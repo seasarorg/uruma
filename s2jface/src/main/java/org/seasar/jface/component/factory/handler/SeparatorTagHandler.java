@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,18 @@ import org.seasar.jface.component.UIElement;
 import org.seasar.jface.component.impl.MenuItemComponent;
 import org.xml.sax.Attributes;
 
+/**
+ * <code>separator</code> タグに対するタグハンドラです。<br />
+ * 
+ * @author y-komori
+ */
 public class SeparatorTagHandler extends MenuItemTagHandler {
 
     private static final long serialVersionUID = 7033038411653634637L;
 
+    /**
+     * {@link SeparatorTagHandler} を構築します。<br />
+     */
     public SeparatorTagHandler() {
         super();
     }

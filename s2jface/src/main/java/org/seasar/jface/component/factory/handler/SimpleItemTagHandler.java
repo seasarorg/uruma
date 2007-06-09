@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,16 @@ import org.seasar.jface.component.impl.SimpleItemComponent;
 import org.seasar.jface.component.impl.SimpleItemCompositeComponent;
 
 /**
- * @author bskuroneko
+ * <code>item</code> 要素に対するタグハンドラです。<br />
  * 
+ * @author bskuroneko
  */
 public class SimpleItemTagHandler extends S2JFaceGenericTagHandler {
     private static final long serialVersionUID = -4193931475175186348L;
 
+    /**
+     * {@link SimpleItemTagHandler} を構築します。
+     */
     public SimpleItemTagHandler() {
         super(SimpleItemComponent.class);
     }
@@ -37,7 +41,8 @@ public class SimpleItemTagHandler extends S2JFaceGenericTagHandler {
     }
 
     @Override
-    protected void setParent(final UIElement uiElement, final TagHandlerContext context) {
+    protected void setParent(final UIElement uiElement,
+            final TagHandlerContext context) {
         final SimpleItemCompositeComponent parent = (SimpleItemCompositeComponent) context
                 .peek();
         parent.addItem((SimpleItemComponent) uiElement);

@@ -27,6 +27,9 @@ import org.seasar.jface.component.impl.TemplateImpl;
 public class TemplateTagHandler extends S2JFaceGenericTagHandler {
     private static final long serialVersionUID = 3868107810048728261L;
 
+    /**
+     * {@link TemplateTagHandler} を構築します。<br />
+     */
     public TemplateTagHandler() {
         super(TemplateImpl.class);
     }

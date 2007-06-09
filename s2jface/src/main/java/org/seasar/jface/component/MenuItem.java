@@ -22,7 +22,18 @@ package org.seasar.jface.component;
  */
 public interface MenuItem extends UIComponent {
 
+    /**
+     * 親メニューオブジェクトを取得します。
+     * 
+     * @return 親メニューオブジェクト
+     */
     public Menu getParentMenu();
 
+    /**
+     * 親メニューオブジェクトを設定します。<br />
+     * 
+     * @param parentMenu
+     *            親メニューオブジェクト
+     */
     public void setParentMenu(Menu parentMenu);
 }

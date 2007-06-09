@@ -21,13 +21,17 @@ import org.seasar.jface.component.impl.GradientInfo;
 import org.seasar.jface.component.impl.GradientItem;
 
 /**
- * @author bskuroneko
+ * <code>gradientItem</code> 要素に対するタグハンドラです。<br />
  * 
+ * @author bskuroneko
  */
 public class GradientItemTagHandler extends S2JFaceGenericTagHandler {
 
     private static final long serialVersionUID = 4653123801348296758L;
 
+    /**
+     * {@link GradientInfoTagHandler} を構築します。
+     */
     public GradientItemTagHandler() {
         super(GradientItem.class);
     }

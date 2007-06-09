@@ -24,8 +24,19 @@ import java.util.List;
  */
 public interface Menu extends MenuItem {
 
+    /**
+     * メニュー項目のリストを取得します。<br />
+     * 
+     * @return メニュー項目のリスト
+     */
     public List<MenuItem> getMenuItemList();
 
+    /**
+     * メニュー項目を追加します。<br />
+     * 
+     * @param menuItem
+     *            メニュー項目オブジェクト
+     */
     public void addMenuItem(MenuItem menuItem);
 
     /**

@@ -29,6 +29,9 @@ public class TreeItemTagHandler extends S2JFaceGenericTagHandler {
 
     private static final long serialVersionUID = -260321293575249423L;
 
+    /**
+     * {@link TreeItemTagHandler} を構築します。<br />
+     */
     public TreeItemTagHandler() {
         super(TreeItemComponent.class);
     }

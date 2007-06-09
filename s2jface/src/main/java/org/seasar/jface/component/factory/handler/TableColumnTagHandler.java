@@ -21,13 +21,17 @@ import org.seasar.jface.component.impl.TableComponent;
 import org.xml.sax.Attributes;
 
 /**
- * @author y-komori
+ * <code>tableColumn</code>タグに対するタグハンドラです。<br />
  * 
+ * @author y-komori
  */
 public class TableColumnTagHandler extends S2JFaceGenericTagHandler {
 
     private static final long serialVersionUID = -2864950085408995035L;
 
+    /**
+     * {@link TableColumnTagHandler} を構築します。<br />
+     */
     public TableColumnTagHandler() {
         super(TableColumnComponent.class);
     }

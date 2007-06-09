@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,9 @@ public class MenuTagHandler extends S2JFaceGenericTagHandler {
 
     private static final long serialVersionUID = 5143956606600001623L;
 
+    /**
+     * {@link MenuTagHandler} を構築します。
+     */
     public MenuTagHandler() {
         super(MenuComponent.class);
     }

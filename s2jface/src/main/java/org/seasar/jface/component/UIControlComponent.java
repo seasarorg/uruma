@@ -15,13 +15,26 @@
  */
 package org.seasar.jface.component;
 
+import org.eclipse.swt.widgets.Control;
+
 /**
- * @author bskuroneko
+ * {@link Control} に関する情報を保持するインターフェースです。<br />
  * 
+ * @author bskuroneko
  */
 public interface UIControlComponent extends UIComponent {
+    /**
+     * {@link LayoutDataInfo} オブジェクトを取得します。<br />
+     * 
+     * @return {@link LayoutDataInfo} オブジェクト
+     */
     public LayoutDataInfo getLayoutDataInfo();
 
+    /**
+     * {@link LayoutDataInfo} オブジェクトを設定します。<br />
+     * 
+     * @param layoutDataInfo
+     *            {@link LayoutDataInfo} オブジェクト
+     */
     public void setLayoutDataInfo(LayoutDataInfo layoutDataInfo);
-
 }

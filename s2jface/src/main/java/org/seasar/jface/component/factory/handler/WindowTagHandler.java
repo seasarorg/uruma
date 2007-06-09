@@ -30,6 +30,9 @@ public class WindowTagHandler extends S2JFaceGenericTagHandler {
 
     private static final long serialVersionUID = 5978222763650610537L;
 
+    /**
+     * {@link WindowTagHandler} を構築します。<br />
+     */
     public WindowTagHandler() {
         super(WindowComponent.class);
     }

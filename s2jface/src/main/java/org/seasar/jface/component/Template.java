@@ -22,11 +22,32 @@ package org.seasar.jface.component;
  */
 public interface Template extends UIElement {
 
+    /**
+     * ルートコンポーネントを取得します。
+     * 
+     * @return ルートコンポーネント
+     */
     public UICompositeComponent getRootComponent();
 
+    /**
+     * ルートコンポーネントを設定します。<br />
+     * 
+     * @param rootComponent
+     */
     public void setRootComponent(UICompositeComponent rootComponent);
 
+    /**
+     * 継承元のパスを取得します。<br />
+     * 
+     * @return 継承元パス
+     */
     public String getExtends();
 
+    /**
+     * 継承元パスを設定します。<br />
+     * 
+     * @param extendsPath
+     *            継承元パス
+     */
     public void setExtends(String extendsPath);
 }

@@ -42,6 +42,9 @@ import org.xml.sax.SAXException;
  * @author y-komori
  */
 public class ComponentTreeBuilder {
+    /**
+     * 画面定義XMLのスキーマファイルパス
+     */
     public static final String SCHEMA_PATH = "org/seasar/jface/component/factory/s2jface.xsd";
 
     protected ClassPathResourceResolver resolver = new ClassPathResourceResolver();
