@@ -23,5 +23,12 @@ import org.seasar.jface.component.Template;
  * @author y-komori
  */
 public interface S2JFaceTemplateManager {
+    /**
+     * 指定されたパスの画面定義XMLを読み込み、{@link Template} オブジェクトを返します。<br />
+     * 
+     * @param path
+     *            画面定義XMLのパス
+     * @return {@link Template} オブジェクト
+     */
     public Template getTemplate(final String path);
 }

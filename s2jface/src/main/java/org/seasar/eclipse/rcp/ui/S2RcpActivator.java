@@ -17,8 +17,13 @@ package org.seasar.eclipse.rcp.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.seasar.eclipse.common.util.LogUtil;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
+import org.seasar.jface.S2JFaceTemplateManager;
+import org.seasar.jface.component.Template;
+import org.seasar.jface.impl.S2JFaceTemplateManagerImpl;
 
 /**
  * S2RCP アプリケーションのための基底アクティベータです。<br />
@@ -30,12 +35,20 @@ import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
  */
 public abstract class S2RcpActivator extends AbstractUIPlugin {
 
-    protected static S2RcpActivator plugin;
+    protected S2RcpActivator plugin;
 
     private S2Container container;
 
+    private S2JFaceTemplateManager templateManager = new S2JFaceTemplateManagerImpl();
+
     /**
-     * The constructor
+     * {@link S2Container} へ本クラスを登録する際のコンポーネント名です。<br />
+     * 値：{@value}
+     */
+    public static final String PLUGIN = "plugin";
+
+    /**
+     * {@link S2RcpActivator} を構築します。<br />
      */
     public S2RcpActivator() {
         plugin = this;
@@ -49,9 +62,20 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
     public final void start(BundleContext context) throws Exception {
         super.start(context);
 
-        SingletonS2ContainerFactory.init();
-        container = SingletonS2ContainerFactory.getContainer();
-        System.out.println("Activatorのコンテナ" + container);
+        Thread currentThread = Thread.currentThread();
+        ClassLoader originalLoader = currentThread.getContextClassLoader();
+        currentThread.setContextClassLoader(getClass().getClassLoader());
+
+        try {
+            SingletonS2ContainerFactory.init();
+            container = SingletonS2ContainerFactory.getContainer();
+            container.register(this, PLUGIN);
+        } catch (ResourceNotFoundRuntimeException ex) {
+            LogUtil.log(this, ex);
+            currentThread.setContextClassLoader(originalLoader);
+            throw ex;
+        }
+        currentThread.setContextClassLoader(originalLoader);
 
         s2RcpStart(context);
     }
@@ -70,11 +94,51 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
         super.stop(context);
     }
 
+    /**
+     * 指定されたパスの画面定義XMLを読み込み、{@link Template} オブジェクトを生成します。<br />
+     * 
+     * @param path
+     *            画面定義XMLのパス
+     * @return {@link Template} オブジェクト
+     */
+    public Template getTemplate(final String path) {
+        Template template = templateManager.getTemplate(path);
+        if (template == null) {
+            // TODO エラーログ出力
+        }
+        return template;
+    }
+
+    /**
+     * {@link S2Container} のインスタンスを取得します。<br />
+     * 
+     * @return {@link S2Container} のインスタンス
+     */
     protected S2Container getContainer() {
         return container;
     }
 
+    /**
+     * プラグイン初期化時に呼び出されるメソッドです。<br />
+     * <p>
+     * プラグイン初期化時の処理は、本メソッドをオーバーライドして記述してください。
+     * </p>
+     * 
+     * @param context
+     *            {@link BundleContext} オブジェクト
+     * @throws Exception
+     */
     protected abstract void s2RcpStart(BundleContext context) throws Exception;
 
+    /**
+     * プラグイン終了時に呼び出されるメソッドです。<br />
+     * <p>
+     * プラグイン終了時の処理は、本メソッドをオーバーライドして記述してください。
+     * </p>
+     * 
+     * @param context
+     *            {@link BundleContext} オブジェクト
+     * @throws Exception
+     */
     protected abstract void s2RcpStop(BundleContext context) throws Exception;
 }

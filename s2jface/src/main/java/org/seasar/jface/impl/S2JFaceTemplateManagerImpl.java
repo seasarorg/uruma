@@ -23,8 +23,9 @@ import org.seasar.jface.component.Template;
 import org.seasar.jface.component.factory.ComponentTreeBuilder;
 
 /**
- * @author y-komori
+ * {@link S2JFaceTemplateManager} の実装クラスです。<br />
  * 
+ * @author y-komori
  */
 public class S2JFaceTemplateManagerImpl implements S2JFaceTemplateManager {
     private Map<String, Template> templateCache = new HashMap<String, Template>();

@@ -23,6 +23,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.util.StringUtil;
+import org.seasar.jface.component.Template;
 
 /**
  * S2RCP の機能を利用する {@link IViewPart} の基底クラスです。<br />
@@ -39,29 +41,50 @@ public abstract class S2RcpViewPart extends ViewPart {
     public void init(IViewSite site, IMemento memento) throws PartInitException {
         super.init(site, memento);
 
-        String pluginId = getSite().getPluginId();
-        System.out.println("PluginID:" + pluginId);
-
+        String viewComponentName = getViewComponentName();
         container = SingletonS2ContainerFactory.getContainer();
-
-        String viewId = getSite().getId();
-        System.out.println("ViewID:" + viewId);
-        container.register(this, viewId);
+        container.register(this, viewComponentName);
     }
 
     @Override
     public void createPartControl(Composite parent) {
+        S2RcpActivator plugin = (S2RcpActivator) container
+                .getComponent(S2RcpActivator.PLUGIN);
 
-        ClassLoader loader = getClass().getClassLoader();
-        System.out.println("S2RCP:" + loader);
+        Thread currentThread = Thread.currentThread();
+        ClassLoader originalLoader = currentThread.getContextClassLoader();
+        currentThread.setContextClassLoader(getClass().getClassLoader());
 
-        ClassLoader loader2 = Thread.currentThread().getContextClassLoader();
-        System.out.println("Thread:" + loader2);
+        Template template = plugin.getTemplate(getTemplatePath());
+
+        currentThread.setContextClassLoader(originalLoader);
+
+        System.out.println(template);
     }
 
     @Override
     public void setFocus() {
         // TODO 自動生成されたメソッド・スタブ
 
+    }
+
+    /**
+     * ViewID からコンポーネント名を取得します。<br />
+     * <p>
+     * コンポーネント名は ViewID のうち、最後に登場するピリオドより後ろの文字列を取り出し、先頭の文字を小文字にしたものになります。<br />
+     * 【例】<br />
+     * <code>org.seasar.eclipse.rcp.TestView</code> の場合、<code>testView</code>
+     * がコンポーネント名となります。
+     * </p>
+     * 
+     * @return コンポーネント名
+     */
+    protected String getViewComponentName() {
+        String viewId = getSite().getId();
+        return StringUtil.decapitalize(StringUtil.substringToLast(viewId, "."));
+    }
+
+    protected String getTemplatePath() {
+        return getViewComponentName() + ".xml";
     }
 }

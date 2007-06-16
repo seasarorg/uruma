@@ -21,7 +21,6 @@ import org.seasar.eclipse.common.util.LogUtil;
 import org.seasar.framework.container.S2Container;
 import org.seasar.jface.S2JFaceTemplateManager;
 import org.seasar.jface.WindowContext;
-import org.seasar.jface.component.Template;
 import org.seasar.jface.impl.S2JFaceTemplateManagerImpl;
 
 /**
@@ -101,13 +100,5 @@ public class S2RcpPlugin extends Plugin {
 
     public static void log(Throwable throwable) {
         LogUtil.log(getDefault(), throwable);
-    }
-
-    public Template getTemplate(final String path) {
-        Template template = templateManager.getTemplate(path);
-        if (template == null) {
-            // TODO エラーログ出力
-        }
-        return template;
     }
 }
