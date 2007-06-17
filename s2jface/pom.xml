@@ -56,6 +56,13 @@
       <url>http://d.hatena.ne.jp/r-matuda/</url>
       <timezone>+9</timezone>
     </developer>
+    <developer>
+      <id>cero-t</id>
+      <name></name>
+      <email></email>
+      <url>http://d.hatena.ne.jp/cero-t/</url>
+      <timezone>+9</timezone>
+    </developer>
   </developers>
   <licenses>
     <license>
