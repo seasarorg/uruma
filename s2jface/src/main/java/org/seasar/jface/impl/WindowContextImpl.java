@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.EnabledDepend;
@@ -36,7 +37,7 @@ import org.seasar.jface.viewer.ViewerAdapter;
  */
 public class WindowContextImpl implements WindowContext {
 
-    protected Map<String, Widget> componentMap = new HashMap<String, Widget>();
+    protected Map<String, Object> componentMap = new HashMap<String, Object>();
 
     private Object actionComponent;
 
@@ -97,7 +98,12 @@ public class WindowContextImpl implements WindowContext {
      * @see org.seasar.jface.WindowContext#getComponent(java.lang.String)
      */
     public Widget getComponent(String id) {
-        return componentMap.get(id);
+        Object component = componentMap.get(id);
+        if (component != null && component instanceof Widget) {
+            return Widget.class.cast(component);
+        } else {
+            return null;
+        }
     }
 
     /*
@@ -172,5 +178,32 @@ public class WindowContextImpl implements WindowContext {
      */
     public void setStatusLineManager(IStatusLineManager statusLineManager) {
         this.statusLineManager = statusLineManager;
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#putViewerComponent(java.lang.String,
+     *      org.eclipse.jface.viewers.Viewer)
+     */
+    public void putViewerComponent(String id, Viewer viewer) {
+        AssertionUtil.assertNotNull("id", id);
+        AssertionUtil.assertNotNull("viewer", viewer);
+
+        if (!componentMap.containsKey(id)) {
+            componentMap.put(id, viewer);
+        } else {
+            throw new DuplicateComponentIdException(id);
+        }
+    }
+
+    /*
+     * @see org.seasar.jface.WindowContext#getViewerComponent(java.lang.String)
+     */
+    public Viewer getViewerComponent(String id) {
+        Object component = componentMap.get(id);
+        if (component != null && component instanceof Viewer) {
+            return Viewer.class.cast(component);
+        } else {
+            return null;
+        }
     }
 }

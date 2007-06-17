@@ -22,8 +22,10 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.jface.S2JFaceTemplateManager;
+import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.impl.S2JFaceTemplateManagerImpl;
+import org.seasar.jface.impl.WindowContextImpl;
 
 /**
  * S2RCP アプリケーションのための基底アクティベータです。<br />
@@ -48,6 +50,12 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
     public static final String PLUGIN = "plugin";
 
     /**
+     * {@link S2Container} へ {@link WindowContext} オブジェクトを登録する際のコンポーネント名です。<br />
+     * 値：{@value}
+     */
+    public static final String WINDOW_CONTEXT = "windowContext";
+
+    /**
      * {@link S2RcpActivator} を構築します。<br />
      */
     public S2RcpActivator() {
@@ -69,7 +77,8 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
         try {
             SingletonS2ContainerFactory.init();
             container = SingletonS2ContainerFactory.getContainer();
-            container.register(this, PLUGIN);
+
+            registComponentsToS2Container();
         } catch (ResourceNotFoundRuntimeException ex) {
             LogUtil.log(this, ex);
             currentThread.setContextClassLoader(originalLoader);
@@ -78,6 +87,13 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
         currentThread.setContextClassLoader(originalLoader);
 
         s2RcpStart(context);
+    }
+
+    protected void registComponentsToS2Container() {
+        container.register(this, PLUGIN);
+
+        WindowContext windowContext = new WindowContextImpl();
+        container.register(windowContext, WINDOW_CONTEXT);
     }
 
     /*

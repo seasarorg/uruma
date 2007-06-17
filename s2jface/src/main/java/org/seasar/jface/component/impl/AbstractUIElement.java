@@ -18,27 +18,40 @@ package org.seasar.jface.component.impl;
 import org.seasar.jface.component.UIElement;
 
 /**
- * @author y-komori
+ * {@link UIElement} を表す基底クラスです。<br />
  * 
+ * @author y-komori
  */
 public abstract class AbstractUIElement implements UIElement {
     private String basePath;
 
     private String location;
 
+    /*
+     * @see org.seasar.jface.component.UIElement#getBasePath()
+     */
     public String getBasePath() {
         return this.basePath;
     }
 
-    public void setBasePath(String basePath) {
+    /*
+     * @see org.seasar.jface.component.UIElement#setBasePath(java.lang.String)
+     */
+    public void setBasePath(final String basePath) {
         this.basePath = basePath;
     }
 
+    /*
+     * @see org.seasar.jface.component.UIElement#getLocation()
+     */
     public String getLocation() {
         return this.location;
     }
 
-    public void setLocation(String location) {
+    /*
+     * @see org.seasar.jface.component.UIElement#setLocation(java.lang.String)
+     */
+    public void setLocation(final String location) {
         this.location = location;
     }
 }

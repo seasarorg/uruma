@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.binding.EnabledDepend;
 import org.seasar.jface.binding.WidgetEnabledDependBinder;
@@ -89,12 +90,12 @@ public interface WindowContext {
     public Method getInitializeMethod();
 
     /**
-     * 画面コンポーネント(SWTウィジット)を登録します。</br>
+     * 画面コンポーネント({@link Widget})を登録します。</br>
      * 
      * @param id
      *            コンポーネントのID
      * @param component
-     *            コンポーネント
+     *            {@link Widget} コンポーネント
      * @throws org.seasar.jface.exception.DuplicateComponentIdException
      *             コンポーネントIDが既に登録されている場合にスローされます。
      * @see Widget
@@ -102,11 +103,14 @@ public interface WindowContext {
     public void putComponent(String id, Widget component);
 
     /**
-     * 画面コンポーネント(SWTウィジット)を取得します。</br>
+     * 画面コンポーネント({@link Widget})を取得します。</br>
+     * <p>
+     * <code>id</code> で指定されたコンポーネントが見つからない場合は、<code>null</code> を返します。<br />
+     * </p>
      * 
      * @param id
      *            コンポーネントのID
-     * @return コンポーネント
+     * @return {@link Widget} コンポーネント
      */
     public Widget getComponent(String id);
 
@@ -182,6 +186,30 @@ public interface WindowContext {
      * @return {@link ViewerAdapter} オブジェクト
      */
     public ViewerAdapter getViewerAdapter(Widget widget);
+
+    /**
+     * 画面コンポーネント({@link Viewer})を登録します。</br>
+     * 
+     * @param id
+     *            コンポーネントのID
+     * @param viewer
+     *            {@link Viewer} コンポーネント
+     * @throws org.seasar.jface.exception.DuplicateComponentIdException
+     *             コンポーネントIDが既に登録されている場合にスローされます。
+     */
+    public void putViewerComponent(String id, Viewer viewer);
+
+    /**
+     * 画面コンポーネント({@link Viewer})を取得します。</br>
+     * <p>
+     * <code>id</code> で指定されたコンポーネントが見つからない場合は、<code>null</code> を返します。<br />
+     * </p>
+     * 
+     * @param id
+     *            コンポーネントのID
+     * @return {@link Viewer} コンポーネント
+     */
+    public Viewer getViewerComponent(String id);
 
     /**
      * {@link IStatusLineManager} を登録します。

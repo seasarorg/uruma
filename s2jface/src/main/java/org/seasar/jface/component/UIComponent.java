@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.component;
 
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.renderer.Renderer;
@@ -56,7 +57,7 @@ public interface UIComponent extends UIElement {
     public void setStyle(String style);
 
     /**
-     * 親となる {@link UICompositeComponent} を設定します。
+     * 親となる {@link UICompositeComponent} を設定します。<br />
      * 
      * @param parent
      *            親コンポーネント
@@ -64,26 +65,47 @@ public interface UIComponent extends UIElement {
     public void setParent(UIContainer parent);
 
     /**
-     * 親となる {@link UICompositeComponent} を取得します。
+     * 親となる {@link UICompositeComponent} を取得します。<br />
      * 
      * @return 親コンポーネント
      */
     public UIContainer getParent();
 
     /**
-     * 本コンポーネントに対応する SWT の {@link Widget} を取得します。
+     * 本コンポーネントに対応する SWT の {@link Widget} を取得します。<br />
+     * <p>
+     * {@link Widget} が設定されていない場合は、<code>null</code> を返します。<br />
+     * </p>
      * 
      * @return {@link Widget} オブジェクト
      */
     public Widget getWidget();
 
     /**
-     * 本コンポーネントに対応する SWT の {@link Widget} を設定します。
+     * 本コンポーネントに対応する SWT の {@link Widget} を設定します。<br />
      * 
      * @param widget
      *            {@link Widget} オブジェクト
      */
     public void setWidget(Widget widget);
+
+    /**
+     * 本コンポーネントに対応する {@link Viewer} を取得します。<br />
+     * <p>
+     * {@link Viewer} が設定されていない場合は、<code>null</code> を返します。
+     * </p>
+     * 
+     * @return {@link Viewer} オブジェクト
+     */
+    public Viewer getViewer();
+
+    /**
+     * 本コンポーネントに対応する {@link Viewer} を設定します。<br />
+     * 
+     * @param viewer
+     *            {@link Viewer} オブジェクト
+     */
+    public void setViewer(Viewer viewer);
 
     /**
      * メニューを取得します。<br />

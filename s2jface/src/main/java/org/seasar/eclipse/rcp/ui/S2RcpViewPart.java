@@ -24,22 +24,31 @@ import org.eclipse.ui.part.ViewPart;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
+import org.seasar.jface.WindowContext;
+import org.seasar.jface.binding.WidgetBinder;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.component.impl.ViewPartComponent;
 import org.seasar.jface.exception.RenderException;
-import org.seasar.jface.impl.WindowContextImpl;
+import org.seasar.jface.util.S2ContainerUtil;
 
 /**
  * S2RCP の機能を利用する {@link IViewPart} の基底クラスです。<br />
  * <p>
  * S2RCP による {@link ViewPart} を作成するには、本クラスのサブクラスを作成してください。<br />
+ * 本クラスは {@link S2RcpViewPart#init(IViewSite, IMemento)} メソッドにおいて、自インスタンスを
+ * {@link S2RcpViewPart#getViewComponentName()} の戻り値をコンポーネント名として、{@link S2Container}
+ * へ登録します。<br />
  * </p>
  * 
  * @author y-komori
  */
 public class S2RcpViewPart extends ViewPart {
     protected S2Container container;
+
+    protected WindowContext windowContext;
+
+    private String viewComponentName;
 
     /*
      * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
@@ -49,9 +58,13 @@ public class S2RcpViewPart extends ViewPart {
     public void init(IViewSite site, IMemento memento) throws PartInitException {
         super.init(site, memento);
 
-        String viewComponentName = getViewComponentName();
+        initViewComponentName();
+
         container = SingletonS2ContainerFactory.getContainer();
+
         container.register(this, viewComponentName);
+
+        S2ContainerUtil.injectDependency(this, container);
     }
 
     /*
@@ -73,11 +86,14 @@ public class S2RcpViewPart extends ViewPart {
         UICompositeComponent rootComponent = template.getRootComponent();
         if (rootComponent instanceof ViewPartComponent) {
             ViewPartComponent viewPartComponent = (ViewPartComponent) rootComponent;
-            viewPartComponent.render(parent, new WindowContextImpl());
+            viewPartComponent.render(parent, windowContext);
         } else {
             throw new RenderException(RenderException.REQUIRED_VIEWPART_ERROR,
                     templatePath);
         }
+
+        // TODO 他のViewPartでのレンダリング結果もバインドできるようにする。
+        WidgetBinder.bindWidgets(this, windowContext);
     }
 
     /*
@@ -100,11 +116,26 @@ public class S2RcpViewPart extends ViewPart {
      * @return コンポーネント名
      */
     protected String getViewComponentName() {
-        String viewId = getSite().getId();
-        return StringUtil.decapitalize(StringUtil.substringToLast(viewId, "."));
+        return viewComponentName;
     }
 
     protected String getTemplatePath() {
         return getViewComponentName() + ".xml";
+    }
+
+    private void initViewComponentName() {
+        String viewId = getSite().getId();
+        viewComponentName = StringUtil.decapitalize(StringUtil.substringToLast(
+                viewId, "."));
+    }
+
+    /**
+     * {@link WindowContext} オブジェクトを設定します。<br />
+     * 
+     * @param windowContext
+     *            {@link WindowContext} オブジェクト
+     */
+    public void setWindowContext(WindowContext windowContext) {
+        this.windowContext = windowContext;
     }
 }

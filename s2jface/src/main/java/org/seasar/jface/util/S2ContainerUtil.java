@@ -15,18 +15,21 @@
  */
 package org.seasar.jface.util;
 
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 
 /**
- * S2Container を利用するためのユーティリティクラスです。<br />
+ * {@link S2Container} を利用するためのユーティリティクラスです。<br />
  * 
  * @author y-komori
  */
 public class S2ContainerUtil {
     /**
-     * 指定された名前に対応するコンポーネントを <code>S2Container</code> から取得して返します。<br />
+     * 指定された名前に対応するコンポーネントを {@link S2Container} から取得して返します。<br />
      * <p>
      * コンポーネントが存在しない場合は例外をスローせず、<code>null</code> を返します。
      * </p>
@@ -45,7 +48,7 @@ public class S2ContainerUtil {
     }
 
     /**
-     * 指定された名前に対応するコンポーネントを <code>S2Container</code> から取得して返します。<br />
+     * 指定された名前に対応するコンポーネントを {@link S2Container} から取得して返します。<br />
      * 
      * @param componentName
      *            コンポーネント名称
@@ -57,7 +60,7 @@ public class S2ContainerUtil {
     }
 
     /**
-     * 指定されたクラスに対応するコンポーネントを <code>S2Container</code> から取得して返します。<br />
+     * 指定されたクラスに対応するコンポーネントを {@link S2Container} から取得して返します。<br />
      * 
      * @param componentClass
      *            コンポーネントクラス
@@ -69,7 +72,7 @@ public class S2ContainerUtil {
     }
 
     /**
-     * 指定されたクラスに対応するコンポーネントを <code>S2Container</code> から取得して返します。<br />
+     * 指定されたクラスに対応するコンポーネントを {@link S2Container} から取得して返します。<br />
      * 
      * @param componentClass
      *            コンポーネントクラス
@@ -77,5 +80,38 @@ public class S2ContainerUtil {
      */
     public static Object getComponent(final Class componentClass) {
         return getComponentDef(componentClass).getComponent();
+    }
+
+    /**
+     * 指定されたオブジェクトに対して {@link S2Container} からコンポーネントをインジェクションします。<br />
+     * <p>
+     * <code>target</code> で指定されたオブジェクトに対して、<code>container</code> で指定された
+     * {@link S2Container} からコンポーネントをインジェクションします。<br />
+     * </p>
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     * @param container
+     *            {@link S2Container} オブジェクト
+     */
+    public static void injectDependency(final Object target,
+            final S2Container container) {
+        AssertionUtil.assertNotNull("target", target);
+        AssertionUtil.assertNotNull("container", container);
+
+        BeanDesc desc = BeanDescFactory.getBeanDesc(target.getClass());
+
+        int pdSize = desc.getPropertyDescSize();
+        for (int i = 0; i < pdSize; i++) {
+            PropertyDesc pd = desc.getPropertyDesc(i);
+            if (pd.hasWriteMethod()) {
+                String propertyName = pd.getPropertyName();
+                Object component = getComponentNoException(propertyName);
+
+                if (component != null) {
+                    pd.setValue(target, component);
+                }
+            }
+        }
     }
 }

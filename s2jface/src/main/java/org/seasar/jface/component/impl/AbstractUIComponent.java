@@ -15,6 +15,7 @@
  */
 package org.seasar.jface.component.impl;
 
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
@@ -23,8 +24,11 @@ import org.seasar.jface.component.UIComponent;
 import org.seasar.jface.component.UIContainer;
 import org.seasar.jface.renderer.Renderer;
 import org.seasar.jface.util.AssertionUtil;
+import org.seasar.jface.viewer.ViewerAdapter;
 
 /**
+ * {@link UIComponent} を表す基底クラスです。<br />
+ * 
  * @author y-komori
  */
 public abstract class AbstractUIComponent extends AbstractUIElement implements
@@ -41,14 +45,54 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     private Widget widget;
 
+    private Viewer viewer;
+
     private Menu menu;
 
+    /**
+     * レンダラ呼び出し中に独自のレンダリング処理を追加するためのメソッドです。<br />
+     * <p>
+     * 本メソッドは {@link AbstractUIComponent#renderer} メソッドの中で、{@link Renderer レンダラ}
+     * の {@link Renderer#render(UIComponent, Widget, WindowContext) render()}
+     * メソッドと
+     * {@link Renderer#renderAfter(Widget, UIComponent, Widget, WindowContext) renderAfter()}
+     * メソッドを呼び出す間に呼び出されます。<br />
+     * </p>
+     * <p>
+     * このタイミングでサブクラスで独自のレンダリング処理を行う場合、本メソッドをオーバーライドしてください。<br />
+     * </p>
+     * 
+     * @param parent
+     *            親 {@link Widget} オブジェクト
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     */
+    protected void doRender(final Widget parent, final WindowContext context) {
+    }
+
+    /*
+     * @see org.seasar.jface.component.UIComponent#getId()
+     */
     public String getId() {
         return this.id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Menu getMenu() {
+        return menu;
+    }
+
+    /*
+     * @see org.seasar.jface.component.UIComponent#getParent()
+     */
+    public UIContainer getParent() {
+        return parent;
+    }
+
+    /*
+     * @see org.seasar.jface.component.UIComponent#getRenderer()
+     */
+    public Renderer getRenderer() {
+        return this.renderer;
     }
 
     // TODO 見直しが必要
@@ -56,65 +100,55 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         return this.replace;
     }
 
-    // TODO 見直しが必要
-    public void setReplace(String replace) {
-        this.replace = replace;
-    }
-
+    /*
+     * @see org.seasar.jface.component.UIComponent#getStyle()
+     */
     public String getStyle() {
         return this.style;
     }
 
-    public void setStyle(String style) {
-        this.style = style;
+    /*
+     * @see org.seasar.jface.component.UIComponent#getViewer()
+     */
+    public Viewer getViewer() {
+        return this.viewer;
     }
 
-    public Renderer getRenderer() {
-        return this.renderer;
-    }
-
-    public void setRenderer(Renderer renderer) {
-        AssertionUtil.assertNotNull("renderer", renderer);
-        this.renderer = renderer;
-    }
-
+    /*
+     * @see org.seasar.jface.component.UIComponent#getWidget()
+     */
     public Widget getWidget() {
         return this.widget;
     }
 
-    public void setWidget(Widget widget) {
-        AssertionUtil.assertNotNull("widget", widget);
-        this.widget = widget;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
+    /*
+     * @see org.seasar.jface.component.UIComponent#render(org.eclipse.swt.widgets.Widget,
+     *      org.seasar.jface.WindowContext)
+     */
     public void render(final Widget parent, final WindowContext context) {
         Widget widget = getRenderer().render(this, parent, context);
         setWidget(widget);
 
-        if ((getId() != null) && (widget != null)) {
-            context.putComponent(getId(), widget);
+        Viewer viewer = null;
+        ViewerAdapter<?> viewerAdapter = context.getViewerAdapter(widget);
+        if (viewerAdapter != null) {
+            viewer = (Viewer) viewerAdapter.getViewer();
+        }
+
+        // レンダラが Viewer を生成していれば優先的に WindowContext へセットする
+        String id = getId();
+        if (id != null) {
+            if (viewer != null) {
+                context.putViewerComponent(id, viewer);
+            } else if (widget != null) {
+                context.putComponent(id, widget);
+            }
         }
 
         renderMenu(parent, context);
         doRender(parent, context);
 
         getRenderer().renderAfter(widget, this, parent, context);
-    }
-
-    public UIContainer getParent() {
-        return parent;
-    }
-
-    public void setParent(UIContainer parent) {
-        this.parent = parent;
     }
 
     protected void renderMenu(final Widget parent, final WindowContext context) {
@@ -127,21 +161,57 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         }
     }
 
-    /**
-     * レンダラ呼び出し中に独自のレンダリング処理を追加するためのメソッドです。<br />
-     * <p>
-     * 本メソッドは render メソッドの中で、レンダラの render() メソッドと renderAfter()
-     * メソッドを呼び出す間に呼び出されます。
-     * </p>
-     * <p>
-     * このタイミングでサブクラスで独自のレンダリング処理を行う場合、本メソッドをオーバーライドしてください。
-     * </p>
-     * 
-     * @param parent
-     *            親 {@link Widget} オブジェクト
-     * @param context
-     *            {@link WindowContext} オブジェクト
+    /*
+     * @see org.seasar.jface.component.UIComponent#setId(java.lang.String)
      */
-    protected void doRender(final Widget parent, final WindowContext context) {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setMenu(final Menu menu) {
+        this.menu = menu;
+    }
+
+    /*
+     * @see org.seasar.jface.component.UIComponent#setParent(org.seasar.jface.component.UIContainer)
+     */
+    public void setParent(final UIContainer parent) {
+        this.parent = parent;
+    }
+
+    /*
+     * @see org.seasar.jface.component.UIComponent#setRenderer(org.seasar.jface.renderer.Renderer)
+     */
+    public void setRenderer(final Renderer renderer) {
+        AssertionUtil.assertNotNull("renderer", renderer);
+        this.renderer = renderer;
+    }
+
+    // TODO 見直しが必要
+    public void setReplace(final String replace) {
+        this.replace = replace;
+    }
+
+    /*
+     * @see org.seasar.jface.component.UIComponent#setStyle(java.lang.String)
+     */
+    public void setStyle(final String style) {
+        this.style = style;
+    }
+
+    /*
+     * @see org.seasar.jface.component.UIComponent#setViewer(org.eclipse.jface.viewers.Viewer)
+     */
+    public void setViewer(final Viewer viewer) {
+        AssertionUtil.assertNotNull("viewer", viewer);
+        this.viewer = viewer;
+    }
+
+    /*
+     * @see org.seasar.jface.component.UIComponent#setWidget(org.eclipse.swt.widgets.Widget)
+     */
+    public void setWidget(final Widget widget) {
+        AssertionUtil.assertNotNull("widget", widget);
+        this.widget = widget;
     }
 }
