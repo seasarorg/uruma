@@ -15,6 +15,8 @@
  */
 package org.seasar.jface.exception;
 
+import org.seasar.jface.component.impl.ViewPartComponent;
+
 /**
  * レンダリング処理中に異常が発生した際にスローされるクラスです。</br>
  * 
@@ -29,10 +31,33 @@ public class RenderException extends S2JFaceRuntimeException {
 
     public static final String TYPE_ERROR = "EJFC0303";
 
+    /**
+     * ViewPart のレンダリング時にルートコンポーネントが {@link ViewPartComponent} でなかった場合のエラーコード。<br />
+     */
+    public static final String REQUIRED_VIEWPART_ERROR = "EJFC0304";
+
+    /**
+     * {@link RenderException} を構築します。<br />
+     * 
+     * @param messageCode
+     *            メッセージコード
+     * @param args
+     *            メッセージ引数
+     */
     public RenderException(String messageCode, Object... args) {
         super(messageCode, args);
     }
 
+    /**
+     * {@link RenderException} を構築します。<br />
+     * 
+     * @param messageCode
+     *            メッセージコード
+     * @param cause
+     *            原因となった例外オブジェクト
+     * @param args
+     *            メッセージ引数
+     */
     public RenderException(String messageCode, Throwable cause, Object... args) {
         super(messageCode, cause, args);
     }

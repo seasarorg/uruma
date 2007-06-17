@@ -27,6 +27,7 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.component.impl.ViewPartComponent;
+import org.seasar.jface.exception.RenderException;
 import org.seasar.jface.impl.WindowContextImpl;
 
 /**
@@ -37,9 +38,13 @@ import org.seasar.jface.impl.WindowContextImpl;
  * 
  * @author y-komori
  */
-public abstract class S2RcpViewPart extends ViewPart {
+public class S2RcpViewPart extends ViewPart {
     protected S2Container container;
 
+    /*
+     * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
+     *      org.eclipse.ui.IMemento)
+     */
     @Override
     public void init(IViewSite site, IMemento memento) throws PartInitException {
         super.init(site, memento);
@@ -49,6 +54,9 @@ public abstract class S2RcpViewPart extends ViewPart {
         container.register(this, viewComponentName);
     }
 
+    /*
+     * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
+     */
     @Override
     public void createPartControl(Composite parent) {
         S2RcpActivator plugin = (S2RcpActivator) container
@@ -58,7 +66,8 @@ public abstract class S2RcpViewPart extends ViewPart {
         ClassLoader originalLoader = currentThread.getContextClassLoader();
 
         currentThread.setContextClassLoader(getClass().getClassLoader());
-        Template template = plugin.getTemplate(getTemplatePath());
+        String templatePath = getTemplatePath();
+        Template template = plugin.getTemplate(templatePath);
         currentThread.setContextClassLoader(originalLoader);
 
         UICompositeComponent rootComponent = template.getRootComponent();
@@ -66,14 +75,17 @@ public abstract class S2RcpViewPart extends ViewPart {
             ViewPartComponent viewPartComponent = (ViewPartComponent) rootComponent;
             viewPartComponent.render(parent, new WindowContextImpl());
         } else {
-            // TODO 例外
+            throw new RenderException(RenderException.REQUIRED_VIEWPART_ERROR,
+                    templatePath);
         }
     }
 
+    /*
+     * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
+     */
     @Override
     public void setFocus() {
-        // TODO 自動生成されたメソッド・スタブ
-
+        // Do nothing.
     }
 
     /**
