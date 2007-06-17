@@ -25,6 +25,9 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.component.Template;
+import org.seasar.jface.component.UICompositeComponent;
+import org.seasar.jface.component.impl.ViewPartComponent;
+import org.seasar.jface.impl.WindowContextImpl;
 
 /**
  * S2RCP の機能を利用する {@link IViewPart} の基底クラスです。<br />
@@ -53,13 +56,18 @@ public abstract class S2RcpViewPart extends ViewPart {
 
         Thread currentThread = Thread.currentThread();
         ClassLoader originalLoader = currentThread.getContextClassLoader();
+
         currentThread.setContextClassLoader(getClass().getClassLoader());
-
         Template template = plugin.getTemplate(getTemplatePath());
-
         currentThread.setContextClassLoader(originalLoader);
 
-        System.out.println(template);
+        UICompositeComponent rootComponent = template.getRootComponent();
+        if (rootComponent instanceof ViewPartComponent) {
+            ViewPartComponent viewPartComponent = (ViewPartComponent) rootComponent;
+            viewPartComponent.render(parent, new WindowContextImpl());
+        } else {
+            // TODO 例外
+        }
     }
 
     @Override

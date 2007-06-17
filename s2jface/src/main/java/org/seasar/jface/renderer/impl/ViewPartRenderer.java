@@ -15,25 +15,32 @@
  */
 package org.seasar.jface.renderer.impl;
 
-import org.eclipse.swt.widgets.Composite;
-import org.seasar.jface.component.impl.ViewPartComponent;
+import org.eclipse.swt.widgets.Widget;
+import org.seasar.jface.WindowContext;
+import org.seasar.jface.component.UIComponent;
 
 /**
  * <code>ViewPart</code> のレンダリングを行うためのクラスです。<br />
  * 
  * @author y-komori
  */
-public class ViewPartRenderer extends
-        AbstractCompositeRenderer<ViewPartComponent, Composite> {
-
-    @Override
-    protected void doRenderComposite(ViewPartComponent compositeComponent,
-            Composite composite) {
-        // Do nothing.
+public class ViewPartRenderer extends AbstractRenderer {
+    /*
+     * @see org.seasar.jface.renderer.Renderer#render(org.seasar.jface.component.UIComponent,
+     *      org.eclipse.swt.widgets.Widget, org.seasar.jface.WindowContext)
+     */
+    public Widget render(UIComponent uiComponent, Widget parent,
+            WindowContext context) {
+        return parent;
     }
 
-    @Override
-    protected Class<Composite> getWidgetType() {
-        return Composite.class;
+    /*
+     * @see org.seasar.jface.renderer.Renderer#renderAfter(org.eclipse.swt.widgets.Widget,
+     *      org.seasar.jface.component.UIComponent,
+     *      org.eclipse.swt.widgets.Widget, org.seasar.jface.WindowContext)
+     */
+    public void renderAfter(Widget widget, UIComponent uiComponent,
+            Widget parent, WindowContext context) {
+        // Do nothing.
     }
 }
