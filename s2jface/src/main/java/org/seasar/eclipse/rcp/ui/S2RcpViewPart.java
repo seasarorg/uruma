@@ -15,10 +15,15 @@
  */
 package org.seasar.eclipse.rcp.ui;
 
+import java.util.List;
+
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.seasar.framework.container.S2Container;
@@ -40,6 +45,11 @@ import org.seasar.jface.util.S2ContainerUtil;
  * {@link S2RcpViewPart#getViewComponentName()} の戻り値をコンポーネント名として、{@link S2Container}
  * へ登録します。<br />
  * </p>
+ * <p>
+ * 当該 {@link IViewPart} の中で使用されている {@link Viewer} が一つしか存在しない場合、その {@link Viewer}
+ * を自動的に {@link ISelectionProvider} として {@link IWorkbenchPartSite} へ登録します。<br />
+ * {@link Viewer} が複数存在する場合、自動登録は行いません。<br />
+ * </p>
  * 
  * @author y-komori
  */
@@ -49,23 +59,6 @@ public class S2RcpViewPart extends ViewPart {
     protected WindowContext windowContext;
 
     private String viewComponentName;
-
-    /*
-     * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
-     *      org.eclipse.ui.IMemento)
-     */
-    @Override
-    public void init(IViewSite site, IMemento memento) throws PartInitException {
-        super.init(site, memento);
-
-        initViewComponentName();
-
-        container = SingletonS2ContainerFactory.getContainer();
-
-        container.register(this, viewComponentName);
-
-        S2ContainerUtil.injectDependency(this, container);
-    }
 
     /*
      * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
@@ -92,16 +85,14 @@ public class S2RcpViewPart extends ViewPart {
                     templatePath);
         }
 
+        prepareSelectionProvider();
+
         // TODO 他のViewPartでのレンダリング結果もバインドできるようにする。
         WidgetBinder.bindWidgets(this, windowContext);
     }
 
-    /*
-     * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
-     */
-    @Override
-    public void setFocus() {
-        // Do nothing.
+    protected String getTemplatePath() {
+        return getViewComponentName() + ".xml";
     }
 
     /**
@@ -119,14 +110,43 @@ public class S2RcpViewPart extends ViewPart {
         return viewComponentName;
     }
 
-    protected String getTemplatePath() {
-        return getViewComponentName() + ".xml";
+    /*
+     * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
+     *      org.eclipse.ui.IMemento)
+     */
+    @Override
+    public void init(IViewSite site, IMemento memento) throws PartInitException {
+        super.init(site, memento);
+
+        initViewComponentName();
+
+        container = SingletonS2ContainerFactory.getContainer();
+
+        container.register(this, viewComponentName);
+
+        S2ContainerUtil.injectDependency(this, container);
     }
 
     private void initViewComponentName() {
         String viewId = getSite().getId();
         viewComponentName = StringUtil.decapitalize(StringUtil.substringToLast(
                 viewId, "."));
+    }
+
+    private void prepareSelectionProvider() {
+        List<Viewer> viewers = windowContext.getViewerComponents();
+        if (viewers.size() == 1) {
+            Viewer viewer = viewers.get(0);
+            getSite().setSelectionProvider(viewer);
+        }
+    }
+
+    /*
+     * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
+     */
+    @Override
+    public void setFocus() {
+        // Do nothing.
     }
 
     /**
