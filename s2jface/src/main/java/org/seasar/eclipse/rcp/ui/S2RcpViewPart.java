@@ -15,6 +15,8 @@
  */
 package org.seasar.eclipse.rcp.ui;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -30,11 +32,13 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.annotation.SelectionListener;
 import org.seasar.jface.binding.WidgetBinder;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.UICompositeComponent;
 import org.seasar.jface.component.impl.ViewPartComponent;
 import org.seasar.jface.exception.RenderException;
+import org.seasar.jface.util.AnnotationUtil;
 import org.seasar.jface.util.S2ContainerUtil;
 
 /**
@@ -89,6 +93,8 @@ public class S2RcpViewPart extends ViewPart {
 
         // TODO 他のViewPartでのレンダリング結果もバインドできるようにする。
         WidgetBinder.bindWidgets(this, windowContext);
+
+        setupSelectionListeners();
     }
 
     protected String getTemplatePath() {
@@ -147,6 +153,38 @@ public class S2RcpViewPart extends ViewPart {
     @Override
     public void setFocus() {
         // Do nothing.
+    }
+
+    private void setupSelectionListeners() {
+        List<Method> listenerMethods = AnnotationUtil.getAnnotatedMethods(
+                getClass(), SelectionListener.class);
+
+        for (Method method : listenerMethods) {
+            if (Modifier.isPublic(method.getModifiers())) {
+                SelectionListener annotation = method
+                        .getAnnotation(SelectionListener.class);
+                boolean nullSelection = annotation.nullSelection();
+                String providerPartId = annotation.value();
+
+                Class[] paramTypes = method.getParameterTypes();
+                if (paramTypes.length <= 1) {
+                    GenericSelectionListener listener;
+                    if (nullSelection) {
+                        listener = new NullGenericSelectionListener(this,
+                                method);
+                    } else {
+                        listener = new GenericSelectionListener(this, method);
+                    }
+
+                    if (StringUtil.isEmpty(providerPartId)) {
+                        getSite().getPage().addSelectionListener(listener);
+                    } else {
+                        getSite().getPage().addSelectionListener(
+                                providerPartId, listener);
+                    }
+                }
+            }
+        }
     }
 
     /**

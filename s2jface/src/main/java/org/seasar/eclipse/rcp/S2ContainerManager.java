@@ -26,6 +26,7 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
  * 
  * @author y-komori
  */
+// TODO 使用しないのであとで削除
 public class S2ContainerManager {
     private Map<String, S2Container> containerMap = new HashMap<String, S2Container>();
 

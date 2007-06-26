@@ -18,21 +18,46 @@ package org.seasar.jface.exception;
 import org.seasar.framework.exception.SRuntimeException;
 
 /**
- * @author y-komori
+ * S2JFace で利用する汎用ランタイム例外の基底クラスです。<br />
  * 
+ * @author y-komori
  */
 public abstract class S2JFaceRuntimeException extends SRuntimeException {
     private static final long serialVersionUID = 5707273046897664893L;
 
+    /**
+     * {@link S2JFaceRuntimeException} を構築します。<br />
+     * 
+     * @param messageCode
+     *            メッセージコード
+     */
     public S2JFaceRuntimeException(final String messageCode) {
         super(messageCode);
     }
 
+    /**
+     * {@link S2JFaceRuntimeException} を構築します。<br />
+     * 
+     * @param messageCode
+     *            メッセージコード
+     * @param cause
+     *            原因となった例外オブジェクト
+     * @param args
+     *            メッセージ引数
+     */
     public S2JFaceRuntimeException(final String messageCode,
             final Throwable cause, final Object... args) {
         super(messageCode, args, cause);
     }
 
+    /**
+     * {@link S2JFaceRuntimeException} を構築します。<br />
+     * 
+     * @param messageCode
+     *            メッセージコード
+     * @param args
+     *            メッセージ引数
+     */
     public S2JFaceRuntimeException(final String messageCode,
             final Object... args) {
         super(messageCode, args);

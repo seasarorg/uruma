@@ -78,6 +78,7 @@ public class S2RcpPlugin extends Plugin {
      * @return {@link S2Container} のインスタンス
      */
     public S2Container getS2Container(final String pluginId) {
+        // TODO 使用しないのであとで削除
         return containerManager.getS2Container(pluginId);
     }
 

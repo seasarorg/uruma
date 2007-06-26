@@ -17,6 +17,7 @@ package org.seasar.jface.util;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,13 +35,18 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 public class AnnotationUtil {
     private static Map<ClassEntry, List<Field>> fieldCache = new HashMap<ClassEntry, List<Field>>();
 
+    private static Map<ClassEntry, List<Method>> methodCache = new HashMap<ClassEntry, List<Method>>();
+
     private static Map<ClassEntry, List<PropertyDesc>> pdCache = new HashMap<ClassEntry, List<PropertyDesc>>();
+
+    protected AnnotationUtil() {
+    }
 
     /**
      * 特定のアノテーションが付加されたフィールドを取得します。<br />
      * <p>
-     * <code>class</code> で指定されたクラスから <code>annotationClass</code>
-     * で指定されたアノテーションが付加されたフィールドオブジェクトのリストを返します。<br />
+     * <code>clazz</code> で指定されたクラスから <code>annotationClass</code>
+     * で指定されたアノテーションが付加された {@link Field} オブジェクトのリストを返します。<br />
      * フィールドは、親クラスまでさかのぼってすべて検索されます。
      * </p>
      * 
@@ -48,7 +54,7 @@ public class AnnotationUtil {
      *            対象クラス
      * @param annotationClass
      *            対象アノテーション
-     * @return 見つかったフィールドのリスト
+     * @return 見つかった {@link Field} オブジェクトのリスト
      */
     public static List<Field> getAnnotatedFields(Class<?> clazz,
             Class<? extends Annotation> annotationClass) {
@@ -67,6 +73,46 @@ public class AnnotationUtil {
                     fieldCache.put(entry, result);
                 }
             }
+            return result;
+        }
+    }
+
+    /**
+     * 特定のアノテーションが付加されたメソッドを取得します。<br />
+     * <p>
+     * <code>clazz</code> で指定されたクラスから <code>annotationClass</code>
+     * で指定されたアノテーションが付加された {@link Method} オブジェクトのリストを返します。<br />
+     * メソッドは、親クラスまでさかのぼってすべて検索されます。
+     * </p>
+     * 
+     * @param clazz
+     *            対象クラス
+     * @param annotationClass
+     *            対象アノテーション
+     * @return 見つかったメソッドのリスト
+     */
+    public static List<Method> getAnnotatedMethods(Class<?> clazz,
+            Class<? extends Annotation> annotationClass) {
+        ClassEntry entry = new ClassEntry(clazz, annotationClass);
+        List<Method> result = methodCache.get(entry);
+        if (result != null) {
+            return result;
+        } else {
+            result = new ArrayList<Method>();
+            BeanDesc desc = BeanDescFactory.getBeanDesc(clazz);
+
+            String[] methodNames = desc.getMethodNames();
+            for (int i = 0; i < methodNames.length; i++) {
+                Method[] methods = desc.getMethods(methodNames[i]);
+
+                for (int j = 0; j < methods.length; j++) {
+                    if (methods[j].isAnnotationPresent(annotationClass)) {
+                        result.add(methods[j]);
+                    }
+                }
+            }
+            methodCache.put(entry, result);
+
             return result;
         }
     }
