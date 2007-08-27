@@ -8,11 +8,11 @@
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/javassist-3.4.ga.jar"/>
-	<classpathentry kind="lib" path="lib/ognl-2.6.7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="lib/s2-tiger-2.4.13.jar"/>
 	<classpathentry kind="lib" path="lib/junit-3.8.2.jar"/>
-	<classpathentry kind="lib" path="lib/s2-framework-2.4.14-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/ognl-2.6.9-patch-20070624.jar"/>
+	<classpathentry kind="lib" path="lib/s2-framework-2.4.17.jar"/>
+	<classpathentry kind="lib" path="lib/s2-tiger-2.4.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
