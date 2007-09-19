@@ -103,6 +103,9 @@ public class GenericSelectionListener implements ISelectionListener {
             } else {
                 IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                 Object[] selectedModels = structuredSelection.toArray();
+                if (selectedModels.length == 0) {
+                    return;
+                }
 
                 if (paramType.isArray()) {
                     try {

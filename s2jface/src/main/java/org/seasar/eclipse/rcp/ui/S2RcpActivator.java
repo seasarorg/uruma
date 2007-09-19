@@ -17,10 +17,10 @@ package org.seasar.eclipse.rcp.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.seasar.eclipse.common.util.LogUtil;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
+import org.seasar.framework.log.Logger;
 import org.seasar.jface.S2JFaceTemplateManager;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.component.Template;
@@ -42,6 +42,8 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
     private S2Container container;
 
     private S2JFaceTemplateManager templateManager = new S2JFaceTemplateManagerImpl();
+
+    private Logger logger = Logger.getLogger(getClass());
 
     /**
      * {@link S2Container} へ本クラスを登録する際のコンポーネント名です。<br />
@@ -80,12 +82,11 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
 
             registComponentsToS2Container();
         } catch (ResourceNotFoundRuntimeException ex) {
-            LogUtil.log(this, ex);
+            logger.error(ex.getMessage(), ex);
             currentThread.setContextClassLoader(originalLoader);
             throw ex;
         }
         currentThread.setContextClassLoader(originalLoader);
-
         s2RcpStart(context);
     }
 
@@ -118,11 +119,13 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
      * @return {@link Template} オブジェクト
      */
     public Template getTemplate(final String path) {
-        Template template = templateManager.getTemplate(path);
-        if (template == null) {
-            // TODO エラーログ出力
+        try {
+            Template template = templateManager.getTemplate(path);
+            return template;
+        } catch (ResourceNotFoundRuntimeException ex) {
+            logger.error(ex.getMessage(), ex);
+            return null;
         }
-        return template;
     }
 
     /**
