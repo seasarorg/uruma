@@ -16,10 +16,19 @@
 package org.seasar.jface.binding;
 
 /**
+ * メソッドコール時の引数をフィルタリングするためのインターフェースです。<br />
+ * 
  * @author bskuroneko
- *
+ * @see MethodBinding
  */
 public interface ArgumentsFilter {
-    
+
+    /**
+     * 引数をフィルタリングします。<br />
+     * 
+     * @param args
+     *            フィルタリング対象の引数オブジェクト配列
+     * @return フィルタリング結果の引数オブジェクト配列
+     */
     Object[] filter(Object[] args);
 }
