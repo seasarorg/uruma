@@ -22,10 +22,12 @@ import org.seasar.jface.binding.EnabledDependBinder;
 import org.seasar.jface.binding.MethodBinding;
 import org.seasar.jface.binding.ValueBinder;
 import org.seasar.jface.binding.WidgetBinder;
+import org.seasar.jface.util.AssertionUtil;
 
 /**
- * @author bskuroneko
+ * 任意のメソッドを実行できる、汎用的な {@link Listener} の実装クラスです。<br />
  * 
+ * @author bskuroneko
  */
 public class S2JFaceListener implements Listener {
 
@@ -33,21 +35,45 @@ public class S2JFaceListener implements Listener {
 
     private MethodBinding methodBinding;
 
+    /**
+     * {@link S2JFaceListener} を構築します。<br />
+     * 
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     * @param methodBinding
+     *            {@link MethodBinding} オブジェクト
+     */
     public S2JFaceListener(WindowContext context, MethodBinding methodBinding) {
+        AssertionUtil.assertNotNull("context", context);
+        AssertionUtil.assertNotNull("methodBinding", methodBinding);
+
         this.context = context;
         this.methodBinding = methodBinding;
     }
 
+    /**
+     * イベント処理を行います。<br />
+     * <p>
+     * 本メソッドでは、以下の処理を順に実行します。<br />
+     * <ol>
+     * <li>ターゲットオブジェクトへ、画面上のウィジットをバインドします。<br />
+     * <li>ターゲットオブジェクトへ、画面の選択状態をバインド(ImportSelection)します。<br />
+     * <li>ターゲットオブジェクトへ、画面の値をバインド(ImportValue)します。<br />
+     * <li>コンストラクタで指定された {@link MethodBinding} の呼び出しを行います。<br />
+     * <li>画面へ、ターゲットオブジェクトの値をバインド(ExportValue)します。<br />
+     * <li>画面の選択状態ををターゲットオブジェクトのフィールドに従ってバインド(ExportSelection)します。<br />
+     * </ol>
+     * </p>
+     * 
+     * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
+     */
     public void handleEvent(Event event) {
-        if (methodBinding != null) {
-            WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
-            ValueBinder.importSelection(context);
-            ValueBinder.importValue(context);
-            methodBinding.invoke(new Object[] { event });
-            ValueBinder.exportValue(context);
-            ValueBinder.exportSelection(context);
-            EnabledDependBinder.updateEnabled(context);
-        }
+        WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
+        ValueBinder.importSelection(context);
+        ValueBinder.importValue(context);
+        methodBinding.invoke(new Object[] { event });
+        ValueBinder.exportValue(context);
+        ValueBinder.exportSelection(context);
+        EnabledDependBinder.updateEnabled(context);
     }
-
 }

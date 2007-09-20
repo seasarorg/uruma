@@ -28,11 +28,11 @@ import org.seasar.jface.util.AssertionUtil;
  * @author y-komori
  */
 public class MethodBinding {
-    private Object target;
+    protected Object target;
 
-    private Method method;
+    protected Method method;
 
-    private List<ArgumentsFilter> argumentsFilterList = new ArrayList<ArgumentsFilter>();
+    protected List<ArgumentsFilter> argumentsFilterList = new ArrayList<ArgumentsFilter>();
 
     /**
      * {@link MethodBinding} を構築します。<br />

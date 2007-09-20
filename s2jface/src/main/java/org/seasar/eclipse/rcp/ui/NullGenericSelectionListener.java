@@ -15,9 +15,9 @@
  */
 package org.seasar.eclipse.rcp.ui;
 
-import java.lang.reflect.Method;
-
 import org.eclipse.ui.INullSelectionListener;
+import org.seasar.jface.WindowContext;
+import org.seasar.jface.binding.SingleParamTypeMethodBinding;
 
 /**
  * {@link INullSelectionListener} を実装した {@link GenericSelectionListener} です。<br />
@@ -34,12 +34,13 @@ public class NullGenericSelectionListener extends GenericSelectionListener
     /**
      * {@link NullGenericSelectionListener} を構築します。<br />
      * 
-     * @param targetObjct
-     *            呼び出し対象オブジェクト
-     * @param targetMethod
-     *            呼び出し対象メソッドの {@link Method} オブジェクト
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     * @param methodBinding
+     *            呼び出し対象の {@link SingleParamTypeMethodBinding} オブジェクト
      */
-    public NullGenericSelectionListener(Object targetObjct, Method targetMethod) {
-        super(targetObjct, targetMethod);
+    public NullGenericSelectionListener(WindowContext context,
+            SingleParamTypeMethodBinding methodBinding) {
+        super(context, methodBinding);
     }
 }

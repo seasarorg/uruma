@@ -33,6 +33,7 @@ import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.annotation.SelectionListener;
+import org.seasar.jface.binding.SingleParamTypeMethodBinding;
 import org.seasar.jface.binding.WidgetBinder;
 import org.seasar.jface.component.Template;
 import org.seasar.jface.component.UICompositeComponent;
@@ -166,14 +167,18 @@ public class S2RcpViewPart extends ViewPart {
                 boolean nullSelection = annotation.nullSelection();
                 String providerPartId = annotation.value();
 
-                Class[] paramTypes = method.getParameterTypes();
+                Class<?>[] paramTypes = method.getParameterTypes();
                 if (paramTypes.length <= 1) {
+                    SingleParamTypeMethodBinding methodBinding = new SingleParamTypeMethodBinding(
+                            this, method);
+
                     GenericSelectionListener listener;
                     if (nullSelection) {
-                        listener = new NullGenericSelectionListener(this,
-                                method);
+                        listener = new NullGenericSelectionListener(
+                                windowContext, methodBinding);
                     } else {
-                        listener = new GenericSelectionListener(this, method);
+                        listener = new GenericSelectionListener(windowContext,
+                                methodBinding);
                     }
 
                     if (StringUtil.isEmpty(providerPartId)) {

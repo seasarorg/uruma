@@ -15,13 +15,14 @@
  */
 package org.seasar.eclipse.rcp.ui;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
+import org.seasar.jface.WindowContext;
+import org.seasar.jface.binding.SingleParamTypeMethodBinding;
 import org.seasar.jface.exception.MethodInvocationException;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -51,41 +52,25 @@ import org.seasar.jface.util.AssertionUtil;
  * @author y-komori
  */
 public class GenericSelectionListener implements ISelectionListener {
-    private Object targetObject;
+    private WindowContext context;
 
-    private Method targetMethod;
-
-    private Class<?> paramType;
+    private SingleParamTypeMethodBinding methodBinding;
 
     /**
      * {@link GenericSelectionListener} を構築します。<br />
      * 
-     * @param targetObjct
-     *            呼び出し対象オブジェクト
-     * @param targetMethod
-     *            呼び出し対象メソッドの {@link Method} オブジェクト
-     * @throws IllegalArgumentException
-     *             <code>targetMethod</code> の引数が 2 個 以上の場合
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     * @param methodBinding
+     *            呼び出し対象の {@link SingleParamTypeMethodBinding} オブジェクト
      */
-    public GenericSelectionListener(Object targetObjct, Method targetMethod) {
-        AssertionUtil.assertNotNull("targetObject", targetObjct);
-        AssertionUtil.assertNotNull("targetMethod", targetMethod);
-        this.targetObject = targetObjct;
-        this.targetMethod = targetMethod;
+    public GenericSelectionListener(WindowContext context,
+            SingleParamTypeMethodBinding methodBinding) {
+        AssertionUtil.assertNotNull("context", context);
+        AssertionUtil.assertNotNull("methodBinding", methodBinding);
 
-        setup();
-    }
-
-    private void setup() {
-        Class<?>[] paramTypes = targetMethod.getParameterTypes();
-        if (paramTypes.length == 0) {
-            paramType = null;
-        } else if (paramTypes.length == 1) {
-            paramType = paramTypes[0];
-        } else {
-            throw new IllegalArgumentException(
-                    "targetMethod の引数は 0 個または 1個でなくてはなりません.");
-        }
+        this.context = context;
+        this.methodBinding = methodBinding;
     }
 
     /*
@@ -94,44 +79,10 @@ public class GenericSelectionListener implements ISelectionListener {
      */
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         if (selection instanceof IStructuredSelection) {
-            if (paramType == null) {
-                try {
-                    targetMethod.invoke(targetObject);
-                } catch (Exception ex) {
-                    throwException(ex);
-                }
-            } else {
-                IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-                Object[] selectedModels = structuredSelection.toArray();
-                if (selectedModels.length == 0) {
-                    return;
-                }
+            IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+            Object[] selectedModels = structuredSelection.toArray();
 
-                if (paramType.isArray()) {
-                    try {
-                        Class<?> componentType = paramType.getComponentType();
-                        Object[] params = (Object[]) Array.newInstance(
-                                componentType, selectedModels.length);
-                        System.arraycopy(selectedModels, 0, params, 0,
-                                selectedModels.length);
-                        targetMethod.invoke(targetObject,
-                                new Object[] { params });
-                    } catch (Exception ex) {
-                        throwException(ex);
-                    }
-                } else {
-                    try {
-                        targetMethod.invoke(targetObject, paramType
-                                .cast(selectedModels[0]));
-                    } catch (Exception ex) {
-                        throwException(ex);
-                    }
-                }
-            }
+            methodBinding.invoke(selectedModels);
         }
-    }
-
-    private void throwException(final Throwable throwable) {
-        throw new MethodInvocationException(targetMethod, throwable);
     }
 }
