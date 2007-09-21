@@ -22,7 +22,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.seasar.jface.WindowContext;
+import org.seasar.jface.binding.MethodBinding;
 import org.seasar.jface.binding.SingleParamTypeMethodBinding;
+import org.seasar.jface.binding.ValueBinder;
 import org.seasar.jface.exception.MethodInvocationException;
 import org.seasar.jface.util.AssertionUtil;
 
@@ -73,7 +75,21 @@ public class GenericSelectionListener implements ISelectionListener {
         this.methodBinding = methodBinding;
     }
 
-    /*
+    /**
+     * イベント処理を行います。<br />
+     * <p>
+     * 本メソッドでは、以下の処理を順に実行します。<br />
+     * <ol>
+     * <li> {@link WindowContext} へフォームオブジェクトとして、
+     * {@link SingleParamTypeMethodBinding} の保持するターゲットオブジェクトを設定します。<br />
+     * <li>ターゲットオブジェクトへ、画面の選択状態をバインド(ImportSelection)します。<br />
+     * <li>ターゲットオブジェクトへ、画面の値をバインド(ImportValue)します。<br />
+     * <li>コンストラクタで指定された {@link MethodBinding} の呼び出しを行います。<br />
+     * <li>画面へ、ターゲットオブジェクトの値をバインド(ExportValue)します。<br />
+     * <li>画面の選択状態ををターゲットオブジェクトのフィールドに従ってバインド(ExportSelection)します。<br />
+     * </ol>
+     * </p>
+     * 
      * @see org.eclipse.ui.ISelectionListener#selectionChanged(org.eclipse.ui.IWorkbenchPart,
      *      org.eclipse.jface.viewers.ISelection)
      */
@@ -82,7 +98,13 @@ public class GenericSelectionListener implements ISelectionListener {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;
             Object[] selectedModels = structuredSelection.toArray();
 
+            context.setFormComponent(methodBinding.getTarget());
+
+            ValueBinder.importSelection(context);
+            ValueBinder.importValue(context);
             methodBinding.invoke(selectedModels);
+            ValueBinder.exportValue(context);
+            ValueBinder.exportSelection(context);
         }
     }
 }

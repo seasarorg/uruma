@@ -117,7 +117,7 @@ public interface WindowContext {
      *            {@link Widget} オブジェクト
      * @return {@link ViewerAdapter} オブジェクト
      */
-    public ViewerAdapter getViewerAdapter(Widget widget);
+    public ViewerAdapter<?> getViewerAdapter(Widget widget);
 
     /**
      * 画面コンポーネント({@link Viewer})を取得します。</br>
@@ -169,7 +169,7 @@ public interface WindowContext {
      * @param adapter
      *            {@link ViewerAdapter} オブジェクト
      */
-    public void putViewerAdapter(Widget widget, ViewerAdapter adapter);
+    public void putViewerAdapter(Widget widget, ViewerAdapter<?> adapter);
 
     /**
      * 画面コンポーネント({@link Viewer})を登録します。</br>

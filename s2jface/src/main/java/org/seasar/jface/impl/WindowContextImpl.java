@@ -25,6 +25,7 @@ import java.util.Map;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.jface.WindowContext;
 import org.seasar.jface.binding.EnabledDepend;
@@ -84,8 +85,15 @@ public class WindowContextImpl implements WindowContext {
      */
     public Widget getComponent(String id) {
         Object component = componentMap.get(id);
-        if (component != null && component instanceof Widget) {
-            return Widget.class.cast(component);
+        if (component != null) {
+            if (component instanceof Widget) {
+                return Widget.class.cast(component);
+            } else if (component instanceof Viewer) {
+                Control control = ((Viewer) component).getControl();
+                return Widget.class.cast(control);
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
