@@ -15,6 +15,11 @@
  */
 package org.seasar.eclipse.rcp.ui;
 
+import org.eclipse.core.internal.registry.ExtensionRegistry;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.seasar.framework.container.S2Container;
@@ -69,7 +74,8 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
      * 
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
      */
-    public final void start(BundleContext context) throws Exception {
+    @Override
+    public final void start(final BundleContext context) throws Exception {
         super.start(context);
 
         Thread currentThread = Thread.currentThread();
@@ -87,6 +93,29 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
             throw ex;
         }
         currentThread.setContextClassLoader(originalLoader);
+
+        // ここからテスト
+        ExtensionRegistry registry = (ExtensionRegistry) RegistryFactory
+                .getRegistry();
+        System.out.println(registry);
+
+        IExtensionPoint extensionPoint = registry
+                .getExtensionPoint("org.eclipse.ui.views");
+        IExtension[] extensions = extensionPoint.getExtensions();
+        for (IExtension extension : extensions) {
+            System.out.println(extension.getNamespaceIdentifier() + "\n");
+            IConfigurationElement[] configurationElements = extension
+                    .getConfigurationElements();
+            for (IConfigurationElement configurationElement : configurationElements) {
+                String[] attrs = configurationElement.getAttributeNames();
+                for (String string : attrs) {
+                    System.out.println(string);
+                }
+            }
+        }
+
+        // ここまで
+
         s2RcpStart(context);
     }
 
@@ -102,7 +131,8 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
      * 
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
      */
-    public final void stop(BundleContext context) throws Exception {
+    @Override
+    public final void stop(final BundleContext context) throws Exception {
         plugin = null;
         s2RcpStop(context);
 
