@@ -15,11 +15,16 @@
  */
 package org.seasar.eclipse.rcp.ui;
 
+import org.eclipse.core.internal.registry.ConfigurationElement;
 import org.eclipse.core.internal.registry.ExtensionRegistry;
+import org.eclipse.core.internal.registry.RegistryObjectFactory;
+import org.eclipse.core.internal.registry.RegistryObjectManager;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.RegistryFactory;
+import org.eclipse.core.runtime.spi.RegistryContributor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.seasar.framework.container.S2Container;
@@ -97,19 +102,52 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
         // ここからテスト
         ExtensionRegistry registry = (ExtensionRegistry) RegistryFactory
                 .getRegistry();
-        System.out.println(registry);
 
         IExtensionPoint extensionPoint = registry
                 .getExtensionPoint("org.eclipse.ui.views");
+        IExtension viewExtension = extensionPoint
+                .getExtension("org.seasar.rcp.example.fileman.views");
+        System.out.println(viewExtension);
+        RegistryContributor viewContributor = (RegistryContributor)viewExtension.getContributor();
+
+        RegistryObjectFactory factory = registry.getElementFactory();
+        String[] props = new String[]{
+            "class", "org.seasar.rcp.example.fileman.FileViewPart", "id", "org.seasar.rcp.example.fileman.FileView", "name", "ファイル・ビュー"};
+        
+        ConfigurationElement element = factory
+                .createConfigurationElement(-1, viewContributor.getActualId(), "view", props ,new int[0], 0x80000000, );
+
         IExtension[] extensions = extensionPoint.getExtensions();
         for (IExtension extension : extensions) {
-            System.out.println(extension.getNamespaceIdentifier() + "\n");
+            System.out.println("\nNamespaceIdentifier="
+                    + extension.getNamespaceIdentifier());
+            System.out.println("ExtensionPointUniqueIdentifier="
+                    + extension.getExtensionPointUniqueIdentifier());
+            System.out.println("Label=" + extension.getLabel());
+            System.out.println("SimpleIdentifier="
+                    + extension.getSimpleIdentifier());
+            System.out.println("UniqueIdentifier="
+                    + extension.getUniqueIdentifier());
+
             IConfigurationElement[] configurationElements = extension
                     .getConfigurationElements();
             for (IConfigurationElement configurationElement : configurationElements) {
+                IContributor contributor = configurationElement
+                        .getContributor();
+                System.out.println("ContributorClass = "
+                        + contributor.getClass().getName());
+                System.out
+                        .println("ContributorName = " + contributor.getName());
+                System.out.println("ConfigurationElementClass = "
+                        + configurationElement.getClass().getName());
+                if (viewContributor == contributor) {
+                    System.out.println("OK!!");
+                }
+
                 String[] attrs = configurationElement.getAttributeNames();
                 for (String string : attrs) {
-                    System.out.println(string);
+                    System.out.println(string + "="
+                            + configurationElement.getAttribute(string));
                 }
             }
         }
