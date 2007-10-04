@@ -13,27 +13,28 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.component.impl;
+package org.seasar.uruma.component.impl;
 
-import org.seasar.jface.annotation.component.ComponentAttribute;
-import org.seasar.jface.annotation.component.ComponentAttribute.TargetType;
+import org.eclipse.ui.part.ViewPart;
+import org.seasar.uruma.annotation.RenderingPolicy;
+import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 
 /**
- * <code>ViewPart</code> のコンポーネント情報を保持するためのクラスです。<br />
+ * {@link ViewPart} のコンポーネント情報を保持するためのクラスです。<br />
  * 
  * @author y-komori
  */
 public class ViewPartComponent extends CompositeComponent {
-    @ComponentAttribute(targetType = TargetType.NONE)
+    @RenderingPolicy(targetType = TargetType.NONE)
     private String name;
 
-    @ComponentAttribute(targetType = TargetType.NONE)
+    @RenderingPolicy(targetType = TargetType.NONE)
     private String category;
 
-    @ComponentAttribute(targetType = TargetType.NONE)
+    @RenderingPolicy(targetType = TargetType.NONE)
     private String image;
 
-    @ComponentAttribute(targetType = TargetType.NONE)
+    @RenderingPolicy(targetType = TargetType.NONE)
     private boolean allowMultiple;
 
     /**

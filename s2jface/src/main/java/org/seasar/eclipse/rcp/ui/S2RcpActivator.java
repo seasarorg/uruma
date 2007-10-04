@@ -15,16 +15,16 @@
  */
 package org.seasar.eclipse.rcp.ui;
 
-import org.eclipse.core.internal.registry.ConfigurationElement;
+import java.io.ByteArrayInputStream;
+
 import org.eclipse.core.internal.registry.ExtensionRegistry;
-import org.eclipse.core.internal.registry.RegistryObjectFactory;
-import org.eclipse.core.internal.registry.RegistryObjectManager;
+import org.eclipse.core.runtime.ContributorFactoryOSGi;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.RegistryFactory;
-import org.eclipse.core.runtime.spi.RegistryContributor;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.seasar.framework.container.S2Container;
@@ -100,23 +100,65 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
         currentThread.setContextClassLoader(originalLoader);
 
         // ここからテスト
-        ExtensionRegistry registry = (ExtensionRegistry) RegistryFactory
-                .getRegistry();
+        IExtensionRegistry registry = Platform.getExtensionRegistry();
+
+        StringBuffer buf = new StringBuffer(2048);
+        buf.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        buf.append("<?eclipse version=\"3.2\"?>");
+        buf.append("<plugin>");
+        buf.append("<extension point=\"org.eclipse.ui.views\">");
+        buf
+                .append("<view class=\"org.seasar.rcp.example.fileman.FolderViewPart\" id=\"org.seasar.rcp.example.fileman.FolderView\" name=\"フォルダ・ツリー\" />");
+        buf
+                .append("<view class=\"org.seasar.rcp.example.fileman.FileViewPart\" id=\"org.seasar.rcp.example.fileman.FileView\" name=\"ファイル・ビュー\" />");
+        buf.append("</extension>");
+        buf.append("</plugin>");
+        ByteArrayInputStream is = new ByteArrayInputStream(buf.toString()
+                .getBytes("UTF-8"));
+
+        Object token = ((ExtensionRegistry) registry).getTemporaryUserToken();
+
+        // System.out.println("ExtensionPointContributor = "
+        // + extensionPoint.getContributor());
+        //
+        // IExtension viewExtension = extensionPoint
+        // .getExtension("org.seasar.rcp.example.fileman.views");
+        // if (viewExtension != null) {
+        // RegistryContributor viewContributor = (RegistryContributor)
+        // viewExtension
+        // .getContributor();
+        // System.out.println("ExtensionContributor = " + viewContributor);
+        // } else {
+        // System.out.println("ExtensionContributor = NULL");
+        // }
+
+        IContributor contributorOsgi = ContributorFactoryOSGi
+                .createContributor(getBundle());
+        System.out.println("ContributorByOSGI = " + contributorOsgi);
+
+        registry.addContribution(is, contributorOsgi, false, null, null, token);
+
+        // ExtensionRegistry registry = (ExtensionRegistry) RegistryFactory
+        // .getRegistry();
+
+        // IExtension viewExtension = extensionPoint
+        // .getExtension("org.seasar.rcp.example.fileman.views");
+        // System.out.println(viewExtension);
+        // RegistryContributor viewContributor = (RegistryContributor)
+        // viewExtension
+        // .getContributor();
+        //
+        // RegistryObjectFactory factory = registry.getElementFactory();
+        // String[] props = new String[] { "class",
+        // "org.seasar.rcp.example.fileman.FileViewPart", "id",
+        // "org.seasar.rcp.example.fileman.FileView", "name", "ファイル・ビュー" };
+
+        // ConfigurationElement element = factory
+        // .createConfigurationElement(-1, viewContributor.getActualId(),
+        // "view", props ,new int[0], 0x80000000, );
 
         IExtensionPoint extensionPoint = registry
                 .getExtensionPoint("org.eclipse.ui.views");
-        IExtension viewExtension = extensionPoint
-                .getExtension("org.seasar.rcp.example.fileman.views");
-        System.out.println(viewExtension);
-        RegistryContributor viewContributor = (RegistryContributor)viewExtension.getContributor();
-
-        RegistryObjectFactory factory = registry.getElementFactory();
-        String[] props = new String[]{
-            "class", "org.seasar.rcp.example.fileman.FileViewPart", "id", "org.seasar.rcp.example.fileman.FileView", "name", "ファイル・ビュー"};
-        
-        ConfigurationElement element = factory
-                .createConfigurationElement(-1, viewContributor.getActualId(), "view", props ,new int[0], 0x80000000, );
-
         IExtension[] extensions = extensionPoint.getExtensions();
         for (IExtension extension : extensions) {
             System.out.println("\nNamespaceIdentifier="
@@ -140,9 +182,6 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
                         .println("ContributorName = " + contributor.getName());
                 System.out.println("ConfigurationElementClass = "
                         + configurationElement.getClass().getName());
-                if (viewContributor == contributor) {
-                    System.out.println("OK!!");
-                }
 
                 String[] attrs = configurationElement.getAttributeNames();
                 for (String string : attrs) {
