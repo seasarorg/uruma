@@ -33,11 +33,11 @@ import org.seasar.framework.util.SAXParserFactoryUtil;
 import org.seasar.framework.xml.SaxHandler;
 import org.seasar.framework.xml.SaxHandlerParser;
 import org.seasar.framework.xml.TagHandlerContext;
-import org.seasar.jface.component.Template;
+import org.seasar.uruma.component.Template;
 import org.xml.sax.SAXException;
 
 /**
- * 画面定義XMLファイルを読み込み、コンポーネントツリーを生成するためのクラスです。<br />
+ * 画面定義 XML ファイルを読み込み、コンポーネントツリーを生成するためのクラスです。<br />
  * 
  * @author y-komori
  */
@@ -45,7 +45,7 @@ public class ComponentTreeBuilder {
     /**
      * 画面定義XMLのスキーマファイルパス
      */
-    public static final String SCHEMA_PATH = "org/seasar/jface/component/factory/s2jface.xsd";
+    public static final String SCHEMA_PATH = "org/seasar/uruma/component/factory/uruma.xsd";
 
     protected ClassPathResourceResolver resolver = new ClassPathResourceResolver();
 
