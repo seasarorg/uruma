@@ -18,11 +18,10 @@ package org.seasar.uruma.core.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.seasar.jface.S2JFaceTemplateManager;
 import org.seasar.jface.impl.S2JFaceApplicationWindow;
-import org.seasar.jface.impl.S2JFaceTemplateManagerImpl;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WindowComponent;
+import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.WindowManager;
 
 /**
@@ -32,12 +31,10 @@ import org.seasar.uruma.core.WindowManager;
  * @author bskuroneko
  */
 public class WindowManagerImpl implements WindowManager {
-    // 現在開いているウィンドウを管理するためのクラス
-    private WindowManager windowManager = new WindowManagerImpl();
 
     private Map<String, WindowComponent> windowMap = new HashMap<String, WindowComponent>();
 
-    private S2JFaceTemplateManager templateManager = new S2JFaceTemplateManagerImpl();
+    private TemplateManager templateManager = new TemplateManagerImpl();
 
     /*
      * @see org.seasar.uruma.core.WindowManager#openModal(java.lang.String)

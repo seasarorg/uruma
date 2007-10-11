@@ -33,14 +33,25 @@ public class WidgetHandleImpl implements WidgetHandle {
 
     /**
      * {@link WidgetHandleImpl} を構築します。<br />
+     * 本メソッドは <code>protected</code> 属性のため、直接生成できません。<br />
+     * 生成するには、{@link ContextFactory#createWidgetHandle(Object, UIComponent)}
+     * メソッドを利用してください。<br />
      * 
      * @param widget
      *            ウィジットオブジェクト
+     * @param uiComponent
+     *            {@link UIComponent} オブジェクト
      */
-    public WidgetHandleImpl(final Object widget) {
+    protected WidgetHandleImpl(final Object widget,
+            final UIComponent uiComponent) {
         AssertionUtil.assertNotNull("widget", widget);
+        AssertionUtil.assertNotNull("uiComponent", uiComponent);
+        String id = uiComponent.getId();
+        AssertionUtil.assertNotEmpty("id", id);
 
+        this.id = id;
         this.widget = widget;
+        this.uiComponent = uiComponent;
     }
 
     /*

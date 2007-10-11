@@ -15,7 +15,7 @@
  */
 package org.seasar.uruma.context;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * アプリケーション全体に共通な情報を保持するクラスのためのインターフェースです。<br />
@@ -24,12 +24,12 @@ import java.util.List;
  */
 public interface ApplicationContext {
     /**
-     * {@link ApplicationContext} が保持する {@link WindowContext} のリストを返します。<br />
-     * {@link WindowContext} を1つも保持しない場合、空のリストを返します。
+     * {@link ApplicationContext} が保持する {@link WindowContext} のコレクションを返します。<br />
+     * {@link WindowContext} を1つも保持しない場合、空のコレクションを返します。
      * 
-     * @return {@link WindowContext} のリスト
+     * @return {@link WindowContext} のコレクション
      */
-    public List<WindowContext> getWindowContextList();
+    public Collection<WindowContext> getWindowContexts();
 
     /**
      * <code>windowName</code> で指定された名称を持つ {@link WindowContext} を返します。<br />

@@ -24,6 +24,13 @@ import java.util.List;
  */
 public interface WindowContext {
     /**
+     * ウィンドウの名称を取得します。<br />
+     * 
+     * @return ウィンドウの名称
+     */
+    public String getWindowName();
+
+    /**
      * {@link WindowContext} が保持する {@link PartContext} のリストを返します。<br />
      * {@link PartContext} を1つも保持しない場合、空のリストを返します。
      * 

@@ -16,11 +16,11 @@
 package org.seasar.uruma.desc;
 
 /**
- * フォームクラスのメタデータを扱うためのインターフェースです。<br />
- * フォームクラスは、ウィンドウパートに対する入出力情報を保持するためのクラスで、POJO として実現されます。<br />
+ * パートアクションクラスのメタデータを扱うためのインターフェースです。<br />
+ * パートアクションクラスは、ウィンドウパートで発生したイベントを処理するためのクラスで、POJO として実現されます。<br />
  * 
  * @author y-komori
  */
-public interface FormClassDesc {
+public interface PartActionDesc {
 
 }

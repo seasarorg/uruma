@@ -16,6 +16,7 @@
 package org.seasar.uruma.util;
 
 import org.seasar.framework.exception.SIllegalArgumentException;
+import org.seasar.framework.util.StringUtil;
 
 /**
  * アサーションを行うためのユーティリティクラスです。<br />
@@ -34,6 +35,21 @@ public class AssertionUtil {
     public static void assertNotNull(final String name, final Object arg) {
         if (arg == null) {
             throw new SIllegalArgumentException("EURM002",
+                    new Object[] { name });
+        }
+    }
+
+    /**
+     * <code>arg</code> が <code>null</code> または空文字列ではないことをチェックします。<br />
+     * 
+     * @param name
+     *            オブジェクト名称
+     * @param arg
+     *            チェック対象文字列
+     */
+    public static void assertNotEmpty(final String name, final String arg) {
+        if (StringUtil.isEmpty(arg)) {
+            throw new SIllegalArgumentException("EURM003",
                     new Object[] { name });
         }
     }

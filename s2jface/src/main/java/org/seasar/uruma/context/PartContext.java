@@ -15,13 +15,13 @@
  */
 package org.seasar.uruma.context;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.ViewPart;
-import org.seasar.uruma.desc.FormClassDesc;
-import org.seasar.uruma.desc.PartClassDesc;
+import org.seasar.uruma.desc.FormDesc;
+import org.seasar.uruma.desc.PartActionDesc;
 
 /**
  * ウィンドウパートに関する情報を保持するクラスのための、インターフェースです。<br />
@@ -36,11 +36,18 @@ public interface PartContext {
     public static final String SHELL_ID = "shell";
 
     /**
-     * {@link PartContext} が保持するすべての {@link WidgetHandle} をリストで返します。
+     * ウィンドウパートの名称を返します。<br />
      * 
-     * @return {@link WidgetHandle} のリスト
+     * @return ウィンドウパートの名称
      */
-    public List<WidgetHandle> getWidgetHandleList();
+    public String getPartName();
+
+    /**
+     * {@link PartContext} が保持するすべての {@link WidgetHandle} のコレクションを返します。
+     * 
+     * @return {@link WidgetHandle} のコレクション
+     */
+    public Collection<WidgetHandle> getWidgetHandles();
 
     /**
      * <code>handleId</code> で指定された ID を持つ {@link WidgetHandle} を返します。<br />
@@ -59,62 +66,62 @@ public interface PartContext {
     public void putWidgetHandle(WidgetHandle handle);
 
     /**
-     * {@link PartClassDesc} オブジェクトを取得します。<br />
+     * {@link PartActionDesc} オブジェクトを取得します。<br />
      * 
-     * @return {@link PartClassDesc} オブジェクト
+     * @return {@link PartActionDesc} オブジェクト
      */
-    public PartClassDesc getPartClassDesc();
+    public PartActionDesc getPartActionDesc();
 
     /**
-     * パートクラスのインスタンスを取得します。<br />
+     * パートアクションクラスのオブジェクトを取得します。<br />
      * 
-     * @return パートクラスのインスタンス
+     * @return パートアクションクラスのオブジェクト
      */
-    public Object getPartClassInstance();
+    public Object getPartActionObject();
 
     /**
-     * {@link FormClassDesc} オブジェクトを取得します。<br />
+     * {@link FormDesc} オブジェクトを取得します。<br />
      * 
-     * @return {@link FormClassDesc} オブジェクト
+     * @return {@link FormDesc} オブジェクト
      */
-    public FormClassDesc getFormClassDesc();
+    public FormDesc getFormDesc();
 
     /**
-     * フォームクラスのインスタンスを取得します。<br />
+     * フォームクラスのオブジェクトを取得します。<br />
      * 
-     * @return フォームクラスのインスタンス
+     * @return フォームクラスのオブジェクト
      */
-    public Object getFormClassInstance();
+    public Object getFormObject();
 
     /**
-     * {@link PartClassDesc} オブジェクトを設定します。<br />
+     * {@link PartActionDesc} オブジェクトを設定します。<br />
      * 
      * @param desc
-     *            {@link PartClassDesc} オブジェクト
+     *            {@link PartActionDesc} オブジェクト
      */
-    public void setPartClassDesc(PartClassDesc desc);
+    public void setPartActionDesc(PartActionDesc desc);
 
     /**
-     * パートクラスのインスタンスを設定します。<br />
+     * パートアクションクラスのオブジェクトを設定します。<br />
      * 
-     * @param instance
-     *            パートクラスのインスタンス
+     * @param object
+     *            パートアクションクラスのオブジェクト
      */
-    public void setPartClassInstance(Object instance);
+    public void setPartActionObject(Object object);
 
     /**
-     * {@link FormClassDesc} オブジェクトを設定します。<br />
+     * {@link FormDesc} オブジェクトを設定します。<br />
      * 
      * @param desc
-     *            {@link FormClassDesc} オブジェクト
+     *            {@link FormDesc} オブジェクト
      */
-    public void setFormClassDesc(FormClassDesc desc);
+    public void setFormDesc(FormDesc desc);
 
     /**
-     * フォームクラスのインスタンスを設定します。<br />
+     * フォームクラスのオブジェクトを設定します。<br />
      * 
-     * @param instance
-     *            フォームクラスのインスタンス
+     * @param object
+     *            フォームクラスのオブジェクト
      */
-    public void setFormClassObject(Object instance);
+    public void setFormObject(Object object);
 }

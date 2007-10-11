@@ -20,9 +20,8 @@ import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
-import org.seasar.uruma.context.impl.WidgetHandleImpl;
+import org.seasar.uruma.context.impl.ContextFactory;
 import org.seasar.uruma.renderer.Renderer;
-import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * {@link Renderer} の基底クラスです。<br />
@@ -62,12 +61,8 @@ public abstract class AbstractRenderer implements Renderer {
      */
     protected WidgetHandle createWidgetHandle(final UIComponent uiComponent,
             final Object widget) {
-        AssertionUtil.assertNotNull("uiComponent", uiComponent);
-        AssertionUtil.assertNotNull("widget", widget);
-
-        WidgetHandle handle = new WidgetHandleImpl(widget);
-        handle.setUiComponent(uiComponent);
-        handle.setId(uiComponent.getId());
+        WidgetHandle handle = ContextFactory.createWidgetHandle(widget,
+                uiComponent);
 
         return handle;
     }
