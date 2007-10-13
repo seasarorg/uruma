@@ -18,11 +18,13 @@ package org.seasar.uruma.core.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.seasar.jface.impl.S2JFaceApplicationWindow;
+import org.eclipse.jface.window.WindowManager;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WindowComponent;
+import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.core.TemplateManager;
-import org.seasar.uruma.core.WindowManager;
+import org.seasar.uruma.core.UrumaWindowManager;
+import org.seasar.uruma.ui.UrumaApplicationWindow;
 
 /**
  * ウィンドウを管理するためのクラスです。</br>
@@ -30,11 +32,14 @@ import org.seasar.uruma.core.WindowManager;
  * @author y-komori
  * @author bskuroneko
  */
-public class WindowManagerImpl implements WindowManager {
+public class UrumaWindowManagerImpl implements UrumaWindowManager {
+    private WindowManager windowManager = new WindowManager();
 
     private Map<String, WindowComponent> windowMap = new HashMap<String, WindowComponent>();
 
     private TemplateManager templateManager = new TemplateManagerImpl();
+
+    private ApplicationContext applicationContext;
 
     /*
      * @see org.seasar.uruma.core.WindowManager#openModal(java.lang.String)
@@ -48,8 +53,7 @@ public class WindowManagerImpl implements WindowManager {
      *      java.lang.Object)
      */
     public Object openModal(final String templatePath, final Object argument) {
-        S2JFaceApplicationWindow window = openWindow(templatePath, true,
-                argument);
+        UrumaApplicationWindow window = openWindow(templatePath, true, argument);
         return window.getReturnValue();
     }
 
@@ -65,24 +69,28 @@ public class WindowManagerImpl implements WindowManager {
      *      java.lang.Object)
      */
     public Object openModeless(final String templatePath, final Object argument) {
-        S2JFaceApplicationWindow window = openWindow(templatePath, false,
+        UrumaApplicationWindow window = openWindow(templatePath, false,
                 argument);
-        return window.getActionComponent();
+        return window.getPartActionComponent();
     }
 
     /**
+     * 新しいウィンドウを開きます。<br />
+     * 
      * @param templatePath
+     *            テンプレートパス
      * @param modal
+     *            モーダル属性
      * @param argument
-     * @return
+     *            引数オブジェクト
+     * @return 生成したウィンドウ
      */
-    public S2JFaceApplicationWindow openWindow(final String templatePath,
+    public UrumaApplicationWindow openWindow(final String templatePath,
             final boolean modal, final Object argument) {
         Template template = loadTemplate(templatePath);
-        S2JFaceApplicationWindow window = new S2JFaceApplicationWindow();
-        // window.setMenuManagerBuilder((MenuManagerBuilder) S2ContainerUtil
-        // .getComponent(MenuManagerBuilder.class));
-        window.init(template, modal);
+        UrumaApplicationWindow window = new UrumaApplicationWindow();
+        window.init(applicationContext, (WindowComponent) template
+                .getRootComponent(), modal);
 
         window.initActionComponent(argument);
 
@@ -101,4 +109,15 @@ public class WindowManagerImpl implements WindowManager {
         return template;
     }
 
+    /**
+     * {@link ApplicationContext} を設定します。<br />
+     * S2Container から設定される前提です。<br />
+     * 
+     * @param applicationContext
+     *            {@link ApplicationContext} オブジェクト
+     */
+    public void setApplicationContext(
+            final ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 }

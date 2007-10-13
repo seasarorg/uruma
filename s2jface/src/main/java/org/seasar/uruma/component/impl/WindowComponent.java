@@ -29,6 +29,10 @@ import org.seasar.uruma.context.WidgetHandle;
  * @author y-komori
  */
 public class WindowComponent extends CompositeComponent {
+    /**
+     * ID が設定されていない場合のデフォルト値
+     */
+    public static final String DEFAULT_ID = "defaultWindowId";
 
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("ウィンドウタイトル")
@@ -73,6 +77,16 @@ public class WindowComponent extends CompositeComponent {
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("ステータスラインの有無")
     private String statusLine;
+
+    /**
+     * {@link WindowComponent} を構築します。<br />
+     * 
+     */
+    public WindowComponent() {
+        super();
+
+        setId(DEFAULT_ID);
+    }
 
     /*
      * @see org.seasar.uruma.component.impl.AbstractUIComponent#render(org.seasar.uruma.context.WidgetHandle,

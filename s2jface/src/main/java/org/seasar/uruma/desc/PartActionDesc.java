@@ -15,6 +15,13 @@
  */
 package org.seasar.uruma.desc;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+import org.seasar.uruma.annotation.ArgumentValue;
+import org.seasar.uruma.annotation.InitializeMethod;
+import org.seasar.uruma.annotation.ReturnValue;
+
 /**
  * パートアクションクラスのメタデータを扱うためのインターフェースです。<br />
  * パートアクションクラスは、ウィンドウパートで発生したイベントを処理するためのクラスで、POJO として実現されます。<br />
@@ -22,5 +29,52 @@ package org.seasar.uruma.desc;
  * @author y-komori
  */
 public interface PartActionDesc {
+    /**
+     * {@link InitializeMethod} アノテーションが付加されたメソッドを取得します。<br />
+     * 
+     * @return {@link InitializeMethod} アノテーションが付加されたメソッド
+     */
+    public Method getInitializeMethod();
+
+    /**
+     * {@link InitializeMethod} アノテーションが付加されたメソッドを実行します。<br />
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     */
+    public void invokeInitializeMethod(Object target);
+
+    /**
+     * {@link ArgumentValue} アノテーションが付加されたフィールドを取得します。<br />
+     * 
+     * @return {@link Field} オブジェクト。存在しない場合は <code>null</code>
+     */
+    public Field getArgumentField();
+
+    /**
+     * {@link ReturnValue} アノテーションが付加されたフィールドを取得します。<br />
+     * 
+     * @return {@link Field} オブジェクト。存在しない場合は <code>null</code>
+     */
+    public Field getReturnField();
+
+    /**
+     * {@link ArgumentValue} アノテーションが付加されたフィールドの値を設定します。<br />
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     * @param value
+     *            設定する値
+     */
+    public void setArgumentValue(Object target, Object value);
+
+    /**
+     * {@link ReturnValue} アノテーションが付加されたフィールドの値を取得します。<br />
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     * @return フィールドの値
+     */
+    public Object getReturnValue(Object target);
 
 }

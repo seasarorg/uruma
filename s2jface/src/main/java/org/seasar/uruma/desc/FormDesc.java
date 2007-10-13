@@ -15,6 +15,14 @@
  */
 package org.seasar.uruma.desc;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
+import org.seasar.uruma.annotation.ExportSelection;
+import org.seasar.uruma.annotation.ExportValue;
+import org.seasar.uruma.annotation.ImportSelection;
+import org.seasar.uruma.annotation.ImportValue;
+
 /**
  * フォームクラスのメタデータを扱うためのインターフェースです。<br />
  * フォームクラスは、ウィンドウパートに対する入出力情報を保持するためのクラスで、POJO として実現されます。<br />
@@ -22,5 +30,32 @@ package org.seasar.uruma.desc;
  * @author y-komori
  */
 public interface FormDesc {
+    /**
+     * {@link ImportValue} アノテーションが付加されたフィールドのリストを取得します。<br />
+     * 
+     * @return {@link Field}のリスト
+     */
+    public List<Field> getImportValueFields();
+
+    /**
+     * {@link ExportValue} アノテーションが付加されたフィールドのリストを取得します。<br />
+     * 
+     * @return {@link Field}のリスト
+     */
+    public List<Field> getExportValueFields();
+
+    /**
+     * {@link ImportSelection} アノテーションが付加されたフィールドのリストを取得します。<br />
+     * 
+     * @return {@link Field}のリスト
+     */
+    public List<Field> getImportSelectionFields();
+
+    /**
+     * {@link ExportSelection} アノテーションが付加されたフィールドのリストを取得します。<br />
+     * 
+     * @return {@link Field}のリスト
+     */
+    public List<Field> getExportSelectionFields();
 
 }

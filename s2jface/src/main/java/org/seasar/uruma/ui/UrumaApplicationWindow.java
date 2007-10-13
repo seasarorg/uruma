@@ -26,17 +26,15 @@ import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jface.annotation.Form;
-import org.seasar.jface.binding.ActionDesc;
-import org.seasar.jface.binding.ActionDescFactory;
-import org.seasar.jface.binding.BindingFacade;
-import org.seasar.jface.binding.ValueBinder;
-import org.seasar.jface.binding.WidgetBinder;
-import org.seasar.jface.impl.WindowContextImpl;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
+import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.context.impl.ContextFactory;
+import org.seasar.uruma.desc.PartActionDesc;
+import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.renderer.impl.WindowRenderer;
 import org.seasar.uruma.util.S2ContainerUtil;
 
@@ -48,13 +46,15 @@ import org.seasar.uruma.util.S2ContainerUtil;
 @Component(autoBinding = AutoBindingType.NONE)
 public class UrumaApplicationWindow extends ApplicationWindow {
 
-    private Template template;
+    private WindowComponent windowComponent;
 
-    private WindowContext context;
+    private WindowContext windowContext;
 
-    private ActionDesc actionDesc;
+    private PartContext partContext;
 
-    private Object actionComponent;
+    private PartActionDesc desc;
+
+    private Object partActionComponent;
 
     // private MenuManagerBuilder menuManagerBuilder;
 
@@ -68,15 +68,18 @@ public class UrumaApplicationWindow extends ApplicationWindow {
     /**
      * {@link UrumaApplicationWindow} を構築します。<br />
      * 
-     * @param template
-     *            {@link Template} オブジェクト
+     * @param context
+     *            {@link ApplicationContext} オブジェクト
+     * @param component
+     *            {@link WindowComponent} オブジェクト
      * @param modal
      *            <code>true</code> の場合、モーダルウィンドウとして開く。<code>false</code>
      *            の場合、モーダレスウィンドウとして開く。
      */
-    public UrumaApplicationWindow(final Template template, final boolean modal) {
+    public UrumaApplicationWindow(final ApplicationContext context,
+            final WindowComponent component, final boolean modal) {
         super(null);
-        init(template, modal);
+        init(context, component, modal);
     }
 
     /**
@@ -87,81 +90,85 @@ public class UrumaApplicationWindow extends ApplicationWindow {
      * 
      * @param context
      *            {@link ApplicationContext} オブジェクト
-     * @param template
-     *            {@link Template} オブジェクト
+     * @param component
+     *            {@link WindowComponent} オブジェクト
      * @param modal
      *            <code>true</code> の場合、モーダルウィンドウとして開く
      */
-    public void init(final ApplicationContext context, final Template template,
-            final boolean modal) {
-        this.template = template;
-        this.context = ContextFactory.createWindowContext(context, template.)
+    public void init(final ApplicationContext context,
+            final WindowComponent component, final boolean modal) {
+        this.windowComponent = component;
+        this.windowContext = ContextFactory.createWindowContext(context,
+                component.getId());
+        this.partContext = ContextFactory.createPartContext(windowContext,
+                component.getId());
 
-        setupActionComponent();
-        setupFormComponent();
-        // setupMenuBar();
-        WindowComponent windowComponent = (WindowComponent) template
-                .getRootComponent();
-        setupShellStyle(windowComponent, modal);
+        if (!WindowComponent.DEFAULT_ID.equals(windowComponent.getId())) {
+            setupActionComponent();
+            setupFormComponent();
+            // setupMenuBar();
+        }
+        setupShellStyle(component, modal);
         setupStatusLine();
     }
 
     protected void setupActionComponent() {
-        String actionComponentName = StringUtil.decapitalize(template
-                .getRootComponent().getId())
-                + "Action";
-        actionComponent = S2ContainerUtil
+        String id = windowComponent.getId();
+        String actionComponentName = StringUtil.decapitalize(id) + "Action";
+        partActionComponent = S2ContainerUtil
                 .getComponentNoException(actionComponentName);
-        if (actionComponent != null) {
-            context.setActionComponent(actionComponent);
-            actionDesc = ActionDescFactory.getActionDesc(actionComponent
+        if (partActionComponent != null) {
+            partContext.setPartActionObject(partActionComponent);
+            desc = PartActionDescFactory.getPartActionDesc(partActionComponent
                     .getClass());
         }
     }
 
     protected void setupFormComponent() {
-        Object formComponent = null;
-        Object action = context.getActionComponent();
-        if (action != null) {
-            Form formAnnotation = action.getClass().getAnnotation(Form.class);
+        Object formObject = null;
+        Object actionObject = partContext.getPartActionObject();
+        if (actionObject != null) {
+            Form formAnnotation = actionObject.getClass().getAnnotation(
+                    Form.class);
             if (formAnnotation != null) {
                 Class<?> formClass = formAnnotation.value();
-                if (formClass == context.getActionComponent().getClass()) {
-                    formComponent = context.getActionComponent();
+                if (formClass == partContext.getPartActionObject().getClass()) {
+                    formObject = partContext.getPartActionObject();
                 } else {
-                    formComponent = S2ContainerUtil.getComponent(formClass);
+                    formObject = S2ContainerUtil.getComponent(formClass);
                 }
             }
         }
 
-        if (formComponent == null) {
-            String formComponentName = StringUtil.decapitalize(template
-                    .getRootComponent().getId())
+        if (formObject == null) {
+            String formComponentName = StringUtil.decapitalize(windowComponent
+                    .getId())
                     + "Form";
-            formComponent = S2ContainerUtil
+            formObject = S2ContainerUtil
                     .getComponentNoException(formComponentName);
         }
 
-        if (formComponent != null) {
-            context.setFormComponent(formComponent);
+        if (formObject != null) {
+            partContext.setFormObject(formObject);
             injectFormToAction();
         }
     }
 
     /**
-     * ActionオブジェクトへFormオブジェクトのプロパティが存在する場合、
-     * WindowContextが保持するFormオブジェクトをインジェクションする。
+     * パートアクションオブジェクトにフォームオブジェクトのプロパティが存在する場合、 {@link PartContext}
+     * が保持するフォームオブジェクトをインジェクションする。
      */
     protected void injectFormToAction() {
-        String formComponentName = context.getFormComponent().getClass()
-                .getSimpleName();
-        BeanDesc beanDesc = BeanDescFactory.getBeanDesc(context
-                .getActionComponent().getClass());
-        if (beanDesc.hasPropertyDesc(formComponentName)) {
-            PropertyDesc pd = beanDesc.getPropertyDesc(formComponentName);
+        Object partActionObject = partContext.getPartActionObject();
+        Object formObject = partContext.getFormObject();
+
+        String formObjectName = formObject.getClass().getSimpleName();
+        BeanDesc beanDesc = BeanDescFactory.getBeanDesc(partActionObject
+                .getClass());
+        if (beanDesc.hasPropertyDesc(formObjectName)) {
+            PropertyDesc pd = beanDesc.getPropertyDesc(formObjectName);
             if (pd.hasWriteMethod()) {
-                pd.setValue(context.getActionComponent(), context
-                        .getFormComponent());
+                pd.setValue(partActionObject, formObject);
             }
         }
     }
@@ -190,28 +197,35 @@ public class UrumaApplicationWindow extends ApplicationWindow {
     // }
 
     protected void setupStatusLine() {
-        WindowComponent windowComponent = (WindowComponent) template
-                .getRootComponent();
         String statusLine = windowComponent.getStatusLine();
         if ("true".equals(statusLine)) {
             addStatusLine();
-            context.setStatusLineManager(getStatusLineManager());
+            // TODO StatusLineManager 用の UIComponent が必要
+            WidgetHandle handle = ContextFactory.createWidgetHandle(
+                    getStatusLineManager(), null);
+            windowContext.putWidgetHandle(handle);
         }
     }
 
+    /*
+     * @see org.eclipse.jface.window.Window#createContents(org.eclipse.swt.widgets.Composite)
+     */
     @Override
     protected Control createContents(final Composite parent) {
         // registMenuToContext();
 
-        WindowComponent windowComponent = (WindowComponent) template
-                .getRootComponent();
-        windowComponent.render(parent, context);
+        // ウィンドウのレンダリングを開始する
+        WidgetHandle handle = ContextFactory.createWidgetHandle(parent,
+                windowComponent);
+        PartContext partContext = ContextFactory.createPartContext(
+                windowContext, "windowPart");
+        windowComponent.render(handle, partContext);
 
-        BindingFacade.bindAll(context);
+        // BindingFacade.bindAll(windowContext);
 
-        // 画面初期表示時の、Action から 画面への ExportValue 処理を実施
-        ValueBinder.exportValue(context);
-        ValueBinder.exportSelection(context);
+        // TODO 画面初期表示時の、Action から 画面への ExportValue 処理を実施
+        // ValueBinder.exportValue(windowContext);
+        // ValueBinder.exportSelection(windowContext);
 
         return parent;
     }
@@ -248,21 +262,33 @@ public class UrumaApplicationWindow extends ApplicationWindow {
      *            ウィンドウへの引数
      */
     public void initActionComponent(final Object argument) {
-        if (actionComponent != null) {
-            WidgetBinder.bindWidgets(actionComponent, context);
-            actionDesc.setArgumentValue(actionComponent, argument);
-            actionDesc.invokeInitializeMethod(actionComponent);
+        if (partActionComponent != null) {
+            // WidgetBinder.bindWidgets(partActionComponent, windowContext);
+            // TODO あとで見直し
+            // desc.setArgumentValue(partActionComponent, argument);
+            // desc.invokeInitializeMethod(partActionComponent);
         }
     }
 
-    Object getActionComponent() {
-        return actionComponent;
+    /**
+     * パートアクションコンポーネントを取得します。<br />
+     * 
+     * @return パートアクションコンポーネント
+     */
+    public Object getPartActionComponent() {
+        return this.partActionComponent;
     }
 
+    /**
+     * ウィンドウの戻り値を返します。<br />
+     * 
+     * @return ウィンドウの戻り値オブジェクト。存在しない場合は <code>null</code>
+     */
     public Object getReturnValue() {
-        if (actionDesc == null) {
+        if (desc != null) {
+            return desc.getReturnValue(partActionComponent);
+        } else {
             return null;
         }
-        return actionDesc.getReturnValue(actionComponent);
     }
 }

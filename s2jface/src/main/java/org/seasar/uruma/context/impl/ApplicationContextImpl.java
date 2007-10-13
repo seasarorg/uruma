@@ -47,7 +47,7 @@ public class ApplicationContextImpl implements ApplicationContext {
      */
     public WindowContext getWindowContext(final String windowName) {
         for (WindowContext context : windowContextList) {
-            if (context.getWindowName().equals(windowName)) {
+            if (context.getName().equals(windowName)) {
                 return context;
             }
         }
@@ -72,10 +72,10 @@ public class ApplicationContextImpl implements ApplicationContext {
     protected void addWindowContext(final WindowContext context) {
         AssertionUtil.assertNotNull("context", context);
 
-        if (getWindowContext(context.getWindowName()) != null) {
+        if (getWindowContext(context.getName()) != null) {
             windowContextList.add(context);
         } else {
-            throw new DuplicateComponentIdException(context.getWindowName());
+            throw new DuplicateComponentIdException(context.getName());
         }
     }
 }

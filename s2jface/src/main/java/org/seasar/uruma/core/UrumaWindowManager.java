@@ -23,7 +23,7 @@ import org.seasar.uruma.exception.NotFoundException;
  * @author y-komori
  * @author bskuroneko
  */
-public interface WindowManager {
+public interface UrumaWindowManager {
     /**
      * 指定されたパスの画面定義 XML を読み込み、モーダルウィンドウとして開きます。<br />
      * <p>

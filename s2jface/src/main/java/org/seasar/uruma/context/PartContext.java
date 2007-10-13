@@ -15,8 +15,6 @@
  */
 package org.seasar.uruma.context;
 
-import java.util.Collection;
-
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.ViewPart;
@@ -29,7 +27,7 @@ import org.seasar.uruma.desc.PartActionDesc;
  * 
  * @author y-komori
  */
-public interface PartContext {
+public interface PartContext extends WidgetHolder {
     /**
      * 自ウィンドウのShellオブジェクトが登録されるIDです。
      */
@@ -40,30 +38,7 @@ public interface PartContext {
      * 
      * @return ウィンドウパートの名称
      */
-    public String getPartName();
-
-    /**
-     * {@link PartContext} が保持するすべての {@link WidgetHandle} のコレクションを返します。
-     * 
-     * @return {@link WidgetHandle} のコレクション
-     */
-    public Collection<WidgetHandle> getWidgetHandles();
-
-    /**
-     * <code>handleId</code> で指定された ID を持つ {@link WidgetHandle} を返します。<br />
-     * 
-     * @param handleId
-     * @return {@link WidgetHandle} オブジェクト。見つからなかった場合は、<code>null</code>。
-     */
-    public WidgetHandle getWidgetHandle(String handleId);
-
-    /**
-     * {@link WidgetHandle} を登録します。<br />
-     * 
-     * @param handle
-     *            {@link WidgetHandle} オブジェクト
-     */
-    public void putWidgetHandle(WidgetHandle handle);
+    public String getName();
 
     /**
      * {@link PartActionDesc} オブジェクトを取得します。<br />

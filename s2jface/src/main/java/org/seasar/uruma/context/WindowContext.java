@@ -22,13 +22,13 @@ import java.util.List;
  * 
  * @author y-komori
  */
-public interface WindowContext {
+public interface WindowContext extends WidgetHolder {
     /**
      * ウィンドウの名称を取得します。<br />
      * 
      * @return ウィンドウの名称
      */
-    public String getWindowName();
+    public String getName();
 
     /**
      * {@link WindowContext} が保持する {@link PartContext} のリストを返します。<br />

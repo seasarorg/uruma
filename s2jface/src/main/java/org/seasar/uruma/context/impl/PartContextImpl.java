@@ -15,26 +15,18 @@
  */
 package org.seasar.uruma.context.impl;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.seasar.uruma.context.PartContext;
-import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.desc.FormDesc;
 import org.seasar.uruma.desc.PartActionDesc;
-import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * {@link PartContext} の実装クラスです。<br />
  * 
  * @author y-komori
  */
-public class PartContextImpl implements PartContext {
+public class PartContextImpl extends AbstractWidgetHolder implements
+        PartContext {
     private String partName;
-
-    private Map<String, WidgetHandle> handleMap = new HashMap<String, WidgetHandle>();
 
     private PartActionDesc partActionDesc;
 
@@ -90,31 +82,8 @@ public class PartContextImpl implements PartContext {
     /*
      * @see org.seasar.uruma.context.PartContext#getPartName()
      */
-    public String getPartName() {
+    public String getName() {
         return this.partName;
-    }
-
-    /*
-     * @see org.seasar.uruma.context.PartContext#getWidgetHandle(java.lang.String)
-     */
-    public WidgetHandle getWidgetHandle(final String handleId) {
-        return handleMap.get(handleId);
-    }
-
-    /*
-     * @see org.seasar.uruma.context.PartContext#getWidgetHandles()
-     */
-    public Collection<WidgetHandle> getWidgetHandles() {
-        return Collections.unmodifiableCollection(handleMap.values());
-    }
-
-    /*
-     * @see org.seasar.uruma.context.PartContext#putWidgetHandle(org.seasar.uruma.context.WidgetHandle)
-     */
-    public void putWidgetHandle(final WidgetHandle handle) {
-        AssertionUtil.assertNotNull("handle", handle);
-
-        handleMap.put(handle.getId(), handle);
     }
 
     /*

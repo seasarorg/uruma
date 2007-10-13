@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IStatusLineManager;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.exception.DuplicateComponentIdException;
@@ -28,7 +30,18 @@ import org.seasar.uruma.exception.DuplicateComponentIdException;
  * 
  * @author y-komori
  */
-public class WindowContextImpl implements WindowContext {
+public class WindowContextImpl extends AbstractWidgetHolder implements
+        WindowContext {
+    /**
+     * {@link IMenuManager} の登録 ID です。
+     */
+    public static final String MENU_MANAGER_ID = "menuManager";
+
+    /**
+     * {@link IStatusLineManager} の登録 ID です。
+     */
+    public static final String STATUS_LINE_MANAGER_ID = "statusLineManager";
+
     private String windowName;
 
     private List<PartContext> partContextList;
@@ -45,7 +58,7 @@ public class WindowContextImpl implements WindowContext {
     /*
      * @see org.seasar.uruma.context.WindowContext#getWindowName()
      */
-    public String getWindowName() {
+    public String getName() {
         return this.windowName;
     }
 
@@ -65,7 +78,7 @@ public class WindowContextImpl implements WindowContext {
      */
     public PartContext getPartContext(final String partName) {
         for (PartContext context : partContextList) {
-            if (context.getPartName().equals(partName)) {
+            if (context.getName().equals(partName)) {
                 return context;
             }
         }
@@ -92,10 +105,10 @@ public class WindowContextImpl implements WindowContext {
             partContextList = new ArrayList<PartContext>();
         }
 
-        if (getPartContext(context.getPartName()) == null) {
+        if (getPartContext(context.getName()) == null) {
             partContextList.add(context);
         } else {
-            throw new DuplicateComponentIdException(context.getPartName());
+            throw new DuplicateComponentIdException(context.getName());
         }
     }
 }
