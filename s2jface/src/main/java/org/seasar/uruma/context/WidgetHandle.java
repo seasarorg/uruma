@@ -31,11 +31,6 @@ public interface WidgetHandle {
     public String getId();
 
     /**
-     * ウィジットの ID を設定します。<br />
-     */
-    public void setId(String id);
-
-    /**
      * {@link WidgetHandle} が保持するウィジットを取得します。<br />
      * 
      * @return ウィジットのインスタンス
@@ -59,14 +54,6 @@ public interface WidgetHandle {
     public Class<?> getWidgetClass();
 
     /**
-     * {@link UIComponent} を設定します。<br />
-     * 
-     * @param uiComponent
-     *            {@link UIComponent} オブジェクト
-     */
-    public void setUiComponent(UIComponent uiComponent);
-
-    /**
      * {@link UIComponent} を取得します。<br />
      * 
      * @return {@link UIComponent} オブジェクト
@@ -81,4 +68,14 @@ public interface WidgetHandle {
      * @return サブクラスであれば <code>true</code>。そうでなければ <code>false</code>
      */
     public boolean instanceOf(Class<?> clazz);
+
+    /**
+     * ウィジットの ID を設定します。<br />
+     */
+    public void setId(String id);
+
+    /**
+     * ウィジットに対応する {@link UIComponent} を設定します。<br />
+     */
+    public void setUiComponent(UIComponent uiComponent);
 }

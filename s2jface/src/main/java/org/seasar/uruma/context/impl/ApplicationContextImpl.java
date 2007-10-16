@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.seasar.uruma.context.ApplicationContext;
+import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.exception.DuplicateComponentIdException;
 import org.seasar.uruma.util.AssertionUtil;
@@ -35,10 +36,10 @@ public class ApplicationContextImpl implements ApplicationContext {
 
     /**
      * {@link ApplicationContextImpl} を構築します。<br />
-     * 本クラスは <code>protected</code> のため、直接生成できません。<br />
-     * 生成するには、{@link ContextFactory#createApplicationContext()} メソッドを利用してください。<br />
+     * 本クラスのインスタンスを生成するには、{@link ContextFactory#createApplicationContext()}
+     * メソッドを利用してください。<br />
      */
-    protected ApplicationContextImpl() {
+    public ApplicationContextImpl() {
         super();
     }
 
@@ -69,10 +70,10 @@ public class ApplicationContextImpl implements ApplicationContext {
      * @throws DuplicateComponentIdException
      *             ウィンドウ名称が既に登録されている場合
      */
-    protected void addWindowContext(final WindowContext context) {
+    public void addWindowContext(final WindowContext context) {
         AssertionUtil.assertNotNull("context", context);
 
-        if (getWindowContext(context.getName()) != null) {
+        if (getWindowContext(context.getName()) == null) {
             windowContextList.add(context);
         } else {
             throw new DuplicateComponentIdException(context.getName());

@@ -1086,7 +1086,9 @@
   <!--========== complexType ==========-->
   <xs:complexType name="IdItem">
     <xs:attribute name="id" type="xs:ID" />
-    <xs:attribute name="replace" type="xs:boolean" default="false" />
+    <!--
+      <xs:attribute name="replace" type="xs:boolean" default="false" />
+    -->
   </xs:complexType>
 
   <xs:complexType name="Widget" abstract="true">

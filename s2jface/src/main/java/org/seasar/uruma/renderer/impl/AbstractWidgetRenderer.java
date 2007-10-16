@@ -48,7 +48,9 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
 
         inherit((COMPONENT_TYPE) uiComponent);
 
-        WIDGET_TYPE widget = createWidget(parent, getStyle(uiComponent));
+        Widget parentWidget = parent.<Widget> getCastWidget();
+
+        WIDGET_TYPE widget = createWidget(parentWidget, getStyle(uiComponent));
 
         try {
             RendererSupportUtil.setAttributes(uiComponent, widget,
@@ -102,7 +104,7 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
      *            スタイル値
      * @return 生成したウィジットのインタンス
      */
-    protected WIDGET_TYPE createWidget(final Object parent, final int style) {
+    protected WIDGET_TYPE createWidget(final Widget parent, final int style) {
         Class<WIDGET_TYPE> widgetClass = getWidgetType();
         WIDGET_TYPE widget = ClassUtil.<WIDGET_TYPE> newInstance(widgetClass,
                 parent, style);

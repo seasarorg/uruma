@@ -29,10 +29,10 @@ import org.seasar.jface.annotation.Form;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
+import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
-import org.seasar.uruma.context.impl.ContextFactory;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.renderer.impl.WindowRenderer;
@@ -201,8 +201,8 @@ public class UrumaApplicationWindow extends ApplicationWindow {
         if ("true".equals(statusLine)) {
             addStatusLine();
             // TODO StatusLineManager 用の UIComponent が必要
-            WidgetHandle handle = ContextFactory.createWidgetHandle(
-                    getStatusLineManager(), null);
+            WidgetHandle handle = ContextFactory
+                    .createWidgetHandle(getStatusLineManager());
             windowContext.putWidgetHandle(handle);
         }
     }
@@ -215,10 +215,11 @@ public class UrumaApplicationWindow extends ApplicationWindow {
         // registMenuToContext();
 
         // ウィンドウのレンダリングを開始する
-        WidgetHandle handle = ContextFactory.createWidgetHandle(parent,
-                windowComponent);
+        WidgetHandle handle = ContextFactory.createWidgetHandle(parent);
         PartContext partContext = ContextFactory.createPartContext(
                 windowContext, "windowPart");
+        handle.setId(PartContext.SHELL_ID);
+
         windowComponent.render(handle, partContext);
 
         // BindingFacade.bindAll(windowContext);

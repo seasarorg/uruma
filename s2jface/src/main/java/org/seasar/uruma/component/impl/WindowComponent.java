@@ -16,12 +16,9 @@
 package org.seasar.uruma.component.impl;
 
 import org.eclipse.jface.window.Window;
-import org.eclipse.swt.widgets.Shell;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
-import org.seasar.uruma.context.PartContext;
-import org.seasar.uruma.context.WidgetHandle;
 
 /**
  * {@link Window} のコンポーネント情報を保持するためのクラスです。<br />
@@ -86,19 +83,6 @@ public class WindowComponent extends CompositeComponent {
         super();
 
         setId(DEFAULT_ID);
-    }
-
-    /*
-     * @see org.seasar.uruma.component.impl.AbstractUIComponent#render(org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.PartContext)
-     */
-    @Override
-    public void render(final WidgetHandle parent, final PartContext context) {
-        if (parent.getWidget() instanceof Shell) {
-            context.putWidgetHandle(parent);
-        }
-
-        super.render(parent, context);
     }
 
     /**

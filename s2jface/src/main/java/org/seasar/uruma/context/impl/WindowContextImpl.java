@@ -49,7 +49,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     /**
      * {@link WindowContextImpl} を構築します。<br />
      */
-    protected WindowContextImpl(final String windowName) {
+    public WindowContextImpl(final String windowName) {
         super();
 
         this.windowName = windowName;
@@ -100,7 +100,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * @throws DuplicateComponentIdException
      *             パート名称が既に登録されている場合
      */
-    protected void addPartContext(final PartContext context) {
+    public void addPartContext(final PartContext context) {
         if (partContextList == null) {
             partContextList = new ArrayList<PartContext>();
         }

@@ -59,8 +59,7 @@ public class WindowRenderer extends
     @Override
     public WidgetHandle render(final UIComponent uiComponent,
             final WidgetHandle parent, final PartContext context) {
-        WidgetHandle handle = context.getWidgetHandle(PartContext.SHELL_ID);
-        Shell shell = handle.<Shell> getCastWidget();
+        Shell shell = parent.<Shell> getCastWidget();
 
         configureShell((WindowComponent) uiComponent, shell);
         return super.render(uiComponent, parent, context);

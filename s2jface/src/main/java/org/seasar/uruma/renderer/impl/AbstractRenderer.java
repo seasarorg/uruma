@@ -17,10 +17,11 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.SWT;
 import org.seasar.eclipse.common.util.SWTUtil;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
-import org.seasar.uruma.context.impl.ContextFactory;
 import org.seasar.uruma.renderer.Renderer;
 
 /**
@@ -61,8 +62,12 @@ public abstract class AbstractRenderer implements Renderer {
      */
     protected WidgetHandle createWidgetHandle(final UIComponent uiComponent,
             final Object widget) {
-        WidgetHandle handle = ContextFactory.createWidgetHandle(widget,
-                uiComponent);
+        WidgetHandle handle = ContextFactory.createWidgetHandle(widget);
+        handle.setUiComponent(uiComponent);
+        String id = uiComponent.getId();
+        if (!StringUtil.isEmpty(id)) {
+            handle.setId(id);
+        }
 
         return handle;
     }

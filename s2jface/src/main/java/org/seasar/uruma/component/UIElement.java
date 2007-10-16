@@ -15,17 +15,17 @@
  */
 package org.seasar.uruma.component;
 
+import org.seasar.uruma.component.factory.UrumaTagHandler;
+
 /**
  * 画面定義データの要素を表すインターフェースです。<br />
  * 
  * @author y-komori
  */
 public interface UIElement {
-    // TODO 参照修正
     /**
      * 画面定義データファイルのパスを設定します。<br />
-     * <code>basePath</code> は
-     * {@link org.seasar.jface.component.factory.S2JFaceTagHandler} によって設定されます。
+     * <code>basePath</code> は {@link UrumaTagHandler} によって設定されます。
      * 
      * @param basePath
      *            画面定義データファイルのパス
@@ -39,11 +39,9 @@ public interface UIElement {
      */
     public String getBasePath();
 
-    // TODO 参照修正
     /**
      * 画面定義データファイル中の要素の位置を設定します。<br />
-     * <code>location</code> は
-     * {@link org.seasar.jface.component.factory.S2JFaceTagHandler}
+     * <code>location</code> は {@link UrumaTagHandler}
      * によって設定され、主にエラーが発生時の参照のために利用されます。<br/>
      * 
      * @param location

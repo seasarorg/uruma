@@ -13,13 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.context.impl;
+package org.seasar.uruma.context;
 
-import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.context.ApplicationContext;
-import org.seasar.uruma.context.PartContext;
-import org.seasar.uruma.context.WidgetHandle;
-import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.context.impl.ApplicationContextImpl;
+import org.seasar.uruma.context.impl.PartContextImpl;
+import org.seasar.uruma.context.impl.WidgetHandleImpl;
+import org.seasar.uruma.context.impl.WindowContextImpl;
 import org.seasar.uruma.exception.DuplicateComponentIdException;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -91,12 +90,9 @@ public class ContextFactory {
      * 
      * @param widget
      *            {@link WidgetHandle} へ格納するオブジェクト
-     * @param uiComponent
-     *            {@link WidgetHandle} に対応させる {@link UIComponent} オブジェクト
      * @return 生成した {@link WidgetHandle} オブジェクト
      */
-    public static WidgetHandle createWidgetHandle(final Object widget,
-            final UIComponent uiComponent) {
-        return new WidgetHandleImpl(widget, uiComponent);
+    public static WidgetHandle createWidgetHandle(final Object widget) {
+        return new WidgetHandleImpl(widget);
     }
 }

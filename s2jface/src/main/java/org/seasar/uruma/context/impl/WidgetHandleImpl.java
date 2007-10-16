@@ -16,6 +16,7 @@
 package org.seasar.uruma.context.impl;
 
 import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -31,27 +32,41 @@ public class WidgetHandleImpl implements WidgetHandle {
 
     private UIComponent uiComponent;
 
+    // /**
+    // * {@link WidgetHandleImpl} を構築します。<br />
+    // * 本クラスのインスタンスを生成するには、{@link ContextFactory#createWidgetHandle(Object,
+    // UIComponent)}
+    // * メソッドを利用してください。<br />
+    // *
+    // * @param widget
+    // * ウィジットオブジェクト
+    // * @param uiComponent
+    // * {@link UIComponent} オブジェクト
+    // */
+    // public WidgetHandleImpl(final Object widget, final UIComponent
+    // uiComponent) {
+    // AssertionUtil.assertNotNull("widget", widget);
+    // AssertionUtil.assertNotNull("uiComponent", uiComponent);
+    // String id = uiComponent.getId();
+    // AssertionUtil.assertNotEmpty("id", id);
+    //
+    // this.id = id;
+    // this.widget = widget;
+    // this.uiComponent = uiComponent;
+    // }
+
     /**
      * {@link WidgetHandleImpl} を構築します。<br />
-     * 本メソッドは <code>protected</code> 属性のため、直接生成できません。<br />
-     * 生成するには、{@link ContextFactory#createWidgetHandle(Object, UIComponent)}
+     * 本クラスのインスタンスを生成するには、{@link ContextFactory#createWidgetHandle(Object)}
      * メソッドを利用してください。<br />
      * 
      * @param widget
      *            ウィジットオブジェクト
-     * @param uiComponent
-     *            {@link UIComponent} オブジェクト
      */
-    protected WidgetHandleImpl(final Object widget,
-            final UIComponent uiComponent) {
+    public WidgetHandleImpl(final Object widget) {
         AssertionUtil.assertNotNull("widget", widget);
-        AssertionUtil.assertNotNull("uiComponent", uiComponent);
-        String id = uiComponent.getId();
-        AssertionUtil.assertNotEmpty("id", id);
 
-        this.id = id;
         this.widget = widget;
-        this.uiComponent = uiComponent;
     }
 
     /*
@@ -73,7 +88,7 @@ public class WidgetHandleImpl implements WidgetHandle {
      */
     @SuppressWarnings("unchecked")
     public <T> T getCastWidget() {
-        return (T) this.getClass().cast(this.getWidget());
+        return (T) this.getWidgetClass().cast(this.getWidget());
     }
 
     /*
@@ -84,25 +99,10 @@ public class WidgetHandleImpl implements WidgetHandle {
     }
 
     /*
-     * @see org.seasar.uruma.context.WidgetHandle#setId(java.lang.String)
-     */
-    public void setId(final String id) {
-        AssertionUtil.assertNotNull("id", id);
-        this.id = id;
-    }
-
-    /*
      * @see org.seasar.uruma.context.WidgetHandle#getUiComponent()
      */
     public UIComponent getUiComponent() {
         return this.uiComponent;
-    }
-
-    /*
-     * @see org.seasar.uruma.context.WidgetHandle#setUiComponent(org.seasar.uruma.component.UIComponent)
-     */
-    public void setUiComponent(final UIComponent uiComponent) {
-        this.uiComponent = uiComponent;
     }
 
     /*
@@ -114,5 +114,21 @@ public class WidgetHandleImpl implements WidgetHandle {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    /*
+     * @see org.seasar.uruma.context.WidgetHandle#setId(java.lang.String)
+     */
+    public void setId(final String id) {
+        AssertionUtil.assertNotEmpty("id", id);
+        this.id = id;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.WidgetHandle#setUiComponent(org.seasar.uruma.component.UIComponent)
+     */
+    public void setUiComponent(final UIComponent uiComponent) {
+        AssertionUtil.assertNotNull("uiComponent", uiComponent);
+        this.uiComponent = uiComponent;
     }
 }

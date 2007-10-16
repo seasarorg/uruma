@@ -168,7 +168,7 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
     }
 
     @Override
-    protected Menu createWidget(final Object parent, final int style) {
+    protected Menu createWidget(final Widget parent, final int style) {
         // if (parent instanceof Decorations) {
         // // メニューバーの場合
         // return super.createWidget(parent, style);

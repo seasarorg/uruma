@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.context.impl;
 
+import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.desc.FormDesc;
 import org.seasar.uruma.desc.PartActionDesc;
@@ -38,14 +39,13 @@ public class PartContextImpl extends AbstractWidgetHolder implements
 
     /**
      * {@link PartContextImpl} を構築します。<br />
-     * 本クラスは <code>protected</code> 属性のため、直接生成できません。<br />
-     * 生成するには、{@link ContextFactory#createPartContext(org.seasar.uruma.context.WindowContext, String)}
+     * 本クラスのインスタンスを生成するには、{@link ContextFactory#createPartContext(org.seasar.uruma.context.WindowContext, String)}
      * メソッドを利用してください。
      * 
      * @param partName
      *            パート名称
      */
-    protected PartContextImpl(final String partName) {
+    public PartContextImpl(final String partName) {
         super();
 
         this.partName = partName;

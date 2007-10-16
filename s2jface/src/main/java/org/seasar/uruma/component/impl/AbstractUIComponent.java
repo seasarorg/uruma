@@ -72,9 +72,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         WidgetHandle handle = getRenderer().render(this, parent, context);
         setWidgetHandle(handle);
 
-        String id = getId();
-        if (id != null) {
-            handle.setId(id);
+        if (handle.getId() != null) {
             context.putWidgetHandle(handle);
         }
 
@@ -168,5 +166,4 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         AssertionUtil.assertNotNull("widgetHandle", handle);
         this.widgetHandle = handle;
     }
-
 }
