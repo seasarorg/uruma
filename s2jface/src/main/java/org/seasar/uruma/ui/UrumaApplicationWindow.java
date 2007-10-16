@@ -25,7 +25,8 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.StringUtil;
-import org.seasar.jface.annotation.Form;
+import org.seasar.uruma.annotation.Form;
+import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
@@ -216,13 +217,12 @@ public class UrumaApplicationWindow extends ApplicationWindow {
 
         // ウィンドウのレンダリングを開始する
         WidgetHandle handle = ContextFactory.createWidgetHandle(parent);
-        PartContext partContext = ContextFactory.createPartContext(
-                windowContext, "windowPart");
         handle.setId(PartContext.SHELL_ID);
+        partContext.putWidgetHandle(handle);
 
         windowComponent.render(handle, partContext);
 
-        // BindingFacade.bindAll(windowContext);
+        MethodBindingSupport.createListeners(partContext);
 
         // TODO 画面初期表示時の、Action から 画面への ExportValue 処理を実施
         // ValueBinder.exportValue(windowContext);

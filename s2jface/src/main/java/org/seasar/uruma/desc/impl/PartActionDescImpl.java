@@ -18,6 +18,7 @@ package org.seasar.uruma.desc.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +27,10 @@ import java.util.Map.Entry;
 import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.uruma.annotation.ArgumentValue;
+import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.annotation.ReturnValue;
+import org.seasar.uruma.binding.method.EventListenerDef;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.exception.ArgumentFieldException;
 import org.seasar.uruma.exception.InitializeMethodException;
@@ -52,6 +55,8 @@ public class PartActionDescImpl implements PartActionDesc {
     private Field argumentField = null;
 
     private Field returnField = null;
+
+    private List<EventListenerDef> eventListenerDefs = new ArrayList<EventListenerDef>();
 
     /**
      * {@link PartActionDescImpl} を構築します。<br />
@@ -127,6 +132,13 @@ public class PartActionDescImpl implements PartActionDesc {
         }
     }
 
+    /*
+     * @see org.seasar.uruma.desc.PartActionDesc#getEventListenerDefList()
+     */
+    public List<EventListenerDef> getEventListenerDefList() {
+        return Collections.unmodifiableList(eventListenerDefs);
+    }
+
     protected void setupMethods() {
         Map<String, List<Method>> methodListMap = new HashMap<String, List<Method>>();
         Method[] methods = partActionClass.getMethods();
@@ -139,6 +151,7 @@ public class PartActionDescImpl implements PartActionDesc {
             methodList.add(methods[i]);
 
             setupInitializeMethod(methods[i]);
+            setupEventListenerMethod(methods[i]);
         }
 
         for (Entry<String, List<Method>> entry : methodListMap.entrySet()) {
@@ -164,6 +177,15 @@ public class PartActionDescImpl implements PartActionDesc {
                         InitializeMethodException.INVALID, partActionClass,
                         method);
             }
+        }
+    }
+
+    protected void setupEventListenerMethod(final Method method) {
+        EventListener eventListener = method.getAnnotation(EventListener.class);
+        if (eventListener != null) {
+            EventListenerDef eventListenerDef = new EventListenerDef(method,
+                    eventListener);
+            eventListenerDefs.add(eventListenerDef);
         }
     }
 

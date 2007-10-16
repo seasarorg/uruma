@@ -17,10 +17,12 @@ package org.seasar.uruma.desc;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import org.seasar.uruma.annotation.ArgumentValue;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.annotation.ReturnValue;
+import org.seasar.uruma.binding.method.EventListenerDef;
 
 /**
  * パートアクションクラスのメタデータを扱うためのインターフェースです。<br />
@@ -77,4 +79,10 @@ public interface PartActionDesc {
      */
     public Object getReturnValue(Object target);
 
+    /**
+     * {@link EventListenerDef} のリストを取得します。<br />
+     * 
+     * @return {@link EventListenerDef} のリスト
+     */
+    public List<EventListenerDef> getEventListenerDefList();
 }
