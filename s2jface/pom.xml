@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.seasar.jface</groupId>
-  <artifactId>s2-jface</artifactId>
-  <name>S2JFace</name>
+  <groupId>org.seasar.uruma</groupId>
+  <artifactId>uruma</artifactId>
+  <name>Uruma</name>
   <version>0.2.0-SNAPSHOT</version>
-  <url>http://s2jface.sandbox.seasar.org/</url>
+  <url>http://uruma.sandbox.seasar.org/</url>
   <issueManagement>
     <system>JIRA</system>
-    <url>https://www.seasar.org/issues/browse/JFACE</url>
+    <url>https://www.seasar.org/issues/browse/URUMA</url>
   </issueManagement>
   <inceptionYear>2006</inceptionYear>
   <mailingLists>
@@ -19,11 +19,11 @@
       <archive>https://www.seasar.org/mailman/listinfo/seasar-user</archive>
     </mailingList>
     <mailingList>
-      <name>s2jface-dev</name>
-      <subscribe>https://www.seasar.org/mailman/listinfo/s2jface-dev</subscribe>
-      <unsubscribe>https://www.seasar.org/mailman/listinfo/s2jface-dev</unsubscribe>
-      <post>s2jface-dev@ml.seasar.org</post>
-      <archive>http://ml.seasar.org/archives/s2jface-dev/</archive>
+      <name>uruma-dev</name>
+      <subscribe>https://www.seasar.org/mailman/listinfo/uruma-dev</subscribe>
+      <unsubscribe>https://www.seasar.org/mailman/listinfo/uruma-dev</unsubscribe>
+      <post>uruma-dev@ml.seasar.org</post>
+      <archive>http://ml.seasar.org/archives/uruma-dev/</archive>
     </mailingList>
   </mailingLists>
   <developers>
@@ -374,13 +374,13 @@
       <uniqueVersion>false</uniqueVersion>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Repository</name>
-      <url>scp://www.seasar.org/home/groups/sandbox/s2jface/maven/maven2</url>
+      <url>scp://www.seasar.org/home/groups/sandbox/uruma/maven/maven2</url>
     </repository>
     <snapshotRepository>
       <uniqueVersion>true</uniqueVersion>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Snapshot Repository</name>
-      <url>scp://www.seasar.org/home/groups/sandbox/s2jface/maven/maven2-snapshot</url>
+      <url>scp://www.seasar.org/home/groups/sandbox/uruma/maven/maven2-snapshot</url>
     </snapshotRepository>
   </distributionManagement>
 </project>
