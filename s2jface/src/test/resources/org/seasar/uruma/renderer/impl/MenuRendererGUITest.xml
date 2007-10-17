@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="menuRendererGUITest" title="MenuRendererGUITest"
+    defaultButtonId="okButton" background="WHITE">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+
+    <menu>
+      <menu text="Menu1(&amp;M)">
+        <menuItem text="Menu1-1(&amp;1)" />
+        <menuItem text="Menu1-2(&amp;2)" />
+        <separator />
+        <menu text="Menu1-3(&amp;3)">
+          <menuItem id="accelerator1" text="Accelerator1\tF2"
+            accelerator="F2" />
+          <menuItem id="accelerator2" text="Accelerator2\tCtrl+M"
+            accelerator="Ctrl+M" />
+        </menu>
+      </menu>
+
+      <menu text="Menu2" defaultItemId="defaultItem">
+        <menuItem text="チェック(select)" style="CHECK" selection="true" />
+        <menuItem text="チェック" style="CHECK" />
+        <separator />
+        <menuItem text="ラジオ1" style="RADIO" />
+        <menuItem text="ラジオ2(select)" style="RADIO" selection="true" />
+        <menuItem text="ラジオ3" style="RADIO" />
+        <separator />
+        <menuItem id="defaultItem" text="デフォルト" />
+        <menuItem text="disable" enabled="false" />
+        <menuItem image="/images/container.gif" text="イメージ" />
+      </menu>
+
+      <menu text="DisableMenu(&amp;D)" enabled="false">
+        <menuItem text="disable1" style="CHECK" selection="true" />
+        <menuItem text="disable2" style="CHECK" />
+      </menu>
+    </menu>
+
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="20" />
+
+      <label text="ポップアップメニュー" style="BORDER">
+        <menu>
+          <menuItem text="コンテキストメニュー1"></menuItem>
+          <menuItem text="コンテキストメニュー2"></menuItem>
+          <separator />
+          <menu text="コンテキストメニュー3">
+            <menuItem text="3-1"></menuItem>
+            <menuItem text="3-2"></menuItem>
+          </menu>
+        </menu>
+      </label>
+
+      <label text="ロケーション指定" style="BORDER">
+        <menu x="100" y="200">
+          <menuItem text="コンテキストメニュー1"></menuItem>
+          <menuItem text="コンテキストメニュー2"></menuItem>
+          <separator />
+          <menu text="コンテキストメニュー3">
+            <menuItem text="3-1"></menuItem>
+            <menuItem text="3-2"></menuItem>
+          </menu>
+        </menu>
+      </label>
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

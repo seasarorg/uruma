@@ -85,7 +85,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends UIComponent,
                 doRender((COMPONENT_TYPE) uiComponent, getViewerType().cast(
                         viewer));
             } catch (Exception ex) {
-                throw new RenderException("EURM0001", ex);
+                throw new RenderException("EURM0001", ex.getMessage());
             }
 
             WidgetHandle handle = createWidgetHandle(uiComponent, viewer);

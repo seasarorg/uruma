@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="tableRendererGUITest" title="TableRendererGUITest"
+    defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="VERTICAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="10" />
+
+      <table toolTipText="ツールチップ\nテキスト" headerVisible="true">
+
+        <tableColumn text="カラム１" toolTipText="カラム１ツールチップ" width="80" />
+        <tableColumn text="イメージ" width="90" image="/images/container.gif" />
+        <tableColumn text="リサイズ不可" width="80" resizable="false" />
+        <tableColumn text="移動可能" width="80" moveable="true" />
+
+        <tableItem id="item1" text="アイテム1" />
+
+        <tableItem>
+          <tableCell text="セル2-1" />
+          <tableCell text="イメージ" image="/images/component.gif" />
+          <tableCell text="色変更" background="GREEN" foreground="RED" />
+          <tableCell text="フォント変更" fontHeight="15" fontName="ＭＳ 明朝"
+            fontStyle="BOLD, ITALIC" />
+        </tableItem>
+
+      </table>
+
+      <table style="FULL_SELECTION, MULTI, H_SCROLL, V_SCROLL" headerVisible="true"
+        background="GREEN" foreground="RED" linesVisible="true" fontHeight="12"
+        fontName="ＭＳ 明朝" fontStyle="BOLD, ITALIC" selection="0, 2"
+        columnOrder="0,1,4,5,2,3" topIndex="2">
+        <rowData height="70" />
+
+        <tableColumn text="左1" width="70" style="LEFT" />
+        <tableColumn text="左2" width="70" alignment="LEFT" />
+        <tableColumn text="右1" width="70" style="RIGHT" />
+        <tableColumn text="右2" width="70" alignment="RIGHT" />
+        <tableColumn text="中1" width="70" style="CENTER" />
+        <tableColumn text="中2" width="70" alignment="CENTER" />
+
+        <tableItem text="アイテム1" />
+        <tableItem text="アイテム2" />
+        <tableItem text="アイテム3" />
+        <tableItem text="アイテム4" />
+        <tableItem text="アイテム5" />
+
+      </table>
+
+      <table style="BORDER, FULL_SELECTION, MULTI, CHECK">
+
+        <tableItem checked="true" text="チェック" />
+        <tableItem text="フォント" fontHeight="12" fontName="ＭＳ 明朝" fontStyle="BOLD, ITALIC"/>
+        <tableItem text="色" background="GREEN" foreground="RED" />
+        <tableItem checked="true" text="グレーチェック" grayed="true" />
+        <tableItem text="イメージ" image="/images/container.gif" />
+      </table>
+
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="labelRendererGUITest" title="LabelRendererGUITest">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="20" />
+
+      <composite>
+        <rowLayout type="VERTICAL" />
+        <label style="BORDER" text="ラベル" toolTipText="ツールチップテキスト" />
+        <label style="BORDER" text="枠付きラベル" />
+
+        <label image="../../template/container.gif" />
+
+        <label image="/org/seasar/jface/template/container.gif" />
+
+        <label style="BORDER" text="複数行テキスト1行目\n\t複数行テキスト2行目\n3行目" />
+
+        <label style="WRAP, BORDER" text="WRAPスタイルを適用することで、長い文字列は折り返して表示されます。"
+          fontHeight="12">
+          <rowData width="200" height="100" />
+        </label>
+      </composite>
+
+      <composite>
+        <rowLayout type="VERTICAL">
+          <rowData width="300" />
+        </rowLayout>
+
+        <label style="BORDER, LEFT" text="左寄せ1" />
+
+        <label style="BORDER" text="左寄せ2" alignment="LEFT" />
+
+        <label style="BORDER, CENTER" text="中央1" />
+
+        <label style="BORDER" text="中央2" alignment="CENTER" />
+
+        <label style="BORDER, RIGHT" text="右寄せ1" />
+
+        <label style="BORDER" text="右寄せ2" alignment="RIGHT" />
+
+        <label style="SEPARATOR, HORIZONTAL" />
+
+        <label style="SEPARATOR, VERTICAL">
+          <rowData height="100" />
+        </label>
+
+        <label style="BORDER, CENTER" text="色・フォントを変更" fontName="ＭＳ 明朝"
+          fontHeight="15" fontStyle="BOLD, ITALIC" foreground="yellow"
+          background="blue" />
+
+      </composite>
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

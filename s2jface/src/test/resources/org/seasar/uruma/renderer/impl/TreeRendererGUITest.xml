@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="treeRendererGUITest" title="TreeRendererGUITest"
+    defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+        grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
+      <gridLayout numColumns="2">
+        <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+          grabExcessHorizontalSpace="true"
+          grabExcessVerticalSpace="true" widthHint="150"
+          heightHint="200" />
+      </gridLayout>
+      <commonAttributes fontHeight="10" />
+
+      <tree id="tree1" style="MULTI, BORDER" toolTipText="ツールチップ\nテキスト" />
+
+      <tree id="tree2">
+        <treeItem text="親1" image="folder">
+          <treeItem text="子1-1" image="folder">
+            <treeItem text="孫1-1-1" image="page" />
+            <treeItem text="孫1-1-2" image="page" />
+          </treeItem>
+          <treeItem text="子1-2" image="page" />
+        </treeItem>
+        <treeItem text="親2" image="folder">
+          <treeItem text="子2-1(文字色変更)" image="page" foreground="red" />
+          <treeItem text="子2-2(背景色変更)" image="page" foreground="white"
+            background="blue" />
+        </treeItem>
+      </tree>
+    </composite>
+
+    <composite>
+      <gridLayout numColumns="1" />
+
+      <text id="textArea"
+        style="BORDER, MULTI, H_SCROLL, V_SCROLL, READ_ONLY">
+        <gridData horizontalAlignment="FILL" heightHint="100"
+          grabExcessHorizontalSpace="true" />
+      </text>
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="sashFormRendererGUITest" title="SashFormRendererGUITest"
+    defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="VERTICAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="20" />
+
+      <sashForm style="BORDER">
+        <text text="左テキスト" />
+        <text text="右テキスト" />
+      </sashForm>
+
+      <sashForm style="BORDER" weights="1, 2">
+        <rowData width="300" />
+
+        <text text="ウェイト１" />
+        <text text="ウェイト２" />
+      </sashForm>
+
+      <sashForm style="BORDER, VERTICAL">
+        <text text="上テキスト" />
+        <text text="下テキスト" />
+      </sashForm>
+
+      <sashForm style="BORDER" orientation="VERTICAL">
+        <text text="上テキスト２" />
+        <text text="下テキスト２" />
+      </sashForm>
+
+      <sashForm style="BORDER" maximizedControlId="maxText">
+        <text text="テキスト" />
+        <text id="maxText" text="最大化" />
+      </sashForm>
+
+      <sashForm style="BORDER">
+        <text text="左テキスト" />
+
+        <sashForm style="VERTICAL">
+          <text text="入れ子上" />
+          <text text="入れ子中" />
+          <text text="入れ子下" />
+        </sashForm>
+      </sashForm>
+
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

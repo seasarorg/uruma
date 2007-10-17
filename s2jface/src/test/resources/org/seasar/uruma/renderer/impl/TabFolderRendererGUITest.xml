@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="tabFolderRendererGUITest" title="TabFolderRendererGUITest" defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="20" />
+
+      <tabFolder>
+        <tabItem text="tab1-1"></tabItem>
+        <tabItem text="tab1-2"></tabItem>
+      </tabFolder>
+
+      <tabFolder selection="1">
+        <tabItem text="画像" image="/images/container.gif"></tabItem>
+        <tabItem text="ツールチップ" toolTipText="ツールチップ\nテキスト"></tabItem>
+        <tabItem text="コントロール">
+          <label text="ラベル" />
+        </tabItem>
+      </tabFolder>
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>
