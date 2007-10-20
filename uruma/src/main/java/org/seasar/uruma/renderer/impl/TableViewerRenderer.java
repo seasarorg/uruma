@@ -21,12 +21,12 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
-import org.seasar.jface.viewer.GenericTableLabelProvider;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.component.impl.TableComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.renderer.RendererSupportUtil;
+import org.seasar.uruma.viewer.GenericTableLabelProvider;
 import org.seasar.uruma.viewer.GenericTableViewerSorter;
 
 /**
@@ -35,21 +35,11 @@ import org.seasar.uruma.viewer.GenericTableViewerSorter;
  * @author bskuroneko
  */
 public class TableViewerRenderer extends
-        AbstractViewerRenderer<TableComponent, TableViewer> {
-
-    /*
-     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRender(org.seasar.uruma.component.UIComponent,
-     *      org.eclipse.jface.viewers.Viewer)
-     */
-    @Override
-    protected void doRender(final TableComponent uiComponent,
-            final TableViewer viewer) {
-        // Do nothing.
-    }
+        AbstractViewerRenderer<TableComponent, TableViewer, Table> {
 
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRenderAfter(org.eclipse.jface.viewers.Viewer,
-     *      org.seasar.uruma.component.UIComponent,
+     *      org.seasar.uruma.component.impl.CompositeComponent,
      *      org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.PartContext)
      */
@@ -64,6 +54,14 @@ public class TableViewerRenderer extends
             table.setSelection((int[]) RendererSupportUtil.convertValue(
                     uiComponent, selection, ConversionType.INT_ARRAY));
         }
+    }
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractWidgetRenderer#getWidgetType()
+     */
+    @Override
+    protected Class<Table> getWidgetType() {
+        return Table.class;
     }
 
     /*

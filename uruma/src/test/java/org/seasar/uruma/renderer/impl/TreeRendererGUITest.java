@@ -26,8 +26,11 @@ import org.seasar.jface.annotation.EventListener;
 import org.seasar.jface.annotation.ExportValue;
 import org.seasar.jface.annotation.Form;
 import org.seasar.jface.annotation.ImportSelection;
+import org.seasar.jface.renderer.impl.TreeRenderer;
 
 /**
+ * {@link TreeRenderer} のためのテストクラスです。<br />
+ * 
  * @author y-komori
  */
 @Form(TreeRendererGUITest.class)
@@ -72,11 +75,11 @@ public class TreeRendererGUITest extends AbstractGUITest {
 
     public static class TreeNodeLabelProvider implements ILabelProvider {
 
-        public Image getImage(Object element) {
+        public Image getImage(final Object element) {
             return null;
         }
 
-        public String getText(Object element) {
+        public String getText(final Object element) {
             if (element instanceof TreeNode) {
                 TreeNode treeNode = (TreeNode) element;
                 return treeNode.getValue().toString();
@@ -84,17 +87,18 @@ public class TreeRendererGUITest extends AbstractGUITest {
             return null;
         }
 
-        public void addListener(ILabelProviderListener listener) {
+        public void addListener(final ILabelProviderListener listener) {
         }
 
         public void dispose() {
         }
 
-        public boolean isLabelProperty(Object element, String property) {
+        public boolean isLabelProperty(final Object element,
+                final String property) {
             return false;
         }
 
-        public void removeListener(ILabelProviderListener listener) {
+        public void removeListener(final ILabelProviderListener listener) {
         }
     }
 }

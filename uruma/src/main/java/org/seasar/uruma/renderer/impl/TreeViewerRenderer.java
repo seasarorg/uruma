@@ -16,8 +16,10 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Tree;
 import org.seasar.uruma.component.impl.TreeComponent;
 import org.seasar.uruma.viewer.GenericLabelProvider;
 
@@ -27,15 +29,11 @@ import org.seasar.uruma.viewer.GenericLabelProvider;
  * @author y-komori
  */
 public class TreeViewerRenderer extends
-        AbstractViewerRenderer<TreeComponent, TreeViewer> {
-    /*
-     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRender(org.seasar.uruma.component.UIComponent,
-     *      org.eclipse.jface.viewers.Viewer)
-     */
+        AbstractViewerRenderer<TreeComponent, TreeViewer, Tree> {
+
     @Override
-    protected void doRender(final TreeComponent uiComponent,
-            final TreeViewer viewer) {
-        // Do nothing.
+    protected Class<Tree> getWidgetType() {
+        return Tree.class;
     }
 
     /*
@@ -60,5 +58,13 @@ public class TreeViewerRenderer extends
     @Override
     protected Class<TreeViewer> getViewerType() {
         return TreeViewer.class;
+    }
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#getDefaultContentProvider()
+     */
+    @Override
+    protected IContentProvider getDefaultContentProvider() {
+        return null;
     }
 }

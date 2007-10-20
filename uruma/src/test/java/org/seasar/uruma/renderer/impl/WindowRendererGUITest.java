@@ -16,8 +16,9 @@
 package org.seasar.uruma.renderer.impl;
 
 /**
- * @author y-komori
+ * {@link WindowRenderer} のためのテストクラスです。<br />
  * 
+ * @author y-komori
  */
 public class WindowRendererGUITest extends AbstractGUITest {
 }

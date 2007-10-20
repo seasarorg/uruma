@@ -16,6 +16,8 @@
 package org.seasar.uruma.renderer.impl;
 
 /**
+ * {@link LinkRenderer} のためのテストクラスです。<br />
+ * 
  * @author bskuroneko
  */
 public class LinkRendererGUITest extends AbstractGUITest {

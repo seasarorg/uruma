@@ -16,6 +16,8 @@
 package org.seasar.uruma.renderer.impl;
 
 /**
+ * {@link LabelRenderer} のためのテストクラスです。<br />
+ * 
  * @author bskuroneko
  */
 public class LabelRendererGUITest extends AbstractGUITest {

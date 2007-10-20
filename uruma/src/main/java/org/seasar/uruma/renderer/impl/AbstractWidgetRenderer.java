@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 import org.seasar.uruma.component.UIComponent;
@@ -48,7 +49,17 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
 
         inherit((COMPONENT_TYPE) uiComponent);
 
-        Widget parentWidget = parent.<Widget> getCastWidget();
+        Object parentObject = parent.getWidget();
+        Widget parentWidget = null;
+
+        if (parentObject instanceof Widget) {
+            parentWidget = Widget.class.cast(parentObject);
+        } else if (parentObject instanceof Viewer) {
+            parentWidget = Viewer.class.cast(parentObject).getControl();
+        } else {
+            throw new RenderException(RenderException.TYPE_ERROR, parentObject,
+                    Widget.class.getName());
+        }
 
         WIDGET_TYPE widget = createWidget(parentWidget, getStyle(uiComponent));
 
@@ -58,7 +69,7 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
 
             doRender((COMPONENT_TYPE) uiComponent, getWidgetType().cast(widget));
         } catch (Exception ex) {
-            throw new RenderException("EURM0001", ex);
+            throw new RenderException("EURM0001", ex, ex.getMessage());
         }
 
         WidgetHandle handle = createWidgetHandle(uiComponent, widget);
@@ -76,9 +87,10 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
     public void renderAfter(final WidgetHandle handle,
             final UIComponent uiComponent, final WidgetHandle parent,
             final PartContext context) {
-        RendererSupportUtil.setAttributes(uiComponent, handle,
+        Object widget = handle.getWidget();
+        RendererSupportUtil.setAttributes(uiComponent, widget,
                 SetTiming.RENDER_AFTER);
-        doRenderAfter(getWidgetType().cast(handle.getWidget()),
+        doRenderAfter(getWidgetType().cast(widget),
                 (COMPONENT_TYPE) uiComponent, parent, context);
     }
 

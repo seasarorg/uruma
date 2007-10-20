@@ -16,6 +16,8 @@
 package org.seasar.uruma.renderer.impl;
 
 /**
+ * {@link GroupRenderer} のためのテストクラスです。<br />
+ * 
  * @author bskuroneko
  */
 public class GroupRendererGUITest extends AbstractGUITest {

@@ -16,6 +16,8 @@
 package org.seasar.uruma.renderer.impl;
 
 /**
+ * {@link SpinnerRenderer} のためのテストクラスです。<br />
+ * 
  * @author bskuroneko
  */
 public class SpinnerRendererGUITest extends AbstractGUITest {

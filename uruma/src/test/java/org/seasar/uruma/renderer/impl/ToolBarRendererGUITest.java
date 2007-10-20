@@ -16,6 +16,8 @@
 package org.seasar.uruma.renderer.impl;
 
 /**
+ * {@link ToolBarRenderer} のためのテストクラスです。<br />
+ * 
  * @author bskuroneko
  */
 public class ToolBarRendererGUITest extends AbstractGUITest {

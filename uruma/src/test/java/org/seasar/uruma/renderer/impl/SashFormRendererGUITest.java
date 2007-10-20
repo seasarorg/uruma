@@ -16,6 +16,8 @@
 package org.seasar.uruma.renderer.impl;
 
 /**
+ * {@link SashFormRenderer} のためのテストクラスです。<br />
+ * 
  * @author bskuroneko
  */
 public class SashFormRendererGUITest extends AbstractGUITest {

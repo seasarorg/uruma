@@ -15,12 +15,18 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Combo;
 import org.seasar.uruma.component.impl.ComboComponent;
 import org.seasar.uruma.component.impl.SimpleItemComponent;
-import org.seasar.uruma.viewer.GenericLabelProvider;
+import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.viewer.ContentsHolder;
 
 /**
  * {@link ComboViewer} のレンダリングを行うクラスです。<br />
@@ -28,21 +34,39 @@ import org.seasar.uruma.viewer.GenericLabelProvider;
  * @author bskuroneko
  */
 public class ComboViewerRenderer extends
-        AbstractViewerRenderer<ComboComponent, ComboViewer> {
+        AbstractViewerRenderer<ComboComponent, ComboViewer, Combo> {
 
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractRenderer#getDefaultStyle()
+     */
     @Override
     protected int getDefaultStyle() {
         return SWT.SIMPLE;
     }
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRender(org.seasar.uruma.component.UIComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRenderViewer(org.seasar.uruma.component.impl.CompositeComponent,
      *      org.eclipse.jface.viewers.Viewer)
      */
     @Override
-    protected void doRender(final ComboComponent uiComponent,
+    protected void doRenderViewer(final ComboComponent uiComponent,
             final ComboViewer viewer) {
+        // setupItems(uiComponent, viewer);
+    }
+
+    @Override
+    protected void doRenderAfter(final ComboViewer viewer,
+            final ComboComponent uiComponent, final WidgetHandle parent,
+            final PartContext context) {
         setupItems(uiComponent, viewer);
+    }
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractWidgetRenderer#getWidgetType()
+     */
+    @Override
+    protected Class<Combo> getWidgetType() {
+        return Combo.class;
     }
 
     /*
@@ -55,16 +79,37 @@ public class ComboViewerRenderer extends
 
     private void setupItems(final ComboComponent comboComponent,
             final ComboViewer viewer) {
-        for (SimpleItemComponent item : comboComponent.getItems()) {
-            viewer.add(item.getText());
+        List<SimpleItemComponent> itemList = comboComponent.getItems();
+
+        IContentProvider provider = viewer.getContentProvider();
+        if (provider != null && provider instanceof ContentsHolder) {
+            ContentsHolder holder = ContentsHolder.class.cast(provider);
+
+            String[] contents = new String[itemList.size()];
+
+            for (int i = 0; i < contents.length; i++) {
+                contents[i] = itemList.get(i).getText();
+            }
+
+            holder.setContents(contents);
+        } else {
+            for (SimpleItemComponent simpleItemComponent : itemList) {
+                viewer.add(simpleItemComponent.getText());
+            }
         }
     }
+
+    // @Override
+    // protected IContentProvider getDefaultContentProvider() {
+    // return null;
+    // }
 
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#getDefaultLabelProvider()
      */
     @Override
     protected IBaseLabelProvider getDefaultLabelProvider() {
-        return new GenericLabelProvider();
+        return null;
+        // return new GenericLabelProvider();
     }
 }

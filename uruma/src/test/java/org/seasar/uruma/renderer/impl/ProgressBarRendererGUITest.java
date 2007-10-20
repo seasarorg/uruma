@@ -16,6 +16,8 @@
 package org.seasar.uruma.renderer.impl;
 
 /**
+ * {@link ProgressBarRenderer}} のためのテストクラスです。<br />
+ * 
  * @author bskuroneko
  */
 public class ProgressBarRendererGUITest extends AbstractGUITest {

@@ -16,6 +16,8 @@
 package org.seasar.uruma.renderer.impl;
 
 /**
+ * {@link CTabFolderRenderer} のためのテストクラスです。<br />
+ * 
  * @author bskuroneko
  */
 public class CTabFolderRendererGUITest extends AbstractGUITest {
