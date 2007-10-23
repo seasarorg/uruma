@@ -21,17 +21,54 @@ import java.lang.reflect.Field;
  * ウィジットクラス毎のバインディングを行うためのインターフェースです。<br />
  * 
  * @author y-komori
- * 
- * @param <WIDGET_CLASS>
- *            対応するウィジットのクラス
  */
 public interface ValueBinder {
+    /**
+     * ウィジットの値をフォームへ設定します。<br />
+     * 
+     * @param widget
+     *            ウィジット側オブジェクト
+     * @param formObj
+     *            フォーム側オブジェクト
+     * @param formField
+     *            フォーム側フィールド
+     */
     public void importValue(Object widget, Object formObj, Field formField);
 
+    /**
+     * フォームの値をウィジットへ設定します。<br />
+     * 
+     * @param widget
+     *            ウィジット側オブジェクト
+     * @param formObj
+     *            フォーム側オブジェクト
+     * @param formField
+     *            フォーム側フィールド
+     */
     public void exportValue(Object widget, Object formObj, Field formField);
 
+    /**
+     * ウィジットで選択されているオブジェクトをフォームへ設定します。<br />
+     * 
+     * @param widget
+     *            ウィジット側オブジェクト
+     * @param formObj
+     *            フォーム側オブジェクト
+     * @param formField
+     *            フォーム側フィールド
+     */
     public void importSelection(Object widget, Object formObj, Field formField);
 
+    /**
+     * フォームの持つオブジェクトをウィジットの選択状態として設定します。<br />
+     * 
+     * @param widget
+     *            ウィジット側オブジェクト
+     * @param formObj
+     *            フォーム側オブジェクト
+     * @param formField
+     *            フォーム側フィールド
+     */
     public void exportSelection(Object widget, Object formObj, Field formField);
 
     /**

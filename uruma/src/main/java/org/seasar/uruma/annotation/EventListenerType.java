@@ -30,52 +30,204 @@ import org.seasar.framework.util.StringUtil;
 public enum EventListenerType {
 
     // Key
-    KEY_DOWN, KEY_UP,
+    /**
+     * @see SWT#KeyDown
+     */
+    KEY_DOWN,
+    /**
+     * @see SWT#KeyUp
+     */
+    KEY_UP,
 
     // Mouse
-    MOUSE_DOWN, MOUSE_UP, MOUSE_MOVE, MOUSE_ENTER, MOUSE_EXIT, MOUSE_DOUBLE_CLICK, MOUSE_HOVER,
+    /**
+     * @see SWT#MouseDown
+     */
+    MOUSE_DOWN,
+
+    /**
+     * @see SWT#MouseUp
+     */
+    MOUSE_UP,
+
+    /**
+     * @see SWT#MouseMove
+     */
+    MOUSE_MOVE,
+
+    /**
+     * @see SWT#MouseEnter
+     */
+    MOUSE_ENTER,
+
+    /**
+     * @see SWT#MouseExit
+     */
+    MOUSE_EXIT,
+
+    /**
+     * @see SWT#MouseDoubleClick
+     */
+    MOUSE_DOUBLE_CLICK,
+
+    /**
+     * @see SWT#MouseHover
+     */
+    MOUSE_HOVER,
 
     // Paint
+    /**
+     * @see SWT#Paint
+     */
     PAINT,
 
-    // Controll
-    MOVE, RESIZE,
+    // Control
+    /**
+     * @see SWT#Move
+     */
+    MOVE,
+
+    /**
+     * @see SWT#Resize
+     */
+    RESIZE,
 
     // Dispose
+    /**
+     * @see SWT#Dispose
+     */
     DISPOSE,
 
     // Selection
-    SELECTION, DEFAULT_SELECTION,
+    /**
+     * @see SWT#Selection
+     */
+    SELECTION,
+
+    /**
+     * @see SWT#DefaultSelection
+     */
+    DEFAULT_SELECTION,
 
     // Focus
-    FOCUS_IN, FOCUS_OUT,
+    /**
+     * @see SWT#FocusIn
+     */
+    FOCUS_IN,
+
+    /**
+     * @see SWT#FocusOut
+     */
+    FOCUS_OUT,
 
     // Tree
-    EXPAND, COLLAPSE,
+    /**
+     * @see SWT#Expand
+     */
+    EXPAND,
+
+    /**
+     * @see SWT#Collapse
+     */
+    COLLAPSE,
 
     // Shell
-    ICONIFY, DEICONIFY, CLOSE, ACTIVATE, DEACTIVATE,
+    /**
+     * @see SWT#Iconify
+     */
+    ICONIFY,
+
+    /**
+     * @see SWT#Deiconify
+     */
+    DEICONIFY,
+
+    /**
+     * @see SWT#Close
+     */
+    CLOSE,
+
+    /**
+     * @see SWT#Activate
+     */
+    ACTIVATE,
+
+    /**
+     * @see SWT#Deactivate
+     */
+    DEACTIVATE,
 
     // Menu or Controll's visible change
-    SHOW, HIDE,
+    /**
+     * @see SWT#Show
+     */
+    SHOW,
+
+    /**
+     * @see SWT#Hide
+     */
+    HIDE,
 
     // Modify
+    /**
+     * @see SWT#Modify
+     */
     MODIFY,
 
     // Verify
+    /**
+     * @see SWT#Verify
+     */
     VERIFY,
 
     // Help
+    /**
+     * @see SWT#Help
+     */
     HELP,
 
     // Arm
+    /**
+     * @see SWT#Arm
+     */
     ARM,
 
     // Traverse
+    /**
+     * @see SWT#Traverse
+     */
     TRAVERSE,
 
     // Others
-    DRAG_DETECT, HARD_KEY_DOWN, HARD_KEY_UP, MENU_DETECT, SET_DATA, MOUSE_WHEEL;
+    /**
+     * @see SWT#DragDetect
+     */
+    DRAG_DETECT,
+
+    /**
+     * @see SWT#HardKeyDown
+     */
+    HARD_KEY_DOWN,
+
+    /**
+     * @see SWT#HardKeyDown
+     */
+    HARD_KEY_UP,
+
+    /**
+     * @see SWT#MenuDetect
+     */
+    MENU_DETECT,
+
+    /**
+     * @see SWT#SetData
+     */
+    SET_DATA,
+
+    /**
+     * @see SWT#MouseWheel
+     */
+    MOUSE_WHEEL;
 
     /**
      * 名称を取得します。<br />
@@ -96,7 +248,7 @@ public enum EventListenerType {
         return SWTUtil.getSWTConstant(swtConstantName);
     }
 
-    // TODO 適切なクラスに移動する
+    // TODO 毎回処理するのはパフォーマンス的に問題となるので、マップ化する
     private String capitalizeConstantName(final String string) {
         StringTokenizer st = new StringTokenizer(string, "_");
         StringBuilder builder = new StringBuilder("");
