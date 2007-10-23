@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.value.command;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
+import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.value.BindingCommand;
 import org.seasar.uruma.binding.value.ValueBinder;
@@ -36,11 +37,11 @@ public abstract class AbstractBindingCommand<ANNOTATION_CLASS extends Annotation
 
     /*
      * @see org.seasar.uruma.binding.value.BindingCommand#doBind(java.lang.Object,
-     *      java.lang.Object, java.lang.reflect.Field)
+     *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
      */
     public void doBind(final Object widget, final Object formObj,
-            final Field formField) {
-        doBind(getValueBinder(widget), widget, formObj, formField);
+            final PropertyDesc propDesc) {
+        doBind(getValueBinder(widget), widget, formObj, propDesc);
     }
 
     /*
@@ -74,11 +75,11 @@ public abstract class AbstractBindingCommand<ANNOTATION_CLASS extends Annotation
      *            バインド対象のウィジット側オブジェクト
      * @param formObj
      *            バインド対象のフォーム側オブジェクト
-     * @param formField
-     *            バインド対象のフォーム側フィールド
+     * @param propDesc
+     *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
     protected abstract void doBind(ValueBinder binder, Object widget,
-            Object formObj, Field formField);
+            Object formObj, PropertyDesc propDesc);
 
     /**
      * アノテーションから id を取り出します。<br />

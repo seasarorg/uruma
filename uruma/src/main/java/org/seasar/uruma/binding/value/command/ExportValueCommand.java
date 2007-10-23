@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.value.command;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.binding.value.BindingCommand;
 import org.seasar.uruma.binding.value.ValueBinder;
@@ -31,20 +32,21 @@ import org.seasar.uruma.desc.FormDesc;
 public class ExportValueCommand extends AbstractBindingCommand<ExportValue> {
 
     /*
-     * @see org.seasar.uruma.binding.value.WidgetValueBinderCommand#getTargetFields(org.seasar.uruma.desc.FormDesc)
+     * @see org.seasar.uruma.binding.value.BindingCommand#getTargetPropertyDescs(org.seasar.uruma.desc.FormDesc)
      */
-    public List<Field> getTargetFields(final FormDesc desc) {
-        return desc.getExportValueFields();
+    public List<PropertyDesc> getTargetPropertyDescs(final FormDesc desc) {
+        return desc.getExportValueProperties();
     }
 
     /*
-     * @see org.seasar.uruma.binding.value.command.AbstractBindingCommand#doBind(ValueBinder,
-     *      Object, Object, Field)
+     * @see org.seasar.uruma.binding.value.command.AbstractBindingCommand#doBind(org.seasar.uruma.binding.value.ValueBinder,
+     *      java.lang.Object, java.lang.Object,
+     *      org.seasar.framework.beans.PropertyDesc)
      */
     @Override
     protected void doBind(final ValueBinder binder, final Object widget,
-            final Object formObj, final Field formField) {
-        binder.exportValue(widget, formObj, formField);
+            final Object formObj, final PropertyDesc propDesc) {
+        binder.exportValue(widget, formObj, propDesc);
     }
 
     /*

@@ -18,6 +18,9 @@ package org.seasar.uruma.binding.value;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.seasar.uruma.binding.value.binder.GenericValueBinder;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -29,8 +32,8 @@ public class ValueBinderFactory {
     private static final Map<Class<?>, ValueBinder> binderMap = new HashMap<Class<?>, ValueBinder>();
 
     static {
-        // addBinder(new GenericValueBinder(Label.class, "text"));
-        // addBinder(new GenericValueBinder(Text.class, "text"));
+        addValueBinder(new GenericValueBinder(Label.class, "text"));
+        addValueBinder(new GenericValueBinder(Text.class, "text"));
         // addBinder(new ComboValueBinder());
         // addBinder(new TableValueBinder());
         // addBinder(new TreeValueBinder());

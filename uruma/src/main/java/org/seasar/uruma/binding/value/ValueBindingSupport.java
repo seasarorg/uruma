@@ -15,9 +15,9 @@
  */
 package org.seasar.uruma.binding.value;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
+import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.command.ExportSelectionCommand;
 import org.seasar.uruma.binding.value.command.ExportValueCommand;
 import org.seasar.uruma.binding.value.command.ImportSelectionCommand;
@@ -90,24 +90,25 @@ public class ValueBindingSupport {
         }
 
         FormDesc desc = FormDescFactory.getFormDesc(form.getClass());
-        List<Field> targetFields = command.getTargetFields(desc);
-        for (Field field : targetFields) {
-            String id = command.getId(field);
+        List<PropertyDesc> targetProperties = command
+                .getTargetPropertyDescs(desc);
+        for (PropertyDesc pd : targetProperties) {
+            String id = command.getId(pd.getField());
 
             WidgetHandle handle = context.getWidgetHandle(id);
             if (handle != null) {
                 Object widget = handle.getWidget();
 
                 try {
-                    command.doBind(widget, form, field);
+                    command.doBind(widget, form, pd);
                 } catch (BindingException ex) {
                     throw new BindingException(
                             BindingException.WIDGET_NOT_SUPPORTED, id, form
-                                    .getClass(), field);
+                                    .getClass(), pd.getField());
                 }
             } else {
                 throw new BindingException(BindingException.WIDGET_NOT_FOUND,
-                        id, form.getClass(), field);
+                        id, form.getClass(), pd.getField());
             }
         }
     }

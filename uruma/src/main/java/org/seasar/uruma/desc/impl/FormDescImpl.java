@@ -17,10 +17,12 @@ package org.seasar.uruma.desc.impl;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.uruma.annotation.ExportSelection;
 import org.seasar.uruma.annotation.ExportValue;
@@ -37,15 +39,15 @@ import org.seasar.uruma.desc.FormDesc;
 public class FormDescImpl implements FormDesc {
     private Class<?> formClass;
 
-    private Map<String, Field> fieldsCache = new HashMap<String, Field>();
+    private BeanDesc beanDesc;
 
-    private List<Field> importFields = new ArrayList<Field>();
+    private List<PropertyDesc> importValueProps;
 
-    private List<Field> exportFields = new ArrayList<Field>();
+    private List<PropertyDesc> exportValueProps;
 
-    private List<Field> importSelectionFields = new ArrayList<Field>();
+    private List<PropertyDesc> importSelectionProps;
 
-    private List<Field> exportSelectionFields = new ArrayList<Field>();
+    private List<PropertyDesc> exportSelectionProps;
 
     /**
      * {@link FormDescImpl} を構築します。<br />
@@ -61,8 +63,14 @@ public class FormDescImpl implements FormDesc {
         }
 
         this.formClass = formClass;
+        this.beanDesc = BeanDescFactory.getBeanDesc(formClass);
 
         setupFields();
+
+        importValueProps = getUnmodifiableList(importValueProps);
+        exportValueProps = getUnmodifiableList(exportValueProps);
+        importSelectionProps = getUnmodifiableList(importSelectionProps);
+        exportSelectionProps = getUnmodifiableList(exportSelectionProps);
     }
 
     protected void setupFields() {
@@ -78,71 +86,84 @@ public class FormDescImpl implements FormDesc {
         Field[] fields = targetClass.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             Field field = fields[i];
-            String fieldName = field.getName();
-            if (!fieldsCache.containsKey(fieldName)) {
-                field.setAccessible(true);
-                fieldsCache.put(fieldName, field);
 
-                setupExportField(field);
-                setupImportField(field);
-                setupExportSelectionField(field);
-                setupImportSelectionField(field);
-            }
+            setupExportvalueField(field);
+            setupImportValueField(field);
+            setupExportSelectionField(field);
+            setupImportSelectionField(field);
         }
     }
 
-    protected void setupExportField(final Field field) {
+    protected void setupExportvalueField(final Field field) {
         if (field.isAnnotationPresent(ExportValue.class)
                 || field.isAnnotationPresent(ImportExportValue.class)) {
-            exportFields.add(field);
+            addPropertyDesc(exportValueProps, field);
         }
     }
 
-    protected void setupImportField(final Field field) {
+    protected void setupImportValueField(final Field field) {
         if (field.isAnnotationPresent(ImportValue.class)
                 || field.isAnnotationPresent(ImportExportValue.class)) {
-            importFields.add(field);
+            addPropertyDesc(importValueProps, field);
         }
     }
 
     protected void setupExportSelectionField(final Field field) {
         if (field.isAnnotationPresent(ExportSelection.class)) {
-            exportSelectionFields.add(field);
+            addPropertyDesc(exportSelectionProps, field);
         }
     }
 
     protected void setupImportSelectionField(final Field field) {
         if (field.isAnnotationPresent(ImportSelection.class)) {
-            importSelectionFields.add(field);
+            addPropertyDesc(importSelectionProps, field);
+        }
+    }
+
+    protected void addPropertyDesc(List<PropertyDesc> target, final Field field) {
+        PropertyDesc pd = beanDesc.getPropertyDesc(field.getName());
+        if (target == null) {
+            target = new ArrayList<PropertyDesc>();
+        }
+
+        target.add(pd);
+    }
+
+    protected List<PropertyDesc> getUnmodifiableList(
+            final List<PropertyDesc> target) {
+        if (target != null) {
+            return Collections.unmodifiableList(target);
+        } else {
+            return null;
         }
     }
 
     /*
-     * @see org.seasar.uruma.desc.FormDesc#getExportSelectionFields()
+     * @see org.seasar.uruma.desc.FormDesc#getExportSelectionProperties()
      */
-    public List<Field> getExportSelectionFields() {
-        return exportSelectionFields;
+    public List<PropertyDesc> getExportSelectionProperties() {
+        return exportSelectionProps;
     }
 
     /*
-     * @see org.seasar.uruma.desc.FormDesc#getExportValueFields()
+     * @see org.seasar.uruma.desc.FormDesc#getExportValueProperties()
      */
-    public List<Field> getExportValueFields() {
-        return exportFields;
+    public List<PropertyDesc> getExportValueProperties() {
+        return exportValueProps;
     }
 
     /*
-     * @see org.seasar.uruma.desc.FormDesc#getImportSelectionFields()
+     * @see org.seasar.uruma.desc.FormDesc#getImportSelectionProperties()
      */
-    public List<Field> getImportSelectionFields() {
-        return importSelectionFields;
+    public List<PropertyDesc> getImportSelectionProperties() {
+        return importSelectionProps;
     }
 
     /*
-     * @see org.seasar.uruma.desc.FormDesc#getImportValueFields()
+     * @see org.seasar.uruma.desc.FormDesc#getImportValueProperties()
      */
-    public List<Field> getImportValueFields() {
-        return importFields;
+    public List<PropertyDesc> getImportValueProperties() {
+        return importValueProps;
     }
 
 }

@@ -15,9 +15,9 @@
  */
 package org.seasar.uruma.desc;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
+import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.annotation.ExportSelection;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.ImportSelection;
@@ -31,31 +31,30 @@ import org.seasar.uruma.annotation.ImportValue;
  */
 public interface FormDesc {
     /**
-     * {@link ImportValue} アノテーションが付加されたフィールドのリストを取得します。<br />
+     * {@link ImportValue} アノテーションが付加されたプロパティのリストを取得します。<br />
      * 
-     * @return {@link Field}のリスト
+     * @return {@link PropertyDesc} のリスト
      */
-    public List<Field> getImportValueFields();
+    public List<PropertyDesc> getImportValueProperties();
 
     /**
-     * {@link ExportValue} アノテーションが付加されたフィールドのリストを取得します。<br />
+     * {@link ExportValue} アノテーションが付加されたプロパティのリストを取得します。<br />
      * 
-     * @return {@link Field}のリスト
+     * @return {@link PropertyDesc} のリスト
      */
-    public List<Field> getExportValueFields();
+    public List<PropertyDesc> getExportValueProperties();
 
     /**
-     * {@link ImportSelection} アノテーションが付加されたフィールドのリストを取得します。<br />
+     * {@link ImportSelection} アノテーションが付加されたプロパティのリストを取得します。<br />
      * 
-     * @return {@link Field}のリスト
+     * @return {@link PropertyDesc} のリスト
      */
-    public List<Field> getImportSelectionFields();
+    public List<PropertyDesc> getImportSelectionProperties();
 
     /**
-     * {@link ExportSelection} アノテーションが付加されたフィールドのリストを取得します。<br />
+     * {@link ExportSelection} アノテーションが付加されたプロパティのリストを取得します。<br />
      * 
-     * @return {@link Field}のリスト
+     * @return {@link PropertyDesc} のリスト
      */
-    public List<Field> getExportSelectionFields();
-
+    public List<PropertyDesc> getExportSelectionProperties();
 }

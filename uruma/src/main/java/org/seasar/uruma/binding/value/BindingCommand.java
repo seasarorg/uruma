@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.value;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.desc.FormDesc;
 
 /**
@@ -35,10 +36,10 @@ public interface BindingCommand {
      *            ウィジット側オブジェクト
      * @param formObj
      *            フォーム側オブジェクト
-     * @param formField
-     *            フォーム側フィールド
+     * @param propDesc
+     *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
-    public void doBind(Object widget, Object formObj, Field formField);
+    public void doBind(Object widget, Object formObj, PropertyDesc propDesc);
 
     /**
      * <code>field</code> に対応する id を取得します。<br />
@@ -52,11 +53,11 @@ public interface BindingCommand {
     public String getId(Field field);
 
     /**
-     * {@link FormDesc} からバインド対象のフィールドを取得します。<br />
+     * {@link FormDesc} からバインド対象フィールドの {@link PropertyDesc} を取得します。<br />
      * 
      * @param desc
      *            {@link FormDesc} オブジェクト
-     * @return バインド対象のフィールド
+     * @return バインド対象フィールドの {@link PropertyDesc} リスト
      */
-    public List<Field> getTargetFields(FormDesc desc);
+    public List<PropertyDesc> getTargetPropertyDescs(FormDesc desc);
 }

@@ -15,7 +15,7 @@
  */
 package org.seasar.uruma.binding.value;
 
-import java.lang.reflect.Field;
+import org.seasar.framework.beans.PropertyDesc;
 
 /**
  * ウィジットクラス毎のバインディングを行うためのインターフェースです。<br />
@@ -30,10 +30,10 @@ public interface ValueBinder {
      *            ウィジット側オブジェクト
      * @param formObj
      *            フォーム側オブジェクト
-     * @param formField
-     *            フォーム側フィールド
+     * @param propDesc
+     *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
-    public void importValue(Object widget, Object formObj, Field formField);
+    public void importValue(Object widget, Object formObj, PropertyDesc propDesc);
 
     /**
      * フォームの値をウィジットへ設定します。<br />
@@ -42,10 +42,10 @@ public interface ValueBinder {
      *            ウィジット側オブジェクト
      * @param formObj
      *            フォーム側オブジェクト
-     * @param formField
-     *            フォーム側フィールド
+     * @param propDesc
+     *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
-    public void exportValue(Object widget, Object formObj, Field formField);
+    public void exportValue(Object widget, Object formObj, PropertyDesc propDesc);
 
     /**
      * ウィジットで選択されているオブジェクトをフォームへ設定します。<br />
@@ -54,10 +54,11 @@ public interface ValueBinder {
      *            ウィジット側オブジェクト
      * @param formObj
      *            フォーム側オブジェクト
-     * @param formField
-     *            フォーム側フィールド
+     * @param propDesc
+     *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
-    public void importSelection(Object widget, Object formObj, Field formField);
+    public void importSelection(Object widget, Object formObj,
+            PropertyDesc propDesc);
 
     /**
      * フォームの持つオブジェクトをウィジットの選択状態として設定します。<br />
@@ -66,10 +67,11 @@ public interface ValueBinder {
      *            ウィジット側オブジェクト
      * @param formObj
      *            フォーム側オブジェクト
-     * @param formField
-     *            フォーム側フィールド
+     * @param propDesc
+     *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
-    public void exportSelection(Object widget, Object formObj, Field formField);
+    public void exportSelection(Object widget, Object formObj,
+            PropertyDesc propDesc);
 
     /**
      * 対応するウィジットの {@link Class} オブジェクトを返します。<br />

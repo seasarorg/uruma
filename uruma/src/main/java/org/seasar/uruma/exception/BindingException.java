@@ -26,8 +26,14 @@ public class BindingException extends UrumaRuntimeException {
 
     private static final long serialVersionUID = 9030823268022986419L;
 
+    /**
+     * サポートされていない型のウィジットに対してバインディングしようとした場合のメッセージコード
+     */
     public static final String WIDGET_NOT_SUPPORTED = "EURM0207";
 
+    /**
+     * アノテートされたフィールドに対応するウィジットが存在しない場合のメッセージコード
+     */
     public static final String WIDGET_NOT_FOUND = "EURM0208";
 
     public static final String CLASS_NOT_MUTCH = "EURM0214";
