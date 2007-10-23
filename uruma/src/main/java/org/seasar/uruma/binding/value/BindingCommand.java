@@ -18,42 +18,41 @@ package org.seasar.uruma.binding.value;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import org.eclipse.swt.widgets.Widget;
-import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.desc.FormDesc;
 
 /**
  * バインドの実行を行うためのインターフェースです。<br />
- * 各 {@link Widget} に対する実際のバインド処理は、 {@link WidgetValueBinder} に委譲することで実現します。<br />
+ * ウィジットのクラス毎に対する実際のバインド処理は、設定された {@link ValueBinder} に委譲することで実現します。<br />
  * 
  * @author y-komori
  */
-public interface WidgetValueBinderCommand {
-    /**
-     * {@link WidgetValueBinder} を設定します。<br />
-     * 
-     * @param binder
-     *            {@link WidgetValueBinder} オブジェクト。
-     */
-    public void setWidgetValueBinder(WidgetValueBinder binder);
+public interface BindingCommand {
 
     /**
-     * 指定された {@link WidgetValueBinder} のメソッドを呼び出します。<br />
+     * <code>widget</code> と <code>formObj</code> の間でバインド処理を行います。<br />
      * 
      * @param widget
-     *            {@link Widget} オブジェクト
-     * @param target
-     *            ターゲットのオブジェクト
-     * @param field
-     *            ターゲットの {@link Field}
-     * @param context
-     *            {@link PartContext} オブジェクト
+     *            ウィジット側オブジェクト
+     * @param formObj
+     *            フォーム側オブジェクト
+     * @param formField
+     *            フォーム側フィールド
      */
-    public void doBind(Widget widget, Object target, Field field,
-            PartContext context);
+    public void doBind(Object widget, Object formObj, Field formField);
 
     /**
-     * FormDesc からバインド対象のフィールドを取得します。<br />
+     * <code>field</code> に対応する id を取得します。<br />
+     * フィールドにアノテーションが設定されていれば、その id 属性を返し、アノテーションが設定されていなければ、フィールFO名称を id
+     * として返します。<br />
+     * 
+     * @param field
+     *            id を取得するフィールド
+     * @return id。
+     */
+    public String getId(Field field);
+
+    /**
+     * {@link FormDesc} からバインド対象のフィールドを取得します。<br />
      * 
      * @param desc
      *            {@link FormDesc} オブジェクト

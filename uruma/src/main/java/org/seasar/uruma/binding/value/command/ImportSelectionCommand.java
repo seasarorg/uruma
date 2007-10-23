@@ -18,33 +18,48 @@ package org.seasar.uruma.binding.value.command;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import org.eclipse.swt.widgets.Widget;
-import org.seasar.uruma.binding.value.WidgetValueBinder;
-import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.annotation.ImportSelection;
+import org.seasar.uruma.binding.value.BindingCommand;
+import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.desc.FormDesc;
 
 /**
- * {@link WidgetValueBinder#importSelection(Widget, Object, Field, org.seasar.uruma.context.PartContext)}
- * メソッドを実行するためのコマンドです。<br/ >
+ * {@link ImportSelection} アノテーションに対応した処理を行うための、{@link BindingCommand} です。<br />
  * 
  * @author y-komori
  */
-public class ImportSelectionCommand extends AbstractWidgetValueBinderCommand {
-
-    /*
-     * @see org.seasar.uruma.binding.value.WidgetValueBinderCommand#doBind(org.eclipse.swt.widgets.Widget,
-     *      java.lang.Object, java.lang.reflect.Field,
-     *      org.seasar.uruma.context.PartContext)
-     */
-    public void doBind(final Widget widget, final Object target,
-            final Field field, final PartContext context) {
-        binder.importSelection(widget, target, field, context);
-    }
-
+public class ImportSelectionCommand extends
+        AbstractBindingCommand<ImportSelection> {
     /*
      * @see org.seasar.uruma.binding.value.WidgetValueBinderCommand#getTargetFields(org.seasar.uruma.desc.FormDesc)
      */
     public List<Field> getTargetFields(final FormDesc desc) {
         return desc.getImportSelectionFields();
+    }
+
+    /*
+     * @see org.seasar.uruma.binding.value.command.AbstractBindingCommand#doBind(ValueBinder,
+     *      Object, Object, Field)
+     */
+    @Override
+    protected void doBind(final ValueBinder binder, final Object widget,
+            final Object formObj, final Field formField) {
+        binder.importSelection(widget, formObj, formField);
+    }
+
+    /*
+     * @see org.seasar.uruma.binding.value.command.AbstractBindingCommand#getAnnotation(Field)
+     */
+    @Override
+    protected ImportSelection getAnnotation(final Field field) {
+        return field.getAnnotation(ImportSelection.class);
+    }
+
+    /*
+     * @see org.seasar.uruma.binding.value.command.AbstractBindingCommand#getId(ANNOTATION_CLASS)
+     */
+    @Override
+    protected String getId(final ImportSelection annotation) {
+        return annotation.id();
     }
 }
