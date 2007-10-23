@@ -40,7 +40,7 @@ import org.seasar.uruma.exception.BindingException;
  * 
  * @author y-komori
  */
-public class ValueBinder {
+public class ValueBinder_old {
     private static final ImportValueCommand IMPORT_VALUE_COMMAND = new ImportValueCommand();
 
     private static final ExportValueCommand EXPORT_VALUE_COMMAND = new ExportValueCommand();
@@ -107,7 +107,7 @@ public class ValueBinder {
             }
 
             if (!widget.isDisposed()) {
-                WidgetValueBinder binder = WidgetValueBinderFactory
+                WidgetHandleValueBinder binder = WidgetValueBinderFactory
                         .getBinder(widget.getClass());
                 if (binder != null) {
                     command.setWidgetValueBinder(binder);
