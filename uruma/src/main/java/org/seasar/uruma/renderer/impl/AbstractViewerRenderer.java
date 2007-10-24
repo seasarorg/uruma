@@ -22,7 +22,6 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
@@ -73,9 +72,9 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
             final WidgetHandle parent, final PartContext context) {
         // 元のウィジットの代わりに生成したビューアを WidgetHandle へ格納する
         WidgetHandle handle = super.render(uiComponent, parent, context);
-        Composite composite = handle.<Composite> getCastWidget();
+        Control control = handle.<Control> getCastWidget();
 
-        VIEWER_TYPE viewer = createViewer(composite, getStyle(uiComponent));
+        VIEWER_TYPE viewer = createViewer(control);
 
         String id = handle.getId();
         if (viewer instanceof ContentViewer) {
@@ -279,16 +278,14 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * ビューアを生成します。<br />
      * ビューアの生成を独自に行いたい場合、サブクラスで本メソッドをオーバーライドしてください。<br />
      * 
-     * @param parent
-     *            親ウィジットオブジェクト
-     * @param style
-     *            スタイル値
-     * @return 生成したウィジットのインタンス
+     * @param control
+     *            ビューアに格納する {@link Control} オブジェクト
+     * @return 生成したビューアのインタンス
      */
-    protected VIEWER_TYPE createViewer(final Composite parent, final int style) {
+    protected VIEWER_TYPE createViewer(final Control control) {
         Class<VIEWER_TYPE> viewerClass = getViewerType();
         VIEWER_TYPE viewer = ClassUtil.<VIEWER_TYPE> newInstance(viewerClass,
-                parent, style);
+                control);
         return viewer;
     }
 

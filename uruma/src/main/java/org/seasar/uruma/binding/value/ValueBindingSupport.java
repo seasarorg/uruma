@@ -98,14 +98,7 @@ public class ValueBindingSupport {
             WidgetHandle handle = context.getWidgetHandle(id);
             if (handle != null) {
                 Object widget = handle.getWidget();
-
-                try {
-                    command.doBind(widget, form, pd);
-                } catch (BindingException ex) {
-                    throw new BindingException(
-                            BindingException.WIDGET_NOT_SUPPORTED, id, form
-                                    .getClass(), pd.getField());
-                }
+                command.doBind(widget, form, pd);
             } else {
                 throw new BindingException(BindingException.WIDGET_NOT_FOUND,
                         id, form.getClass(), pd.getField());

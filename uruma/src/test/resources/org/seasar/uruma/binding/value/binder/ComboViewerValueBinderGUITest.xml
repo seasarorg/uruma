@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="comboViewerValueBinderGUITest"
+    title="ComboViewerValueBinderGUITest" defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+    </gridLayout>
+
+    <composite id="contents">
+      <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+
+      <combo id="combo1" style="DROP_DOWN" />
+
+      <combo id="combo2" style="DROP_DOWN" />
+
+      <combo id="combo3" style="DROP_DOWN" />
+    </composite>
+
+    <composite>
+      <gridLayout numColumns="1" />
+
+      <text id="text" style="BORDER, MULTI, H_SCROLL, V_SCROLL, READ_ONLY">
+        <gridData horizontalAlignment="FILL" heightHint="100" grabExcessHorizontalSpace="true"/>
+      </text>
+    </composite>
+
+    <composite>
+      <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+
+      <button id="select" text="Select" />
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

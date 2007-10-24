@@ -41,13 +41,15 @@ public class FormDescImpl implements FormDesc {
 
     private BeanDesc beanDesc;
 
-    private List<PropertyDesc> importValueProps;
+    private List<PropertyDesc> importValueProps = new ArrayList<PropertyDesc>(1);
 
-    private List<PropertyDesc> exportValueProps;
+    private List<PropertyDesc> exportValueProps = new ArrayList<PropertyDesc>(1);
 
-    private List<PropertyDesc> importSelectionProps;
+    private List<PropertyDesc> importSelectionProps = new ArrayList<PropertyDesc>(
+            1);;
 
-    private List<PropertyDesc> exportSelectionProps;
+    private List<PropertyDesc> exportSelectionProps = new ArrayList<PropertyDesc>(
+            1);;
 
     /**
      * {@link FormDescImpl} を構築します。<br />
@@ -67,10 +69,12 @@ public class FormDescImpl implements FormDesc {
 
         setupFields();
 
-        importValueProps = getUnmodifiableList(importValueProps);
-        exportValueProps = getUnmodifiableList(exportValueProps);
-        importSelectionProps = getUnmodifiableList(importSelectionProps);
-        exportSelectionProps = getUnmodifiableList(exportSelectionProps);
+        importValueProps = Collections.unmodifiableList(importValueProps);
+        exportValueProps = Collections.unmodifiableList(exportValueProps);
+        importSelectionProps = Collections
+                .unmodifiableList(importSelectionProps);
+        exportSelectionProps = Collections
+                .unmodifiableList(exportSelectionProps);
     }
 
     protected void setupFields() {
@@ -87,54 +91,40 @@ public class FormDescImpl implements FormDesc {
         for (int i = 0; i < fields.length; i++) {
             Field field = fields[i];
 
-            setupExportvalueField(field);
             setupImportValueField(field);
-            setupExportSelectionField(field);
+            setupExportvalueField(field);
             setupImportSelectionField(field);
-        }
-    }
-
-    protected void setupExportvalueField(final Field field) {
-        if (field.isAnnotationPresent(ExportValue.class)
-                || field.isAnnotationPresent(ImportExportValue.class)) {
-            addPropertyDesc(exportValueProps, field);
+            setupExportSelectionField(field);
         }
     }
 
     protected void setupImportValueField(final Field field) {
         if (field.isAnnotationPresent(ImportValue.class)
                 || field.isAnnotationPresent(ImportExportValue.class)) {
-            addPropertyDesc(importValueProps, field);
+            PropertyDesc pd = beanDesc.getPropertyDesc(field.getName());
+            importValueProps.add(pd);
         }
     }
 
-    protected void setupExportSelectionField(final Field field) {
-        if (field.isAnnotationPresent(ExportSelection.class)) {
-            addPropertyDesc(exportSelectionProps, field);
+    protected void setupExportvalueField(final Field field) {
+        if (field.isAnnotationPresent(ExportValue.class)
+                || field.isAnnotationPresent(ImportExportValue.class)) {
+            PropertyDesc pd = beanDesc.getPropertyDesc(field.getName());
+            exportValueProps.add(pd);
         }
     }
 
     protected void setupImportSelectionField(final Field field) {
         if (field.isAnnotationPresent(ImportSelection.class)) {
-            addPropertyDesc(importSelectionProps, field);
+            PropertyDesc pd = beanDesc.getPropertyDesc(field.getName());
+            importSelectionProps.add(pd);
         }
     }
 
-    protected void addPropertyDesc(List<PropertyDesc> target, final Field field) {
-        PropertyDesc pd = beanDesc.getPropertyDesc(field.getName());
-        if (target == null) {
-            target = new ArrayList<PropertyDesc>();
-        }
-
-        target.add(pd);
-    }
-
-    protected List<PropertyDesc> getUnmodifiableList(
-            final List<PropertyDesc> target) {
-        if (target != null) {
-            return Collections.unmodifiableList(target);
-        } else {
-            return null;
+    protected void setupExportSelectionField(final Field field) {
+        if (field.isAnnotationPresent(ExportSelection.class)) {
+            PropertyDesc pd = beanDesc.getPropertyDesc(field.getName());
+            exportSelectionProps.add(pd);
         }
     }
 

@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.exception;
 
+import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.component.UIComponent;
 
 /**
@@ -65,6 +66,11 @@ public class NotFoundException extends UrumaRuntimeException {
      * 検索対象が {@link UIComponent} の場合のメッセージコードです。
      */
     public static final String UICOMPONENT = "EURM0109";
+
+    /**
+     * 検索対象が {@link ValueBinder} の場合のメッセージコードです。
+     */
+    public static final String VALUE_BINDER = "EURM0111";
 
     /**
      * {@link NotFoundException} を構築します。<br />

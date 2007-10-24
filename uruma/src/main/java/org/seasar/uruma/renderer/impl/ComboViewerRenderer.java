@@ -27,6 +27,7 @@ import org.seasar.uruma.component.impl.SimpleItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.viewer.ContentsHolder;
+import org.seasar.uruma.viewer.GenericLabelProvider;
 
 /**
  * {@link ComboViewer} のレンダリングを行うクラスです。<br />
@@ -99,17 +100,11 @@ public class ComboViewerRenderer extends
         }
     }
 
-    // @Override
-    // protected IContentProvider getDefaultContentProvider() {
-    // return null;
-    // }
-
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#getDefaultLabelProvider()
      */
     @Override
     protected IBaseLabelProvider getDefaultLabelProvider() {
-        return null;
-        // return new GenericLabelProvider();
+        return new GenericLabelProvider();
     }
 }

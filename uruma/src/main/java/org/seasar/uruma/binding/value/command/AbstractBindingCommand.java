@@ -23,7 +23,7 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.value.BindingCommand;
 import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.binding.value.ValueBinderFactory;
-import org.seasar.uruma.exception.BindingException;
+import org.seasar.uruma.exception.NotFoundException;
 
 /**
  * {@link BindingCommand} の基底クラスです。<br />
@@ -59,8 +59,8 @@ public abstract class AbstractBindingCommand<ANNOTATION_CLASS extends Annotation
         if (valueBinder != null) {
             return valueBinder;
         } else {
-            throw new BindingException(BindingException.WIDGET_NOT_SUPPORTED,
-                    null, null, null);
+            throw new NotFoundException(NotFoundException.VALUE_BINDER, widget
+                    .getClass().getName());
         }
     }
 

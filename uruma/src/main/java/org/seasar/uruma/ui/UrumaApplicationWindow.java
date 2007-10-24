@@ -27,6 +27,8 @@ import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
+import org.seasar.uruma.binding.value.ValueBindingSupport;
+import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
@@ -224,9 +226,9 @@ public class UrumaApplicationWindow extends ApplicationWindow {
 
         MethodBindingSupport.createListeners(partContext);
 
-        // TODO 画面初期表示時の、Action から 画面への ExportValue 処理を実施
-        // ValueBinder.exportValue(windowContext);
-        // ValueBinder.exportSelection(windowContext);
+        // 画面初期表示時の、フォームから画面へのエクスポート処理を実施
+        ValueBindingSupport.exportValue(partContext);
+        ValueBindingSupport.exportSelection(partContext);
 
         return parent;
     }
@@ -264,10 +266,10 @@ public class UrumaApplicationWindow extends ApplicationWindow {
      */
     public void initActionComponent(final Object argument) {
         if (partActionComponent != null) {
-            // WidgetBinder.bindWidgets(partActionComponent, windowContext);
-            // TODO あとで見直し
-            // desc.setArgumentValue(partActionComponent, argument);
-            // desc.invokeInitializeMethod(partActionComponent);
+            WidgetBinder.bindWidgets(partActionComponent, partContext);
+
+            desc.setArgumentValue(partActionComponent, argument);
+            desc.invokeInitializeMethod(partActionComponent);
         }
     }
 

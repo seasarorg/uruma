@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.seasar.uruma.binding.value.binder.ComboViewerValueBinder;
 import org.seasar.uruma.binding.value.binder.GenericValueBinder;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -34,7 +35,7 @@ public class ValueBinderFactory {
     static {
         addValueBinder(new GenericValueBinder<Label>(Label.class, "text"));
         addValueBinder(new GenericValueBinder<Text>(Text.class, "text"));
-        // addBinder(new ComboValueBinder());
+        addValueBinder(new ComboViewerValueBinder());
         // addBinder(new TableValueBinder());
         // addBinder(new TreeValueBinder());
     }

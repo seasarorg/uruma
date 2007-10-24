@@ -17,6 +17,7 @@ package org.seasar.uruma.binding.method;
 
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.util.AssertionUtil;
@@ -67,11 +68,14 @@ public class GenericListener implements Listener {
      */
     public void handleEvent(final Event event) {
         WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
-        // ValueBinder.importSelection(context);
-        // ValueBinder.importValue(context);
+
+        ValueBindingSupport.importSelection(context);
+        ValueBindingSupport.importValue(context);
         methodBinding.invoke(new Object[] { event });
-        // ValueBinder.exportValue(context);
-        // ValueBinder.exportSelection(context);
+        ValueBindingSupport.exportValue(context);
+        ValueBindingSupport.exportSelection(context);
+
+        // TODO 見直し
         // EnabledDependBinder.updateEnabled(context);
     }
 }
