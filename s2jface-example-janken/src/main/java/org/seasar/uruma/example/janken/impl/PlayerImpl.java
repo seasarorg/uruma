@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,23 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.janken;
+package org.seasar.uruma.example.janken.impl;
 
-/**
- * @author y-komori
- * 
- */
-public interface Janken {
-    public static final int STONE = 0;
+import org.seasar.uruma.example.janken.Janken;
+import org.seasar.uruma.example.janken.Player;
 
-    public static final int SCISSORS = 1;
+public class PlayerImpl implements Player {
+	private int winCount;
 
-    public static final int PAPER = 2;
+	public int showHand() {
+		return Janken.PAPER;
+	}
+
+	public void win() {
+		winCount++;
+	}
+
+	public int getWinCount() {
+		return winCount;
+	}
 }

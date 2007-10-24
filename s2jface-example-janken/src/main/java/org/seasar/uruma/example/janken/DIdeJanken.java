@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,17 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.janken.impl;
+package org.seasar.uruma.example.janken;
 
-import org.seasar.jface.example.janken.Tactics;
+import org.seasar.uruma.core.StandAloneUrumaStarter;
 
 /**
  * @author y-komori
  * 
  */
-public class CyclicTactics implements Tactics {
-    int lastHand = -1;
-
-    public int readTactics() {
-        lastHand = (lastHand + 1) % 3;
-
-        return lastHand;
-    }
+public class DIdeJanken {
+	public static void main(final String[] args) {
+		StandAloneUrumaStarter starter = StandAloneUrumaStarter.getInstance();
+		starter.openWindow("org/seasar/uruma/example/janken/DIdeJanken.xml");
+	}
 }

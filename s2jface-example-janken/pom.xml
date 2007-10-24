@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.seasar.jface</groupId>
-  <artifactId>s2-jface-example-janken</artifactId>
+  <groupId>org.seasar.uruma</groupId>
+  <artifactId>uruma-example-janken</artifactId>
   <version>0.2.0</version>
-  <url>http://s2jface.sandbox.seasar.org/</url>
+  <url>http://uruma.sandbox.seasar.org/</url>
   <issueManagement>
     <system>JIRA</system>
-    <url>https://www.seasar.org/issues/browse/JFACE</url>
+    <url>https://www.seasar.org/issues/browse/URUMA</url>
   </issueManagement>
-  <inceptionYear>2006</inceptionYear>
+  <inceptionYear>2007</inceptionYear>
   <mailingLists>
     <mailingList>
       <name>Seasar-user</name>
@@ -18,11 +18,11 @@
       <archive>https://www.seasar.org/mailman/listinfo/seasar-user</archive>
     </mailingList>
     <mailingList>
-      <name>s2jface-dev</name>
-      <subscribe>https://www.seasar.org/mailman/listinfo/s2jface-dev</subscribe>
-      <unsubscribe>https://www.seasar.org/mailman/listinfo/s2jface-dev</unsubscribe>
-      <post>s2jface-dev@ml.seasar.org</post>
-      <archive>http://ml.seasar.org/archives/s2jface-dev/</archive>
+      <name>uruma-dev</name>
+      <subscribe>https://www.seasar.org/mailman/listinfo/uruma-dev</subscribe>
+      <unsubscribe>https://www.seasar.org/mailman/listinfo/uruma-dev</unsubscribe>
+      <post>uruma-dev@ml.seasar.org</post>
+      <archive>http://ml.seasar.org/archives/uruma-dev/</archive>
     </mailingList>
   </mailingLists>
   <developers>
@@ -87,8 +87,8 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>org.seasar.jface.example.janken.DIdeJanken</mainClass>
-              <packageName>org.seasar.jface.example.janken</packageName>
+              <mainClass>org.seasar.uruma.example.janken.DIdeJanken</mainClass>
+              <packageName>org.seasar.uruma.example.janken</packageName>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib</classpathPrefix>
             </manifest>
@@ -133,50 +133,45 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>org.seasar.jface</groupId>
-      <artifactId>s2-jface</artifactId>
+      <groupId>org.seasar.uruma</groupId>
+      <artifactId>uruma</artifactId>
       <version>0.2.0</version>
     </dependency>
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-framework</artifactId>
-      <version>2.4.7</version>
+      <version>2.4.17</version>
     </dependency>
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-extension</artifactId>
-      <version>2.4.7</version>
+      <version>2.4.17</version>
     </dependency>
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-tiger</artifactId>
-      <version>2.4.7</version>
-    </dependency>
-    <dependency>
-      <groupId>org.seasar.eclipsecommon</groupId>
-      <artifactId>eclipse-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>2.4.17</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse</groupId>
       <artifactId>equinox-common</artifactId>
-      <version>3.2.0</version>
+      <version>3.3.0</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse</groupId>
       <artifactId>swt-win32-win32-x86</artifactId>
-      <version>3.2.0</version>
+      <version>3.3.0</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse</groupId>
-      <artifactId>jface</artifactId>
-      <version>3.2.0</version>
+      <artifactId>uruma</artifactId>
+      <version>3.3.0</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse</groupId>
       <artifactId>core-commands</artifactId>
-      <version>3.2.0</version>
+      <version>3.3.0</version>
     </dependency>
     <dependency>
       <groupId>aopalliance</groupId>

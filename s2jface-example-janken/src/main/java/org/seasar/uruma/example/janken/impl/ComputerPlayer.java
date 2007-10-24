@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,23 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.janken.impl;
+package org.seasar.uruma.example.janken.impl;
 
-import org.seasar.jface.example.janken.Tactics;
+import org.seasar.uruma.example.janken.Tactics;
 
 /**
  * @author y-komori
  * 
  */
 public class ComputerPlayer extends PlayerImpl {
-    private Tactics tactics;
+	private Tactics tactics;
 
-    public int showHand() {
-        return tactics.readTactics();
-    }
+	@Override
+	public int showHand() {
+		return tactics.readTactics();
+	}
 
-    public void setTactics(Tactics tactics) {
-        this.tactics = tactics;
-    }
+	public void setTactics(final Tactics tactics) {
+		this.tactics = tactics;
+	}
 }

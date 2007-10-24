@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,17 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jface.example.janken;
+package org.seasar.uruma.example.janken.impl;
+
+import org.seasar.uruma.example.janken.Janken;
+import org.seasar.uruma.example.janken.Tactics;
 
 /**
  * @author y-komori
- *
+ * 
  */
-public interface Player {
-    public int showHand();
-    
-    public void win();
-    
-    public int getWinCount();
+public class StoneOnlyTactics implements Tactics {
+	public int readTactics() {
+		return Janken.STONE;
+	}
 }
