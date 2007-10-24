@@ -20,10 +20,11 @@ import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 
 /**
+ * 単一項目を表すコンポーネントです。<br />
+ * 
  * @author bskuroneko
  */
 public class SimpleItemComponent extends AbstractUIElement {
-    // TODO 必要？要確認
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("テキスト")
     private String text;
@@ -45,5 +46,13 @@ public class SimpleItemComponent extends AbstractUIElement {
      */
     public void setText(final String text) {
         this.text = text;
+    }
+
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return this.text;
     }
 }

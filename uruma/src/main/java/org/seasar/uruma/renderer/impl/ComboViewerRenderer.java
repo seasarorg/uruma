@@ -52,7 +52,7 @@ public class ComboViewerRenderer extends
     @Override
     protected void doRenderViewer(final ComboComponent uiComponent,
             final ComboViewer viewer) {
-        // setupItems(uiComponent, viewer);
+        setupItems(uiComponent, viewer);
     }
 
     @Override
@@ -85,19 +85,14 @@ public class ComboViewerRenderer extends
         IContentProvider provider = viewer.getContentProvider();
         if (provider != null && provider instanceof ContentsHolder) {
             ContentsHolder holder = ContentsHolder.class.cast(provider);
-
-            String[] contents = new String[itemList.size()];
-
-            for (int i = 0; i < contents.length; i++) {
-                contents[i] = itemList.get(i).getText();
-            }
-
-            holder.setContents(contents);
+            holder.setContents(itemList);
         } else {
             for (SimpleItemComponent simpleItemComponent : itemList) {
-                viewer.add(simpleItemComponent.getText());
+                viewer.add(simpleItemComponent);
             }
         }
+
+        viewer.setInput(itemList);
     }
 
     /*
