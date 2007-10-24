@@ -20,9 +20,12 @@ import java.util.List;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Combo;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.exception.BindingException;
 import org.seasar.uruma.viewer.ContentsHolder;
 import org.seasar.uruma.viewer.GenericLabelProvider;
 
@@ -93,18 +96,39 @@ public class ComboViewerValueBinder extends AbstractValueBinder<ComboViewer> {
         }
     }
 
+    /*
+     * @see org.seasar.uruma.binding.value.binder.AbstractValueBinder#doImportSelection(java.lang.Object,
+     *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
+     */
     @Override
     public void doImportSelection(final ComboViewer widget,
             final Object formObj, final PropertyDesc propDesc) {
-        // TODO 自動生成されたメソッド・スタブ
-        super.doImportSelection(widget, formObj, propDesc);
+        ISelection selection = widget.getSelection();
+        Object selectedObject = ((StructuredSelection) selection)
+                .getFirstElement();
+
+        if (selectedObject != null) {
+            Class<?> destFieldClass = propDesc.getPropertyType();
+            if (destFieldClass.isAssignableFrom(selectedObject.getClass())) {
+                propDesc.setValue(formObj, selectedObject);
+            } else {
+                throw new BindingException(BindingException.CLASS_NOT_MUTCH,
+                        null, formObj.getClass(), propDesc.getField());
+            }
+        }
     }
 
+    /*
+     * @see org.seasar.uruma.binding.value.binder.AbstractValueBinder#doExportSelection(java.lang.Object,
+     *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
+     */
     @Override
     public void doExportSelection(final ComboViewer widget,
             final Object formObj, final PropertyDesc propDesc) {
-        // TODO 自動生成されたメソッド・スタブ
-        super.doExportSelection(widget, formObj, propDesc);
+        Object selection = propDesc.getValue(formObj);
+        if (selection != null) {
+            widget.setSelection(new StructuredSelection(selection), true);
+        }
     }
 
     private void setClassToGenericLabelProvider(

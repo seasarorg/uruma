@@ -36,6 +36,9 @@ public class BindingException extends UrumaRuntimeException {
      */
     public static final String WIDGET_NOT_FOUND = "EURM0208";
 
+    /**
+     * バインド先とバインド元の型が一致しない場合のメッセージコードです。
+     */
     public static final String CLASS_NOT_MUTCH = "EURM0214";
 
     /**
