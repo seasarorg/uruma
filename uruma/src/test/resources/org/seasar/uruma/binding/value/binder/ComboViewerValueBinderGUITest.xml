@@ -3,13 +3,21 @@
   <window id="comboViewerValueBinderGUITest"
     title="ComboViewerValueBinderGUITest" defaultButtonId="okButton">
     <gridLayout numColumns="1">
-      <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+      <gridData horizontalAlignment="FILL"
+        grabExcessHorizontalSpace="true" />
     </gridLayout>
 
     <composite id="contents">
-      <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
-        spacing="10">
-      </rowLayout>
+      <gridLayout numColumns="3">
+        <gridData horizontalAlignment="CENTER"
+          grabExcessHorizontalSpace="true" />
+      </gridLayout>
+
+      <label text="@InitializeMethod\nによる初期化" />
+
+      <label text="String配列の\n@ExportValue" />
+
+      <label text="単一Stringの\n@ExportValue" />
 
       <combo id="combo1" style="DROP_DOWN" />
 
@@ -21,8 +29,10 @@
     <composite>
       <gridLayout numColumns="1" />
 
-      <text id="text" style="BORDER, MULTI, H_SCROLL, V_SCROLL, READ_ONLY">
-        <gridData horizontalAlignment="FILL" heightHint="100" grabExcessHorizontalSpace="true"/>
+      <text id="text"
+        style="BORDER, MULTI, H_SCROLL, V_SCROLL, READ_ONLY">
+        <gridData horizontalAlignment="FILL" heightHint="100"
+          grabExcessHorizontalSpace="true" />
       </text>
     </composite>
 
