@@ -15,7 +15,6 @@
  */
 package org.seasar.uruma.binding.value.binder;
 
-import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
@@ -25,9 +24,12 @@ import org.seasar.uruma.util.AssertionUtil;
 /**
  * 汎用的な {@link ValueBinder} です。
  * 
+ * @param <WIDGET_TYPE>
+ *            対応するウィジットの型
  * @author y-komori
  */
-public class GenericValueBinder extends AbstractValueBinder {
+public class GenericValueBinder<WIDGET_TYPE> extends
+        AbstractValueBinder<WIDGET_TYPE> {
     private PropertyDesc propertyDesc;
 
     /**
@@ -38,7 +40,7 @@ public class GenericValueBinder extends AbstractValueBinder {
      * @param propertyName
      *            ターゲットのプロパティ名称
      */
-    public GenericValueBinder(final Class<? extends Widget> targetClass,
+    public GenericValueBinder(final Class<WIDGET_TYPE> targetClass,
             final String propertyName) {
         super(targetClass);
         AssertionUtil.assertNotEmpty("propertyName", propertyName);
@@ -48,37 +50,24 @@ public class GenericValueBinder extends AbstractValueBinder {
     }
 
     /*
-     * @see org.seasar.uruma.binding.value.binder.AbstractValueBinder#getWidgetValue(java.lang.Object)
+     * @see org.seasar.uruma.binding.value.binder.AbstractValueBinder#doImportValue(java.lang.Object,
+     *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
      */
     @Override
-    protected Object getWidgetValue(final Object widget) {
-        return propertyDesc.getValue(widget);
+    public void doImportValue(final WIDGET_TYPE widget, final Object formObj,
+            final PropertyDesc propDesc) {
+        Object value = propertyDesc.getValue(widget);
+        propDesc.setValue(formObj, value);
     }
 
     /*
-     * @see org.seasar.uruma.binding.value.binder.AbstractValueBinder#setWidgetValue(java.lang.Object,
-     *      java.lang.Object)
+     * @see org.seasar.uruma.binding.value.binder.AbstractValueBinder#doExportValue(java.lang.Object,
+     *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
      */
     @Override
-    protected void setWidgetValue(final Object widget, final Object value) {
+    public void doExportValue(final WIDGET_TYPE widget, final Object formObj,
+            final PropertyDesc propDesc) {
+        Object value = propDesc.getValue(formObj);
         propertyDesc.setValue(widget, value);
-    }
-
-    /*
-     * @see org.seasar.uruma.binding.value.ValueBinder#exportSelection(java.lang.Object,
-     *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
-     */
-    public void exportSelection(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
-        // Do nothing.
-    }
-
-    /*
-     * @see org.seasar.uruma.binding.value.ValueBinder#importSelection(java.lang.Object,
-     *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
-     */
-    public void importSelection(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
-        // Do nothing.
     }
 }

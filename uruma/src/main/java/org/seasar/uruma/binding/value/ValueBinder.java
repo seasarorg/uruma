@@ -78,5 +78,5 @@ public interface ValueBinder {
      * 
      * @return 対応するウィジットの {@link Class} オブジェクト
      */
-    public Class<?> getWidgetClass();
+    public Class<?> getWidgetType();
 }

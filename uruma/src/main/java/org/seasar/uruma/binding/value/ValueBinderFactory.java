@@ -32,8 +32,8 @@ public class ValueBinderFactory {
     private static final Map<Class<?>, ValueBinder> binderMap = new HashMap<Class<?>, ValueBinder>();
 
     static {
-        addValueBinder(new GenericValueBinder(Label.class, "text"));
-        addValueBinder(new GenericValueBinder(Text.class, "text"));
+        addValueBinder(new GenericValueBinder<Label>(Label.class, "text"));
+        addValueBinder(new GenericValueBinder<Text>(Text.class, "text"));
         // addBinder(new ComboValueBinder());
         // addBinder(new TableValueBinder());
         // addBinder(new TreeValueBinder());
@@ -59,7 +59,7 @@ public class ValueBinderFactory {
      */
     public static void addValueBinder(final ValueBinder valueBinder) {
         AssertionUtil.assertNotNull("valueBinder", valueBinder);
-        Class<?> widgetClass = valueBinder.getWidgetClass();
+        Class<?> widgetClass = valueBinder.getWidgetType();
         AssertionUtil.assertNotNull("widgetClass", widgetClass);
 
         binderMap.put(widgetClass, valueBinder);

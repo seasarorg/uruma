@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.viewer;
 
+import java.util.List;
+
 /**
  * コンテンツを後から追加可能なプロバイダであることを示すインターフェースです。<br />
  * 
@@ -28,4 +30,12 @@ public interface ContentsSettable {
      *            コンテンツ
      */
     public void setContents(Object[] contents);
+
+    /**
+     * コンテンツを設定します。<br />
+     * 
+     * @param contents
+     *            コンテンツ
+     */
+    public void setContents(List<?> contents);
 }

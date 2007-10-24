@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.viewer;
 
+import java.util.List;
+
 /**
  * コンテンツプロバイダ用のコンテンツを保持するクラスです。<br />
  * 
@@ -29,5 +31,12 @@ public abstract class ContentsHolder implements ContentsSettable {
     public void setContents(final Object[] contents) {
         this.contents = new Object[contents.length];
         System.arraycopy(contents, 0, this.contents, 0, contents.length);
+    }
+
+    /*
+     * @see org.seasar.uruma.viewer.ContentsSettable#setContents(java.util.List)
+     */
+    public void setContents(final List<?> contents) {
+        this.contents = contents.toArray();
     }
 }
