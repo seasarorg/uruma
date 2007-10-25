@@ -15,16 +15,10 @@
  */
 package org.seasar.uruma.binding.value.binder;
 
-import java.util.List;
-
 import org.eclipse.jface.viewers.ComboViewer;
-import org.eclipse.jface.viewers.IBaseLabelProvider;
-import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.swt.widgets.Combo;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
-import org.seasar.uruma.viewer.ContentsHolder;
-import org.seasar.uruma.viewer.GenericLabelProvider;
 
 /**
  * {@link ComboViewer} のための {@link ValueBinder} です。<br />
@@ -51,53 +45,4 @@ public class ComboViewerValueBinder extends AbstractValueBinder<ComboViewer> {
         Combo combo = widget.getCombo();
         propDesc.setValue(formObj, combo.getText());
     }
-
-    /*
-     * @see org.seasar.uruma.binding.value.binder.AbstractValueBinder#doExportValue(java.lang.Object,
-     *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
-     */
-    @Override
-    public void doExportValue(final ComboViewer widget, final Object formObj,
-            final PropertyDesc propDesc) {
-        Class<?> formFieldType = propDesc.getField().getType();
-        Object contents = propDesc.getValue(formObj);
-        IContentProvider contentProvider = widget.getContentProvider();
-        IBaseLabelProvider labelProvider = widget.getLabelProvider();
-
-        if (contents != null) {
-            if (contentProvider != null
-                    && contentProvider instanceof ContentsHolder) {
-                ContentsHolder holder = (ContentsHolder) contentProvider;
-                if (formFieldType.isArray()) {
-                    holder.setContents((Object[]) contents);
-                    setClassToGenericLabelProvider(labelProvider, formFieldType
-                            .getComponentType());
-                } else if (List.class.isAssignableFrom(formFieldType)) {
-                    List<?> listContents = (List<?>) contents;
-
-                    if (listContents.size() > 0) {
-                        holder.setContents(listContents);
-
-                        Object content = listContents.get(0);
-                        setClassToGenericLabelProvider(labelProvider, content
-                                .getClass());
-                    }
-                } else {
-                    holder.setContents(new Object[] { contents });
-                    setClassToGenericLabelProvider(labelProvider, contents
-                            .getClass());
-                }
-
-                widget.setInput(contents);
-            }
-        }
-    }
-
-    private void setClassToGenericLabelProvider(
-            final IBaseLabelProvider provider, final Class<?> clazz) {
-        if ((provider != null) && (provider instanceof GenericLabelProvider)) {
-            ((GenericLabelProvider) provider).setTargetClass(clazz);
-        }
-    }
-
 }

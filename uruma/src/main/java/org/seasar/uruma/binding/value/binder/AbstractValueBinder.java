@@ -17,13 +17,18 @@ package org.seasar.uruma.binding.value.binder;
 
 import java.util.List;
 
+import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.exception.BindingException;
 import org.seasar.uruma.util.AssertionUtil;
+import org.seasar.uruma.viewer.ContentsHolder;
+import org.seasar.uruma.viewer.GenericLabelProvider;
 
 /**
  * {@link ValueBinder} のための基底クラスです。<br />
@@ -101,15 +106,17 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
-    public void doImportValue(final WIDGET_TYPE widget, final Object formObj,
-            final PropertyDesc propDesc) {
+    protected void doImportValue(final WIDGET_TYPE widget,
+            final Object formObj, final PropertyDesc propDesc) {
 
     }
 
     /**
      * フォームの値をウィジットへ設定します。<br />
-     * 本メソッドをサブクラスでオーバーライドしてください。<br />
-     * デフォルトでは何も行いません。
+     * デフォルトでは、 <code>widget</code> が {@link StructuredViewer}
+     * のサブクラスかつコンテンツプロバイダが {@link ContentsHolder} の実装クラスである場合に、 
+     * <code>propDesc</code> の持つ値をコンテンツプロバイダへ設定します。<br />
+     * デフォルト処理をカスタマイズしたい場合は、サブクラスでオーバーライドしてください。<br />
      * 
      * @param widget
      *            ウィジット側オブジェクト
@@ -118,8 +125,44 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
-    public void doExportValue(final WIDGET_TYPE widget, final Object formObj,
-            final PropertyDesc propDesc) {
+    protected void doExportValue(final WIDGET_TYPE widget,
+            final Object formObj, final PropertyDesc propDesc) {
+        if (widget instanceof StructuredViewer) {
+            StructuredViewer viewer = StructuredViewer.class.cast(widget);
+
+            Class<?> formFieldType = propDesc.getField().getType();
+            Object contents = propDesc.getValue(formObj);
+            IContentProvider contentProvider = viewer.getContentProvider();
+            IBaseLabelProvider labelProvider = viewer.getLabelProvider();
+
+            if (contents != null) {
+                if (contentProvider != null
+                        && contentProvider instanceof ContentsHolder) {
+                    ContentsHolder holder = (ContentsHolder) contentProvider;
+                    if (formFieldType.isArray()) {
+                        holder.setContents((Object[]) contents);
+                        setClassToGenericLabelProvider(labelProvider,
+                                formFieldType.getComponentType());
+                    } else if (List.class.isAssignableFrom(formFieldType)) {
+                        List<?> listContents = (List<?>) contents;
+
+                        if (listContents.size() > 0) {
+                            holder.setContents(listContents);
+
+                            Object content = listContents.get(0);
+                            setClassToGenericLabelProvider(labelProvider,
+                                    content.getClass());
+                        }
+                    } else {
+                        holder.setContents(new Object[] { contents });
+                        setClassToGenericLabelProvider(labelProvider, contents
+                                .getClass());
+                    }
+
+                    viewer.setInput(contents);
+                }
+            }
+        }
 
     }
 
@@ -138,7 +181,7 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      * @throws BindingException
      *             ビューアで選択させれているオブジェクトの型とプロパティの型が一致しなかった場合
      */
-    public void doImportSelection(final WIDGET_TYPE widget,
+    protected void doImportSelection(final WIDGET_TYPE widget,
             final Object formObj, final PropertyDesc propDesc) {
         if (widget instanceof Viewer) {
             Viewer viewer = Viewer.class.cast(widget);
@@ -186,7 +229,7 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
-    public void doExportSelection(final WIDGET_TYPE widget,
+    protected void doExportSelection(final WIDGET_TYPE widget,
             final Object formObj, final PropertyDesc propDesc) {
         if (widget instanceof Viewer) {
             Viewer viewer = Viewer.class.cast(widget);
@@ -196,4 +239,12 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
             }
         }
     }
+
+    protected void setClassToGenericLabelProvider(
+            final IBaseLabelProvider provider, final Class<?> clazz) {
+        if ((provider != null) && (provider instanceof GenericLabelProvider)) {
+            GenericLabelProvider.class.cast(provider).setTargetClass(clazz);
+        }
+    }
+
 }

@@ -13,12 +13,23 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.renderer.impl;
+package org.seasar.uruma.binding.value.binder;
+
+import org.eclipse.jface.viewers.TableViewer;
+import org.seasar.uruma.binding.value.ValueBinder;
 
 /**
- * {@link TableViewerRenderer} のためのテストクラスです。<br />
+ * {@link TableViewer} のための {@link ValueBinder} です。<br />
  * 
- * @author bskuroneko
+ * @author y-komori
  */
-public class TableViewerRendererGUITest extends AbstractGUITest {
+public class TableViewerValueBinder extends AbstractValueBinder<TableViewer> {
+
+    /**
+     * {@link TableViewerValueBinder} を構築します。<br />
+     * 
+     */
+    public TableViewerValueBinder() {
+        super(TableViewer.class);
+    }
 }
