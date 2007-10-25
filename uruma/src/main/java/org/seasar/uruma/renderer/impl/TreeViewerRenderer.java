@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.TreeNodeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
@@ -85,6 +86,6 @@ public class TreeViewerRenderer extends
      */
     @Override
     protected IContentProvider getDefaultContentProvider() {
-        return null;
+        return new TreeNodeContentProvider();
     }
 }

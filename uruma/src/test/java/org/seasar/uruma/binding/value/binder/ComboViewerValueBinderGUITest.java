@@ -28,6 +28,11 @@ import org.seasar.uruma.annotation.ImportValue;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.renderer.impl.AbstractGUITest;
 
+/**
+ * {@link ComboViewerValueBinder} のためのテストクラスです。<br />
+ * 
+ * @author y-komori
+ */
 @Form(ComboViewerValueBinderGUITest.class)
 public class ComboViewerValueBinderGUITest extends AbstractGUITest {
     @ExportValue

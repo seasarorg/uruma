@@ -15,18 +15,8 @@
  */
 package org.seasar.uruma.renderer.impl;
 
-import java.util.List;
-
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.TreeNode;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Text;
 import org.seasar.jface.renderer.impl.TreeRenderer;
-import org.seasar.uruma.annotation.EventListener;
-import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
-import org.seasar.uruma.annotation.ImportSelection;
 
 /**
  * {@link TreeRenderer} のためのテストクラスです。<br />
@@ -35,83 +25,4 @@ import org.seasar.uruma.annotation.ImportSelection;
  */
 @Form(TreeViewerRendererGUITest.class)
 public class TreeViewerRendererGUITest extends AbstractGUITest {
-    @ExportValue(id = "tree1")
-    public TreeNode[] tparent;
-
-    @ImportSelection(id = "tree1")
-    public List<TreeNode> selected;
-
-    @ImportSelection(id = "tree1")
-    public TreeNode selected2;
-
-    Text textArea;
-
-    /**
-     * {@link TreeViewerRendererGUITest} を構築します。<br />
-     * 
-     */
-    public TreeViewerRendererGUITest() {
-        tparent = new TreeNode[2];
-        tparent[0] = new TreeNode("親1");
-        tparent[1] = new TreeNode("親2");
-
-        TreeNode[] tchild = new TreeNode[2];
-        tchild[0] = new TreeNode("子1");
-        tchild[1] = new TreeNode("子2");
-        tparent[0].setChildren(tchild);
-
-        TreeNode[] tgrandChild = new TreeNode[2];
-        tgrandChild[0] = new TreeNode("孫1");
-        tgrandChild[1] = new TreeNode("孫2");
-        tchild[0].setChildren(tgrandChild);
-    }
-
-    @EventListener(id = "tree1")
-    public void onTreeSelected() {
-        String current = textArea.getText();
-
-        if (current.length() > 0) {
-            current += "\r\n";
-        }
-
-        current += "NodeSelected : ";
-        for (TreeNode selection : selected) {
-            current += selection.getValue() + ", ";
-        }
-        textArea.setText(current);
-    }
-
-    /**
-     * 本テストで使用するラベルプロバイダです。<br />
-     * 
-     * @author y-komori
-     */
-    public static class TreeNodeLabelProvider implements ILabelProvider {
-
-        public Image getImage(final Object element) {
-            return null;
-        }
-
-        public String getText(final Object element) {
-            if (element instanceof TreeNode) {
-                TreeNode treeNode = (TreeNode) element;
-                return treeNode.getValue().toString();
-            }
-            return null;
-        }
-
-        public void addListener(final ILabelProviderListener listener) {
-        }
-
-        public void dispose() {
-        }
-
-        public boolean isLabelProperty(final Object element,
-                final String property) {
-            return false;
-        }
-
-        public void removeListener(final ILabelProviderListener listener) {
-        }
-    }
 }
