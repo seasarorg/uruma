@@ -36,7 +36,8 @@ import org.seasar.uruma.annotation.BindingLabel;
  * 
  * @author y-komori
  */
-public class GenericTableLabelProvider implements ITableLabelProvider {
+public class GenericTableLabelProvider implements ITableLabelProvider,
+        TargetClassHoldingProvider {
     protected Map<String, Integer> columnNoMap = new HashMap<String, Integer>();
 
     protected Map<Integer, Field> columnMap = new HashMap<Integer, Field>();
@@ -81,11 +82,8 @@ public class GenericTableLabelProvider implements ITableLabelProvider {
         // Do nothing.
     }
 
-    /**
-     * レコードに対応するクラスを設定します。<br />
-     * 
-     * @param clazz
-     *            レコードに対応するクラス
+    /*
+     * @see org.seasar.uruma.viewer.TargetClassHoldingProvider#setTargetClass(java.lang.Class)
      */
     public void setTargetClass(final Class<?> clazz) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(clazz);

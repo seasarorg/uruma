@@ -28,7 +28,7 @@ import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.exception.BindingException;
 import org.seasar.uruma.util.AssertionUtil;
 import org.seasar.uruma.viewer.ContentsHolder;
-import org.seasar.uruma.viewer.GenericLabelProvider;
+import org.seasar.uruma.viewer.TargetClassHoldingProvider;
 
 /**
  * {@link ValueBinder} のための基底クラスです。<br />
@@ -114,7 +114,7 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
     /**
      * フォームの値をウィジットへ設定します。<br />
      * デフォルトでは、 <code>widget</code> が {@link StructuredViewer}
-     * のサブクラスかつコンテンツプロバイダが {@link ContentsHolder} の実装クラスである場合に、 
+     * のサブクラスかつコンテンツプロバイダが {@link ContentsHolder} の実装クラスである場合に、
      * <code>propDesc</code> の持つ値をコンテンツプロバイダへ設定します。<br />
      * デフォルト処理をカスタマイズしたい場合は、サブクラスでオーバーライドしてください。<br />
      * 
@@ -141,8 +141,8 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                     ContentsHolder holder = (ContentsHolder) contentProvider;
                     if (formFieldType.isArray()) {
                         holder.setContents((Object[]) contents);
-                        setClassToGenericLabelProvider(labelProvider,
-                                formFieldType.getComponentType());
+                        setClassToProvider(labelProvider, formFieldType
+                                .getComponentType());
                     } else if (List.class.isAssignableFrom(formFieldType)) {
                         List<?> listContents = (List<?>) contents;
 
@@ -150,13 +150,12 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                             holder.setContents(listContents);
 
                             Object content = listContents.get(0);
-                            setClassToGenericLabelProvider(labelProvider,
-                                    content.getClass());
+                            setClassToProvider(labelProvider, content
+                                    .getClass());
                         }
                     } else {
                         holder.setContents(new Object[] { contents });
-                        setClassToGenericLabelProvider(labelProvider, contents
-                                .getClass());
+                        setClassToProvider(labelProvider, contents.getClass());
                     }
 
                     viewer.setInput(contents);
@@ -240,11 +239,12 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
         }
     }
 
-    protected void setClassToGenericLabelProvider(
-            final IBaseLabelProvider provider, final Class<?> clazz) {
-        if ((provider != null) && (provider instanceof GenericLabelProvider)) {
-            GenericLabelProvider.class.cast(provider).setTargetClass(clazz);
+    protected void setClassToProvider(final IBaseLabelProvider provider,
+            final Class<?> clazz) {
+        if ((provider != null)
+                && (provider instanceof TargetClassHoldingProvider)) {
+            TargetClassHoldingProvider.class.cast(provider).setTargetClass(
+                    clazz);
         }
     }
-
 }

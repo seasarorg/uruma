@@ -30,12 +30,22 @@ import org.seasar.uruma.context.WidgetHandle;
 public class TabItemRenderer extends
         AbstractWidgetRenderer<TabItemComponent, TabItem> {
 
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractWidgetRenderer#doRender(org.seasar.uruma.component.UIComponent,
+     *      org.eclipse.swt.widgets.Widget)
+     */
     @Override
     protected void doRender(final TabItemComponent controlComponent,
             final TabItem control) {
         // Do nothing.
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractWidgetRenderer#doRenderAfter(org.eclipse.swt.widgets.Widget,
+     *      org.seasar.uruma.component.UIComponent,
+     *      org.seasar.uruma.context.WidgetHandle,
+     *      org.seasar.uruma.context.PartContext)
+     */
     @Override
     protected void doRenderAfter(final TabItem widget,
             final TabItemComponent uiComponent, final WidgetHandle parent,
@@ -55,6 +65,9 @@ public class TabItemRenderer extends
         }
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractWidgetRenderer#getWidgetType()
+     */
     @Override
     protected Class<TabItem> getWidgetType() {
         return TabItem.class;

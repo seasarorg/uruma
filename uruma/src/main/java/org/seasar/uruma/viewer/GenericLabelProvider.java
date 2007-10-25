@@ -41,7 +41,8 @@ import org.seasar.uruma.annotation.BindingLabel;
  * 
  * @author y-komori
  */
-public class GenericLabelProvider implements ILabelProvider {
+public class GenericLabelProvider implements ILabelProvider,
+        TargetClassHoldingProvider {
     protected Field labelField;
 
     /*
@@ -93,11 +94,8 @@ public class GenericLabelProvider implements ILabelProvider {
         // Do nothing.
     }
 
-    /**
-     * レコードに対応するクラスを設定します。<br />
-     * 
-     * @param clazz
-     *            レコードに対応するクラス
+    /*
+     * @see org.seasar.uruma.viewer.TargetClassHoldingProvider#setTargetClass(java.lang.Class)
      */
     public void setTargetClass(final Class<?> clazz) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(clazz);

@@ -41,19 +41,6 @@ import org.seasar.uruma.viewer.GenericTableViewerSorter;
  */
 public class TableViewerRenderer extends
         AbstractViewerRenderer<TableComponent, TableViewer, Table> {
-
-    /*
-     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#render(org.seasar.uruma.component.UIComponent,
-     *      org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.PartContext)
-     */
-    @Override
-    public WidgetHandle render(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
-
-        return super.render(uiComponent, parent, context);
-    }
-
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#canCreateViewer(org.seasar.uruma.component.UICompositeComponent)
      */

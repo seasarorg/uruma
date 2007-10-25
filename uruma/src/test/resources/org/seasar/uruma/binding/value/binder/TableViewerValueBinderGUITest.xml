@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="tableViewerValueBinderGUITest"
+    title="TableViewerValueBinderGUITest" defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="VERTICAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+
+      <table id="table" style="FULL_SELECTION, MULTI, BORDER"
+        headerVisible="true" linesVisible="true">
+        <tableColumn id="column1" text="Column1" />
+        <tableColumn id="column2" text="Column2" />
+        <tableColumn id="column3" text="Column3" />
+        <tableColumn id="column4" text="Column4" />
+      </table>
+
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>
