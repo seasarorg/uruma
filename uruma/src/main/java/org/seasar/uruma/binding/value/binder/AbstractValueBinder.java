@@ -15,8 +15,14 @@
  */
 package org.seasar.uruma.binding.value.binder;
 
+import java.util.List;
+
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.Viewer;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.exception.BindingException;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -119,8 +125,9 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
 
     /**
      * ウィジットで選択されているオブジェクトをフォームへ設定します。<br />
-     * 本メソッドをサブクラスでオーバーライドしてください。<br />
-     * デフォルトでは何も行いません。
+     * デフォルトでは、 <code>widget</code> が {@link Viewer} のサブクラスである場合に
+     * <code>propDesc</code> の表すプロパティにビューアから取得した選択中オブジェクトを設定します。<br />
+     * デフォルト処理をカスタマイズしたい場合は、サブクラスでオーバーライドしてください。<br />
      * 
      * @param widget
      *            ウィジット側オブジェクト
@@ -128,15 +135,49 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @throws BindingException
+     *             ビューアで選択させれているオブジェクトの型とプロパティの型が一致しなかった場合
      */
     public void doImportSelection(final WIDGET_TYPE widget,
             final Object formObj, final PropertyDesc propDesc) {
+        if (widget instanceof Viewer) {
+            Viewer viewer = Viewer.class.cast(widget);
+
+            IStructuredSelection selection = (IStructuredSelection) viewer
+                    .getSelection();
+            int size = selection.size();
+            if (size > 0) {
+                Class<?> propertyType = propDesc.getPropertyType();
+                Object firstElement = selection.getFirstElement();
+                if (propertyType.isArray()) {
+                    Object[] selectedArray = selection.toArray();
+                    if (propertyType.isAssignableFrom(selectedArray.getClass())) {
+                        propDesc.setValue(formObj, selectedArray);
+                    } else {
+                        throw new BindingException(
+                                BindingException.CLASS_NOT_MUTCH, null, formObj
+                                        .getClass(), propDesc.getField());
+                    }
+                } else if (propertyType.isAssignableFrom(List.class)) {
+                    propDesc.setValue(formObj, selection.toList());
+                } else if (propertyType.isAssignableFrom(firstElement
+                        .getClass())) {
+                    propDesc.setValue(formObj, firstElement);
+                } else {
+                    throw new BindingException(
+                            BindingException.CLASS_NOT_MUTCH, null, formObj
+                                    .getClass(), propDesc.getField());
+                }
+            }
+        }
     }
 
     /**
      * フォームの持つオブジェクトをウィジットの選択状態として設定します。<br />
-     * 本メソッドをサブクラスでオーバーライドしてください。<br />
-     * デフォルトでは何も行いません。
+     * デフォルトでは、 <code>widget</code> が {@link Viewer} のサブクラスである場合に
+     * <code>propDesc</code> の持つ値を {@link StructuredSelection}
+     * にラップしてビューアに設定します。<br />
+     * デフォルト処理をカスタマイズしたい場合は、サブクラスでオーバーライドしてください。<br />
      * 
      * @param widget
      *            ウィジット側オブジェクト
@@ -147,6 +188,12 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      */
     public void doExportSelection(final WIDGET_TYPE widget,
             final Object formObj, final PropertyDesc propDesc) {
-
+        if (widget instanceof Viewer) {
+            Viewer viewer = Viewer.class.cast(widget);
+            Object selection = propDesc.getValue(formObj);
+            if (selection != null) {
+                viewer.setSelection(new StructuredSelection(selection), true);
+            }
+        }
     }
 }

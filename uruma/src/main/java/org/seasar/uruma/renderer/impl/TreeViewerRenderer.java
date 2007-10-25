@@ -15,12 +15,17 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
+import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.impl.TreeComponent;
+import org.seasar.uruma.component.impl.TreeItemComponent;
 import org.seasar.uruma.viewer.GenericLabelProvider;
 
 /**
@@ -34,6 +39,21 @@ public class TreeViewerRenderer extends
     @Override
     protected Class<Tree> getWidgetType() {
         return Tree.class;
+    }
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#canCreateViewer(org.seasar.uruma.component.UICompositeComponent)
+     */
+    @Override
+    protected boolean canCreateViewer(final UICompositeComponent component) {
+        // TreeItemComponent が存在する場合、Viewer を生成しない
+        List<UIComponent> children = component.getChildren();
+        for (UIComponent child : children) {
+            if (child instanceof TreeItemComponent) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /*

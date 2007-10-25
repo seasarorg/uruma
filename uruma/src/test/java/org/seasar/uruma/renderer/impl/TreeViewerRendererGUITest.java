@@ -33,8 +33,8 @@ import org.seasar.uruma.annotation.ImportSelection;
  * 
  * @author y-komori
  */
-@Form(TreeRendererGUITest.class)
-public class TreeRendererGUITest extends AbstractGUITest {
+@Form(TreeViewerRendererGUITest.class)
+public class TreeViewerRendererGUITest extends AbstractGUITest {
     @ExportValue(id = "tree1")
     public TreeNode[] tparent;
 
@@ -46,7 +46,11 @@ public class TreeRendererGUITest extends AbstractGUITest {
 
     Text textArea;
 
-    public TreeRendererGUITest() {
+    /**
+     * {@link TreeViewerRendererGUITest} を構築します。<br />
+     * 
+     */
+    public TreeViewerRendererGUITest() {
         tparent = new TreeNode[2];
         tparent[0] = new TreeNode("親1");
         tparent[1] = new TreeNode("親2");
@@ -65,14 +69,23 @@ public class TreeRendererGUITest extends AbstractGUITest {
     @EventListener(id = "tree1")
     public void onTreeSelected() {
         String current = textArea.getText();
+
+        if (current.length() > 0) {
+            current += "\r\n";
+        }
+
         current += "NodeSelected : ";
         for (TreeNode selection : selected) {
             current += selection.getValue() + ", ";
         }
-        current += "\n";
         textArea.setText(current);
     }
 
+    /**
+     * 本テストで使用するラベルプロバイダです。<br />
+     * 
+     * @author y-komori
+     */
     public static class TreeNodeLabelProvider implements ILabelProvider {
 
         public Image getImage(final Object element) {
