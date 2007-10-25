@@ -35,11 +35,18 @@ import org.seasar.uruma.component.impl.GridLayoutInfo;
 public class AbstractControlRendererTest extends TestCase {
     private ControlRenderer controlRenderer;
 
+    /*
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         this.controlRenderer = new ControlRenderer();
     }
 
+    /**
+     * {@link AbstractControlRenderer#inheritLayoutData(UIControlComponent)}
+     * メソッドのテストです。<br />
+     */
     public void testInheritLayoutData() {
         UICompositeComponent parentComponent = new CompositeComponent();
         GridLayoutInfo gridLayoutInfo = new GridLayoutInfo();
@@ -67,6 +74,10 @@ public class AbstractControlRendererTest extends TestCase {
         assertEquals("5", "3", gridDataInfo.getHorizontalSpan());
     }
 
+    /**
+     * {@link AbstractControlRenderer#setCommonAttributes(org.seasar.uruma.component.UIComponent)}
+     * メソッドのテストです。<br />
+     */
     public void testSetCommonAttributes() {
         UICompositeComponent parentComponent = new CompositeComponent();
         CommonAttriburtesImpl commonAttributes = new CommonAttriburtesImpl();
@@ -84,7 +95,10 @@ public class AbstractControlRendererTest extends TestCase {
         assertEquals("2", "15", component.getFontHeight());
     }
 
-    private class ControlRenderer extends
+    /**
+     * @author y-komori
+     */
+    private static class ControlRenderer extends
             AbstractControlRenderer<ControlComponent, Control> {
 
         @Override

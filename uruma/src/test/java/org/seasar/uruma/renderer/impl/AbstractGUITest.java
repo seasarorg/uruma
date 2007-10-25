@@ -16,11 +16,9 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.Shell;
-import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.framework.container.factory.TigerAnnotationHandler;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.unit.S2FrameworkTestCase;
 import org.seasar.framework.util.StringUtil;
@@ -40,13 +38,19 @@ public abstract class AbstractGUITest extends S2FrameworkTestCase {
 
     protected Shell shell;
 
-    private static boolean result;
+    private boolean result;
 
+    /*
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         uruma = StandAloneUrumaStarter.getInstance();
         S2Container container = SingletonS2ContainerFactory.getContainer();
-        container.register(createActionComponentDef());
+        String componentName = StringUtil.decapitalize(getClass()
+                .getSimpleName())
+                + "Action";
+        container.register(this, componentName);
 
         // クラス名と同名の dicon ファイルが存在すればインクルードする
         try {
@@ -60,31 +64,36 @@ public abstract class AbstractGUITest extends S2FrameworkTestCase {
         result = false;
     }
 
+    /*
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         StandAloneUrumaStarter.destroy();
     }
 
-    protected ComponentDef createActionComponentDef() {
-        TigerAnnotationHandler handler = new TigerAnnotationHandler();
-        ComponentDef cd = handler.createComponentDef(getClass(), null, null);
-        cd.setComponentName(StringUtil.decapitalize(getClass().getSimpleName())
-                + "Action");
-        return cd;
-    }
-
+    /**
+     * テスト画面を開きます。<br />
+     */
     public void testRender() {
         String path = convertPath(getClass().getSimpleName() + ".xml");
         uruma.openWindow(path);
         assertTrue(path, result);
     }
 
+    /**
+     * 「OK」ボタンが押されたときに呼び出されるメソッドです。<br />
+     */
     @EventListener(id = "okButton")
     public void okButtonAction() {
         shell.close();
+
         result = true;
     }
 
+    /**
+     * 「NG」ボタンが押されたときに呼び出されるメソッドです。<br />
+     */
     @EventListener(id = "ngButton")
     public void ngButtonAction() {
         shell.close();

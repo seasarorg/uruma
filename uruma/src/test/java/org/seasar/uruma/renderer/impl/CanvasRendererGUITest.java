@@ -26,6 +26,12 @@ import org.seasar.uruma.annotation.EventListenerType;
  */
 public class CanvasRendererGUITest extends AbstractGUITest {
 
+    /**
+     * {@link EventListenerType#PAINT} イベント発生時に呼び出されるメソッドです。<br />
+     * 
+     * @param e
+     *            イベント
+     */
     @EventListener(id = "canvas", type = EventListenerType.PAINT)
     public void paintCanvas(final PaintEvent e) {
         e.gc.drawString("キャンバス", 10, 10);
