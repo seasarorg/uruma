@@ -19,5 +19,5 @@ package org.seasar.uruma.renderer.impl;
 /**
  * @author bskuroneko
  */
-public class TableRendererGUITest extends AbstractGUITest {
+public class TableViewerRendererGUITest extends AbstractGUITest {
 }

@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.impl.CompositeComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
@@ -70,8 +71,13 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
     @SuppressWarnings("unchecked")
     public WidgetHandle render(final UIComponent uiComponent,
             final WidgetHandle parent, final PartContext context) {
-        // 元のウィジットの代わりに生成したビューアを WidgetHandle へ格納する
         WidgetHandle handle = super.render(uiComponent, parent, context);
+
+        if (!canCreateViewer(UICompositeComponent.class.cast(uiComponent))) {
+            return handle;
+        }
+
+        // 元のウィジットの代わりに生成したビューアを WidgetHandle へ格納する
         Control control = handle.<Control> getCastWidget();
 
         VIEWER_TYPE viewer = createViewer(control);
@@ -106,17 +112,22 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
     public void renderAfter(final WidgetHandle handle,
             final UIComponent uiComponent, final WidgetHandle parent,
             final PartContext context) {
-        VIEWER_TYPE viewer = getViewerType().cast(handle.getWidget());
-        WidgetHandle controlHandle = createWidgetHandle(uiComponent, viewer
-                .getControl());
 
-        super.renderAfter(controlHandle, uiComponent, parent, context);
+        if (handle.instanceOf(Viewer.class)) {
+            VIEWER_TYPE viewer = getViewerType().cast(handle.getWidget());
+            WidgetHandle controlHandle = createWidgetHandle(uiComponent, viewer
+                    .getControl());
 
-        doRenderAfter(viewer, (COMPONENT_TYPE) uiComponent, parent, context);
+            super.renderAfter(controlHandle, uiComponent, parent, context);
 
-        if (viewer instanceof StructuredViewer) {
-            setupComparator(StructuredViewer.class.cast(viewer), uiComponent
-                    .getId());
+            doRenderAfter(viewer, (COMPONENT_TYPE) uiComponent, parent, context);
+
+            if (viewer instanceof StructuredViewer) {
+                setupComparator(StructuredViewer.class.cast(viewer),
+                        uiComponent.getId());
+            }
+        } else {
+            super.renderAfter(handle, uiComponent, parent, context);
         }
     }
 
@@ -349,6 +360,19 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * @return 生成するビューアの型
      */
     protected abstract Class<VIEWER_TYPE> getViewerType();
+
+    /**
+     * ビューアを生成するかどうかを判定します。<br />
+     * ビューアの生成を制御したい場合、サブクラスでオーバーライドしてください。<br />
+     * デフォルトでは <code>true</code> を返します。<br />
+     * 
+     * @param component
+     *            対応する {@link UICompositeComponent}
+     * @return 生成する場合は <code>true</code>。しない場合は <code>false</code>
+     */
+    protected boolean canCreateViewer(final UICompositeComponent component) {
+        return true;
+    }
 
     /**
      * 生成されたビューアに対して各種属性を設定します。<br />

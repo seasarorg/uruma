@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -22,7 +24,10 @@ import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
+import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.impl.TableComponent;
+import org.seasar.uruma.component.impl.TableItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.renderer.RendererSupportUtil;
@@ -36,6 +41,33 @@ import org.seasar.uruma.viewer.GenericTableViewerSorter;
  */
 public class TableViewerRenderer extends
         AbstractViewerRenderer<TableComponent, TableViewer, Table> {
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#render(org.seasar.uruma.component.UIComponent,
+     *      org.seasar.uruma.context.WidgetHandle,
+     *      org.seasar.uruma.context.PartContext)
+     */
+    @Override
+    public WidgetHandle render(final UIComponent uiComponent,
+            final WidgetHandle parent, final PartContext context) {
+
+        return super.render(uiComponent, parent, context);
+    }
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#canCreateViewer(org.seasar.uruma.component.UICompositeComponent)
+     */
+    @Override
+    protected boolean canCreateViewer(final UICompositeComponent component) {
+        // TableItemComponent が存在する場合、Viewer を生成しない
+        List<UIComponent> children = component.getChildren();
+        for (UIComponent child : children) {
+            if (child instanceof TableItemComponent) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRenderAfter(org.eclipse.jface.viewers.Viewer,
