@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.method;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.uruma.annotation.EventListener;
@@ -27,6 +28,7 @@ import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
+import org.seasar.uruma.exception.UnsupportedClassException;
 import org.seasar.uruma.exception.WidgetNotFoundException;
 
 /**
@@ -82,7 +84,14 @@ public class MethodBindingSupport {
         for (String id : ids) {
             WidgetHandle handle = context.getWidgetHandle(id);
             if (handle != null) {
-                Widget widget = handle.<Widget> getCastWidget();
+                Widget widget;
+                if (handle.instanceOf(Viewer.class)) {
+                    widget = handle.<Viewer> getCastWidget().getControl();
+                } else if (handle.instanceOf(Widget.class)) {
+                    widget = handle.<Widget> getCastWidget();
+                } else {
+                    throw new UnsupportedClassException(handle.getWidgetClass());
+                }
                 widget.addListener(eventListenerDef.getEventListener().type()
                         .getSWTEventType(), listener);
             } else {

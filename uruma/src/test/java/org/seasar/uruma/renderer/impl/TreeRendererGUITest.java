@@ -22,11 +22,11 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Text;
-import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.Form;
-import org.seasar.jface.annotation.ImportSelection;
 import org.seasar.jface.renderer.impl.TreeRenderer;
+import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.ExportValue;
+import org.seasar.uruma.annotation.Form;
+import org.seasar.uruma.annotation.ImportSelection;
 
 /**
  * {@link TreeRenderer} のためのテストクラスです。<br />
@@ -36,13 +36,13 @@ import org.seasar.jface.renderer.impl.TreeRenderer;
 @Form(TreeRendererGUITest.class)
 public class TreeRendererGUITest extends AbstractGUITest {
     @ExportValue(id = "tree1")
-    TreeNode[] tparent;
+    public TreeNode[] tparent;
 
     @ImportSelection(id = "tree1")
-    List<TreeNode> selected;
+    public List<TreeNode> selected;
 
     @ImportSelection(id = "tree1")
-    TreeNode selected2;
+    public TreeNode selected2;
 
     Text textArea;
 
