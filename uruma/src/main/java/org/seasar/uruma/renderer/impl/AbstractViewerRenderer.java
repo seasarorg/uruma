@@ -123,8 +123,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
             doRenderAfter(viewer, (COMPONENT_TYPE) uiComponent, parent, context);
 
             if (viewer instanceof StructuredViewer) {
-                setupComparator(StructuredViewer.class.cast(viewer),
-                        uiComponent.getId());
+                setupComparator((StructuredViewer) viewer, uiComponent.getId());
             }
         } else {
             super.renderAfter(handle, uiComponent, parent, context);

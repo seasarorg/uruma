@@ -18,8 +18,14 @@ package org.seasar.uruma.binding.value.binder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
+import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
+import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.renderer.impl.AbstractGUITest;
 
@@ -30,14 +36,46 @@ import org.seasar.uruma.renderer.impl.AbstractGUITest;
  */
 @Form(TableViewerValueBinderGUITest.class)
 public class TableViewerValueBinderGUITest extends AbstractGUITest {
-    @ExportValue
-    public List<Contents> table;
+    @ExportValue(id = "table")
+    public List<Contents> contents;
+
+    public TableViewer table;
+
+    @ImportSelection(id = "table")
+    public Contents selected;
 
     @InitializeMethod
     public void initialize() {
-        table = new ArrayList<Contents>();
+        contents = new ArrayList<Contents>();
         Contents row1 = new Contents("aaa", "bbb", "ccc", "ddd");
-        table.add(row1);
+        Contents row2 = new Contents("111", "222", "333", "444");
+        contents.add(row1);
+        contents.add(row2);
+    }
+
+    @EventListener(id = "select")
+    public void onSelect() {
+        System.out.println("選択された : " + table);
+
+        Table widget = table.getTable();
+        TableColumn[] columns = widget.getColumns();
+        for (int i = 0; i < columns.length; i++) {
+            System.out.println(columns[i].getText());
+            System.out.println(columns[i].getWidth());
+            columns[i].pack();
+        }
+
+        TableItem[] items = widget.getItems();
+        for (int i = 0; i < items.length; i++) {
+            System.out.println(items[i].getBounds());
+        }
+        table.refresh(true);
+    }
+
+    @EventListener(id = "table")
+    public void onTableSelect() {
+        System.out.println(selected);
+
     }
 
     /**

@@ -38,6 +38,8 @@ public class TableColumnRenderer extends
     @Override
     protected void doRender(final TableColumnComponent uiComponent,
             final TableColumn widget) {
+        // widget.pack();
+
         setupColumnMap(uiComponent, widget);
     }
 

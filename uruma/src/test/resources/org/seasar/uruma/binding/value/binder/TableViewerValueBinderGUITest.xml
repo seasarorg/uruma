@@ -3,21 +3,29 @@
   <window id="tableViewerValueBinderGUITest"
     title="TableViewerValueBinderGUITest" defaultButtonId="okButton">
     <gridLayout numColumns="1">
-      <gridData horizontalAlignment="FILL" />
+      <gridData horizontalAlignment="FILL"
+        grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
     </gridLayout>
     <composite id="contents">
       <gridData horizontalAlignment="FILL" />
-      <rowLayout type="VERTICAL" marginWidth="10" marginHeight="10"
-        spacing="10">
-      </rowLayout>
+      <gridLayout numColumns="1">
+        <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+          grabExcessHorizontalSpace="true"
+          grabExcessVerticalSpace="true" widthHint="400"
+          heightHint="100" />
+      </gridLayout>
 
-      <table id="table" style="FULL_SELECTION, MULTI, BORDER"
-        headerVisible="true" linesVisible="true">
-        <tableColumn id="column1" text="Column1" />
-        <tableColumn id="column2" text="Column2" />
-        <tableColumn id="column3" text="Column3" />
-        <tableColumn id="column4" text="Column4" />
+      <table id="table" style="BORDER, FULL_SELECTION, MULTI"
+        headerVisible="true" linesVisible="true" toolTipText="ツールチップ">
+        <tableColumn id="column1" text="Column1" width="100" toolTipText="Column1" />
+        <tableColumn id="column2" text="Column2" width="100" toolTipText="Column2" />
+        <tableColumn id="column3" text="Column3" width="100" toolTipText="Column3" />
+        <tableColumn id="column4" text="Column4" width="100" toolTipText="Column4" />
       </table>
+
+      <button id="select" text="Select">
+        <gridData heightHint="20" />
+      </button>
 
     </composite>
 

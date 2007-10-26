@@ -128,6 +128,8 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
     protected void doExportValue(final WIDGET_TYPE widget,
             final Object formObj, final PropertyDesc propDesc) {
         if (widget instanceof StructuredViewer) {
+            System.out.println("Export!!");
+
             StructuredViewer viewer = StructuredViewer.class.cast(widget);
 
             Class<?> formFieldType = propDesc.getField().getType();
