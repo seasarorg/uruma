@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="eventListenerGUITest" title="EventListenerGUITest" height="400"
+    width="600" defaultButtonId="okButton">
+    <gridLayout numColumns="1" />
+
+    <composite>
+      <gridLayout numColumns="3">
+        <gridData grabExcessVerticalSpace="true" verticalAlignment="FILL" />
+      </gridLayout>
+      <gridData horizontalAlignment="FILL" verticalAlignment="FILL" />
+
+      <button id="button" text="button">
+        <gridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"
+          grabExcessVerticalSpace="true" verticalAlignment="FILL" />
+      </button>
+      <label id="mouseLabel" style="BORDER" text="listen Mouse events" />
+      <text id="text" style="MULTI" text="Text\nand\nMouseWheel" />
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL">
+      <gridData horizontalAlignment="FILL" />
+    </label>
+
+    <text id="eventLog" style="MULTI">
+      <gridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"
+        grabExcessVerticalSpace="true" verticalAlignment="FILL" />
+    </text>
+    
+    <label style="SEPARATOR, HORIZONTAL">
+      <gridData horizontalAlignment="FILL" />
+    </label>
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

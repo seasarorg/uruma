@@ -15,11 +15,11 @@
  */
 package org.seasar.uruma.annotation;
 
-import java.util.StringTokenizer;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.swt.SWT;
 import org.seasar.eclipse.common.util.SWTUtil;
-import org.seasar.framework.util.StringUtil;
 
 /**
  * {@link EventListener} の種別を表す列挙型です。<br />
@@ -229,13 +229,23 @@ public enum EventListenerType {
      */
     MOUSE_WHEEL;
 
+    private static Map<String, Integer> constantMap = new HashMap<String, Integer>();
+
+    static {
+        EventListenerType[] values = EventListenerType.values();
+        for (int i = 0; i < values.length; i++) {
+            constantMap.put(values[i].toString(), SWTUtil
+                    .getSWTConstant(values[i].getName()));
+        }
+    }
+
     /**
      * 名称を取得します。<br />
      * 
      * @return 名称
      */
     public String getName() {
-        return capitalizeConstantName(toString());
+        return SWTUtil.convertConstantName(toString());
     }
 
     /**
@@ -244,17 +254,6 @@ public enum EventListenerType {
      * @return イベント型
      */
     public int getSWTEventType() {
-        String swtConstantName = capitalizeConstantName(toString());
-        return SWTUtil.getSWTConstant(swtConstantName);
-    }
-
-    // TODO 毎回処理するのはパフォーマンス的に問題となるので、マップ化する
-    private String capitalizeConstantName(final String string) {
-        StringTokenizer st = new StringTokenizer(string, "_");
-        StringBuilder builder = new StringBuilder("");
-        while (st.hasMoreTokens()) {
-            builder.append(StringUtil.capitalize(st.nextToken().toLowerCase()));
-        }
-        return builder.toString();
+        return constantMap.get(toString());
     }
 }

@@ -24,11 +24,17 @@ import org.seasar.uruma.annotation.EventListener;
  */
 public class MenuManagerRendererGUITest extends AbstractGUITest {
 
+    /**
+     * <code>accelerator1</code> が選択されたときに呼び出されるメソッドです。<br />
+     */
     @EventListener(id = "accelerator1")
     public void accelerator1() {
         System.out.println("accelerator1 selected");
     }
 
+    /**
+     * <code>accelerator2</code> が選択されたときに呼び出されるメソッドです。<br />
+     */
     @EventListener(id = "accelerator2")
     public void accelerator2() {
         System.out.println("accelerator2 selected");
