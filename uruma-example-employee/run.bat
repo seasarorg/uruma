@@ -1,1 +1,1 @@
-javaw -Dlibrary.path=. -jar s2-jface-example-employee-0.2.0.jar
+javaw -Dlibrary.path=. -jar uruma-example-employee-0.1.0.jar

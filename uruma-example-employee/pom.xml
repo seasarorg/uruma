@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.seasar.jface</groupId>
-  <artifactId>s2-jface-example-employee</artifactId>
-  <version>0.2.0</version>
-  <url>http://s2jface.sandbox.seasar.org/</url>
+  <groupId>org.seasar.uruma</groupId>
+  <artifactId>uruma-example-employee</artifactId>
+  <version>0.1.0</version>
+  <url>http://uruma.sandbox.seasar.org/</url>
   <issueManagement>
     <system>JIRA</system>
-    <url>https://www.seasar.org/issues/browse/JFACE</url>
+    <url>https://www.seasar.org/issues/browse/URUMA</url>
   </issueManagement>
-  <inceptionYear>2006</inceptionYear>
+  <inceptionYear>2007</inceptionYear>
   <mailingLists>
     <mailingList>
       <name>Seasar-user</name>
@@ -18,11 +18,11 @@
       <archive>https://www.seasar.org/mailman/listinfo/seasar-user</archive>
     </mailingList>
     <mailingList>
-      <name>s2jface-dev</name>
-      <subscribe>https://www.seasar.org/mailman/listinfo/s2jface-dev</subscribe>
-      <unsubscribe>https://www.seasar.org/mailman/listinfo/s2jface-dev</unsubscribe>
-      <post>s2jface-dev@ml.seasar.org</post>
-      <archive>http://ml.seasar.org/archives/s2jface-dev/</archive>
+      <name>uruma-dev</name>
+      <subscribe>https://www.seasar.org/mailman/listinfo/uruma-dev</subscribe>
+      <unsubscribe>https://www.seasar.org/mailman/listinfo/uruma-dev</unsubscribe>
+      <post>uruma-dev@ml.seasar.org</post>
+      <archive>http://ml.seasar.org/archives/uruma-dev/</archive>
     </mailingList>
   </mailingLists>
   <developers>
@@ -87,8 +87,8 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>org.seasar.jface.example.employee.EmployeeManagement</mainClass>
-              <packageName>org.seasar.jface.example.employee</packageName>
+              <mainClass>org.seasar.uruma.example.employee.EmployeeManagement</mainClass>
+              <packageName>org.seasar.uruma.example.employee</packageName>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib</classpathPrefix>
             </manifest>
@@ -133,9 +133,9 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>org.seasar.jface</groupId>
-      <artifactId>s2-jface</artifactId>
-      <version>0.2.0</version>
+      <groupId>org.seasar.uruma</groupId>
+      <artifactId>uruma</artifactId>
+      <version>0.1.0</version>
     </dependency>
     <dependency>
       <groupId>org.seasar.container</groupId>
