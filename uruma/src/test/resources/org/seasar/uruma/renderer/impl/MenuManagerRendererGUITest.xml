@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
   <window id="menuManagerRendererGUITest"
-    title="MenuManagerRendererGUITest" defaultButtonId="okButton">
+    title="MenuManagerRendererGUITest" defaultButtonId="okButton"
+    menu="menuBar">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
 
-    <menu>
+    <menu id="menuBar">
       <menu text="Menu1(&amp;M)">
         <menuItem text="Menu1-1(&amp;1)" />
         <menuItem text="Menu1-2(&amp;2)" />
@@ -29,12 +30,33 @@
         <separator />
         <menuItem text="disable" enabled="false" />
         <menuItem image="/images/container.gif" text="イメージ" />
-        <menuItem disabledImage="/images/cross.png" text="ディスエーブルイメージ" enabled="false"/>
+        <menuItem disabledImage="/images/cross.png" text="ディスエーブルイメージ"
+          enabled="false" />
       </menu>
 
       <menu text="UnvisivleMenu(&amp;D)" visible="false">
         <menuItem text="disable1" style="CHECK" selection="true" />
         <menuItem text="disable2" style="CHECK" />
+      </menu>
+    </menu>
+
+    <menu id="contextMenu1">
+      <menuItem text="コンテキストメニュー1"></menuItem>
+      <menuItem text="コンテキストメニュー2"></menuItem>
+      <separator />
+      <menu text="コンテキストメニュー3">
+        <menuItem text="3-1"></menuItem>
+        <menuItem text="3-2"></menuItem>
+      </menu>
+    </menu>
+
+    <menu id="contextMenu2" x="100" y="200">
+      <menuItem text="コンテキストメニュー1"></menuItem>
+      <menuItem text="コンテキストメニュー2"></menuItem>
+      <separator />
+      <menu text="コンテキストメニュー3">
+        <menuItem text="3-1"></menuItem>
+        <menuItem text="3-2"></menuItem>
       </menu>
     </menu>
 
@@ -45,32 +67,9 @@
       </rowLayout>
       <commonAttributes fontHeight="20" />
 
-      <label text="ポップアップメニュー" style="BORDER">
-        <!--         <menu>
-          <menuItem text="コンテキストメニュー1"></menuItem>
-          <menuItem text="コンテキストメニュー2"></menuItem>
-          <separator />
-          <menu text="コンテキストメニュー3">
-          <menuItem text="3-1"></menuItem>
-          <menuItem text="3-2"></menuItem>
-          </menu>
-          </menu>
-        -->
-      </label>
+      <label text="ポップアップメニュー" style="BORDER" menu="contextMenu1"/>
 
-      <label text="ロケーション指定" style="BORDER">
-        <!--
-          <menu x="100" y="200">
-          <menuItem text="コンテキストメニュー1"></menuItem>
-          <menuItem text="コンテキストメニュー2"></menuItem>
-          <separator />
-          <menu text="コンテキストメニュー3">
-          <menuItem text="3-1"></menuItem>
-          <menuItem text="3-2"></menuItem>
-          </menu>
-          </menu>
-        -->
-      </label>
+      <label text="ロケーション指定" style="BORDER" menu="contextMenu2" />
     </composite>
 
     <label style="SEPARATOR, HORIZONTAL" />

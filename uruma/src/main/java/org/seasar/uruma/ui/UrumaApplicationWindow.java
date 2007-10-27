@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.ui;
 
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -38,6 +39,8 @@ import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
+import org.seasar.uruma.exception.NotFoundException;
+import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.renderer.impl.WindowRenderer;
 import org.seasar.uruma.util.S2ContainerUtil;
 
@@ -104,14 +107,15 @@ public class UrumaApplicationWindow extends ApplicationWindow {
         this.partContext = ContextFactory.createPartContext(windowContext,
                 component.getId());
 
+        // プリレンダリング処理を実施
+        component.preRender(null, partContext);
+
         if (!WindowComponent.DEFAULT_ID.equals(windowComponent.getId())) {
             setupActionComponent();
             setupFormComponent();
+
             setupMenuBar();
         }
-
-        // プリレンダリング処理を実施
-        component.preRender(null, partContext);
 
         setupShellStyle(component, modal);
         setupStatusLine();
@@ -194,12 +198,30 @@ public class UrumaApplicationWindow extends ApplicationWindow {
     }
 
     protected void setupMenuBar() {
-        addMenuBar();
-        WidgetHandle handle = ContextFactory
-                .createWidgetHandle(getMenuBarManager());
-        handle.setId(PartContext.ROOT_MENU_MANAGER_ID);
+        String menuId = windowComponent.getMenu();
+        if (!StringUtil.isEmpty(menuId)) {
+            addMenuBar();
+        }
+    }
 
-        this.partContext.putWidgetHandle(handle);
+    /*
+     * @see org.eclipse.jface.window.ApplicationWindow#createMenuManager()
+     */
+    @Override
+    protected MenuManager createMenuManager() {
+        String menuId = windowComponent.getMenu();
+
+        WidgetHandle handle = partContext.getWidgetHandle(menuId);
+        if (handle != null) {
+            if (handle.instanceOf(MenuManager.class)) {
+                return handle.<MenuManager> getCastWidget();
+            } else {
+                throw new RenderException(RenderException.TYPE_ERROR, menuId,
+                        MenuManager.class.getName());
+            }
+        } else {
+            throw new NotFoundException(NotFoundException.UICOMPONENT, menuId);
+        }
     }
 
     protected void setupStatusLine() {

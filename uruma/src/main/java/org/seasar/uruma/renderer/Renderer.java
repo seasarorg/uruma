@@ -25,7 +25,6 @@ import org.seasar.uruma.context.WidgetHandle;
  * @author y-komori
  */
 public interface Renderer {
-    // TODO 引数に PartContext は不要?
     /**
      * レンダリングを行います。</br>
      * <p>

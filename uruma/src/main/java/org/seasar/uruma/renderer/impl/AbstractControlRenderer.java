@@ -17,11 +17,14 @@ package org.seasar.uruma.renderer.impl;
 
 import java.util.List;
 
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.component.CommonAttributes;
 import org.seasar.uruma.component.LayoutDataInfo;
@@ -30,6 +33,10 @@ import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.UIControlComponent;
 import org.seasar.uruma.component.impl.ControlComponent;
+import org.seasar.uruma.component.impl.MenuComponent;
+import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.exception.NotFoundException;
+import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.renderer.RendererSupportUtil;
 import org.seasar.uruma.renderer.layout.LayoutSupport;
 import org.seasar.uruma.renderer.layout.LayoutSupportFactory;
@@ -72,6 +79,7 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         setLocation(controlComponent, control);
         setSize(controlComponent, control);
         setFont(controlComponent, control);
+        setMenu(controlComponent, control);
 
         doRenderControl(uiComponent, control);
 
@@ -110,6 +118,33 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
                 controlComponent.getFontStyle(), controlComponent
                         .getFontHeight());
         control.setFont(font);
+    }
+
+    protected void setMenu(final ControlComponent controlComponent,
+            final Control control) {
+        String menuId = controlComponent.getMenu();
+        if (!StringUtil.isEmpty(menuId)) {
+            WidgetHandle handle = getContext().getWidgetHandle(menuId);
+            if (handle != null) {
+                if (handle.instanceOf(MenuManager.class)) {
+                    MenuManager manager = handle.<MenuManager> getCastWidget();
+                    Menu menu = manager.createContextMenu(control);
+                    MenuComponent menuComponent = (MenuComponent) handle
+                            .getUiComponent();
+                    MenuManagerRenderer renderer = (MenuManagerRenderer) menuComponent
+                            .getRenderer();
+                    renderer.renderMenu(menuComponent, menu);
+
+                    control.setMenu(menu);
+                } else {
+                    throw new RenderException(RenderException.TYPE_ERROR,
+                            menuId, MenuManager.class.getName());
+                }
+            } else {
+                throw new NotFoundException(NotFoundException.UICOMPONENT,
+                        menuId);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

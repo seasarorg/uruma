@@ -16,6 +16,8 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.swt.widgets.Menu;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.impl.MenuComponent;
 import org.seasar.uruma.context.PartContext;
@@ -40,10 +42,8 @@ public class MenuManagerRenderer extends AbstractRenderer {
         setContext(context);
 
         if (parent == null) {
-            MenuManager rootMenuManager = getRootMenuManager();
-
             WidgetHandle handle = createWidgetHandle(uiComponent,
-                    rootMenuManager);
+                    createMenuManager());
 
             return handle;
         } else if (parent.getUiComponent() instanceof MenuComponent) {
@@ -60,6 +60,22 @@ public class MenuManagerRenderer extends AbstractRenderer {
             return handle;
         }
         return null;
+    }
+
+    /**
+     * メニューのレンダリングを行います。<br />
+     * 
+     * @param menuComponent
+     *            {@link MenuComponent} オブジェクト
+     * @param menu
+     *            {@link Menu} オブジェクト
+     */
+    public void renderMenu(final MenuComponent menuComponent, final Menu menu) {
+        String x = menuComponent.getX();
+        String y = menuComponent.getY();
+        if (!StringUtil.isEmpty(x) && !StringUtil.isEmpty(y)) {
+            menu.setLocation(Integer.valueOf(x), Integer.valueOf(y));
+        }
     }
 
     /*
@@ -93,9 +109,7 @@ public class MenuManagerRenderer extends AbstractRenderer {
         }
     }
 
-    protected MenuManager getRootMenuManager() {
-        WidgetHandle handle = getContext().getWidgetHandle(
-                PartContext.ROOT_MENU_MANAGER_ID);
-        return handle.<MenuManager> getCastWidget();
+    protected MenuManager createMenuManager() {
+        return new MenuManager();
     }
 }

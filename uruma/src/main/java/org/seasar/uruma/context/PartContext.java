@@ -35,9 +35,9 @@ public interface PartContext extends WidgetHolder {
     public static final String SHELL_ID = "shell";
 
     /**
-     * {@link IMenuManager} が登録される ID です。<br />
+     * メニューバー用の {@link IMenuManager} が登録される ID です。<br />
      */
-    public static final String ROOT_MENU_MANAGER_ID = "rootMenuManager";
+    public static final String MENU_BAR_MANAGER_ID = "menuBarManager";
 
     /**
      * ウィンドウパートの名称を返します。<br />

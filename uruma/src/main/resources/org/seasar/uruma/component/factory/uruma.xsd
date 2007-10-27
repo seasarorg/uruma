@@ -25,6 +25,8 @@
         <xs:extension base="tns:Decorations">
           <xs:sequence>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="tns:menu" minOccurs="0"
+                maxOccurs="unbounded" />
               <xs:group ref="tns:compositeElems" minOccurs="0"
                 maxOccurs="unbounded" />
             </xs:choice>
@@ -118,7 +120,6 @@
   <xs:group name="controlElems">
     <xs:choice>
       <xs:element ref="tns:layoutData" minOccurs="0" maxOccurs="1" />
-      <xs:element ref="tns:menu" minOccurs="0" maxOccurs="1" />
     </xs:choice>
   </xs:group>
   <xs:group name="compositeElems">
@@ -1110,6 +1111,7 @@
         <xs:attribute name="fontName" type="xs:string" />
         <xs:attribute name="fontStyle" type="tns:SWTConst" />
         <xs:attribute name="foreground" type="tns:Color" />
+        <xs:attribute name="menu" type="xs:string" />
         <xs:attribute name="toolTipText" type="xs:string" />
         <xs:attribute name="visible" type="xs:boolean" />
         <xs:attribute name="enabledDependId" type="xs:string" />

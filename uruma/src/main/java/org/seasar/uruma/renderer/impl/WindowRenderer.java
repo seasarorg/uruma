@@ -175,30 +175,58 @@ public class WindowRenderer extends
         }
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractWidgetRenderer#getWidgetType()
+     */
     @Override
     protected Class<Composite> getWidgetType() {
         return Composite.class;
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractRenderer#getDefaultStyle()
+     */
     @Override
     protected int getDefaultStyle() {
         return SWT.SHELL_TRIM;
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     *      org.eclipse.swt.widgets.Composite)
+     */
     @Override
     protected void doRenderComposite(final WindowComponent compositeComponent,
             final Composite composite) {
         // Do nothing.
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#setLocation(org.seasar.uruma.component.impl.ControlComponent,
+     *      org.eclipse.swt.widgets.Control)
+     */
     @Override
     protected void setLocation(final ControlComponent controlComponent,
             final Control control) {
         // Do nothing.
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#setSize(org.seasar.uruma.component.impl.ControlComponent,
+     *      org.eclipse.swt.widgets.Control)
+     */
     @Override
     protected void setSize(final ControlComponent controlComponent,
+            final Control control) {
+        // Do nothing.
+    }
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#setMenu(org.seasar.uruma.component.impl.ControlComponent,
+     *      org.eclipse.swt.widgets.Control)
+     */
+    @Override
+    protected void setMenu(final ControlComponent controlComponent,
             final Control control) {
         // Do nothing.
     }

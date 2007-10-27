@@ -84,6 +84,10 @@ public abstract class ControlComponent extends AbstractUIComponent implements
     @FieldDescription("Y座標")
     private String y;
 
+    @RenderingPolicy(targetType = TargetType.NONE)
+    @FieldDescription("メニューのID")
+    private String menu;
+
     /**
      * 背景色を取得します。<br />
      * 
@@ -329,6 +333,25 @@ public abstract class ControlComponent extends AbstractUIComponent implements
      */
     public void setY(final String y) {
         this.y = y;
+    }
+
+    /**
+     * メニューのIDを取得します。<br />
+     * 
+     * @return メニューのID
+     */
+    public String getMenu() {
+        return this.menu;
+    }
+
+    /**
+     * メニューのIDを設定します。
+     * 
+     * @param menu
+     *            メニューのID
+     */
+    public void setMenu(final String menu) {
+        this.menu = menu;
     }
 
     /*
