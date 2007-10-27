@@ -32,7 +32,6 @@ import org.seasar.uruma.renderer.RendererSupportUtil;
  * @author bskuroneko
  */
 public class MenuItemRenderer extends AbstractRenderer {
-
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractRenderer#preRender(org.seasar.uruma.component.UIComponent,
      *      org.seasar.uruma.context.WidgetHandle,
@@ -42,11 +41,12 @@ public class MenuItemRenderer extends AbstractRenderer {
     public WidgetHandle preRender(final UIComponent uiComponent,
             final WidgetHandle parent, final PartContext context) {
 
-        IAction action = new GenericAction();
         MenuItemComponent menuItemComponent = (MenuItemComponent) uiComponent;
+        IAction action = new GenericAction(null, getStyle(menuItemComponent));
 
         setText(action, menuItemComponent);
         setAccelerator(action, menuItemComponent);
+        setChecked(action, menuItemComponent);
         setEnabled(action, menuItemComponent);
         setImageDescriptor(action, menuItemComponent);
 
@@ -80,6 +80,19 @@ public class MenuItemRenderer extends AbstractRenderer {
         // Do nothing.
     }
 
+    protected int getStyle(final MenuItemComponent menuItemComponent) {
+        String style = menuItemComponent.getStyle();
+        if (MenuItemComponent.PUSH.equals(style)) {
+            return IAction.AS_PUSH_BUTTON;
+        } else if (MenuItemComponent.RADIO.equals(style)) {
+            return IAction.AS_RADIO_BUTTON;
+        } else if (MenuItemComponent.CHECK.equals(style)) {
+            return IAction.AS_CHECK_BOX;
+        } else {
+            return IAction.AS_PUSH_BUTTON;
+        }
+    }
+
     protected void setText(final IAction action,
             final MenuItemComponent menuItemComponent) {
         String text = menuItemComponent.getText();
@@ -94,6 +107,14 @@ public class MenuItemRenderer extends AbstractRenderer {
         if (accelStr != null) {
             action.setAccelerator(RendererSupportUtil
                     .convertAccelerator(accelStr));
+        }
+    }
+
+    protected void setChecked(final IAction action,
+            final MenuItemComponent menuItemComponent) {
+        String selection = menuItemComponent.getSelection();
+        if (selection != null) {
+            action.setChecked(RendererSupportUtil.convertBoolean(selection));
         }
     }
 

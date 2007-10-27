@@ -19,7 +19,7 @@
         </menu>
       </menu>
 
-      <menu text="Menu2" defaultItemId="defaultItem">
+      <menu text="Menu2">
         <menuItem text="チェック(select)" style="CHECK" selection="true" />
         <menuItem text="チェック" style="CHECK" />
         <separator />
@@ -27,7 +27,6 @@
         <menuItem text="ラジオ2(select)" style="RADIO" selection="true" />
         <menuItem text="ラジオ3" style="RADIO" />
         <separator />
-        <menuItem id="defaultItem" text="デフォルト" />
         <menuItem text="disable" enabled="false" />
         <menuItem image="/images/container.gif" text="イメージ" />
       </menu>

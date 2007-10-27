@@ -119,7 +119,6 @@
     <xs:choice>
       <xs:element ref="tns:layoutData" minOccurs="0" maxOccurs="1" />
       <xs:element ref="tns:menu" minOccurs="0" maxOccurs="1" />
-      <xs:element ref="tns:menuManager" minOccurs="0" maxOccurs="1" />
     </xs:choice>
   </xs:group>
   <xs:group name="compositeElems">
@@ -267,7 +266,6 @@
             <xs:element ref="tns:separator" />
           </xs:choice>
           <xs:attribute name="text" type="xs:string" />
-          <xs:attribute name="defaultItemId" type="xs:string" />
           <xs:attribute name="visible" type="xs:boolean" default="true"/>
           <xs:attribute name="x" type="xs:int" />
           <xs:attribute name="y" type="xs:int" />
@@ -312,17 +310,6 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="menuManager">
-    <xs:complexType>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="tns:action" />
-        <xs:element ref="tns:separator" />
-        <xs:element ref="tns:menuManager" />
-      </xs:choice>
-      <xs:attribute name="text" type="xs:string" />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="action" type="xs:string" />
   <xs:element name="separator" />
 
   <!-- canvas -->

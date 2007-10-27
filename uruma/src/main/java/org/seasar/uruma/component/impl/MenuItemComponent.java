@@ -26,6 +26,20 @@ import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
  * @author y-komori
  */
 public class MenuItemComponent extends AbstractItemComponent {
+    /**
+     * プッシュボタンスタイルを表す文字列です。<br />
+     */
+    public static final String PUSH = "PUSH";
+
+    /**
+     * ラジオボタンスタイルを表す文字列です。<br />
+     */
+    public static final String RADIO = "RADIO";
+
+    /**
+     * チェックボックススタイルを表す文字列です。<br />
+     */
+    public static final String CHECK = "CHECK";
 
     @RenderingPolicy(conversionType = ConversionType.ACCELERATOR)
     @FieldDescription("アクセラレータ")
