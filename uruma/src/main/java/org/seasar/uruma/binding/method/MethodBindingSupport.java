@@ -84,20 +84,30 @@ public class MethodBindingSupport {
         for (String id : ids) {
             WidgetHandle handle = context.getWidgetHandle(id);
             if (handle != null) {
-                Widget widget;
                 if (handle.instanceOf(Viewer.class)) {
-                    widget = handle.<Viewer> getCastWidget().getControl();
+                    Widget widget = handle.<Viewer> getCastWidget()
+                            .getControl();
+                    setListenerToWidget(widget, eventListenerDef, listener);
                 } else if (handle.instanceOf(Widget.class)) {
-                    widget = handle.<Widget> getCastWidget();
+                    Widget widget = handle.<Widget> getCastWidget();
+                    setListenerToWidget(widget, eventListenerDef, listener);
+                } else if (handle.instanceOf(GenericAction.class)) {
+                    GenericAction action = handle
+                            .<GenericAction> getCastWidget();
+                    action.setListener(listener);
                 } else {
                     throw new UnsupportedClassException(handle.getWidgetClass());
                 }
-                widget.addListener(eventListenerDef.getEventListener().type()
-                        .getSWTEventType(), listener);
             } else {
                 String className = targetMethod.getDeclaringClass().getName();
                 throw new WidgetNotFoundException(id, className);
             }
         }
+    }
+
+    private static void setListenerToWidget(final Widget widget,
+            final EventListenerDef def, final Listener listener) {
+        widget.addListener(def.getEventListener().type().getSWTEventType(),
+                listener);
     }
 }

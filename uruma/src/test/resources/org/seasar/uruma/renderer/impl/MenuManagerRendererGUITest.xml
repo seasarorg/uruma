@@ -32,7 +32,7 @@
         <menuItem image="/images/container.gif" text="イメージ" />
       </menu>
 
-      <menu text="DisableMenu(&amp;D)" enabled="false">
+      <menu text="UnvisivleMenu(&amp;D)" visible="false">
         <menuItem text="disable1" style="CHECK" selection="true" />
         <menuItem text="disable2" style="CHECK" />
       </menu>

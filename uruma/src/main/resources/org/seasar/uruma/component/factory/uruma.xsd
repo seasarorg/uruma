@@ -268,7 +268,7 @@
           </xs:choice>
           <xs:attribute name="text" type="xs:string" />
           <xs:attribute name="defaultItemId" type="xs:string" />
-          <xs:attribute name="enabled" type="xs:boolean" />
+          <xs:attribute name="visible" type="xs:boolean" default="true"/>
           <xs:attribute name="x" type="xs:int" />
           <xs:attribute name="y" type="xs:int" />
           <xs:attribute name="enabledDependId" type="xs:string" />

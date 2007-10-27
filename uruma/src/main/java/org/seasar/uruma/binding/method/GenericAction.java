@@ -13,59 +13,103 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.action;
+package org.seasar.uruma.binding.method;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.swt.events.HelpListener;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 
 /**
- * ダミーのアクションクラスです。<br />
+ * 汎用的な {@link IAction} クラスです。<br />
  * 
  * @author y-komori
  */
-public class DummyAction extends Action {
+public class GenericAction extends Action {
+
+    private Listener listener;
+
     /**
-     * {@link DummyAction} を構築します。<br />
+     * {@link GenericAction} を構築します。<br />
      * 
      */
-    public DummyAction() {
+    public GenericAction() {
         super();
     }
 
     /**
-     * {@link DummyAction} を構築します。<br />
+     * {@link GenericAction} を構築します。<br />
      * 
      * @param text
      *            テキスト
+     * @See {@link IAction}
      */
-    public DummyAction(final String text) {
+    public GenericAction(final String text) {
         super(text);
     }
 
     /**
-     * {@link DummyAction} を構築します。<br />
+     * {@link GenericAction} を構築します。<br />
      * 
      * @param text
      *            テキスト
      * @param style
      *            スタイル
+     * @See {@link IAction}
      */
-    public DummyAction(final String text, final int style) {
+    public GenericAction(final String text, final int style) {
         super(text, style);
     }
 
+    /**
+     * {@link Listener} を設定します。<br />
+     * 
+     * @param listener
+     *            {@link Listener} オブジェクト
+     */
+    public void setListener(final Listener listener) {
+        this.listener = listener;
+    }
+
+    /*
+     * @see org.eclipse.jface.action.Action#run()
+     */
+    @Override
+    public void runWithEvent(final Event event) {
+        // TODO 例外のハンドリングが必要
+        if (listener != null) {
+            listener.handleEvent(event);
+        }
+    }
+
+    /*
+     * @see org.eclipse.jface.action.Action#run()
+     */
+    @Override
+    public void run() {
+        runWithEvent(null);
+    }
+
+    /*
+     * @see org.eclipse.jface.action.Action#setHelpListener(org.eclipse.swt.events.HelpListener)
+     */
     @Override
     @Binding(bindingType = BindingType.MAY)
     public void setHelpListener(final HelpListener listener) {
         super.setHelpListener(listener);
     }
 
+    /*
+     * @see org.eclipse.jface.action.Action#setMenuCreator(org.eclipse.jface.action.IMenuCreator)
+     */
     @Override
     @Binding(bindingType = BindingType.MAY)
     public void setMenuCreator(final IMenuCreator creator) {
         super.setMenuCreator(creator);
     }
+
 }

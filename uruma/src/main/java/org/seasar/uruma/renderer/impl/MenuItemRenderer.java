@@ -18,11 +18,13 @@ package org.seasar.uruma.renderer.impl;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.MenuItem;
-import org.seasar.uruma.action.DummyAction;
+import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.binding.method.GenericAction;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.impl.MenuItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.renderer.RendererSupportUtil;
 
 /**
  * {@link MenuItem} のレンダリングを行うクラスです。<br />
@@ -40,9 +42,13 @@ public class MenuItemRenderer extends AbstractRenderer {
     public WidgetHandle preRender(final UIComponent uiComponent,
             final WidgetHandle parent, final PartContext context) {
 
+        IAction action = new GenericAction();
         MenuItemComponent menuItemComponent = (MenuItemComponent) uiComponent;
 
-        IAction action = new DummyAction(menuItemComponent.getText());
+        setText(action, menuItemComponent);
+        setAccelerator(action, menuItemComponent);
+        setEnabled(action, menuItemComponent);
+        setImageDescriptor(action, menuItemComponent);
 
         MenuManager parentMenuManager = parent.<MenuManager> getCastWidget();
         parentMenuManager.add(action);
@@ -73,4 +79,40 @@ public class MenuItemRenderer extends AbstractRenderer {
             final PartContext context) {
         // Do nothing.
     }
+
+    protected void setText(final IAction action,
+            final MenuItemComponent menuItemComponent) {
+        String text = menuItemComponent.getText();
+        if (!StringUtil.isEmpty(text)) {
+            action.setText(RendererSupportUtil.convertText(text));
+        }
+    }
+
+    protected void setAccelerator(final IAction action,
+            final MenuItemComponent menuItemComponent) {
+        String accelStr = menuItemComponent.getAccelerator();
+        if (accelStr != null) {
+            action.setAccelerator(RendererSupportUtil
+                    .convertAccelerator(accelStr));
+        }
+    }
+
+    protected void setEnabled(final IAction action,
+            final MenuItemComponent menuItemComponent) {
+        String checked = menuItemComponent.getEnabled();
+        if (checked != null) {
+            action.setEnabled(RendererSupportUtil.convertBoolean(checked));
+        }
+    }
+
+    protected void setImageDescriptor(final IAction action,
+            final MenuItemComponent menuItemComponent) {
+        String path = menuItemComponent.getImage();
+        if (!StringUtil.isEmpty(path)) {
+            action.setImageDescriptor(RendererSupportUtil
+                    .convertImageDescriptor(path, menuItemComponent
+                            .getBasePath()));
+        }
+    }
+
 }

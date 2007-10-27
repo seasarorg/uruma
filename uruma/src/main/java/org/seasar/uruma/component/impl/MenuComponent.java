@@ -40,8 +40,8 @@ public class MenuComponent extends MenuItemComponent implements UIContainer {
     private String defaultItemId;
 
     @RenderingPolicy(targetType = TargetType.NONE)
-    @FieldDescription("イネーブル状態")
-    private String enabled;
+    @FieldDescription("可視状態")
+    private String visible;
 
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("X 座標")
@@ -72,25 +72,23 @@ public class MenuComponent extends MenuItemComponent implements UIContainer {
         this.defaultItemId = defaultItemId;
     }
 
-    @Override
     /**
-     * イネーブル状態を取得します。<br />
+     * 可視状態を取得します。<br />
      * 
-     * @return イネーブル状態
+     * @return 可視状態
      */
-    public String getEnabled() {
-        return this.enabled;
+    public String getVisible() {
+        return this.visible;
     }
 
-    @Override
     /**
-     * イネーブル状態を設定します。<br />
+     * 可視状態を設定します。<br />
      * 
-     * @param enabled
-     *            イネーブル状態
+     * @param visible
+     *            可視状態
      */
-    public void setEnabled(final String enabled) {
-        this.enabled = enabled;
+    public void setVisible(final String visible) {
+        this.visible = visible;
     }
 
     /**

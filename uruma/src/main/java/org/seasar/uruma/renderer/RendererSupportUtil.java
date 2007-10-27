@@ -19,7 +19,9 @@ import java.lang.reflect.Field;
 import java.util.StringTokenizer;
 
 import org.eclipse.jface.action.LegacyActionTools;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
@@ -124,45 +126,197 @@ public class RendererSupportUtil {
      */
     public static Object convertValue(final UIElement src, final String value,
             final ConversionType conversionType) {
+
         if (conversionType == ConversionType.STRING) {
             return value;
         } else if (conversionType == ConversionType.TEXT) {
-            String text = value.replace("\\n", "\n");
-            text = text.replace("\\t", "\t");
-            if (text.startsWith("\"") && text.endsWith("\"")) {
-                text = text.substring(1, text.length() - 1);
-            }
-            return text;
+            return convertText(value);
         } else if (conversionType == ConversionType.BOOLEAN) {
-            return Boolean.valueOf(value);
+            return convertBoolean(value);
         } else if (conversionType == ConversionType.INT) {
-            return new Integer(value);
+            return convertInt(value);
         } else if (conversionType == ConversionType.INT_ARRAY) {
-            StringTokenizer tokenizer = new StringTokenizer(value, ",");
-            int[] result = new int[tokenizer.countTokens()];
-            for (int i = 0; tokenizer.hasMoreTokens(); i++) {
-                String token = tokenizer.nextToken();
-                result[i] = Integer.parseInt(token.trim());
-            }
-            return result;
+            return convertIntArray(value);
         } else if (conversionType == ConversionType.CHAR) {
-            assert value.length() == 1;
-            return Character.valueOf(value.charAt(0));
+            return convertCharacter(value);
         } else if (conversionType == ConversionType.SWT_CONST) {
-            return SWTUtil.getStyle(value);
+            return convertSwtConst(value);
         } else if (conversionType == ConversionType.COLOR) {
-            return SWTUtil.getColor(value);
+            return convertColor(value);
         } else if (conversionType == ConversionType.IMAGE) {
-            Image image = ImageManager.getImage(value);
-            if (image == null) {
-                String path = PathUtil.createPath(src.getBasePath(), value);
-                image = ImageManager.loadImage(path);
-            }
-            return image;
+            return convertImage(value, src.getBasePath());
         } else if (conversionType == ConversionType.ACCELERATOR) {
-            return LegacyActionTools.convertAccelerator(value);
+            return convertAccelerator(value);
         }
         return null;
+    }
+
+    /**
+     * テキストの変換を行います。<br />
+     * 
+     * @param value
+     *            変換対象
+     * @return 変換結果
+     */
+    public static String convertText(final String value) {
+        String text = value.replace("\\n", "\n");
+        text = text.replace("\\t", "\t");
+        if (text.startsWith("\"") && text.endsWith("\"")) {
+            text = text.substring(1, text.length() - 1);
+        }
+        return text;
+    }
+
+    /**
+     * <code>boolean</code> 型への変換を行います。<br />
+     * 
+     * @param value
+     *            変換対象
+     * @return 変換結果
+     */
+    public static boolean convertBoolean(final String value) {
+        return Boolean.valueOf(value).booleanValue();
+    }
+
+    /**
+     * <code>int</code> 型への変換を行います。<br />
+     * 
+     * @param value
+     *            変換対象
+     * @return 変換結果
+     */
+    public static int convertInt(final String value) {
+        return Integer.valueOf(value).intValue();
+    }
+
+    /**
+     * カンマ区切りの数値を <code>int</code> 型配列へ変換します。<br />
+     * 
+     * @param value
+     *            変換対象
+     * @return 変換結果
+     */
+    public static int[] convertIntArray(final String value) {
+        StringTokenizer tokenizer = new StringTokenizer(value, ",");
+        int[] result = new int[tokenizer.countTokens()];
+        for (int i = 0; tokenizer.hasMoreTokens(); i++) {
+            String token = tokenizer.nextToken();
+            result[i] = convertInt(token.trim());
+        }
+        return result;
+    }
+
+    /**
+     * {@link Character} 型への変換を行います。<br />
+     * 
+     * @param value
+     *            変換対象
+     * @return 変換結果
+     */
+    public static Character convertCharacter(final String value) {
+        if (value.length() > 0) {
+            return Character.valueOf(value.charAt(0));
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * {@link SWT} 定数への変換を行います。<br />
+     * 
+     * @param value
+     *            変換対象
+     * @return 変換結果
+     * @see SWTUtil#getStyle(String)
+     */
+    public static int convertSwtConst(final String value) {
+        return SWTUtil.getStyle(value);
+    }
+
+    /**
+     * {@link Color} オブジェクトへの変換を行います。<br />
+     * 
+     * @param value
+     *            変換対象
+     * @return 変換結果
+     * @see SWTUtil#getColor(String)
+     */
+    public static Color convertColor(final String value) {
+        return SWTUtil.getColor(value);
+    }
+
+    /**
+     * <code>value</code> の示すパスからイメージを読み込みます。<br />
+     * 
+     * @param value
+     *            パス
+     * @param basePath
+     *            ベースパス
+     * @return 変換結果
+     * @see ImageManager
+     */
+    public static Image convertImage(final String value, final String basePath) {
+        Image image = ImageManager.getImage(value);
+        if (image == null) {
+            String path = PathUtil.createPath(basePath, value);
+            image = ImageManager.loadImage(path);
+        }
+        return image;
+    }
+
+    /**
+     * <code>value</code> の示すパスからイメージを読み込みます。<br />
+     * 
+     * @param value
+     *            パス
+     * @return 変換結果
+     * @see ImageManager
+     */
+    public static Image convertImage(final String value) {
+        return convertImage(value, "");
+    }
+
+    /**
+     * <code>value</code> のパスの指すイメージを表す {@link ImageDescriptor} を返します。<br />
+     * 
+     * @param value
+     *            パス
+     * @param basePath
+     *            ベースパス
+     * @return 変換結果
+     * @see ImageManager
+     */
+    public static ImageDescriptor convertImageDescriptor(final String value,
+            final String basePath) {
+        ImageDescriptor image = ImageManager.getImageDescriptor(value);
+        if (image == null) {
+            String path = PathUtil.createPath(basePath, value);
+            image = ImageManager.loadImageDescriptor(path);
+        }
+        return image;
+    }
+
+    /**
+     * <code>value</code> のパスの指すイメージを表す {@link ImageDescriptor} を返します。<br />
+     * 
+     * @param value
+     *            パス
+     * @return 変換結果
+     * @see ImageManager
+     */
+    public static ImageDescriptor convertImageDescriptor(final String value) {
+        return convertImageDescriptor(value, "");
+    }
+
+    /**
+     * キーアクセラレータの <code>int</code> 値への変換を行います<br />。
+     * 
+     * @param value
+     *            変換対象
+     * @return 変換結果
+     */
+    public static int convertAccelerator(final String value) {
+        return LegacyActionTools.convertAccelerator(value);
     }
 
     /**

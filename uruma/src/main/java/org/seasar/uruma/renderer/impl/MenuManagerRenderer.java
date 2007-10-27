@@ -16,8 +16,6 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.swt.widgets.Menu;
-import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.impl.MenuComponent;
 import org.seasar.uruma.context.PartContext;
@@ -52,7 +50,7 @@ public class MenuManagerRenderer extends AbstractRenderer {
             MenuComponent menuComponent = (MenuComponent) uiComponent;
 
             MenuManager menuManager = new MenuManager(menuComponent.getText());
-            // renderMenu(uiComponent, menuManager.getMenu());
+            setVisivle(menuComponent, menuManager);
 
             MenuManager parentManager = parent.<MenuManager> getCastWidget();
             parentManager.add(menuManager);
@@ -87,8 +85,12 @@ public class MenuManagerRenderer extends AbstractRenderer {
         // Do nothing.
     }
 
-    protected void renderMenu(final UIComponent uiComponent, final Menu menu) {
-        RendererSupportUtil.setAttributes(uiComponent, menu, SetTiming.RENDER);
+    protected void setVisivle(final MenuComponent menuComponent,
+            final MenuManager menuManager) {
+        String visible = menuComponent.getVisible();
+        if (visible != null) {
+            menuManager.setVisible(RendererSupportUtil.convertBoolean(visible));
+        }
     }
 
     protected MenuManager getRootMenuManager() {
