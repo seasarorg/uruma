@@ -17,22 +17,22 @@ package org.seasar.uruma.example.employee.action;
 
 import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Shell;
-import org.seasar.jface.annotation.EventListener;
+import org.seasar.uruma.annotation.EventListener;
 
 /**
  * @author bskuroneko
  */
 public class AboutAction {
 
-    private Shell shell;
+	public Shell shell;
 
-    @EventListener(id = "S2JFaceLink")
-    public void onS2JFaceLink() {
-        Program.launch("http://s2jface.sandbox.seasar.org/");
-    }
+	@EventListener(id = "urumaLink")
+	public void onS2JFaceLink() {
+		Program.launch("http://uruma.sandbox.seasar.org/");
+	}
 
-    @EventListener(id = "ok")
-    public void onOk() {
-        shell.close();
-    }
+	@EventListener(id = "ok")
+	public void onOk() {
+		shell.close();
+	}
 }

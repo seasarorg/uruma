@@ -15,13 +15,11 @@
  */
 package org.seasar.uruma.example.employee.action;
 
-import javax.annotation.Resource;
-
 import org.eclipse.swt.widgets.Shell;
-import org.seasar.jface.annotation.ArgumentValue;
-import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.InitializeMethod;
-import org.seasar.jface.annotation.ReturnValue;
+import org.seasar.uruma.annotation.ArgumentValue;
+import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.InitializeMethod;
+import org.seasar.uruma.annotation.ReturnValue;
 import org.seasar.uruma.example.employee.dto.DepartmentDto;
 import org.seasar.uruma.example.employee.dto.EmployeeDto;
 import org.seasar.uruma.example.employee.dxo.EmployeeEditFormDxo;
@@ -32,21 +30,19 @@ import org.seasar.uruma.example.employee.logic.EmployeeLogic;
  * @author bskuroneko
  */
 public abstract class AbstractEditAction {
-	@Resource
-	protected EmployeeLogic employeeLogic;
+	public EmployeeLogic employeeLogic;
 
-	@Resource
-	protected EmployeeEditFormDxo employeeEditFormDxo;
+	public EmployeeEditFormDxo employeeEditFormDxo;
 
-	protected Shell shell;
+	public Shell shell;
 
-	protected EmployeeEditForm employeeEditForm;
+	public EmployeeEditForm employeeEditForm;
 
 	@ArgumentValue
-	protected EmployeeDto editEmployee;
+	public EmployeeDto editEmployee;
 
 	@ReturnValue
-	private EmployeeDto result;
+	public EmployeeDto result;
 
 	@InitializeMethod
 	public void initialize() {
@@ -67,7 +63,7 @@ public abstract class AbstractEditAction {
 
 	abstract protected EmployeeDto doUpdateOrInsert(EmployeeDto employeeDto);
 
-	public void setEmployeeEditForm(EmployeeEditForm employeeEditForm) {
+	public void setEmployeeEditForm(final EmployeeEditForm employeeEditForm) {
 		this.employeeEditForm = employeeEditForm;
 	}
 }

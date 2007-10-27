@@ -15,15 +15,10 @@
  */
 package org.seasar.uruma.example.employee.action;
 
-import javax.annotation.Resource;
-
 import org.eclipse.swt.widgets.Shell;
-import org.seasar.framework.container.annotation.tiger.InterType;
-import org.seasar.framework.container.annotation.tiger.Property;
-import org.seasar.framework.container.annotation.tiger.PropertyType;
-import org.seasar.jface.annotation.ArgumentValue;
-import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.InitializeMethod;
+import org.seasar.uruma.annotation.ArgumentValue;
+import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.example.employee.dto.EmployeeDto;
 import org.seasar.uruma.example.employee.dxo.InquireFormDxo;
 import org.seasar.uruma.example.employee.form.InquireForm;
@@ -32,27 +27,22 @@ import org.seasar.uruma.example.employee.form.InquireForm;
  * @author bskuroneko
  */
 public class InquireAction {
-    private Shell shell;
-    
-    private InquireForm inquireForm;
-    
-    @Resource
-    private InquireFormDxo inquireFormDxo;
+	private Shell shell;
 
-    @ArgumentValue
-    private EmployeeDto inquireEmployee;
+	public InquireForm inquireForm;
 
-    @InitializeMethod
-    public void initialize() {
-        inquireFormDxo.convert(inquireEmployee, inquireForm);
-    }
+	public InquireFormDxo inquireFormDxo;
 
-    @EventListener(id = "ok")
-    public void onOk() {
-        shell.close();
-    }
-    
-    public void setInquireForm(InquireForm inquireForm) {
-        this.inquireForm = inquireForm;
-    }
+	@ArgumentValue
+	public EmployeeDto inquireEmployee;
+
+	@InitializeMethod
+	public void initialize() {
+		inquireFormDxo.convert(inquireEmployee, inquireForm);
+	}
+
+	@EventListener(id = "ok")
+	public void onOk() {
+		shell.close();
+	}
 }

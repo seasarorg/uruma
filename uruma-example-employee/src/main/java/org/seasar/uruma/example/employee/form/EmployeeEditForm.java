@@ -17,130 +17,131 @@ package org.seasar.uruma.example.employee.form;
 
 import java.util.List;
 
-import org.seasar.jface.annotation.ExportSelection;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.ImportExportValue;
-import org.seasar.jface.annotation.ImportSelection;
+import org.seasar.uruma.annotation.ExportSelection;
+import org.seasar.uruma.annotation.ExportValue;
+import org.seasar.uruma.annotation.ImportExportValue;
+import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.example.employee.dto.DepartmentDto;
 
 public class EmployeeEditForm {
-    @ImportExportValue
-    private String empno;
+	@ImportExportValue
+	private String empno;
 
-    @ImportExportValue
-    private String ename;
+	@ImportExportValue
+	private String ename;
 
-    @ImportExportValue
-    private String job;
+	@ImportExportValue
+	private String job;
 
-    @ImportExportValue
-    private String mgr;
+	@ImportExportValue
+	private String mgr;
 
-    @ImportExportValue
-    private String hiredate;
+	@ImportExportValue
+	private String hiredate;
 
-    @ImportExportValue
-    private String sal;
+	@ImportExportValue
+	private String sal;
 
-    @ImportExportValue
-    private String comm;
+	@ImportExportValue
+	private String comm;
 
-    @ExportValue(id = "dept")
-    private List<DepartmentDto> deptList;
+	@ExportValue(id = "dept")
+	private List<DepartmentDto> deptList;
 
-    @ExportSelection(id = "dept")
-    @ImportSelection(id = "dept")
-    private DepartmentDto selectedDepartmentDto;
+	@ExportSelection(id = "dept")
+	@ImportSelection(id = "dept")
+	private DepartmentDto selectedDepartmentDto;
 
-    private Integer deptno;
+	private Integer deptno;
 
-    private int versionNo;
+	private int versionNo;
 
-    public String getComm() {
-        return comm;
-    }
+	public String getComm() {
+		return comm;
+	}
 
-    public void setComm(String comm) {
-        this.comm = comm;
-    }
+	public void setComm(final String comm) {
+		this.comm = comm;
+	}
 
-    public List<DepartmentDto> getDeptList() {
-        return deptList;
-    }
+	public List<DepartmentDto> getDeptList() {
+		return deptList;
+	}
 
-    public void setDeptList(List<DepartmentDto> deptList) {
-        this.deptList = deptList;
-    }
+	public void setDeptList(final List<DepartmentDto> deptList) {
+		this.deptList = deptList;
+	}
 
-    public Integer getDeptno() {
-        return deptno;
-    }
+	public Integer getDeptno() {
+		return deptno;
+	}
 
-    public void setDeptno(Integer deptno) {
-        this.deptno = deptno;
-    }
+	public void setDeptno(final Integer deptno) {
+		this.deptno = deptno;
+	}
 
-    public String getEmpno() {
-        return empno;
-    }
+	public String getEmpno() {
+		return empno;
+	}
 
-    public void setEmpno(String empno) {
-        this.empno = empno;
-    }
+	public void setEmpno(final String empno) {
+		this.empno = empno;
+	}
 
-    public String getEname() {
-        return ename;
-    }
+	public String getEname() {
+		return ename;
+	}
 
-    public void setEname(String ename) {
-        this.ename = ename;
-    }
+	public void setEname(final String ename) {
+		this.ename = ename;
+	}
 
-    public String getHiredate() {
-        return hiredate;
-    }
+	public String getHiredate() {
+		return hiredate;
+	}
 
-    public void setHiredate(String hiredate) {
-        this.hiredate = hiredate;
-    }
+	public void setHiredate(final String hiredate) {
+		this.hiredate = hiredate;
+	}
 
-    public String getJob() {
-        return job;
-    }
+	public String getJob() {
+		return job;
+	}
 
-    public void setJob(String job) {
-        this.job = job;
-    }
+	public void setJob(final String job) {
+		this.job = job;
+	}
 
-    public String getMgr() {
-        return mgr;
-    }
+	public String getMgr() {
+		return mgr;
+	}
 
-    public void setMgr(String mgr) {
-        this.mgr = mgr;
-    }
+	public void setMgr(final String mgr) {
+		this.mgr = mgr;
+	}
 
-    public String getSal() {
-        return sal;
-    }
+	public String getSal() {
+		return sal;
+	}
 
-    public void setSal(String sal) {
-        this.sal = sal;
-    }
+	public void setSal(final String sal) {
+		this.sal = sal;
+	}
 
-    public DepartmentDto getSelectedDepartmentDto() {
-        return selectedDepartmentDto;
-    }
+	public DepartmentDto getSelectedDepartmentDto() {
+		return selectedDepartmentDto;
+	}
 
-    public void setSelectedDepartmentDto(DepartmentDto selectedDepartmentDto) {
-        this.selectedDepartmentDto = selectedDepartmentDto;
-    }
+	public void setSelectedDepartmentDto(
+			final DepartmentDto selectedDepartmentDto) {
+		this.selectedDepartmentDto = selectedDepartmentDto;
+	}
 
-    public int getVersionNo() {
-        return versionNo;
-    }
+	public int getVersionNo() {
+		return versionNo;
+	}
 
-    public void setVersionNo(int versionNo) {
-        this.versionNo = versionNo;
-    }
+	public void setVersionNo(final int versionNo) {
+		this.versionNo = versionNo;
+	}
 }

@@ -17,12 +17,10 @@ package org.seasar.uruma.example.employee.action;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.eclipse.swt.widgets.Shell;
-import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.InitializeMethod;
-import org.seasar.jface.annotation.ReturnValue;
+import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.InitializeMethod;
+import org.seasar.uruma.annotation.ReturnValue;
 import org.seasar.uruma.example.employee.dto.DepartmentDto;
 import org.seasar.uruma.example.employee.dto.EmployeeSearchDto;
 import org.seasar.uruma.example.employee.dxo.SearchFormDxo;
@@ -33,18 +31,16 @@ import org.seasar.uruma.example.employee.logic.EmployeeLogic;
  * @author bskuroneko
  */
 public class SearchAction {
-	@Resource
-	private EmployeeLogic employeeLogic;
+	public EmployeeLogic employeeLogic;
 
-	@Resource
-	private SearchFormDxo searchFormDxo;
+	public SearchFormDxo searchFormDxo;
 
-	private Shell shell;
+	public Shell shell;
 
-	private SearchForm searchForm;
+	public SearchForm searchForm;
 
 	@ReturnValue
-	private List searchResult = null;
+	public List searchResult = null;
 
 	@InitializeMethod
 	public void initialize() {
@@ -67,9 +63,5 @@ public class SearchAction {
 	public void onCancel() {
 		searchResult = null;
 		shell.close();
-	}
-
-	public void setSearchForm(SearchForm searchForm) {
-		this.searchForm = searchForm;
 	}
 }

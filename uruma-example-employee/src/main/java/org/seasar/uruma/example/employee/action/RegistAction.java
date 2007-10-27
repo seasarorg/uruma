@@ -15,7 +15,7 @@
  */
 package org.seasar.uruma.example.employee.action;
 
-import org.seasar.jface.annotation.Form;
+import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.example.employee.dto.EmployeeDto;
 import org.seasar.uruma.example.employee.form.EmployeeEditForm;
 
@@ -25,8 +25,8 @@ import org.seasar.uruma.example.employee.form.EmployeeEditForm;
  */
 @Form(EmployeeEditForm.class)
 public class RegistAction extends AbstractEditAction {
-    @Override
-    protected EmployeeDto doUpdateOrInsert(EmployeeDto employeeDto) {
-        return employeeLogic.insert(employeeDto);
-    }
+	@Override
+	protected EmployeeDto doUpdateOrInsert(final EmployeeDto employeeDto) {
+		return employeeLogic.insert(employeeDto);
+	}
 }

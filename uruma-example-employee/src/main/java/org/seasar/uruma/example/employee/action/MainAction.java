@@ -17,18 +17,16 @@ package org.seasar.uruma.example.employee.action;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.seasar.jface.S2JFaceWindowManager;
-import org.seasar.jface.annotation.EventListener;
-import org.seasar.jface.annotation.ExportValue;
-import org.seasar.jface.annotation.Form;
-import org.seasar.jface.annotation.ImportSelection;
-import org.seasar.jface.annotation.InitializeMethod;
+import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.ExportValue;
+import org.seasar.uruma.annotation.Form;
+import org.seasar.uruma.annotation.ImportSelection;
+import org.seasar.uruma.annotation.InitializeMethod;
+import org.seasar.uruma.core.UrumaWindowManager;
 import org.seasar.uruma.example.employee.dto.EmployeeDto;
 import org.seasar.uruma.example.employee.dto.EmployeeSearchDto;
 import org.seasar.uruma.example.employee.entity.Employee;
@@ -39,23 +37,21 @@ import org.seasar.uruma.example.employee.logic.EmployeeLogic;
  */
 @Form(MainAction.class)
 public class MainAction {
-	@Resource
-	private S2JFaceWindowManager windowManager;
+	public UrumaWindowManager windowManager;
 
-	@Resource
-	private EmployeeLogic employeeLogic;
+	public EmployeeLogic employeeLogic;
 
-	private Shell shell;
+	public Shell shell;
 
-	private IStatusLineManager statusLineManager;
+	public IStatusLineManager statusLineManager;
 
-	private Table employeeTable;
+	public Table employeeTable;
 
 	@ExportValue(id = "employeeTable")
-	private List<EmployeeDto> employees;
+	public List<EmployeeDto> employees;
 
 	@ImportSelection(id = "employeeTable")
-	private List<EmployeeDto> selectedEmployees;
+	public List<EmployeeDto> selectedEmployees;
 
 	@InitializeMethod
 	public void initialize() {
@@ -66,7 +62,7 @@ public class MainAction {
 	@EventListener(id = { "menuSearch", "toolSearch" })
 	public void searchEmployee() {
 		List<EmployeeDto> result = (List<EmployeeDto>) windowManager
-				.openModal("org/seasar/jface/example/employee/search.xml");
+				.openModal("org/seasar/uruma/example/employee/search.xml");
 		if (result != null) {
 			employees = result;
 		}
@@ -75,7 +71,7 @@ public class MainAction {
 	@EventListener(id = { "menuRegist", "toolRegist" })
 	public void registEmployee() {
 		EmployeeDto result = (EmployeeDto) windowManager
-				.openModal("org/seasar/jface/example/employee/regist.xml");
+				.openModal("org/seasar/uruma/example/employee/regist.xml");
 		if (result != null) {
 			employees.add(result);
 		}
@@ -104,7 +100,7 @@ public class MainAction {
 		int selection = employeeTable.getSelectionIndex();
 		EmployeeDto employee = employees.get(selection);
 		EmployeeDto edited = (EmployeeDto) windowManager.openModal(
-				"org/seasar/jface/example/employee/edit.xml", employee);
+				"org/seasar/uruma/example/employee/edit.xml", employee);
 		if (edited != null) {
 			employees.set(selection, edited);
 		}
@@ -115,12 +111,12 @@ public class MainAction {
 		int selection = employeeTable.getSelectionIndex();
 		EmployeeDto employee = employees.get(selection);
 		windowManager.openModal(
-				"org/seasar/jface/example/employee/inquire.xml", employee);
+				"org/seasar/uruma/example/employee/inquire.xml", employee);
 	}
 
 	@EventListener(id = "menuAbout")
 	public void showAbout() {
-		windowManager.openModal("org/seasar/jface/example/employee/about.xml");
+		windowManager.openModal("org/seasar/uruma/example/employee/about.xml");
 	}
 
 	@EventListener(id = "menuExit")

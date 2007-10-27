@@ -15,16 +15,16 @@
  */
 package org.seasar.uruma.example.employee;
 
-import org.seasar.jface.S2JFace;
+import org.seasar.uruma.core.StandAloneUrumaStarter;
 
 public class EmployeeManagement {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        S2JFace s2JFace = S2JFace.getInstance();
-        s2JFace.openWindow("org/seasar/jface/example/employee/main.xml");
-    }
+	/**
+	 * @param args
+	 */
+	public static void main(final String[] args) {
+		StandAloneUrumaStarter starter = StandAloneUrumaStarter.getInstance();
+		starter.openWindow("org/seasar/uruma/example/employee/main.xml");
+	}
 
 }
