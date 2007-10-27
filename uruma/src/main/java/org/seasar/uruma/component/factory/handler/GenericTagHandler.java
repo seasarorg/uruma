@@ -158,12 +158,7 @@ public class GenericTagHandler extends UrumaTagHandler {
         BeanDesc desc = BeanDescFactory.getBeanDesc(uiElement.getClass());
         if (desc.hasPropertyDesc(name)) {
             PropertyDesc pd = desc.getPropertyDesc(name);
-            if (pd.hasWriteMethod()) {
-                pd.setValue(uiElement, value);
-            } else {
-                throw new ParseException(ParseException.PROPERTY_NOT_FOUND,
-                        name, uiElement.getClass().getName());
-            }
+            pd.setValue(uiElement, value);
         } else {
             throw new ParseException(ParseException.PROPERTY_NOT_FOUND, name,
                     uiElement.getClass().getName());
