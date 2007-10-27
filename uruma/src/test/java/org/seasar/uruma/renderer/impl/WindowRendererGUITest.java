@@ -15,10 +15,24 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import org.eclipse.jface.action.IStatusLineManager;
+import org.seasar.uruma.annotation.EventListener;
+
 /**
  * {@link WindowRenderer} のためのテストクラスです。<br />
  * 
  * @author y-komori
  */
 public class WindowRendererGUITest extends AbstractGUITest {
+    public IStatusLineManager statusLineManager;
+
+    @EventListener(id = "button1")
+    public void onButton1() {
+        statusLineManager.setMessage("Button1 が押されました.");
+    }
+
+    @EventListener(id = "button2")
+    public void onButton2() {
+        statusLineManager.setMessage("Button2 が押されました.");
+    }
 }

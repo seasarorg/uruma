@@ -228,10 +228,10 @@ public class UrumaApplicationWindow extends ApplicationWindow {
         String statusLine = windowComponent.getStatusLine();
         if ("true".equals(statusLine)) {
             addStatusLine();
-            // TODO StatusLineManager 用の UIComponent が必要
             WidgetHandle handle = ContextFactory
                     .createWidgetHandle(getStatusLineManager());
-            windowContext.putWidgetHandle(handle);
+            handle.setId(PartContext.STATUS_LINE_MANAGER_ID);
+            partContext.putWidgetHandle(handle);
         }
     }
 
@@ -257,31 +257,6 @@ public class UrumaApplicationWindow extends ApplicationWindow {
 
         return parent;
     }
-
-    // @Override
-    // protected MenuManager createMenuManager() {
-    // WindowComponent windowComponent = template.getWindowComponent();
-    // Menu menuBar = windowComponent.getMenuBar();
-    // MenuManager menuManager = menuManagerBuilder.createMenuManager(menuBar);
-    //
-    // return menuManager;
-    // }
-
-    // protected void registMenuToContext() {
-    // Menu menuBar = template.getWindowComponent().getMenuBar();
-    // if (menuBar != null) {
-    // String id = menuBar.getId();
-    // if (id != null) {
-    // context.putComponent(id, getMenuBarManager().getMenu());
-    // }
-    // }
-    // }
-
-    // @Binding(bindingType = BindingType.MUST)
-    // public void setMenuManagerBuilder(MenuManagerBuilder menuManagerBuilder)
-    // {
-    // this.menuManagerBuilder = menuManagerBuilder;
-    // }
 
     /**
      * アクションコンポーネントの初期化メソッドを呼び出します。<br />

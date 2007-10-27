@@ -2,13 +2,18 @@
 <template xmlns="http://uruma.sandbox.seasar.org">
   <window id="WindowRendererGUITest" title="WindowRendererGUITest"
     image="/images/component.gif" width="25%" height="25%"
-    minimumWidth="200" minimumHeight="150">
+    minimumWidth="200" minimumHeight="120" statusLine="true">
     <gridLayout numColumns="1">
-      <gridData horizontalAlignment="FILL" />
+      <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
     </gridLayout>
 
     <composite>
-      <fillLayout type="HORIZONTAL" spacing="5" />
+      <gridLayout numColumns="2">
+        <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true" />
+      </gridLayout>
+
+      <button id="button1" text="Button1" />
+      <button id="button2" text="Button2" />
 
       <button id="okButton" text="OK"></button>
       <button id="ngButton" text="NG"></button>
