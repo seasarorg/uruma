@@ -53,4 +53,22 @@ public class AssertionUtil {
                     new Object[] { name });
         }
     }
+
+    /**
+     * <code>arg</code> が <code>clazz</code> のサブクラスであることをチェックします。<br />
+     * 
+     * @param name
+     *            オブジェクト名称
+     * @param clazz
+     *            クラス
+     * @param arg
+     *            チェック対象オブジェクト
+     */
+    public static void assertInstanceOf(final String name,
+            final Class<?> clazz, final Object arg) {
+        if (!clazz.isAssignableFrom(arg.getClass())) {
+            throw new SIllegalArgumentException("EURM006", new Object[] { name,
+                    clazz.getClass().getName() });
+        }
+    }
 }

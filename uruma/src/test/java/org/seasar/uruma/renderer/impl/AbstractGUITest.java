@@ -36,7 +36,7 @@ import org.seasar.uruma.core.StandAloneUrumaStarter;
 public abstract class AbstractGUITest extends S2FrameworkTestCase {
     protected StandAloneUrumaStarter uruma;
 
-    protected Shell shell;
+    public Shell shell;
 
     private boolean result;
 

@@ -28,6 +28,24 @@ public interface Renderer {
     // TODO 引数に PartContext は不要?
     /**
      * レンダリングを行います。</br>
+     * <p>
+     * 本メソッドは、{@link UIComponent#preRender(WidgetHandle, PartContext)}
+     * の内部から呼び出されます。<br />
+     * </p>
+     * 
+     * @param uiComponent
+     *            レンダリング対象の情報を持つ {@link UIComponent} オブジェクト
+     * @param parent
+     *            親となる {@link WidgetHandle} オブジェクト
+     * @param context
+     *            画面情報を収めた {@link PartContext} オブジェクト
+     * @return レンダリングしたウィジットのハンドル
+     */
+    public WidgetHandle preRender(UIComponent uiComponent, WidgetHandle parent,
+            PartContext context);
+
+    /**
+     * レンダリングを行います。</br>
      * 
      * @param uiComponent
      *            レンダリング対象の情報を持つ {@link UIComponent} オブジェクト

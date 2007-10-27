@@ -15,42 +15,11 @@
  */
 package org.seasar.uruma.component;
 
-import java.util.List;
 
 /**
  * メニューに関する情報を保持するためのインターフェースです。<br />
  * 
  * @author y-komori
  */
-public interface Menu extends MenuItem {
-
-    /**
-     * メニュー項目のリストを取得します。<br />
-     * 
-     * @return メニュー項目のリスト
-     */
-    public List<MenuItem> getMenuItemList();
-
-    /**
-     * メニュー項目を追加します。<br />
-     * 
-     * @param menuItem
-     *            メニュー項目オブジェクト
-     */
-    public void addMenuItem(MenuItem menuItem);
-
-    /**
-     * メニューを保持する親コンポーネントを設定します。
-     * 
-     * @param uiComponent
-     *            親コンポーネント
-     */
-    public void setMenuHolder(UIComponent uiComponent);
-
-    /**
-     * メニューを保持する親コンポーネントを取得します。
-     * 
-     * @return 親コンポーネント
-     */
-    public UIComponent getMenuHolder();
+public interface Menu extends MenuItem, UIContainer {
 }

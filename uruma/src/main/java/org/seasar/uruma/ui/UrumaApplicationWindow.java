@@ -59,8 +59,6 @@ public class UrumaApplicationWindow extends ApplicationWindow {
 
     private Object partActionComponent;
 
-    // private MenuManagerBuilder menuManagerBuilder;
-
     /**
      * {@link UrumaApplicationWindow} を構築します。<br />
      */
@@ -109,8 +107,12 @@ public class UrumaApplicationWindow extends ApplicationWindow {
         if (!WindowComponent.DEFAULT_ID.equals(windowComponent.getId())) {
             setupActionComponent();
             setupFormComponent();
-            // setupMenuBar();
+            setupMenuBar();
         }
+
+        // プリレンダリング処理を実施
+        component.preRender(null, partContext);
+
         setupShellStyle(component, modal);
         setupStatusLine();
     }
@@ -191,13 +193,14 @@ public class UrumaApplicationWindow extends ApplicationWindow {
         setShellStyle(style);
     }
 
-    // protected void setupMenuBar() {
-    // WindowComponent windowComponent = template.getWindowComponent();
-    // Menu menuBar = windowComponent.getMenuBar();
-    // if (menuBar != null) {
-    // addMenuBar();
-    // }
-    // }
+    protected void setupMenuBar() {
+        addMenuBar();
+        WidgetHandle handle = ContextFactory
+                .createWidgetHandle(getMenuBarManager());
+        handle.setId(PartContext.ROOT_MENU_MANAGER_ID);
+
+        this.partContext.putWidgetHandle(handle);
+    }
 
     protected void setupStatusLine() {
         String statusLine = windowComponent.getStatusLine();

@@ -21,11 +21,11 @@ import java.util.List;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
-import org.seasar.uruma.component.Menu;
-import org.seasar.uruma.component.MenuItem;
 import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * メニュー情報を保持するためのコンポーネントです。<br />
@@ -33,7 +33,7 @@ import org.seasar.uruma.context.WidgetHandle;
  * @author bskuroneko
  * @author y-komori
  */
-public class MenuComponent extends MenuItemComponent implements Menu {
+public class MenuComponent extends MenuItemComponent implements UIContainer {
 
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("デフォルトアイテムID")
@@ -51,9 +51,7 @@ public class MenuComponent extends MenuItemComponent implements Menu {
     @FieldDescription("Y 座標")
     private String y;
 
-    private List<MenuItem> menuItems = new ArrayList<MenuItem>();
-
-    private UIComponent menuHolder;
+    private List<UIComponent> children = new ArrayList<UIComponent>();
 
     /**
      * デフォルトアイテムIDを取得します。<br />
@@ -67,7 +65,8 @@ public class MenuComponent extends MenuItemComponent implements Menu {
     /**
      * デフォルトアイテムIDを設定します。<br />
      * 
-     * @param defaultItemId デフォルトアイテムID
+     * @param defaultItemId
+     *            デフォルトアイテムID
      */
     public void setDefaultItemId(final String defaultItemId) {
         this.defaultItemId = defaultItemId;
@@ -87,7 +86,8 @@ public class MenuComponent extends MenuItemComponent implements Menu {
     /**
      * イネーブル状態を設定します。<br />
      * 
-     * @param enabled イネーブル状態
+     * @param enabled
+     *            イネーブル状態
      */
     public void setEnabled(final String enabled) {
         this.enabled = enabled;
@@ -105,7 +105,8 @@ public class MenuComponent extends MenuItemComponent implements Menu {
     /**
      * X 座標を設定します。<br />
      * 
-     * @param x X 座標
+     * @param x
+     *            X 座標
      */
     public void setX(final String x) {
         this.x = x;
@@ -123,36 +124,33 @@ public class MenuComponent extends MenuItemComponent implements Menu {
     /**
      * Y 座標を設定します。<br />
      * 
-     * @param y Y 座標
+     * @param y
+     *            Y 座標
      */
     public void setY(final String y) {
         this.y = y;
     }
 
-    public void addMenuItem(final MenuItem menuItem) {
-        menuItems.add(menuItem);
+    public void addChild(final UIComponent child) {
+        AssertionUtil.assertNotNull("child", child);
+        AssertionUtil.assertInstanceOf("child", MenuItemComponent.class, child);
+
+        this.children.add(child);
     }
 
-    public List<MenuItem> getMenuItemList() {
-        return menuItems;
-    }
-
-    public UIComponent getMenuHolder() {
-        return this.menuHolder;
-    }
-
-    public void setMenuHolder(final UIComponent menuHolder) {
-        this.menuHolder = menuHolder;
+    public List<UIComponent> getChildren() {
+        return this.children;
     }
 
     /*
-     * @see org.seasar.uruma.component.impl.AbstractUIComponent#doRender(org.seasar.uruma.context.WidgetHandle,
+     * @see org.seasar.uruma.component.impl.AbstractUIComponent#doPreRender(org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.PartContext)
      */
     @Override
-    protected void doRender(final WidgetHandle parent, final PartContext context) {
-        for (MenuItem menuItem : menuItems) {
-            menuItem.render(getWidgetHandle(), context);
+    protected void doPreRender(final WidgetHandle parent,
+            final PartContext context) {
+        for (UIComponent uiComponent : children) {
+            uiComponent.preRender(getWidgetHandle(), context);
         }
     }
 }

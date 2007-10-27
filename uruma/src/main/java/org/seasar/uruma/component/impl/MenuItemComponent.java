@@ -18,8 +18,6 @@ package org.seasar.uruma.component.impl;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
-import org.seasar.uruma.component.Menu;
-import org.seasar.uruma.component.MenuItem;
 
 /**
  * メニュー項目情報を保持するためのコンポーネントです。<br />
@@ -27,8 +25,7 @@ import org.seasar.uruma.component.MenuItem;
  * @author bskuroneko
  * @author y-komori
  */
-public class MenuItemComponent extends AbstractItemComponent implements
-        MenuItem {
+public class MenuItemComponent extends AbstractItemComponent {
 
     @RenderingPolicy(conversionType = ConversionType.ACCELERATOR)
     @FieldDescription("アクセラレータ")
@@ -42,8 +39,6 @@ public class MenuItemComponent extends AbstractItemComponent implements
     @FieldDescription("選択状態")
     private String selection;
 
-    private Menu parentMenu;
-
     /**
      * アクセラレータを取得します。<br />
      * 
@@ -56,7 +51,8 @@ public class MenuItemComponent extends AbstractItemComponent implements
     /**
      * アクセラレータを設定します。<br />
      * 
-     * @param accelerator アクセラレータ
+     * @param accelerator
+     *            アクセラレータ
      */
     public void setAccelerator(final String accelerator) {
         this.accelerator = accelerator;
@@ -74,7 +70,8 @@ public class MenuItemComponent extends AbstractItemComponent implements
     /**
      * イネーブル状態を設定します。<br />
      * 
-     * @param enabled イネーブル状態
+     * @param enabled
+     *            イネーブル状態
      */
     public void setEnabled(final String enabled) {
         this.enabled = enabled;
@@ -92,23 +89,10 @@ public class MenuItemComponent extends AbstractItemComponent implements
     /**
      * 選択状態を設定します。<br />
      * 
-     * @param selection 選択状態
+     * @param selection
+     *            選択状態
      */
     public void setSelection(final String selection) {
         this.selection = selection;
-    }
-
-    /*
-     * @see org.seasar.uruma.component.MenuItem#getParentMenu()
-     */
-    public Menu getParentMenu() {
-        return this.parentMenu;
-    }
-
-    /*
-     * @see org.seasar.uruma.component.MenuItem#setParentMenu(org.seasar.uruma.component.Menu)
-     */
-    public void setParentMenu(final Menu parentMenu) {
-        this.parentMenu = parentMenu;
     }
 }

@@ -15,6 +15,9 @@
  */
 package org.seasar.uruma.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.seasar.framework.exception.SIllegalArgumentException;
 
 import junit.framework.TestCase;
@@ -71,4 +74,23 @@ public class AssertionUtilTest extends TestCase {
         }
     }
 
+    /**
+     * {@link AssertionUtil#assertInstanceOf(String, Class, Object)} メソッドのテストです。<br />
+     */
+    public void testAssertInstanceOf() {
+        try {
+            AssertionUtil.assertInstanceOf("test6", List.class,
+                    new ArrayList<Object>());
+            assertTrue(true);
+        } catch (SIllegalArgumentException e) {
+            fail("test6");
+        }
+
+        try {
+            AssertionUtil.assertInstanceOf("test7", List.class, new Object());
+            fail("test7");
+        } catch (SIllegalArgumentException e) {
+            assertTrue(true);
+        }
+    }
 }

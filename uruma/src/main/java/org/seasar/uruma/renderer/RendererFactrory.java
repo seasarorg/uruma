@@ -62,7 +62,7 @@ import org.seasar.uruma.renderer.impl.GroupRenderer;
 import org.seasar.uruma.renderer.impl.LabelRenderer;
 import org.seasar.uruma.renderer.impl.LinkRenderer;
 import org.seasar.uruma.renderer.impl.MenuItemRenderer;
-import org.seasar.uruma.renderer.impl.MenuRenderer;
+import org.seasar.uruma.renderer.impl.MenuManagerRenderer;
 import org.seasar.uruma.renderer.impl.ProgressBarRenderer;
 import org.seasar.uruma.renderer.impl.SashFormRenderer;
 import org.seasar.uruma.renderer.impl.ScaleRenderer;
@@ -123,7 +123,7 @@ public class RendererFactrory {
         addRenderer(SliderComponent.class, new SliderRenderer());
         addRenderer(LinkComponent.class, new LinkRenderer());
 
-        addRenderer(MenuComponent.class, new MenuRenderer());
+        addRenderer(MenuComponent.class, new MenuManagerRenderer());
         addRenderer(MenuItemComponent.class, new MenuItemRenderer());
     }
 

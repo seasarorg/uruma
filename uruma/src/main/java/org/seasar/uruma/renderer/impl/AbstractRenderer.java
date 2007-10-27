@@ -32,6 +32,16 @@ import org.seasar.uruma.renderer.Renderer;
 public abstract class AbstractRenderer implements Renderer {
     private PartContext context;
 
+    /*
+     * @see org.seasar.uruma.renderer.Renderer#preRender(org.seasar.uruma.component.UIComponent,
+     *      org.seasar.uruma.context.WidgetHandle,
+     *      org.seasar.uruma.context.PartContext)
+     */
+    public WidgetHandle preRender(final UIComponent uiComponent,
+            final WidgetHandle parent, final PartContext context) {
+        return null;
+    }
+
     /**
      * {@link PartContext} を取得します。
      * 

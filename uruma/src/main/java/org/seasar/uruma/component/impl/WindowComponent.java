@@ -146,11 +146,6 @@ public class WindowComponent extends CompositeComponent {
      * @see org.seasar.uruma.component.impl.ControlComponent#getHeight()
      */
     @Override
-    /**
-     * 高さを取得します。<br />
-     * 
-     * @return 高さ
-     */
     public String getHeight() {
         return this.height;
     }
@@ -159,12 +154,6 @@ public class WindowComponent extends CompositeComponent {
      * @see org.seasar.uruma.component.impl.ControlComponent#setHeight(java.lang.String)
      */
     @Override
-    /**
-     * 高さを設定します。<br />
-     * 
-     * @param height
-     *            高さ
-     */
     public void setHeight(final String height) {
         this.height = height;
     }
@@ -192,11 +181,6 @@ public class WindowComponent extends CompositeComponent {
      * @see org.seasar.uruma.component.impl.ControlComponent#getWidth()
      */
     @Override
-    /**
-     * 幅を取得します。<br />
-     * 
-     * @return 幅
-     */
     public String getWidth() {
         return this.width;
     }
@@ -205,12 +189,6 @@ public class WindowComponent extends CompositeComponent {
      * @see org.seasar.uruma.component.impl.ControlComponent#setWidth(java.lang.String)
      */
     @Override
-    /**
-     * 幅を設定します。<br />
-     * 
-     * @param width
-     *            幅
-     */
     public void setWidth(final String width) {
         this.width = width;
     }

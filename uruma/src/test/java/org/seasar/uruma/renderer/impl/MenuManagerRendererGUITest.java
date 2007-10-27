@@ -15,22 +15,20 @@
  */
 package org.seasar.uruma.renderer.impl;
 
-import org.seasar.jface.annotation.EventListener;
-
 /**
- * {@link MenuRenderer} のためのテストクラスです。<br />
+ * {@link MenuManagerRenderer} のためのテストクラスです。<br />
  * 
  * @author bskuroneko
  */
-public class MenuRendererGUITest extends AbstractGUITest {
+public class MenuManagerRendererGUITest extends AbstractGUITest {
 
-    @EventListener(id = "accelerator1")
-    public void accelerator1() {
-        System.out.println("accelerator1 selected");
-    }
-
-    @EventListener(id = "accelerator2")
-    public void accelerator2() {
-        System.out.println("accelerator2 selected");
-    }
+    // @EventListener(id = "accelerator1")
+    // public void accelerator1() {
+    // System.out.println("accelerator1 selected");
+    // }
+    //
+    // @EventListener(id = "accelerator2")
+    // public void accelerator2() {
+    // System.out.println("accelerator2 selected");
+    // }
 }

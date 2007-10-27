@@ -15,11 +15,9 @@
  */
 package org.seasar.uruma.binding.widget;
 
-import java.lang.reflect.Field;
-
 import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.framework.util.FieldUtil;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 
@@ -37,7 +35,6 @@ public class WidgetBinder {
      * 具体的には、<code>target</code> で定義されるフィールドに対し、そのフィールド名と名前が一致する
      * {@link WidgetHandle} を {@link PartContext} から取得します。取得できた場合、
      * {@link WidgetHandle} が内包するオブジェクトの型がフィールドに代入可能であれば そのフィールドにセットします。<br />
-     * この際、フィールドは <code>private</code> でも構いません。セッターメソッドも不要です。
      * </p>
      * 
      * @param target
@@ -48,16 +45,16 @@ public class WidgetBinder {
     public static void bindWidgets(final Object target,
             final PartContext context) {
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(target.getClass());
-        int fieldNum = beanDesc.getFieldSize();
-        for (int i = 0; i < fieldNum; i++) {
-            Field field = beanDesc.getField(i);
-            Class<?> fieldType = field.getType();
-            String fieldName = field.getName();
 
-            WidgetHandle handle = context.getWidgetHandle(fieldName);
+        int pdSize = beanDesc.getPropertyDescSize();
+        for (int i = 0; i < pdSize; i++) {
+            PropertyDesc pd = beanDesc.getPropertyDesc(i);
+            Class<?> propertyType = pd.getPropertyType();
+            String propertyName = pd.getPropertyName();
+            WidgetHandle handle = context.getWidgetHandle(propertyName);
             if (handle != null) {
-                if (fieldType.isAssignableFrom(handle.getWidgetClass())) {
-                    FieldUtil.set(field, target, handle.getWidget());
+                if (propertyType.isAssignableFrom(handle.getWidgetClass())) {
+                    pd.setValue(target, handle.getWidget());
                 }
             }
         }

@@ -18,6 +18,7 @@ package org.seasar.uruma.component;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.renderer.Renderer;
+import org.seasar.uruma.ui.UrumaApplicationWindow;
 
 /**
  * レンダリング可能な画面要素を表すインターフェースです。<br />
@@ -89,23 +90,6 @@ public interface UIComponent extends UIElement {
     public void setWidgetHandle(WidgetHandle handle);
 
     /**
-     * メニューを取得します。<br />
-     * 
-     * @return メニュー
-     */
-    // TODO 後で削除を検討
-    public Menu getMenu();
-
-    /**
-     * メニューを設定します。<br />
-     * 
-     * @param menu
-     *            メニュー
-     */
-    // TODO 後で削除を検討
-    public void setMenu(Menu menu);
-
-    /**
      * レンダラを取得します。
      * 
      * @return レンダラオブジェクト
@@ -121,7 +105,20 @@ public interface UIComponent extends UIElement {
     public void setRenderer(Renderer renderer);
 
     /**
-     * 設定されたレンダラを利用して、レンダリングを行います。</br>
+     * 設定されたレンダラを利用して、レンダリングを行います。<br />
+     * 本メソッドは、 {@link UrumaApplicationWindow}<code>#init()</code> メソッドの中 (<code>createContent()</code>
+     * メソッドよりも前のタイミング)で呼び出されます。<br />
+     * 
+     * @param parent
+     *            親となる {@link WidgetHandle} オブジェクト
+     * @param context
+     *            {@link PartContext} オブジェクト
+     */
+    public void preRender(WidgetHandle parent, PartContext context);
+
+    /**
+     * 設定されたレンダラを利用して、レンダリングを行います。</br> 本メソッドは、 {@link UrumaApplicationWindow}<code>#createContents()</code>
+     * メソッドの中で呼び出されます。<br />
      * 
      * @param parent
      *            親となる {@link WidgetHandle} オブジェクト

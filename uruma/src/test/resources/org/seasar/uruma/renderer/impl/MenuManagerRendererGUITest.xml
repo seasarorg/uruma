@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="menuRendererGUITest" title="MenuRendererGUITest"
-    defaultButtonId="okButton" background="WHITE">
+  <window id="menuManagerRendererGUITest"
+    title="MenuManagerRendererGUITest" defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
@@ -46,27 +46,30 @@
       <commonAttributes fontHeight="20" />
 
       <label text="ポップアップメニュー" style="BORDER">
-        <menu>
+        <!--         <menu>
           <menuItem text="コンテキストメニュー1"></menuItem>
           <menuItem text="コンテキストメニュー2"></menuItem>
           <separator />
           <menu text="コンテキストメニュー3">
-            <menuItem text="3-1"></menuItem>
-            <menuItem text="3-2"></menuItem>
+          <menuItem text="3-1"></menuItem>
+          <menuItem text="3-2"></menuItem>
           </menu>
-        </menu>
+          </menu>
+        -->
       </label>
 
       <label text="ロケーション指定" style="BORDER">
-        <menu x="100" y="200">
+        <!--
+          <menu x="100" y="200">
           <menuItem text="コンテキストメニュー1"></menuItem>
           <menuItem text="コンテキストメニュー2"></menuItem>
           <separator />
           <menu text="コンテキストメニュー3">
-            <menuItem text="3-1"></menuItem>
-            <menuItem text="3-2"></menuItem>
+          <menuItem text="3-1"></menuItem>
+          <menuItem text="3-2"></menuItem>
           </menu>
-        </menu>
+          </menu>
+        -->
       </label>
     </composite>
 

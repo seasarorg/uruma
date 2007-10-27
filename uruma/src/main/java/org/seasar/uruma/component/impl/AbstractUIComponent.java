@@ -15,7 +15,6 @@
  */
 package org.seasar.uruma.component.impl;
 
-import org.seasar.uruma.component.Menu;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.context.PartContext;
@@ -40,7 +39,26 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     private WidgetHandle widgetHandle;
 
-    private Menu menu;
+    /**
+     * レンダラ呼び出し中に独自のレンダリング処理を追加するためのメソッドです。<br />
+     * <p>
+     * 本メソッドは {@link AbstractUIComponent#preRender(WidgetHandle, PartContext)}
+     * メソッドの中で、{@link Renderer レンダラ} の
+     * {@link Renderer#preRender(UIComponent, WidgetHandle, PartContext) preRender()}
+     * メソッドを呼び出した後に呼び出されます。<br />
+     * </p>
+     * <p>
+     * このタイミングでサブクラスで独自のレンダリング処理を行う場合、本メソッドをオーバーライドしてください。<br />
+     * </p>
+     * 
+     * @param parent
+     *            親 {@link WidgetHandle} オブジェクト
+     * @param context
+     *            {@link PartContext} オブジェクト
+     */
+    protected void doPreRender(final WidgetHandle parent,
+            final PartContext context) {
+    }
 
     /**
      * レンダラ呼び出し中に独自のレンダリング処理を追加するためのメソッドです。<br />
@@ -65,15 +83,38 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
     }
 
     /*
+     * @see org.seasar.uruma.component.UIComponent#preRender(org.seasar.uruma.context.WidgetHandle,
+     *      org.seasar.uruma.context.PartContext)
+     */
+    public void preRender(final WidgetHandle parent, final PartContext context) {
+        WidgetHandle handle = getRenderer().preRender(this, parent, context);
+
+        if (handle != null) {
+            setWidgetHandle(handle);
+
+            if (handle.getId() != null) {
+                context.putWidgetHandle(handle);
+            }
+        }
+
+        doPreRender(parent, context);
+    }
+
+    /*
      * @see org.seasar.uruma.component.UIComponent#render(org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.PartContext)
      */
     public void render(final WidgetHandle parent, final PartContext context) {
         WidgetHandle handle = getRenderer().render(this, parent, context);
-        setWidgetHandle(handle);
 
-        if (handle.getId() != null) {
-            context.putWidgetHandle(handle);
+        if (handle != null) {
+            if (getWidgetHandle() == null) {
+                setWidgetHandle(handle);
+
+                if (handle.getId() != null) {
+                    context.putWidgetHandle(handle);
+                }
+            }
         }
 
         doRender(parent, context);
@@ -93,20 +134,6 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
      */
     public UIContainer getParent() {
         return parent;
-    }
-
-    /*
-     * @see org.seasar.uruma.component.UIComponent#getMenu()
-     */
-    public Menu getMenu() {
-        return this.menu;
-    }
-
-    /*
-     * @see org.seasar.uruma.component.UIComponent#setMenu(org.seasar.jface.component.Menu)
-     */
-    public void setMenu(final Menu menu) {
-        this.menu = menu;
     }
 
     /*

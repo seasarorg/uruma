@@ -15,10 +15,6 @@
  */
 package org.seasar.uruma.component.factory.handler;
 
-import org.seasar.framework.xml.TagHandlerContext;
-import org.seasar.uruma.component.Menu;
-import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.impl.MenuComponent;
 
 /**
@@ -42,19 +38,19 @@ public class MenuTagHandler extends GenericTagHandler {
         return "menu";
     }
 
-    @Override
-    protected void setParent(final UIElement uiElement,
-            final TagHandlerContext context) {
-        Menu menu = (Menu) uiElement;
-        Object parent = context.peek();
-        if (parent instanceof Menu) {
-            Menu parentMenu = (Menu) parent;
-            parentMenu.addMenuItem(menu);
-            menu.setParentMenu(parentMenu);
-        } else if (parent instanceof UIComponent) {
-            UIComponent parentComponent = (UIComponent) parent;
-            parentComponent.setMenu(menu);
-            menu.setMenuHolder(parentComponent);
-        }
-    }
+    // @Override
+    // protected void setParent(final UIElement uiElement,
+    // final TagHandlerContext context) {
+    // Menu menu = (Menu) uiElement;
+    // Object parent = context.peek();
+    // if (parent instanceof Menu) {
+    // Menu parentMenu = (Menu) parent;
+    // parentMenu.addMenuItem(menu);
+    // menu.setParentMenu(parentMenu);
+    // } else if (parent instanceof UIComponent) {
+    // UIComponent parentComponent = (UIComponent) parent;
+    // parentComponent.setMenu(menu);
+    // menu.setMenuHolder(parentComponent);
+    // }
+    // }
 }

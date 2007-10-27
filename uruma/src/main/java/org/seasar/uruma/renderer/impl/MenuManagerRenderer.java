@@ -15,21 +15,21 @@
  */
 package org.seasar.uruma.renderer.impl;
 
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.swt.widgets.MenuItem;
-import org.seasar.uruma.action.DummyAction;
+import org.eclipse.swt.widgets.Menu;
+import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.impl.MenuItemComponent;
+import org.seasar.uruma.component.impl.MenuComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.renderer.RendererSupportUtil;
 
 /**
- * {@link MenuItem} のレンダリングを行うクラスです。<br />
+ * {@link MenuManager} のレンダリングを行うクラスです。<br />
  * 
- * @author bskuroneko
+ * @author y-komori
  */
-public class MenuItemRenderer extends AbstractRenderer {
+public class MenuManagerRenderer extends AbstractRenderer {
 
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractRenderer#preRender(org.seasar.uruma.component.UIComponent,
@@ -39,15 +39,29 @@ public class MenuItemRenderer extends AbstractRenderer {
     @Override
     public WidgetHandle preRender(final UIComponent uiComponent,
             final WidgetHandle parent, final PartContext context) {
+        setContext(context);
 
-        MenuItemComponent menuItemComponent = (MenuItemComponent) uiComponent;
-        IAction action = new DummyAction(menuItemComponent.getText());
+        if (parent == null) {
+            MenuManager rootMenuManager = getRootMenuManager();
 
-        MenuManager parentMenuManager = parent.<MenuManager> getCastWidget();
-        parentMenuManager.add(action);
+            WidgetHandle handle = createWidgetHandle(uiComponent,
+                    rootMenuManager);
 
-        WidgetHandle handle = createWidgetHandle(uiComponent, action);
-        return handle;
+            return handle;
+        } else if (parent.getUiComponent() instanceof MenuComponent) {
+            MenuComponent menuComponent = (MenuComponent) uiComponent;
+
+            MenuManager menuManager = new MenuManager(menuComponent.getText());
+            // renderMenu(uiComponent, menuManager.getMenu());
+
+            MenuManager parentManager = parent.<MenuManager> getCastWidget();
+            parentManager.add(menuManager);
+
+            WidgetHandle handle = createWidgetHandle(uiComponent, menuManager);
+
+            return handle;
+        }
+        return null;
     }
 
     /*
@@ -71,5 +85,15 @@ public class MenuItemRenderer extends AbstractRenderer {
             final UIComponent uiComponent, final WidgetHandle parent,
             final PartContext context) {
         // Do nothing.
+    }
+
+    protected void renderMenu(final UIComponent uiComponent, final Menu menu) {
+        RendererSupportUtil.setAttributes(uiComponent, menu, SetTiming.RENDER);
+    }
+
+    protected MenuManager getRootMenuManager() {
+        WidgetHandle handle = getContext().getWidgetHandle(
+                PartContext.ROOT_MENU_MANAGER_ID);
+        return handle.<MenuManager> getCastWidget();
     }
 }

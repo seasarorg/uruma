@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.context;
 
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.ViewPart;
@@ -32,6 +33,11 @@ public interface PartContext extends WidgetHolder {
      * 自ウィンドウのShellオブジェクトが登録されるIDです。
      */
     public static final String SHELL_ID = "shell";
+
+    /**
+     * {@link IMenuManager} が登録される ID です。<br />
+     */
+    public static final String ROOT_MENU_MANAGER_ID = "rootMenuManager";
 
     /**
      * ウィンドウパートの名称を返します。<br />

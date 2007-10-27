@@ -102,6 +102,16 @@ public class CompositeComponent extends ControlComponent implements
     }
 
     /*
+     * @see org.seasar.uruma.component.impl.AbstractUIComponent#doPreRender(org.seasar.uruma.context.WidgetHandle,
+     *      org.seasar.uruma.context.PartContext)
+     */
+    @Override
+    protected void doPreRender(final WidgetHandle parent,
+            final PartContext context) {
+        preRenderChild(getWidgetHandle(), context);
+    }
+
+    /*
      * @see org.seasar.uruma.component.impl.AbstractUIComponent#doRender(org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.PartContext)
      */
@@ -122,6 +132,21 @@ public class CompositeComponent extends ControlComponent implements
             final PartContext context) {
         for (UIComponent child : children) {
             child.render(parent, context);
+        }
+    }
+
+    /**
+     * 子コンポーネントのプリレンダリングを行います。<br />
+     * 
+     * @param parent
+     *            親 {@link WidgetHandle}
+     * @param context
+     *            {@link PartContext} オブジェクト
+     */
+    protected void preRenderChild(final WidgetHandle parent,
+            final PartContext context) {
+        for (UIComponent child : children) {
+            child.preRender(parent, context);
         }
     }
 }
