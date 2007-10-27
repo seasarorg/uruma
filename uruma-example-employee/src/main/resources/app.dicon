@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+a<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
 	"http://www.seasar.org/dtd/components23.dtd">
 <components>
-	<include path="org/seasar/jface/example/employee/dicon/allaop.dicon"/>
+	<include path="org/seasar/uruma/example/employee/dicon/allaop.dicon"/>
 	
     <component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
 		<property name="instanceDef">
 			@org.seasar.framework.container.deployer.InstanceDefFactory@PROTOTYPE
 		</property>
 		<initMethod name="addReferenceClass">
-		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		    <arg>@org.seasar.uruma.example.employee.EmployeeManagement@class</arg>
 		</initMethod>
         <initMethod name="addClassPattern">
-            <arg>"org.seasar.jface.example.employee.action"</arg>
+            <arg>"org.seasar.uruma.example.employee.action"</arg>
             <arg>".*Action"</arg>
         </initMethod>
     </component>
@@ -22,20 +22,20 @@
 			@org.seasar.framework.container.deployer.InstanceDefFactory@PROTOTYPE
 		</property>
 		<initMethod name="addReferenceClass">
-		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		    <arg>@org.seasar.uruma.example.employee.EmployeeManagement@class</arg>
 		</initMethod>
         <initMethod name="addClassPattern">
-            <arg>"org.seasar.jface.example.employee.form"</arg>
+            <arg>"org.seasar.uruma.example.employee.form"</arg>
             <arg>".*Form"</arg>
         </initMethod>
     </component>
     
    	<component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
 		<initMethod name="addReferenceClass">
-		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		    <arg>@org.seasar.uruma.example.employee.EmployeeManagement@class</arg>
 		</initMethod>
 		<initMethod name="addClassPattern">
-			<arg>"org.seasar.jface.example.employee.logic.impl"</arg>
+			<arg>"org.seasar.uruma.example.employee.logic.impl"</arg>
 			<arg>".*LogicImpl"</arg>
 		</initMethod>
 	</component>
@@ -43,17 +43,17 @@
 	<component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
 		<property name="interceptor">logicInterceptorChain</property>
 		<initMethod name="addClassPattern">
-			<arg>"org.seasar.jface.example.employee.logic.impl"</arg>
+			<arg>"org.seasar.uruma.example.employee.logic.impl"</arg>
 			<arg>".*LogicImpl"</arg>
 		</initMethod>
 	</component>
 	
    	<component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
 		<initMethod name="addReferenceClass">
-		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		    <arg>@org.seasar.uruma.example.employee.EmployeeManagement@class</arg>
 		</initMethod>
 		<initMethod name="addClassPattern">
-			<arg>"org.seasar.jface.example.employee.dao"</arg>
+			<arg>"org.seasar.uruma.example.employee.dao"</arg>
 			<arg>".*Dao"</arg>
 		</initMethod>
 	</component>
@@ -61,17 +61,17 @@
 	<component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
 		<property name="interceptor">daoInterceptorChain</property>
 		<initMethod name="addClassPattern">
-			<arg>"org.seasar.jface.example.employee.dao"</arg>
+			<arg>"org.seasar.uruma.example.employee.dao"</arg>
 			<arg>".*Dao"</arg>
 		</initMethod>
 	</component>
 	
    	<component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
 		<initMethod name="addReferenceClass">
-		    <arg>@org.seasar.jface.example.employee.EmployeeManagement@class</arg>
+		    <arg>@org.seasar.uruma.example.employee.EmployeeManagement@class</arg>
 		</initMethod>
 		<initMethod name="addClassPattern">
-			<arg>"org.seasar.jface.example.employee.dxo"</arg>
+			<arg>"org.seasar.uruma.example.employee.dxo"</arg>
 			<arg>".*Dxo"</arg>
 		</initMethod>
 	</component>
@@ -79,7 +79,7 @@
 	<component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
 		<property name="interceptor">dxoInterceptorChain</property>
 		<initMethod name="addClassPattern">
-			<arg>"org.seasar.jface.example.employee.dxo"</arg>
+			<arg>"org.seasar.uruma.example.employee.dxo"</arg>
 			<arg>".*Dxo"</arg>
 		</initMethod>
 	</component>
