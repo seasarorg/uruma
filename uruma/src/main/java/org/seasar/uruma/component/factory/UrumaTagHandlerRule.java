@@ -22,9 +22,6 @@ import org.seasar.uruma.component.factory.handler.GradientInfoTagHandler;
 import org.seasar.uruma.component.factory.handler.GradientItemTagHandler;
 import org.seasar.uruma.component.factory.handler.LayoutDataTagHandler;
 import org.seasar.uruma.component.factory.handler.LayoutTagHandler;
-import org.seasar.uruma.component.factory.handler.MenuItemTagHandler;
-import org.seasar.uruma.component.factory.handler.MenuTagHandler;
-import org.seasar.uruma.component.factory.handler.SeparatorTagHandler;
 import org.seasar.uruma.component.factory.handler.SimpleItemTagHandler;
 import org.seasar.uruma.component.factory.handler.TableCellTagHandler;
 import org.seasar.uruma.component.factory.handler.TableColumnTagHandler;
@@ -46,11 +43,14 @@ import org.seasar.uruma.component.impl.GridLayoutInfo;
 import org.seasar.uruma.component.impl.GroupComponent;
 import org.seasar.uruma.component.impl.LabelComponent;
 import org.seasar.uruma.component.impl.LinkComponent;
+import org.seasar.uruma.component.impl.MenuComponent;
+import org.seasar.uruma.component.impl.MenuItemComponent;
 import org.seasar.uruma.component.impl.ProgressBarComponent;
 import org.seasar.uruma.component.impl.RowDataInfo;
 import org.seasar.uruma.component.impl.RowLayoutInfo;
 import org.seasar.uruma.component.impl.SashFormComponent;
 import org.seasar.uruma.component.impl.ScaleComponent;
+import org.seasar.uruma.component.impl.SeparatorComponent;
 import org.seasar.uruma.component.impl.SliderComponent;
 import org.seasar.uruma.component.impl.SpinnerComponent;
 import org.seasar.uruma.component.impl.TabFolderComponent;
@@ -135,9 +135,11 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
         addTagHandler(new SimpleItemTagHandler());
 
         // Menu
-        addTagHandler(new MenuTagHandler());
-        addTagHandler(new MenuItemTagHandler());
-        addTagHandler(new SeparatorTagHandler());
+        addTagHandler("menu", new GenericTagHandler(MenuComponent.class));
+        addTagHandler("menuItem",
+                new GenericTagHandler(MenuItemComponent.class));
+        addTagHandler("separator", new GenericTagHandler(
+                SeparatorComponent.class));
     }
 
     protected void addTagHandler(final UrumaTagHandler tagHandler) {

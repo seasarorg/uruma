@@ -15,21 +15,18 @@
  */
 package org.seasar.uruma.renderer.impl;
 
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.swt.widgets.MenuItem;
-import org.seasar.uruma.action.DummyAction;
+import org.eclipse.jface.action.Separator;
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.impl.MenuItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 
 /**
- * {@link MenuItem} のレンダリングを行うクラスです。<br />
+ * {@link Separator} のレンダリングを行うためのクラスです。<br />
  * 
- * @author bskuroneko
+ * @author y-komori
  */
-public class MenuItemRenderer extends AbstractRenderer {
+public class SeparatorRenderer extends AbstractRenderer {
 
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractRenderer#preRender(org.seasar.uruma.component.UIComponent,
@@ -39,15 +36,12 @@ public class MenuItemRenderer extends AbstractRenderer {
     @Override
     public WidgetHandle preRender(final UIComponent uiComponent,
             final WidgetHandle parent, final PartContext context) {
-
-        MenuItemComponent menuItemComponent = (MenuItemComponent) uiComponent;
-
-        IAction action = new DummyAction(menuItemComponent.getText());
+        Separator separator = new Separator();
 
         MenuManager parentMenuManager = parent.<MenuManager> getCastWidget();
-        parentMenuManager.add(action);
+        parentMenuManager.add(separator);
 
-        WidgetHandle handle = createWidgetHandle(uiComponent, action);
+        WidgetHandle handle = createWidgetHandle(uiComponent, separator);
         return handle;
     }
 

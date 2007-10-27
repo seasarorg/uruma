@@ -13,27 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.component;
+package org.seasar.uruma.component.impl;
+
+import org.eclipse.jface.action.Separator;
 
 /**
- * メニュー項目情報を保持するためのインターフェースです。<br />
+ * {@link Separator} を表すコンポーネントです。<br />
  * 
  * @author y-komori
  */
-public interface MenuItem extends UIComponent {
+public class SeparatorComponent extends MenuItemComponent {
 
-    /**
-     * 親メニューオブジェクトを取得します。
-     * 
-     * @return 親メニューオブジェクト
-     */
-    public Menu getParentMenu();
-
-    /**
-     * 親メニューオブジェクトを設定します。<br />
-     * 
-     * @param parentMenu
-     *            親メニューオブジェクト
-     */
-    public void setParentMenu(Menu parentMenu);
 }

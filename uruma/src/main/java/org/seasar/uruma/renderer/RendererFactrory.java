@@ -35,6 +35,7 @@ import org.seasar.uruma.component.impl.MenuItemComponent;
 import org.seasar.uruma.component.impl.ProgressBarComponent;
 import org.seasar.uruma.component.impl.SashFormComponent;
 import org.seasar.uruma.component.impl.ScaleComponent;
+import org.seasar.uruma.component.impl.SeparatorComponent;
 import org.seasar.uruma.component.impl.SliderComponent;
 import org.seasar.uruma.component.impl.SpinnerComponent;
 import org.seasar.uruma.component.impl.TabFolderComponent;
@@ -66,6 +67,7 @@ import org.seasar.uruma.renderer.impl.MenuManagerRenderer;
 import org.seasar.uruma.renderer.impl.ProgressBarRenderer;
 import org.seasar.uruma.renderer.impl.SashFormRenderer;
 import org.seasar.uruma.renderer.impl.ScaleRenderer;
+import org.seasar.uruma.renderer.impl.SeparatorRenderer;
 import org.seasar.uruma.renderer.impl.SliderRenderer;
 import org.seasar.uruma.renderer.impl.SpinnerRenderer;
 import org.seasar.uruma.renderer.impl.TabFolderRenderer;
@@ -125,6 +127,7 @@ public class RendererFactrory {
 
         addRenderer(MenuComponent.class, new MenuManagerRenderer());
         addRenderer(MenuItemComponent.class, new MenuItemRenderer());
+        addRenderer(SeparatorComponent.class, new SeparatorRenderer());
     }
 
     /**
