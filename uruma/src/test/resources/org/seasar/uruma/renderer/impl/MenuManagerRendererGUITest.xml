@@ -29,6 +29,7 @@
         <separator />
         <menuItem text="disable" enabled="false" />
         <menuItem image="/images/container.gif" text="イメージ" />
+        <menuItem disabledImage="/images/cross.png" text="ディスエーブルイメージ" enabled="false"/>
       </menu>
 
       <menu text="UnvisivleMenu(&amp;D)" visible="false">

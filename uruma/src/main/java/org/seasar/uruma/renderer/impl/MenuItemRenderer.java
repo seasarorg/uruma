@@ -17,6 +17,7 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.MenuItem;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.method.GenericAction;
@@ -49,6 +50,7 @@ public class MenuItemRenderer extends AbstractRenderer {
         setChecked(action, menuItemComponent);
         setEnabled(action, menuItemComponent);
         setImageDescriptor(action, menuItemComponent);
+        setDisabledImageDescriptor(action, menuItemComponent);
 
         MenuManager parentMenuManager = parent.<MenuManager> getCastWidget();
         parentMenuManager.add(action);
@@ -103,7 +105,7 @@ public class MenuItemRenderer extends AbstractRenderer {
 
     protected void setAccelerator(final IAction action,
             final MenuItemComponent menuItemComponent) {
-        String accelStr = menuItemComponent.getAccelerator();
+        String accelStr = menuItemComponent.accelerator;
         if (accelStr != null) {
             action.setAccelerator(RendererSupportUtil
                     .convertAccelerator(accelStr));
@@ -112,15 +114,23 @@ public class MenuItemRenderer extends AbstractRenderer {
 
     protected void setChecked(final IAction action,
             final MenuItemComponent menuItemComponent) {
-        String selection = menuItemComponent.getSelection();
+        String selection = menuItemComponent.selection;
         if (selection != null) {
             action.setChecked(RendererSupportUtil.convertBoolean(selection));
         }
     }
 
+    protected void setDescription(final IAction action,
+            final MenuItemComponent menuItemComponent) {
+        if (menuItemComponent.description != null) {
+            action.setDescription(RendererSupportUtil
+                    .convertText(menuItemComponent.description));
+        }
+    }
+
     protected void setEnabled(final IAction action,
             final MenuItemComponent menuItemComponent) {
-        String checked = menuItemComponent.getEnabled();
+        String checked = menuItemComponent.enabled;
         if (checked != null) {
             action.setEnabled(RendererSupportUtil.convertBoolean(checked));
         }
@@ -130,9 +140,29 @@ public class MenuItemRenderer extends AbstractRenderer {
             final MenuItemComponent menuItemComponent) {
         String path = menuItemComponent.getImage();
         if (!StringUtil.isEmpty(path)) {
-            action.setImageDescriptor(RendererSupportUtil
-                    .convertImageDescriptor(path, menuItemComponent
-                            .getBasePath()));
+            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(
+                    path, menuItemComponent.getBasePath());
+            action.setImageDescriptor(desc);
+        }
+    }
+
+    protected void setDisabledImageDescriptor(final IAction action,
+            final MenuItemComponent menuItemComponent) {
+        String path = menuItemComponent.disabledImage;
+        if (!StringUtil.isEmpty(path)) {
+            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(
+                    path, menuItemComponent.getBasePath());
+            action.setDisabledImageDescriptor(desc);
+        }
+    }
+
+    protected void setHoverImageDescriptor(final IAction action,
+            final MenuItemComponent menuItemComponent) {
+        String path = menuItemComponent.disabledImage;
+        if (!StringUtil.isEmpty(path)) {
+            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(
+                    path, menuItemComponent.getBasePath());
+            action.setHoverImageDescriptor(desc);
         }
     }
 

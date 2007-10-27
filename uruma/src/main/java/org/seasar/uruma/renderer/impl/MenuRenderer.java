@@ -106,7 +106,7 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
     }
 
     protected void setEnabled(final MenuComponent menuComponent, final Menu menu) {
-        String enabledStr = menuComponent.getEnabled();
+        String enabledStr = menuComponent.enabled;
         if (enabledStr != null) {
             menu.setEnabled(BooleanConversionUtil
                     .toPrimitiveBoolean(enabledStr));
@@ -115,7 +115,7 @@ public class MenuRenderer extends AbstractWidgetRenderer<MenuComponent, Menu> {
 
     protected void setEnabled(final MenuComponent menuComponent,
             final MenuItem menuItem) {
-        String enabledStr = menuComponent.getEnabled();
+        String enabledStr = menuComponent.enabled;
         if (enabledStr != null) {
             menuItem.setEnabled(BooleanConversionUtil
                     .toPrimitiveBoolean(enabledStr));

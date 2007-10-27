@@ -15,9 +15,8 @@
  */
 package org.seasar.uruma.component.impl;
 
-import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
-import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
+import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 
 /**
  * メニュー項目情報を保持するためのコンポーネントです。<br />
@@ -41,72 +40,39 @@ public class MenuItemComponent extends AbstractItemComponent {
      */
     public static final String CHECK = "CHECK";
 
-    @RenderingPolicy(conversionType = ConversionType.ACCELERATOR)
-    @FieldDescription("アクセラレータ")
-    private String accelerator;
-
-    @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
-    @FieldDescription("イネーブル状態")
-    private String enabled;
-
-    @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
-    @FieldDescription("選択状態")
-    private String selection;
+    /**
+     * アクセラレータです。
+     */
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String accelerator;
 
     /**
-     * アクセラレータを取得します。<br />
-     * 
-     * @return アクセラレータ
+     * イネーブル状態です。
      */
-    public String getAccelerator() {
-        return this.accelerator;
-    }
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String enabled;
 
     /**
-     * アクセラレータを設定します。<br />
-     * 
-     * @param accelerator
-     *            アクセラレータ
+     * 選択状態です。
      */
-    public void setAccelerator(final String accelerator) {
-        this.accelerator = accelerator;
-    }
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String selection;
 
     /**
-     * イネーブル状態を取得します。<br />
-     * 
-     * @return イネーブル状態
+     * 選択不可時のイメージパスです。
      */
-    public String getEnabled() {
-        return this.enabled;
-    }
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String disabledImage;
 
     /**
-     * イネーブル状態を設定します。<br />
-     * 
-     * @param enabled
-     *            イネーブル状態
+     * 選択時のイメージパスです。
      */
-    public void setEnabled(final String enabled) {
-        this.enabled = enabled;
-    }
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String hoverImage;
 
     /**
-     * 選択状態を取得します。<br />
-     * 
-     * @return 選択状態
+     * 説明テキストです。
      */
-    public String getSelection() {
-        return this.selection;
-    }
-
-    /**
-     * 選択状態を設定します。<br />
-     * 
-     * @param selection
-     *            選択状態
-     */
-    public void setSelection(final String selection) {
-        this.selection = selection;
-    }
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String description;
 }

@@ -266,7 +266,7 @@
             <xs:element ref="tns:separator" />
           </xs:choice>
           <xs:attribute name="text" type="xs:string" />
-          <xs:attribute name="visible" type="xs:boolean" default="true"/>
+          <xs:attribute name="visible" type="xs:boolean" default="true" />
           <xs:attribute name="x" type="xs:int" />
           <xs:attribute name="y" type="xs:int" />
           <xs:attribute name="enabledDependId" type="xs:string" />
@@ -283,8 +283,6 @@
         <xs:attribute name="style">
           <xs:simpleType>
             <xs:restriction base="tns:SWTConst">
-              <xs:enumeration value="CASCADE" />
-              <xs:enumeration value="SEPARATOR" />
               <xs:enumeration value="CHECK" />
               <xs:enumeration value="RADIO" />
               <xs:enumeration value="PUSH" />
@@ -302,6 +300,9 @@
           <xs:attribute name="accelerator" type="tns:Accelerator" />
           <xs:attribute name="enabled" type="xs:boolean" />
           <xs:attribute name="selection" type="xs:boolean" />
+          <xs:attribute name="description" type="xs:string" />
+          <xs:attribute name="disabledImage" type="tns:Image" />
+          <xs:attribute name="hoverImage" type="tns:Image" />
           <xs:attribute name="enabledDependId" type="xs:string" />
           <xs:attribute name="enabledDependType"
             type="tns:EnabledDependType" />
