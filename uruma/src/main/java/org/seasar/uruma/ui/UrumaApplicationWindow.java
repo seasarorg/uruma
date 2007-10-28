@@ -201,6 +201,9 @@ public class UrumaApplicationWindow extends ApplicationWindow {
         String menuId = windowComponent.getMenu();
         if (!StringUtil.isEmpty(menuId)) {
             addMenuBar();
+        } else if (partContext.hasWidgetHandle(PartContext.DEFAULT_MENU_ID)) {
+            windowComponent.setMenu(PartContext.DEFAULT_MENU_ID);
+            addMenuBar();
         }
     }
 

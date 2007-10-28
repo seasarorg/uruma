@@ -47,6 +47,13 @@ public abstract class AbstractWidgetHolder implements WidgetHolder {
     }
 
     /*
+     * @see org.seasar.uruma.context.WidgetHolder#hasWidgetHandle(java.lang.String)
+     */
+    public boolean hasWidgetHandle(final String handleId) {
+        return handleMap.containsKey(handleId);
+    }
+
+    /*
      * @see org.seasar.uruma.context.WidgetHolder#putWidgetHandle(org.seasar.uruma.context.WidgetHandle)
      */
     public void putWidgetHandle(final WidgetHandle handle) {

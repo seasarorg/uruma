@@ -34,9 +34,20 @@ public interface WidgetHolder {
      * <code>handleId</code> で指定された ID を持つ {@link WidgetHandle} を返します。<br />
      * 
      * @param handleId
+     *            ハンドルID
      * @return {@link WidgetHandle} オブジェクト。見つからなかった場合は、<code>null</code>。
      */
     public WidgetHandle getWidgetHandle(String handleId);
+
+    /**
+     * <code>handleId</code> で指定された ID を持つ {@link WidgetHandle}
+     * が存在するかどうかを調べます。
+     * 
+     * @param handleId
+     *            ハンドルID
+     * @return 存在すれば <code>true</code>。存在しなければ <code>false</code>
+     */
+    public boolean hasWidgetHandle(String handleId);
 
     /**
      * {@link WidgetHandle} を登録します。<br />

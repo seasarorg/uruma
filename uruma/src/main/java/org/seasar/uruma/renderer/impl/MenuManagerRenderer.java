@@ -44,6 +44,12 @@ public class MenuManagerRenderer extends AbstractRenderer {
         if (parent == null) {
             WidgetHandle handle = createWidgetHandle(uiComponent,
                     createMenuManager());
+            if (handle.getId() == null
+                    && !context.hasWidgetHandle(PartContext.DEFAULT_MENU_ID)) {
+                // menu 要素に id が設定されておらず、コンテキスト上に
+                // PartContext.DEFAULT_MENU_ID を持つハンドルが存在しなければ登録する
+                handle.setId(PartContext.DEFAULT_MENU_ID);
+            }
 
             return handle;
         } else if (parent.getUiComponent() instanceof MenuComponent) {

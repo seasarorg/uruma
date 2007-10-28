@@ -41,6 +41,11 @@ public interface PartContext extends WidgetHolder {
     public static final String MENU_BAR_MANAGER_ID = "menuBarManager";
 
     /**
+     * ID の設定されていない <code>menu</code> 要素にデフォルトで割り当てられる ID です。<br />
+     */
+    public static final String DEFAULT_MENU_ID = "defaultMenu";
+
+    /**
      * {@link IStatusLineManager} が登録される ID です。<br />
      */
     public static final String STATUS_LINE_MANAGER_ID = "statusLineManager";
