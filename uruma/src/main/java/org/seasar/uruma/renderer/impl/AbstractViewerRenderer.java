@@ -24,6 +24,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
@@ -83,7 +84,10 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
         setContext(context);
 
         inherit((COMPONENT_TYPE) uiComponent);
-        VIEWER_TYPE viewer = createViewer(parent.<Composite> getCastWidget());
+
+        int style = SWTUtil.getStyle(uiComponent.getStyle());
+        VIEWER_TYPE viewer = createViewer(parent.<Composite> getCastWidget(),
+                style);
 
         // ビューアに内包されるウィジットのレンダリングを行う
         renderWidget((COMPONENT_TYPE) uiComponent, (CONTROL_TYPE) viewer
@@ -297,12 +301,14 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * 
      * @param parent
      *            親 {@link Composite}
+     * @param style
+     *            スタイル
      * @return 生成したビューアのインタンス
      */
-    protected VIEWER_TYPE createViewer(final Composite parent) {
+    protected VIEWER_TYPE createViewer(final Composite parent, final int style) {
         Class<VIEWER_TYPE> viewerClass = getViewerType();
         VIEWER_TYPE viewer = ClassUtil.<VIEWER_TYPE> newInstance(viewerClass,
-                parent);
+                parent, style);
 
         if (logger.isDebugEnabled()) {
             logger.debug(viewerClass.getName() + "@"

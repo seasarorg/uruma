@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.binding.widget;
 
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
@@ -36,6 +38,10 @@ public class WidgetBinder {
      * {@link WidgetHandle} を {@link PartContext} から取得します。取得できた場合、
      * {@link WidgetHandle} が内包するオブジェクトの型がフィールドに代入可能であれば そのフィールドにセットします。<br />
      * </p>
+     * <p>
+     * また、{@link WidgetHandle} の内包するオブジェクトが {@link Viewer} のサブクラスである場合、その
+     * {@link Viewer} の持つ {@link Control} が代入可能であればバインドします。<br />
+     * </p>
      * 
      * @param target
      *            ターゲットオブジェクト
@@ -55,6 +61,12 @@ public class WidgetBinder {
             if (handle != null) {
                 if (propertyType.isAssignableFrom(handle.getWidgetClass())) {
                     pd.setValue(target, handle.getWidget());
+                } else if (handle.instanceOf(Viewer.class)) {
+                    Viewer viewer = handle.<Viewer> getCastWidget();
+                    Control coltrol = viewer.getControl();
+                    if (propertyType.isAssignableFrom(coltrol.getClass())) {
+                        pd.setValue(target, coltrol);
+                    }
                 }
             }
         }
