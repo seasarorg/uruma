@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="main" title="従業員管理" height="400" width="604" image="title" statusLine="true">
+  <window id="main" title="従業員管理" height="400" width="604" image="title"
+    statusLine="true">
     <gridLayout numColumns="1">
-      <gridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true" />
+      <gridData horizontalAlignment="FILL"
+        grabExcessHorizontalSpace="true" />
     </gridLayout>
     <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
       grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
@@ -16,22 +18,20 @@
       </menu>
 
       <menu text="編集(&amp;E)">
-        <menuItem id="menuEdit" text="編集(&amp;E)\tCtrl+E" accelerator="Ctrl+E"
-          enabledDependId="employeeTable" enabledDependType="SINGLE"
-          image="edit" />
-        <menuItem id="menuDelete" text="削除(&amp;D)\tDelete" accelerator="Delete"
-          enabledDependId="employeeTable" enabledDependType="SELECTION"
-          image="delete" />
+        <menuItem id="menuEdit" text="編集(&amp;E)\tCtrl+E"
+          accelerator="Ctrl+E" image="edit" />
+        <menuItem id="menuDelete" text="削除(&amp;D)\tDelete"
+          accelerator="Delete" image="delete" />
       </menu>
 
       <menu text="表示(&amp;V)">
         <menuItem id="menuInquire" text="詳細表示(&amp;I)\tCtrl+I"
-          accelerator="Ctrl+I" enabledDependId="employeeTable"
-          enabledDependType="SINGLE" image="inquire" />
+          accelerator="Ctrl+I" image="inquire" />
       </menu>
 
       <menu text="検索(&amp;S)">
-        <menuItem id="menuSearch" text="検索(&amp;F)\tCtrl+F" image="search" />
+        <menuItem id="menuSearch" text="検索(&amp;F)\tCtrl+F"
+          image="search" />
       </menu>
 
       <menu text="ヘルプ(&amp;H)">
@@ -43,12 +43,9 @@
       <toolItem id="toolRegist" toolTipText="新規登録" image="regist" />
       <toolItem style="SEPARATOR" />
 
-      <toolItem id="toolEdit" toolTipText="編集" image="edit"
-        enabledDependId="employeeTable" enabledDependType="SINGLE" />
-      <toolItem id="toolDelete" toolTipText="削除" image="delete"
-        enabledDependId="employeeTable" enabledDependType="SELECTION" />
-      <toolItem id="toolInquire" toolTipText="詳細表示" image="inquire"
-        enabledDependId="employeeTable" enabledDependType="SINGLE" />
+      <toolItem id="toolEdit" toolTipText="編集" image="edit" />
+      <toolItem id="toolDelete" toolTipText="削除" image="delete" />
+      <toolItem id="toolInquire" toolTipText="詳細表示" image="inquire" />
       <toolItem style="SEPARATOR" />
 
       <toolItem id="toolSearch" toolTipText="検索" image="search" />
@@ -63,7 +60,7 @@
       <tableColumn id="job" width="80" text="役職" />
       <tableColumn id="mname" width="70" text="管理者名" />
       <tableColumn id="hiredate" width="80" text="雇用日" />
-      <tableColumn id="sal" width="52" text="給与" alignment="RIGHT"/>
+      <tableColumn id="sal" width="52" text="給与" alignment="RIGHT" />
       <tableColumn id="comm" width="52" text="報奨金" alignment="RIGHT" />
       <tableColumn id="dname" width="90" text="部署名" />
     </table>
