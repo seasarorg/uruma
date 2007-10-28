@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.component.impl;
 
+import org.seasar.framework.log.Logger;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.context.PartContext;
@@ -29,6 +30,8 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 public abstract class AbstractUIComponent extends AbstractUIElement implements
         UIComponent {
+    private Logger logger = Logger.getLogger(getClass());
+
     private UIContainer parent;
 
     private String id;
@@ -87,6 +90,10 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
      *      org.seasar.uruma.context.PartContext)
      */
     public void preRender(final WidgetHandle parent, final PartContext context) {
+        if (logger.isDebugEnabled()) {
+            logger.debug(getClass().getName() + "#preRender() - start.");
+        }
+
         WidgetHandle handle = getRenderer().preRender(this, parent, context);
 
         if (handle != null) {
@@ -98,6 +105,10 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         }
 
         doPreRender(parent, context);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug(getClass().getName() + "#preRender() - end.");
+        }
     }
 
     /*
@@ -105,6 +116,10 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
      *      org.seasar.uruma.context.PartContext)
      */
     public void render(final WidgetHandle parent, final PartContext context) {
+        if (logger.isDebugEnabled()) {
+            logger.debug(getClass().getName() + "#render() - start.");
+        }
+
         WidgetHandle handle = getRenderer().render(this, parent, context);
 
         if (handle != null) {
@@ -120,6 +135,10 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         doRender(parent, context);
 
         getRenderer().renderAfter(handle, this, parent, context);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug(getClass().getName() + "#render() - end.");
+        }
     }
 
     /*

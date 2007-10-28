@@ -87,6 +87,18 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         // addEnabledDepend(control, uiComponent);
     }
 
+    /**
+     * 生成したコントロールに対するレンダリングを行います。<br />
+     * コントロールに対する独自のレンダリング処理を追加したい場合、サブクラスでオーバーライドしてください。<br />
+     * 
+     * @param controlComponent
+     *            {@link UIComponent} オブジェクト
+     * @param control
+     *            生成した {@link Control} オブジェクト
+     */
+    protected abstract void doRenderControl(COMPONENT_TYPE controlComponent,
+            CONTROL_TYPE control);
+
     protected void setLocation(final ControlComponent controlComponent,
             final Control control) {
         String xStr = controlComponent.getX();
@@ -268,7 +280,4 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         }
         return null;
     }
-
-    protected abstract void doRenderControl(COMPONENT_TYPE controlComponent,
-            CONTROL_TYPE control);
 }

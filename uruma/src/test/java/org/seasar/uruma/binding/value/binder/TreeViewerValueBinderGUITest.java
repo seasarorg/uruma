@@ -44,7 +44,7 @@ public class TreeViewerValueBinderGUITest extends AbstractGUITest {
     @ImportSelection(id = "tree1")
     public TreeNode selected2;
 
-    Text textArea;
+    public Text textArea;
 
     /**
      * {@link TreeViewerValueBinderGUITest} を構築します。<br />

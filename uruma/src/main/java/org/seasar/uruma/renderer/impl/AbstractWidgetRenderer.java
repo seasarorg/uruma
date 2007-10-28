@@ -17,6 +17,7 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
+import org.seasar.framework.log.Logger;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.PartContext;
@@ -36,6 +37,7 @@ import org.seasar.uruma.util.ClassUtil;
  */
 public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent, WIDGET_TYPE extends Widget>
         extends AbstractRenderer {
+    private Logger logger = Logger.getLogger(getClass());
 
     /*
      * @see org.seasar.uruma.renderer.Renderer#render(org.seasar.uruma.component.UIComponent,
@@ -63,18 +65,31 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
 
         WIDGET_TYPE widget = createWidget(parentWidget, getStyle(uiComponent));
 
-        try {
-            RendererSupportUtil.setAttributes(uiComponent, widget,
-                    SetTiming.RENDER);
-
-            doRender((COMPONENT_TYPE) uiComponent, getWidgetType().cast(widget));
-        } catch (Exception ex) {
-            throw new RenderException("EURM0001", ex, ex.getMessage());
-        }
+        renderWidget((COMPONENT_TYPE) uiComponent, widget);
 
         WidgetHandle handle = createWidgetHandle(uiComponent, widget);
 
         return handle;
+    }
+
+    /**
+     * 生成したウィジットに対するレンダリングを行います。<br />
+     * 
+     * @param uiComponent
+     *            対応する {@link UIComponent}
+     * @param widget
+     *            生成したウィジット
+     */
+    protected void renderWidget(final COMPONENT_TYPE uiComponent,
+            final WIDGET_TYPE widget) {
+        try {
+            RendererSupportUtil.setAttributes(uiComponent, widget,
+                    SetTiming.RENDER);
+
+            doRender(uiComponent, getWidgetType().cast(widget));
+        } catch (Exception ex) {
+            throw new RenderException("EURM0001", ex, ex.getMessage());
+        }
     }
 
     /*
@@ -120,6 +135,12 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
         Class<WIDGET_TYPE> widgetClass = getWidgetType();
         WIDGET_TYPE widget = ClassUtil.<WIDGET_TYPE> newInstance(widgetClass,
                 parent, style);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug(widgetClass.getName() + "@"
+                    + Integer.toHexString(widget.hashCode()) + " created.");
+        }
+
         return widget;
     }
 
