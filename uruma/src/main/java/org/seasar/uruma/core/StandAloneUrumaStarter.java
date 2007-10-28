@@ -20,6 +20,7 @@ import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.log.Logger;
 
 /**
  * RCP を利用せずに単独でウィンドウを開くアプリケーションのためのスタートアップクラスです。<br />
@@ -27,6 +28,9 @@ import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
  * @author y-komori
  */
 public class StandAloneUrumaStarter {
+    private final Logger logger = Logger
+            .getLogger(StandAloneUrumaStarter.class);
+
     private static StandAloneUrumaStarter instance;
 
     protected S2Container container;
@@ -65,6 +69,7 @@ public class StandAloneUrumaStarter {
     }
 
     private StandAloneUrumaStarter() {
+        logger.log("DURM9900", null);
         initS2Container();
     }
 
@@ -103,9 +108,9 @@ public class StandAloneUrumaStarter {
         display = Display.getCurrent();
         if (display == null) {
             display = new Display();
+            setupImageManager(display);
         }
         try {
-            setupImageManager();
 
             UrumaWindowManager windowManager = (UrumaWindowManager) container
                     .getComponent(UrumaWindowManager.class);
@@ -114,8 +119,7 @@ public class StandAloneUrumaStarter {
             try {
                 dispose();
             } catch (Throwable ex) {
-                // TODO 例外をログ出力する
-                ex.printStackTrace();
+                logger.log("EURM0001", new Object[] { ex.getMessage() });
             }
         }
     }
@@ -142,7 +146,9 @@ public class StandAloneUrumaStarter {
         this.imageBundleName = imageBundleName;
     }
 
-    protected void setupImageManager() {
+    protected void setupImageManager(final Display display) {
+        ImageManager.init(display);
+        logger.log("DURM9901", new Object[] { imageBundleName });
         ImageManager.loadImages(imageBundleName);
     }
 
@@ -159,9 +165,9 @@ public class StandAloneUrumaStarter {
      */
     public static void destroy() {
         if (instance != null) {
+            instance.logger.log("DURM9902", null);
             instance.dispose();
             instance = null;
         }
     }
-
 }
