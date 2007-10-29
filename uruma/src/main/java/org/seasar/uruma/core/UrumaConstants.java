@@ -22,12 +22,17 @@ package org.seasar.uruma.core;
  */
 public class UrumaConstants {
     /**
-     * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパス
+     * 空文字列を表す定数です。<br />
+     */
+    public static final String NULL_STRING = "";
+
+    /**
+     * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパスです。<br />
      */
     public static final String URUMA_DICON_PATH = "uruma.dicon";
 
     /**
-     * デフォルトのイメージバンドル名称
+     * デフォルトのイメージバンドル名称です。<br />
      */
     public static final String DEFAULT_IMAGE_BUNDLE_PATH = "urumaImages";
 }

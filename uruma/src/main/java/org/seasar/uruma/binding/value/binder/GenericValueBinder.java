@@ -57,6 +57,14 @@ public class GenericValueBinder<WIDGET_TYPE> extends
     public void doImportValue(final WIDGET_TYPE widget, final Object formObj,
             final PropertyDesc propDesc) {
         Object value = propertyDesc.getValue(widget);
+
+        // 空文字列の入力は null として扱う
+        if (value instanceof String && ((String) value).length() == 0) {
+            value = null;
+        }
+
+        logBinding(widget, propertyDesc, formObj, propDesc, value);
+
         propDesc.setValue(formObj, value);
     }
 
@@ -68,6 +76,13 @@ public class GenericValueBinder<WIDGET_TYPE> extends
     public void doExportValue(final WIDGET_TYPE widget, final Object formObj,
             final PropertyDesc propDesc) {
         Object value = propDesc.getValue(formObj);
+
+        if (value == null) {
+            value = "";
+        }
+
+        logBinding(formObj, propDesc, widget, propertyDesc, value);
+
         propertyDesc.setValue(widget, value);
     }
 }

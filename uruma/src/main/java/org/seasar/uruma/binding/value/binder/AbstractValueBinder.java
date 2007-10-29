@@ -25,7 +25,9 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.exception.BindingException;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 import org.seasar.uruma.viewer.ContentsHolder;
 import org.seasar.uruma.viewer.TargetClassHoldingProvider;
@@ -38,7 +40,11 @@ import org.seasar.uruma.viewer.TargetClassHoldingProvider;
  * @author y-komori
  */
 public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
+    private UrumaLogger logger = UrumaLogger.getLogger(getClass());
+
     private Class<WIDGET_TYPE> widgetType;
+
+    private static final String MESSAGE_CODE = "IURM0215";
 
     /**
      * {@link AbstractValueBinder} を構築します。<br />
@@ -158,6 +164,7 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                         setClassToProvider(labelProvider, contents.getClass());
                     }
 
+                    logBinding(formObj, propDesc, widget, null, contents);
                     viewer.setInput(contents);
                 }
             }
@@ -194,6 +201,8 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                 if (propertyType.isArray()) {
                     Object[] selectedArray = selection.toArray();
                     if (propertyType.isAssignableFrom(selectedArray.getClass())) {
+                        logBinding(widget, null, formObj, propDesc,
+                                selectedArray);
                         propDesc.setValue(formObj, selectedArray);
                     } else {
                         throw new BindingException(
@@ -201,9 +210,12 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                                         .getClass(), propDesc.getField());
                     }
                 } else if (propertyType.isAssignableFrom(List.class)) {
-                    propDesc.setValue(formObj, selection.toList());
+                    List<?> list = selection.toList();
+                    logBinding(widget, null, formObj, propDesc, list);
+                    propDesc.setValue(formObj, list);
                 } else if (propertyType.isAssignableFrom(firstElement
                         .getClass())) {
+                    logBinding(widget, null, formObj, propDesc, firstElement);
                     propDesc.setValue(formObj, firstElement);
                 } else {
                     throw new BindingException(
@@ -234,6 +246,8 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
             Viewer viewer = Viewer.class.cast(widget);
             Object selection = propDesc.getValue(formObj);
             if (selection != null) {
+                logBinding(formObj, propDesc, viewer, null, selection);
+
                 viewer.setSelection(new StructuredSelection(selection), true);
             }
         }
@@ -245,6 +259,38 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                 && (provider instanceof TargetClassHoldingProvider)) {
             TargetClassHoldingProvider.class.cast(provider).setTargetClass(
                     clazz);
+        }
+    }
+
+    /**
+     * バインディングの状況をログ出力します。<br />
+     * 
+     * @param srcObj
+     *            バインド元オブジェクト
+     * @param srcProp
+     *            バインド元プロパティ
+     * @param destObj
+     *            バインド先オブジェクト
+     * @param destProp
+     *            バインド先オブジェクト
+     * @param value
+     *            値
+     */
+    protected void logBinding(final Object srcObj, final PropertyDesc srcProp,
+            final Object destObj, final PropertyDesc destProp,
+            final Object value) {
+        if (logger.isInfoEnabled()) {
+            String srcName = UrumaConstants.NULL_STRING;
+            if (srcProp != null) {
+                srcName = srcProp.getPropertyName();
+            }
+            String destName = UrumaConstants.NULL_STRING;
+            if (destProp != null) {
+                destName = destProp.getPropertyName();
+            }
+            logger.log(MESSAGE_CODE, UrumaLogger.getObjectDescription(srcObj),
+                    srcName, UrumaLogger.getObjectDescription(destObj),
+                    destName, value);
         }
     }
 }

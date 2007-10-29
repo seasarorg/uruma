@@ -34,7 +34,6 @@ import org.seasar.uruma.exception.NotFoundException;
  */
 public abstract class AbstractBindingCommand<ANNOTATION_CLASS extends Annotation>
         implements BindingCommand {
-
     /*
      * @see org.seasar.uruma.binding.value.BindingCommand#doBind(java.lang.Object,
      *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)

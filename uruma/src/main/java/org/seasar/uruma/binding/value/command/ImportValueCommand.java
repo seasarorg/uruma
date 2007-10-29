@@ -19,6 +19,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.annotation.ImportExportValue;
 import org.seasar.uruma.annotation.ImportValue;
 import org.seasar.uruma.binding.value.BindingCommand;
 import org.seasar.uruma.binding.value.ValueBinder;
@@ -47,6 +49,27 @@ public class ImportValueCommand extends AbstractBindingCommand<ImportValue> {
     protected void doBind(final ValueBinder binder, final Object widget,
             final Object formObj, final PropertyDesc propDesc) {
         binder.importValue(widget, formObj, propDesc);
+    }
+
+    /*
+     * @see org.seasar.uruma.binding.value.command.AbstractBindingCommand#getId(java.lang.reflect.Field)
+     */
+    @Override
+    public String getId(final Field field) {
+        ImportValue importValue = field.getAnnotation(ImportValue.class);
+        if (importValue != null) {
+            String id = importValue.id();
+            return StringUtil.isEmpty(id) ? field.getName() : id;
+        }
+
+        ImportExportValue importExportValue = field
+                .getAnnotation(ImportExportValue.class);
+        if (importExportValue != null) {
+            String id = importExportValue.id();
+            return StringUtil.isEmpty(id) ? field.getName() : id;
+        }
+
+        return field.getName();
     }
 
     /*

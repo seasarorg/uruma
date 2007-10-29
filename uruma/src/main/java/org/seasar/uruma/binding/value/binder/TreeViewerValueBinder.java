@@ -43,6 +43,7 @@ public class TreeViewerValueBinder extends AbstractValueBinder<TreeViewer> {
         if (widget.getContentProvider() != null) {
             Object value = propDesc.getValue(formObj);
             if (value != null) {
+                logBinding(formObj, propDesc, widget, null, value);
                 widget.setInput(value);
             }
         }

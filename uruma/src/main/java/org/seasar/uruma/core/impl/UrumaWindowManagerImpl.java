@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jface.window.WindowManager;
+import org.seasar.framework.log.Logger;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
@@ -33,6 +34,8 @@ import org.seasar.uruma.ui.UrumaApplicationWindow;
  * @author bskuroneko
  */
 public class UrumaWindowManagerImpl implements UrumaWindowManager {
+    private Logger logger = Logger.getLogger(UrumaWindowManager.class);
+
     private WindowManager windowManager = new WindowManager();
 
     private Map<String, WindowComponent> windowMap = new HashMap<String, WindowComponent>();
@@ -87,6 +90,10 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
      */
     public UrumaApplicationWindow openWindow(final String templatePath,
             final boolean modal, final Object argument) {
+        if (logger.isInfoEnabled()) {
+            logger.log("IURM9903", new Object[] { templatePath });
+        }
+
         Template template = loadTemplate(templatePath);
         UrumaApplicationWindow window = new UrumaApplicationWindow();
         window.init(applicationContext, (WindowComponent) template
