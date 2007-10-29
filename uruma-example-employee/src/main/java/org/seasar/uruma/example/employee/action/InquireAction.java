@@ -27,7 +27,7 @@ import org.seasar.uruma.example.employee.form.InquireForm;
  * @author bskuroneko
  */
 public class InquireAction {
-	private Shell shell;
+	public Shell shell;
 
 	public InquireForm inquireForm;
 
