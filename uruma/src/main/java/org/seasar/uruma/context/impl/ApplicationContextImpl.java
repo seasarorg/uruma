@@ -79,4 +79,17 @@ public class ApplicationContextImpl implements ApplicationContext {
             throw new DuplicateComponentIdException(context.getName());
         }
     }
+
+    /**
+     * {@link WindowContext} を削除します。<br />
+     * 
+     * @param windowName
+     *            ウィンドウ名称
+     */
+    public void disposeWindowContext(final String windowName) {
+        WindowContext context = getWindowContext(windowName);
+        if (context != null) {
+            windowContextList.remove(context);
+        }
+    }
 }

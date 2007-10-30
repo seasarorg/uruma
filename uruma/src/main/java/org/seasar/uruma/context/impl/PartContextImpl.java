@@ -17,6 +17,7 @@ package org.seasar.uruma.context.impl;
 
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.desc.FormDesc;
 import org.seasar.uruma.desc.PartActionDesc;
 
@@ -37,6 +38,8 @@ public class PartContextImpl extends AbstractWidgetHolder implements
 
     private Object formObj;
 
+    private WindowContextImpl parent;
+
     /**
      * {@link PartContextImpl} を構築します。<br />
      * 本クラスのインスタンスを生成するには、{@link ContextFactory#createPartContext(org.seasar.uruma.context.WindowContext, String)}
@@ -44,11 +47,14 @@ public class PartContextImpl extends AbstractWidgetHolder implements
      * 
      * @param partName
      *            パート名称
+     * @param parent
+     *            親 {@link WindowContext}
      */
-    public PartContextImpl(final String partName) {
+    public PartContextImpl(final String partName, final WindowContext parent) {
         super();
 
         this.partName = partName;
+        this.parent = (WindowContextImpl) parent;
     }
 
     /*
@@ -112,5 +118,12 @@ public class PartContextImpl extends AbstractWidgetHolder implements
      */
     public void setPartActionObject(final Object object) {
         this.partActionObj = object;
+    }
+
+    /**
+     * この {@link PartContext} を親 {@link WindowContext} から削除します。<br />
+     */
+    public void dispose() {
+        parent.disposePartContext(partName);
     }
 }

@@ -57,7 +57,7 @@ public class ContextFactory {
         AssertionUtil.assertNotNull("parent", parent);
         AssertionUtil.assertNotNull("name", name);
 
-        WindowContext context = new WindowContextImpl(name);
+        WindowContext context = new WindowContextImpl(name, parent);
         ((ApplicationContextImpl) parent).addWindowContext(context);
 
         return context;
@@ -79,7 +79,7 @@ public class ContextFactory {
         AssertionUtil.assertNotNull("parent", parent);
         AssertionUtil.assertNotNull("name", name);
 
-        PartContext context = new PartContextImpl(name);
+        PartContext context = new PartContextImpl(name, parent);
         ((WindowContextImpl) parent).addPartContext(context);
 
         return context;

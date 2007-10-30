@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
+import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.exception.DuplicateComponentIdException;
@@ -46,13 +47,22 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
 
     private List<PartContext> partContextList;
 
+    private ApplicationContextImpl parent;
+
     /**
      * {@link WindowContextImpl} を構築します。<br />
+     * 
+     * @param windowName
+     *            ウィンドウ名称
+     * @param parent
+     *            親 {@link ApplicationContext}
      */
-    public WindowContextImpl(final String windowName) {
+    public WindowContextImpl(final String windowName,
+            final ApplicationContext parent) {
         super();
 
         this.windowName = windowName;
+        this.parent = (ApplicationContextImpl) parent;
     }
 
     /*
@@ -110,5 +120,25 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
         } else {
             throw new DuplicateComponentIdException(context.getName());
         }
+    }
+
+    /**
+     * {@link PartContext} オブジェクトを削除します。<br />
+     * 
+     * @param partName
+     *            パート名称
+     */
+    public void disposePartContext(final String partName) {
+        PartContext partContext = getPartContext(partName);
+        if (partContext != null) {
+            partContextList.remove(partContext);
+        }
+    }
+
+    /**
+     * この {@link WindowContext} を親 {@link ApplicationContext} から削除します。<br />
+     */
+    public void dispose() {
+        parent.disposeWindowContext(windowName);
     }
 }
