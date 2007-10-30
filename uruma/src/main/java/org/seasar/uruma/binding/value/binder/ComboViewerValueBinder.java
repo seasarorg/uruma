@@ -47,7 +47,7 @@ public class ComboViewerValueBinder extends AbstractValueBinder<ComboViewer> {
         String text = combo.getText();
         text = StringUtil.isEmpty(text) ? null : text;
 
-        logBinding(widget, null, formObj, propDesc, text);
+        logBinding(IMPORT_VALUE, widget, null, formObj, propDesc, text);
 
         propDesc.setValue(formObj, text);
     }

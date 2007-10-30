@@ -63,7 +63,7 @@ public class GenericValueBinder<WIDGET_TYPE> extends
             value = null;
         }
 
-        logBinding(widget, propertyDesc, formObj, propDesc, value);
+        logBinding(IMPORT_VALUE, widget, propertyDesc, formObj, propDesc, value);
 
         propDesc.setValue(formObj, value);
     }
@@ -81,7 +81,7 @@ public class GenericValueBinder<WIDGET_TYPE> extends
             value = "";
         }
 
-        logBinding(formObj, propDesc, widget, propertyDesc, value);
+        logBinding(EXPORT_VALUE, formObj, propDesc, widget, propertyDesc, value);
 
         propertyDesc.setValue(widget, value);
     }

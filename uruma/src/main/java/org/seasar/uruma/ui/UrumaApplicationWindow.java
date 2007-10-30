@@ -176,9 +176,7 @@ public class UrumaApplicationWindow extends ApplicationWindow {
                 .getClass());
         if (beanDesc.hasPropertyDesc(formObjectName)) {
             PropertyDesc pd = beanDesc.getPropertyDesc(formObjectName);
-            if (pd.hasWriteMethod()) {
-                pd.setValue(partActionObject, formObject);
-            }
+            pd.setValue(partActionObject, formObject);
         }
     }
 

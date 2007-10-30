@@ -72,8 +72,10 @@ public class GenericListener implements Listener {
         ValueBindingSupport.importSelection(context);
         ValueBindingSupport.importValue(context);
         methodBinding.invoke(new Object[] { event });
-        ValueBindingSupport.exportValue(context);
-        ValueBindingSupport.exportSelection(context);
+        if (!event.widget.isDisposed()) {
+            ValueBindingSupport.exportValue(context);
+            ValueBindingSupport.exportSelection(context);
+        }
 
         // TODO 見直し
         // EnabledDependBinder.updateEnabled(context);
