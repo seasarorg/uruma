@@ -21,6 +21,8 @@ import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.seasar.framework.container.annotation.tiger.Binding;
+import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
@@ -43,6 +45,7 @@ public class MainAction {
 
 	public Shell shell;
 
+	@Binding(bindingType = BindingType.MAY)
 	public IStatusLineManager statusLineManager;
 
 	public Table employeeTable;
@@ -97,19 +100,17 @@ public class MainAction {
 
 	@EventListener(id = { "menuEdit", "toolEdit" })
 	public void editEmployee() {
-		int selection = employeeTable.getSelectionIndex();
-		EmployeeDto employee = employees.get(selection);
+		EmployeeDto employee = selectedEmployees.get(0);
 		EmployeeDto edited = (EmployeeDto) windowManager.openModal(
 				"org/seasar/uruma/example/employee/edit.xml", employee);
 		if (edited != null) {
-			employees.set(selection, edited);
+			// employees.set(selection, edited);
 		}
 	}
 
 	@EventListener(id = { "menuInquire", "toolInquire" })
 	public void inquireEmployee() {
-		int selection = employeeTable.getSelectionIndex();
-		EmployeeDto employee = employees.get(selection);
+		EmployeeDto employee = selectedEmployees.get(0);
 		windowManager.openModal(
 				"org/seasar/uruma/example/employee/inquire.xml", employee);
 	}

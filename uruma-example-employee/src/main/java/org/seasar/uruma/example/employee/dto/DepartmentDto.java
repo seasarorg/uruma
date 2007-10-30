@@ -15,52 +15,52 @@
  */
 package org.seasar.uruma.example.employee.dto;
 
-import org.seasar.jface.annotation.BindingLabel;
+import org.seasar.uruma.annotation.BindingLabel;
 
 public class DepartmentDto {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private int deptno;
+	private int deptno;
 
-    @BindingLabel
-    private String dname;
+	@BindingLabel
+	private String dname;
 
-    public Integer getDeptno() {
-        return deptno;
-    }
+	public Integer getDeptno() {
+		return deptno;
+	}
 
-    public void setDeptno(Integer deptno) {
-        this.deptno = deptno;
-    }
+	public void setDeptno(final Integer deptno) {
+		this.deptno = deptno;
+	}
 
-    public String getDname() {
-        return dname;
-    }
+	public String getDname() {
+		return dname;
+	}
 
-    public void setDname(String dname) {
-        this.dname = dname;
-    }
+	public void setDname(final String dname) {
+		this.dname = dname;
+	}
 
-    @Override
-    public int hashCode() {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result + deptno;
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		final int PRIME = 31;
+		int result = 1;
+		result = PRIME * result + deptno;
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final DepartmentDto other = (DepartmentDto) obj;
-        if (deptno != other.deptno)
-            return false;
-        return true;
-    }
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final DepartmentDto other = (DepartmentDto) obj;
+		if (deptno != other.deptno)
+			return false;
+		return true;
+	}
 }

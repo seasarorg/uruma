@@ -22,6 +22,7 @@ import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.annotation.ReturnValue;
 import org.seasar.uruma.example.employee.dto.DepartmentDto;
+import org.seasar.uruma.example.employee.dto.EmployeeDto;
 import org.seasar.uruma.example.employee.dto.EmployeeSearchDto;
 import org.seasar.uruma.example.employee.dxo.SearchFormDxo;
 import org.seasar.uruma.example.employee.form.SearchForm;
@@ -40,7 +41,7 @@ public class SearchAction {
 	public SearchForm searchForm;
 
 	@ReturnValue
-	public List searchResult = null;
+	public List<EmployeeDto> searchResult = null;
 
 	@InitializeMethod
 	public void initialize() {
