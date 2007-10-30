@@ -116,4 +116,11 @@ public interface PartContext extends WidgetHolder {
      *            フォームクラスのオブジェクト
      */
     public void setFormObject(Object object);
+
+    /**
+     * 親 {@link WindowContext} を返します。<br />
+     * 
+     * @return {@link WindowContext} オブジェクト
+     */
+    public WindowContext getWindowContext();
 }

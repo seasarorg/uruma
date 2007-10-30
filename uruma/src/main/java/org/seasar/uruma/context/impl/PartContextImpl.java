@@ -120,10 +120,19 @@ public class PartContextImpl extends AbstractWidgetHolder implements
         this.partActionObj = object;
     }
 
+    /*
+     * @see org.seasar.uruma.context.PartContext#getWindowContext()
+     */
+    public WindowContext getWindowContext() {
+        return parent;
+    }
+
     /**
      * この {@link PartContext} を親 {@link WindowContext} から削除します。<br />
      */
     public void dispose() {
         parent.disposePartContext(partName);
+        parent = null;
     }
+
 }

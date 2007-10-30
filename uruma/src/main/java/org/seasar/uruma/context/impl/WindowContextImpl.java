@@ -102,6 +102,13 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
         return Collections.unmodifiableList(partContextList);
     }
 
+    /*
+     * @see org.seasar.uruma.context.WindowContext#getApplicationContext()
+     */
+    public ApplicationContext getApplicationContext() {
+        return parent;
+    }
+
     /**
      * {@link PartContext} オブジェクトを追加します。<br />
      * 
@@ -140,5 +147,6 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      */
     public void dispose() {
         parent.disposeWindowContext(windowName);
+        parent = null;
     }
 }

@@ -56,4 +56,10 @@ public interface WindowContext extends WidgetHolder {
      */
     public PartContext getPartContext(String partName);
 
+    /**
+     * 親 {@link ApplicationContext} を返します。<br />
+     * 
+     * @return {@link ApplicationContext} オブジェクト
+     */
+    public ApplicationContext getApplicationContext();
 }
