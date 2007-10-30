@@ -46,9 +46,9 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
 
     private static final String MESSAGE_CODE = "DURM0215";
 
-    protected static final String IMPORT_VALUE = "[ImportValue]    ";
+    protected static final String IMPORT_VALUE = "[ImportValue]";
 
-    protected static final String EXPORT_VALUE = "[ExportValue]    ";
+    protected static final String EXPORT_VALUE = "[ExportValue]";
 
     protected static final String IMPORT_SELECTION = "[ImportSelection]";
 
