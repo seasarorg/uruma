@@ -18,6 +18,8 @@ package org.seasar.uruma.ui;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.beans.BeanDesc;
@@ -37,11 +39,13 @@ import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaWindowManager;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.renderer.impl.WindowRenderer;
+import org.seasar.uruma.util.AssertionUtil;
 import org.seasar.uruma.util.S2ContainerUtil;
 
 /**
@@ -50,7 +54,9 @@ import org.seasar.uruma.util.S2ContainerUtil;
  * @author y-komori
  */
 @Component(autoBinding = AutoBindingType.NONE)
-public class UrumaApplicationWindow extends ApplicationWindow {
+public class UrumaApplicationWindow extends ApplicationWindow implements
+        ShellListener {
+    private UrumaWindowManager windowManager;
 
     private WindowComponent windowComponent;
 
@@ -65,24 +71,28 @@ public class UrumaApplicationWindow extends ApplicationWindow {
     /**
      * {@link UrumaApplicationWindow} を構築します。<br />
      */
-    public UrumaApplicationWindow() {
+    public UrumaApplicationWindow(final UrumaWindowManager manager) {
         super(null);
+        AssertionUtil.assertNotNull("manager", manager);
+
+        this.windowManager = manager;
     }
 
     /**
      * {@link UrumaApplicationWindow} を構築します。<br />
      * 
      * @param context
-     *            {@link ApplicationContext} オブジェクト
+     *            {@link WindowContext} オブジェクト
      * @param component
      *            {@link WindowComponent} オブジェクト
      * @param modal
      *            <code>true</code> の場合、モーダルウィンドウとして開く。<code>false</code>
      *            の場合、モーダレスウィンドウとして開く。
      */
-    public UrumaApplicationWindow(final ApplicationContext context,
-            final WindowComponent component, final boolean modal) {
-        super(null);
+    public UrumaApplicationWindow(final UrumaWindowManager manager,
+            final WindowContext context, final WindowComponent component,
+            final boolean modal) {
+        this(manager);
         init(context, component, modal);
     }
 
@@ -99,11 +109,10 @@ public class UrumaApplicationWindow extends ApplicationWindow {
      * @param modal
      *            <code>true</code> の場合、モーダルウィンドウとして開く
      */
-    public void init(final ApplicationContext context,
+    public void init(final WindowContext context,
             final WindowComponent component, final boolean modal) {
         this.windowComponent = component;
-        this.windowContext = ContextFactory.createWindowContext(context,
-                component.getId());
+        this.windowContext = context;
         this.partContext = ContextFactory.createPartContext(windowContext,
                 component.getId());
 
@@ -241,7 +250,7 @@ public class UrumaApplicationWindow extends ApplicationWindow {
      */
     @Override
     protected Control createContents(final Composite parent) {
-        // registMenuToContext();
+        getShell().addShellListener(this);
 
         // ウィンドウのレンダリングを開始する
         WidgetHandle handle = ContextFactory.createWidgetHandle(parent);
@@ -294,5 +303,49 @@ public class UrumaApplicationWindow extends ApplicationWindow {
         } else {
             return null;
         }
+    }
+
+    /**
+     * ウィンドウIDを返します。<br />
+     * 
+     * @return ウィンドウID
+     */
+    public String getWindowId() {
+        return windowComponent.getId();
+    }
+
+    /*
+     * @see org.eclipse.swt.events.ShellListener#shellActivated(org.eclipse.swt.events.ShellEvent)
+     */
+    public void shellActivated(final ShellEvent e) {
+        // Do nothing.
+    }
+
+    /*
+     * @see org.eclipse.swt.events.ShellListener#shellClosed(org.eclipse.swt.events.ShellEvent)
+     */
+    public void shellClosed(final ShellEvent e) {
+        this.windowManager.close(getWindowId());
+    }
+
+    /*
+     * @see org.eclipse.swt.events.ShellListener#shellDeactivated(org.eclipse.swt.events.ShellEvent)
+     */
+    public void shellDeactivated(final ShellEvent e) {
+        // Do nothing.
+    }
+
+    /*
+     * @see org.eclipse.swt.events.ShellListener#shellDeiconified(org.eclipse.swt.events.ShellEvent)
+     */
+    public void shellDeiconified(final ShellEvent e) {
+        // Do nothing.
+    }
+
+    /*
+     * @see org.eclipse.swt.events.ShellListener#shellIconified(org.eclipse.swt.events.ShellEvent)
+     */
+    public void shellIconified(final ShellEvent e) {
+        // Do nothing.
     }
 }

@@ -112,4 +112,11 @@ public interface UrumaWindowManager {
      */
     public Object openModeless(String templatePath, Object argument);
 
+    /**
+     * <code>windowId</code> で指定されたIDのウィンドウを閉じます。<br />
+     * 
+     * @param windowId
+     *            ウィンドウのID
+     */
+    public void close(String windowId);
 }

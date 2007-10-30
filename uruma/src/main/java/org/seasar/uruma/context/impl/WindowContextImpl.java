@@ -146,6 +146,9 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * この {@link WindowContext} を親 {@link ApplicationContext} から削除します。<br />
      */
     public void dispose() {
+        for (PartContext part : partContextList) {
+            disposePartContext(part.getName());
+        }
         parent.disposeWindowContext(windowName);
         parent = null;
     }

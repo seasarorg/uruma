@@ -21,6 +21,8 @@ import java.util.Map;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.factory.ComponentTreeBuilder;
 import org.seasar.uruma.core.TemplateManager;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
 
 /**
  * {@link TemplateManager} の実装クラスです。<br />
@@ -28,6 +30,8 @@ import org.seasar.uruma.core.TemplateManager;
  * @author y-komori
  */
 public class TemplateManagerImpl implements TemplateManager {
+    private UrumaLogger logger = UrumaLogger.getLogger(TemplateManager.class);
+
     private Map<String, Template> templateCache = new HashMap<String, Template>();
 
     private ComponentTreeBuilder builder = new ComponentTreeBuilder();
@@ -36,12 +40,18 @@ public class TemplateManagerImpl implements TemplateManager {
      * @see org.seasar.uruma.core.TemplateManager#getTemplate(java.lang.String)
      */
     public Template getTemplate(final String path) {
-        Template template = templateCache.get(path);
+        // TODO キャッシュ機構に問題があるため、いったん無効。Template のコピーを返す必要がある。
+        // Template template = templateCache.get(path);
+        Template template = null;
         if (template == null) {
+            logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_FILE, path);
+
             template = builder.build(path);
             if (template != null) {
-                templateCache.put(template.getBasePath(), template);
+                templateCache.put(path, template);
             }
+        } else {
+            logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_CACHE, path);
         }
 
         return template;

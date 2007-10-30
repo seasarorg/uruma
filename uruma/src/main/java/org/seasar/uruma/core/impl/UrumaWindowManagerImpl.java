@@ -15,16 +15,24 @@
  */
 package org.seasar.uruma.core.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.window.WindowManager;
-import org.seasar.framework.log.Logger;
+import org.eclipse.swt.widgets.Shell;
+import org.seasar.framework.util.AssertionUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
+import org.seasar.uruma.context.ContextFactory;
+import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.context.impl.ApplicationContextImpl;
 import org.seasar.uruma.core.TemplateManager;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.UrumaWindowManager;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.ui.UrumaApplicationWindow;
 
 /**
@@ -34,11 +42,14 @@ import org.seasar.uruma.ui.UrumaApplicationWindow;
  * @author bskuroneko
  */
 public class UrumaWindowManagerImpl implements UrumaWindowManager {
-    private Logger logger = Logger.getLogger(UrumaWindowManager.class);
+    private UrumaLogger logger = UrumaLogger
+            .getLogger(UrumaWindowManager.class);
 
     private WindowManager windowManager = new WindowManager();
 
     private Map<String, WindowComponent> windowMap = new HashMap<String, WindowComponent>();
+
+    private List<UrumaApplicationWindow> windowList = new ArrayList<UrumaApplicationWindow>();
 
     private TemplateManager templateManager = new TemplateManagerImpl();
 
@@ -77,6 +88,26 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
         return window.getPartActionComponent();
     }
 
+    /*
+     * @see org.seasar.uruma.core.UrumaWindowManager#close(java.lang.String)
+     */
+    public void close(final String windowId) {
+        UrumaApplicationWindow window = findWindow(windowId);
+        if (window != null) {
+            logger.log(UrumaMessageCodes.CLOSE_WINDOW, windowId);
+
+            windowList.remove(window);
+            windowMap.remove(windowId);
+            ((ApplicationContextImpl) applicationContext)
+                    .disposeWindowContext(windowId);
+
+            Shell shell = window.getShell();
+            if (shell != null && !shell.isDisposed()) {
+                shell.close();
+            }
+        }
+    }
+
     /**
      * 新しいウィンドウを開きます。<br />
      * 
@@ -90,14 +121,17 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
      */
     public UrumaApplicationWindow openWindow(final String templatePath,
             final boolean modal, final Object argument) {
-        if (logger.isInfoEnabled()) {
-            logger.log("IURM9903", new Object[] { templatePath });
-        }
-
         Template template = loadTemplate(templatePath);
-        UrumaApplicationWindow window = new UrumaApplicationWindow();
-        window.init(applicationContext, (WindowComponent) template
-                .getRootComponent(), modal);
+        UrumaApplicationWindow window = createWindow();
+        WindowComponent windowComponent = (WindowComponent) template
+                .getRootComponent();
+        String windowId = windowComponent.getId();
+
+        WindowContext windowContext = ContextFactory.createWindowContext(
+                applicationContext, windowId);
+
+        logger.log(UrumaMessageCodes.INIT_WINDOW, windowId);
+        window.init(windowContext, windowComponent, modal);
 
         window.initActionComponent(argument);
 
@@ -105,6 +139,8 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
             window.setBlockOnOpen(true);
         }
         windowManager.add(window);
+
+        logger.log(UrumaMessageCodes.OPEN_WINDOW, windowId);
         window.open();
         return window;
     }
@@ -126,5 +162,22 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
     public void setApplicationContext(
             final ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    protected UrumaApplicationWindow createWindow() {
+        UrumaApplicationWindow window = new UrumaApplicationWindow(this);
+        windowList.add(window);
+        return window;
+    }
+
+    protected UrumaApplicationWindow findWindow(final String windowId) {
+        AssertionUtil.assertNotNull("windowId", windowId);
+
+        for (UrumaApplicationWindow window : windowList) {
+            if (windowId.equals(window.getWindowId())) {
+                return window;
+            }
+        }
+        return null;
     }
 }
