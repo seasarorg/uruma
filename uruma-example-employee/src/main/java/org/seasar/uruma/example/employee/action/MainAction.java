@@ -128,7 +128,8 @@ public class MainAction {
 
 	@EventListener(id = "menuAbout")
 	public void showAbout() {
-		windowManager.openModal("org/seasar/uruma/example/employee/about.xml");
+		windowManager.openDialog("org/seasar/uruma/example/employee/about.xml",
+				this);
 	}
 
 	@EventListener(id = "menuExit")
