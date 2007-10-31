@@ -15,13 +15,17 @@
  */
 package org.seasar.uruma.example.employee.action;
 
+import java.util.List;
+
 import org.eclipse.swt.widgets.Shell;
-import org.seasar.uruma.annotation.ArgumentValue;
+import org.seasar.uruma.annotation.ApplicationContext;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.example.employee.dto.EmployeeDto;
 import org.seasar.uruma.example.employee.dxo.InquireFormDxo;
+import org.seasar.uruma.example.employee.entity.Employee;
 import org.seasar.uruma.example.employee.form.InquireForm;
+import org.seasar.uruma.example.employee.logic.EmployeeLogic;
 
 /**
  * @author bskuroneko
@@ -33,12 +37,16 @@ public class InquireAction {
 
 	public InquireFormDxo inquireFormDxo;
 
-	@ArgumentValue
-	public EmployeeDto inquireEmployee;
+	public EmployeeLogic employeeLogic;
+
+	@ApplicationContext
+	public List<EmployeeDto> selectedEmployees;
 
 	@InitializeMethod
 	public void initialize() {
-		inquireFormDxo.convert(inquireEmployee, inquireForm);
+		Employee employee = employeeLogic.getEmployee(selectedEmployees.get(0)
+				.getEmpno());
+		inquireFormDxo.convert(employee, inquireForm);
 	}
 
 	@EventListener(id = "ok")

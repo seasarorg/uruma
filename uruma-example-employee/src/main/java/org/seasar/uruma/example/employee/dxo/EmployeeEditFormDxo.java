@@ -17,6 +17,7 @@ package org.seasar.uruma.example.employee.dxo;
 
 import org.seasar.extension.dxo.annotation.DatePattern;
 import org.seasar.uruma.example.employee.dto.EmployeeDto;
+import org.seasar.uruma.example.employee.entity.Employee;
 import org.seasar.uruma.example.employee.form.EmployeeEditForm;
 
 /**
@@ -24,8 +25,16 @@ import org.seasar.uruma.example.employee.form.EmployeeEditForm;
  * 
  */
 public interface EmployeeEditFormDxo {
-    @DatePattern("yyyy/MM/dd")
-    EmployeeDto convert(EmployeeEditForm employeeEditForm);
+	@DatePattern("yyyy/MM/dd")
+	void convert(EmployeeEditForm employeeEditForm, EmployeeDto employeeDto);
 
-    void convert(EmployeeDto employeeDto, EmployeeEditForm employeeEditForm);
+	@DatePattern("yyyy/MM/dd")
+	EmployeeDto convert(EmployeeEditForm employeeEditForm);
+
+	void convert(EmployeeDto employeeDto, EmployeeEditForm employeeEditForm);
+
+	void convert(Employee employee, EmployeeEditForm employeeEditForm);
+
+	@DatePattern("yyyy/MM/dd")
+	void convert(EmployeeEditForm employeeEditForm, Employee employee);
 }

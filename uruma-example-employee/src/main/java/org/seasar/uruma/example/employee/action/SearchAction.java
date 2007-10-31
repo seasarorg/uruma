@@ -18,9 +18,9 @@ package org.seasar.uruma.example.employee.action;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Shell;
+import org.seasar.uruma.annotation.ApplicationContext;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
-import org.seasar.uruma.annotation.ReturnValue;
 import org.seasar.uruma.example.employee.dto.DepartmentDto;
 import org.seasar.uruma.example.employee.dto.EmployeeDto;
 import org.seasar.uruma.example.employee.dto.EmployeeSearchDto;
@@ -40,8 +40,11 @@ public class SearchAction {
 
 	public SearchForm searchForm;
 
-	@ReturnValue
-	public List<EmployeeDto> searchResult = null;
+	@ApplicationContext
+	public List<EmployeeDto> selectedEmployees;
+
+	@ApplicationContext
+	public boolean edited;
 
 	@InitializeMethod
 	public void initialize() {
@@ -56,13 +59,13 @@ public class SearchAction {
 		}
 
 		EmployeeSearchDto searchDto = searchFormDxo.convert(searchForm);
-		searchResult = employeeLogic.searchEmployeeDtoList(searchDto);
+		selectedEmployees = employeeLogic.searchEmployeeDtoList(searchDto);
+		edited = true;
 		shell.close();
 	}
 
 	@EventListener(id = "cancel")
 	public void onCancel() {
-		searchResult = null;
 		shell.close();
 	}
 }

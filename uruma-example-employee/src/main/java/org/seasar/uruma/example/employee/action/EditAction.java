@@ -15,30 +15,67 @@
  */
 package org.seasar.uruma.example.employee.action;
 
+import java.util.List;
+
+import org.eclipse.swt.widgets.Shell;
+import org.seasar.uruma.annotation.ApplicationContext;
+import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.example.employee.dto.DepartmentDto;
 import org.seasar.uruma.example.employee.dto.EmployeeDto;
+import org.seasar.uruma.example.employee.dxo.EmployeeEditFormDxo;
+import org.seasar.uruma.example.employee.entity.Employee;
 import org.seasar.uruma.example.employee.form.EmployeeEditForm;
+import org.seasar.uruma.example.employee.logic.EmployeeLogic;
 
 /**
  * @author bskuroneko
  * 
  */
 @Form(EmployeeEditForm.class)
-public class EditAction extends AbstractEditAction {
-	@Override
+public class EditAction {
+	public EmployeeLogic employeeLogic;
+
+	public EmployeeEditFormDxo employeeEditFormDxo;
+
+	public Shell shell;
+
+	public EmployeeEditForm employeeEditForm;
+
+	@ApplicationContext
+	public List<EmployeeDto> selectedEmployees;
+
+	@ApplicationContext
+	public boolean edited;
+
 	@InitializeMethod
 	public void initialize() {
-		employeeEditFormDxo.convert(editEmployee, employeeEditForm);
-		super.initialize();
+		Employee employee = employeeLogic.getEmployee(selectedEmployees.get(0)
+				.getEmpno());
+		employeeEditFormDxo.convert(employee, employeeEditForm);
+		employeeEditForm.setDeptList(employeeLogic.getAllDepartments());
+
 		DepartmentDto selectedDepartment = new DepartmentDto();
 		selectedDepartment.setDeptno(employeeEditForm.getDeptno());
 		employeeEditForm.setSelectedDepartmentDto(selectedDepartment);
 	}
 
-	@Override
-	protected EmployeeDto doUpdateOrInsert(final EmployeeDto employeeDto) {
-		return employeeLogic.update(employeeDto);
+	@EventListener(id = "ok")
+	public void onOk() {
+		DepartmentDto selectedDepartmentDto = employeeEditForm
+				.getSelectedDepartmentDto();
+		if (selectedDepartmentDto != null) {
+			employeeEditForm.setDeptno(selectedDepartmentDto.getDeptno());
+		}
+		employeeEditFormDxo.convert(employeeEditForm, selectedEmployees.get(0));
+		employeeLogic.update(selectedEmployees.get(0));
+		edited = true;
+		shell.close();
+	}
+
+	@EventListener(id = "cancel")
+	public void onCancel() {
+		shell.close();
 	}
 }

@@ -19,10 +19,11 @@ import java.util.List;
 
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
+import org.seasar.uruma.annotation.ApplicationContext;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
@@ -48,13 +49,17 @@ public class MainAction {
 	@Binding(bindingType = BindingType.MAY)
 	public IStatusLineManager statusLineManager;
 
-	public Table employeeTable;
+	public TableViewer employeeTable;
 
 	@ExportValue(id = "employeeTable")
 	public List<EmployeeDto> employees;
 
 	@ImportSelection(id = "employeeTable")
+	@ApplicationContext
 	public List<EmployeeDto> selectedEmployees;
+
+	@ApplicationContext
+	public boolean edited;
 
 	@InitializeMethod
 	public void initialize() {
@@ -64,19 +69,22 @@ public class MainAction {
 
 	@EventListener(id = { "menuSearch", "toolSearch" })
 	public void searchEmployee() {
-		List<EmployeeDto> result = (List<EmployeeDto>) windowManager
-				.openModal("org/seasar/uruma/example/employee/search.xml");
-		if (result != null) {
-			employees = result;
+		edited = false;
+		windowManager.openDialog(
+				"org/seasar/uruma/example/employee/search.xml", this);
+		if (edited) {
+			employees = selectedEmployees;
+			employeeTable.refresh();
 		}
 	}
 
 	@EventListener(id = { "menuRegist", "toolRegist" })
 	public void registEmployee() {
-		EmployeeDto result = (EmployeeDto) windowManager
-				.openModal("org/seasar/uruma/example/employee/regist.xml");
-		if (result != null) {
-			employees.add(result);
+		edited = false;
+		windowManager.openDialog(
+				"org/seasar/uruma/example/employee/regist.xml", this);
+		if (edited) {
+			employees.add(selectedEmployees.get(selectedEmployees.size() - 1));
 		}
 	}
 
@@ -100,19 +108,19 @@ public class MainAction {
 
 	@EventListener(id = { "menuEdit", "toolEdit" })
 	public void editEmployee() {
+		edited = false;
 		EmployeeDto employee = selectedEmployees.get(0);
-		EmployeeDto edited = (EmployeeDto) windowManager.openModal(
-				"org/seasar/uruma/example/employee/edit.xml", employee);
-		if (edited != null) {
-			// employees.set(selection, edited);
+		windowManager.openDialog("org/seasar/uruma/example/employee/edit.xml",
+				this);
+		if (edited) {
+			employeeTable.refresh(employee);
 		}
 	}
 
 	@EventListener(id = { "menuInquire", "toolInquire" })
 	public void inquireEmployee() {
-		EmployeeDto employee = selectedEmployees.get(0);
-		windowManager.openModal(
-				"org/seasar/uruma/example/employee/inquire.xml", employee);
+		windowManager.openDialog(
+				"org/seasar/uruma/example/employee/inquire.xml", this);
 	}
 
 	@EventListener(id = "menuAbout")
@@ -127,7 +135,7 @@ public class MainAction {
 
 	@EventListener(id = "employeeTable")
 	public void onTableSelect() {
-		int selCount = employeeTable.getSelectionCount();
+		int selCount = employeeTable.getTable().getSelectionCount();
 		statusLineManager.setMessage(selCount + "個の項目が選択されています");
 	}
 }
