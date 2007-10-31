@@ -272,11 +272,8 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
 
     /**
      * アクションコンポーネントの初期化メソッドを呼び出します。<br />
-     * 
-     * @param argument
-     *            ウィンドウへの引数
      */
-    public void initActionComponent(final Object argument) {
+    public void initActionComponent() {
         if (partActionComponent != null) {
             WidgetBinder.bindWidgets(partActionComponent, partContext);
 
@@ -285,7 +282,6 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
                     .getApplicationContextDefList(), windowContext
                     .getApplicationContext());
 
-            desc.setArgumentValue(partActionComponent, argument);
             desc.invokeInitializeMethod(partActionComponent);
         }
     }
@@ -297,19 +293,6 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
      */
     public Object getPartActionComponent() {
         return this.partActionComponent;
-    }
-
-    /**
-     * ウィンドウの戻り値を返します。<br />
-     * 
-     * @return ウィンドウの戻り値オブジェクト。存在しない場合は <code>null</code>
-     */
-    public Object getReturnValue() {
-        if (desc != null) {
-            return desc.getReturnValue(partActionComponent);
-        } else {
-            return null;
-        }
     }
 
     /**

@@ -46,7 +46,7 @@ import org.seasar.uruma.ui.UrumaApplicationWindow;
  * @author bskuroneko
  */
 public class UrumaWindowManagerImpl implements UrumaWindowManager {
-    private UrumaLogger logger = UrumaLogger
+    private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaWindowManager.class);
 
     private WindowManager windowManager = new WindowManager();
@@ -57,40 +57,10 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
 
     private TemplateManager templateManager = new TemplateManagerImpl();
 
-    private ApplicationContext applicationContext;
-
-    /*
-     * @see org.seasar.uruma.core.WindowManager#openModal(java.lang.String)
+    /**
+     * 画面間のパラメータ共有に使用する {@link ApplicationContext} オブジェクトです。
      */
-    public Object openModal(final String templatePath) {
-        return openModal(templatePath, null);
-    }
-
-    /*
-     * @see org.seasar.uruma.core.WindowManager#openModal(java.lang.String,
-     *      java.lang.Object)
-     */
-    public Object openModal(final String templatePath, final Object argument) {
-        UrumaApplicationWindow window = openWindow(templatePath, true, argument);
-        return window.getReturnValue();
-    }
-
-    /*
-     * @see org.seasar.uruma.core.WindowManager#openModeless(java.lang.String)
-     */
-    public Object openModeless(final String templatePath) {
-        return openModeless(templatePath, null);
-    }
-
-    /*
-     * @see org.seasar.uruma.core.WindowManager#openModeless(java.lang.String,
-     *      java.lang.Object)
-     */
-    public Object openModeless(final String templatePath, final Object argument) {
-        UrumaApplicationWindow window = openWindow(templatePath, false,
-                argument);
-        return window.getPartActionComponent();
-    }
+    public ApplicationContext applicationContext;
 
     /*
      * @see org.seasar.uruma.core.UrumaWindowManager#close(java.lang.String)
@@ -112,19 +82,12 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
         }
     }
 
-    /**
-     * 新しいウィンドウを開きます。<br />
-     * 
-     * @param templatePath
-     *            テンプレートパス
-     * @param modal
-     *            モーダル属性
-     * @param argument
-     *            引数オブジェクト
-     * @return 生成したウィンドウ
+    /*
+     * @see org.seasar.uruma.core.UrumaWindowManager#openWindow(java.lang.String,
+     *      boolean)
      */
     public UrumaApplicationWindow openWindow(final String templatePath,
-            final boolean modal, final Object argument) {
+            final boolean modal) {
         Template template = loadTemplate(templatePath);
         UrumaApplicationWindow window = createWindow();
         WindowComponent windowComponent = (WindowComponent) template
@@ -137,7 +100,7 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
         logger.log(UrumaMessageCodes.INIT_WINDOW, windowId);
         window.init(windowContext, windowComponent, modal);
 
-        window.initActionComponent(argument);
+        window.initActionComponent();
 
         if (modal) {
             window.setBlockOnOpen(true);
@@ -172,7 +135,7 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
                     applicationContext);
         }
 
-        openWindow(templatePath, true, null);
+        openWindow(templatePath, true);
 
         // ApplicationContext から親画面へのインポート処理
         if (parentAction != null) {
@@ -184,18 +147,6 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
                     applicationContext);
         }
         return 0;
-    }
-
-    /**
-     * {@link ApplicationContext} を設定します。<br />
-     * S2Container から設定される前提です。<br />
-     * 
-     * @param applicationContext
-     *            {@link ApplicationContext} オブジェクト
-     */
-    public void setApplicationContext(
-            final ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
     }
 
     protected UrumaApplicationWindow createWindow() {

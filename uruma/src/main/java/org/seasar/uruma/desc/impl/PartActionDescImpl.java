@@ -28,19 +28,14 @@ import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.exception.EmptyRuntimeException;
-import org.seasar.framework.util.FieldUtil;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.ApplicationContext;
-import org.seasar.uruma.annotation.ArgumentValue;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
-import org.seasar.uruma.annotation.ReturnValue;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
 import org.seasar.uruma.desc.PartActionDesc;
-import org.seasar.uruma.exception.ArgumentFieldException;
 import org.seasar.uruma.exception.InitializeMethodException;
-import org.seasar.uruma.exception.ReturnFieldException;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -59,10 +54,6 @@ public class PartActionDescImpl implements PartActionDesc {
     private Map<String, List<Method>> methodsCache = new HashMap<String, List<Method>>();
 
     private Map<String, Field> fieldsCache = new HashMap<String, Field>();
-
-    private Field argumentField = null;
-
-    private Field returnField = null;
 
     private List<EventListenerDef> eventListenerDefs = new ArrayList<EventListenerDef>();
 
@@ -105,41 +96,6 @@ public class PartActionDescImpl implements PartActionDesc {
                 throw new InitializeMethodException(ex.getCause(),
                         partActionClass, initializeMethod, target);
             }
-        }
-    }
-
-    /*
-     * @see org.seasar.uruma.desc.PartActionDesc#getArgumentField()
-     */
-    public Field getArgumentField() {
-        return this.argumentField;
-    }
-
-    /*
-     * @see org.seasar.uruma.desc.PartActionDesc#getReturnField()
-     */
-    public Field getReturnField() {
-        return this.returnField;
-    }
-
-    /*
-     * @see org.seasar.uruma.desc.PartActionDesc#getReturnValue(java.lang.Object)
-     */
-    public Object getReturnValue(final Object target) {
-        if (returnField != null) {
-            return FieldUtil.get(returnField, target);
-        } else {
-            return null;
-        }
-    }
-
-    /*
-     * @see org.seasar.uruma.desc.PartActionDesc#setArgumentValue(java.lang.Object,
-     *      java.lang.Object)
-     */
-    public void setArgumentValue(final Object target, final Object value) {
-        if (argumentField != null) {
-            FieldUtil.set(argumentField, target, value);
         }
     }
 
@@ -240,31 +196,7 @@ public class PartActionDescImpl implements PartActionDesc {
                 fieldsCache.put(fieldName, field);
 
                 setupApplicationContext(field);
-                setupArgumentField(field);
-                setupReturnField(field);
             }
         }
     }
-
-    protected void setupArgumentField(final Field field) {
-        if (field.isAnnotationPresent(ArgumentValue.class)) {
-            if (argumentField != null) {
-                throw new ArgumentFieldException(
-                        ArgumentFieldException.DUPLICATE, partActionClass,
-                        field);
-            }
-            argumentField = field;
-        }
-    }
-
-    protected void setupReturnField(final Field field) {
-        if (field.isAnnotationPresent(ReturnValue.class)) {
-            if (returnField != null) {
-                throw new ReturnFieldException(ReturnFieldException.DUPLICATE,
-                        partActionClass, field);
-            }
-            returnField = field;
-        }
-    }
-
 }

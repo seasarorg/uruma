@@ -15,13 +15,10 @@
  */
 package org.seasar.uruma.desc;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.seasar.uruma.annotation.ArgumentValue;
 import org.seasar.uruma.annotation.InitializeMethod;
-import org.seasar.uruma.annotation.ReturnValue;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
 
@@ -46,39 +43,6 @@ public interface PartActionDesc {
      *            ターゲットオブジェクト
      */
     public void invokeInitializeMethod(Object target);
-
-    /**
-     * {@link ArgumentValue} アノテーションが付加されたフィールドを取得します。<br />
-     * 
-     * @return {@link Field} オブジェクト。存在しない場合は <code>null</code>
-     */
-    public Field getArgumentField();
-
-    /**
-     * {@link ReturnValue} アノテーションが付加されたフィールドを取得します。<br />
-     * 
-     * @return {@link Field} オブジェクト。存在しない場合は <code>null</code>
-     */
-    public Field getReturnField();
-
-    /**
-     * {@link ArgumentValue} アノテーションが付加されたフィールドの値を設定します。<br />
-     * 
-     * @param target
-     *            ターゲットオブジェクト
-     * @param value
-     *            設定する値
-     */
-    public void setArgumentValue(Object target, Object value);
-
-    /**
-     * {@link ReturnValue} アノテーションが付加されたフィールドの値を取得します。<br />
-     * 
-     * @param target
-     *            ターゲットオブジェクト
-     * @return フィールドの値
-     */
-    public Object getReturnValue(Object target);
 
     /**
      * {@link EventListenerDef} のリストを取得します。<br />

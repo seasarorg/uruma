@@ -16,7 +16,7 @@
 package org.seasar.uruma.core;
 
 import org.seasar.uruma.annotation.ApplicationContext;
-import org.seasar.uruma.exception.NotFoundException;
+import org.seasar.uruma.ui.UrumaApplicationWindow;
 
 /**
  * ウィンドウを管理するクラスのためのインターフェースです。<br />
@@ -26,92 +26,16 @@ import org.seasar.uruma.exception.NotFoundException;
  */
 public interface UrumaWindowManager {
     /**
-     * 指定されたパスの画面定義 XML を読み込み、モーダルウィンドウとして開きます。<br />
-     * <p>
-     * 画面定義 XML に記述されているスタイルに PRIMARY_MODAL, APPLICATION_MODAL, SYSTEM_MODAL
-     * のいずれも含まれていない場合、PRIMARY_MODAL スタイルを適用します。
-     * </p>
-     * <p>
-     * 開いたウィンドウが閉じられるか、例外が発生するまで、このメソッドは制御を返しません。
-     * </p>
-     * <p>
-     * 開いたウィンドウが閉じられると、ウィンドウからの戻り値を返します。
-     * </p>
+     * 新しいウィンドウを開きます。<br />
      * 
      * @param templatePath
-     *            画面定義XMLのパス
-     * @return 開いたウィンドウからの戻り値
-     * @throws NotFoundException
-     *             指定された画面名称を持つウィンドウが登録されていなかった場合。
+     *            テンプレートパス
+     * @param modal
+     *            モーダル属性
+     * @return 生成したウィンドウ
      */
-    public Object openModal(String templatePath);
-
-    /**
-     * 指定されたパスの画面定義 XML を読み込み、モーダルウィンドウとして開きます。<br />
-     * <p>
-     * 画面定義 XML に記述されているスタイルに PRIMARY_MODAL, APPLICATION_MODAL, SYSTEM_MODAL
-     * のいずれも含まれていない場合、PRIMARY_MODAL スタイルを適用します。
-     * </p>
-     * <p>
-     * 開いたウィンドウが閉じられるか、例外が発生するまで、このメソッドは制御を返しません。
-     * </p>
-     * <p>
-     * argument に指定されたオブジェクトは開いたウィンドウへの引数として使用します。
-     * </p>
-     * <p>
-     * 開いたウィンドウが閉じられると、ウィンドウからの戻り値を返します。
-     * </p>
-     * 
-     * @param templatePath
-     *            画面定義 XML のパス
-     * @param argument
-     *            開く画面への引数
-     * @return 開いたウィンドウからの戻り値
-     * @throws NotFoundException
-     *             指定された画面名称を持つウィンドウが登録されていなかった場合。
-     */
-    public Object openModal(String templatePath, Object argument);
-
-    /**
-     * 指定されたパスの画面定義 XML を読み込み、モードレスウィンドウとして開きます。<br />
-     * <p>
-     * 画面定義 XML に記述されているスタイルに PRIMARY_MODAL, APPLICATION_MODAL, SYSTEM_MODAL
-     * が含まれていた場合、それらのスタイルは除去されます。
-     * </p>
-     * <p>
-     * 開いたウィンドウのアクションを返します。
-     * </p>
-     * 
-     * @param templatePath
-     *            画面定義XMLのパス
-     * @return 開いたウィンドウからの戻り値
-     * @throws NotFoundException
-     *             指定された画面名称を持つウィンドウが登録されていなかった場合。
-     */
-    public Object openModeless(String templatePath);
-
-    /**
-     * 指定されたパスの画面定義 XML を読み込み、モードレスウィンドウとして開きます。<br />
-     * <p>
-     * 画面定義 XML に記述されているスタイルに PRIMARY_MODAL, APPLICATION_MODAL, SYSTEM_MODAL
-     * が含まれていた場合、それらのスタイルは除去されます。
-     * </p>
-     * <p>
-     * 開いたウィンドウのアクションを返します。
-     * </p>
-     * <p>
-     * argument に指定されたオブジェクトは開いたウィンドウへの引数として使用します。
-     * </p>
-     * 
-     * @param templatePath
-     *            画面定義 XML のパス
-     * @param argument
-     *            開く画面への引数
-     * @return 開いたウィンドウからの戻り値
-     * @throws NotFoundException
-     *             指定された画面名称を持つウィンドウが登録されていなかった場合。
-     */
-    public Object openModeless(String templatePath, Object argument);
+    public UrumaApplicationWindow openWindow(final String templatePath,
+            final boolean modal);
 
     /**
      * 指定されたパスの画面定義 XML を読み込み、ダイアログを開きます。<br />

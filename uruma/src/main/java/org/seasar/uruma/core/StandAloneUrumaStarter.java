@@ -93,18 +93,6 @@ public class StandAloneUrumaStarter {
      *            画面定義XMLのパス
      */
     public void openWindow(final String templatePath) {
-        openWindow(templatePath, null);
-    }
-
-    /**
-     * 指定された画面定義 XML を読み込み、引数を指定して画面を表示します。<br />
-     * 
-     * @param templatePath
-     *            画面定義XMLのパス
-     * @param argument
-     *            引数オブジェクト
-     */
-    public void openWindow(final String templatePath, final Object argument) {
         display = Display.getCurrent();
         if (display == null) {
             display = new Display();
@@ -114,7 +102,7 @@ public class StandAloneUrumaStarter {
 
             UrumaWindowManager windowManager = (UrumaWindowManager) container
                     .getComponent(UrumaWindowManager.class);
-            windowManager.openModal(templatePath, argument);
+            windowManager.openWindow(templatePath, true);
         } finally {
             try {
                 dispose();
