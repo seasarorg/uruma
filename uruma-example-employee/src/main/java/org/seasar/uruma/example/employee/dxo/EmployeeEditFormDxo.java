@@ -31,10 +31,6 @@ public interface EmployeeEditFormDxo {
 	@DatePattern("yyyy/MM/dd")
 	EmployeeDto convert(EmployeeEditForm employeeEditForm);
 
-	void convert(EmployeeDto employeeDto, EmployeeEditForm employeeEditForm);
-
-	void convert(Employee employee, EmployeeEditForm employeeEditForm);
-
 	@DatePattern("yyyy/MM/dd")
-	void convert(EmployeeEditForm employeeEditForm, Employee employee);
+	void convert(Employee employee, EmployeeEditForm employeeEditForm);
 }

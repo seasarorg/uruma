@@ -62,9 +62,9 @@ public class RegistAction {
 			employeeEditForm.setDeptno(selectedDepartmentDto.getDeptno());
 		}
 		EmployeeDto employeeDto = employeeEditFormDxo.convert(employeeEditForm);
+		employeeDto = employeeLogic.insert(employeeDto);
 		selectedEmployees = new ArrayList<EmployeeDto>(1);
 		selectedEmployees.add(employeeDto);
-		employeeLogic.insert(employeeDto);
 		edited = true;
 		shell.close();
 	}
