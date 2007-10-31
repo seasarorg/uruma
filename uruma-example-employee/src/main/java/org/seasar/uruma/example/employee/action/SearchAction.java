@@ -29,7 +29,10 @@ import org.seasar.uruma.example.employee.form.SearchForm;
 import org.seasar.uruma.example.employee.logic.EmployeeLogic;
 
 /**
+ * 検索画面のためのアクションクラスです。<br />
+ * 
  * @author bskuroneko
+ * @author y-komori
  */
 public class SearchAction {
 	public EmployeeLogic employeeLogic;

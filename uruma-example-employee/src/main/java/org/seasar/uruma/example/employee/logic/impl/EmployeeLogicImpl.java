@@ -31,83 +31,85 @@ import org.seasar.uruma.example.employee.exception.EmployeeNotFoundRuntimeExcept
 import org.seasar.uruma.example.employee.logic.EmployeeLogic;
 
 /**
+ * {@link EmployeeLogic} の実装クラスです。<br />
+ * 
  * @author bskuroneko
  * @author y-komori
  */
 public class EmployeeLogicImpl implements EmployeeLogic {
 
-    private EmployeeDao employeeDao;
+	private EmployeeDao employeeDao;
 
-    private DepartmentDao departmentDao;
+	private DepartmentDao departmentDao;
 
-    private EmployeeDxo employeeDxo;
+	private EmployeeDxo employeeDxo;
 
-    private DepartmentDxo departmentDxo;
+	private DepartmentDxo departmentDxo;
 
-    public void setDepartmentDao(DepartmentDao departmentDao) {
-        this.departmentDao = departmentDao;
-    }
+	public void setDepartmentDao(final DepartmentDao departmentDao) {
+		this.departmentDao = departmentDao;
+	}
 
-    public void setEmployeeDao(EmployeeDao employeeDao) {
-        this.employeeDao = employeeDao;
-    }
+	public void setEmployeeDao(final EmployeeDao employeeDao) {
+		this.employeeDao = employeeDao;
+	}
 
-    public void setDepartmentDxo(DepartmentDxo departmentDxo) {
-        this.departmentDxo = departmentDxo;
-    }
+	public void setDepartmentDxo(final DepartmentDxo departmentDxo) {
+		this.departmentDxo = departmentDxo;
+	}
 
-    public void setEmployeeDxo(EmployeeDxo employeeDxo) {
-        this.employeeDxo = employeeDxo;
-    }
+	public void setEmployeeDxo(final EmployeeDxo employeeDxo) {
+		this.employeeDxo = employeeDxo;
+	}
 
-    public int getSearchCount(EmployeeSearchDto dto) {
-        return employeeDao.getSearchCount(dto);
-    }
+	public int getSearchCount(final EmployeeSearchDto dto) {
+		return employeeDao.getSearchCount(dto);
+	}
 
-    public List<EmployeeDto> searchEmployeeDtoList(EmployeeSearchDto dto) {
-        List<Employee> employeeList = employeeDao.searchEmployeeList(dto);
-        return employeeDxo.convert(employeeList);
-    }
+	public List<EmployeeDto> searchEmployeeDtoList(final EmployeeSearchDto dto) {
+		List<Employee> employeeList = employeeDao.searchEmployeeList(dto);
+		return employeeDxo.convert(employeeList);
+	}
 
-    public Employee getEmployee(Integer empno) {
-        return employeeDao.getEmployee(empno);
-    }
+	public Employee getEmployee(final Integer empno) {
+		return employeeDao.getEmployee(empno);
+	}
 
-    public List<DepartmentDto> getAllDepartments() {
-        List<Department> departmentList = departmentDao.getAllDepartments();
-        return departmentDxo.convert(departmentList);
-    }
+	public List<DepartmentDto> getAllDepartments() {
+		List<Department> departmentList = departmentDao.getAllDepartments();
+		return departmentDxo.convert(departmentList);
+	}
 
-    public String getDname(Integer deptno) {
-        return departmentDao.getDname(deptno);
-    }
+	public String getDname(final Integer deptno) {
+		return departmentDao.getDname(deptno);
+	}
 
-    public EmployeeDto insert(EmployeeDto dto) {
-        if (existEmployee(dto.getEmpno())) {
-            throw new EmployeeAlreadyExistRuntimeException(dto.getEmpno());
-        }
-        employeeDao.insert(employeeDxo.convert(dto));
-        Employee employee = getEmployee(dto.getEmpno());
-        return employeeDxo.convert(employee);
-    }
+	public EmployeeDto insert(final EmployeeDto dto) {
+		if (existEmployee(dto.getEmpno())) {
+			throw new EmployeeAlreadyExistRuntimeException(dto.getEmpno());
+		}
+		employeeDao.insert(employeeDxo.convert(dto));
+		Employee employee = getEmployee(dto.getEmpno());
+		return employeeDxo.convert(employee);
+	}
 
-    public EmployeeDto update(EmployeeDto dto) {
-        if (!existEmployee(dto.getEmpno())) {
-            throw new EmployeeNotFoundRuntimeException(dto.getEmpno());
-        }
-        employeeDao.update(employeeDxo.convert(dto));
-        Employee employee = getEmployee(dto.getEmpno());
-        return employeeDxo.convert(employee);
-    }
+	public EmployeeDto update(final EmployeeDto dto) {
+		if (!existEmployee(dto.getEmpno())) {
+			throw new EmployeeNotFoundRuntimeException(dto.getEmpno());
+		}
+		employeeDao.update(employeeDxo.convert(dto));
+		Employee employee = getEmployee(dto.getEmpno());
+		return employeeDxo.convert(employee);
+	}
 
-    public void delete(Employee employee) {
-        if (!existEmployee(employee.getEmpno())) {
-            throw new EmployeeNotFoundRuntimeException(employee.getEmpno());
-        }
-        employeeDao.delete(employee);
-    }
+	public void delete(final Employee employee) {
+		if (!existEmployee(employee.getEmpno())) {
+			throw new EmployeeNotFoundRuntimeException(employee.getEmpno());
+		}
+		employeeDao.delete(employee);
+	}
 
-    public boolean existEmployee(Integer empno) {
-        return employeeDao.getEmployee(empno) != null;
-    }
+	public boolean existEmployee(final Integer empno) {
+		return employeeDao.getEmployee(empno) != null;
+	}
 }

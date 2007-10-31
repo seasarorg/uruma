@@ -17,13 +17,16 @@ package org.seasar.uruma.example.employee.exception;
 
 public class EmployeeAlreadyExistRuntimeException extends AppRuntimeException {
 
+	private static final long serialVersionUID = 6162259625636038154L;
+
 	private int empno;
 
-	public EmployeeAlreadyExistRuntimeException(int empno) {
-		super("examples.jsf.EmployeeAlreadyExist", new Object[]{String.valueOf(empno)});
+	public EmployeeAlreadyExistRuntimeException(final int empno) {
+		super("examples.jsf.EmployeeAlreadyExist", new Object[] { String
+				.valueOf(empno) });
 		this.empno = empno;
 	}
-	
+
 	public int getEmpno() {
 		return empno;
 	}

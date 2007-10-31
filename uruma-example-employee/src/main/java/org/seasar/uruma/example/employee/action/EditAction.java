@@ -30,8 +30,10 @@ import org.seasar.uruma.example.employee.form.EmployeeEditForm;
 import org.seasar.uruma.example.employee.logic.EmployeeLogic;
 
 /**
- * @author bskuroneko
+ * 編集画面のためのアクションクラスです。<br />
  * 
+ * @author bskuroneko
+ * @author y-komori
  */
 @Form(EmployeeEditForm.class)
 public class EditAction {

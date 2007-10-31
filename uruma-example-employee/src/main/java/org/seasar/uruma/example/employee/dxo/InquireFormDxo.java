@@ -19,9 +19,6 @@ import org.seasar.extension.dxo.annotation.DatePattern;
 import org.seasar.uruma.example.employee.entity.Employee;
 import org.seasar.uruma.example.employee.form.InquireForm;
 
-/**
- * @author y-komori
- */
 public interface InquireFormDxo {
 	@DatePattern("yyyy/MM/dd")
 	void convert(Employee employee, InquireForm inquireForm);

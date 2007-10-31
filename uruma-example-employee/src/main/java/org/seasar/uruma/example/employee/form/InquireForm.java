@@ -18,6 +18,11 @@ package org.seasar.uruma.example.employee.form;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.ImportExportValue;
 
+/**
+ * 表示画面のためのフォームクラスです。<br />
+ * 
+ * @author y-komori
+ */
 public class InquireForm {
 	@ImportExportValue
 	private String empno;

@@ -23,26 +23,28 @@ import org.seasar.uruma.example.employee.dto.EmployeeSearchDto;
 import org.seasar.uruma.example.employee.entity.Employee;
 
 /**
+ * 従業員管理ロジックのためのインターフェースです。<br />
+ * 
  * @author bskuroneko
  * @author y-komori
  */
 public interface EmployeeLogic {
 
-    public int getSearchCount(EmployeeSearchDto dto);
+	public int getSearchCount(EmployeeSearchDto dto);
 
-    public List<EmployeeDto> searchEmployeeDtoList(EmployeeSearchDto dto);
+	public List<EmployeeDto> searchEmployeeDtoList(EmployeeSearchDto dto);
 
-    public Employee getEmployee(Integer empno);
+	public Employee getEmployee(Integer empno);
 
-    public boolean existEmployee(Integer empno);
+	public boolean existEmployee(Integer empno);
 
-    public List<DepartmentDto> getAllDepartments();
+	public List<DepartmentDto> getAllDepartments();
 
-    public String getDname(Integer deptno);
+	public String getDname(Integer deptno);
 
-    public EmployeeDto insert(EmployeeDto employee);
+	public EmployeeDto insert(EmployeeDto employee);
 
-    public EmployeeDto update(EmployeeDto employee);
+	public EmployeeDto update(EmployeeDto employee);
 
-    public void delete(Employee employee);
+	public void delete(Employee employee);
 }

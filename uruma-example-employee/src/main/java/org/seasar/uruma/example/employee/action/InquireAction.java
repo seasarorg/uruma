@@ -28,7 +28,10 @@ import org.seasar.uruma.example.employee.form.InquireForm;
 import org.seasar.uruma.example.employee.logic.EmployeeLogic;
 
 /**
+ * 表示画面のためのアクションクラスです。<br />
+ * 
  * @author bskuroneko
+ * @author y-komori
  */
 public class InquireAction {
 	public Shell shell;

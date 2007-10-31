@@ -18,38 +18,42 @@ package org.seasar.uruma.example.employee.exception;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-
 public class AppRuntimeException extends RuntimeException {
 
+	private static final long serialVersionUID = 3915897008168682928L;
+
 	private static final Object[] EMPTY_ARGS = new Object[0];
+
 	private static final String BUNDLE_NAME = "appMessages";
-	
+
 	private String messageId;
-	
+
 	private Object[] args;
-	
-	public AppRuntimeException(String messageId) {
+
+	public AppRuntimeException(final String messageId) {
 		this(messageId, EMPTY_ARGS);
 	}
 
-	public AppRuntimeException(String messageId, Object[] args) {
+	public AppRuntimeException(final String messageId, final Object[] args) {
 		this(messageId, args, null);
 	}
 
-	public AppRuntimeException(String messageId, Object[] args, Throwable cause) {
+	public AppRuntimeException(final String messageId, final Object[] args,
+			final Throwable cause) {
 		initCause(cause);
 		this.messageId = messageId;
 		this.args = args;
 	}
-	
+
 	public Object[] getArgs() {
 		return args;
 	}
-	
+
 	public String getMessageId() {
 		return messageId;
 	}
-	
+
+	@Override
 	public String getMessage() {
 		ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);
 		String pattern = bundle.getString(messageId);

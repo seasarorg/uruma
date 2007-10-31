@@ -17,6 +17,11 @@ package org.seasar.uruma.example.employee;
 
 import org.seasar.uruma.core.StandAloneUrumaStarter;
 
+/**
+ * 従業員管理アプリケーションのスタートアップクラスです。<br />
+ * 
+ * @author y-komori
+ */
 public class EmployeeManagement {
 
 	/**

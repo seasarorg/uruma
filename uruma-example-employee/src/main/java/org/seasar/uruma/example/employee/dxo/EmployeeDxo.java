@@ -22,20 +22,16 @@ import org.seasar.extension.dxo.annotation.DatePattern;
 import org.seasar.uruma.example.employee.dto.EmployeeDto;
 import org.seasar.uruma.example.employee.entity.Employee;
 
-/**
- * @author y-komori
- * 
- */
 public interface EmployeeDxo {
 
-    @DatePattern("yyyy/MM/dd")
-    @ConversionRule("'mname' : manager != null ? manager.ename : null")
-    List<EmployeeDto> convert(List<Employee> employeeList);
+	@DatePattern("yyyy/MM/dd")
+	@ConversionRule("'mname' : manager != null ? manager.ename : null")
+	List<EmployeeDto> convert(List<Employee> employeeList);
 
-    @DatePattern("yyyy/MM/dd")
-    Employee convert(EmployeeDto employeeDto);
+	@DatePattern("yyyy/MM/dd")
+	Employee convert(EmployeeDto employeeDto);
 
-    @DatePattern("yyyy/MM/dd")
-    @ConversionRule("'mname' : manager != null ? manager.ename : null")
-    EmployeeDto convert(Employee employee);
+	@DatePattern("yyyy/MM/dd")
+	@ConversionRule("'mname' : manager != null ? manager.ename : null")
+	EmployeeDto convert(Employee employee);
 }

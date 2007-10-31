@@ -36,7 +36,10 @@ import org.seasar.uruma.example.employee.entity.Employee;
 import org.seasar.uruma.example.employee.logic.EmployeeLogic;
 
 /**
+ * メイン画面のためのアクションクラスです。<br />
+ * 
  * @author bskuroneko
+ * @author y-komori
  */
 @Form(MainAction.class)
 public class MainAction {

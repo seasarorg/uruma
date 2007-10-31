@@ -23,8 +23,9 @@ import org.seasar.uruma.annotation.ImportValue;
 import org.seasar.uruma.example.employee.dto.DepartmentDto;
 
 /**
- * @author y-komori
+ * 検索画面のためのフォームクラスです。<br />
  * 
+ * @author y-komori
  */
 public class SearchForm {
 	@ImportValue

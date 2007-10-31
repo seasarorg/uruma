@@ -23,6 +23,11 @@ import org.seasar.uruma.annotation.ImportExportValue;
 import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.example.employee.dto.DepartmentDto;
 
+/**
+ * 編集/新規登録画面のためのフォームクラスです。<br />
+ * 
+ * @author y-komori
+ */
 public class EmployeeEditForm {
 	@ImportExportValue
 	private String empno;

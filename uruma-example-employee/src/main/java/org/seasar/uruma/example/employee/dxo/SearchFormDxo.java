@@ -19,13 +19,9 @@ import org.seasar.extension.dxo.annotation.DatePattern;
 import org.seasar.uruma.example.employee.dto.EmployeeSearchDto;
 import org.seasar.uruma.example.employee.form.SearchForm;
 
-/**
- * @author bskuroneko
- * 
- */
 public interface SearchFormDxo {
 
-    @DatePattern("yyyy/MM/dd")
-    EmployeeSearchDto convert(SearchForm searchForm);
+	@DatePattern("yyyy/MM/dd")
+	EmployeeSearchDto convert(SearchForm searchForm);
 
 }

@@ -20,10 +20,6 @@ import org.seasar.uruma.example.employee.dto.EmployeeDto;
 import org.seasar.uruma.example.employee.entity.Employee;
 import org.seasar.uruma.example.employee.form.EmployeeEditForm;
 
-/**
- * @author y-komori
- * 
- */
 public interface EmployeeEditFormDxo {
 	@DatePattern("yyyy/MM/dd")
 	void convert(EmployeeEditForm employeeEditForm, EmployeeDto employeeDto);

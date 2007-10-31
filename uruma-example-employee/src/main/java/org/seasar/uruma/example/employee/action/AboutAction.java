@@ -20,7 +20,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.seasar.uruma.annotation.EventListener;
 
 /**
+ * 「従業員管理について」のためのアクションクラスです。<br />
+ * 
  * @author bskuroneko
+ * @author y-komori
  */
 public class AboutAction {
 
