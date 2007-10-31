@@ -39,4 +39,24 @@ public interface ApplicationContext {
      * @return {@link WindowContext} オブジェクト。見つからなかった場合は <code>null</code>。
      */
     public WindowContext getWindowContext(String windowName);
+
+    /**
+     * {@link ApplicationContext} へ値を設定します。<br />
+     * 同じ名称の値が既に設定されている場合は、上書きされます。<br />
+     * 
+     * @param name
+     *            名称
+     * @param value
+     *            値
+     */
+    public void setValue(String name, Object value);
+
+    /**
+     * {@link ApplicationContext} から値を取得します。<br />
+     * 
+     * @param name
+     *            名称
+     * @return 値。見つからない場合は <code>null</code>
+     */
+    public Object getValue(String name);
 }

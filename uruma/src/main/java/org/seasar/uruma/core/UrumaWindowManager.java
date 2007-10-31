@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.core;
 
+import org.seasar.uruma.annotation.ApplicationContext;
 import org.seasar.uruma.exception.NotFoundException;
 
 /**
@@ -111,6 +112,19 @@ public interface UrumaWindowManager {
      *             指定された画面名称を持つウィンドウが登録されていなかった場合。
      */
     public Object openModeless(String templatePath, Object argument);
+
+    /**
+     * 指定されたパスの画面定義 XML を読み込み、ダイアログを開きます。<br />
+     * ダイアログをオープンする前に、<code>parentAction</code> から {@link ApplicationContext}
+     * へ値がエクスポートされます。<br />
+     * 
+     * @param templatePath
+     *            画面定義 XML のパス
+     * @param parentAction
+     *            呼び出し元アクションクラスの
+     * @return リターンコード
+     */
+    public int openDialog(String templatePath, Object parentAction);
 
     /**
      * <code>windowId</code> で指定されたIDのウィンドウを閉じます。<br />

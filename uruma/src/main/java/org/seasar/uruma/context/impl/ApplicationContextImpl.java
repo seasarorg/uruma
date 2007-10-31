@@ -18,7 +18,9 @@ package org.seasar.uruma.context.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.ContextFactory;
@@ -33,6 +35,8 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 public class ApplicationContextImpl implements ApplicationContext {
     private List<WindowContext> windowContextList = new ArrayList<WindowContext>();
+
+    private Map<String, Object> valueMap = new HashMap<String, Object>();
 
     /**
      * {@link ApplicationContextImpl} を構築します。<br />
@@ -91,5 +95,21 @@ public class ApplicationContextImpl implements ApplicationContext {
         if (context != null) {
             windowContextList.remove(context);
         }
+    }
+
+    /*
+     * @see org.seasar.uruma.context.ApplicationContext#getValue(java.lang.String)
+     */
+    public Object getValue(final String name) {
+        return valueMap.get(name);
+    }
+
+    /*
+     * @see org.seasar.uruma.context.ApplicationContext#setValue(java.lang.String,
+     *      java.lang.Object)
+     */
+    public void setValue(final String name, final Object value) {
+        AssertionUtil.assertNotEmpty("name", name);
+        valueMap.put(name, value);
     }
 }

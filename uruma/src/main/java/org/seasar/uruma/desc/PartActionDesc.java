@@ -22,6 +22,7 @@ import java.util.List;
 import org.seasar.uruma.annotation.ArgumentValue;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.annotation.ReturnValue;
+import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
 
 /**
@@ -85,4 +86,11 @@ public interface PartActionDesc {
      * @return {@link EventListenerDef} のリスト
      */
     public List<EventListenerDef> getEventListenerDefList();
+
+    /**
+     * {@link ApplicationContextDef} のリストを取得します<br />
+     * 
+     * @return {@link ApplicationContextDef} のリスト
+     */
+    public List<ApplicationContextDef> getApplicationContextDefList();
 }

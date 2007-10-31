@@ -29,6 +29,7 @@ import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.Form;
+import org.seasar.uruma.binding.context.ApplicationContextBinder;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.binding.widget.WidgetBinder;
@@ -139,6 +140,7 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
             partContext.setPartActionObject(partActionComponent);
             desc = PartActionDescFactory.getPartActionDesc(partActionComponent
                     .getClass());
+            partContext.setPartActionDesc(desc);
         }
     }
 
@@ -278,6 +280,11 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
         if (partActionComponent != null) {
             WidgetBinder.bindWidgets(partActionComponent, partContext);
 
+            // ApplicationContext からのインポート処理
+            ApplicationContextBinder.importObjects(partActionComponent, desc
+                    .getApplicationContextDefList(), windowContext
+                    .getApplicationContext());
+
             desc.setArgumentValue(partActionComponent, argument);
             desc.invokeInitializeMethod(partActionComponent);
         }
@@ -325,6 +332,11 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
      * @see org.eclipse.swt.events.ShellListener#shellClosed(org.eclipse.swt.events.ShellEvent)
      */
     public void shellClosed(final ShellEvent e) {
+        // ApplicationContext へのエクスポート処理
+        ApplicationContextBinder.exportObjects(partActionComponent, desc
+                .getApplicationContextDefList(), windowContext
+                .getApplicationContext());
+
         this.windowManager.close(getWindowId());
     }
 

@@ -23,6 +23,8 @@ import java.util.Map;
 import org.eclipse.jface.window.WindowManager;
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.framework.util.AssertionUtil;
+import org.seasar.uruma.binding.context.ApplicationContextBinder;
+import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
@@ -32,6 +34,8 @@ import org.seasar.uruma.context.impl.ApplicationContextImpl;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.UrumaWindowManager;
+import org.seasar.uruma.desc.PartActionDesc;
+import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.ui.UrumaApplicationWindow;
 
@@ -150,6 +154,36 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
         WindowComponent window = (WindowComponent) template.getRootComponent();
         windowMap.put(window.getId(), window);
         return template;
+    }
+
+    /*
+     * @see org.seasar.uruma.core.UrumaWindowManager#openDialog(java.lang.String,
+     *      java.lang.Object)
+     */
+    public int openDialog(final String templatePath, final Object parentAction) {
+        // TODO 仮実装
+        // 親画面から ApplicationContext へのエクスポート処理
+        if (parentAction != null) {
+            PartActionDesc desc = PartActionDescFactory
+                    .getPartActionDesc(parentAction.getClass());
+            List<ApplicationContextDef> defs = desc
+                    .getApplicationContextDefList();
+            ApplicationContextBinder.exportObjects(parentAction, defs,
+                    applicationContext);
+        }
+
+        openWindow(templatePath, true, null);
+
+        // ApplicationContext から親画面へのインポート処理
+        if (parentAction != null) {
+            PartActionDesc desc = PartActionDescFactory
+                    .getPartActionDesc(parentAction.getClass());
+            List<ApplicationContextDef> defs = desc
+                    .getApplicationContextDefList();
+            ApplicationContextBinder.importObjects(parentAction, defs,
+                    applicationContext);
+        }
+        return 0;
     }
 
     /**

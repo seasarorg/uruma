@@ -24,12 +24,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.framework.util.FieldUtil;
+import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.annotation.ApplicationContext;
 import org.seasar.uruma.annotation.ArgumentValue;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.annotation.ReturnValue;
+import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.exception.ArgumentFieldException;
@@ -46,6 +52,8 @@ public class PartActionDescImpl implements PartActionDesc {
 
     private Class<?> partActionClass;
 
+    private BeanDesc beanDesc;
+
     private Method initializeMethod;
 
     private Map<String, List<Method>> methodsCache = new HashMap<String, List<Method>>();
@@ -57,6 +65,8 @@ public class PartActionDescImpl implements PartActionDesc {
     private Field returnField = null;
 
     private List<EventListenerDef> eventListenerDefs = new ArrayList<EventListenerDef>();
+
+    private List<ApplicationContextDef> appContextDefs = new ArrayList<ApplicationContextDef>();
 
     /**
      * {@link PartActionDescImpl} を構築します。<br />
@@ -70,6 +80,7 @@ public class PartActionDescImpl implements PartActionDesc {
         }
 
         this.partActionClass = partActionClass;
+        this.beanDesc = BeanDescFactory.getBeanDesc(partActionClass);
 
         setupMethods();
         setupFields();
@@ -91,8 +102,8 @@ public class PartActionDescImpl implements PartActionDesc {
             try {
                 initializeMethod.invoke(target, (Object[]) null);
             } catch (Throwable ex) {
-                throw new InitializeMethodException(ex, partActionClass,
-                        initializeMethod, target);
+                throw new InitializeMethodException(ex.getCause(),
+                        partActionClass, initializeMethod, target);
             }
         }
     }
@@ -137,6 +148,13 @@ public class PartActionDescImpl implements PartActionDesc {
      */
     public List<EventListenerDef> getEventListenerDefList() {
         return Collections.unmodifiableList(eventListenerDefs);
+    }
+
+    /*
+     * @see org.seasar.uruma.desc.PartActionDesc#getApplicationContextDefList()
+     */
+    public List<ApplicationContextDef> getApplicationContextDefList() {
+        return Collections.unmodifiableList(appContextDefs);
     }
 
     protected void setupMethods() {
@@ -189,6 +207,20 @@ public class PartActionDescImpl implements PartActionDesc {
         }
     }
 
+    protected void setupApplicationContext(final Field field) {
+        ApplicationContext anno = field.getAnnotation(ApplicationContext.class);
+        if (anno != null) {
+            String name = anno.name();
+            if (StringUtil.isEmpty(name)) {
+                name = field.getName();
+            }
+
+            PropertyDesc pd = beanDesc.getPropertyDesc(field.getName());
+            ApplicationContextDef def = new ApplicationContextDef(pd, name);
+            appContextDefs.add(def);
+        }
+    }
+
     protected void setupFields() {
         setupFieldsByClass(partActionClass);
         Class<?> superClass = partActionClass.getSuperclass();
@@ -207,6 +239,7 @@ public class PartActionDescImpl implements PartActionDesc {
                 field.setAccessible(true);
                 fieldsCache.put(fieldName, field);
 
+                setupApplicationContext(field);
                 setupArgumentField(field);
                 setupReturnField(field);
             }
@@ -233,4 +266,5 @@ public class PartActionDescImpl implements PartActionDesc {
             returnField = field;
         }
     }
+
 }

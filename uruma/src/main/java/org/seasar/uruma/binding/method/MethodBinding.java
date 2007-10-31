@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.framework.util.MethodUtil;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -28,6 +30,9 @@ import org.seasar.uruma.util.AssertionUtil;
  * @author y-komori
  */
 public class MethodBinding {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(MethodBinding.class);
+
     protected Object target;
 
     protected Method method;
@@ -73,11 +78,23 @@ public class MethodBinding {
      * @return 戻り値オブジェクト
      */
     public Object invoke(final Object[] args) {
+        if (logger.isInfoEnabled()) {
+            logger.log(UrumaMessageCodes.START_METHOD_CALL, UrumaLogger
+                    .getObjectDescription(target), method.getName(), args);
+        }
+
         Object[] filteredArgs = args;
         for (ArgumentsFilter filter : argumentsFilterList) {
             filteredArgs = filter.filter(filteredArgs);
         }
-        return MethodUtil.invoke(method, target, filteredArgs);
+        Object result = MethodUtil.invoke(method, target, filteredArgs);
+
+        if (logger.isInfoEnabled()) {
+            logger.log(UrumaMessageCodes.END_METHOD_CALL, UrumaLogger
+                    .getObjectDescription(target), method.getName(), result);
+        }
+
+        return result;
     }
 
     /**

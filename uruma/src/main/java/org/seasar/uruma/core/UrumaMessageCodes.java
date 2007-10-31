@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.core;
 
+import org.seasar.uruma.context.ApplicationContext;
+
 /**
  * Uruma で利用するメッセージコードを定義するインターフェースです。<br />
  * 
@@ -30,6 +32,26 @@ public interface UrumaMessageCodes {
      * 画面定義テンプレートをキャッシュから読み込む際のメッセージコードです。
      */
     public static final String LOAD_TEMPLATE_FROM_CACHE = "IURM0113";
+
+    /**
+     * {@link ApplicationContext} からオブジェクトへ値をバインドする際のメッセージコードです。
+     */
+    public static final String IMPORT_APPLICATION_CONTEXT = "DURM0216";
+
+    /**
+     * オブジェクトから {@link ApplicationContext} へ値をバインドする際のメッセージコードです。
+     */
+    public static final String EXPORT_APPLICATION_CONTEXT = "DURM0217";
+
+    /**
+     * メソッドバインディング開始時のメッセージコードです。
+     */
+    public static final String START_METHOD_CALL = "IURM0218";
+
+    /**
+     * メソッドバインディング終了時のメッセージコードです。
+     */
+    public static final String END_METHOD_CALL = "IURM0219";
 
     /**
      * ウィンドウオープン時のメッセージコードです。
