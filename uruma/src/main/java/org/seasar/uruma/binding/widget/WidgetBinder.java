@@ -29,6 +29,10 @@ import org.seasar.uruma.context.WidgetHandle;
  * @author y-komori
  */
 public class WidgetBinder {
+    private WidgetBinder() {
+
+    }
+
     /**
      * 指定されたオブジェクトに対して、ウィジットバインディングを行います。<br />
      * <p>
