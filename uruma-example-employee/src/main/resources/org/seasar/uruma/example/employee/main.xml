@@ -19,14 +19,17 @@
 
       <menu text="編集(&amp;E)">
         <menuItem id="menuEdit" text="編集(&amp;E)\tCtrl+E"
-          accelerator="Ctrl+E" image="edit" />
+          accelerator="Ctrl+E" enablesDependingId="employeeTable"
+          enablesFor="SINGLE" image="edit" />
         <menuItem id="menuDelete" text="削除(&amp;D)\tDelete"
-          accelerator="Delete" image="delete" />
+          accelerator="Delete" enablesDependingId="employeeTable"
+          image="delete" />
       </menu>
 
       <menu text="表示(&amp;V)">
         <menuItem id="menuInquire" text="詳細表示(&amp;I)\tCtrl+I"
-          accelerator="Ctrl+I" image="inquire" />
+          accelerator="Ctrl+I" enablesDependingId="employeeTable"
+          enablesFor="SINGLE" image="inquire" />
       </menu>
 
       <menu text="検索(&amp;S)">
@@ -43,9 +46,14 @@
       <toolItem id="toolRegist" toolTipText="新規登録" image="regist" />
       <toolItem style="SEPARATOR" />
 
-      <toolItem id="toolEdit" toolTipText="編集" image="edit" />
-      <toolItem id="toolDelete" toolTipText="削除" image="delete" />
-      <toolItem id="toolInquire" toolTipText="詳細表示" image="inquire" />
+      <toolItem id="toolEdit" toolTipText="編集"
+        enablesDependingId="employeeTable" enablesFor="SINGLE"
+        image="edit" />
+      <toolItem id="toolDelete" toolTipText="削除"
+        enablesDependingId="employeeTable" image="delete" />
+      <toolItem id="toolInquire" toolTipText="詳細表示"
+        enablesDependingId="employeeTable" enablesFor="SINGLE"
+        image="inquire" />
       <toolItem style="SEPARATOR" />
 
       <toolItem id="toolSearch" toolTipText="検索" image="search" />
