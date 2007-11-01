@@ -24,6 +24,16 @@ import org.seasar.uruma.context.ApplicationContext;
  */
 public interface UrumaMessageCodes {
     /**
+     * 未サポートのクラスが指定された場合のメッセージコードです。
+     */
+    public static final String UNSUPPORTED_CLASS = "EURM0005";
+
+    /**
+     * 型が想定している型に一致しない場合のメッセージコードです。
+     */
+    public static final String TYPE_MISS_MATCH = "EURM0006";
+
+    /**
      * 画面定義テンプレートをファイルから読み込む際のメッセージコードです。
      */
     public static final String LOAD_TEMPLATE_FROM_FILE = "IURM0112";
@@ -32,6 +42,16 @@ public interface UrumaMessageCodes {
      * 画面定義テンプレートをキャッシュから読み込む際のメッセージコードです。
      */
     public static final String LOAD_TEMPLATE_FROM_CACHE = "IURM0113";
+
+    /**
+     * EnablesDepending でターゲットウィジットがサポートされていない際のメッセージコードです。<br />
+     */
+    public static final String DEPENDING_WIDGET_NOT_SUPPORTED = "EJFC0211";
+
+    /**
+     * EnablesDepending でターゲットに対する選択条件がサポートされていない際のメッセージコードです。<br />
+     */
+    public static final String DEPENDING_TYPE_NOT_SUPPORTED = "EJFC0212";
 
     /**
      * {@link ApplicationContext} からオブジェクトへ値をバインドする際のメッセージコードです。

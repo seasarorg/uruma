@@ -17,12 +17,16 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.framework.log.Logger;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
+import org.seasar.uruma.binding.enables.EnablesDependingDef;
+import org.seasar.uruma.binding.enables.EnablesForType;
+import org.seasar.uruma.component.EnablesDependable;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.exception.RenderException;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.renderer.RendererSupportUtil;
 import org.seasar.uruma.util.ClassUtil;
 
@@ -37,7 +41,7 @@ import org.seasar.uruma.util.ClassUtil;
  */
 public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent, WIDGET_TYPE extends Widget>
         extends AbstractRenderer {
-    private Logger logger = Logger.getLogger(getClass());
+    private UrumaLogger logger = UrumaLogger.getLogger(getClass());
 
     /*
      * @see org.seasar.uruma.renderer.Renderer#render(org.seasar.uruma.component.UIComponent,
@@ -69,6 +73,10 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
 
         WidgetHandle handle = createWidgetHandle(uiComponent, widget);
 
+        if (uiComponent instanceof EnablesDependable) {
+            setupEnablesDependingDef(handle, (EnablesDependable) uiComponent);
+        }
+
         return handle;
     }
 
@@ -87,8 +95,26 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
                     SetTiming.RENDER);
 
             doRender(uiComponent, getWidgetType().cast(widget));
+
         } catch (Exception ex) {
             throw new RenderException("EURM0001", ex, ex.getMessage());
+        }
+    }
+
+    protected void setupEnablesDependingDef(final WidgetHandle handle,
+            final EnablesDependable dependable) {
+        String enablesDependingId = dependable.getEnablesDependingId();
+        String enablesForType = dependable.getEnablesForType();
+
+        if (!StringUtil.isEmpty(enablesDependingId)) {
+            EnablesForType type = EnablesForType.SELECTION;
+            if (!StringUtil.isEmpty(enablesForType)) {
+                type = EnablesForType.valueOf(enablesForType);
+            }
+
+            EnablesDependingDef def = new EnablesDependingDef(handle,
+                    enablesDependingId, type);
+            getContext().getWindowContext().addEnablesDependingDef(def);
         }
     }
 
@@ -137,27 +163,13 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
                 parent, style);
 
         if (logger.isDebugEnabled()) {
-            logger.debug(widgetClass.getName() + "@"
-                    + Integer.toHexString(widget.hashCode()) + " created.");
+            logger
+                    .debug(UrumaLogger.getObjectDescription(widget)
+                            + " created.");
         }
 
         return widget;
     }
-
-    // TODO 後で削除
-    // protected void addEnabledDepend(Widget widget, EnabledDependable
-    // dependable) {
-    // if (dependable.getEnabledDependId() == null
-    // || dependable.getEnabledDependType() == null) {
-    // // TODO どちらか一方のみが入っていた場合は例外とする
-    // return;
-    // }
-    //
-    // EnabledDepend depend = new EnabledDepend(widget, dependable
-    // .getEnabledDependId(), EnabledDependType.valueOf(dependable
-    // .getEnabledDependType()));
-    // getContext().addEnabledDepend(depend);
-    // }
 
     /**
      * 生成するウィジットの型を返します。<br />

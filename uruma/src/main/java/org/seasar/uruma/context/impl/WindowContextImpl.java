@@ -21,10 +21,13 @@ import java.util.List;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
+import org.seasar.uruma.binding.enables.EnablesDependingDef;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.exception.DuplicateComponentIdException;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * {@link WindowContext} の実装クラスです。<br />
@@ -48,6 +51,8 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     private List<PartContext> partContextList;
 
     private ApplicationContextImpl parent;
+
+    private List<EnablesDependingDef> enablesDependingDefList = new ArrayList<EnablesDependingDef>();
 
     /**
      * {@link WindowContextImpl} を構築します。<br />
@@ -151,5 +156,41 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
         }
         parent.disposeWindowContext(windowName);
         parent = null;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.WindowContext#findWidgetHandles(java.lang.String)
+     */
+    public List<WidgetHandle> findWidgetHandles(final String handleId) {
+        List<WidgetHandle> results = new ArrayList<WidgetHandle>();
+
+        WidgetHandle handle = getWidgetHandle(handleId);
+        if (handle != null) {
+            results.add(handle);
+        }
+
+        for (PartContext part : getPartContextList()) {
+            handle = part.getWidgetHandle(handleId);
+            if (handle != null) {
+                results.add(handle);
+            }
+        }
+        return results;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.WindowContext#addEnablesDependingDef(org.seasar.uruma.binding.enables.EnablesDependingDef)
+     */
+    public void addEnablesDependingDef(
+            final EnablesDependingDef enablesDependingDef) {
+        AssertionUtil.assertNotNull("enablesDependingDef", enablesDependingDef);
+        enablesDependingDefList.add(enablesDependingDef);
+    }
+
+    /*
+     * @see org.seasar.uruma.context.WindowContext#getEnablesDependingDefList()
+     */
+    public List<EnablesDependingDef> getEnablesDependingDefList() {
+        return Collections.unmodifiableList(enablesDependingDefList);
     }
 }

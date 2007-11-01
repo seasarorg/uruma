@@ -17,6 +17,8 @@ package org.seasar.uruma.context;
 
 import java.util.List;
 
+import org.seasar.uruma.binding.enables.EnablesDependingDef;
+
 /**
  * ウィンドウやダイアログに関する情報を保持するクラスのためのインターフェースです。<br />
  * 
@@ -62,4 +64,29 @@ public interface WindowContext extends WidgetHolder {
      * @return {@link ApplicationContext} オブジェクト
      */
     public ApplicationContext getApplicationContext();
+
+    /**
+     * {@link WindowContext} 本体および配下のすべての {@link PartContext} から、<code>handleId</code>
+     * にマッチする {@link WidgetHandle} を検索して返します。<br />
+     * 
+     * @param handleId
+     *            ハンドルID
+     * @return 見つかった {@link WidgetHandle} のリスト
+     */
+    public List<WidgetHandle> findWidgetHandles(String handleId);
+
+    /**
+     * {@link EnablesDependingDef} を追加します。<br />
+     * 
+     * @param enablesDependingDef
+     *            {@link EnablesDependingDef} オブジェクト
+     */
+    public void addEnablesDependingDef(EnablesDependingDef enablesDependingDef);
+
+    /**
+     * {@link EnablesDependingDef} のリストを返します。<br />
+     * 
+     * @return {@link EnablesDependingDef} のリスト
+     */
+    public List<EnablesDependingDef> getEnablesDependingDefList();
 }

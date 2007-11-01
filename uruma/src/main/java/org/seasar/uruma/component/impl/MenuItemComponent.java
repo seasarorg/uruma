@@ -17,6 +17,7 @@ package org.seasar.uruma.component.impl;
 
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
+import org.seasar.uruma.component.EnablesDependable;
 
 /**
  * メニュー項目情報を保持するためのコンポーネントです。<br />
@@ -24,7 +25,8 @@ import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
  * @author bskuroneko
  * @author y-komori
  */
-public class MenuItemComponent extends AbstractItemComponent {
+public class MenuItemComponent extends AbstractItemComponent implements
+        EnablesDependable {
     /**
      * プッシュボタンスタイルを表す文字列です。<br />
      */
@@ -75,4 +77,30 @@ public class MenuItemComponent extends AbstractItemComponent {
      */
     @RenderingPolicy(targetType = TargetType.NONE)
     public String description;
+
+    /**
+     * 依存先コンポーネントの ID です。
+     */
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String enablesDependingId;
+
+    /**
+     * 依存方法です。
+     */
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String enablesForType;
+
+    /*
+     * @see org.seasar.uruma.component.EnablesDependable#getEnablesDependingId()
+     */
+    public String getEnablesDependingId() {
+        return this.enablesDependingId;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.EnablesDependable#getEnablesForType()
+     */
+    public String getEnablesForType() {
+        return this.enablesForType;
+    }
 }

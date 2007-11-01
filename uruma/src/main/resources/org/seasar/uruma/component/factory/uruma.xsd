@@ -270,9 +270,9 @@
           <xs:attribute name="visible" type="xs:boolean" default="true" />
           <xs:attribute name="x" type="xs:int" />
           <xs:attribute name="y" type="xs:int" />
-          <xs:attribute name="enabledDependId" type="xs:string" />
-          <xs:attribute name="enabledDependType"
-            type="tns:EnabledDependType" />
+          <xs:attribute name="enablesDependingId" type="xs:string" />
+          <xs:attribute name="enablesFor"
+            type="tns:EnablesForType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -304,9 +304,9 @@
           <xs:attribute name="description" type="xs:string" />
           <xs:attribute name="disabledImage" type="tns:Image" />
           <xs:attribute name="hoverImage" type="tns:Image" />
-          <xs:attribute name="enabledDependId" type="xs:string" />
-          <xs:attribute name="enabledDependType"
-            type="tns:EnabledDependType" />
+          <xs:attribute name="enablesDependingId" type="xs:string" />
+          <xs:attribute name="enablesFor"
+            type="tns:EnablesForType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -590,9 +590,9 @@
           <xs:attribute name="selection" type="xs:boolean" />
           <xs:attribute name="toolTipText" type="xs:string" />
           <xs:attribute name="width" type="xs:int" />
-          <xs:attribute name="enabledDependId" type="xs:string" />
-          <xs:attribute name="enabledDependType"
-            type="tns:EnabledDependType" />
+          <xs:attribute name="enablesDependingId" type="xs:string" />
+          <xs:attribute name="enablesFor"
+            type="tns:EnablesForType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -1114,9 +1114,9 @@
         <xs:attribute name="menu" type="xs:string" />
         <xs:attribute name="toolTipText" type="xs:string" />
         <xs:attribute name="visible" type="xs:boolean" />
-        <xs:attribute name="enabledDependId" type="xs:string" />
-        <xs:attribute name="enabledDependType"
-          type="tns:EnabledDependType" />
+        <xs:attribute name="enablesDependingId" type="xs:string" />
+        <xs:attribute name="enablesFor"
+          type="tns:EnablesForType" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -1218,7 +1218,7 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="EnabledDependType">
+  <xs:simpleType name="EnablesForType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="SELECTION" />
       <xs:enumeration value="SINGLE" />

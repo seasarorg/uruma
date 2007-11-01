@@ -20,6 +20,7 @@ import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
+import org.seasar.uruma.component.EnablesDependable;
 import org.seasar.uruma.component.LayoutDataInfo;
 import org.seasar.uruma.component.UIControlComponent;
 
@@ -29,7 +30,7 @@ import org.seasar.uruma.component.UIControlComponent;
  * @author y-komori
  */
 public abstract class ControlComponent extends AbstractUIComponent implements
-        UIControlComponent {
+        UIControlComponent, EnablesDependable {
     private LayoutDataInfo layoutDataInfo;
 
     @RenderingPolicy(conversionType = ConversionType.COLOR)
@@ -87,6 +88,14 @@ public abstract class ControlComponent extends AbstractUIComponent implements
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("メニューのID")
     private String menu;
+
+    @RenderingPolicy(targetType = TargetType.NONE)
+    @FieldDescription("依存先コンポーネントのID")
+    private String enablesDependingId;
+
+    @RenderingPolicy(targetType = TargetType.NONE)
+    @FieldDescription("依存方法")
+    private String enablesForType;
 
     /**
      * 背景色を取得します。<br />
@@ -352,6 +361,40 @@ public abstract class ControlComponent extends AbstractUIComponent implements
      */
     public void setMenu(final String menu) {
         this.menu = menu;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.EnablesDependable#getEnablesDependingId()
+     */
+    public String getEnablesDependingId() {
+        return this.enablesDependingId;
+    }
+
+    /**
+     * 依存先コンポーネントの ID を設定します。<br />
+     * 
+     * @param enablesDependingId
+     *            依存先コンポーネントの ID
+     */
+    public void setEnablesDependingId(final String enablesDependingId) {
+        this.enablesDependingId = enablesDependingId;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.EnablesDependable#getEnablesForType()
+     */
+    public String getEnablesForType() {
+        return this.enablesForType;
+    }
+
+    /**
+     * 依存方法を設定します。<br />
+     * 
+     * @param enablesForType
+     *            依存方法
+     */
+    public void setEnablesForType(final String enablesForType) {
+        this.enablesForType = enablesForType;
     }
 
     /*

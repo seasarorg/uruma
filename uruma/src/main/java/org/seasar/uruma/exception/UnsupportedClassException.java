@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.exception;
 
+import org.seasar.uruma.core.UrumaMessageCodes;
+
 /**
  * 未サポートのクラスを処理しようとしたときにスローされる例外です。<br />
  * 
@@ -24,15 +26,29 @@ public class UnsupportedClassException extends UrumaRuntimeException {
 
     private static final long serialVersionUID = 3494975724910432898L;
 
-    private static final String MESSAGE_CODE = "EURM0005";
+    /**
+     * {@link UnsupportedClassException} を構築します。<br />
+     * 
+     * @param clazz
+     *            対象 {@link Class} オブジェクト
+     * @see UrumaMessageCodes#UNSUPPORTED_CLASS
+     */
+    public UnsupportedClassException(final Class<?> clazz) {
+        super(UrumaMessageCodes.UNSUPPORTED_CLASS, clazz.getName());
+    }
 
     /**
      * {@link UnsupportedClassException} を構築します。<br />
      * 
      * @param clazz
      *            対象 {@link Class} オブジェクト
+     * @param actualClass
+     *            本来あるべきクラスの {@link Class} オブジェクト
+     * @see UrumaMessageCodes#TYPE_MISS_MATCH
      */
-    public UnsupportedClassException(final Class<?> clazz) {
-        super(MESSAGE_CODE, clazz.getName());
+    public UnsupportedClassException(final Class<?> clazz,
+            final Class<?> actualClass) {
+        super(UrumaMessageCodes.TYPE_MISS_MATCH, clazz.getName(), actualClass
+                .getName());
     }
 }

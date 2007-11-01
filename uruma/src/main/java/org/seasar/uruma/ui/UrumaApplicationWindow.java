@@ -30,6 +30,7 @@ import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.binding.context.ApplicationContextBinder;
+import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.binding.widget.WidgetBinder;
@@ -266,6 +267,9 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
         // 画面初期表示時の、フォームから画面へのエクスポート処理を実施
         ValueBindingSupport.exportValue(partContext);
         ValueBindingSupport.exportSelection(partContext);
+
+        EnablesDependingListenerSupport
+                .setupEnableDependingListeners(windowContext);
 
         return parent;
     }

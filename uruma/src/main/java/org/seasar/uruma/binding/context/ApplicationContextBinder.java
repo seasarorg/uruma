@@ -89,7 +89,17 @@ public class ApplicationContextBinder {
                         UrumaLogger.getObjectDescription(target), pd
                                 .getPropertyName(), name, value);
             }
-            pd.setValue(target, value);
+
+            Class<?> propertyType = pd.getPropertyType();
+            if (value != null) {
+                if (propertyType.isAssignableFrom(value.getClass())) {
+                    pd.setValue(target, value);
+                } else {
+                    // TODO 例外処理
+                }
+            } else {
+                pd.setValue(target, null);
+            }
         }
     }
 }

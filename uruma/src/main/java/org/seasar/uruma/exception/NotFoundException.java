@@ -73,6 +73,11 @@ public class NotFoundException extends UrumaRuntimeException {
     public static final String VALUE_BINDER = "EURM0111";
 
     /**
+     * 検索対象が EnablesDepending ターゲットの場合のメッセージコードです。
+     */
+    public static final String ENABLES_DEPENDING_TARGET = "EURM0220";
+
+    /**
      * {@link NotFoundException} を構築します。<br />
      * 
      * @param code

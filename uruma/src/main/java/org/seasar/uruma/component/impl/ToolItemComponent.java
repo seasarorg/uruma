@@ -19,13 +19,16 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
+import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
+import org.seasar.uruma.component.EnablesDependable;
 
 /**
  * {@link ToolItem} を表すコンポーネントです。<br />
  * 
  * @author bskuroneko
  */
-public class ToolItemComponent extends AbstractItemComponent {
+public class ToolItemComponent extends AbstractItemComponent implements
+        EnablesDependable {
 
     @RenderingPolicy(conversionType = ConversionType.IMAGE)
     @FieldDescription("選択不可時イメージパス")
@@ -50,6 +53,14 @@ public class ToolItemComponent extends AbstractItemComponent {
     @RenderingPolicy(conversionType = ConversionType.INT)
     @FieldDescription("幅")
     private String width;
+
+    @RenderingPolicy(targetType = TargetType.NONE)
+    @FieldDescription("依存先コンポーネントのID")
+    private String enablesDependingId;
+
+    @RenderingPolicy(targetType = TargetType.NONE)
+    @FieldDescription("依存方法")
+    private String enablesForType;
 
     /**
      * 選択不可時イメージパスを取得します。<br />
@@ -163,5 +174,39 @@ public class ToolItemComponent extends AbstractItemComponent {
      */
     public void setWidth(final String width) {
         this.width = width;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.EnablesDependable#getEnablesDependingId()
+     */
+    public String getEnablesDependingId() {
+        return this.enablesDependingId;
+    }
+
+    /**
+     * 依存先コンポーネントの ID を設定します。<br />
+     * 
+     * @param enablesDependingId
+     *            依存先コンポーネントの ID
+     */
+    public void setEnablesDependingId(final String enablesDependingId) {
+        this.enablesDependingId = enablesDependingId;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.EnablesDependable#getEnablesForType()
+     */
+    public String getEnablesForType() {
+        return this.enablesForType;
+    }
+
+    /**
+     * 依存方法を設定します。<br />
+     * 
+     * @param enablesForType
+     *            依存方法
+     */
+    public void setEnablesForType(final String enablesForType) {
+        this.enablesForType = enablesForType;
     }
 }
