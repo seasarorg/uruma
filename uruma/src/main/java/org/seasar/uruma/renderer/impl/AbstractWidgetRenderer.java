@@ -104,7 +104,7 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
     protected void setupEnablesDependingDef(final WidgetHandle handle,
             final EnablesDependable dependable) {
         String enablesDependingId = dependable.getEnablesDependingId();
-        String enablesForType = dependable.getEnablesForType();
+        String enablesForType = dependable.getEnablesFor();
 
         if (!StringUtil.isEmpty(enablesDependingId)) {
             EnablesForType type = EnablesForType.SELECTION;

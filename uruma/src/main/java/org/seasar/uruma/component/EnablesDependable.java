@@ -33,5 +33,5 @@ public interface EnablesDependable {
      * 
      * @return 依存方法
      */
-    public String getEnablesForType();
+    public String getEnablesFor();
 }

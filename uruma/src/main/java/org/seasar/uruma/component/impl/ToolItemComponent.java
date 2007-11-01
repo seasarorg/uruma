@@ -60,7 +60,7 @@ public class ToolItemComponent extends AbstractItemComponent implements
 
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("依存方法")
-    private String enablesForType;
+    private String enablesFor;
 
     /**
      * 選択不可時イメージパスを取得します。<br />
@@ -196,17 +196,17 @@ public class ToolItemComponent extends AbstractItemComponent implements
     /*
      * @see org.seasar.uruma.component.EnablesDependable#getEnablesForType()
      */
-    public String getEnablesForType() {
-        return this.enablesForType;
+    public String getEnablesFor() {
+        return this.enablesFor;
     }
 
     /**
      * 依存方法を設定します。<br />
      * 
-     * @param enablesForType
+     * @param enablesFor
      *            依存方法
      */
-    public void setEnablesForType(final String enablesForType) {
-        this.enablesForType = enablesForType;
+    public void setEnablesFor(final String enablesFor) {
+        this.enablesFor = enablesFor;
     }
 }

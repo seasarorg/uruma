@@ -56,7 +56,7 @@ public class CoolItemComponent extends AbstractUIContainerItemComponent
     /*
      * @see org.seasar.uruma.component.EnablesDependable#getEnablesForType()
      */
-    public String getEnablesForType() {
+    public String getEnablesFor() {
         return this.enablesForType;
     }
 

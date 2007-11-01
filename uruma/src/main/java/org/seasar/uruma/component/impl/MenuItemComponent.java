@@ -88,7 +88,7 @@ public class MenuItemComponent extends AbstractItemComponent implements
      * 依存方法です。
      */
     @RenderingPolicy(targetType = TargetType.NONE)
-    public String enablesForType;
+    public String enablesFor;
 
     /*
      * @see org.seasar.uruma.component.EnablesDependable#getEnablesDependingId()
@@ -100,7 +100,7 @@ public class MenuItemComponent extends AbstractItemComponent implements
     /*
      * @see org.seasar.uruma.component.EnablesDependable#getEnablesForType()
      */
-    public String getEnablesForType() {
-        return this.enablesForType;
+    public String getEnablesFor() {
+        return this.enablesFor;
     }
 }
