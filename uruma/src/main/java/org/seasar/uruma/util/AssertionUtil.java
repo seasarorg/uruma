@@ -25,6 +25,10 @@ import org.seasar.uruma.core.UrumaMessageCodes;
  * @author y-komori
  */
 public class AssertionUtil {
+    private AssertionUtil() {
+
+    }
+
     /**
      * <code>arg</code> が <code>null</code> でないことをチェックします。<br />
      * 

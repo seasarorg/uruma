@@ -23,6 +23,10 @@ import org.seasar.framework.util.StringUtil;
  * @author y-komori
  */
 public class PathUtil {
+    private PathUtil() {
+
+    }
+
     /**
      * 与えられた基準パスと相対パスから絶対パスを生成します。</br>
      * <ul>

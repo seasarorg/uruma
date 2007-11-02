@@ -30,6 +30,10 @@ import org.seasar.framework.exception.InvocationTargetRuntimeException;
  * @author y-komori
  */
 public class ClassUtil {
+    private ClassUtil() {
+
+    }
+
     /**
      * 新しいインスタンスを生成します。<br />
      * 

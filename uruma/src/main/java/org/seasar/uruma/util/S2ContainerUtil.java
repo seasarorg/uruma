@@ -28,6 +28,10 @@ import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
  * @author y-komori
  */
 public class S2ContainerUtil {
+    private S2ContainerUtil() {
+
+    }
+
     /**
      * 指定された名前に対応するコンポーネントを {@link S2Container} から取得して返します。<br />
      * <p>
