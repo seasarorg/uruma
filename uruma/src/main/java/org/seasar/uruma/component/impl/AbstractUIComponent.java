@@ -15,11 +15,11 @@
  */
 package org.seasar.uruma.component.impl;
 
-import org.seasar.framework.log.Logger;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.renderer.Renderer;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -30,7 +30,7 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 public abstract class AbstractUIComponent extends AbstractUIElement implements
         UIComponent {
-    private Logger logger = Logger.getLogger(getClass());
+    private UrumaLogger logger = UrumaLogger.getLogger(getClass());
 
     private UIContainer parent;
 

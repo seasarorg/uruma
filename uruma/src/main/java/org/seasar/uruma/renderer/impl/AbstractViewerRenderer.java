@@ -25,7 +25,6 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.eclipse.common.util.SWTUtil;
-import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
@@ -33,6 +32,7 @@ import org.seasar.uruma.component.impl.CompositeComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.exception.RenderException;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.ClassUtil;
 import org.seasar.uruma.util.S2ContainerUtil;
 import org.seasar.uruma.viewer.GenericContentProvider;
@@ -50,7 +50,7 @@ import org.seasar.uruma.viewer.GenericContentProvider;
  */
 public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeComponent, VIEWER_TYPE extends Viewer, CONTROL_TYPE extends Control>
         extends AbstractControlRenderer<COMPONENT_TYPE, CONTROL_TYPE> {
-    private Logger logger = Logger.getLogger(getClass());
+    private UrumaLogger logger = UrumaLogger.getLogger(getClass());
 
     /**
      * {@link ILabelProvider} の S2Container 上でのコンポーネント名称サフィックス
@@ -306,13 +306,13 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * @return 生成したビューアのインタンス
      */
     protected VIEWER_TYPE createViewer(final Composite parent, final int style) {
-        Class<VIEWER_TYPE> viewerClass = getViewerType();
-        VIEWER_TYPE viewer = ClassUtil.<VIEWER_TYPE> newInstance(viewerClass,
-                parent, style);
+        VIEWER_TYPE viewer = ClassUtil.<VIEWER_TYPE> newInstance(
+                getViewerType(), parent, style);
 
         if (logger.isDebugEnabled()) {
-            logger.debug(viewerClass.getName() + "@"
-                    + Integer.toHexString(viewer.hashCode()) + " created.");
+            logger
+                    .debug(UrumaLogger.getObjectDescription(viewer)
+                            + " created.");
         }
 
         return viewer;

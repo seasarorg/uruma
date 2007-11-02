@@ -30,7 +30,8 @@ import org.seasar.uruma.log.UrumaLogger;
  * @author y-komori
  */
 public class TemplateManagerImpl implements TemplateManager {
-    private UrumaLogger logger = UrumaLogger.getLogger(TemplateManager.class);
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(TemplateManager.class);
 
     private Map<String, Template> templateCache = new HashMap<String, Template>();
 
