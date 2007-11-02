@@ -18,7 +18,7 @@ package org.seasar.uruma.renderer;
 import junit.framework.TestCase;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
@@ -37,6 +37,7 @@ public class RenderSupportUtilTest extends TestCase {
         display = Display.getCurrent();
         if (display == null) {
             display = new Display();
+            ImageManager.init(display);
         }
     }
 
@@ -59,7 +60,7 @@ public class RenderSupportUtilTest extends TestCase {
         assertEquals("2", "Text\tField1\nText\tField1\n", dest.textField);
         assertEquals("3", 123, dest.intField);
         assertTrue("4", dest.booleanField);
-        assertEquals("5", new Color(display, 255, 255, 255), dest.colorField);
+        assertEquals("5", new RGB(255, 255, 255), dest.colorField.getRGB());
         assertEquals("6", SWT.YES, dest.swtConstField);
         assertEquals("7", ImageManager.getImage("/images/container.gif"),
                 dest.imageField);
@@ -75,7 +76,7 @@ public class RenderSupportUtilTest extends TestCase {
                 .getTextProperty());
         assertEquals("16", 456, dest.getIntProperty());
         assertFalse("17", dest.getBooleanProperty());
-        assertEquals("18", new Color(display, 0, 0, 0), dest.getColorProperty());
+        assertEquals("18", new RGB(0, 0, 0), dest.getColorProperty().getRGB());
         assertEquals("19", SWT.NO, dest.getSwtConstProperty());
         assertEquals(
                 "20",

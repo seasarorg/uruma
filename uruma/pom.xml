@@ -1,31 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
+  <!-- More Project Information -->
   <groupId>org.seasar.uruma</groupId>
   <artifactId>uruma</artifactId>
   <name>Uruma</name>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <url>http://uruma.sandbox.seasar.org/</url>
-  <issueManagement>
-    <system>JIRA</system>
-    <url>https://www.seasar.org/issues/browse/URUMA</url>
-  </issueManagement>
-  <inceptionYear>2006</inceptionYear>
-  <mailingLists>
-    <mailingList>
-      <name>Seasar-user</name>
-      <subscribe>https://www.seasar.org/mailman/listinfo/seasar-user</subscribe>
-      <unsubscribe>https://www.seasar.org/mailman/listinfo/seasar-user</unsubscribe>
-      <post>seasar-user@ml.seasar.org</post>
-      <archive>https://www.seasar.org/mailman/listinfo/seasar-user</archive>
-    </mailingList>
-    <mailingList>
-      <name>uruma-dev</name>
-      <subscribe>https://www.seasar.org/mailman/listinfo/uruma-dev</subscribe>
-      <unsubscribe>https://www.seasar.org/mailman/listinfo/uruma-dev</unsubscribe>
-      <post>uruma-dev@ml.seasar.org</post>
-      <archive>http://ml.seasar.org/archives/uruma-dev/</archive>
-    </mailingList>
-  </mailingLists>
+
   <developers>
     <developer>
       <id>y-komori</id>
@@ -64,6 +50,7 @@
       <timezone>+9</timezone>
     </developer>
   </developers>
+
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -71,10 +58,70 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
   <organization>
     <name>The Seasar Foundation</name>
     <url>http://www.seasar.org/</url>
   </organization>
+
+  <!-- Environment Settings -->
+  <issueManagement>
+    <system>JIRA</system>
+    <url>https://www.seasar.org/issues/browse/URUMA</url>
+  </issueManagement>
+  <inceptionYear>2006</inceptionYear>
+
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Repository</name>
+      <url>dav:https://www.seasar.org/maven/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>true</uniqueVersion>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Snapshot Repository</name>
+      <url>dav:https://www.seasar.org/maven/maven2-snapshot</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Repository</name>
+      <url>http://maven.seasar.org/maven2</url>
+    </repository>
+  </repositories>
+
+  <mailingLists>
+    <mailingList>
+      <name>Seasar-user</name>
+      <subscribe>
+        https://www.seasar.org/mailman/listinfo/seasar-user
+      </subscribe>
+      <unsubscribe>
+        https://www.seasar.org/mailman/listinfo/seasar-user
+      </unsubscribe>
+      <post>seasar-user@ml.seasar.org</post>
+      <archive>
+        https://www.seasar.org/mailman/listinfo/seasar-user
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>uruma-dev</name>
+      <subscribe>
+        https://www.seasar.org/mailman/listinfo/uruma-dev
+      </subscribe>
+      <unsubscribe>
+        https://www.seasar.org/mailman/listinfo/uruma-dev
+      </unsubscribe>
+      <post>uruma-dev@ml.seasar.org</post>
+      <archive>http://ml.seasar.org/archives/uruma-dev/</archive>
+    </mailingList>
+  </mailingLists>
+
+  <!-- Build Settings -->
   <build>
     <defaultGoal>validate</defaultGoal>
     <pluginManagement>
@@ -89,6 +136,7 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    
     <plugins>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -96,9 +144,9 @@
           <forkMode>once</forkMode>
           <workingDirectory>lib</workingDirectory>
           <!--
-          <excludes>
+            <excludes>
             <exclude>**/*GUITest.java</exclude>
-          </excludes>
+            </excludes>
           -->
         </configuration>
       </plugin>
@@ -131,16 +179,26 @@
           <encoding>UTF-8</encoding>
           <docencoding>UTF-8</docencoding>
           <charset>UTF-8</charset>
-          <doctitle>${project.name} ${project.version} API Specifications</doctitle>
+          <doctitle>
+            ${project.name} ${project.version} API Specifications
+          </doctitle>
           <windowtitle>Uruma API Specifications</windowtitle>
           <links>
             <link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
             <link>http://java.sun.com/javaee/5/docs/api/</link>
             <link>http://aopalliance.sourceforge.net/doc/</link>
-            <link>http://s2container.seasar.org/2.4/s2-framework/ja/apidocs/</link>
-            <link>http://s2container.seasar.org/2.4/s2-extension/ja/apidocs/</link>
-            <link>http://s2container.seasar.org/2.4/s2-tiger/ja/apidocs/</link>
-            <link>http://help.eclipse.org/help33/nftopic/org.eclipse.platform.doc.isv/reference/api/</link>
+            <link>
+              http://s2container.seasar.org/2.4/s2-framework/ja/apidocs/
+            </link>
+            <link>
+              http://s2container.seasar.org/2.4/s2-extension/ja/apidocs/
+            </link>
+            <link>
+              http://s2container.seasar.org/2.4/s2-tiger/ja/apidocs/
+            </link>
+            <link>
+              http://help.eclipse.org/help33/nftopic/org.eclipse.platform.doc.isv/reference/api/
+            </link>
           </links>
         </configuration>
         <executions>
@@ -169,14 +227,16 @@
         </executions>
       </plugin>
     </plugins>
+    
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+      </extension>
+    </extensions>
   </build>
-  <repositories>
-    <repository>
-      <id>maven.seasar.org</id>
-      <name>The Seasar Foundation Maven2 Repository</name>
-      <url>http://maven.seasar.org/maven2</url>
-    </repository>
-  </repositories>
+  
+  <!-- Dependency Settings -->
   <dependencies>
     <dependency>
       <groupId>org.seasar.container</groupId>
@@ -370,18 +430,4 @@
       <version>2.6.9-patch-20070908</version>
     </dependency>
   </dependencies>
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>maven.seasar.org</id>
-      <name>The Seasar Foundation Maven2 Repository</name>
-      <url>scp://www.seasar.org/home/groups/sandbox/uruma/maven/maven2</url>
-    </repository>
-    <snapshotRepository>
-      <uniqueVersion>true</uniqueVersion>
-      <id>maven.seasar.org</id>
-      <name>The Seasar Foundation Maven2 Snapshot Repository</name>
-      <url>scp://www.seasar.org/home/groups/sandbox/uruma/maven/maven2-snapshot</url>
-    </snapshotRepository>
-  </distributionManagement>
 </project>
