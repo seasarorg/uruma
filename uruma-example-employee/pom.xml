@@ -8,7 +8,7 @@
   <!-- More Project Information -->
   <groupId>org.seasar.uruma</groupId>
   <artifactId>uruma-example-employee</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0-SNAPSHOT</version>
   <url>http://uruma.sandbox.seasar.org/</url>
   <inceptionYear>2006</inceptionYear>
 
@@ -185,6 +185,7 @@
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-webdav</artifactId>
+        <version>1.0-beta-2</version>
       </extension>
     </extensions>
   </build>
