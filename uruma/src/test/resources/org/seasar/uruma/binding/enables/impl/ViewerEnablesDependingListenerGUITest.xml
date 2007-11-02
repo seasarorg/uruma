@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="viewerEnablesDependingListenerGUITest" title="ViewerEnablesDependingListenerGUITest"
+    defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+
+    <menu>
+      <menuItem text="選択時Enable" enablesDependingId="table"
+        enablesFor="SELECTION" />
+      <menuItem text="非選択時Enable" enablesDependingId="table"
+        enablesFor="NONE" />
+      <menuItem text="１つだけ選択時Enable" enablesDependingId="table"
+        enablesFor="SINGLE" />
+      <menuItem text="２つだけ選択時Enable" enablesDependingId="table"
+        enablesFor="PAIR" />
+      <menuItem text="２つ以上選択時Enable" enablesDependingId="table"
+        enablesFor="MULTI" />
+    </menu>
+
+    <toolBar>
+      <toolItem text="選択時Enable" enablesDependingId="table"
+        enablesFor="SELECTION" />
+      <toolItem text="非選択時Enable" enablesDependingId="table"
+        enablesFor="NONE" />
+      <toolItem text="１つだけ選択時Enable" enablesDependingId="table"
+        enablesFor="SINGLE" />
+      <toolItem text="２つだけ選択時Enable" enablesDependingId="table"
+        enablesFor="PAIR" />
+      <toolItem text="２つ以上選択時Enable" enablesDependingId="table"
+        enablesFor="MULTI" />
+    </toolBar>
+
+    <composite id="contents">
+      <gridData horizontalAlignment="FILL" />
+      <rowLayout type="VERTICAL" marginWidth="10" marginHeight="10"
+        spacing="10">
+      </rowLayout>
+      <commonAttributes fontHeight="10" />
+
+      <table id="table" style="BORDER, MULTI" headerVisible="true">
+        <tableColumn id="column1" text="カラム１" width="60" />
+        <tableColumn id="column2" text="カラム２" width="60" />
+      </table>
+
+      <button id="addItemButton" text="アイテム追加" />
+      <button id="removeAllButton" text="アイテム全削除" />
+      <button id="nullButton" text="イベントリスナの呼び出しのみ" />
+
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>
