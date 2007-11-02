@@ -50,7 +50,8 @@ public class ContextFactory {
      * @param name
      *            {@link WindowContext} の名称
      * @return 生成した {@link WindowContext} オブジェクト
-     * @thrown DuplicateComponentIdException 名称が重複している場合
+     * @throws DuplicateComponentIdException
+     *             名称が重複している場合
      */
     public static WindowContext createWindowContext(
             final ApplicationContext parent, final String name) {

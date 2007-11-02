@@ -9,9 +9,9 @@
       <directory>target</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>s2-jface-0.1.0.jar</include>
-        <include>s2-jface-0.1.0-sources.jar</include>
-        <include>s2-jface-0.1.0-javadoc.jar</include>
+        <include>uruma-0.1.0.jar</include>
+        <include>uruma-0.1.0-sources.jar</include>
+        <include>uruma-0.1.0-javadoc.jar</include>
       </includes>
     </fileSet>
     <fileSet>

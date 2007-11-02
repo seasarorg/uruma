@@ -45,9 +45,6 @@ import org.seasar.uruma.util.AssertionUtil;
  * <dd>コンストラクタ呼び出し時に {@link IllegalArgumentException} をスローします。
  * </dl>
  * </p>
- * <p>
- * メソッドの呼び出しに失敗した場合は、{@link MethodInvocationException} をスローします。
- * </p>
  * 
  * @author y-komori
  */

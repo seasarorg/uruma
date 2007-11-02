@@ -46,7 +46,6 @@ public class GenericAction extends Action {
      * 
      * @param text
      *            テキスト
-     * @See {@link IAction}
      */
     public GenericAction(final String text) {
         super(text);
@@ -59,7 +58,6 @@ public class GenericAction extends Action {
      *            テキスト
      * @param style
      *            スタイル
-     * @See {@link IAction}
      */
     public GenericAction(final String text, final int style) {
         super(text, style);
