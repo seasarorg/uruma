@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
+import org.seasar.uruma.exception.MethodInvocationException;
 
 /**
  * 汎用的な {@link IAction} クラスです。<br />
@@ -78,9 +79,12 @@ public class GenericAction extends Action {
      */
     @Override
     public void runWithEvent(final Event event) {
-        // TODO 例外のハンドリングが必要
-        if (listener != null) {
-            listener.handleEvent(event);
+        try {
+            if (listener != null) {
+                listener.handleEvent(event);
+            }
+        } catch (Throwable ex) {
+            throw new MethodInvocationException(ex);
         }
     }
 
