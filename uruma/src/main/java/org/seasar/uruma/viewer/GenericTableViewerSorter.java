@@ -41,7 +41,7 @@ public class GenericTableViewerSorter extends ViewerSorter {
 
     private TableColumn sortKey;
 
-    private boolean order = true;
+    private SortingState sortingState = SortingState.NONE;
 
     /**
      * {@link GenericTableViewerSorter} を構築します。<br />
@@ -101,7 +101,14 @@ public class GenericTableViewerSorter extends ViewerSorter {
             value2 = "";
         }
         int result = collator.compare(value1.toString(), value2.toString());
-        return order ? result : result * (-1);
+
+        if (sortingState == SortingState.ASCENDING) {
+            return result;
+        } else if (sortingState == SortingState.DESCENDING) {
+            return result * (-1);
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -112,12 +119,22 @@ public class GenericTableViewerSorter extends ViewerSorter {
      *            ソートキーとなる {@link TableColumn} オブジェクト
      */
     public void setSortKey(final TableColumn tableColumn) {
-        if (tableColumn != null) {
+        if ((tableColumn != null) && !tableColumn.isDisposed()) {
             sortKey = tableColumn;
-            order = order ? false : true;
 
-            table.setSortColumn(sortKey);
-            table.setSortDirection(order ? SWT.UP : SWT.DOWN);
+            if (sortingState == SortingState.DESCENDING) {
+                sortingState = SortingState.ASCENDING;
+                table.setSortColumn(sortKey);
+                table.setSortDirection(SWT.UP);
+            } else if (sortingState == SortingState.ASCENDING) {
+                sortingState = SortingState.NONE;
+                table.setSortColumn(null);
+                table.setSortDirection(SWT.NONE);
+            } else if (sortingState == SortingState.NONE) {
+                sortingState = SortingState.DESCENDING;
+                table.setSortColumn(sortKey);
+                table.setSortDirection(SWT.DOWN);
+            }
         }
     }
 }
