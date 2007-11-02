@@ -11,6 +11,7 @@
   <name>Uruma</name>
   <version>0.1.0</version>
   <url>http://uruma.sandbox.seasar.org/</url>
+  <inceptionYear>2006</inceptionYear>
 
   <developers>
     <developer>
@@ -69,7 +70,6 @@
     <system>JIRA</system>
     <url>https://www.seasar.org/issues/browse/URUMA</url>
   </issueManagement>
-  <inceptionYear>2006</inceptionYear>
 
   <distributionManagement>
     <repository>
