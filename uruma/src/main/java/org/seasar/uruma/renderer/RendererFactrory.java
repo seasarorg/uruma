@@ -50,6 +50,7 @@ import org.seasar.uruma.component.impl.TreeComponent;
 import org.seasar.uruma.component.impl.TreeItemComponent;
 import org.seasar.uruma.component.impl.ViewPartComponent;
 import org.seasar.uruma.component.impl.WindowComponent;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.renderer.impl.ButtonRenderer;
 import org.seasar.uruma.renderer.impl.CTabFolderRenderer;
@@ -145,7 +146,7 @@ public class RendererFactrory {
         if (renderer != null) {
             return renderer;
         } else {
-            throw new NotFoundException(NotFoundException.RENDERER,
+            throw new NotFoundException(UrumaMessageCodes.RENDERER_NOT_FOUND,
                     uiComponentClass.getName());
         }
     }

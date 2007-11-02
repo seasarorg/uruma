@@ -24,6 +24,7 @@ import org.seasar.uruma.binding.value.command.ImportSelectionCommand;
 import org.seasar.uruma.binding.value.command.ImportValueCommand;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.desc.FormDesc;
 import org.seasar.uruma.desc.FormDescFactory;
 import org.seasar.uruma.exception.BindingException;
@@ -100,7 +101,7 @@ public class ValueBindingSupport {
                 Object widget = handle.getWidget();
                 command.doBind(widget, form, pd);
             } else {
-                throw new BindingException(BindingException.WIDGET_NOT_FOUND,
+                throw new BindingException(UrumaMessageCodes.WIDGET_NOT_FOUND,
                         id, form.getClass(), pd.getField());
             }
         }

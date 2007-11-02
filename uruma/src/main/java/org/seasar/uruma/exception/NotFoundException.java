@@ -15,9 +15,6 @@
  */
 package org.seasar.uruma.exception;
 
-import org.seasar.uruma.binding.value.ValueBinder;
-import org.seasar.uruma.component.UIComponent;
-
 /**
  * 検索対象が見つからなかった場合にスローされる例外です。<br />
  * 
@@ -26,56 +23,6 @@ import org.seasar.uruma.component.UIComponent;
 public class NotFoundException extends UrumaRuntimeException {
 
     private static final long serialVersionUID = 8319248769348685258L;
-
-    /**
-     * 検索対象がレイアウトの場合のメッセージコードです。
-     */
-    public static final String LAYOUT = "EURM0101";
-
-    /**
-     * 検索対象がレイアウトデータの場合のメッセージコードです。
-     */
-    public static final String LAYOUT_DATA = "EURM0102";
-
-    /**
-     * 検索対象がレンダラの場合のメッセージコードです。
-     */
-    public static final String RENDERER = "EURM0103";
-
-    /**
-     * 検索対象がイベントリスナの場合のメッセージコードです。
-     */
-    public static final String SWT_EVENT_LISTENER = "EURM0104";
-
-    /**
-     * 検索対象がウィンドウの場合のメッセージコードです。
-     */
-    public static final String WINDOW = "EURM0300";
-
-    /**
-     * 検索対象が継承先コンポーネントの場合のメッセージコードです。
-     */
-    public static final String EXTEND_TARGET_COMPONENT = "EURM0107";
-
-    /**
-     * 検索対象が継承先プロパティの場合のメッセージコードです。
-     */
-    public static final String EXTEND_TARGET_PROPERTY = "EURM0108";
-
-    /**
-     * 検索対象が {@link UIComponent} の場合のメッセージコードです。
-     */
-    public static final String UICOMPONENT = "EURM0109";
-
-    /**
-     * 検索対象が {@link ValueBinder} の場合のメッセージコードです。
-     */
-    public static final String VALUE_BINDER = "EURM0111";
-
-    /**
-     * 検索対象が EnablesDepending ターゲットの場合のメッセージコードです。
-     */
-    public static final String ENABLES_DEPENDING_TARGET = "EURM0220";
 
     /**
      * {@link NotFoundException} を構築します。<br />

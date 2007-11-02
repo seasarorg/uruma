@@ -15,7 +15,6 @@
  */
 package org.seasar.uruma.exception;
 
-import org.seasar.uruma.component.impl.ViewPartComponent;
 
 /**
  * レンダリング処理中に異常が発生した際にスローされるクラスです。</br>
@@ -24,20 +23,6 @@ import org.seasar.uruma.component.impl.ViewPartComponent;
  */
 public class RenderException extends UrumaRuntimeException {
     private static final long serialVersionUID = 2652211902877860349L;
-
-    public static final String IACTION = "EURM0301";
-
-    public static final String MAPPING_ERORR = "EURM0302";
-
-    /**
-     * レンダリング時に実際の型が想定していた型と異なっていた場合のエラーコード。<br />
-     */
-    public static final String TYPE_ERROR = "EURM0303";
-
-    /**
-     * ViewPart のレンダリング時にルートコンポーネントが {@link ViewPartComponent} でなかった場合のエラーコード。<br />
-     */
-    public static final String REQUIRED_VIEWPART_ERROR = "EJFC0304";
 
     /**
      * {@link RenderException} を構築します。<br />

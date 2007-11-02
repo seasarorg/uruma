@@ -26,6 +26,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.BindingException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
@@ -43,8 +44,6 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
     private UrumaLogger logger = UrumaLogger.getLogger(getClass());
 
     private Class<WIDGET_TYPE> widgetType;
-
-    private static final String MESSAGE_CODE = "DURM0215";
 
     protected static final String IMPORT_VALUE = "[ImportValue]";
 
@@ -215,8 +214,8 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                         propDesc.setValue(formObj, selectedArray);
                     } else {
                         throw new BindingException(
-                                BindingException.CLASS_NOT_MUTCH, null, formObj
-                                        .getClass(), propDesc.getField());
+                                UrumaMessageCodes.CLASS_NOT_MUTCH, null,
+                                formObj.getClass(), propDesc.getField());
                     }
                 } else if (propertyType.isAssignableFrom(List.class)) {
                     List<?> list = selection.toList();
@@ -230,7 +229,7 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                     propDesc.setValue(formObj, firstElement);
                 } else {
                     throw new BindingException(
-                            BindingException.CLASS_NOT_MUTCH, null, formObj
+                            UrumaMessageCodes.CLASS_NOT_MUTCH, null, formObj
                                     .getClass(), propDesc.getField());
                 }
             }
@@ -302,7 +301,7 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
             if (destProp != null) {
                 destName = destProp.getPropertyName();
             }
-            logger.log(MESSAGE_CODE, command, UrumaLogger
+            logger.log(UrumaMessageCodes.DO_BINDING, command, UrumaLogger
                     .getObjectDescription(srcObj), srcName, UrumaLogger
                     .getObjectDescription(destObj), destName, value);
         }

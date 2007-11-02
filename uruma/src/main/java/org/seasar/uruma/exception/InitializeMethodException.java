@@ -17,7 +17,7 @@ package org.seasar.uruma.exception;
 
 import java.lang.reflect.Method;
 
-import org.seasar.uruma.annotation.InitializeMethod;
+import org.seasar.uruma.core.UrumaMessageCodes;
 
 /**
  * パートアクションクラスにおけるイニシャライズメソッド解析時にスローされる例外です。<br />
@@ -27,21 +27,6 @@ import org.seasar.uruma.annotation.InitializeMethod;
 public class InitializeMethodException extends UrumaRuntimeException {
 
     private static final long serialVersionUID = 1843113708082422291L;
-
-    /**
-     * {@link InitializeMethod} アノテートされたメソッドが複数存在する場合のエラーコード
-     */
-    public static final String DUPLICATE = "EURM0204";
-
-    /**
-     * イニシャライズメソッドが引数・戻り値なしのメソッドでない場合のエラーコード
-     */
-    public static final String INVALID = "EURM0205";
-
-    /**
-     * イニシャライズメソッド実行中に例外が発生した場合のエラーコード
-     */
-    public static final String INVOKE = "EURM0206";
 
     /**
      * {@link InitializeMethodException} を構築します。<br />
@@ -72,6 +57,7 @@ public class InitializeMethodException extends UrumaRuntimeException {
      */
     public InitializeMethodException(final Throwable cause,
             final Class<?> clazz, final Method method, final Object target) {
-        super(INVOKE, cause, new Object[] { clazz.getName(), method, target });
+        super(UrumaMessageCodes.EXCEPTION_ON_INVOKING_INITIALIZE_METHOD, cause,
+                new Object[] { clazz.getName(), method, target });
     }
 }

@@ -31,6 +31,7 @@ import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.impl.CompositeComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.ClassUtil;
@@ -184,8 +185,9 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
                 if (defined instanceof IContentProvider) {
                     provider = IContentProvider.class.cast(defined);
                 } else {
-                    throw new RenderException(RenderException.TYPE_ERROR,
-                            provider, IContentProvider.class.getName());
+                    throw new RenderException(
+                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, provider,
+                            IContentProvider.class.getName());
                 }
             }
         }
@@ -237,8 +239,9 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
                 if (providerClass.isAssignableFrom(defined.getClass())) {
                     provider = providerClass.cast(defined);
                 } else {
-                    throw new RenderException(RenderException.TYPE_ERROR,
-                            provider, providerClass.getName());
+                    throw new RenderException(
+                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, provider,
+                            providerClass.getName());
                 }
             }
         }
@@ -285,7 +288,8 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
                     viewer.setComparator(ViewerComparator.class
                             .cast(comparator));
                 } else {
-                    throw new RenderException(RenderException.TYPE_ERROR,
+                    throw new RenderException(
+                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR,
                             comparator, ViewerComparator.class.getName());
                 }
             } else {

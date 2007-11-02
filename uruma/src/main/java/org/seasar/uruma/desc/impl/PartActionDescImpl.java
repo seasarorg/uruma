@@ -34,6 +34,7 @@ import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.exception.InitializeMethodException;
 import org.seasar.uruma.util.AssertionUtil;
@@ -143,13 +144,13 @@ public class PartActionDescImpl implements PartActionDesc {
                     initializeMethod = method;
                 } else {
                     throw new InitializeMethodException(
-                            InitializeMethodException.DUPLICATE,
+                            UrumaMessageCodes.DUPLICATE_INITIALIZE_METHOD,
                             partActionClass, method);
                 }
             } else {
                 throw new InitializeMethodException(
-                        InitializeMethodException.INVALID, partActionClass,
-                        method);
+                        UrumaMessageCodes.INVALID_INITIALIZE_METHOD,
+                        partActionClass, method);
             }
         }
     }

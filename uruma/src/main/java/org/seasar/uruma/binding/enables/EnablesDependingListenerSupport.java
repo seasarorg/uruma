@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 
 /**
@@ -51,7 +52,8 @@ public class EnablesDependingListenerSupport {
                 }
             } else {
                 throw new NotFoundException(
-                        NotFoundException.ENABLES_DEPENDING_TARGET, targetId);
+                        UrumaMessageCodes.ENABLES_DEPENDING_TARGET_NOT_FOUND,
+                        targetId);
             }
         }
     }

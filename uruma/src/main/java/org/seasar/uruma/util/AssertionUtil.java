@@ -17,6 +17,7 @@ package org.seasar.uruma.util;
 
 import org.seasar.framework.exception.SIllegalArgumentException;
 import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.core.UrumaMessageCodes;
 
 /**
  * アサーションを行うためのユーティリティクラスです。<br />
@@ -34,7 +35,7 @@ public class AssertionUtil {
      */
     public static void assertNotNull(final String name, final Object arg) {
         if (arg == null) {
-            throw new SIllegalArgumentException("EURM002",
+            throw new SIllegalArgumentException(UrumaMessageCodes.CANT_BE_NULL,
                     new Object[] { name });
         }
     }
@@ -49,7 +50,8 @@ public class AssertionUtil {
      */
     public static void assertNotEmpty(final String name, final String arg) {
         if (StringUtil.isEmpty(arg)) {
-            throw new SIllegalArgumentException("EURM003",
+            throw new SIllegalArgumentException(
+                    UrumaMessageCodes.CANT_BE_EMPTY_STRING,
                     new Object[] { name });
         }
     }
@@ -67,8 +69,9 @@ public class AssertionUtil {
     public static void assertInstanceOf(final String name,
             final Class<?> clazz, final Object arg) {
         if (!clazz.isAssignableFrom(arg.getClass())) {
-            throw new SIllegalArgumentException("EURM006", new Object[] { name,
-                    clazz.getClass().getName() });
+            throw new SIllegalArgumentException(
+                    UrumaMessageCodes.TYPE_MISS_MATCH, new Object[] { name,
+                            clazz.getClass().getName() });
         }
     }
 }

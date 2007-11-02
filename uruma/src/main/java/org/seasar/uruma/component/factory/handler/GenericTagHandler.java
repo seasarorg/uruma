@@ -23,6 +23,7 @@ import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.factory.UrumaTagHandler;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.ParseException;
 import org.seasar.uruma.renderer.Renderer;
@@ -198,8 +199,8 @@ public class GenericTagHandler extends UrumaTagHandler {
         if (renderer != null) {
             uiComponent.setRenderer(renderer);
         } else {
-            throw new NotFoundException(NotFoundException.RENDERER, uiComponent
-                    .getClass().getName());
+            throw new NotFoundException(UrumaMessageCodes.RENDERER_NOT_FOUND,
+                    uiComponent.getClass().getName());
         }
     }
 

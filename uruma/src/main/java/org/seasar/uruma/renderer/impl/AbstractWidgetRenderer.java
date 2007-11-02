@@ -22,6 +22,7 @@ import org.seasar.uruma.component.EnablesDependable;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.renderer.RendererSupportUtil;
@@ -60,8 +61,8 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
         } else if (parentObject instanceof Viewer) {
             parentWidget = Viewer.class.cast(parentObject).getControl();
         } else {
-            throw new RenderException(RenderException.TYPE_ERROR, parentObject,
-                    Widget.class.getName());
+            throw new RenderException(UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR,
+                    parentObject, Widget.class.getName());
         }
 
         WIDGET_TYPE widget = createWidget(parentWidget, getStyle(uiComponent));
@@ -94,7 +95,9 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
             doRender(uiComponent, getWidgetType().cast(widget));
 
         } catch (Exception ex) {
-            throw new RenderException("EURM0001", ex, ex.getMessage());
+            throw new RenderException(
+                    UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, ex, ex
+                            .getMessage());
         }
     }
 

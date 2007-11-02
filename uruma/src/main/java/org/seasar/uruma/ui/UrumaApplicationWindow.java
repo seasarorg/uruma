@@ -41,6 +41,7 @@ import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.UrumaWindowManager;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
@@ -229,11 +230,13 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
             if (handle.instanceOf(MenuManager.class)) {
                 return handle.<MenuManager> getCastWidget();
             } else {
-                throw new RenderException(RenderException.TYPE_ERROR, menuId,
+                throw new RenderException(
+                        UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, menuId,
                         MenuManager.class.getName());
             }
         } else {
-            throw new NotFoundException(NotFoundException.UICOMPONENT, menuId);
+            throw new NotFoundException(
+                    UrumaMessageCodes.UICOMPONENT_NOT_FOUND, menuId);
         }
     }
 

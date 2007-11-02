@@ -36,6 +36,7 @@ import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 import org.seasar.uruma.component.UIElement;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.util.PathUtil;
 
@@ -108,8 +109,8 @@ public class RendererSupportUtil {
                         .conversionType()));
             }
         } catch (Exception ex) {
-            throw new RenderException(RenderException.MAPPING_ERORR, ex, field
-                    .getName(), dest.getClass().getName(), value);
+            throw new RenderException(UrumaMessageCodes.RENDER_MAPPING_FAILED,
+                    ex, field.getName(), dest.getClass().getName(), value);
         }
     }
 

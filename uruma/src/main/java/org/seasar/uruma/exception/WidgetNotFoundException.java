@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.exception;
 
+import org.seasar.uruma.core.UrumaMessageCodes;
+
 /**
  * アノテーションで指定された id が画面定義XML上に存在しない場合に生成される例外です。<br />
  * 
@@ -25,11 +27,6 @@ public class WidgetNotFoundException extends UrumaRuntimeException {
     private static final long serialVersionUID = 4098490796784351999L;
 
     /**
-     * アノテーションで指定された id が画面定義 XML 上に存在しないことを示すメッセージコード
-     */
-    public static final String ERROR_CODE = "EURM0105";
-
-    /**
      * {@link WidgetNotFoundException} を構築します。<br />
      * 
      * @param id
@@ -38,6 +35,6 @@ public class WidgetNotFoundException extends UrumaRuntimeException {
      *            クラス名称
      */
     public WidgetNotFoundException(final String id, final String className) {
-        super(ERROR_CODE, id, className);
+        super(UrumaMessageCodes.WIDGET_NOT_FOUND_ON_XML, id, className);
     }
 }

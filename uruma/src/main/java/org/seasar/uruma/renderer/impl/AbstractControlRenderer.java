@@ -35,6 +35,7 @@ import org.seasar.uruma.component.UIControlComponent;
 import org.seasar.uruma.component.impl.ControlComponent;
 import org.seasar.uruma.component.impl.MenuComponent;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.renderer.RendererSupportUtil;
@@ -146,12 +147,13 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
 
                     control.setMenu(menu);
                 } else {
-                    throw new RenderException(RenderException.TYPE_ERROR,
-                            menuId, MenuManager.class.getName());
+                    throw new RenderException(
+                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, menuId,
+                            MenuManager.class.getName());
                 }
             } else {
-                throw new NotFoundException(NotFoundException.UICOMPONENT,
-                        menuId);
+                throw new NotFoundException(
+                        UrumaMessageCodes.UICOMPONENT_NOT_FOUND, menuId);
             }
         }
     }

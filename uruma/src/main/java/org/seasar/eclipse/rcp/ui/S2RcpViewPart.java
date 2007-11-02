@@ -37,6 +37,7 @@ import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.impl.ViewPartComponent;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.util.AnnotationUtil;
 import org.seasar.uruma.util.S2ContainerUtil;
@@ -86,8 +87,8 @@ public class S2RcpViewPart extends ViewPart {
             // TODO 要修正
             // viewPartComponent.render(parent, windowContext);
         } else {
-            throw new RenderException(RenderException.REQUIRED_VIEWPART_ERROR,
-                    templatePath);
+            throw new RenderException(
+                    UrumaMessageCodes.REQUIRED_VIEWPART_ERROR, templatePath);
         }
 
         prepareSelectionProvider();

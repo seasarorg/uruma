@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.exception;
 
+import org.seasar.uruma.core.UrumaMessageCodes;
+
 /**
  * XML 定義上でコンポーネント ID が重複定義されたときにスローされる例外です。</br>
  * 
@@ -31,6 +33,6 @@ public class DuplicateComponentIdException extends UrumaRuntimeException {
      *            重複したコンポーネント ID
      */
     public DuplicateComponentIdException(final String duplicatedId) {
-        super("EURM0106", duplicatedId);
+        super(UrumaMessageCodes.DUPLICATE_COMPONENT_ID, duplicatedId);
     }
 }

@@ -20,7 +20,7 @@ import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.framework.log.Logger;
+import org.seasar.uruma.log.UrumaLogger;
 
 /**
  * RCP を利用せずに単独でウィンドウを開くアプリケーションのためのスタートアップクラスです。<br />
@@ -28,7 +28,7 @@ import org.seasar.framework.log.Logger;
  * @author y-komori
  */
 public class StandAloneUrumaStarter {
-    private final Logger logger = Logger
+    private final UrumaLogger logger = UrumaLogger
             .getLogger(StandAloneUrumaStarter.class);
 
     private static StandAloneUrumaStarter instance;
@@ -69,7 +69,7 @@ public class StandAloneUrumaStarter {
     }
 
     private StandAloneUrumaStarter() {
-        logger.log("DURM9900", null);
+        logger.log(UrumaMessageCodes.STAND_ALONE_URUMA_STARTER_INIT);
         initS2Container();
     }
 
@@ -107,7 +107,8 @@ public class StandAloneUrumaStarter {
             try {
                 dispose();
             } catch (Throwable ex) {
-                logger.log("EURM0001", new Object[] { ex.getMessage() });
+                logger.log(UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, ex
+                        .getMessage());
             }
         }
     }
@@ -136,7 +137,7 @@ public class StandAloneUrumaStarter {
 
     protected void setupImageManager(final Display display) {
         ImageManager.init(display);
-        logger.log("DURM9901", new Object[] { imageBundleName });
+        logger.log(UrumaMessageCodes.LOADING_IMAGE_BUNDLE, imageBundleName);
         ImageManager.loadImages(imageBundleName);
     }
 
@@ -153,7 +154,8 @@ public class StandAloneUrumaStarter {
      */
     public static void destroy() {
         if (instance != null) {
-            instance.logger.log("DURM9902", null);
+            instance.logger
+                    .log(UrumaMessageCodes.STAND_ALONE_URUMA_STARTER_STOP);
             instance.dispose();
             instance = null;
         }
