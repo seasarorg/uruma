@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.1//EN"
-	"http://www.seasar.org/dtd/s2jface01.dtd">
-<template name="testTemplate" extends="templateBuilderTest.xml">
-  <extends id="testButton" property="dummy">存在しないプロパティに対する継承のテスト</extends>
-  
-  <window id="templateBuilderTest5" layout="fill" />
-</template>

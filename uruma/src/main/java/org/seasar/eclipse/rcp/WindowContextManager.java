@@ -18,8 +18,8 @@ package org.seasar.eclipse.rcp;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.seasar.jface.WindowContext;
-import org.seasar.jface.impl.WindowContextImpl;
+import org.seasar.uruma.context.ContextFactory;
+import org.seasar.uruma.context.WindowContext;
 
 /**
  * プラグイン毎の {@link WindowContext} を管理するためのクラスです。<br />
@@ -39,7 +39,8 @@ public class WindowContextManager {
     public WindowContext getWindowContext(final String pluginId) {
         WindowContext context = contextMap.get(pluginId);
         if (context == null) {
-            context = new WindowContextImpl();
+            // TODO 要修正
+            context = ContextFactory.createWindowContext(null, "");
             contextMap.put(pluginId, context);
         }
         return context;

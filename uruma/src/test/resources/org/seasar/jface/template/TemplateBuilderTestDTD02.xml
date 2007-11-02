@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE template PUBLIC "-//SEASAR//DTD S2JFace 0.2//EN"
-	"http://www.seasar.org/dtd/s2jface01.dtd">
-<template name="templateBuilderTestDTD02">
-  <window></window>
-</template>

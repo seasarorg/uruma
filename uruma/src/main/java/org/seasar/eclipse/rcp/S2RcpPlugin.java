@@ -19,9 +19,9 @@ import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 import org.seasar.eclipse.common.util.LogUtil;
 import org.seasar.framework.container.S2Container;
-import org.seasar.jface.S2JFaceTemplateManager;
-import org.seasar.jface.WindowContext;
-import org.seasar.jface.impl.S2JFaceTemplateManagerImpl;
+import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.TemplateManager;
+import org.seasar.uruma.core.impl.TemplateManagerImpl;
 
 /**
  * S2RCP のプラグインクラスです。<br />
@@ -32,7 +32,7 @@ public class S2RcpPlugin extends Plugin {
 
     private static S2RcpPlugin plugin;
 
-    private S2JFaceTemplateManager templateManager = new S2JFaceTemplateManagerImpl();
+    private TemplateManager templateManager = new TemplateManagerImpl();
 
     private S2ContainerManager containerManager = new S2ContainerManager();
 
@@ -49,14 +49,14 @@ public class S2RcpPlugin extends Plugin {
      * @see org.eclipse.core.runtime.Plugin#start(org.osgi.framework.BundleContext)
      */
     @Override
-    public void start(BundleContext context) throws Exception {
+    public void start(final BundleContext context) throws Exception {
     }
 
     /*
      * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
      */
     @Override
-    public void stop(BundleContext context) throws Exception {
+    public void stop(final BundleContext context) throws Exception {
         super.stop(context);
         plugin = null;
     }
@@ -95,11 +95,11 @@ public class S2RcpPlugin extends Plugin {
 
     }
 
-    public static void log(String msg) {
+    public static void log(final String msg) {
         LogUtil.log(getDefault(), msg);
     }
 
-    public static void log(Throwable throwable) {
+    public static void log(final Throwable throwable) {
         LogUtil.log(getDefault(), throwable);
     }
 }

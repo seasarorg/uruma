@@ -15,11 +15,10 @@
  */
 package org.seasar.uruma.renderer.impl;
 
-import org.seasar.jface.renderer.impl.TreeRenderer;
 import org.seasar.uruma.annotation.Form;
 
 /**
- * {@link TreeRenderer} のためのテストクラスです。<br />
+ * {@link TreeViewerRenderer} のためのテストクラスです。<br />
  * 
  * @author y-komori
  */

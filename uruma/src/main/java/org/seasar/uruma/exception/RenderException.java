@@ -15,7 +15,7 @@
  */
 package org.seasar.uruma.exception;
 
-import org.seasar.jface.component.impl.ViewPartComponent;
+import org.seasar.uruma.component.impl.ViewPartComponent;
 
 /**
  * レンダリング処理中に異常が発生した際にスローされるクラスです。</br>

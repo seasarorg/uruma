@@ -31,16 +31,15 @@ import org.eclipse.ui.part.ViewPart;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
-import org.seasar.jface.WindowContext;
-import org.seasar.jface.annotation.SelectionListener;
-import org.seasar.jface.binding.SingleParamTypeMethodBinding;
-import org.seasar.jface.binding.WidgetBinder;
-import org.seasar.jface.component.Template;
-import org.seasar.jface.component.UICompositeComponent;
-import org.seasar.jface.component.impl.ViewPartComponent;
-import org.seasar.jface.exception.RenderException;
-import org.seasar.jface.util.AnnotationUtil;
-import org.seasar.jface.util.S2ContainerUtil;
+import org.seasar.uruma.annotation.SelectionListener;
+import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
+import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.UICompositeComponent;
+import org.seasar.uruma.component.impl.ViewPartComponent;
+import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.exception.RenderException;
+import org.seasar.uruma.util.AnnotationUtil;
+import org.seasar.uruma.util.S2ContainerUtil;
 
 /**
  * S2RCP の機能を利用する {@link IViewPart} の基底クラスです。<br />
@@ -69,7 +68,7 @@ public class S2RcpViewPart extends ViewPart {
      * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
      */
     @Override
-    public void createPartControl(Composite parent) {
+    public void createPartControl(final Composite parent) {
         S2RcpActivator plugin = (S2RcpActivator) container
                 .getComponent(S2RcpActivator.PLUGIN);
 
@@ -84,7 +83,8 @@ public class S2RcpViewPart extends ViewPart {
         UICompositeComponent rootComponent = template.getRootComponent();
         if (rootComponent instanceof ViewPartComponent) {
             ViewPartComponent viewPartComponent = (ViewPartComponent) rootComponent;
-            viewPartComponent.render(parent, windowContext);
+            // TODO 要修正
+            // viewPartComponent.render(parent, windowContext);
         } else {
             throw new RenderException(RenderException.REQUIRED_VIEWPART_ERROR,
                     templatePath);
@@ -93,7 +93,8 @@ public class S2RcpViewPart extends ViewPart {
         prepareSelectionProvider();
 
         // TODO 他のViewPartでのレンダリング結果もバインドできるようにする。
-        WidgetBinder.bindWidgets(this, windowContext);
+        // TODO 要修正
+        // WidgetBinder.bindWidgets(this, windowContext);
 
         setupSelectionListeners();
     }
@@ -122,7 +123,8 @@ public class S2RcpViewPart extends ViewPart {
      *      org.eclipse.ui.IMemento)
      */
     @Override
-    public void init(IViewSite site, IMemento memento) throws PartInitException {
+    public void init(final IViewSite site, final IMemento memento)
+            throws PartInitException {
         super.init(site, memento);
 
         initViewComponentName();
@@ -141,11 +143,12 @@ public class S2RcpViewPart extends ViewPart {
     }
 
     private void prepareSelectionProvider() {
-        List<Viewer> viewers = windowContext.getViewerComponents();
-        if (viewers.size() == 1) {
-            Viewer viewer = viewers.get(0);
-            getSite().setSelectionProvider(viewer);
-        }
+        // TODO 要修正
+        // List<Viewer> viewers = windowContext.getViewerComponents();
+        // if (viewers.size() == 1) {
+        // Viewer viewer = viewers.get(0);
+        // getSite().setSelectionProvider(viewer);
+        // }
     }
 
     /*
@@ -198,7 +201,7 @@ public class S2RcpViewPart extends ViewPart {
      * @param windowContext
      *            {@link WindowContext} オブジェクト
      */
-    public void setWindowContext(WindowContext windowContext) {
+    public void setWindowContext(final WindowContext windowContext) {
         this.windowContext = windowContext;
     }
 }

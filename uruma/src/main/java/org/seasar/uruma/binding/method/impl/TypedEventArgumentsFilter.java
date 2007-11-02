@@ -19,8 +19,8 @@ import java.lang.reflect.Method;
 
 import org.eclipse.swt.events.TypedEvent;
 import org.eclipse.swt.widgets.Event;
-import org.seasar.jface.util.ClassUtil;
 import org.seasar.uruma.binding.method.ArgumentsFilter;
+import org.seasar.uruma.util.ClassUtil;
 
 /**
  * @author bskuroneko
