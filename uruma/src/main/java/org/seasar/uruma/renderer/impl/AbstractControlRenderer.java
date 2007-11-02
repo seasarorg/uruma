@@ -82,9 +82,6 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
         setMenu(controlComponent, control);
 
         doRenderControl(uiComponent, control);
-
-        // TODO 後で削除
-        // addEnabledDepend(control, uiComponent);
     }
 
     /**

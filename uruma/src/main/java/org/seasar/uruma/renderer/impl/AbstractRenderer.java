@@ -18,6 +18,9 @@ package org.seasar.uruma.renderer.impl;
 import org.eclipse.swt.SWT;
 import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.binding.enables.EnablesDependingDef;
+import org.seasar.uruma.binding.enables.EnablesForType;
+import org.seasar.uruma.component.EnablesDependable;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
@@ -102,5 +105,31 @@ public abstract class AbstractRenderer implements Renderer {
      */
     protected int getDefaultStyle() {
         return SWT.NONE;
+    }
+
+    /**
+     * {@link EnablesDependingDef} のセットアップを行います。<br />
+     * 本メソッドは必要に応じてサブクラス内から呼び出してください。<br />
+     * 
+     * @param handle
+     *            {@link WidgetHandle} オブジェクト
+     * @param dependable
+     *            {@link EnablesDependable} コンポーネント
+     */
+    protected void setupEnablesDependingDef(final WidgetHandle handle,
+            final EnablesDependable dependable) {
+        String enablesDependingId = dependable.getEnablesDependingId();
+        String enablesForType = dependable.getEnablesFor();
+
+        if (!StringUtil.isEmpty(enablesDependingId)) {
+            EnablesForType type = EnablesForType.SELECTION;
+            if (!StringUtil.isEmpty(enablesForType)) {
+                type = EnablesForType.valueOf(enablesForType);
+            }
+
+            EnablesDependingDef def = new EnablesDependingDef(handle,
+                    enablesDependingId, type);
+            getContext().getWindowContext().addEnablesDependingDef(def);
+        }
     }
 }

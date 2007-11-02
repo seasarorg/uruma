@@ -15,12 +15,10 @@
  */
 package org.seasar.uruma.binding.enables;
 
-import org.eclipse.swt.widgets.Widget;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.uruma.context.WidgetHandle;
-import org.seasar.uruma.exception.UnsupportedClassException;
 
 /**
  * 自ウィジットの選択状態によってターゲットのイネーブル状態を変更するためのリスナーインターフェースです。<br />
@@ -30,7 +28,7 @@ import org.seasar.uruma.exception.UnsupportedClassException;
 public abstract class EnablesDependingListener {
     protected WidgetHandle target;
 
-    protected Widget enabledWidget;
+    protected WidgetHandle enabled;
 
     protected EnablesForType type;
 
@@ -50,12 +48,8 @@ public abstract class EnablesDependingListener {
      */
     protected EnablesDependingListener(final WidgetHandle target,
             final WidgetHandle enabled, final EnablesForType type) {
-        if (!(enabled.getWidget() instanceof Widget)) {
-            throw new UnsupportedClassException(enabled.getWidgetClass(),
-                    Widget.class);
-        }
         this.target = target;
-        this.enabledWidget = enabled.<Widget> getCastWidget();
+        this.enabled = enabled;
         this.type = type;
         BeanDesc desc = BeanDescFactory.getBeanDesc(enabled.getWidgetClass());
         this.enabledProperty = desc.getPropertyDesc(ENABLED_PROPERTY_NAME);

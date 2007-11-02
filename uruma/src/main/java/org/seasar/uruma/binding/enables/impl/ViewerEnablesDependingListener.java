@@ -20,6 +20,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Widget;
 import org.seasar.uruma.binding.enables.EnablesDependingListener;
 import org.seasar.uruma.binding.enables.EnablesForType;
 import org.seasar.uruma.context.WidgetHandle;
@@ -74,7 +75,12 @@ public class ViewerEnablesDependingListener extends EnablesDependingListener {
      */
     @Override
     protected void updateEnableState() {
-        if (!viewer.getControl().isDisposed() && !enabledWidget.isDisposed()) {
+        if (!viewer.getControl().isDisposed()) {
+            Object enabledWidget = enabled.getWidget();
+            if (enabledWidget instanceof Widget
+                    && ((Widget) enabledWidget).isDisposed()) {
+                return;
+            }
             boolean enableState = resolveEnabledState();
             enabledProperty.setValue(enabledWidget, Boolean
                     .valueOf(enableState));

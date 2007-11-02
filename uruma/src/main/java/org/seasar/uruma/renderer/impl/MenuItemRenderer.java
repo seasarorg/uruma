@@ -21,6 +21,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.MenuItem;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.method.GenericAction;
+import org.seasar.uruma.component.EnablesDependable;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.impl.MenuItemComponent;
 import org.seasar.uruma.context.PartContext;
@@ -41,6 +42,7 @@ public class MenuItemRenderer extends AbstractRenderer {
     @Override
     public WidgetHandle preRender(final UIComponent uiComponent,
             final WidgetHandle parent, final PartContext context) {
+        setContext(context);
 
         MenuItemComponent menuItemComponent = (MenuItemComponent) uiComponent;
         IAction action = new GenericAction(null, getStyle(menuItemComponent));
@@ -56,6 +58,11 @@ public class MenuItemRenderer extends AbstractRenderer {
         parentMenuManager.add(action);
 
         WidgetHandle handle = createWidgetHandle(uiComponent, action);
+
+        if (uiComponent instanceof EnablesDependable) {
+            setupEnablesDependingDef(handle, (EnablesDependable) uiComponent);
+        }
+
         return handle;
     }
 

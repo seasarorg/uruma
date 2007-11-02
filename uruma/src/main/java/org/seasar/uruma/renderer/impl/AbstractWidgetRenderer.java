@@ -17,10 +17,7 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
-import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
-import org.seasar.uruma.binding.enables.EnablesDependingDef;
-import org.seasar.uruma.binding.enables.EnablesForType;
 import org.seasar.uruma.component.EnablesDependable;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.PartContext;
@@ -98,23 +95,6 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
 
         } catch (Exception ex) {
             throw new RenderException("EURM0001", ex, ex.getMessage());
-        }
-    }
-
-    protected void setupEnablesDependingDef(final WidgetHandle handle,
-            final EnablesDependable dependable) {
-        String enablesDependingId = dependable.getEnablesDependingId();
-        String enablesForType = dependable.getEnablesFor();
-
-        if (!StringUtil.isEmpty(enablesDependingId)) {
-            EnablesForType type = EnablesForType.SELECTION;
-            if (!StringUtil.isEmpty(enablesForType)) {
-                type = EnablesForType.valueOf(enablesForType);
-            }
-
-            EnablesDependingDef def = new EnablesDependingDef(handle,
-                    enablesDependingId, type);
-            getContext().getWindowContext().addEnablesDependingDef(def);
         }
     }
 
