@@ -154,12 +154,12 @@ public interface UrumaMessageCodes {
     /**
      * EnablesDepending でターゲットウィジットがサポートされていない際のメッセージコードです。<br />
      */
-    public static final String DEPENDING_WIDGET_NOT_SUPPORTED = "EJFC0205";
+    public static final String DEPENDING_WIDGET_NOT_SUPPORTED = "EURM0205";
 
     /**
      * EnablesDepending でターゲットに対する選択条件がサポートされていない際のメッセージコードです。<br />
      */
-    public static final String DEPENDING_TYPE_NOT_SUPPORTED = "EJFC0206";
+    public static final String DEPENDING_TYPE_NOT_SUPPORTED = "EURM0206";
 
     /**
      * バインド先とバインド元の型が一致しない場合のメッセージコードです。
@@ -217,7 +217,7 @@ public interface UrumaMessageCodes {
     /**
      * ViewPart のレンダリング時にルートコンポーネントが {@link ViewPartComponent} でなかった場合のエラーコードです。
      */
-    public static final String REQUIRED_VIEWPART_ERROR = "EJFC0303";
+    public static final String REQUIRED_VIEWPART_ERROR = "EURM0303";
 
     // -------------------------------------------------------------------------
     // ウィンドウ管理関連メッセージコード (04xx)
