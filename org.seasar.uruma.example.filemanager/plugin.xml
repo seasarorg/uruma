@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="org.seasar.uruma.rcp.UrumaApplication">
+         </run>
+      </application>
+   </extension>
+   
+   <!--
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.seasar.uruma.example.fileman.Perspective"
+            id="org.seasar.uruma.example.fileman.perspective"
+            name="Fileman Perspective">
+      </perspective>
+   </extension>
+   -->
+   
+   <!--
+   <extension
+         point="org.eclipse.ui.views"
+         id="org.seasar.uruma.example.fileman.views">
+      <category
+            id="org.seasar.uruma.example.fileman.category1"
+            name="ファイルマネージャ">
+      </category>
+      <view
+            class="org.seasar.uruma.example.fileman.FolderViewPart"
+            id="org.seasar.uruma.example.fileman.FolderView"
+            name="フォルダ・ツリー">
+      </view>
+      <view
+            class="org.seasar.uruma.example.fileman.FileViewPart"
+            id="org.seasar.uruma.example.fileman.FileView"
+            name="ファイル・ビュー">
+      </view>
+   </extension>
+   -->
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.seasar.uruma.example.fileman.actionSet"
+            label="サンプルのアクション・セット"
+            visible="true">
+         <menu
+               id="sampleMenu"
+               label="サンプル・メニュー(&amp;M)">
+         </menu>
+         <action
+               class="org.seasar.uruma.example.filemanager.actions.SampleAction"
+               icon="icons/sample.gif"
+               id="org.seasar.uruma.example.fileman.actions.SampleAction"
+               label="サンプル・アクション(&amp;S)"
+               menubarPath="sampleMenu/sampleGroup"
+               toolbarPath="sampleGroup"
+               tooltip="Hello, Eclipse world">
+         </action>
+      </actionSet>
+   </extension>
+</plugin>

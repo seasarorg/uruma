@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Uruma Example - FileManager
+Bundle-SymbolicName: org.seasar.uruma.example.filemanager;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.seasar.uruma.rcp.UrumaActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Eclipse-LazyStart: true
+Bundle-ClassPath: .,
+ lib/aopalliance-1.0.jar,
+ lib/commons-logging-1.1.jar,
+ lib/geronimo-j2ee_1.4_spec-1.0.jar,
+ lib/geronimo-jta_1.1_spec-1.0.jar,
+ lib/javassist-3.4.ga.jar,
+ lib/log4j-1.2.13.jar,
+ lib/ognl-2.6.9-patch-20070908.jar,
+ lib/s2-extension-2.4.18-rc1.jar,
+ lib/s2-framework-2.4.18-rc1.jar,
+ lib/s2-tiger-2.4.18-rc1.jar,
+ lib/uruma-0.2.0-SNAPSHOT.jar
