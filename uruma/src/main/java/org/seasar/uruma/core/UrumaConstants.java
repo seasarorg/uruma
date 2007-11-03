@@ -57,4 +57,15 @@ public class UrumaConstants {
      * ワークベンチの {@link Template} を {@link ApplicationContext} へ登録する際の名称です。
      */
     public static final String WORKBENCH_TEMPLATE_NAME = "workbenchTemplate";
+
+    /**
+     * <code>workbench</code> 要素で <code>initWidth</code> 属性が未指定の場合のデフォルト値です。
+     */
+    public static final String DEFAULT_WORKBENCH_WIDTH = "30%";
+
+    /**
+     * <code>workbench</code> 要素で <code>initHeight</code>
+     * 属性が未指定の場合のデフォルト値です。
+     */
+    public static final String DEFAULT_WORKBENCH_HEIGHT = "30%";
 }

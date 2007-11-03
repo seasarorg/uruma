@@ -32,9 +32,12 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.impl.WorkbenchComponent;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 
 /**
@@ -77,6 +80,11 @@ public class UrumaActivator extends AbstractUIPlugin {
         registComponentsToS2Container();
 
         Template template = getTemplate("workbench.xml");
+        if (!(template.getRootComponent() instanceof WorkbenchComponent)) {
+            throw new NotFoundException(
+                    UrumaMessageCodes.WORKBENCH_ELEMENT_NOT_FOUND, template
+                            .getBasePath());
+        }
         applicationContext.setValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME,
                 template);
     }
@@ -109,6 +117,17 @@ public class UrumaActivator extends AbstractUIPlugin {
         container.destroy();
 
         super.stop(context);
+    }
+
+    /**
+     * {@link WorkbenchComponent} を返します。<br />
+     * 
+     * @return {@link WorkbenchComponent} オブジェクト
+     */
+    public WorkbenchComponent getWorkbenchComponent() {
+        Template template = (Template) applicationContext
+                .getValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME);
+        return (WorkbenchComponent) template.getRootComponent();
     }
 
     /**

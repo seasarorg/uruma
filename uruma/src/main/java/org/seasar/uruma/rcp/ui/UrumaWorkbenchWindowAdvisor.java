@@ -15,22 +15,21 @@
  */
 package org.seasar.uruma.rcp.ui;
 
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.seasar.eclipse.common.util.GeometryUtil;
+import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
-import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.component.impl.WorkbenchComponent;
-import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.core.UrumaMessageCodes;
-import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.rcp.UrumaActivator;
+import org.seasar.uruma.util.PathUtil;
 
 /**
  * ワークベンチウィンドウに関する設定を行うクラスです。<br />
@@ -38,6 +37,7 @@ import org.seasar.uruma.rcp.UrumaActivator;
  * @author y-komori
  */
 public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+    private WorkbenchComponent workbench;
 
     /**
      * {@link UrumaWorkbenchWindowAdvisor} を構築します。<br />
@@ -61,39 +61,29 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     @Override
     public void preWindowOpen() {
-        ApplicationContext context = (ApplicationContext) UrumaActivator
-                .getInstance().getS2Container().getComponent(
-                        ApplicationContext.class);
-        Template template = (Template) context
-                .getValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME);
-        UIContainer component = template.getRootComponent();
-        if (component instanceof WorkbenchComponent) {
-            WorkbenchComponent workbench = (WorkbenchComponent) component;
+        workbench = UrumaActivator.getInstance().getWorkbenchComponent();
 
-            IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+        IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 
-            // タイトルの設定
-            configurer.setTitle(workbench.title);
+        // タイトルの設定
+        configurer.setTitle(workbench.title);
 
-            // 初期サイズの設定
-            configurer.setInitialSize(calcInitialSize(workbench.initWidth,
-                    workbench.initHeight));
-        } else {
-            throw new NotFoundException(
-                    UrumaMessageCodes.WORKBENCH_TAG_NOT_FOUND, template
-                            .getBasePath());
-        }
+        // 初期サイズの設定
+        configurer.setInitialSize(calcInitialSize(workbench.initWidth,
+                workbench.initHeight));
 
         // TODO ここで XML から情報を読み込んでワークベンチの情報を設定する
-        IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setShowMenuBar(true);
         configurer.setShowCoolBar(false);
         configurer.setShowStatusLine(true);
+
     }
 
     protected Point calcInitialSize(final String width, final String height) {
-        String widthStr = StringUtil.isNotBlank(width) ? width : "30%";
-        String heightStr = StringUtil.isNotBlank(height) ? height : "30%";
+        String widthStr = StringUtil.isNotBlank(width) ? width
+                : UrumaConstants.DEFAULT_WORKBENCH_WIDTH;
+        String heightStr = StringUtil.isNotBlank(height) ? height
+                : UrumaConstants.DEFAULT_WORKBENCH_HEIGHT;
 
         int xSize = GeometryUtil.calcSize(widthStr, Display.getCurrent()
                 .getClientArea().width);
@@ -102,4 +92,29 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         return new Point(xSize, ySize);
     }
 
+    /*
+     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowCreate()
+     */
+    @Override
+    public void postWindowCreate() {
+        // イメージの設定
+        setupImage(workbench);
+    }
+
+    protected void setupImage(final WorkbenchComponent workbench) {
+        if (StringUtil.isNotBlank(workbench.image)) {
+            Image image = ImageManager.getImage(workbench.image);
+            if (image == null) {
+                String path = PathUtil.createPath(workbench.getBasePath(),
+                        workbench.image);
+                image = ImageManager.loadImage(path);
+            }
+
+            if (image != null) {
+                IWorkbenchWindowConfigurer configurator = getWindowConfigurer();
+                Shell shell = configurator.getWindow().getShell();
+                shell.setImage(image);
+            }
+        }
+    }
 }

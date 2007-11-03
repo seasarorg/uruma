@@ -254,7 +254,7 @@ public interface UrumaMessageCodes {
     /**
      * 画面定義 XML に <code>workbench</code> 要素が定義されていなかった場合のメッセージコードです。
      */
-    public static final String WORKBENCH_TAG_NOT_FOUND = "EURM0502";
+    public static final String WORKBENCH_ELEMENT_NOT_FOUND = "EURM0502";
 
     // -------------------------------------------------------------------------
     // システムデバッグログ関連メッセージコード (99xx)
