@@ -251,6 +251,11 @@ public interface UrumaMessageCodes {
      */
     public static final String URUMA_RCP_STOP = "IURM0501";
 
+    /**
+     * 画面定義 XML に <code>workbench</code> 要素が定義されていなかった場合のメッセージコードです。
+     */
+    public static final String WORKBENCH_TAG_NOT_FOUND = "EURM0502";
+
     // -------------------------------------------------------------------------
     // システムデバッグログ関連メッセージコード (99xx)
     // -------------------------------------------------------------------------

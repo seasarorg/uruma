@@ -50,6 +50,7 @@ import org.seasar.uruma.component.impl.TreeComponent;
 import org.seasar.uruma.component.impl.TreeItemComponent;
 import org.seasar.uruma.component.impl.ViewPartComponent;
 import org.seasar.uruma.component.impl.WindowComponent;
+import org.seasar.uruma.component.impl.WorkbenchComponent;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.renderer.impl.ButtonRenderer;
@@ -83,6 +84,7 @@ import org.seasar.uruma.renderer.impl.TreeItemRenderer;
 import org.seasar.uruma.renderer.impl.TreeViewerRenderer;
 import org.seasar.uruma.renderer.impl.ViewPartRenderer;
 import org.seasar.uruma.renderer.impl.WindowRenderer;
+import org.seasar.uruma.renderer.impl.WorkbenchRenderer;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -129,6 +131,8 @@ public class RendererFactrory {
         addRenderer(MenuComponent.class, new MenuManagerRenderer());
         addRenderer(MenuItemComponent.class, new MenuItemRenderer());
         addRenderer(SeparatorComponent.class, new SeparatorRenderer());
+
+        addRenderer(WorkbenchComponent.class, new WorkbenchRenderer());
     }
 
     /**

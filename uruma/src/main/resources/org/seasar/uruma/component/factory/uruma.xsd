@@ -11,6 +11,7 @@
         <xs:element ref="tns:param" minOccurs="0" maxOccurs="unbounded" />
         <xs:choice>
           <xs:element ref="tns:window" />
+          <xs:element ref="tns:workbench" />
           <xs:element ref="tns:viewPart" />
           <xs:element ref="tns:componentDef" />
         </xs:choice>
@@ -41,6 +42,27 @@
           <!-- TODO region -->
         </xs:extension>
       </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="workbench">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="tns:menu" minOccurs="0"
+            maxOccurs="unbounded" />
+          <xs:group ref="tns:compositeElems" minOccurs="0"
+            maxOccurs="unbounded" />
+        </xs:choice>
+        <xs:element ref="tns:compositeChild" minOccurs="0"
+          maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="title" type="xs:string" />
+      <xs:attribute name="image" type="xs:string" />
+      <xs:attribute name="style" type="tns:SWTConst" />
+      <xs:attribute name="initWidth" type="xs:string" />
+      <xs:attribute name="initHeight" type="xs:string" />
+      <xs:attribute name="statusLine" type="xs:boolean" />
     </xs:complexType>
   </xs:element>
 
@@ -271,8 +293,7 @@
           <xs:attribute name="x" type="xs:int" />
           <xs:attribute name="y" type="xs:int" />
           <xs:attribute name="enablesDependingId" type="xs:string" />
-          <xs:attribute name="enablesFor"
-            type="tns:EnablesForType" />
+          <xs:attribute name="enablesFor" type="tns:EnablesForType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -305,8 +326,7 @@
           <xs:attribute name="disabledImage" type="tns:Image" />
           <xs:attribute name="hoverImage" type="tns:Image" />
           <xs:attribute name="enablesDependingId" type="xs:string" />
-          <xs:attribute name="enablesFor"
-            type="tns:EnablesForType" />
+          <xs:attribute name="enablesFor" type="tns:EnablesForType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -591,8 +611,7 @@
           <xs:attribute name="toolTipText" type="xs:string" />
           <xs:attribute name="width" type="xs:int" />
           <xs:attribute name="enablesDependingId" type="xs:string" />
-          <xs:attribute name="enablesFor"
-            type="tns:EnablesForType" />
+          <xs:attribute name="enablesFor" type="tns:EnablesForType" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -1115,8 +1134,7 @@
         <xs:attribute name="toolTipText" type="xs:string" />
         <xs:attribute name="visible" type="xs:boolean" />
         <xs:attribute name="enablesDependingId" type="xs:string" />
-        <xs:attribute name="enablesFor"
-          type="tns:EnablesForType" />
+        <xs:attribute name="enablesFor" type="tns:EnablesForType" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

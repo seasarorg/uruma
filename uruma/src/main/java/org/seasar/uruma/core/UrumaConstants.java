@@ -15,7 +15,8 @@
  */
 package org.seasar.uruma.core;
 
-import org.seasar.framework.container.S2Container;
+import org.seasar.uruma.component.Template;
+import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.rcp.UrumaActivator;
 
 /**
@@ -43,12 +44,17 @@ public class UrumaConstants {
     // RCP関連機能
     // -------------------------------------------------------------------------
     /**
-     * {@link S2Container} へ {@link UrumaActivator} を登録する際のコンポーネント名称です。
-     */
-    public static final String URUMA_PLUGIN_COMPONENT_NAME = "urumaPlugin";
-
-    /**
      * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパスです。<br />
      */
     public static final String URUMA_RCP_DICON_PATH = "urumaRcp.dicon";
+
+    /**
+     * {@link UrumaActivator} を登録時のコンポーネント名称です。
+     */
+    public static final String URUMA_PLUGIN_S2NAME = "urumaPlugin";
+
+    /**
+     * ワークベンチの {@link Template} を {@link ApplicationContext} へ登録する際の名称です。
+     */
+    public static final String WORKBENCH_TEMPLATE_NAME = "workbenchTemplate";
 }

@@ -22,13 +22,12 @@ import org.seasar.uruma.component.factory.handler.GradientInfoTagHandler;
 import org.seasar.uruma.component.factory.handler.GradientItemTagHandler;
 import org.seasar.uruma.component.factory.handler.LayoutDataTagHandler;
 import org.seasar.uruma.component.factory.handler.LayoutTagHandler;
+import org.seasar.uruma.component.factory.handler.RootComponentTagHandler;
 import org.seasar.uruma.component.factory.handler.SimpleItemTagHandler;
 import org.seasar.uruma.component.factory.handler.TableCellTagHandler;
 import org.seasar.uruma.component.factory.handler.TableColumnTagHandler;
 import org.seasar.uruma.component.factory.handler.TemplateTagHandler;
 import org.seasar.uruma.component.factory.handler.TreeItemTagHandler;
-import org.seasar.uruma.component.factory.handler.ViewPartTagHandler;
-import org.seasar.uruma.component.factory.handler.WindowTagHandler;
 import org.seasar.uruma.component.impl.ButtonComponent;
 import org.seasar.uruma.component.impl.CTabFolderComponent;
 import org.seasar.uruma.component.impl.CTabItemComponent;
@@ -61,6 +60,9 @@ import org.seasar.uruma.component.impl.TextComponent;
 import org.seasar.uruma.component.impl.ToolBarComponent;
 import org.seasar.uruma.component.impl.ToolItemComponent;
 import org.seasar.uruma.component.impl.TreeComponent;
+import org.seasar.uruma.component.impl.ViewPartComponent;
+import org.seasar.uruma.component.impl.WindowComponent;
+import org.seasar.uruma.component.impl.WorkbenchComponent;
 
 /**
  * Uruma の画面定義XMLをパースするためのタグハンドラを保持するクラスです。<br />
@@ -75,8 +77,10 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
      */
     public UrumaTagHandlerRule() {
         addTagHandler(new TemplateTagHandler());
-        addTagHandler(new WindowTagHandler());
-        addTagHandler(new ViewPartTagHandler());
+        addTagHandler("window", new RootComponentTagHandler(
+                WindowComponent.class));
+        addTagHandler("viewPart", new RootComponentTagHandler(
+                ViewPartComponent.class));
 
         addTagHandler(new CommonAttributesTagHandler());
 
@@ -140,6 +144,10 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
                 new GenericTagHandler(MenuItemComponent.class));
         addTagHandler("separator", new GenericTagHandler(
                 SeparatorComponent.class));
+
+        // RCP
+        addTagHandler("workbench", new RootComponentTagHandler(
+                WorkbenchComponent.class));
     }
 
     protected void addTagHandler(final UrumaTagHandler tagHandler) {

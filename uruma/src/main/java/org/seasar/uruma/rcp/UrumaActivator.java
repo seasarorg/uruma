@@ -32,6 +32,7 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.log.UrumaLogger;
@@ -45,11 +46,13 @@ public class UrumaActivator extends AbstractUIPlugin {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaActivator.class);
 
-    protected UrumaActivator plugin;
+    private static UrumaActivator plugin;
 
     private S2Container container;
 
     private TemplateManager templateManager;
+
+    private ApplicationContext applicationContext;
 
     /**
      * {@link UrumaActivator} を構築します。<br />
@@ -72,6 +75,28 @@ public class UrumaActivator extends AbstractUIPlugin {
 
         initS2Container();
         registComponentsToS2Container();
+
+        Template template = getTemplate("workbench.xml");
+        applicationContext.setValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME,
+                template);
+    }
+
+    /**
+     * {@link UrumaActivator} のインスタンスを返します。<br />
+     * 
+     * @return {@link UrumaActivator} のインスタンス
+     */
+    public static UrumaActivator getInstance() {
+        return plugin;
+    }
+
+    /**
+     * {@link S2Container} のインスタンスを返します。<br />
+     * 
+     * @return {@link S2Container} のインスタンス
+     */
+    public S2Container getS2Container() {
+        return container;
     }
 
     /*
@@ -122,7 +147,10 @@ public class UrumaActivator extends AbstractUIPlugin {
     protected void registComponentsToS2Container() {
         this.templateManager = (TemplateManager) container
                 .getComponent(TemplateManager.class);
-        container.register(this, UrumaConstants.URUMA_PLUGIN_COMPONENT_NAME);
+        this.applicationContext = (ApplicationContext) container
+                .getComponent(ApplicationContext.class);
+
+        container.register(this, UrumaConstants.URUMA_PLUGIN_S2NAME);
     }
 
     private void test() throws Exception {

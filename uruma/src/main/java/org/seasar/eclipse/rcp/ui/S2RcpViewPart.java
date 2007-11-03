@@ -34,7 +34,7 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.SelectionListener;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.UICompositeComponent;
+import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.component.impl.ViewPartComponent;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
@@ -73,7 +73,7 @@ public class S2RcpViewPart extends ViewPart {
     @Override
     public void createPartControl(final Composite parent) {
         UrumaActivator plugin = (UrumaActivator) container
-                .getComponent(UrumaConstants.URUMA_PLUGIN_COMPONENT_NAME);
+                .getComponent(UrumaConstants.URUMA_PLUGIN_S2NAME);
 
         Thread currentThread = Thread.currentThread();
         ClassLoader originalLoader = currentThread.getContextClassLoader();
@@ -83,7 +83,7 @@ public class S2RcpViewPart extends ViewPart {
         Template template = plugin.getTemplate(templatePath);
         currentThread.setContextClassLoader(originalLoader);
 
-        UICompositeComponent rootComponent = template.getRootComponent();
+        UIContainer rootComponent = template.getRootComponent();
         if (rootComponent instanceof ViewPartComponent) {
             ViewPartComponent viewPartComponent = (ViewPartComponent) rootComponent;
             // TODO 要修正

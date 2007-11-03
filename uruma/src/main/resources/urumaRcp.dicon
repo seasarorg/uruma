@@ -2,7 +2,7 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
 	"http://www.seasar.org/dtd/components23.dtd">
 <components>
-	<component name="templateManager" class="org.seasar.uruma.core.impl.TemplateManagerImpl" instance="singleton" />
-	<component name="windowManager" class="org.seasar.uruma.core.impl.UrumaWindowManagerImpl" instance="singleton" />
+	<component class="org.seasar.uruma.core.impl.TemplateManagerImpl" instance="singleton" />
+	<component class="org.seasar.uruma.core.impl.UrumaWindowManagerImpl" instance="singleton" />
 	<component class="org.seasar.uruma.context.ApplicationContext">@org.seasar.uruma.context.ContextFactory@createApplicationContext()</component>
 </components>
