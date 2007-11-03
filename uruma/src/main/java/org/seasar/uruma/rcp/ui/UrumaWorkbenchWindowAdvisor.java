@@ -65,10 +65,8 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 
-        // タイトルの設定
         configurer.setTitle(workbench.title);
 
-        // 初期サイズの設定
         configurer.setInitialSize(calcInitialSize(workbench.initWidth,
                 workbench.initHeight));
 
@@ -97,7 +95,6 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      */
     @Override
     public void postWindowCreate() {
-        // イメージの設定
         setupImage(workbench);
     }
 
