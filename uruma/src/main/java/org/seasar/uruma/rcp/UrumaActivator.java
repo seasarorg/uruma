@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.eclipse.rcp.ui;
+package org.seasar.uruma.rcp;
 
 import java.io.ByteArrayInputStream;
 
@@ -28,78 +28,104 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
-import org.seasar.framework.log.Logger;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.context.ContextFactory;
-import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.TemplateManager;
-import org.seasar.uruma.core.impl.TemplateManagerImpl;
+import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.log.UrumaLogger;
 
 /**
- * S2RCP アプリケーションのための基底アクティベータです。<br />
- * <p>
- * S2RCPを利用するアプリケーションは、本クラスを継承したアクティベータを作成してください。<br />
- * </p>
+ * Uruma RCP アプリケーションのためのアクティベータです。<br />
  * 
  * @author y-komori
  */
-public abstract class S2RcpActivator extends AbstractUIPlugin {
+public class UrumaActivator extends AbstractUIPlugin {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(UrumaActivator.class);
 
-    protected S2RcpActivator plugin;
+    protected UrumaActivator plugin;
 
     private S2Container container;
 
-    private TemplateManager templateManager = new TemplateManagerImpl();
-
-    private Logger logger = Logger.getLogger(getClass());
+    private TemplateManager templateManager;
 
     /**
-     * {@link S2Container} へ本クラスを登録する際のコンポーネント名です。<br />
-     * 値：{@value}
+     * {@link UrumaActivator} を構築します。<br />
      */
-    public static final String PLUGIN = "plugin";
-
-    /**
-     * {@link S2Container} へ {@link WindowContext} オブジェクトを登録する際のコンポーネント名です。<br />
-     * 値：{@value}
-     */
-    public static final String WINDOW_CONTEXT = "windowContext";
-
-    /**
-     * {@link S2RcpActivator} を構築します。<br />
-     */
-    public S2RcpActivator() {
+    public UrumaActivator() {
         plugin = this;
     }
 
     /*
-     * (non-Javadoc)
-     * 
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
      */
     @Override
     public final void start(final BundleContext context) throws Exception {
         super.start(context);
 
-        Thread currentThread = Thread.currentThread();
-        ClassLoader originalLoader = currentThread.getContextClassLoader();
-        currentThread.setContextClassLoader(getClass().getClassLoader());
+        // アプリケーションが異なるJarの場合の対処
+        // Thread currentThread = Thread.currentThread();
+        // ClassLoader originalLoader = currentThread.getContextClassLoader();
+        // currentThread.setContextClassLoader(getClass().getClassLoader());
 
+        initS2Container();
+        registComponentsToS2Container();
+    }
+
+    /*
+     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+     */
+    @Override
+    public final void stop(final BundleContext context) throws Exception {
+        plugin = null;
+
+        container.destroy();
+
+        super.stop(context);
+    }
+
+    /**
+     * 指定されたパスの画面定義XMLを読み込み、{@link Template} オブジェクトを生成します。<br />
+     * 
+     * @param path
+     *            画面定義XMLのパス
+     * @return {@link Template} オブジェクト
+     */
+    public Template getTemplate(final String path) {
         try {
-            SingletonS2ContainerFactory.init();
-            container = SingletonS2ContainerFactory.getContainer();
-
-            registComponentsToS2Container();
+            Template template = templateManager.getTemplate(path);
+            return template;
         } catch (ResourceNotFoundRuntimeException ex) {
             logger.error(ex.getMessage(), ex);
-            currentThread.setContextClassLoader(originalLoader);
+            return null;
+        }
+    }
+
+    protected void initS2Container() {
+        try {
+            S2Container urumaContainer = S2ContainerFactory
+                    .create(UrumaConstants.URUMA_RCP_DICON_PATH);
+            String configPath = SingletonS2ContainerFactory.getConfigPath();
+            container = S2ContainerFactory.create(configPath);
+            container.include(urumaContainer);
+
+            container.init();
+            SingletonS2ContainerFactory.setContainer(container);
+        } catch (ResourceNotFoundRuntimeException ex) {
+            logger.error(ex.getMessage(), ex);
             throw ex;
         }
-        currentThread.setContextClassLoader(originalLoader);
+    }
 
-        // ここからテスト
+    protected void registComponentsToS2Container() {
+        this.templateManager = (TemplateManager) container
+                .getComponent(TemplateManager.class);
+        container.register(this, UrumaConstants.URUMA_PLUGIN_COMPONENT_NAME);
+    }
+
+    private void test() throws Exception {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
 
         StringBuffer buf = new StringBuffer(2048);
@@ -190,83 +216,5 @@ public abstract class S2RcpActivator extends AbstractUIPlugin {
                 }
             }
         }
-
-        // ここまで
-
-        s2RcpStart(context);
     }
-
-    protected void registComponentsToS2Container() {
-        container.register(this, PLUGIN);
-
-        // TODO 要修正
-        WindowContext windowContext = ContextFactory.createWindowContext(null,
-                "");
-        container.register(windowContext, WINDOW_CONTEXT);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public final void stop(final BundleContext context) throws Exception {
-        plugin = null;
-        s2RcpStop(context);
-
-        container.destroy();
-
-        super.stop(context);
-    }
-
-    /**
-     * 指定されたパスの画面定義XMLを読み込み、{@link Template} オブジェクトを生成します。<br />
-     * 
-     * @param path
-     *            画面定義XMLのパス
-     * @return {@link Template} オブジェクト
-     */
-    public Template getTemplate(final String path) {
-        try {
-            Template template = templateManager.getTemplate(path);
-            return template;
-        } catch (ResourceNotFoundRuntimeException ex) {
-            logger.error(ex.getMessage(), ex);
-            return null;
-        }
-    }
-
-    /**
-     * {@link S2Container} のインスタンスを取得します。<br />
-     * 
-     * @return {@link S2Container} のインスタンス
-     */
-    protected S2Container getContainer() {
-        return container;
-    }
-
-    /**
-     * プラグイン初期化時に呼び出されるメソッドです。<br />
-     * <p>
-     * プラグイン初期化時の処理は、本メソッドをオーバーライドして記述してください。
-     * </p>
-     * 
-     * @param context
-     *            {@link BundleContext} オブジェクト
-     * @throws Exception
-     */
-    protected abstract void s2RcpStart(BundleContext context) throws Exception;
-
-    /**
-     * プラグイン終了時に呼び出されるメソッドです。<br />
-     * <p>
-     * プラグイン終了時の処理は、本メソッドをオーバーライドして記述してください。
-     * </p>
-     * 
-     * @param context
-     *            {@link BundleContext} オブジェクト
-     * @throws Exception
-     */
-    protected abstract void s2RcpStop(BundleContext context) throws Exception;
 }

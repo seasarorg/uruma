@@ -136,18 +136,16 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    
+
     <plugins>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <forkMode>once</forkMode>
           <workingDirectory>lib</workingDirectory>
-          <!--
-            <excludes>
+          <excludes>
             <exclude>**/*GUITest.java</exclude>
-            </excludes>
-          -->
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -173,6 +171,8 @@
           </execution>
         </executions>
       </plugin>
+      
+      <!--
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
@@ -211,6 +211,8 @@
           </execution>
         </executions>
       </plugin>
+      -->
+      
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -227,7 +229,7 @@
         </executions>
       </plugin>
     </plugins>
-    
+
     <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
@@ -236,7 +238,7 @@
       </extension>
     </extensions>
   </build>
-  
+
   <!-- Dependency Settings -->
   <dependencies>
     <dependency>
@@ -299,6 +301,12 @@
     <dependency>
       <groupId>org.eclipse</groupId>
       <artifactId>debug-core</artifactId>
+      <version>3.3.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse</groupId>
+      <artifactId>equinox-app</artifactId>
       <version>3.3.0</version>
       <scope>provided</scope>
     </dependency>

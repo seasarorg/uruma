@@ -246,8 +246,8 @@ public final class UrumaLogger {
             final Object... args) {
         char messageType = messageCode.charAt(0);
         if (isEnabledFor(messageType)) {
-            String message = MessageFormatter.getSimpleMessage(messageCode,
-                    args);
+            String message = MessageFormatter.getMessage(messageCode, args);
+
             switch (messageType) {
             case 'D':
                 log.debug(message, throwable);

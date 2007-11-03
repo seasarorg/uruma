@@ -37,8 +37,10 @@ import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.impl.ViewPartComponent;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
+import org.seasar.uruma.rcp.UrumaActivator;
 import org.seasar.uruma.util.AnnotationUtil;
 import org.seasar.uruma.util.S2ContainerUtil;
 
@@ -70,8 +72,8 @@ public class S2RcpViewPart extends ViewPart {
      */
     @Override
     public void createPartControl(final Composite parent) {
-        S2RcpActivator plugin = (S2RcpActivator) container
-                .getComponent(S2RcpActivator.PLUGIN);
+        UrumaActivator plugin = (UrumaActivator) container
+                .getComponent(UrumaConstants.URUMA_PLUGIN_COMPONENT_NAME);
 
         Thread currentThread = Thread.currentThread();
         ClassLoader originalLoader = currentThread.getContextClassLoader();

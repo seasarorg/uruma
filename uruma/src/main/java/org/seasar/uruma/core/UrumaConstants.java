@@ -15,6 +15,9 @@
  */
 package org.seasar.uruma.core;
 
+import org.seasar.framework.container.S2Container;
+import org.seasar.uruma.rcp.UrumaActivator;
+
 /**
  * Uruma で利用する定数を保持するクラスです。</br>
  * 
@@ -35,4 +38,17 @@ public class UrumaConstants {
      * デフォルトのイメージバンドル名称です。<br />
      */
     public static final String DEFAULT_IMAGE_BUNDLE_PATH = "urumaImages";
+
+    // -------------------------------------------------------------------------
+    // RCP関連機能
+    // -------------------------------------------------------------------------
+    /**
+     * {@link S2Container} へ {@link UrumaActivator} を登録する際のコンポーネント名称です。
+     */
+    public static final String URUMA_PLUGIN_COMPONENT_NAME = "urumaPlugin";
+
+    /**
+     * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパスです。<br />
+     */
+    public static final String URUMA_RCP_DICON_PATH = "urumaRcp.dicon";
 }
