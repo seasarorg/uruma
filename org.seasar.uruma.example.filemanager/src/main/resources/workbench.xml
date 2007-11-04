@@ -3,8 +3,12 @@
   <workbench title="Uruma Example - FileManager" initWidth="50%"
     initHeight="50%" image="/images/container.gif">
     <menu>
-      <menu text="ファイル(&amp;F)"></menu>
-      <menu text="編集(&amp;E)"></menu>
+      <menu text="ファイル(&amp;F)">
+        <menuItem text="開く(&amp;O)" />
+      </menu>
+      <menu text="編集(&amp;E)">
+        <menuItem text="コピー(&amp;C)" />
+      </menu>
     </menu>
   </workbench>
 </template>
