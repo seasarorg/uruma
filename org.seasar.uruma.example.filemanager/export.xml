@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="plugin_export" name="build">
-	<target name="plugin_export">
-		<pde.exportPlugins destination="C:\Desktop\eclipse-RCP-3.3-win32\eclipse" exportSource="false" exportType="directory" plugins="org.seasar.uruma.example.fileman" useJARFormat="true"/>
+<project default="execute_rcp" name="org.seasar.uruma.example.filemanager">
+	<!-- プラグイン名 -->
+	<property name="PLUGIN_NAME" value="org.seasar.uruma.example.filemanager" />
+
+	<!-- RCP デプロイ先ディレクトリ -->
+	<property name="RCP_DEPLOY_DIR" value="D:/Develop/RCP-3.3.1.1/eclipse" />
+
+	<property name="CONFIG_DIR" value="${RCP_DEPLOY_DIR}/configuration" />
+	<property name="LOG_DIR" value="${RCP_DEPLOY_DIR}/log" />
+
+	<property name="URUMA_DIR" value="../uruma" />
+	<property name="LIB_DIR" value="lib" />
+	<property name="MAVEN_HOME" value="c:/maven" />
+	<property name="MAVEN_REPO" value="c:/.m2" />
+	<property name="URUMA_REPO" value="${MAVEN_REPO}/repository/org/seasar/uruma/uruma" />
+	<property name="URUMA_VER" value="0.2.0-SNAPSHOT" />
+	<property name="URUMA_JAR" value="${URUMA_REPO}/${URUMA_VER}/uruma-${URUMA_VER}.jar" />
+	<property name="URUMA_SRC_JAR" value="${URUMA_REPO}/${URUMA_VER}/uruma-${URUMA_VER}-sources.jar" />
+	<property name="" value="" />
+
+	<target name="compile">
+		<exec dir="${URUMA_DIR}" executable="cmd">
+			<arg line="/c ${MAVEN_HOME}/bin/mvn clean install" />
+		</exec>
+	</target>
+
+	<target name="copy_jar" depends="compile">
+		<copy file="${URUMA_JAR}" todir="${LIB_DIR}" />
+		<copy file="${URUMA_SRC_JAR}" todir="${LIB_DIR}" />
+	</target>
+
+	<target name="clean_rcp" depends="copy_jar">
+		<delete dir="${CONFIG_DIR}" />
+		<delete dir="${LOG_DIR}" />
+		<mkdir dir="${CONFIG_DIR}" />
+		<mkdir dir="${LOG_DIR}" />
+		<copy file="config.ini" todir="${CONFIG_DIR}" />
+	</target>
+
+	<target name="plugin_export" depends="clean_rcp">
+		<pde.exportPlugins destination="${RCP_DEPLOY_DIR}" exportSource="true" exportType="directory" plugins="${PLUGIN_NAME}" useJARFormat="true" />
+	</target>
+	
+	<target name="execute_rcp" depends="plugin_export">
+		<exec dir="${RCP_DEPLOY_DIR}" executable="eclipse.exe" vmlauncher="false" spawn="true"/>
 	</target>
 </project>
