@@ -17,12 +17,14 @@ package org.seasar.uruma.rcp.ui;
 
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.impl.WorkbenchComponent;
+import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
@@ -82,6 +84,21 @@ public class UrumaActionBarAdvisor extends ActionBarAdvisor {
         } else {
             throw new NotFoundException(
                     UrumaMessageCodes.UICOMPONENT_NOT_FOUND, workbench.menu);
+        }
+    }
+
+    @Override
+    protected void fillStatusLine(final IStatusLineManager statusLine) {
+        // IStatusLineManager を WindowContext へ登録しておく
+        WorkbenchComponent workbench = UrumaActivator.getInstance()
+                .getWorkbenchComponent();
+
+        if (Boolean.parseBoolean(workbench.statusLine)) {
+            WidgetHandle handle = ContextFactory.createWidgetHandle(statusLine);
+            handle.setId(UrumaConstants.STATUS_LINE_MANAGER_CID);
+
+            UrumaActivator.getInstance().getWorkbenchWindowContext()
+                    .putWidgetHandle(handle);
         }
     }
 
