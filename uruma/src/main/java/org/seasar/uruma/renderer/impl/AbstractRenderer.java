@@ -25,7 +25,9 @@ import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.renderer.Renderer;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * {@link Renderer} の基底クラスです。<br />
@@ -33,16 +35,40 @@ import org.seasar.uruma.renderer.Renderer;
  * @author y-komori
  */
 public abstract class AbstractRenderer implements Renderer {
+    private WindowContext windowContext;
+
     private PartContext context;
 
     /*
      * @see org.seasar.uruma.renderer.Renderer#preRender(org.seasar.uruma.component.UIComponent,
      *      org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.PartContext)
+     *      org.seasar.uruma.context.WindowContext)
      */
     public WidgetHandle preRender(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
+            final WidgetHandle parent, final WindowContext context) {
+        setWindowContext(context);
+
         return null;
+    }
+
+    /**
+     * {@link WindowContext} を取得します。<br />
+     * 
+     * @return {@link WindowContext} オブジェクト
+     */
+    protected WindowContext getWindowContext() {
+        return this.windowContext;
+    }
+
+    /**
+     * {@link WindowContext} を設定します。<br />
+     * 
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     */
+    protected void setWindowContext(final WindowContext context) {
+        AssertionUtil.assertNotNull("context", context);
+        this.windowContext = context;
     }
 
     /**
@@ -61,6 +87,7 @@ public abstract class AbstractRenderer implements Renderer {
      *            {@link PartContext} オブジェクト
      */
     protected void setContext(final PartContext context) {
+        AssertionUtil.assertNotNull("context", context);
         this.context = context;
     }
 
@@ -129,7 +156,7 @@ public abstract class AbstractRenderer implements Renderer {
 
             EnablesDependingDef def = new EnablesDependingDef(handle,
                     enablesDependingId, type);
-            getContext().getWindowContext().addEnablesDependingDef(def);
+            getWindowContext().addEnablesDependingDef(def);
         }
     }
 }

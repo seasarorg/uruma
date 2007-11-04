@@ -18,6 +18,7 @@ package org.seasar.uruma.renderer;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
 
 /**
  * ウィジットをレンダリングするためのインターフェースです。<br />
@@ -28,7 +29,7 @@ public interface Renderer {
     /**
      * レンダリングを行います。</br>
      * <p>
-     * 本メソッドは、{@link UIComponent#preRender(WidgetHandle, PartContext)}
+     * 本メソッドは、{@link UIComponent#preRender(WidgetHandle, org.seasar.uruma.context.WindowContext)}
      * の内部から呼び出されます。<br />
      * </p>
      * 
@@ -37,11 +38,11 @@ public interface Renderer {
      * @param parent
      *            親となる {@link WidgetHandle} オブジェクト
      * @param context
-     *            画面情報を収めた {@link PartContext} オブジェクト
+     *            画面情報を収めた {@link WindowContext} オブジェクト
      * @return レンダリングしたウィジットのハンドル
      */
     public WidgetHandle preRender(UIComponent uiComponent, WidgetHandle parent,
-            PartContext context);
+            WindowContext context);
 
     /**
      * レンダリングを行います。</br>

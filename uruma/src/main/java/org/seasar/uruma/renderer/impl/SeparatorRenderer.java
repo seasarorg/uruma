@@ -20,6 +20,7 @@ import org.eclipse.jface.action.Separator;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
 
 /**
  * {@link Separator} のレンダリングを行うためのクラスです。<br />
@@ -31,11 +32,11 @@ public class SeparatorRenderer extends AbstractRenderer {
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractRenderer#preRender(org.seasar.uruma.component.UIComponent,
      *      org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.PartContext)
+     *      org.seasar.uruma.context.WindowContext)
      */
     @Override
     public WidgetHandle preRender(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
+            final WidgetHandle parent, final WindowContext context) {
         Separator separator = new Separator();
 
         MenuManager parentMenuManager = parent.<MenuManager> getCastWidget();

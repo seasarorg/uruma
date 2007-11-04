@@ -134,7 +134,7 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
             final Control control) {
         String menuId = controlComponent.getMenu();
         if (!StringUtil.isEmpty(menuId)) {
-            WidgetHandle handle = getContext().getWidgetHandle(menuId);
+            WidgetHandle handle = getWindowContext().getWidgetHandle(menuId);
             if (handle != null) {
                 if (handle.instanceOf(MenuManager.class)) {
                     MenuManager manager = handle.<MenuManager> getCastWidget();

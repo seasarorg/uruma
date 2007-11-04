@@ -22,6 +22,8 @@ import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.impl.MenuComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.renderer.RendererSupportUtil;
 
 /**
@@ -34,21 +36,21 @@ public class MenuManagerRenderer extends AbstractRenderer {
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractRenderer#preRender(org.seasar.uruma.component.UIComponent,
      *      org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.PartContext)
+     *      org.seasar.uruma.context.WindowContext)
      */
     @Override
     public WidgetHandle preRender(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
-        setContext(context);
+            final WidgetHandle parent, final WindowContext context) {
 
         if (parent == null) {
             WidgetHandle handle = createWidgetHandle(uiComponent,
                     createMenuManager());
             if (handle.getId() == null
-                    && !context.hasWidgetHandle(PartContext.DEFAULT_MENU_ID)) {
+                    && !context
+                            .hasWidgetHandle(UrumaConstants.DEFAULT_MENU_CID)) {
                 // menu 要素に id が設定されておらず、コンテキスト上に
                 // PartContext.DEFAULT_MENU_ID を持つハンドルが存在しなければ登録する
-                handle.setId(PartContext.DEFAULT_MENU_ID);
+                handle.setId(UrumaConstants.DEFAULT_MENU_CID);
             }
 
             return handle;

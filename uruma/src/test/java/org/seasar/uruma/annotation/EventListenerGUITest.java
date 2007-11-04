@@ -21,7 +21,7 @@ import java.util.Date;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Text;
-import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.renderer.impl.AbstractGUITest;
 
 /**
@@ -102,62 +102,62 @@ public class EventListenerGUITest extends AbstractGUITest {
     }
 
     // Shell
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.SHOW)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.SHOW)
     public void onShellShow(final Event event) {
         logEvent("shellShow", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.CLOSE)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.CLOSE)
     public void onShellClose(final Event event) {
         logEvent("shellClose", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.ACTIVATE)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.ACTIVATE)
     public void onShellActivate(final Event event) {
         logEvent("shellActivate", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.DEACTIVATE)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.DEACTIVATE)
     public void onShellDeactivate(final Event event) {
         logEvent("shellDeactivate", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.ICONIFY)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.ICONIFY)
     public void onShellIconify(final Event event) {
         logEvent("shellIconify", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.DEICONIFY)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.DEICONIFY)
     public void onShellDeiconify(final Event event) {
         logEvent("shellDeiconify", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.DISPOSE)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.DISPOSE)
     public void onShellDispose(final Event event) {
         logEvent("shellDispose", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.MOVE)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.MOVE)
     public void onShellMove(final Event event) {
         logEvent("shellMove", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.RESIZE)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.RESIZE)
     public void onShellResize(final Event event) {
         logEvent("shellResize", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.HELP)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.HELP)
     public void onShellHelp(final Event event) {
         logEvent("shellHelp", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.FOCUS_IN)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.FOCUS_IN)
     public void onShellFocusIn(final Event event) {
         logEvent("shellFocusIn", event);
     }
 
-    @EventListener(id = PartContext.SHELL_ID, type = EventListenerType.FOCUS_OUT)
+    @EventListener(id = UrumaConstants.SHELL_CID, type = EventListenerType.FOCUS_OUT)
     public void onShellFocusOut(final Event event) {
         logEvent("shellFocusOut", event);
     }

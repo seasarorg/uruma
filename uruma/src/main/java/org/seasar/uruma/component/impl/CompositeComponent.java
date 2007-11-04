@@ -18,6 +18,7 @@ package org.seasar.uruma.component.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.swt.widgets.Composite;
 import org.seasar.uruma.component.CommonAttributes;
 import org.seasar.uruma.component.LayoutDataInfo;
 import org.seasar.uruma.component.LayoutInfo;
@@ -25,8 +26,11 @@ import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
 
 /**
+ * {@link Composite} に対応するコンポーネントです。<br />
+ * 
  * @author y-komori
  */
 public class CompositeComponent extends ControlComponent implements
@@ -103,11 +107,11 @@ public class CompositeComponent extends ControlComponent implements
 
     /*
      * @see org.seasar.uruma.component.impl.AbstractUIComponent#doPreRender(org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.PartContext)
+     *      org.seasar.uruma.context.WindowContext)
      */
     @Override
     protected void doPreRender(final WidgetHandle parent,
-            final PartContext context) {
+            final WindowContext context) {
         preRenderChild(getWidgetHandle(), context);
     }
 
@@ -141,10 +145,10 @@ public class CompositeComponent extends ControlComponent implements
      * @param parent
      *            親 {@link WidgetHandle}
      * @param context
-     *            {@link PartContext} オブジェクト
+     *            {@link WindowContext} オブジェクト
      */
     protected void preRenderChild(final WidgetHandle parent,
-            final PartContext context) {
+            final WindowContext context) {
         for (UIComponent child : children) {
             child.preRender(parent, context);
         }

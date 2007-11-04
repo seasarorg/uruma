@@ -17,6 +17,7 @@ package org.seasar.uruma.context.impl;
 
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.desc.FormDesc;
 import org.seasar.uruma.desc.PartActionDesc;
@@ -55,6 +56,30 @@ public class PartContextImpl extends AbstractWidgetHolder implements
 
         this.partName = partName;
         this.parent = (WindowContextImpl) parent;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.impl.AbstractWidgetHolder#getWidgetHandle(java.lang.String)
+     */
+    @Override
+    public WidgetHandle getWidgetHandle(final String handleId) {
+        WidgetHandle handle = super.getWidgetHandle(handleId);
+        if ((handle == null) && (parent != null)) {
+            handle = parent.getWidgetHandle(handleId);
+        }
+        return handle;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.impl.AbstractWidgetHolder#hasWidgetHandle(java.lang.String)
+     */
+    @Override
+    public boolean hasWidgetHandle(final String handleId) {
+        boolean result = super.hasWidgetHandle(handleId);
+        if (!result && (parent != null)) {
+            result = parent.hasWidgetHandle(handleId);
+        }
+        return result;
     }
 
     /*

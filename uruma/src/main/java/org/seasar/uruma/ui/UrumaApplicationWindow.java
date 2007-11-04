@@ -41,6 +41,7 @@ import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.UrumaWindowManager;
 import org.seasar.uruma.desc.PartActionDesc;
@@ -120,7 +121,7 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
                 component.getId());
 
         // プリレンダリング処理を実施
-        component.preRender(null, partContext);
+        component.preRender(null, windowContext);
 
         if (!WindowComponent.DEFAULT_ID.equals(windowComponent.getId())) {
             setupActionComponent();
@@ -210,10 +211,12 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
 
     protected void setupMenuBar() {
         String menuId = windowComponent.getMenu();
-        if (!StringUtil.isEmpty(menuId)) {
+        WindowContext windowContext = partContext.getWindowContext();
+        if (StringUtil.isNotBlank(menuId)) {
             addMenuBar();
-        } else if (partContext.hasWidgetHandle(PartContext.DEFAULT_MENU_ID)) {
-            windowComponent.setMenu(PartContext.DEFAULT_MENU_ID);
+        } else if (windowContext
+                .hasWidgetHandle(UrumaConstants.DEFAULT_MENU_CID)) {
+            windowComponent.setMenu(UrumaConstants.DEFAULT_MENU_CID);
             addMenuBar();
         }
     }
@@ -225,7 +228,8 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
     protected MenuManager createMenuManager() {
         String menuId = windowComponent.getMenu();
 
-        WidgetHandle handle = partContext.getWidgetHandle(menuId);
+        WidgetHandle handle = partContext.getWindowContext().getWidgetHandle(
+                menuId);
         if (handle != null) {
             if (handle.instanceOf(MenuManager.class)) {
                 return handle.<MenuManager> getCastWidget();
@@ -246,7 +250,7 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
             addStatusLine();
             WidgetHandle handle = ContextFactory
                     .createWidgetHandle(getStatusLineManager());
-            handle.setId(PartContext.STATUS_LINE_MANAGER_ID);
+            handle.setId(UrumaConstants.STATUS_LINE_MANAGER_CID);
             partContext.putWidgetHandle(handle);
         }
     }
@@ -260,7 +264,7 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
 
         // ウィンドウのレンダリングを開始する
         WidgetHandle handle = ContextFactory.createWidgetHandle(parent);
-        handle.setId(PartContext.SHELL_ID);
+        handle.setId(UrumaConstants.SHELL_CID);
         partContext.putWidgetHandle(handle);
 
         windowComponent.render(handle, partContext);

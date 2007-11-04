@@ -16,13 +16,16 @@
 package org.seasar.uruma.component.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.swt.SWT;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.renderer.Renderer;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -33,20 +36,47 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 public class WorkbenchComponent extends AbstractUIElement implements
         UIContainer {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(WorkbenchComponent.class);
+
     private UIContainer parent;
+
+    private WidgetHandle widgetHandle;
+
+    private String id;
 
     private List<UIComponent> children = new ArrayList<UIComponent>();
 
+    /**
+     * ワークベンチウィンドウのタイトルです。
+     */
     public String title;
 
+    /**
+     * ワークベンチウィンドウに表示するアイコンのイメージパスです。
+     */
     public String image;
 
+    /**
+     * ワークベンチウィンドウのスタイルです。
+     * 
+     * @see SWT
+     */
     public String style;
 
+    /**
+     * ワークベンチウィンドウの初期ウィンドウ幅です。
+     */
     public String initWidth;
 
+    /**
+     * ワークベンチウィンドウの初期ウィンドウ高さです。
+     */
     public String initHeight;
 
+    /**
+     * ステータスラインを表示/非表示を指定します。
+     */
     public String statusLine;
 
     /*
@@ -61,14 +91,14 @@ public class WorkbenchComponent extends AbstractUIElement implements
      * @see org.seasar.uruma.component.UIContainer#getChildren()
      */
     public List<UIComponent> getChildren() {
-        return Collections.unmodifiableList(children);
+        return children;
     }
 
     /*
      * @see org.seasar.uruma.component.UIComponent#getId()
      */
     public String getId() {
-        return null;
+        return this.id;
     }
 
     /*
@@ -93,25 +123,46 @@ public class WorkbenchComponent extends AbstractUIElement implements
     }
 
     public WidgetHandle getWidgetHandle() {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
+        return this.widgetHandle;
     }
 
-    public void preRender(final WidgetHandle parent, final PartContext context) {
-        // TODO 自動生成されたメソッド・スタブ
+    /*
+     * @see org.seasar.uruma.component.UIComponent#preRender(org.seasar.uruma.context.WidgetHandle,
+     *      org.seasar.uruma.context.WindowContext)
+     */
+    public void preRender(final WidgetHandle parent, final WindowContext context) {
+        if (logger.isDebugEnabled()) {
+            logger.log(UrumaMessageCodes.PRE_RENDER_START, this);
+        }
 
+        preRenderChild(parent, context);
+
+        if (logger.isDebugEnabled()) {
+            logger.log(UrumaMessageCodes.PRE_RENDER_END, this);
+        }
     }
 
+    /*
+     * @see org.seasar.uruma.component.UIComponent#render(org.seasar.uruma.context.WidgetHandle,
+     *      org.seasar.uruma.context.PartContext)
+     */
     public void render(final WidgetHandle parent, final PartContext context) {
-        // TODO 自動生成されたメソッド・スタブ
+        if (logger.isDebugEnabled()) {
+            logger.log(UrumaMessageCodes.RENDER_START, this);
+        }
 
+        renderChild(parent, context);
+
+        if (logger.isDebugEnabled()) {
+            logger.log(UrumaMessageCodes.RENDER_END, this);
+        }
     }
 
     /*
      * @see org.seasar.uruma.component.UIComponent#setId(java.lang.String)
      */
     public void setId(final String id) {
-        // Do nothing.
+        this.id = id;
     }
 
     /*
@@ -136,7 +187,36 @@ public class WorkbenchComponent extends AbstractUIElement implements
     }
 
     public void setWidgetHandle(final WidgetHandle handle) {
-        // TODO 自動生成されたメソッド・スタブ
+        this.widgetHandle = handle;
+    }
 
+    /**
+     * 子コンポーネントのレンダリングを行います。<br />
+     * 
+     * @param parent
+     *            親 {@link WidgetHandle}
+     * @param context
+     *            {@link PartContext} オブジェクト
+     */
+    protected void renderChild(final WidgetHandle parent,
+            final PartContext context) {
+        for (UIComponent child : children) {
+            child.render(parent, context);
+        }
+    }
+
+    /**
+     * 子コンポーネントのプリレンダリングを行います。<br />
+     * 
+     * @param parent
+     *            親 {@link WidgetHandle}
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     */
+    protected void preRenderChild(final WidgetHandle parent,
+            final WindowContext context) {
+        for (UIComponent child : children) {
+            child.preRender(parent, context);
+        }
     }
 }

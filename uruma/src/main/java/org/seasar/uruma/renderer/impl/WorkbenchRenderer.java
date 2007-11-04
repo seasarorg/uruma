@@ -18,6 +18,7 @@ package org.seasar.uruma.renderer.impl;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.renderer.Renderer;
 
 /**
@@ -30,11 +31,11 @@ public class WorkbenchRenderer implements Renderer {
     /*
      * @see org.seasar.uruma.renderer.Renderer#preRender(org.seasar.uruma.component.UIComponent,
      *      org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.PartContext)
+     *      org.seasar.uruma.context.WindowContext)
      */
     public WidgetHandle preRender(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
-        // Do nothing.
+            final WidgetHandle parent, final WindowContext context) {
+        // TODO 自動生成されたメソッド・スタブ
         return null;
     }
 

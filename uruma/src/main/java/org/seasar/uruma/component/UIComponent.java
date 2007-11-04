@@ -17,6 +17,7 @@ package org.seasar.uruma.component;
 
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.renderer.Renderer;
 import org.seasar.uruma.ui.UrumaApplicationWindow;
 
@@ -106,15 +107,22 @@ public interface UIComponent extends UIElement {
 
     /**
      * 設定されたレンダラを利用して、レンダリングを行います。<br />
-     * 本メソッドは、 {@link UrumaApplicationWindow}<code>#init()</code> メソッドの中 (<code>createContent()</code>
-     * メソッドよりも前のタイミング)で呼び出されます。<br />
+     * 本メソッドは、シェルが生成される前のタイミングで呼び出されます。<br />
+     * <p>
+     * 具体的には以下のタイミングです。
+     * <dl>
+     * <dt> {@link UrumaApplicationWindow} の場合
+     * <dd> {@link UrumaApplicationWindow}<code>#init()</code> メソッド内 (<code>createContent()</code>
+     * メソッドよりも前のタイミング
+     * </dl>
+     * </p>
      * 
      * @param parent
      *            親となる {@link WidgetHandle} オブジェクト
      * @param context
-     *            {@link PartContext} オブジェクト
+     *            {@link WindowContext} オブジェクト
      */
-    public void preRender(WidgetHandle parent, PartContext context);
+    public void preRender(WidgetHandle parent, WindowContext context);
 
     /**
      * 設定されたレンダラを利用して、レンダリングを行います。</br> 本メソッドは、 {@link UrumaApplicationWindow}<code>#createContents()</code>

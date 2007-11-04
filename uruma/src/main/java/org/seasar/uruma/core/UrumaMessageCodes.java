@@ -219,6 +219,30 @@ public interface UrumaMessageCodes {
      */
     public static final String REQUIRED_VIEWPART_ERROR = "EURM0303";
 
+    /**
+     * {@link UIComponent#preRender(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)}
+     * メソッド開始時のメッセージコードです。
+     */
+    public static final String PRE_RENDER_START = "DURM0304";
+
+    /**
+     * {@link UIComponent#preRender(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)}
+     * メソッド終了時のメッセージコードです。
+     */
+    public static final String PRE_RENDER_END = "DURM0305";
+
+    /**
+     * {@link UIComponent#render(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)}
+     * メソッド開始時のメッセージコードです。
+     */
+    public static final String RENDER_START = "DURM0306";
+
+    /**
+     * {@link UIComponent#render(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)}
+     * メソッド終了時のメッセージコードです。
+     */
+    public static final String RENDER_END = "DURM0307";
+
     // -------------------------------------------------------------------------
     // ウィンドウ管理関連メッセージコード (04xx)
     // -------------------------------------------------------------------------

@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.core;
 
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IStatusLineManager;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.rcp.UrumaActivator;
@@ -39,6 +41,29 @@ public class UrumaConstants {
      * デフォルトのイメージバンドル名称です。<br />
      */
     public static final String DEFAULT_IMAGE_BUNDLE_PATH = "urumaImages";
+
+    // -------------------------------------------------------------------------
+    // コンテキストへ登録されるID
+    // -------------------------------------------------------------------------
+    /**
+     * 自ウィンドウのShellオブジェクトが登録されるIDです。
+     */
+    public static final String SHELL_CID = "shell";
+
+    /**
+     * メニューバー用の {@link IMenuManager} が登録される ID です。
+     */
+    public static final String MENU_BAR_MANAGER_CID = "menuBarManager";
+
+    /**
+     * ID の設定されていない <code>menu</code> 要素にデフォルトで割り当てられる ID です。
+     */
+    public static final String DEFAULT_MENU_CID = "defaultMenu";
+
+    /**
+     * {@link IStatusLineManager} が登録される ID です。
+     */
+    public static final String STATUS_LINE_MANAGER_CID = "statusLineManager";
 
     // -------------------------------------------------------------------------
     // RCP関連機能

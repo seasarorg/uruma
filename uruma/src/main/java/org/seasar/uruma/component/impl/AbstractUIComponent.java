@@ -19,6 +19,8 @@ import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.renderer.Renderer;
 import org.seasar.uruma.util.AssertionUtil;
@@ -45,9 +47,9 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
     /**
      * レンダラ呼び出し中に独自のレンダリング処理を追加するためのメソッドです。<br />
      * <p>
-     * 本メソッドは {@link AbstractUIComponent#preRender(WidgetHandle, PartContext)}
+     * 本メソッドは {@link AbstractUIComponent#preRender(WidgetHandle, WindowContext)}
      * メソッドの中で、{@link Renderer レンダラ} の
-     * {@link Renderer#preRender(UIComponent, WidgetHandle, PartContext) preRender()}
+     * {@link Renderer#preRender(UIComponent, WidgetHandle, WindowContext)}
      * メソッドを呼び出した後に呼び出されます。<br />
      * </p>
      * <p>
@@ -57,10 +59,10 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
      * @param parent
      *            親 {@link WidgetHandle} オブジェクト
      * @param context
-     *            {@link PartContext} オブジェクト
+     *            {@link WindowContext} オブジェクト
      */
     protected void doPreRender(final WidgetHandle parent,
-            final PartContext context) {
+            final WindowContext context) {
     }
 
     /**
@@ -87,11 +89,11 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     /*
      * @see org.seasar.uruma.component.UIComponent#preRender(org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.PartContext)
+     *      org.seasar.uruma.context.WindowContext)
      */
-    public void preRender(final WidgetHandle parent, final PartContext context) {
+    public void preRender(final WidgetHandle parent, final WindowContext context) {
         if (logger.isDebugEnabled()) {
-            logger.debug(getClass().getName() + "#preRender() - start.");
+            logger.log(UrumaMessageCodes.PRE_RENDER_START, this);
         }
 
         WidgetHandle handle = getRenderer().preRender(this, parent, context);
@@ -107,7 +109,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         doPreRender(parent, context);
 
         if (logger.isDebugEnabled()) {
-            logger.debug(getClass().getName() + "#preRender() - end.");
+            logger.log(UrumaMessageCodes.PRE_RENDER_END, this);
         }
     }
 
@@ -117,7 +119,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
      */
     public void render(final WidgetHandle parent, final PartContext context) {
         if (logger.isDebugEnabled()) {
-            logger.debug(getClass().getName() + "#render() - start.");
+            logger.log(UrumaMessageCodes.RENDER_START, this);
         }
 
         WidgetHandle handle = getRenderer().render(this, parent, context);
@@ -137,7 +139,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         getRenderer().renderAfter(handle, this, parent, context);
 
         if (logger.isDebugEnabled()) {
-            logger.debug(getClass().getName() + "#render() - end.");
+            logger.log(UrumaMessageCodes.RENDER_END, this);
         }
     }
 

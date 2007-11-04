@@ -31,6 +31,7 @@ import org.seasar.uruma.component.impl.ControlComponent;
 import org.seasar.uruma.component.impl.WindowComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.util.PathUtil;
 
 /**
@@ -142,7 +143,7 @@ public class WindowRenderer extends
                         .<Button> getCastWidget();
 
                 WidgetHandle handle = context
-                        .getWidgetHandle(PartContext.SHELL_ID);
+                        .getWidgetHandle(UrumaConstants.SHELL_CID);
                 Shell shell = handle.<Shell> getCastWidget();
                 if (shell != null) {
                     shell.setDefaultButton(defaultButton);

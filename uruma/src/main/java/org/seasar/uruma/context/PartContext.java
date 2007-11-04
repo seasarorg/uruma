@@ -15,8 +15,6 @@
  */
 package org.seasar.uruma.context;
 
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.ViewPart;
@@ -30,26 +28,6 @@ import org.seasar.uruma.desc.PartActionDesc;
  * @author y-komori
  */
 public interface PartContext extends WidgetHolder {
-    /**
-     * 自ウィンドウのShellオブジェクトが登録されるIDです。
-     */
-    public static final String SHELL_ID = "shell";
-
-    /**
-     * メニューバー用の {@link IMenuManager} が登録される ID です。<br />
-     */
-    public static final String MENU_BAR_MANAGER_ID = "menuBarManager";
-
-    /**
-     * ID の設定されていない <code>menu</code> 要素にデフォルトで割り当てられる ID です。<br />
-     */
-    public static final String DEFAULT_MENU_ID = "defaultMenu";
-
-    /**
-     * {@link IStatusLineManager} が登録される ID です。<br />
-     */
-    public static final String STATUS_LINE_MANAGER_ID = "statusLineManager";
-
     /**
      * ウィンドウパートの名称を返します。<br />
      * 

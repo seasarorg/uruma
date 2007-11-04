@@ -23,8 +23,8 @@ import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIContainer;
-import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -142,11 +142,11 @@ public class MenuComponent extends MenuItemComponent implements UIContainer {
 
     /*
      * @see org.seasar.uruma.component.impl.AbstractUIComponent#doPreRender(org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.PartContext)
+     *      org.seasar.uruma.context.WindowContext)
      */
     @Override
     protected void doPreRender(final WidgetHandle parent,
-            final PartContext context) {
+            final WindowContext context) {
         for (UIComponent uiComponent : children) {
             uiComponent.preRender(getWidgetHandle(), context);
         }
