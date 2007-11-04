@@ -34,6 +34,8 @@ import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.impl.WorkbenchComponent;
 import org.seasar.uruma.context.ApplicationContext;
+import org.seasar.uruma.context.ContextFactory;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
@@ -57,6 +59,8 @@ public class UrumaActivator extends AbstractUIPlugin {
 
     private ApplicationContext applicationContext;
 
+    private WindowContext windowContext;
+
     /**
      * {@link UrumaActivator} を構築します。<br />
      */
@@ -79,7 +83,7 @@ public class UrumaActivator extends AbstractUIPlugin {
         initS2Container();
         registComponentsToS2Container();
 
-        Template template = getTemplate("workbench.xml");
+        Template template = getTemplate(UrumaConstants.DEFAULT_WORKBENCH_XML);
         if (!(template.getRootComponent() instanceof WorkbenchComponent)) {
             throw new NotFoundException(
                     UrumaMessageCodes.WORKBENCH_ELEMENT_NOT_FOUND, template
@@ -87,6 +91,8 @@ public class UrumaActivator extends AbstractUIPlugin {
         }
         applicationContext.setValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME,
                 template);
+        this.windowContext = ContextFactory.createWindowContext(
+                applicationContext, UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
     }
 
     /**
@@ -128,6 +134,15 @@ public class UrumaActivator extends AbstractUIPlugin {
         Template template = (Template) applicationContext
                 .getValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME);
         return (WorkbenchComponent) template.getRootComponent();
+    }
+
+    /**
+     * ワークベンチウィンドウに対応する {@link WindowContext} を返します。<br />
+     * 
+     * @return {@link WindowContext}
+     */
+    public WindowContext getWorkbenchWindowContext() {
+        return this.windowContext;
     }
 
     /**

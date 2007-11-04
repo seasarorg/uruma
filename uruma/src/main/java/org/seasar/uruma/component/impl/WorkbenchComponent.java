@@ -75,6 +75,11 @@ public class WorkbenchComponent extends AbstractUIElement implements
     public String initHeight;
 
     /**
+     * ワークベンチのメニューバーに表示する <code>menu</code> 要素の ID です。
+     */
+    public String menu;
+
+    /**
      * ステータスラインを表示/非表示を指定します。
      */
     public String statusLine;

@@ -62,6 +62,7 @@
       <xs:attribute name="style" type="tns:SWTConst" />
       <xs:attribute name="initWidth" type="xs:string" />
       <xs:attribute name="initHeight" type="xs:string" />
+      <xs:attribute name="menu" type="xs:string" />
       <xs:attribute name="statusLine" type="xs:boolean" />
     </xs:complexType>
   </xs:element>
@@ -283,7 +284,7 @@
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="tns:Widget">
-          <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:choice minOccurs="1" maxOccurs="unbounded">
             <xs:element ref="tns:menu" />
             <xs:element ref="tns:menuItem" />
             <xs:element ref="tns:separator" />

@@ -19,6 +19,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.context.ApplicationContext;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.rcp.UrumaActivator;
 
 /**
@@ -79,9 +80,19 @@ public class UrumaConstants {
     public static final String URUMA_PLUGIN_S2NAME = "urumaPlugin";
 
     /**
+     * ワークベンチに関する画面定義を記述した XML のデフォルトパスです。
+     */
+    public static final String DEFAULT_WORKBENCH_XML = "workbench.xml";
+
+    /**
      * ワークベンチの {@link Template} を {@link ApplicationContext} へ登録する際の名称です。
      */
     public static final String WORKBENCH_TEMPLATE_NAME = "workbenchTemplate";
+
+    /**
+     * ワークベンチウィンドウに対応する {@link WindowContext} の名称です。
+     */
+    public static final String WORKBENCH_WINDOW_CONTEXT_ID = "workbenchWindow";
 
     /**
      * <code>workbench</code> 要素で <code>initWidth</code> 属性が未指定の場合のデフォルト値です。

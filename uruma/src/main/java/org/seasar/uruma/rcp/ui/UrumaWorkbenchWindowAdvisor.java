@@ -27,6 +27,7 @@ import org.seasar.eclipse.common.util.GeometryUtil;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.impl.WorkbenchComponent;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.rcp.UrumaActivator;
 import org.seasar.uruma.util.PathUtil;
@@ -70,11 +71,15 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setInitialSize(calcInitialSize(workbench.initWidth,
                 workbench.initHeight));
 
+        // プリレンダリング処理
+        WindowContext windowContext = UrumaActivator.getInstance()
+                .getWorkbenchWindowContext();
+        workbench.preRender(null, windowContext);
+
         // TODO ここで XML から情報を読み込んでワークベンチの情報を設定する
-        configurer.setShowMenuBar(true);
+        // configurer.setShowMenuBar(true);
         configurer.setShowCoolBar(false);
         configurer.setShowStatusLine(true);
-
     }
 
     protected Point calcInitialSize(final String width, final String height) {
