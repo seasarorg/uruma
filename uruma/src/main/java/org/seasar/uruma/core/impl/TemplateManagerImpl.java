@@ -15,10 +15,15 @@
  */
 package org.seasar.uruma.core.impl;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.component.factory.ComponentTreeBuilder;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaMessageCodes;
@@ -35,6 +40,8 @@ public class TemplateManagerImpl implements TemplateManager {
 
     private Map<String, Template> templateCache = new HashMap<String, Template>();
 
+    private Map<String, String> idToPathMap = new HashMap<String, String>();
+
     private ComponentTreeBuilder builder = new ComponentTreeBuilder();
 
     /*
@@ -50,11 +57,49 @@ public class TemplateManagerImpl implements TemplateManager {
             template = builder.build(path);
             if (template != null) {
                 templateCache.put(path, template);
+                String id = template.getRootComponent().getId();
+                if (StringUtil.isNotBlank(id)) {
+                    if (!idToPathMap.containsKey(id)) {
+                        idToPathMap.put(id, path);
+
+                        String type = template.getRootComponent().getClass()
+                                .getSimpleName();
+                        logger.log(UrumaMessageCodes.TEMPLATE_REGISTERED, id,
+                                type, path);
+                    } else {
+                        // TODO テンプレートIDが重複しているので例外スロー
+                    }
+                }
             }
         } else {
             logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_CACHE, path);
         }
 
         return template;
+    }
+
+    /*
+     * @see org.seasar.uruma.core.TemplateManager#getTemplates(java.lang.Class)
+     */
+    public List<Template> getTemplates(
+            final Class<? extends UIContainer> componentClass) {
+        List<Template> templates = new ArrayList<Template>();
+
+        for (Template template : templateCache.values()) {
+            UIContainer root = template.getRootComponent();
+            if ((root != null) && componentClass.equals(root.getClass())) {
+                templates.add(template);
+            }
+        }
+        return templates;
+    }
+
+    /*
+     * @see org.seasar.uruma.core.TemplateManager#loadTemplates(java.util.List)
+     */
+    public void loadTemplates(final List<File> files) {
+        for (File file : files) {
+            getTemplate(file.getAbsolutePath());
+        }
     }
 }

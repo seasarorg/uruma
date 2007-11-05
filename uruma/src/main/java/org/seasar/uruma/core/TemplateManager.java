@@ -15,7 +15,11 @@
  */
 package org.seasar.uruma.core;
 
+import java.io.File;
+import java.util.List;
+
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.UIContainer;
 
 /**
  * 画面定義テンプレートを管理するためのインターフェースです。<br />
@@ -31,4 +35,22 @@ public interface TemplateManager {
      * @return {@link Template} オブジェクト
      */
     public Template getTemplate(final String path);
+
+    /**
+     * 指定されたパスの画面定義 XML を一括読み込みします。<br />
+     * 
+     * @param files
+     *            画面定義 XML のパス
+     */
+    public void loadTemplates(List<File> files);
+
+    /**
+     * 指定されたタイプのルートコンポーネントを持つ {@link Template} のリストを返します。<br />
+     * 
+     * @param componentClass
+     *            ルートコンポーネントクラス
+     * @return {@link Template} のリスト
+     */
+    public List<Template> getTemplates(
+            Class<? extends UIContainer> componentClass);
 }

@@ -65,6 +65,27 @@ public class UrumaConstants {
     public static final String DEFAULT_IMAGE_BUNDLE_PATH = "urumaImages";
 
     // -------------------------------------------------------------------------
+    // プロトコル名称
+    // -------------------------------------------------------------------------
+    /**
+     * jar プロトコルの名称です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String PROTCOL_JAR = "jar";
+
+    /**
+     * file プロトコルの名称です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String PROTCOL_FILE = "file";
+
+    // -------------------------------------------------------------------------
     // コンテキストへ登録されるID
     // -------------------------------------------------------------------------
     /**

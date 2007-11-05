@@ -205,6 +205,15 @@ public interface UrumaMessageCodes {
      */
     public static final String LOAD_TEMPLATE_FROM_CACHE = "IURM0111";
 
+    /**
+     * 画面定義テンプレート登録時のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String TEMPLATE_REGISTERED = "IURM0112";
+
     // -------------------------------------------------------------------------
     // バインディング関連メッセージコード (02xx)
     // -------------------------------------------------------------------------
