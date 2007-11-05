@@ -16,13 +16,19 @@
 package org.seasar.uruma.core.impl;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
+import org.seasar.framework.util.JarFileUtil;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
@@ -43,6 +49,8 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader {
 
     private TemplateManager templateManager;
 
+    private static final FileFilter filter = new ExtFileFilter("xml");
+
     /*
      * @see org.seasar.uruma.core.ViewTemplateLoader#loadViewTemplates()
      */
@@ -50,22 +58,16 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader {
         URL localUrl = RcpResourceUtil
                 .getLocalResourceUrl(UrumaConstants.DEFAULT_WORKBENCH_XML);
 
-        // TODO 後で削除
-        logger.info("Protcol = " + localUrl.getProtocol());
-        logger.info("Path = " + localUrl.getPath());
-
         if (UrumaConstants.PROTCOL_FILE.equals(localUrl.getProtocol())) {
             File localFile = new File(localUrl.getPath());
             File baseDir = new File(localFile.getParent()
                     + UrumaConstants.SLASH + UrumaConstants.DEFAULT_VIEWS_PATH);
 
-            if (logger.isInfoEnabled()) {
-                logger.log(UrumaMessageCodes.FINDING_XML_START, baseDir
-                        .getAbsolutePath());
-            }
+            logger.log(UrumaMessageCodes.FINDING_XML_START, baseDir
+                    .getAbsolutePath());
 
             List<File> pathList = RcpResourceUtil.findFileResources(baseDir,
-                    new ExtFileFilter("xml"));
+                    filter);
 
             String localBasePath = PathUtil.getParent(localFile
                     .getAbsolutePath());
@@ -77,8 +79,30 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader {
             }
 
             templateManager.loadTemplates(viewFilePaths);
-        }
+        } else if (UrumaConstants.PROTCOL_JAR.equals(localUrl.getProtocol())) {
+            String jarFilePath = StringUtil.substringFromLast(localUrl
+                    .getPath(), UrumaConstants.EXCLAMATION_MARK);
+            JarFile jarFile = JarFileUtil.create((new URL(jarFilePath))
+                    .getFile());
 
+            logger.log(UrumaMessageCodes.FINDING_XML_START, jarFilePath);
+
+            List<String> viewFilePaths = new ArrayList<String>();
+            Enumeration<JarEntry> entries = jarFile.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+
+                String basePath = UrumaConstants.DEFAULT_VIEWS_PATH
+                        + UrumaConstants.SLASH;
+                String entryPath = entry.getName();
+                if (entryPath.startsWith(basePath)
+                        && entryPath.endsWith(".xml")) {
+                    viewFilePaths.add(PathUtil.replaceSeparator(entryPath));
+                }
+            }
+
+            templateManager.loadTemplates(viewFilePaths);
+        }
     }
 
     /**
