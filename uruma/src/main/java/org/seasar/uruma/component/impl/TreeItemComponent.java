@@ -88,7 +88,7 @@ public class TreeItemComponent extends AbstractUIComponent {
      */
     @Override
     protected void doRender(final WidgetHandle parent, final PartContext context) {
-        renderChildren(getWidgetHandle(), context);
+        renderChildren(context.getWidgetHandle(getId()), context);
     }
 
     protected void renderChildren(final WidgetHandle parent,

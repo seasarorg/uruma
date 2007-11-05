@@ -73,24 +73,6 @@ public interface UIComponent extends UIElement {
     public UIContainer getParent();
 
     /**
-     * 本コンポーネントに対応する {@link WidgetHandle} を取得します。<br />
-     * <p>
-     * {@link WidgetHandle} が設定されていない場合は、<code>null</code> を返します。<br />
-     * </p>
-     * 
-     * @return {@link WidgetHandle} オブジェクト
-     */
-    public WidgetHandle getWidgetHandle();
-
-    /**
-     * 本コンポーネントに対応する {@link WidgetHandle} を設定します。<br />
-     * 
-     * @param handle
-     *            {@link WidgetHandle} オブジェクト
-     */
-    public void setWidgetHandle(WidgetHandle handle);
-
-    /**
      * レンダラを取得します。
      * 
      * @return レンダラオブジェクト

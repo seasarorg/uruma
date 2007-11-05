@@ -70,7 +70,9 @@ public abstract class AbstractUIContainerItemComponent extends
     protected void doRender(final WidgetHandle parent, final PartContext context) {
         UIComponent content = getChild();
         if (content != null) {
-            content.render(getParent().getWidgetHandle(), context);
+            WidgetHandle parentHandle = context.getWidgetHandle(getParent()
+                    .getId());
+            content.render(parentHandle, context);
         }
     }
 }

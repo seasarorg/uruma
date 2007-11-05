@@ -75,7 +75,8 @@ public class CTabItemRenderer extends
             final CTabItemComponent tabItemComponent) {
         List<UIComponent> children = tabItemComponent.getChildren();
         if (children.size() > 0) {
-            WidgetHandle handle = children.get(0).getWidgetHandle();
+            WidgetHandle handle = getContext().getWidgetHandle(
+                    children.get(0).getId());
             tabItem.setControl((Control) handle.getWidget());
         }
     }

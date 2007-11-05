@@ -18,6 +18,7 @@ package org.seasar.uruma.component.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
@@ -147,8 +148,22 @@ public class MenuComponent extends MenuItemComponent implements UIContainer {
     @Override
     protected void doPreRender(final WidgetHandle parent,
             final WindowContext context) {
+        UIContainer parentComponent = getParent();
+
+        if (parentComponent instanceof WindowComponent) {
+            WindowComponent windowComponent = (WindowComponent) parentComponent;
+            if (StringUtil.isEmpty(windowComponent.getMenu())) {
+                windowComponent.setMenu(getId());
+            }
+        } else if (parentComponent instanceof WorkbenchComponent) {
+            WorkbenchComponent workbench = (WorkbenchComponent) parentComponent;
+            if (StringUtil.isEmpty(workbench.menu)) {
+                workbench.menu = getId();
+            }
+        }
+
         for (UIComponent uiComponent : children) {
-            uiComponent.preRender(getWidgetHandle(), context);
+            uiComponent.preRender(context.getWidgetHandle(getId()), context);
         }
     }
 }

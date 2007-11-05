@@ -57,7 +57,7 @@ public class TabItemRenderer extends
             final TabItemComponent tabItemComponent) {
         UIComponent content = tabItemComponent.getChild();
         if (content != null) {
-            WidgetHandle handle = content.getWidgetHandle();
+            WidgetHandle handle = getContext().getWidgetHandle(content.getId());
             if (handle.instanceOf(Control.class)) {
                 Control control = handle.<Control> getCastWidget();
                 tabItem.setControl(control);

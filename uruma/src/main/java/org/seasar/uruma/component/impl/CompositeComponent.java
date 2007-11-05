@@ -112,7 +112,7 @@ public class CompositeComponent extends ControlComponent implements
     @Override
     protected void doPreRender(final WidgetHandle parent,
             final WindowContext context) {
-        preRenderChild(getWidgetHandle(), context);
+        preRenderChild(context.getWidgetHandle(getId()), context);
     }
 
     /*
@@ -121,7 +121,7 @@ public class CompositeComponent extends ControlComponent implements
      */
     @Override
     protected void doRender(final WidgetHandle parent, final PartContext context) {
-        renderChild(getWidgetHandle(), context);
+        renderChild(context.getWidgetHandle(getId()), context);
     }
 
     /**

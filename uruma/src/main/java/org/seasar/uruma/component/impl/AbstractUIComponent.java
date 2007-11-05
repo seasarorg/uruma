@@ -42,8 +42,6 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     private Renderer renderer;
 
-    private WidgetHandle widgetHandle;
-
     /**
      * レンダラ呼び出し中に独自のレンダリング処理を追加するためのメソッドです。<br />
      * <p>
@@ -96,14 +94,11 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
             logger.log(UrumaMessageCodes.PRE_RENDER_START, this);
         }
 
+        setupId();
+
         WidgetHandle handle = getRenderer().preRender(this, parent, context);
-
         if (handle != null) {
-            setWidgetHandle(handle);
-
-            if (handle.getId() != null) {
-                context.putWidgetHandle(handle);
-            }
+            context.putWidgetHandle(handle);
         }
 
         doPreRender(parent, context);
@@ -122,16 +117,11 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
             logger.log(UrumaMessageCodes.RENDER_START, this);
         }
 
+        setupId();
+
         WidgetHandle handle = getRenderer().render(this, parent, context);
-
         if (handle != null) {
-            if (getWidgetHandle() == null) {
-                setWidgetHandle(handle);
-
-                if (handle.getId() != null) {
-                    context.putWidgetHandle(handle);
-                }
-            }
+            context.putWidgetHandle(handle);
         }
 
         doRender(parent, context);
@@ -172,13 +162,6 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
     }
 
     /*
-     * @see org.seasar.uruma.component.UIComponent#getWidgetHandle()
-     */
-    public WidgetHandle getWidgetHandle() {
-        return this.widgetHandle;
-    }
-
-    /*
      * @see org.seasar.uruma.component.UIComponent#setId(java.lang.String)
      */
     public void setId(final String id) {
@@ -207,11 +190,9 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         this.style = style;
     }
 
-    /*
-     * @see org.seasar.uruma.component.UIComponent#setWidgetHandle(org.seasar.uruma.context.WidgetHandle)
-     */
-    public void setWidgetHandle(final WidgetHandle handle) {
-        AssertionUtil.assertNotNull("widgetHandle", handle);
-        this.widgetHandle = handle;
+    private void setupId() {
+        if (this.id == null) {
+            setId(getClass().getName() + "@" + Integer.toHexString(hashCode()));
+        }
     }
 }

@@ -107,15 +107,6 @@ public class UrumaConstants {
     public static final String MENU_BAR_MANAGER_CID = "menuBarManager";
 
     /**
-     * ID の設定されていない <code>menu</code> 要素にデフォルトで割り当てられる ID です。
-     * <dl>
-     * <dt><b>値 :</b></dt>
-     * <dd>{@value}</dd>
-     * </dl>
-     */
-    public static final String DEFAULT_MENU_CID = "defaultMenu";
-
-    /**
      * {@link IStatusLineManager} が登録される ID です。
      * <dl>
      * <dt><b>値 :</b></dt>

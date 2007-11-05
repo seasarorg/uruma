@@ -48,8 +48,8 @@ public class TemplateManagerImpl implements TemplateManager {
      */
     public Template getTemplate(final String path) {
         // TODO キャッシュ機構に問題があるため、いったん無効。Template のコピーを返す必要がある。
-        // Template template = templateCache.get(path);
-        Template template = null;
+        Template template = templateCache.get(path);
+        // Template template = null;
         if (template == null) {
             logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_FILE, path);
 

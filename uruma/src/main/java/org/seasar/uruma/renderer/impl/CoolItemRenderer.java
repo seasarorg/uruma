@@ -54,7 +54,8 @@ public class CoolItemRenderer extends
             final CoolItemComponent coolItemComponent) {
         List<UIComponent> children = coolItemComponent.getChildren();
         if (children.size() > 0) {
-            WidgetHandle handle = children.get(0).getWidgetHandle();
+            WidgetHandle handle = getContext().getWidgetHandle(
+                    children.get(0).getId());
             coolItem.setControl((Control) handle.getWidget());
         }
     }

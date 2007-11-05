@@ -63,10 +63,7 @@ public class UrumaActionBarAdvisor extends ActionBarAdvisor {
         if (StringUtil.isNotBlank(workbench.menu)) {
             handle = context.getWidgetHandle(workbench.menu);
         } else {
-            handle = context.getWidgetHandle(UrumaConstants.DEFAULT_MENU_CID);
-            if (handle == null) {
-                return;
-            }
+            return;
         }
 
         if (handle != null) {

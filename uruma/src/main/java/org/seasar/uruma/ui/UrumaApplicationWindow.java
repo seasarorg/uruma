@@ -210,13 +210,7 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
     }
 
     protected void setupMenuBar() {
-        String menuId = windowComponent.getMenu();
-        WindowContext windowContext = partContext.getWindowContext();
-        if (StringUtil.isNotBlank(menuId)) {
-            addMenuBar();
-        } else if (windowContext
-                .hasWidgetHandle(UrumaConstants.DEFAULT_MENU_CID)) {
-            windowComponent.setMenu(UrumaConstants.DEFAULT_MENU_CID);
+        if (StringUtil.isNotBlank(windowComponent.getMenu())) {
             addMenuBar();
         }
     }

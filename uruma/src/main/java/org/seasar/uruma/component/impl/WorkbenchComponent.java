@@ -90,6 +90,7 @@ public class WorkbenchComponent extends AbstractUIElement implements
     public void addChild(final UIComponent child) {
         AssertionUtil.assertNotNull("child", child);
         children.add(child);
+        child.setParent(this);
     }
 
     /*
