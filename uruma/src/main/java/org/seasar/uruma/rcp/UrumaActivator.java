@@ -16,6 +16,8 @@
 package org.seasar.uruma.rcp;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.internal.registry.ExtensionRegistry;
 import org.eclipse.core.runtime.ContributorFactoryOSGi;
@@ -32,6 +34,7 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.impl.ViewPartComponent;
 import org.seasar.uruma.component.impl.WorkbenchComponent;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.ContextFactory;
@@ -42,6 +45,11 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.ViewTemplateLoader;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.rcp.configuration.ContributionBuilder;
+import org.seasar.uruma.rcp.configuration.Extension;
+import org.seasar.uruma.rcp.configuration.ExtensionPoints;
+import org.seasar.uruma.rcp.configuration.impl.ViewElement;
+import org.seasar.uruma.rcp.ui.GenericViewPart;
 
 /**
  * Uruma RCP アプリケーションのためのアクティベータです。<br />
@@ -86,50 +94,40 @@ public class UrumaActivator extends AbstractUIPlugin {
         initS2Container();
         registComponentsToS2Container();
 
-        Template template = getTemplate(UrumaConstants.DEFAULT_WORKBENCH_XML);
-        if (!(template.getRootComponent() instanceof WorkbenchComponent)) {
+        Template workbenchTemplate = getTemplate(UrumaConstants.DEFAULT_WORKBENCH_XML);
+        if (!(workbenchTemplate.getRootComponent() instanceof WorkbenchComponent)) {
             throw new NotFoundException(
-                    UrumaMessageCodes.WORKBENCH_ELEMENT_NOT_FOUND, template
-                            .getBasePath());
+                    UrumaMessageCodes.WORKBENCH_ELEMENT_NOT_FOUND,
+                    workbenchTemplate.getBasePath());
         }
         applicationContext.setValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME,
-                template);
+                workbenchTemplate);
         this.windowContext = ContextFactory.createWindowContext(
                 applicationContext, UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
 
         templateLoader.loadViewTemplates();
-        // --------------------------------------------------------------------
 
-        // URL localUrl = RcpResourceUtil
-        // .getLocalResourceUrl(UrumaConstants.DEFAULT_WORKBENCH_XML);
-        // logger.info("Protcol = " + localUrl.getProtocol());
-        // logger.info("Path = " + localUrl.getPath());
-        //
-        // File localFile = new File(localUrl.getPath());
-        // File baseDir = new File(localFile.getParent() + UrumaConstants.SLASH
-        // + UrumaConstants.DEFAULT_VIEWS_PATH);
-        //
-        // if (logger.isInfoEnabled()) {
-        // logger.log(UrumaMessageCodes.FINDING_XML_START, baseDir
-        // .getAbsolutePath());
-        // }
-        //
-        // List<File> viewFiles = RcpResourceUtil.findFileResources(baseDir,
-        // new ExtFileFilter("xml"));
-        //
-        // if (logger.isInfoEnabled()) {
-        // for (File file : viewFiles) {
-        // logger.info(file.getAbsolutePath());
-        // }
-        // }
-        //
-        // // 現在のプラグインのパスを取得
-        // URL entryUrl =
-        // UrumaActivator.getInstance().getBundle().getEntry("/");
-        // URL nativeUrl = FileLocator.resolve(entryUrl);
-        //
-        // logger.info("Protcol = " + nativeUrl.getProtocol());
-        // logger.info("Path = " + nativeUrl.getPath());
+        List<Template> viewTemplates = templateManager
+                .getTemplates(ViewPartComponent.class);
+        Extension viewExtension = new Extension(ExtensionPoints.VIEWS);
+
+        for (Template template : viewTemplates) {
+            ViewPartComponent component = (ViewPartComponent) template
+                    .getRootComponent();
+            ViewElement element = new ViewElement();
+            element.id = "org.seasar.uruma.example.filemanager."
+                    + component.getId();
+            element.className = GenericViewPart.class.getName();
+            element.name = component.title;
+
+            viewExtension.addConfigurationElement(element);
+        }
+
+        List<Extension> extensions = new ArrayList<Extension>();
+        extensions.add(viewExtension);
+        ContributionBuilder.build(getBundle(), extensions);
+
+        test2();
     }
 
     /**
@@ -283,7 +281,10 @@ public class UrumaActivator extends AbstractUIPlugin {
         // ConfigurationElement element = factory
         // .createConfigurationElement(-1, viewContributor.getActualId(),
         // "view", props ,new int[0], 0x80000000, );
+    }
 
+    private void test2() {
+        IExtensionRegistry registry = Platform.getExtensionRegistry();
         IExtensionPoint extensionPoint = registry
                 .getExtensionPoint("org.eclipse.ui.views");
         IExtension[] extensions = extensionPoint.getExtensions();
@@ -303,16 +304,16 @@ public class UrumaActivator extends AbstractUIPlugin {
             for (IConfigurationElement configurationElement : configurationElements) {
                 IContributor contributor = configurationElement
                         .getContributor();
-                System.out.println("ContributorClass = "
+                System.out.println("  ContributorClass = "
                         + contributor.getClass().getName());
-                System.out
-                        .println("ContributorName = " + contributor.getName());
-                System.out.println("ConfigurationElementClass = "
+                System.out.println("  ContributorName = "
+                        + contributor.getName());
+                System.out.println("  ConfigurationElementClass = "
                         + configurationElement.getClass().getName());
 
                 String[] attrs = configurationElement.getAttributeNames();
                 for (String string : attrs) {
-                    System.out.println(string + "="
+                    System.out.println("    " + string + "="
                             + configurationElement.getAttribute(string));
                 }
             }

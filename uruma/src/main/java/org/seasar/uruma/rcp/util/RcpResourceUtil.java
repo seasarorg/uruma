@@ -80,6 +80,7 @@ public class RcpResourceUtil {
      */
     public static List<File> findResources(final URL basePath,
             final String relativePath, final FileFilter filter) {
+        // TODO 使わない可能性が高いのであとで削除を検討
         if (PROTCOL_FILE.equals(basePath.getProtocol())) {
             String path = basePath.getPath() + SLASH + relativePath;
             File dir = new File(path);

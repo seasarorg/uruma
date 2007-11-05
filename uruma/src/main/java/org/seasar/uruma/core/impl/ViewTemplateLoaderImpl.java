@@ -58,6 +58,7 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader {
         URL localUrl = RcpResourceUtil
                 .getLocalResourceUrl(UrumaConstants.DEFAULT_WORKBENCH_XML);
 
+        // TODO プロトコル毎にクラスを分けて整理する
         if (UrumaConstants.PROTCOL_FILE.equals(localUrl.getProtocol())) {
             File localFile = new File(localUrl.getPath());
             File baseDir = new File(localFile.getParent()

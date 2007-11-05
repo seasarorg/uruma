@@ -501,6 +501,15 @@ public interface UrumaMessageCodes {
      */
     public static final String FINDING_XML_START = "IURM0503";
 
+    /**
+     * バンドルへのコントリビューション生成時のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String CREATE_CONTRIBUTION = "DURM0504";
+
     // -------------------------------------------------------------------------
     // システムデバッグログ関連メッセージコード (99xx)
     // -------------------------------------------------------------------------
