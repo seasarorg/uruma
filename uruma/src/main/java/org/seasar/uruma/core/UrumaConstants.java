@@ -30,16 +30,37 @@ import org.seasar.uruma.rcp.UrumaActivator;
 public class UrumaConstants {
     /**
      * 空文字列を表す定数です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String NULL_STRING = "";
 
     /**
+     * スラッシュ (/) を表す定数です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String SLASH = "/";
+
+    /**
      * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパスです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String URUMA_DICON_PATH = "uruma.dicon";
 
     /**
      * デフォルトのイメージバンドル名称です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String DEFAULT_IMAGE_BUNDLE_PATH = "urumaImages";
 
@@ -48,21 +69,37 @@ public class UrumaConstants {
     // -------------------------------------------------------------------------
     /**
      * 自ウィンドウのShellオブジェクトが登録されるIDです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String SHELL_CID = "shell";
 
     /**
      * メニューバー用の {@link IMenuManager} が登録される ID です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String MENU_BAR_MANAGER_CID = "menuBarManager";
 
     /**
      * ID の設定されていない <code>menu</code> 要素にデフォルトで割り当てられる ID です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String DEFAULT_MENU_CID = "defaultMenu";
 
     /**
      * {@link IStatusLineManager} が登録される ID です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String STATUS_LINE_MANAGER_CID = "statusLineManager";
 
@@ -71,37 +108,75 @@ public class UrumaConstants {
     // -------------------------------------------------------------------------
     /**
      * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパスです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String URUMA_RCP_DICON_PATH = "urumaRcp.dicon";
 
     /**
      * {@link UrumaActivator} を登録時のコンポーネント名称です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String URUMA_PLUGIN_S2NAME = "urumaPlugin";
 
     /**
      * ワークベンチに関する画面定義を記述した XML のデフォルトパスです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String DEFAULT_WORKBENCH_XML = "workbench.xml";
 
     /**
+     * RCP 環境における画面定義 XML のデフォルト格納先パス({@link #DEFAULT_WORKBENCH_XML}
+     * からの相対パス)です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String DEFAULT_VIEWS_PATH = "views";
+
+    /**
      * ワークベンチの {@link Template} を {@link ApplicationContext} へ登録する際の名称です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String WORKBENCH_TEMPLATE_NAME = "workbenchTemplate";
 
     /**
      * ワークベンチウィンドウに対応する {@link WindowContext} の名称です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String WORKBENCH_WINDOW_CONTEXT_ID = "workbenchWindow";
 
     /**
      * <code>workbench</code> 要素で <code>initWidth</code> 属性が未指定の場合のデフォルト値です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String DEFAULT_WORKBENCH_WIDTH = "30%";
 
     /**
      * <code>workbench</code> 要素で <code>initHeight</code>
      * 属性が未指定の場合のデフォルト値です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
      */
     public static final String DEFAULT_WORKBENCH_HEIGHT = "30%";
 }
