@@ -23,11 +23,11 @@ import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.rcp.UrumaActivator;
 
 /**
- * Uruma で利用する定数を保持するクラスです。</br>
+ * Uruma で利用する定数を保持するインターフェースです。</br>
  * 
  * @author y-komori
  */
-public class UrumaConstants {
+public interface UrumaConstants {
     /**
      * 空文字列を表す定数です。<br />
      * <dl>
