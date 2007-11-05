@@ -27,6 +27,12 @@ public class PathUtil {
 
     }
 
+    private static final String YEN_SIGN = "\\";
+
+    private static final String SLASH = "/";
+
+    private static final String NULL_STRING = "";
+
     /**
      * 与えられた基準パスと相対パスから絶対パスを生成します。</br>
      * <ul>
@@ -66,11 +72,38 @@ public class PathUtil {
         return path;
     }
 
-    protected static String replaceSeparator(final String path) {
+    /**
+     * セパレータを「\」から「/」へ変換します。<br />
+     * 
+     * @param path
+     *            パス
+     * @return 変換後のパス
+     */
+    public static String replaceSeparator(final String path) {
         if (path != null) {
-            return StringUtil.replace(path, "\\", "/");
+            return StringUtil.replace(path, YEN_SIGN, SLASH);
         } else {
-            return "";
+            return NULL_STRING;
+        }
+    }
+
+    /**
+     * 与えられたパスのベースパスを基準とした相対パスを返します。<br />
+     * 
+     * @param basePath
+     *            ベースパス
+     * @param path
+     *            パス
+     */
+    public static String getRelativePath(final String basePath,
+            final String path) {
+        AssertionUtil.assertNotNull("basePath", basePath);
+        AssertionUtil.assertNotNull("path", path);
+
+        if (path.startsWith(basePath)) {
+            return path.substring(basePath.length(), path.length());
+        } else {
+            return path;
         }
     }
 }

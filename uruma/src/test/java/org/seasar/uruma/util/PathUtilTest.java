@@ -23,26 +23,53 @@ import junit.framework.TestCase;
  * @author y-komori
  */
 public class PathUtilTest extends TestCase {
+    /**
+     * {@link PathUtil#createPath(String, String)} メソッドのテストです。<br />
+     */
     public void testCreatePath() {
-        assertEquals("1", "org/seasar/jface/util/PathUtil.java", PathUtil
-                .createPath("org/seasar/jface/util", "PathUtil.java"));
+        assertEquals("1", "org/seasar/uruma/util/PathUtil.java", PathUtil
+                .createPath("org/seasar/uruma/util", "PathUtil.java"));
 
-        assertEquals("2", "org/seasar/jface/util/PathUtil.java", PathUtil
-                .createPath("org/seasar/jface/util/", "PathUtil.java"));
+        assertEquals("2", "org/seasar/uruma/util/PathUtil.java", PathUtil
+                .createPath("org/seasar/uruma/util/", "PathUtil.java"));
 
-        assertEquals("3", "org/seasar/jface/util/PathUtil.java", PathUtil
-                .createPath("", "org/seasar/jface/util/PathUtil.java"));
+        assertEquals("3", "org/seasar/uruma/util/PathUtil.java", PathUtil
+                .createPath("", "org/seasar/uruma/util/PathUtil.java"));
 
-        assertEquals("4", "org/seasar/jface/util/PathUtil.java", PathUtil
-                .createPath("org/seasar/jface/util",
-                        "org/seasar/jface/util/PathUtil.java"));
+        assertEquals("4", "org/seasar/uruma/util/PathUtil.java", PathUtil
+                .createPath("org/seasar/uruma/util",
+                        "org/seasar/uruma/util/PathUtil.java"));
 
-        assertEquals("5", "/org/seasar/jface/abc/PathUtil.java", PathUtil
-                .createPath("org/seasar/jface/util",
-                        "/org/seasar/jface/abc/PathUtil.java"));
+        assertEquals("5", "/org/seasar/uruma/abc/PathUtil.java", PathUtil
+                .createPath("org/seasar/uruma/util",
+                        "/org/seasar/uruma/abc/PathUtil.java"));
 
-        assertEquals("6", "org/seasar/jface/util/../template/PathUtil.java",
-                PathUtil.createPath("org/seasar/jface/util",
+        assertEquals("6", "org/seasar/uruma/util/../template/PathUtil.java",
+                PathUtil.createPath("org/seasar/uruma/util",
                         "../template/PathUtil.java"));
+    }
+
+    /**
+     * {@link PathUtil#replaceSeparator(String)} メソッドのテストです。<br />
+     */
+    public void testReplaceSeparator() {
+        assertEquals("1", "abc/def/ghi", PathUtil
+                .replaceSeparator("abc\\def\\ghi"));
+
+        assertEquals("2", "", PathUtil.replaceSeparator(null));
+    }
+
+    /**
+     * {@link PathUtil#getRelativePath(String, String)} メソッドのテストです。<br />
+     */
+    public void testGetRelativePath() {
+        assertEquals("1", "seasar", PathUtil.getRelativePath("c:/org/",
+                "c:/org/seasar"));
+
+        assertEquals("2", "seasar/uruma", PathUtil.getRelativePath("c:/org/",
+                "c:/org/seasar/uruma"));
+
+        assertEquals("3", "c:/org/seasar/uruma", PathUtil.getRelativePath(
+                "c:/org/seasar/framework", "c:/org/seasar/uruma"));
     }
 }
