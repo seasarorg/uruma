@@ -15,7 +15,6 @@
  */
 package org.seasar.uruma.core;
 
-import java.io.File;
 import java.util.List;
 
 import org.seasar.uruma.component.Template;
@@ -39,10 +38,10 @@ public interface TemplateManager {
     /**
      * 指定されたパスの画面定義 XML を一括読み込みします。<br />
      * 
-     * @param files
-     *            画面定義 XML のパス
+     * @param pathList
+     *            画面定義 XML のパスリスト
      */
-    public void loadTemplates(List<File> files);
+    public void loadTemplates(List<String> pathList);
 
     /**
      * 指定されたタイプのルートコンポーネントを持つ {@link Template} のリストを返します。<br />

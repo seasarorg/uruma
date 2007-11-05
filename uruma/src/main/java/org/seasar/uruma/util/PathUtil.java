@@ -31,6 +31,8 @@ public class PathUtil {
 
     private static final String SLASH = "/";
 
+    private static final char SLASH_CHAR = '/';
+
     private static final String NULL_STRING = "";
 
     /**
@@ -57,14 +59,14 @@ public class PathUtil {
         basePath = replaceSeparator(basePath);
         relPath = replaceSeparator(relPath);
         String path = "";
-        if (relPath.charAt(0) == '/') {
-            basePath = "";
+        if (relPath.charAt(0) == SLASH_CHAR) {
+            basePath = NULL_STRING;
         }
         if (!StringUtil.isEmpty(basePath)) {
             if (!relPath.startsWith(basePath)) {
                 path += basePath;
-                if (!path.endsWith("/")) {
-                    path += "/";
+                if (!path.endsWith(SLASH)) {
+                    path += SLASH;
                 }
             }
         }
@@ -104,6 +106,47 @@ public class PathUtil {
             return path.substring(basePath.length(), path.length());
         } else {
             return path;
+        }
+    }
+
+    /**
+     * 指定されたパスの親ディレクトリ部分を返します。<br />
+     * セパレータは \ と / の両方を認識します。<br />
+     * 混在している場合は、より後ろの方を区切りとします。<br />
+     * 
+     * @param path
+     *            パス
+     * @return 親ディレクトリ部分
+     */
+    public static String getParent(final String path) {
+        if (path != null) {
+            int slashIndex = path.lastIndexOf(SLASH);
+            int yenIndex = path.lastIndexOf(YEN_SIGN);
+            int pos = (slashIndex > yenIndex) ? slashIndex : yenIndex;
+            return path.substring(0, pos);
+
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 指定されたパスのファイル名部分を返します。<br />
+     * セパレータは \ と / の両方を認識します。<br />
+     * 混在している場合は、より後ろの方を区切りとします。<br />
+     * 
+     * @param path
+     *            パス
+     * @return ファイル名部分
+     */
+    public static String getFileName(final String path) {
+        if (path != null) {
+            int slashIndex = path.lastIndexOf(SLASH);
+            int yenIndex = path.lastIndexOf(YEN_SIGN);
+            int pos = (slashIndex > yenIndex) ? slashIndex : yenIndex;
+            return path.substring(pos + 1, path.length());
+        } else {
+            return null;
         }
     }
 }

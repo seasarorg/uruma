@@ -18,6 +18,7 @@ package org.seasar.uruma.core.impl;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.framework.container.annotation.tiger.Binding;
@@ -29,6 +30,7 @@ import org.seasar.uruma.core.ViewTemplateLoader;
 import org.seasar.uruma.core.io.ExtFileFilter;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.util.RcpResourceUtil;
+import org.seasar.uruma.util.PathUtil;
 
 /**
  * {@link ViewTemplateLoader} の実装クラスです。<br />
@@ -60,10 +62,19 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader {
                         .getAbsolutePath());
             }
 
-            List<File> viewFiles = RcpResourceUtil.findFileResources(baseDir,
+            List<File> pathList = RcpResourceUtil.findFileResources(baseDir,
                     new ExtFileFilter("xml"));
 
-            templateManager.loadTemplates(viewFiles);
+            String localBasePath = PathUtil.getParent(localFile
+                    .getAbsolutePath());
+            List<String> viewFilePaths = new ArrayList<String>(pathList.size());
+            for (File file : pathList) {
+                String path = PathUtil.getRelativePath(localBasePath, file
+                        .getAbsolutePath());
+                viewFilePaths.add(PathUtil.replaceSeparator(path));
+            }
+
+            templateManager.loadTemplates(viewFilePaths);
         }
 
     }

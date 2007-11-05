@@ -16,13 +16,9 @@
 package org.seasar.uruma.rcp;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.net.URL;
-import java.util.List;
 
 import org.eclipse.core.internal.registry.ExtensionRegistry;
 import org.eclipse.core.runtime.ContributorFactoryOSGi;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtension;
@@ -43,10 +39,9 @@ import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
-import org.seasar.uruma.core.io.ExtFileFilter;
+import org.seasar.uruma.core.ViewTemplateLoader;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.rcp.util.RcpResourceUtil;
 
 /**
  * Uruma RCP アプリケーションのためのアクティベータです。<br />
@@ -62,6 +57,8 @@ public class UrumaActivator extends AbstractUIPlugin {
     private S2Container container;
 
     private TemplateManager templateManager;
+
+    private ViewTemplateLoader templateLoader;
 
     private ApplicationContext applicationContext;
 
@@ -100,37 +97,39 @@ public class UrumaActivator extends AbstractUIPlugin {
         this.windowContext = ContextFactory.createWindowContext(
                 applicationContext, UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
 
+        templateLoader.loadViewTemplates();
         // --------------------------------------------------------------------
 
-        URL localUrl = RcpResourceUtil
-                .getLocalResourceUrl(UrumaConstants.DEFAULT_WORKBENCH_XML);
-        logger.info("Protcol = " + localUrl.getProtocol());
-        logger.info("Path = " + localUrl.getPath());
-
-        File localFile = new File(localUrl.getPath());
-        File baseDir = new File(localFile.getParent() + UrumaConstants.SLASH
-                + UrumaConstants.DEFAULT_VIEWS_PATH);
-
-        if (logger.isInfoEnabled()) {
-            logger.log(UrumaMessageCodes.FINDING_XML_START, baseDir
-                    .getAbsolutePath());
-        }
-
-        List<File> viewFiles = RcpResourceUtil.findFileResources(baseDir,
-                new ExtFileFilter("xml"));
-
-        if (logger.isInfoEnabled()) {
-            for (File file : viewFiles) {
-                logger.info(file.getAbsolutePath());
-            }
-        }
-
-        // 現在のプラグインのパスを取得
-        URL entryUrl = UrumaActivator.getInstance().getBundle().getEntry("/");
-        URL nativeUrl = FileLocator.resolve(entryUrl);
-
-        logger.info("Protcol = " + nativeUrl.getProtocol());
-        logger.info("Path = " + nativeUrl.getPath());
+        // URL localUrl = RcpResourceUtil
+        // .getLocalResourceUrl(UrumaConstants.DEFAULT_WORKBENCH_XML);
+        // logger.info("Protcol = " + localUrl.getProtocol());
+        // logger.info("Path = " + localUrl.getPath());
+        //
+        // File localFile = new File(localUrl.getPath());
+        // File baseDir = new File(localFile.getParent() + UrumaConstants.SLASH
+        // + UrumaConstants.DEFAULT_VIEWS_PATH);
+        //
+        // if (logger.isInfoEnabled()) {
+        // logger.log(UrumaMessageCodes.FINDING_XML_START, baseDir
+        // .getAbsolutePath());
+        // }
+        //
+        // List<File> viewFiles = RcpResourceUtil.findFileResources(baseDir,
+        // new ExtFileFilter("xml"));
+        //
+        // if (logger.isInfoEnabled()) {
+        // for (File file : viewFiles) {
+        // logger.info(file.getAbsolutePath());
+        // }
+        // }
+        //
+        // // 現在のプラグインのパスを取得
+        // URL entryUrl =
+        // UrumaActivator.getInstance().getBundle().getEntry("/");
+        // URL nativeUrl = FileLocator.resolve(entryUrl);
+        //
+        // logger.info("Protcol = " + nativeUrl.getProtocol());
+        // logger.info("Path = " + nativeUrl.getPath());
     }
 
     /**
@@ -219,6 +218,8 @@ public class UrumaActivator extends AbstractUIPlugin {
     protected void registComponentsToS2Container() {
         this.templateManager = (TemplateManager) container
                 .getComponent(TemplateManager.class);
+        this.templateLoader = (ViewTemplateLoader) container
+                .getComponent(ViewTemplateLoader.class);
         this.applicationContext = (ApplicationContext) container
                 .getComponent(ApplicationContext.class);
 

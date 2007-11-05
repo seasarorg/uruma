@@ -15,7 +15,6 @@
  */
 package org.seasar.uruma.core.impl;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,9 +96,9 @@ public class TemplateManagerImpl implements TemplateManager {
     /*
      * @see org.seasar.uruma.core.TemplateManager#loadTemplates(java.util.List)
      */
-    public void loadTemplates(final List<File> files) {
-        for (File file : files) {
-            getTemplate(file.getAbsolutePath());
+    public void loadTemplates(final List<String> pathList) {
+        for (String path : pathList) {
+            getTemplate(path);
         }
     }
 }

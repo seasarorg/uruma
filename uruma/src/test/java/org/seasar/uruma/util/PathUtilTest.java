@@ -71,5 +71,67 @@ public class PathUtilTest extends TestCase {
 
         assertEquals("3", "c:/org/seasar/uruma", PathUtil.getRelativePath(
                 "c:/org/seasar/framework", "c:/org/seasar/uruma"));
+
+        try {
+            PathUtil.getRelativePath(null, "abc");
+            fail("4");
+        } catch (IllegalArgumentException ex) {
+            assertTrue(true);
+        }
+
+        try {
+            PathUtil.getRelativePath("abc", null);
+            fail("5");
+        } catch (IllegalArgumentException ex) {
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * {@link PathUtil#getParent(String)} メソッドのテストです。<br />
+     */
+    public void testGetParent() {
+        assertEquals("1", null, PathUtil.getParent(null));
+
+        assertEquals("2", "c:/org/seasar/uruma", PathUtil
+                .getParent("c:/org/seasar/uruma/test.java"));
+
+        assertEquals("3", "c:/org/seasar/uruma", PathUtil
+                .getParent("c:/org/seasar/uruma/"));
+
+        assertEquals("4", "c:\\org\\seasar\\uruma", PathUtil
+                .getParent("c:\\org\\seasar\\uruma\\test.java"));
+
+        assertEquals("5", "c:\\org\\seasar\\uruma", PathUtil
+                .getParent("c:\\org\\seasar\\uruma\\"));
+
+        assertEquals("6", "c:/org\\seasar/uruma", PathUtil
+                .getParent("c:/org\\seasar/uruma\\test.java"));
+
+        assertEquals("7", "c:\\org/seasar\\uruma", PathUtil
+                .getParent("c:\\org/seasar\\uruma/test.java"));
+    }
+
+    /**
+     * {@link PathUtil#getFileName(String)} メソッドのテストです。<br />
+     */
+    public void testGetFileName() {
+        assertEquals("1", null, PathUtil.getFileName(null));
+
+        assertEquals("2", "test.java", PathUtil
+                .getFileName("c:/org/seasar/uruma/test.java"));
+
+        assertEquals("3", "", PathUtil.getFileName("c:/org/seasar/uruma/"));
+
+        assertEquals("4", "test.java", PathUtil
+                .getFileName("c:\\org\\seasar\\uruma\\test.java"));
+
+        assertEquals("5", "", PathUtil.getFileName("c:\\org\\seasar\\uruma\\"));
+
+        assertEquals("6", "test.java", PathUtil
+                .getFileName("c:/org\\seasar/uruma\\test.java"));
+
+        assertEquals("7", "test.java", PathUtil
+                .getFileName("c:\\org/seasar\\uruma/test.java"));
     }
 }
