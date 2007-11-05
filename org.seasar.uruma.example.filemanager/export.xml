@@ -30,7 +30,11 @@
 		<copy file="${URUMA_SRC_JAR}" todir="${LIB_DIR}" />
 	</target>
 
-	<target name="clean_rcp" depends="copy_jar">
+	<target name="plugin_export" depends="copy_jar">
+		<pde.exportPlugins destination="${RCP_DEPLOY_DIR}" exportSource="true" exportType="directory" plugins="${PLUGIN_NAME}" useJARFormat="true" />
+	</target>
+
+	<target name="clean_rcp" depends="plugin_export">
 		<delete dir="${CONFIG_DIR}" />
 		<delete dir="${LOG_DIR}" />
 		<mkdir dir="${CONFIG_DIR}" />
@@ -38,11 +42,7 @@
 		<copy file="config.ini" todir="${CONFIG_DIR}" />
 	</target>
 
-	<target name="plugin_export" depends="clean_rcp">
-		<pde.exportPlugins destination="${RCP_DEPLOY_DIR}" exportSource="true" exportType="directory" plugins="${PLUGIN_NAME}" useJARFormat="true" />
-	</target>
-	
-	<target name="execute_rcp" depends="plugin_export">
-		<exec dir="${RCP_DEPLOY_DIR}" executable="eclipse.exe" vmlauncher="false" spawn="true"/>
+	<target name="execute_rcp" depends="clean_rcp">
+		<exec dir="${RCP_DEPLOY_DIR}" executable="eclipse.exe" vmlauncher="false" spawn="true" />
 	</target>
 </project>

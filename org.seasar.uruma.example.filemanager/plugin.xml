@@ -12,16 +12,14 @@
       </application>
    </extension>
    
-   <!--
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="org.seasar.uruma.example.fileman.Perspective"
+            class="org.seasar.uruma.example.filemanager.Perspective"
             id="org.seasar.uruma.example.fileman.perspective"
             name="Fileman Perspective">
       </perspective>
    </extension>
-   -->
    
    <!--
    <extension
