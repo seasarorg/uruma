@@ -110,6 +110,8 @@ public class PathUtilTest extends TestCase {
 
         assertEquals("7", "c:\\org/seasar\\uruma", PathUtil
                 .getParent("c:\\org/seasar\\uruma/test.java"));
+
+        assertEquals("8", "test", PathUtil.getParent("test"));
     }
 
     /**
@@ -133,5 +135,22 @@ public class PathUtilTest extends TestCase {
 
         assertEquals("7", "test.java", PathUtil
                 .getFileName("c:\\org/seasar\\uruma/test.java"));
+
+        assertEquals("8", "test", PathUtil.getFileName("test"));
+    }
+
+    /**
+     * {@link PathUtil#getBaseName(String)} メソッドのテストです。<br />
+     */
+    public void testGetBaseName() {
+        assertEquals("1", "test", PathUtil.getBaseName("test.txt"));
+
+        assertEquals("2", "test", PathUtil.getBaseName("test."));
+
+        assertEquals("3", "test", PathUtil.getBaseName("test"));
+
+        assertEquals("4", null, PathUtil.getBaseName(null));
+
+        assertEquals("5", "test.abc", PathUtil.getBaseName("test.abc.txt"));
     }
 }

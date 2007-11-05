@@ -33,6 +33,8 @@ public class PathUtil {
 
     private static final char SLASH_CHAR = '/';
 
+    private static final String PERIOD = ".";
+
     private static final String NULL_STRING = "";
 
     /**
@@ -123,8 +125,11 @@ public class PathUtil {
             int slashIndex = path.lastIndexOf(SLASH);
             int yenIndex = path.lastIndexOf(YEN_SIGN);
             int pos = (slashIndex > yenIndex) ? slashIndex : yenIndex;
-            return path.substring(0, pos);
-
+            if (pos >= 0) {
+                return path.substring(0, pos);
+            } else {
+                return path;
+            }
         } else {
             return null;
         }
@@ -145,6 +150,21 @@ public class PathUtil {
             int yenIndex = path.lastIndexOf(YEN_SIGN);
             int pos = (slashIndex > yenIndex) ? slashIndex : yenIndex;
             return path.substring(pos + 1, path.length());
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * ファイル名から拡張子を除いた部分を返します。<br />
+     * 
+     * @param fileName
+     *            フィル名
+     * @return 拡張子を除いた部分
+     */
+    public static String getBaseName(final String fileName) {
+        if (fileName != null) {
+            return StringUtil.substringFromLast(fileName, PERIOD);
         } else {
             return null;
         }
