@@ -33,14 +33,14 @@ public class ComponentTreeBuilderTest extends S2FrameworkTestCase {
     }
 
     /**
-     * 画面定義XMLのビルドに関するテスト。</br>
+     * 画面定義XMLのビルドに関するテストです。</br>
      */
     public void testBuild() {
-        Template template = builder
+        Template template1 = builder
                 .build(convertPath("org/seasar/uruma/component/factory/ComponentTreeBuilderTest.xml"));
 
-        assertNotNull(template);
+        assertNotNull("1", template1);
 
-        assertNotNull(template.getRootComponent());
+        assertNotNull("2", template1.getRootComponent());
     }
 }
