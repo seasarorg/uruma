@@ -26,11 +26,6 @@ import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
  * @author y-komori
  */
 public class WindowComponent extends CompositeComponent {
-    /**
-     * ID が設定されていない場合のデフォルト値
-     */
-    public static final String DEFAULT_ID = "defaultWindowId";
-
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("ウィンドウタイトル")
     private String title;
@@ -81,8 +76,6 @@ public class WindowComponent extends CompositeComponent {
      */
     public WindowComponent() {
         super();
-
-        setId(DEFAULT_ID);
     }
 
     /**

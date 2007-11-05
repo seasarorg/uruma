@@ -123,13 +123,9 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
         // プリレンダリング処理を実施
         component.preRender(null, windowContext);
 
-        if (!WindowComponent.DEFAULT_ID.equals(windowComponent.getId())) {
-            setupActionComponent();
-            setupFormComponent();
-
-            setupMenuBar();
-        }
-
+        setupActionComponent();
+        setupFormComponent();
+        setupMenuBar();
         setupShellStyle(component, modal);
         setupStatusLine();
     }

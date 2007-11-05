@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IStatusLineManager;
 import org.seasar.uruma.binding.enables.EnablesDependingDef;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.PartContext;
@@ -36,15 +34,6 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 public class WindowContextImpl extends AbstractWidgetHolder implements
         WindowContext {
-    /**
-     * {@link IMenuManager} の登録 ID です。
-     */
-    public static final String MENU_MANAGER_ID = "menuManager";
-
-    /**
-     * {@link IStatusLineManager} の登録 ID です。
-     */
-    public static final String STATUS_LINE_MANAGER_ID = "statusLineManager";
 
     private String windowName;
 

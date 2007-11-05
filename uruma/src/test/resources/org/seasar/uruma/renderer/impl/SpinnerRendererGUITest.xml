@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="spinnerRendererGUITest" title="SpinnerRendererGUITest"
-    defaultButtonId="okButton">
+  <window defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
@@ -16,11 +15,12 @@
       <spinner minimum="0" maximum="100" selection="10"
         toolTipText="ツールチップ\nテキスト" increment="5" />
 
-      <spinner style="BORDER, VERTICAL" minimum="0" maximum="100" selection="20"
-        increment="1" pageIncrement="10" background="BLUE" />
+      <spinner style="BORDER, VERTICAL" minimum="0" maximum="100"
+        selection="20" increment="1" pageIncrement="10"
+        background="BLUE" />
 
-      <spinner style="BORDER, VERTICAL" minimum="0" maximum="100" selection="66"
-        increment="10" pageIncrement="20" digits="2" />
+      <spinner style="BORDER, VERTICAL" minimum="0" maximum="100"
+        selection="66" increment="10" pageIncrement="20" digits="2" />
 
       <spinner style="BORDER, READ_ONLY" minimum="0" maximum="100"
         selection="50" toolTipText="読み取り専用" />

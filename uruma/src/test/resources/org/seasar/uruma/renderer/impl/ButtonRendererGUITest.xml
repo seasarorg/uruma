@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="ButtonRendererGUITest" title="ButtonRendererGUITest"
-    image="/images/component.gif" defaultButtonId="okButton"
+  <window image="/images/component.gif" defaultButtonId="okButton"
     style="TITLE">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
 
     <composite id="contents">
-      <gridData horizontalAlignment="FILL"/>
+      <gridData horizontalAlignment="FILL" />
       <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
         spacing="10">
       </rowLayout>
-      <commonAttributes fontHeight="20"/>
+      <commonAttributes fontHeight="20" />
 
       <composite>
         <rowLayout type="VERTICAL" spacing="10" />

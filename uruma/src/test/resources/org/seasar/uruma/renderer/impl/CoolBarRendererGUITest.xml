@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="CoolBarRendererGUITest" title="CoolBarRendererGUITest"
-    defaultButtonId="okButton">
+  <window defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
-    
+
     <coolBar wrapIndices="2, 4">
-      <commonAttributes fontHeight="12"/>
+      <commonAttributes fontHeight="12" />
 
       <coolItem>
         <toolBar>

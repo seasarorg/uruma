@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="groupRendererGUITest" title="GroupRendererGUITest"
-    defaultButtonId="okButton">
+  <window defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
@@ -17,10 +16,10 @@
         <rowLayout type="HORIZONTAL" marginWidth="10" marginHeight="10"
           spacing="10">
         </rowLayout>
-        
+
         <label text="ラベル" />
       </group>
-      
+
     </composite>
 
     <label style="SEPARATOR, HORIZONTAL" />

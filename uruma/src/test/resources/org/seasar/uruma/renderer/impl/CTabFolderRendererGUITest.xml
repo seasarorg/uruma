@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="CTabFolderRendererGUITest" title="CTabFolderRendererGUITest"
-    defaultButtonId="okButton">
+  <window defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
@@ -13,8 +12,8 @@
       <commonAttributes fontHeight="20" />
 
       <cTabFolder borderVisible="true" maximizeVisible="true"
-        minimizeVisible="true" maximized="true" mruVisible="true" simple="false"
-        selection="1">
+        minimizeVisible="true" maximized="true" mruVisible="true"
+        simple="false" selection="1">
         <rowData width="300" />
 
         <cTabItem text="tab1-1" />
@@ -23,8 +22,8 @@
         <cTabItem text="tab1-4" />
       </cTabFolder>
 
-      <cTabFolder marginHeight="10" marginWidth="10" selectionBackground="BLUE"
-        selectionForeground="WHITE">
+      <cTabFolder marginHeight="10" marginWidth="10"
+        selectionBackground="BLUE" selectionForeground="WHITE">
         <cTabItem text="画像" image="/images/container.gif" />
         <cTabItem text="ツールチップ" toolTipText="ツールチップ\nテキスト" />
         <cTabItem text="コントロール">

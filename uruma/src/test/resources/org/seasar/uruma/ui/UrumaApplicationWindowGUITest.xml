@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="urumaApplicationWindowGUITest" title="UrumaApplicationWindowGUITest"
-    width="50%" height="50%" x="center" y="middle"
+  <window width="50%" height="50%" x="center" y="middle"
     image="/images/container.gif">
 
     <gridLayout numColumns="1">

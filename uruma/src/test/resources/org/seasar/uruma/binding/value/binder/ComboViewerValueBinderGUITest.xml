@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="comboViewerValueBinderGUITest"
-    title="ComboViewerValueBinderGUITest" defaultButtonId="okButton">
+  <window defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL"
         grabExcessHorizontalSpace="true" />

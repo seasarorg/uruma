@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="treeViewerValueBinderGUITest" title="TreeViewerValueBinderGUITest"
-    defaultButtonId="okButton">
+  <window defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
@@ -17,7 +16,7 @@
       <commonAttributes fontHeight="10" />
 
       <tree id="tree1" style="MULTI, BORDER" toolTipText="ツールチップ\nテキスト" />
-      
+
       <text id="textArea"
         style="BORDER, MULTI, H_SCROLL, V_SCROLL, READ_ONLY">
         <gridData horizontalAlignment="FILL" heightHint="100"

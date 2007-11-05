@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="tableViewerRendererGUITest" title="TableViewerRendererGUITest"
-    defaultButtonId="okButton">
+  <window defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
@@ -15,7 +14,8 @@
       <table toolTipText="ツールチップ\nテキスト" headerVisible="true">
 
         <tableColumn text="カラム１" toolTipText="カラム１ツールチップ" width="80" />
-        <tableColumn text="イメージ" width="90" image="/images/container.gif" />
+        <tableColumn text="イメージ" width="90"
+          image="/images/container.gif" />
         <tableColumn text="リサイズ不可" width="80" resizable="false" />
         <tableColumn text="移動可能" width="80" moveable="true" />
 
@@ -31,9 +31,10 @@
 
       </table>
 
-      <table style="FULL_SELECTION, MULTI, H_SCROLL, V_SCROLL" headerVisible="true"
-        background="GREEN" foreground="RED" linesVisible="true" fontHeight="12"
-        fontName="ＭＳ 明朝" fontStyle="BOLD, ITALIC" selection="0, 2"
+      <table style="FULL_SELECTION, MULTI, H_SCROLL, V_SCROLL"
+        headerVisible="true" background="GREEN" foreground="RED"
+        linesVisible="true" fontHeight="12" fontName="ＭＳ 明朝"
+        fontStyle="BOLD, ITALIC" selection="0, 2"
         columnOrder="0,1,4,5,2,3" topIndex="2">
         <rowData height="70" />
 
@@ -55,7 +56,8 @@
       <table style="BORDER, FULL_SELECTION, MULTI, CHECK">
 
         <tableItem checked="true" text="チェック" />
-        <tableItem text="フォント" fontHeight="12" fontName="ＭＳ 明朝" fontStyle="BOLD, ITALIC"/>
+        <tableItem text="フォント" fontHeight="12" fontName="ＭＳ 明朝"
+          fontStyle="BOLD, ITALIC" />
         <tableItem text="色" background="GREEN" foreground="RED" />
         <tableItem checked="true" text="グレーチェック" grayed="true" />
         <tableItem text="イメージ" image="/images/container.gif" />

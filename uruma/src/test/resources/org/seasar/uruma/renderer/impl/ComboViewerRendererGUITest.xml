@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="comboViewerRendererGUITest" title="ComboViewerRendererGUITest" defaultButtonId="okButton">
+  <window defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
@@ -29,7 +29,7 @@
         <item text="Item3-2" />
         <item text="Item3-3" />
       </combo>
-      
+
       <combo style="DROP_DOWN" orientation="RIGHT_TO_LEFT">
         <item text="Item4-1" />
         <item text="Item4-2" />

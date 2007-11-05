@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window id="canvasRendererGUITest" title="CanvasRendererGUITest"
-    defaultButtonId="okButton">
+  <window defaultButtonId="okButton">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>
@@ -13,7 +12,7 @@
       <commonAttributes fontHeight="20" />
 
       <canvas id="canvas" style="BORDER" toolTipText="ツールチップ\nテキスト">
-        <rowData width="200" height="100"/>
+        <rowData width="200" height="100" />
       </canvas>
 
     </composite>
