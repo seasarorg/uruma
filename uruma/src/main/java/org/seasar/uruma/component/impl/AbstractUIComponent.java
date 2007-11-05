@@ -20,6 +20,7 @@ import org.seasar.uruma.component.UIContainer;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.renderer.Renderer;
@@ -192,7 +193,8 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     private void setupId() {
         if (this.id == null) {
-            setId(getClass().getName() + "@" + Integer.toHexString(hashCode()));
+            setId(getClass().getName() + UrumaConstants.AT_MARK
+                    + Integer.toHexString(hashCode()));
         }
     }
 }

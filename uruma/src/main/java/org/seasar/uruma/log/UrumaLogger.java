@@ -21,6 +21,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.seasar.framework.message.MessageFormatter;
+import org.seasar.uruma.core.UrumaConstants;
 
 /**
  * ログ出力を提供するクラスです。<br />
@@ -296,7 +297,7 @@ public final class UrumaLogger {
      */
     public static final String getObjectDescription(final Object obj) {
         if (obj != null) {
-            return obj.getClass().getName() + "@"
+            return obj.getClass().getName() + UrumaConstants.AT_MARK
                     + Integer.toHexString(obj.hashCode());
         } else {
             return "NULL";

@@ -47,6 +47,15 @@ public class UrumaConstants {
     public static final String SLASH = "/";
 
     /**
+     * アットマーク (@) を表す定数です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String AT_MARK = "@";
+
+    /**
      * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパスです。<br />
      * <dl>
      * <dt><b>値 :</b></dt>
