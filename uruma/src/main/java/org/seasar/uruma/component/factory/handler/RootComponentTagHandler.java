@@ -50,4 +50,20 @@ public class RootComponentTagHandler extends GenericTagHandler {
         Template template = (Template) context.peek();
         template.setRootComponent((UIContainer) uiElement);
     }
+
+    /*
+     * @see org.seasar.uruma.component.factory.handler.GenericTagHandler#enableAutoId()
+     */
+    @Override
+    protected boolean enableAutoId() {
+        return true;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.factory.handler.GenericTagHandler#enableAutoTitle()
+     */
+    @Override
+    protected boolean enableAutoTitle() {
+        return true;
+    }
 }

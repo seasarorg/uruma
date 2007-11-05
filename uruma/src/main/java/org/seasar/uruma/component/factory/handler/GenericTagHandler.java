@@ -18,6 +18,7 @@ package org.seasar.uruma.component.factory.handler;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIContainer;
@@ -29,6 +30,7 @@ import org.seasar.uruma.exception.ParseException;
 import org.seasar.uruma.renderer.Renderer;
 import org.seasar.uruma.renderer.RendererFactrory;
 import org.seasar.uruma.util.ClassUtil;
+import org.seasar.uruma.util.PathUtil;
 import org.xml.sax.Attributes;
 
 /**
@@ -60,6 +62,8 @@ public class GenericTagHandler extends UrumaTagHandler {
             final Attributes attributes) {
         UIElement uiElement = createUIElement(uiElementClass);
 
+        setPath(uiElement, context);
+
         setBasePath(uiElement, context);
 
         setLocation(uiElement, context);
@@ -71,6 +75,14 @@ public class GenericTagHandler extends UrumaTagHandler {
         }
 
         setParent(uiElement, context);
+
+        if (enableAutoId()) {
+            setupAutoId(uiElement);
+        }
+
+        if (enableAutoTitle()) {
+            setupAutoTitle(uiElement);
+        }
 
         context.push(uiElement);
     }
@@ -104,9 +116,24 @@ public class GenericTagHandler extends UrumaTagHandler {
      * @param context
      *            コンテクスト情報
      */
+    protected void setPath(final UIElement uiElement,
+            final TagHandlerContext context) {
+        uiElement.setPath((String) context
+                .getParameter(UrumaTagHandler.PARAM_PATH));
+    }
+
+    /**
+     * {@link UIElement} へXMLのベースパスを設定します。<br />
+     * 
+     * @param uiElement
+     *            {@link UIElement} オブジェクト
+     * @param context
+     *            コンテクスト情報
+     */
     protected void setBasePath(final UIElement uiElement,
             final TagHandlerContext context) {
-        uiElement.setBasePath((String) context.getParameter("basePath"));
+        uiElement.setBasePath((String) context
+                .getParameter(UrumaTagHandler.PARAM_BASE_PATH));
     }
 
     /**
@@ -210,5 +237,56 @@ public class GenericTagHandler extends UrumaTagHandler {
     @Override
     public String getElementPath() {
         return null;
+    }
+
+    protected void setupAutoId(final UIElement element) {
+        if (element instanceof UIComponent) {
+            UIComponent uiComponent = (UIComponent) element;
+            if (StringUtil.isEmpty(uiComponent.getId())) {
+                String fileName = PathUtil.getFileName(uiComponent.getPath());
+                String id = StringUtil.decapitalize(PathUtil
+                        .getBaseName(fileName));
+                uiComponent.setId(id);
+            }
+        }
+    }
+
+    /**
+     * ID の自動設定を有効にするかどうかを返します。<br />
+     * デフォルトでは <code>false</code> を返します。<br />
+     * 本機能を有効にする場合、サブクラスでオーバーライドして <code>true</code> を返してください。<br />
+     * 
+     * @return ID の自動設定を有効にするかどうか
+     */
+    protected boolean enableAutoId() {
+        return false;
+    }
+
+    protected void setupAutoTitle(final UIElement element) {
+        if (element instanceof UIComponent) {
+            UIComponent uiComponent = (UIComponent) element;
+            BeanDesc desc = BeanDescFactory.getBeanDesc(uiComponent.getClass());
+            if (desc.hasPropertyDesc("title")) {
+                PropertyDesc pd = desc.getPropertyDesc("title");
+
+                if (StringUtil.isEmpty((String) pd.getValue(uiComponent))) {
+                    String fileName = PathUtil.getFileName(uiComponent
+                            .getPath());
+                    String title = PathUtil.getBaseName(fileName);
+                    pd.setValue(uiComponent, title);
+                }
+            }
+        }
+    }
+
+    /**
+     * タイトルの自動設定を有効にするかどうかを返します。<br />
+     * デフォルトでは <code>false</code> を返します。<br />
+     * 本機能を有効にする場合、サブクラスでオーバーライドして <code>true</code> を返してください。<br />
+     * 
+     * @return タイトルの自動設定を有効にするかどうか
+     */
+    protected boolean enableAutoTitle() {
+        return false;
     }
 }

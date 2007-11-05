@@ -16,6 +16,7 @@
 package org.seasar.uruma.component.factory;
 
 import org.seasar.framework.xml.TagHandler;
+import org.seasar.framework.xml.TagHandlerContext;
 
 /**
  * XMLタグを処理するための基底クラスです。<br />
@@ -23,6 +24,16 @@ import org.seasar.framework.xml.TagHandler;
  * @author y-komori
  */
 public abstract class UrumaTagHandler extends TagHandler {
+    /**
+     * 画面定義テンプレートファイルのパスを表す {@link TagHandlerContext} のパラメータ名です。<br />
+     */
+    public static final String PARAM_PATH = "path";
+
+    /**
+     * 画面定義テンプレートファイルのベースパスを表す {@link TagHandlerContext} のパラメータ名です。<br />
+     */
+    public static final String PARAM_BASE_PATH = "basePath";
+
     /**
      * 要素のパスを返します。<br />
      * 

@@ -23,9 +23,25 @@ import org.seasar.uruma.component.UIElement;
  * @author y-komori
  */
 public abstract class AbstractUIElement implements UIElement {
+    private String path;
+
     private String basePath;
 
     private String location;
+
+    /*
+     * @see org.seasar.uruma.component.UIElement#getPath()
+     */
+    public String getPath() {
+        return this.path;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.UIElement#setPath(java.lang.String)
+     */
+    public void setPath(final String path) {
+        this.path = path;
+    }
 
     /*
      * @see org.seasar.uruma.component.UIElement#getBasePath()

@@ -81,6 +81,8 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
                 WindowComponent.class));
         addTagHandler("viewPart", new RootComponentTagHandler(
                 ViewPartComponent.class));
+        addTagHandler("workbench", new RootComponentTagHandler(
+                WorkbenchComponent.class));
 
         addTagHandler(new CommonAttributesTagHandler());
 
@@ -144,10 +146,6 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
                 new GenericTagHandler(MenuItemComponent.class));
         addTagHandler("separator", new GenericTagHandler(
                 SeparatorComponent.class));
-
-        // RCP
-        addTagHandler("workbench", new RootComponentTagHandler(
-                WorkbenchComponent.class));
     }
 
     protected void addTagHandler(final UrumaTagHandler tagHandler) {

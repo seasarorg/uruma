@@ -18,41 +18,56 @@ package org.seasar.uruma.component;
 import org.seasar.uruma.component.factory.UrumaTagHandler;
 
 /**
- * 画面定義データの要素を表すインターフェースです。<br />
+ * 画面定義テンプレートの要素を表すインターフェースです。<br />
  * 
  * @author y-komori
  */
 public interface UIElement {
     /**
-     * 画面定義データファイルのパスを設定します。<br />
+     * 画面定義テンプレートファイルのパスを設定します。<br />
+     * 
+     * @param path
+     *            パス
+     */
+    public void setPath(String path);
+
+    /**
+     * 画面定義テンプレートファイルのパスを取得します。<br />
+     * 
+     * @return パス
+     */
+    public String getPath();
+
+    /**
+     * 画面定義テンプレートファイルのベースパスを設定します。<br />
      * <code>basePath</code> は {@link UrumaTagHandler} によって設定されます。
      * 
      * @param basePath
-     *            画面定義データファイルのパス
+     *            画面定義データファイルのベースパス
      */
     public void setBasePath(String basePath);
 
     /**
-     * 画面定義データファイルのパスを取得します。<br />
+     * 画面定義テンプレートファイルのベースパスを取得します。<br />
      * 
-     * @return 画面定義データファイルのパス
+     * @return 画面定義データファイルのベースパス
      */
     public String getBasePath();
 
     /**
-     * 画面定義データファイル中の要素の位置を設定します。<br />
+     * 画面定義テンプレートファイル中の要素の位置を設定します。<br />
      * <code>location</code> は {@link UrumaTagHandler}
      * によって設定され、主にエラーが発生時の参照のために利用されます。<br/>
      * 
      * @param location
-     *            画面定義データファイル中の要素の位置
+     *            画面定義テンプレートファイル中の要素の位置
      */
     public void setLocation(String location);
 
     /**
-     * 画面定義データファイル中の要素の位置を取得します。<br />
+     * 画面定義テンプレートファイル中の要素の位置を取得します。<br />
      * 
-     * @return 画面定義データファイル中の要素の位置
+     * @return 画面定義テンプレートファイル中の要素の位置
      */
     public String getLocation();
 }

@@ -25,71 +25,27 @@ import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
  * @author y-komori
  */
 public class ViewPartComponent extends CompositeComponent {
+    /**
+     * ビュータイトルです。<br />
+     */
     @RenderingPolicy(targetType = TargetType.NONE)
-    private String name;
+    public String title;
 
+    /**
+     * カテゴリ名称です。<br />
+     */
     @RenderingPolicy(targetType = TargetType.NONE)
-    private String category;
+    public String category;
 
+    /**
+     * イメージを指定するパスです。<br />
+     */
     @RenderingPolicy(targetType = TargetType.NONE)
-    private String image;
+    public String image;
 
+    /**
+     * 複数のオープンを許可するかどうかのフラグです。<br />
+     */
     @RenderingPolicy(targetType = TargetType.NONE)
-    private boolean allowMultiple;
-
-    /**
-     * name を取得します。<br />
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * name を設定します。<br />
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * category を取得します。<br />
-     */
-    public String getCategory() {
-        return this.category;
-    }
-
-    /**
-     * category を設定します。<br />
-     */
-    public void setCategory(final String category) {
-        this.category = category;
-    }
-
-    /**
-     * image を取得します。<br />
-     */
-    public String getImage() {
-        return this.image;
-    }
-
-    /**
-     * image を設定します。<br />
-     */
-    public void setImage(final String image) {
-        this.image = image;
-    }
-
-    /**
-     * allowMultiple を取得します。<br />
-     */
-    public boolean getAllowMultiple() {
-        return this.allowMultiple;
-    }
-
-    /**
-     * allowMultiple を設定します。<br />
-     */
-    public void setAllowMultiple(final boolean allowMultiple) {
-        this.allowMultiple = allowMultiple;
-    }
+    public boolean allowMultiple;
 }

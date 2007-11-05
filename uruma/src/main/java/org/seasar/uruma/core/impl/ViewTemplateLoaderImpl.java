@@ -49,6 +49,8 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader {
     public void loadViewTemplates() throws IOException {
         URL localUrl = RcpResourceUtil
                 .getLocalResourceUrl(UrumaConstants.DEFAULT_WORKBENCH_XML);
+
+        // TODO 後で削除
         logger.info("Protcol = " + localUrl.getProtocol());
         logger.info("Path = " + localUrl.getPath());
 

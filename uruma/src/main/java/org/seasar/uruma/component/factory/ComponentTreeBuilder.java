@@ -96,8 +96,9 @@ public class ComponentTreeBuilder {
         final SaxHandler handler = createSaxHandler();
 
         final TagHandlerContext ctx = handler.getTagHandlerContext();
-        ctx.addParameter("path", path);
-        ctx.addParameter("basePath", (new File(path)).getParent());
+        ctx.addParameter(UrumaTagHandler.PARAM_PATH, path);
+        ctx.addParameter(UrumaTagHandler.PARAM_BASE_PATH, (new File(path))
+                .getParent());
 
         return new SaxHandlerParser(handler, saxParser);
     }
