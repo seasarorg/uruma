@@ -16,19 +16,19 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="org.seasar.uruma.example.filemanager.Perspective"
-            id="org.seasar.uruma.example.fileman.perspective"
+            id="org.seasar.uruma.example.filemanager.perspective"
             name="Fileman Perspective">
       </perspective>
    </extension>
    
-   <!--
    <extension
          point="org.eclipse.ui.views"
-         id="org.seasar.uruma.example.fileman.views">
+         id="org.seasar.uruma.example.filemanager.views">
       <category
-            id="org.seasar.uruma.example.fileman.category1"
+            id="org.seasar.uruma.example.filemanager.category1"
             name="ファイルマネージャ">
       </category>
+   <!--
       <view
             class="org.seasar.uruma.example.fileman.FolderViewPart"
             id="org.seasar.uruma.example.fileman.FolderView"
@@ -39,8 +39,8 @@
             id="org.seasar.uruma.example.fileman.FileView"
             name="ファイル・ビュー">
       </view>
-   </extension>
    -->
+   </extension>
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
