@@ -84,6 +84,11 @@ public class WorkbenchComponent extends AbstractUIElement implements
      */
     public String statusLine;
 
+    /**
+     * 最初に表示するパースペクティブの ID です。
+     */
+    public String initialPerspectiveId;
+
     /*
      * @see org.seasar.uruma.component.UIContainer#addChild(org.seasar.uruma.component.UIComponent)
      */

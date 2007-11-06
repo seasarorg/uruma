@@ -95,6 +95,7 @@ public class ContributionBuilder {
             final StringBuilder builder) {
         builder.append("<view class=\"" + element.className + "\" ");
         builder.append("id=\"" + element.id + "\" ");
-        builder.append("name=\"" + element.name + "\" />\n");
+        builder.append("name=\"" + element.name + "\" ");
+        builder.append("allowMultiple=\"" + element.allowMultiple + "\" />\n");
     }
 }

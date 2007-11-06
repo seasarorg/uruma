@@ -47,5 +47,11 @@ public class ViewPartComponent extends CompositeComponent {
      * 複数のオープンを許可するかどうかのフラグです。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
-    public boolean allowMultiple;
+    public String allowMultiple;
+
+    /**
+     * RCP 上での ID です。<br />
+     */
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String rcpId;
 }

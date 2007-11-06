@@ -27,7 +27,6 @@ public class GenericViewPart extends ViewPart {
 
     @Override
     public void createPartControl(final Composite parent) {
-        System.err.println(getSite().getPluginId());
         // TODO 自動生成されたメソッド・スタブ
 
     }

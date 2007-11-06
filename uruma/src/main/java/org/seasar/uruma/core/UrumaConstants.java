@@ -227,4 +227,14 @@ public interface UrumaConstants {
      * </dl>
      */
     public static final String DEFAULT_WORKBENCH_HEIGHT = "30%";
+
+    /**
+     * <code>workbench</code> 要素で <code>initialPerspectiveId</code>
+     * が未指定のときのデフォルトパースペクティブ ID です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String DEFAULT_PERSPECTIVE_ID = "defaultPerspective";
 }

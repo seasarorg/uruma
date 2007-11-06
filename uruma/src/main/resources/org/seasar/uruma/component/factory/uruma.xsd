@@ -64,6 +64,7 @@
       <xs:attribute name="initHeight" type="xs:string" />
       <xs:attribute name="menu" type="xs:string" />
       <xs:attribute name="statusLine" type="xs:boolean" />
+      <xs:attribute name="initialPerspectiveId" type="xs:string" />
     </xs:complexType>
   </xs:element>
 

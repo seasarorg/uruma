@@ -20,13 +20,16 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.seasar.eclipse.common.util.ImageManager;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.rcp.UrumaActivator;
 
 /**
- * @author y-komori
+ * Uruma における {@link WorkbenchAdvisor} です。<br />
  * 
+ * @author y-komori
  */
 public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
     private static final UrumaLogger logger = UrumaLogger
@@ -57,8 +60,16 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
      */
     @Override
     public String getInitialWindowPerspectiveId() {
-        // TODO ハードコードのため、あとで修正
-        return "org.seasar.uruma.example.filemanager.perspective";
+        String perspectiveId = UrumaActivator.getInstance()
+                .getWorkbenchComponent().initialPerspectiveId;
+
+        if (StringUtil.isNotBlank(perspectiveId)) {
+            return perspectiveId;
+        } else {
+            return UrumaActivator.getInstance().getPluginId()
+                    + UrumaConstants.PERIOD
+                    + UrumaConstants.DEFAULT_PERSPECTIVE_ID;
+        }
     }
 
     /*

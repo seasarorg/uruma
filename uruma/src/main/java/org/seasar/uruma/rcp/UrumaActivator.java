@@ -114,8 +114,10 @@ public class UrumaActivator extends AbstractUIPlugin {
                     .getRootComponent();
             ViewElement element = new ViewElement();
             element.id = pluginId + UrumaConstants.PERIOD + component.getId();
+            component.rcpId = element.id;
             element.className = GenericViewPart.class.getName();
             element.name = component.title;
+            element.allowMultiple = component.allowMultiple;
 
             viewExtension.addConfigurationElement(element);
         }
@@ -173,6 +175,15 @@ public class UrumaActivator extends AbstractUIPlugin {
      */
     public WindowContext getWorkbenchWindowContext() {
         return this.windowContext;
+    }
+
+    /**
+     * 現在のプラグイン ID を返します。<br />
+     * 
+     * @return プラグイン ID
+     */
+    public String getPluginId() {
+        return this.pluginId;
     }
 
     /**
