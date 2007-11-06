@@ -45,6 +45,7 @@ import org.seasar.uruma.component.impl.LinkComponent;
 import org.seasar.uruma.component.impl.MenuComponent;
 import org.seasar.uruma.component.impl.MenuItemComponent;
 import org.seasar.uruma.component.impl.PartComponent;
+import org.seasar.uruma.component.impl.PerspectiveComponent;
 import org.seasar.uruma.component.impl.ProgressBarComponent;
 import org.seasar.uruma.component.impl.RowDataInfo;
 import org.seasar.uruma.component.impl.RowLayoutInfo;
@@ -149,8 +150,8 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
                 SeparatorComponent.class));
 
         // RCP
-        // addTagHandler("perspective", new GenericTagHandler(
-        // PerspectiveComponent.class));
+        addTagHandler("perspective", new GenericTagHandler(
+                PerspectiveComponent.class));
         addTagHandler("part", new GenericTagHandler(PartComponent.class));
     }
 

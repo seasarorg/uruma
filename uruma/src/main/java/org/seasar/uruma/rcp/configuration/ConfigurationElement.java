@@ -27,8 +27,6 @@ import org.eclipse.core.runtime.IConfigurationElement;
  * @author y-komori
  */
 public interface ConfigurationElement {
-    public void addElement(ConfigurationElement element);
-
     public List<ConfigurationElement> getElements();
 
     public void setConfigurationWriter(ConfigurationWriter writer);

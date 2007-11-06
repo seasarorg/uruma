@@ -133,7 +133,6 @@ public class RendererFactrory {
         addRenderer(SeparatorComponent.class, new SeparatorRenderer());
 
         addRenderer(WorkbenchComponent.class, new NullRenderer());
-        // addRenderer(PerspectiveComponent.class, new NullRenderer());
     }
 
     /**

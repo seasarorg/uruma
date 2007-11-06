@@ -24,7 +24,7 @@ import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
  * 
  * @author y-komori
  */
-public class ViewPartComponent extends CompositeComponent {
+public class ViewPartComponent extends PartConfigurationElement {
     /**
      * ビュータイトルです。<br />
      */

@@ -13,53 +13,39 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.rcp.configuration.impl;
+package org.seasar.uruma.component.impl;
 
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.AbstractUIElementContainer;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
-import org.seasar.uruma.util.AssertionUtil;
 
 /**
- * {@link ConfigurationElement} のための基底クラスです。<br />
+ * 子要素を持たない {@link ConfigurationElement} の基底クラスです。<br />
+ * 主に <code>viewPart</code> や <code>editorPart</code> を定義するためのクラスです。<br />
  * 
  * @author y-komori
  */
-public abstract class AbstractConfigurationElement extends
-        AbstractUIElementContainer implements ConfigurationElement {
-    private List<ConfigurationElement> childElements = new ArrayList<ConfigurationElement>();
+public abstract class PartConfigurationElement extends CompositeComponent
+        implements ConfigurationElement {
+    private static final List<ConfigurationElement> nullList = new ArrayList<ConfigurationElement>(
+            0);
 
-    private ConfigurationWriter configurationWriter;
-
-    /*
-     * @see org.seasar.uruma.component.impl.AbstractUIElementContainer#addChild(org.seasar.uruma.component.UIElement)
-     */
-    @Override
-    public void addChild(final UIElement child) {
-        super.addChild(child);
-
-        if (child instanceof ConfigurationElement) {
-            childElements.add((ConfigurationElement) child);
-        }
-    }
+    protected ConfigurationWriter configurationWriter;
 
     /*
      * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#getElements()
      */
     public List<ConfigurationElement> getElements() {
-        return childElements;
+        return nullList;
     }
 
     /*
      * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#setConfigurationWriter(org.seasar.uruma.rcp.configuration.ConfigurationWriter)
      */
     public void setConfigurationWriter(final ConfigurationWriter writer) {
-        AssertionUtil.assertNotNull("writer", writer);
         this.configurationWriter = writer;
     }
 
@@ -69,15 +55,7 @@ public abstract class AbstractConfigurationElement extends
     public void writeConfiguration(final Writer writer) {
         if (configurationWriter != null) {
             configurationWriter.writeStartTag(this, writer);
-        }
-
-        for (ConfigurationElement element : childElements) {
-            element.writeConfiguration(writer);
-        }
-
-        if (configurationWriter != null) {
             configurationWriter.writeEndTag(this, writer);
         }
     }
-
 }
