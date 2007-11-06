@@ -71,6 +71,8 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setInitialSize(calcInitialSize(workbench.initWidth,
                 workbench.initHeight));
 
+        setupStatusLine(workbench, configurer);
+
         // プリレンダリング処理
         WindowContext windowContext = UrumaActivator.getInstance()
                 .getWorkbenchWindowContext();
@@ -79,7 +81,6 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         // TODO ここで XML から情報を読み込んでワークベンチの情報を設定する
         // configurer.setShowMenuBar(true);
         configurer.setShowCoolBar(false);
-        configurer.setShowStatusLine(true);
     }
 
     protected Point calcInitialSize(final String width, final String height) {
@@ -118,5 +119,11 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 shell.setImage(image);
             }
         }
+    }
+
+    protected void setupStatusLine(final WorkbenchComponent workbench,
+            final IWorkbenchWindowConfigurer configurer) {
+        configurer
+                .setShowStatusLine(Boolean.parseBoolean(workbench.statusLine));
     }
 }
