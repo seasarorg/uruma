@@ -125,6 +125,8 @@ public class UrumaActivator extends AbstractUIPlugin {
         List<Extension> extensions = new ArrayList<Extension>();
         extensions.add(viewExtension);
         ContributionBuilder.build(contributor, extensions);
+
+        test1();
     }
 
     /**
@@ -238,8 +240,11 @@ public class UrumaActivator extends AbstractUIPlugin {
 
     private void test1() {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
+        // IExtensionPoint extensionPoint = registry
+        // .getExtensionPoint("org.eclipse.ui.views");
         IExtensionPoint extensionPoint = registry
-                .getExtensionPoint("org.eclipse.ui.views");
+                .getExtensionPoint("org.eclipse.ui.actionSets");
+
         IExtension[] extensions = extensionPoint.getExtensions();
         for (IExtension extension : extensions) {
             System.out.println("\nNamespaceIdentifier="

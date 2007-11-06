@@ -39,6 +39,8 @@ import org.seasar.uruma.rcp.UrumaActivator;
  * @author y-komori
  */
 public class UrumaActionBarAdvisor extends ActionBarAdvisor {
+    private IActionBarConfigurer configurer;
+
     /**
      * {@link UrumaActionBarAdvisor} を構築します。<br />
      * 
@@ -47,6 +49,7 @@ public class UrumaActionBarAdvisor extends ActionBarAdvisor {
      */
     public UrumaActionBarAdvisor(final IActionBarConfigurer configurer) {
         super(configurer);
+        this.configurer = configurer;
     }
 
     /*
@@ -73,6 +76,15 @@ public class UrumaActionBarAdvisor extends ActionBarAdvisor {
                 for (int i = 0; i < items.length; i++) {
                     menuBar.add(items[i]);
                 }
+
+                // ビューの表示アクションの作成
+                // MenuManager showViewMenu = new MenuManager("ビューの表示(&V)");
+                // showViewMenu.add(ContributionItemFactory.VIEWS_SHORTLIST
+                // .create(configurer.getWindowConfigurer().getWindow()));
+                // menuBar.add(showViewMenu);
+                // 複数のウィンドウが開かれている場合にのみ表示され、
+                // ウィンドウの切り替えを行うアクション
+                // menu.add(ContributionItemFactory.OPEN_WINDOWS.create(window));
             } else {
                 throw new RenderException(
                         UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR,
@@ -82,6 +94,7 @@ public class UrumaActionBarAdvisor extends ActionBarAdvisor {
             throw new NotFoundException(
                     UrumaMessageCodes.UICOMPONENT_NOT_FOUND, workbench.menu);
         }
+
     }
 
     @Override
