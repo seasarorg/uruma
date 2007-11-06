@@ -15,8 +15,8 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="org.seasar.uruma.example.filemanager.Perspective"
-            id="org.seasar.uruma.example.filemanager.perspective"
+            class="org.seasar.uruma.rcp.ui.GenericPerspectiveFactory"
+            id="org.seasar.uruma.example.filemanager.defaultPerspective"
             name="Fileman Perspective">
       </perspective>
    </extension>

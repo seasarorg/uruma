@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <viewPart title="フォルダ・ビュー">
+  <viewPart title="フォルダ・ビュー" allowMultiple="true">
     <tree id="folderTree" style="FULL_SELECTION, SINGLE, BORDER">
     </tree>
   </viewPart>

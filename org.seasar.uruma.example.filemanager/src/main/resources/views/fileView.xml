@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <viewPart title="ファイル・ビュー">
+  <viewPart title="ファイル・ビュー" allowMultiple="true">
     <table id="fileDetailTable" style="FULL_SELECTION, MULTI, BORDER"
       headerVisible="true" linesVisible="true">
 

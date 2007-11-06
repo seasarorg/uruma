@@ -10,10 +10,22 @@ public class Perspective implements IPerspectiveFactory {
 
 		layout.addStandaloneView(
 				"org.seasar.uruma.example.filemanager.folderView", true,
-				IPageLayout.LEFT, 0.3f, layout.getEditorArea());
+				IPageLayout.LEFT, 0.2f, layout.getEditorArea());
 
 		layout.addStandaloneView(
 				"org.seasar.uruma.example.filemanager.fileView", true,
-				IPageLayout.RIGHT, 0.7f, layout.getEditorArea());
+				IPageLayout.LEFT, 0.2f, layout.getEditorArea());
+
+		layout.addStandaloneView(
+				"org.seasar.uruma.example.filemanager.testView1", true,
+				IPageLayout.LEFT, 0.2f, layout.getEditorArea());
+
+		layout.addStandaloneView(
+				"org.seasar.uruma.example.filemanager.testView2", true,
+				IPageLayout.LEFT, 0.2f, layout.getEditorArea());
+
+		layout.addStandaloneView(
+				"org.seasar.uruma.example.filemanager.testView3", true,
+				IPageLayout.LEFT, 0.2f, layout.getEditorArea());
 	}
 }
