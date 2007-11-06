@@ -16,8 +16,8 @@
 package org.seasar.uruma.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
-import org.seasar.uruma.component.impl.TreeComponent;
-import org.seasar.uruma.component.impl.TreeItemComponent;
+import org.seasar.uruma.component.jface.TreeComponent;
+import org.seasar.uruma.component.jface.TreeItemComponent;
 import org.xml.sax.Attributes;
 
 /**

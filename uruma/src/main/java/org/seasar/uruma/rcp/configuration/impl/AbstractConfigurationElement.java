@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.AbstractUIElementContainer;
+import org.seasar.uruma.component.base.AbstractUIElementContainer;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 import org.seasar.uruma.util.AssertionUtil;
@@ -37,7 +37,7 @@ public abstract class AbstractConfigurationElement extends
     private ConfigurationWriter configurationWriter;
 
     /*
-     * @see org.seasar.uruma.component.impl.AbstractUIElementContainer#addChild(org.seasar.uruma.component.UIElement)
+     * @see org.seasar.uruma.component.jface.AbstractUIElementContainer#addChild(org.seasar.uruma.component.UIElement)
      */
     @Override
     public void addChild(final UIElement child) {

@@ -35,7 +35,7 @@ import org.seasar.uruma.annotation.SelectionListener;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
-import org.seasar.uruma.component.impl.ViewPartComponent;
+import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;

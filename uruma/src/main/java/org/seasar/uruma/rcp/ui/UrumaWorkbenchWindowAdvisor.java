@@ -26,7 +26,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.seasar.eclipse.common.util.GeometryUtil;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
-import org.seasar.uruma.component.impl.WorkbenchComponent;
+import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.rcp.UrumaActivator;

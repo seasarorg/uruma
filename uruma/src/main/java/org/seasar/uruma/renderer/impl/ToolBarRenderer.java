@@ -16,7 +16,7 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.ToolBar;
-import org.seasar.uruma.component.impl.ToolBarComponent;
+import org.seasar.uruma.component.jface.ToolBarComponent;
 
 /**
  * {@link ToolBar} のレンダリングを行うクラスです。<br />
@@ -27,7 +27,7 @@ public class ToolBarRenderer extends
         AbstractCompositeRenderer<ToolBarComponent, ToolBar> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override

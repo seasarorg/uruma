@@ -24,9 +24,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.seasar.uruma.component.LayoutInfo;
-import org.seasar.uruma.component.impl.FillLayoutInfo;
-import org.seasar.uruma.component.impl.GridLayoutInfo;
-import org.seasar.uruma.component.impl.RowLayoutInfo;
+import org.seasar.uruma.component.jface.FillLayoutInfo;
+import org.seasar.uruma.component.jface.GridLayoutInfo;
+import org.seasar.uruma.component.jface.RowLayoutInfo;
 import org.seasar.uruma.renderer.layout.impl.GenericLayoutSupport;
 
 /**

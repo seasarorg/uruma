@@ -17,8 +17,8 @@ package org.seasar.uruma.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.GradientInfo;
-import org.seasar.uruma.component.impl.GradientItem;
+import org.seasar.uruma.component.jface.GradientInfo;
+import org.seasar.uruma.component.jface.GradientItem;
 
 /**
  * <code>gradientItem</code> 要素に対するタグハンドラです。<br />

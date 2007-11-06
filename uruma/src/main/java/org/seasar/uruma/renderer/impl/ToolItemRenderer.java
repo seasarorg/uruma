@@ -16,7 +16,7 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.ToolItem;
-import org.seasar.uruma.component.impl.ToolItemComponent;
+import org.seasar.uruma.component.jface.ToolItemComponent;
 
 /**
  * {@link ToolItem} のレンダリングを行うクラスです。<br />

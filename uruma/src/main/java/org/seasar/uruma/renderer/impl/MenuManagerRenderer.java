@@ -19,7 +19,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Menu;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.impl.MenuComponent;
+import org.seasar.uruma.component.jface.MenuComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;

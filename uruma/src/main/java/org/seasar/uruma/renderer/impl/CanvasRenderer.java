@@ -16,7 +16,7 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.Canvas;
-import org.seasar.uruma.component.impl.CanvasComponent;
+import org.seasar.uruma.component.jface.CanvasComponent;
 
 /**
  * {@link Canvas} のレンダリングを行うクラスです。<br />
@@ -27,7 +27,7 @@ public class CanvasRenderer extends
         AbstractCompositeRenderer<CanvasComponent, Canvas> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override

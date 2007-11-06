@@ -19,7 +19,7 @@ import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.CommonAttributes;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.CommonAttriburtesImpl;
+import org.seasar.uruma.component.jface.CommonAttriburtesImpl;
 
 /**
  * <code>commonAttributes</code> 要素に対するタグハンドラです。<br />

@@ -17,7 +17,7 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Spinner;
-import org.seasar.uruma.component.impl.SpinnerComponent;
+import org.seasar.uruma.component.jface.SpinnerComponent;
 
 /**
  * {@link Spinner} のレンダリングを行うクラスです。<br />
@@ -28,7 +28,7 @@ public class SpinnerRenderer extends
         AbstractCompositeRenderer<SpinnerComponent, Spinner> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override

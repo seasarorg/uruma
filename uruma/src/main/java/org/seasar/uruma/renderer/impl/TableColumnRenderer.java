@@ -18,7 +18,7 @@ package org.seasar.uruma.renderer.impl;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.TableColumn;
-import org.seasar.uruma.component.impl.TableColumnComponent;
+import org.seasar.uruma.component.jface.TableColumnComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.viewer.GenericTableLabelProvider;

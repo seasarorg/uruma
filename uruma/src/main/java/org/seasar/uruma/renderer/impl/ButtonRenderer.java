@@ -17,7 +17,7 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
-import org.seasar.uruma.component.impl.ButtonComponent;
+import org.seasar.uruma.component.jface.ButtonComponent;
 
 /**
  * {@link Button} のレンダリングを行うクラスです。<br />

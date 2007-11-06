@@ -18,7 +18,7 @@ package org.seasar.uruma.renderer.impl;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TreeItem;
 import org.seasar.eclipse.common.util.ImageManager;
-import org.seasar.uruma.component.impl.TreeItemComponent;
+import org.seasar.uruma.component.jface.TreeItemComponent;
 import org.seasar.uruma.util.PathUtil;
 
 /**

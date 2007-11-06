@@ -17,7 +17,7 @@ package org.seasar.uruma.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.TemplateImpl;
+import org.seasar.uruma.component.jface.TemplateImpl;
 
 /**
  * <code>template</code> 要素に対するタグハンドラです。<br />

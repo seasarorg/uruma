@@ -23,7 +23,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.seasar.framework.util.StringUtil;
-import org.seasar.uruma.component.impl.WorkbenchComponent;
+import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;

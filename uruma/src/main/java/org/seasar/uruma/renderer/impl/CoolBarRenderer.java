@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.seasar.uruma.component.impl.CoolBarComponent;
+import org.seasar.uruma.component.jface.CoolBarComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 
@@ -37,7 +37,7 @@ public class CoolBarRenderer extends
         AbstractCompositeRenderer<CoolBarComponent, CoolBar> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override

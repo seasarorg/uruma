@@ -26,7 +26,7 @@ import org.seasar.framework.util.AssertionUtil;
 import org.seasar.uruma.binding.context.ApplicationContextBinder;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.impl.WindowComponent;
+import org.seasar.uruma.component.jface.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WindowContext;

@@ -16,7 +16,7 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.Slider;
-import org.seasar.uruma.component.impl.SliderComponent;
+import org.seasar.uruma.component.jface.SliderComponent;
 
 /**
  * {@link Slider} のレンダリングを行うクラスです。<br />
@@ -27,7 +27,7 @@ public class SliderRenderer extends
         AbstractControlRenderer<SliderComponent, Slider> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override

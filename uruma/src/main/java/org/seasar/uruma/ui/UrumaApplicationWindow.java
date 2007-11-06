@@ -35,7 +35,7 @@ import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.impl.WindowComponent;
+import org.seasar.uruma.component.jface.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;

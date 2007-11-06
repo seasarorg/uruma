@@ -17,8 +17,8 @@ package org.seasar.uruma.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.TableCellComponent;
-import org.seasar.uruma.component.impl.TableItemComponent;
+import org.seasar.uruma.component.jface.TableCellComponent;
+import org.seasar.uruma.component.jface.TableItemComponent;
 
 /**
  * <code>tableCell</code> タグに対するタグハンドラです。<br />

@@ -25,8 +25,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.TreeComponent;
-import org.seasar.uruma.component.impl.TreeItemComponent;
+import org.seasar.uruma.component.jface.TreeComponent;
+import org.seasar.uruma.component.jface.TreeItemComponent;
 import org.seasar.uruma.viewer.GenericLabelProvider;
 
 /**

@@ -16,7 +16,7 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.Label;
-import org.seasar.uruma.component.impl.LabelComponent;
+import org.seasar.uruma.component.jface.LabelComponent;
 
 /**
  * {@link Label} のレンダリングを行うクラスです。<br />
@@ -27,7 +27,7 @@ public class LabelRenderer extends
         AbstractControlRenderer<LabelComponent, Label> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override

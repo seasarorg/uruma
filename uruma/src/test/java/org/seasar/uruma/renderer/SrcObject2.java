@@ -17,7 +17,7 @@ package org.seasar.uruma.renderer;
 
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
-import org.seasar.uruma.component.impl.AbstractUIElement;
+import org.seasar.uruma.component.base.AbstractUIElement;
 
 /**
  * {@link RendererSupportUtil} のテストのためのクラスです。<br />

@@ -19,7 +19,7 @@ import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.WindowComponent;
+import org.seasar.uruma.component.jface.WindowComponent;
 
 /**
  * <code>window</code> 要素に対するタグハンドラです。<br />

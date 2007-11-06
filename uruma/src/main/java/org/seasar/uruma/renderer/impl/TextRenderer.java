@@ -17,7 +17,7 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
-import org.seasar.uruma.component.impl.TextComponent;
+import org.seasar.uruma.component.jface.TextComponent;
 
 /**
  * {@link Text} のレンダリングを行うクラスです。<br />
@@ -27,7 +27,7 @@ import org.seasar.uruma.component.impl.TextComponent;
 public class TextRenderer extends AbstractControlRenderer<TextComponent, Text> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override

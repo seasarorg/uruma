@@ -20,7 +20,7 @@ import java.util.List;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.impl.ViewPartComponent;
+import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.rcp.UrumaActivator;
 

@@ -28,7 +28,7 @@ import static org.seasar.uruma.annotation.RenderingPolicy.ConversionType.TEXT;
 import static org.seasar.uruma.annotation.RenderingPolicy.TargetType.FIELD;
 import static org.seasar.uruma.annotation.RenderingPolicy.TargetType.NONE;
 
-import org.seasar.uruma.component.impl.AbstractUIElement;
+import org.seasar.uruma.component.base.AbstractUIElement;
 import org.seasar.uruma.annotation.RenderingPolicy;
 
 /**

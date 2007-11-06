@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TabItem;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.TabItemComponent;
+import org.seasar.uruma.component.jface.TabItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 

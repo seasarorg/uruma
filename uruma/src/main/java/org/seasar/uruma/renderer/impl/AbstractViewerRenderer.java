@@ -28,7 +28,7 @@ import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
-import org.seasar.uruma.component.impl.CompositeComponent;
+import org.seasar.uruma.component.jface.CompositeComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.core.UrumaMessageCodes;
@@ -143,7 +143,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
     }
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override

@@ -17,7 +17,7 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.Link;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
-import org.seasar.uruma.component.impl.LinkComponent;
+import org.seasar.uruma.component.jface.LinkComponent;
 import org.seasar.uruma.renderer.RendererSupportUtil;
 
 /**
@@ -28,7 +28,7 @@ import org.seasar.uruma.renderer.RendererSupportUtil;
 public class LinkRenderer extends AbstractControlRenderer<LinkComponent, Link> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override

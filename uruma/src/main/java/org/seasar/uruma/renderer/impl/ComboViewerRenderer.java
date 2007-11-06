@@ -22,8 +22,8 @@ import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
-import org.seasar.uruma.component.impl.ComboComponent;
-import org.seasar.uruma.component.impl.SimpleItemComponent;
+import org.seasar.uruma.component.jface.ComboComponent;
+import org.seasar.uruma.component.jface.SimpleItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.viewer.ContentsHolder;
@@ -46,7 +46,7 @@ public class ComboViewerRenderer extends
     }
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRenderViewer(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRenderViewer(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.jface.viewers.Viewer)
      */
     @Override

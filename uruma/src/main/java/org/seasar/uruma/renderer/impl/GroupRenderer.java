@@ -16,7 +16,7 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.Group;
-import org.seasar.uruma.component.impl.GroupComponent;
+import org.seasar.uruma.component.jface.GroupComponent;
 
 /**
  * {@link Group} のレンダリングを行うクラスです。<br />
@@ -27,7 +27,7 @@ public class GroupRenderer extends
         AbstractCompositeRenderer<GroupComponent, Group> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override

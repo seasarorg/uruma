@@ -23,7 +23,7 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.method.GenericAction;
 import org.seasar.uruma.component.EnablesDependable;
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.impl.MenuItemComponent;
+import org.seasar.uruma.component.jface.MenuItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;

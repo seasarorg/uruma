@@ -21,9 +21,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Color;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
-import org.seasar.uruma.component.impl.CTabFolderComponent;
-import org.seasar.uruma.component.impl.GradientInfo;
-import org.seasar.uruma.component.impl.GradientItem;
+import org.seasar.uruma.component.jface.CTabFolderComponent;
+import org.seasar.uruma.component.jface.GradientInfo;
+import org.seasar.uruma.component.jface.GradientItem;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.renderer.RendererSupportUtil;
@@ -37,7 +37,7 @@ public class CTabFolderRenderer extends
         AbstractCompositeRenderer<CTabFolderComponent, CTabFolder> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override

@@ -16,7 +16,7 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.ProgressBar;
-import org.seasar.uruma.component.impl.ProgressBarComponent;
+import org.seasar.uruma.component.jface.ProgressBarComponent;
 
 /**
  * {@link ProgressBar} のレンダリングを行うクラスです。<br />
@@ -27,7 +27,7 @@ public class ProgressBarRenderer extends
         AbstractControlRenderer<ProgressBarComponent, ProgressBar> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override

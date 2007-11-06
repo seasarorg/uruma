@@ -20,12 +20,12 @@ import junit.framework.TestCase;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.UIControlComponent;
-import org.seasar.uruma.component.impl.ButtonComponent;
-import org.seasar.uruma.component.impl.CommonAttriburtesImpl;
-import org.seasar.uruma.component.impl.CompositeComponent;
-import org.seasar.uruma.component.impl.ControlComponent;
-import org.seasar.uruma.component.impl.GridDataInfo;
-import org.seasar.uruma.component.impl.GridLayoutInfo;
+import org.seasar.uruma.component.jface.ButtonComponent;
+import org.seasar.uruma.component.jface.CommonAttriburtesImpl;
+import org.seasar.uruma.component.jface.CompositeComponent;
+import org.seasar.uruma.component.jface.ControlComponent;
+import org.seasar.uruma.component.jface.GridDataInfo;
+import org.seasar.uruma.component.jface.GridLayoutInfo;
 
 /**
  * {@link AbstractControlRenderer} のためのテストクラスです。<br />

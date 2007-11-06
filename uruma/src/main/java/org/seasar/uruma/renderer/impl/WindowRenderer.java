@@ -27,8 +27,8 @@ import org.seasar.eclipse.common.util.GeometryUtil;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.impl.ControlComponent;
-import org.seasar.uruma.component.impl.WindowComponent;
+import org.seasar.uruma.component.jface.ControlComponent;
+import org.seasar.uruma.component.jface.WindowComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.core.UrumaConstants;
@@ -193,7 +193,7 @@ public class WindowRenderer extends
     }
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override
@@ -203,7 +203,7 @@ public class WindowRenderer extends
     }
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#setLocation(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#setLocation(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override
@@ -213,7 +213,7 @@ public class WindowRenderer extends
     }
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#setSize(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#setSize(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override
@@ -223,7 +223,7 @@ public class WindowRenderer extends
     }
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#setMenu(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#setMenu(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override

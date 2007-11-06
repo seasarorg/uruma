@@ -16,7 +16,7 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.Composite;
-import org.seasar.uruma.component.impl.CompositeComponent;
+import org.seasar.uruma.component.jface.CompositeComponent;
 
 /**
  * {@link Composite} のレンダリングを行うクラスです。<br />
@@ -27,7 +27,7 @@ public class CompositeRenderer extends
         AbstractCompositeRenderer<CompositeComponent, Composite> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override

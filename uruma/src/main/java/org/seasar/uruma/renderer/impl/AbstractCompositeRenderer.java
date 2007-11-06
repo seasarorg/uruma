@@ -24,7 +24,7 @@ import org.seasar.uruma.component.CommonAttributes;
 import org.seasar.uruma.component.LayoutInfo;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
-import org.seasar.uruma.component.impl.CompositeComponent;
+import org.seasar.uruma.component.jface.CompositeComponent;
 import org.seasar.uruma.renderer.layout.LayoutSupport;
 import org.seasar.uruma.renderer.layout.LayoutSupportFactory;
 
@@ -60,7 +60,7 @@ public abstract class AbstractCompositeRenderer<COMPONENT_TYPE extends Composite
             COMPONENT_TYPE compositeComponent, COMPOSITE_TYPE composite);
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#inherit(org.seasar.uruma.component.impl.ControlComponent)
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#inherit(org.seasar.uruma.component.jface.ControlComponent)
      */
     @Override
     protected void inherit(final COMPONENT_TYPE uiComponent) {
@@ -69,7 +69,7 @@ public abstract class AbstractCompositeRenderer<COMPONENT_TYPE extends Composite
     }
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.impl.ControlComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractControlRenderer#doRenderControl(org.seasar.uruma.component.jface.ControlComponent,
      *      org.eclipse.swt.widgets.Control)
      */
     @Override

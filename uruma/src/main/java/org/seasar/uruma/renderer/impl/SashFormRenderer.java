@@ -17,7 +17,7 @@ package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.widgets.Control;
-import org.seasar.uruma.component.impl.SashFormComponent;
+import org.seasar.uruma.component.jface.SashFormComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 
@@ -30,7 +30,7 @@ public class SashFormRenderer extends
         AbstractCompositeRenderer<SashFormComponent, SashForm> {
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.impl.CompositeComponent,
+     * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override

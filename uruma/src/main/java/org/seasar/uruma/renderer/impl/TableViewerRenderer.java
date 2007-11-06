@@ -26,8 +26,8 @@ import org.eclipse.swt.widgets.Table;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.TableComponent;
-import org.seasar.uruma.component.impl.TableItemComponent;
+import org.seasar.uruma.component.jface.TableComponent;
+import org.seasar.uruma.component.jface.TableItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.renderer.RendererSupportUtil;
@@ -58,7 +58,7 @@ public class TableViewerRenderer extends
 
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRenderAfter(org.eclipse.jface.viewers.Viewer,
-     *      org.seasar.uruma.component.impl.CompositeComponent,
+     *      org.seasar.uruma.component.jface.CompositeComponent,
      *      org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.PartContext)
      */

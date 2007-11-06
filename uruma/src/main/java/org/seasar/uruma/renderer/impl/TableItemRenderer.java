@@ -22,8 +22,8 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableItem;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
-import org.seasar.uruma.component.impl.TableCellComponent;
-import org.seasar.uruma.component.impl.TableItemComponent;
+import org.seasar.uruma.component.jface.TableCellComponent;
+import org.seasar.uruma.component.jface.TableItemComponent;
 import org.seasar.uruma.renderer.RendererSupportUtil;
 
 /**

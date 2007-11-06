@@ -17,8 +17,8 @@ package org.seasar.uruma.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.SimpleItemComponent;
-import org.seasar.uruma.component.impl.SimpleItemCompositeComponent;
+import org.seasar.uruma.component.jface.SimpleItemComponent;
+import org.seasar.uruma.component.jface.SimpleItemCompositeComponent;
 
 /**
  * <code>item</code> 要素に対するタグハンドラです。<br />

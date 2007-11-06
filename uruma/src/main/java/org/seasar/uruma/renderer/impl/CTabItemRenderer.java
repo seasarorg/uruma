@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.impl.CTabItemComponent;
+import org.seasar.uruma.component.jface.CTabItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.renderer.RendererSupportUtil;

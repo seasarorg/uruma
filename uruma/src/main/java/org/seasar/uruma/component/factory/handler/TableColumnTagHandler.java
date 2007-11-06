@@ -16,8 +16,8 @@
 package org.seasar.uruma.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
-import org.seasar.uruma.component.impl.TableColumnComponent;
-import org.seasar.uruma.component.impl.TableComponent;
+import org.seasar.uruma.component.jface.TableColumnComponent;
+import org.seasar.uruma.component.jface.TableComponent;
 import org.xml.sax.Attributes;
 
 /**
