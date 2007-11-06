@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.component.rcp;
 
+import org.eclipse.ui.IPerspectiveFactory;
 import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElement;
 
 /**
@@ -37,4 +38,9 @@ public class PerspectiveComponent extends AbstractConfigurationElement {
      * パートの配置を固定するかどうかのフラグです。
      */
     public String fixed;
+
+    /**
+     * {@link IPerspectiveFactory} のクラス名です。
+     */
+    public String perspectiveClass;
 }

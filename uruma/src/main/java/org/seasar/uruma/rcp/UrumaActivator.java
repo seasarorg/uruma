@@ -46,10 +46,13 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.ViewTemplateLoader;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
+import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
+import org.seasar.uruma.rcp.ui.AutoPerspectiveFactory;
 
 /**
  * Uruma RCP アプリケーションのためのアクティベータです。<br />
@@ -116,6 +119,8 @@ public class UrumaActivator extends AbstractUIPlugin {
         templateLoader.loadViewTemplates();
 
         setupViewExtensions();
+        setupPerspectives();
+
         ContributionBuilder.build(contributor, extensions);
     }
 
@@ -167,13 +172,25 @@ public class UrumaActivator extends AbstractUIPlugin {
     protected void setupPerspectives() {
         for (UIElement child : workbenchComponent.getChildren()) {
             if (child instanceof PerspectiveComponent) {
-                PerspectiveComponent perspective = (PerspectiveComponent) child;
-
+                return;
+            } else {
                 Extension extension = ExtensionFactory
                         .createExtension(ExtensionPoints.PERSPECTIVE);
 
-            }
+                PerspectiveComponent perspective = new PerspectiveComponent();
+                perspective.perspectiveClass = AutoPerspectiveFactory.class
+                        .getName();
+                perspective
+                        .setRcpId(createRcpId(UrumaConstants.DEFAULT_PERSPECTIVE_ID));
+                perspective.name = getPluginId();
 
+                ConfigurationWriter writer = ConfigurationWriterFactory
+                        .getConfigurationWriter(perspective);
+                perspective.setConfigurationWriter(writer);
+
+                extension.addConfigurationElement(perspective);
+                extensions.add(extension);
+            }
         }
     }
 

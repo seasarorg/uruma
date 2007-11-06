@@ -21,6 +21,7 @@ import java.util.Map;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.rcp.configuration.writer.ExtensionWriter;
+import org.seasar.uruma.rcp.configuration.writer.PerspectiveWriter;
 import org.seasar.uruma.rcp.configuration.writer.ViewWriter;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -35,6 +36,7 @@ public class ConfigurationWriterFactory {
     static {
         addWriter(new ExtensionWriter());
         addWriter(new ViewWriter());
+        addWriter(new PerspectiveWriter());
     }
 
     public static final void addWriter(final ConfigurationWriter writer) {
