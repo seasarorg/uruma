@@ -44,6 +44,8 @@ import org.seasar.uruma.component.impl.LabelComponent;
 import org.seasar.uruma.component.impl.LinkComponent;
 import org.seasar.uruma.component.impl.MenuComponent;
 import org.seasar.uruma.component.impl.MenuItemComponent;
+import org.seasar.uruma.component.impl.PartComponent;
+import org.seasar.uruma.component.impl.PerspectiveComponent;
 import org.seasar.uruma.component.impl.ProgressBarComponent;
 import org.seasar.uruma.component.impl.RowDataInfo;
 import org.seasar.uruma.component.impl.RowLayoutInfo;
@@ -79,10 +81,10 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
         addTagHandler(new TemplateTagHandler());
         addTagHandler("window", new RootComponentTagHandler(
                 WindowComponent.class));
-        addTagHandler("viewPart", new RootComponentTagHandler(
-                ViewPartComponent.class));
         addTagHandler("workbench", new RootComponentTagHandler(
                 WorkbenchComponent.class));
+        addTagHandler("viewPart", new RootComponentTagHandler(
+                ViewPartComponent.class));
 
         addTagHandler(new CommonAttributesTagHandler());
 
@@ -146,6 +148,11 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
                 new GenericTagHandler(MenuItemComponent.class));
         addTagHandler("separator", new GenericTagHandler(
                 SeparatorComponent.class));
+
+        // RCP
+        addTagHandler("perspective", new GenericTagHandler(
+                PerspectiveComponent.class));
+        addTagHandler("part", new GenericTagHandler(PartComponent.class));
     }
 
     protected void addTagHandler(final UrumaTagHandler tagHandler) {

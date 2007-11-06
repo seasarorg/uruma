@@ -32,6 +32,7 @@ import org.seasar.uruma.component.impl.LabelComponent;
 import org.seasar.uruma.component.impl.LinkComponent;
 import org.seasar.uruma.component.impl.MenuComponent;
 import org.seasar.uruma.component.impl.MenuItemComponent;
+import org.seasar.uruma.component.impl.PerspectiveComponent;
 import org.seasar.uruma.component.impl.ProgressBarComponent;
 import org.seasar.uruma.component.impl.SashFormComponent;
 import org.seasar.uruma.component.impl.ScaleComponent;
@@ -66,6 +67,7 @@ import org.seasar.uruma.renderer.impl.LabelRenderer;
 import org.seasar.uruma.renderer.impl.LinkRenderer;
 import org.seasar.uruma.renderer.impl.MenuItemRenderer;
 import org.seasar.uruma.renderer.impl.MenuManagerRenderer;
+import org.seasar.uruma.renderer.impl.NullRenderer;
 import org.seasar.uruma.renderer.impl.ProgressBarRenderer;
 import org.seasar.uruma.renderer.impl.SashFormRenderer;
 import org.seasar.uruma.renderer.impl.ScaleRenderer;
@@ -84,7 +86,6 @@ import org.seasar.uruma.renderer.impl.TreeItemRenderer;
 import org.seasar.uruma.renderer.impl.TreeViewerRenderer;
 import org.seasar.uruma.renderer.impl.ViewPartRenderer;
 import org.seasar.uruma.renderer.impl.WindowRenderer;
-import org.seasar.uruma.renderer.impl.WorkbenchRenderer;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -132,7 +133,8 @@ public class RendererFactrory {
         addRenderer(MenuItemComponent.class, new MenuItemRenderer());
         addRenderer(SeparatorComponent.class, new SeparatorRenderer());
 
-        addRenderer(WorkbenchComponent.class, new WorkbenchRenderer());
+        addRenderer(WorkbenchComponent.class, new NullRenderer());
+        addRenderer(PerspectiveComponent.class, new NullRenderer());
     }
 
     /**

@@ -49,6 +49,8 @@
     <xs:complexType>
       <xs:sequence>
         <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="tns:perspective" minOccurs="0"
+            maxOccurs="unbounded" />
           <xs:element ref="tns:menu" minOccurs="0"
             maxOccurs="unbounded" />
           <xs:group ref="tns:compositeElems" minOccurs="0"
@@ -65,6 +67,30 @@
       <xs:attribute name="menu" type="xs:string" />
       <xs:attribute name="statusLine" type="xs:boolean" />
       <xs:attribute name="initialPerspectiveId" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="perspective">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:IdItem">
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="tns:part" minOccurs="0"
+              maxOccurs="unbounded" />
+          </xs:choice>
+          <xs:attribute name="name" type="xs:string" />
+          <xs:attribute name="icon" type="xs:string" />
+          <xs:attribute name="fixed" type="xs:boolean" default="false" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="part">
+    <xs:complexType>
+      <xs:attribute name="ref" type="xs:string" use="required" />
+      <xs:attribute name="position" type="tns:Position" default="LEFT" />
+      <xs:attribute name="ratio" type="tns:PartRatio" default="95" />
     </xs:complexType>
   </xs:element>
 
@@ -1245,6 +1271,22 @@
       <xs:enumeration value="PAIR" />
       <xs:enumeration value="MULTI" />
       <xs:enumeration value="NONE" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Position">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LEFT" />
+      <xs:enumeration value="RIGHT" />
+      <xs:enumeration value="TOP" />
+      <xs:enumeration value="BOTTOM" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PartRatio">
+    <xs:restriction base="xs:int">
+      <xs:maxInclusive value="95" />
+      <xs:minInclusive value="5" />
     </xs:restriction>
   </xs:simpleType>
 

@@ -22,11 +22,11 @@ import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.renderer.Renderer;
 
 /**
- * ワークベンチのためのレンダラです。<br />
+ * 何も処理を行わないレンダラです。<br />
  * 
  * @author y-komori
  */
-public class WorkbenchRenderer implements Renderer {
+public class NullRenderer implements Renderer {
 
     /*
      * @see org.seasar.uruma.renderer.Renderer#preRender(org.seasar.uruma.component.UIComponent,
@@ -35,7 +35,7 @@ public class WorkbenchRenderer implements Renderer {
      */
     public WidgetHandle preRender(final UIComponent uiComponent,
             final WidgetHandle parent, final WindowContext context) {
-        // TODO 自動生成されたメソッド・スタブ
+        // Do nothing.
         return null;
     }
 
