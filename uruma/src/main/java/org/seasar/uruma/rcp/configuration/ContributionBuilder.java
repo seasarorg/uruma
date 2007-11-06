@@ -20,7 +20,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.eclipse.core.internal.registry.ExtensionRegistry;
-import org.eclipse.core.runtime.ContributorFactoryOSGi;
 import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
@@ -44,7 +43,7 @@ public class ContributionBuilder {
 
     }
 
-    public static void build(final Bundle bundle,
+    public static void build(final IContributor contributor,
             final List<Extension> extensions) {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         StringBuilder builder = new StringBuilder(BUFFER_SIZE);
@@ -71,9 +70,8 @@ public class ContributionBuilder {
         }
 
         Object token = ((ExtensionRegistry) registry).getTemporaryUserToken();
-        IContributor contributorOsgi = ContributorFactoryOSGi
-                .createContributor(bundle);
-        registry.addContribution(is, contributorOsgi, false, null, null, token);
+
+        registry.addContribution(is, contributor, false, null, null, token);
     }
 
     private static void writeExtension(final Extension extension,

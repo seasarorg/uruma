@@ -15,11 +15,9 @@
  */
 package org.seasar.uruma.rcp;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.internal.registry.ExtensionRegistry;
 import org.eclipse.core.runtime.ContributorFactoryOSGi;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
@@ -72,6 +70,10 @@ public class UrumaActivator extends AbstractUIPlugin {
 
     private WindowContext windowContext;
 
+    private IContributor contributor;
+
+    private String pluginId;
+
     /**
      * {@link UrumaActivator} を構築します。<br />
      */
@@ -86,13 +88,9 @@ public class UrumaActivator extends AbstractUIPlugin {
     public final void start(final BundleContext context) throws Exception {
         super.start(context);
 
-        // アプリケーションが異なるJarの場合の対処
-        // Thread currentThread = Thread.currentThread();
-        // ClassLoader originalLoader = currentThread.getContextClassLoader();
-        // currentThread.setContextClassLoader(getClass().getClassLoader());
-
         initS2Container();
         registComponentsToS2Container();
+        setupContributor();
 
         Template workbenchTemplate = getTemplate(UrumaConstants.DEFAULT_WORKBENCH_XML);
         if (!(workbenchTemplate.getRootComponent() instanceof WorkbenchComponent)) {
@@ -115,8 +113,7 @@ public class UrumaActivator extends AbstractUIPlugin {
             ViewPartComponent component = (ViewPartComponent) template
                     .getRootComponent();
             ViewElement element = new ViewElement();
-            element.id = "org.seasar.uruma.example.filemanager."
-                    + component.getId();
+            element.id = pluginId + UrumaConstants.PERIOD + component.getId();
             element.className = GenericViewPart.class.getName();
             element.name = component.title;
 
@@ -125,9 +122,7 @@ public class UrumaActivator extends AbstractUIPlugin {
 
         List<Extension> extensions = new ArrayList<Extension>();
         extensions.add(viewExtension);
-        ContributionBuilder.build(getBundle(), extensions);
-
-        test2();
+        ContributionBuilder.build(contributor, extensions);
     }
 
     /**
@@ -224,66 +219,13 @@ public class UrumaActivator extends AbstractUIPlugin {
         container.register(this, UrumaConstants.URUMA_PLUGIN_S2NAME);
     }
 
-    private void test() throws Exception {
-        IExtensionRegistry registry = Platform.getExtensionRegistry();
-
-        StringBuffer buf = new StringBuffer(2048);
-        buf.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        buf.append("<?eclipse version=\"3.2\"?>");
-        buf.append("<plugin>");
-        buf.append("<extension point=\"org.eclipse.ui.views\">");
-        buf
-                .append("<view class=\"org.seasar.rcp.example.fileman.FolderViewPart\" id=\"org.seasar.rcp.example.fileman.FolderView\" name=\"フォルダ・ツリー\" />");
-        buf
-                .append("<view class=\"org.seasar.rcp.example.fileman.FileViewPart\" id=\"org.seasar.rcp.example.fileman.FileView\" name=\"ファイル・ビュー\" />");
-        buf.append("</extension>");
-        buf.append("</plugin>");
-        ByteArrayInputStream is = new ByteArrayInputStream(buf.toString()
-                .getBytes("UTF-8"));
-
-        Object token = ((ExtensionRegistry) registry).getTemporaryUserToken();
-
-        // System.out.println("ExtensionPointContributor = "
-        // + extensionPoint.getContributor());
-        //
-        // IExtension viewExtension = extensionPoint
-        // .getExtension("org.seasar.rcp.example.fileman.views");
-        // if (viewExtension != null) {
-        // RegistryContributor viewContributor = (RegistryContributor)
-        // viewExtension
-        // .getContributor();
-        // System.out.println("ExtensionContributor = " + viewContributor);
-        // } else {
-        // System.out.println("ExtensionContributor = NULL");
-        // }
-
-        IContributor contributorOsgi = ContributorFactoryOSGi
+    protected void setupContributor() {
+        this.contributor = ContributorFactoryOSGi
                 .createContributor(getBundle());
-        System.out.println("ContributorByOSGI = " + contributorOsgi);
-
-        registry.addContribution(is, contributorOsgi, false, null, null, token);
-
-        // ExtensionRegistry registry = (ExtensionRegistry) RegistryFactory
-        // .getRegistry();
-
-        // IExtension viewExtension = extensionPoint
-        // .getExtension("org.seasar.rcp.example.fileman.views");
-        // System.out.println(viewExtension);
-        // RegistryContributor viewContributor = (RegistryContributor)
-        // viewExtension
-        // .getContributor();
-        //
-        // RegistryObjectFactory factory = registry.getElementFactory();
-        // String[] props = new String[] { "class",
-        // "org.seasar.rcp.example.fileman.FileViewPart", "id",
-        // "org.seasar.rcp.example.fileman.FileView", "name", "ファイル・ビュー" };
-
-        // ConfigurationElement element = factory
-        // .createConfigurationElement(-1, viewContributor.getActualId(),
-        // "view", props ,new int[0], 0x80000000, );
+        this.pluginId = contributor.getName();
     }
 
-    private void test2() {
+    private void test1() {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         IExtensionPoint extensionPoint = registry
                 .getExtensionPoint("org.eclipse.ui.views");

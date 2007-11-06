@@ -56,6 +56,24 @@ public interface UrumaConstants {
     public static final String AT_MARK = "@";
 
     /**
+     * ピリオド (.) を表す定数です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String PERIOD = ".";
+
+    /**
+     * コンマ (,) を表す定数です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String COMMA = ",";
+
+    /**
      * エクスクラメーションマーク (!) を表す定数です。<br />
      * <dl>
      * <dt><b>値 :</b></dt>
