@@ -21,6 +21,7 @@
       </perspective>
    </extension>
    
+   <!--
    <extension
          point="org.eclipse.ui.views"
          id="org.seasar.uruma.example.filemanager.views">
@@ -28,7 +29,6 @@
             id="org.seasar.uruma.example.filemanager.category1"
             name="ファイルマネージャ">
       </category>
-   <!--
       <view
             class="org.seasar.uruma.example.fileman.FolderViewPart"
             id="org.seasar.uruma.example.fileman.FolderView"
@@ -39,8 +39,8 @@
             id="org.seasar.uruma.example.fileman.FileView"
             name="ファイル・ビュー">
       </view>
-   -->
    </extension>
+   -->
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
