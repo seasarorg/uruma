@@ -20,6 +20,7 @@ import java.util.List;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.CoolItem;
 import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.impl.CoolItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
@@ -52,11 +53,16 @@ public class CoolItemRenderer extends
 
     private void setControl(final CoolItem coolItem,
             final CoolItemComponent coolItemComponent) {
-        List<UIComponent> children = coolItemComponent.getChildren();
-        if (children.size() > 0) {
-            WidgetHandle handle = getContext().getWidgetHandle(
-                    children.get(0).getId());
-            coolItem.setControl((Control) handle.getWidget());
+        List<UIElement> children = coolItemComponent.getChildren();
+
+        for (UIElement child : children) {
+            if (child instanceof UIComponent) {
+                String id = ((UIComponent) child).getId();
+                WidgetHandle handle = getContext().getWidgetHandle(id);
+                coolItem.setControl((Control) handle.getWidget());
+
+                break;
+            }
         }
     }
 

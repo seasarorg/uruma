@@ -21,6 +21,7 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.impl.CTabItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
@@ -73,11 +74,17 @@ public class CTabItemRenderer extends
 
     private void setControl(final CTabItem tabItem,
             final CTabItemComponent tabItemComponent) {
-        List<UIComponent> children = tabItemComponent.getChildren();
-        if (children.size() > 0) {
-            WidgetHandle handle = getContext().getWidgetHandle(
-                    children.get(0).getId());
-            tabItem.setControl((Control) handle.getWidget());
+        List<UIElement> children = tabItemComponent.getChildren();
+
+        for (UIElement child : children) {
+            if (child instanceof UIComponent) {
+                String id = ((UIComponent) child).getId();
+
+                WidgetHandle handle = getContext().getWidgetHandle(id);
+                tabItem.setControl((Control) handle.getWidget());
+
+                break;
+            }
         }
     }
 

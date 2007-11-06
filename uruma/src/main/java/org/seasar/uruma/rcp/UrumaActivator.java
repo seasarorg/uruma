@@ -33,8 +33,8 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIComponentContainer;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.impl.PerspectiveComponent;
 import org.seasar.uruma.component.impl.ViewPartComponent;
 import org.seasar.uruma.component.impl.WorkbenchComponent;
@@ -177,7 +177,7 @@ public class UrumaActivator extends AbstractUIPlugin {
     }
 
     protected void setupPerspectives() {
-        for (UIComponent child : workbenchComponent.getChildren()) {
+        for (UIElement child : workbenchComponent.getChildren()) {
             if (child instanceof PerspectiveComponent) {
                 PerspectiveComponent perspective = (PerspectiveComponent) child;
 

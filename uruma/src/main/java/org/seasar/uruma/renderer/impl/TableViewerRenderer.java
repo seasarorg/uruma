@@ -24,8 +24,8 @@ import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
-import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.impl.TableComponent;
 import org.seasar.uruma.component.impl.TableItemComponent;
 import org.seasar.uruma.context.PartContext;
@@ -47,8 +47,8 @@ public class TableViewerRenderer extends
     @Override
     protected boolean canCreateViewer(final UICompositeComponent component) {
         // TableItemComponent が存在する場合、Viewer を生成しない
-        List<UIComponent> children = component.getChildren();
-        for (UIComponent child : children) {
+        List<UIElement> children = component.getChildren();
+        for (UIElement child : children) {
             if (child instanceof TableItemComponent) {
                 return false;
             }

@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIComponentContainer;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 
@@ -31,20 +32,22 @@ import org.seasar.uruma.context.WidgetHandle;
 public abstract class AbstractUIContainerItemComponent extends
         AbstractItemComponent implements UIComponentContainer {
 
-    private List<UIComponent> children = new ArrayList<UIComponent>();
+    private List<UIElement> children = new ArrayList<UIElement>();
 
     /*
-     * @see org.seasar.uruma.component.UIContainer#addChild(org.seasar.uruma.component.UIComponent)
+     * @see org.seasar.uruma.component.UIElementContainer#addChild(org.seasar.uruma.component.UIElement)
      */
-    public void addChild(final UIComponent child) {
+    public void addChild(final UIElement child) {
         children.add(child);
-        child.setParent(getParent());
+        if (child instanceof UIComponent) {
+            ((UIComponent) child).setParent(getParent());
+        }
     }
 
     /*
-     * @see org.seasar.uruma.component.UIContainer#getChildren()
+     * @see org.seasar.uruma.component.UIElementContainer#getChildren()
      */
-    public List<UIComponent> getChildren() {
+    public List<UIElement> getChildren() {
         return children;
     }
 
@@ -54,7 +57,7 @@ public abstract class AbstractUIContainerItemComponent extends
      * 
      * @return 子コンポーネント。存在しない場合は <code>null</code>。
      */
-    public UIComponent getChild() {
+    public UIElement getChild() {
         if (children.size() > 0) {
             return children.get(0);
         } else {
@@ -68,11 +71,11 @@ public abstract class AbstractUIContainerItemComponent extends
      */
     @Override
     protected void doRender(final WidgetHandle parent, final PartContext context) {
-        UIComponent content = getChild();
-        if (content != null) {
+        UIElement content = getChild();
+        if ((content != null) && (content instanceof UIComponent)) {
             WidgetHandle parentHandle = context.getWidgetHandle(getParent()
                     .getId());
-            content.render(parentHandle, context);
+            ((UIComponent) content).render(parentHandle, context);
         }
     }
 }

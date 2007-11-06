@@ -23,8 +23,8 @@ import org.eclipse.jface.viewers.TreeNodeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
-import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.impl.TreeComponent;
 import org.seasar.uruma.component.impl.TreeItemComponent;
 import org.seasar.uruma.viewer.GenericLabelProvider;
@@ -48,8 +48,8 @@ public class TreeViewerRenderer extends
     @Override
     protected boolean canCreateViewer(final UICompositeComponent component) {
         // TreeItemComponent が存在する場合、Viewer を生成しない
-        List<UIComponent> children = component.getChildren();
-        for (UIComponent child : children) {
+        List<UIElement> children = component.getChildren();
+        for (UIElement child : children) {
             if (child instanceof TreeItemComponent) {
                 return false;
             }

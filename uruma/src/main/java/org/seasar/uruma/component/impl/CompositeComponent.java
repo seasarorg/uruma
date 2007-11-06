@@ -24,6 +24,7 @@ import org.seasar.uruma.component.LayoutDataInfo;
 import org.seasar.uruma.component.LayoutInfo;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
@@ -41,7 +42,7 @@ public class CompositeComponent extends ControlComponent implements
 
     private CommonAttributes commonAttributes;
 
-    private List<UIComponent> children = new ArrayList<UIComponent>();
+    private List<UIElement> children = new ArrayList<UIElement>();
 
     /*
      * @see org.seasar.uruma.component.UICompositeComponent#getLayoutInfo()
@@ -91,17 +92,20 @@ public class CompositeComponent extends ControlComponent implements
     }
 
     /*
-     * @see org.seasar.uruma.component.UIContainer#addChild(org.seasar.uruma.component.UIComponent)
+     * @see org.seasar.uruma.component.UIElementContainer#addChild(org.seasar.uruma.component.UIElement)
      */
-    public void addChild(final UIComponent child) {
+    public void addChild(final UIElement child) {
         this.children.add(child);
-        child.setParent(this);
+
+        if (child instanceof UIComponent) {
+            ((UIComponent) child).setParent(this);
+        }
     }
 
     /*
-     * @see org.seasar.uruma.component.UIContainer#getChildren()
+     * @see org.seasar.uruma.component.UIElementContainer#getChildren()
      */
-    public List<UIComponent> getChildren() {
+    public List<UIElement> getChildren() {
         return children;
     }
 
@@ -125,21 +129,6 @@ public class CompositeComponent extends ControlComponent implements
     }
 
     /**
-     * 子コンポーネントのレンダリングを行います。<br />
-     * 
-     * @param parent
-     *            親 {@link WidgetHandle}
-     * @param context
-     *            {@link PartContext} オブジェクト
-     */
-    protected void renderChild(final WidgetHandle parent,
-            final PartContext context) {
-        for (UIComponent child : children) {
-            child.render(parent, context);
-        }
-    }
-
-    /**
      * 子コンポーネントのプリレンダリングを行います。<br />
      * 
      * @param parent
@@ -149,8 +138,27 @@ public class CompositeComponent extends ControlComponent implements
      */
     protected void preRenderChild(final WidgetHandle parent,
             final WindowContext context) {
-        for (UIComponent child : children) {
-            child.preRender(parent, context);
+        for (UIElement child : children) {
+            if (child instanceof UIComponent) {
+                ((UIComponent) child).preRender(parent, context);
+            }
+        }
+    }
+
+    /**
+     * 子コンポーネントのレンダリングを行います。<br />
+     * 
+     * @param parent
+     *            親 {@link WidgetHandle}
+     * @param context
+     *            {@link PartContext} オブジェクト
+     */
+    protected void renderChild(final WidgetHandle parent,
+            final PartContext context) {
+        for (UIElement child : children) {
+            if (child instanceof UIComponent) {
+                ((UIComponent) child).render(parent, context);
+            }
         }
     }
 }

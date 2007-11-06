@@ -18,6 +18,7 @@ package org.seasar.uruma.renderer.impl;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TabItem;
 import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.impl.TabItemComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
@@ -55,9 +56,10 @@ public class TabItemRenderer extends
 
     private void setControl(final TabItem tabItem,
             final TabItemComponent tabItemComponent) {
-        UIComponent content = tabItemComponent.getChild();
-        if (content != null) {
-            WidgetHandle handle = getContext().getWidgetHandle(content.getId());
+        UIElement content = tabItemComponent.getChild();
+        if ((content != null) && (content instanceof UIComponent)) {
+            String id = ((UIComponent) content).getId();
+            WidgetHandle handle = getContext().getWidgetHandle(id);
             if (handle.instanceOf(Control.class)) {
                 Control control = handle.<Control> getCastWidget();
                 tabItem.setControl(control);

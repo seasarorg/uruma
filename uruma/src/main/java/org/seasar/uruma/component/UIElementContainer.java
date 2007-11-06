@@ -18,23 +18,24 @@ package org.seasar.uruma.component;
 import java.util.List;
 
 /**
- * {@link UIComponent} を子を持つことができる画面要素を表すインターフェースです。<br />
+ * {@link UIElement} を子に持つことができる {@link UIElement} を表すインターフェースです。<br />
  * 
  * @author y-komori
  */
-public interface UIComponentContainer extends UIComponent {
+public interface UIElementContainer extends UIElement {
     /**
      * 子となる {@link UIComponent} を追加します。<br/ >
      * 
      * @param child
      *            子コンポーネント
      */
-    public void addChild(UIComponent child);
+    public void addChild(UIElement child);
 
     /**
      * 子コンポーネントのリストを取得します。<br />
      * 
      * @return 子コンポーネントのリスト
      */
-    public List<UIComponent> getChildren();
+    public List<UIElement> getChildren();
+
 }

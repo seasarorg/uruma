@@ -24,6 +24,7 @@ import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIComponentContainer;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.util.AssertionUtil;
@@ -34,7 +35,8 @@ import org.seasar.uruma.util.AssertionUtil;
  * @author bskuroneko
  * @author y-komori
  */
-public class MenuComponent extends MenuItemComponent implements UIComponentContainer {
+public class MenuComponent extends MenuItemComponent implements
+        UIComponentContainer {
 
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("デフォルトアイテムID")
@@ -52,7 +54,7 @@ public class MenuComponent extends MenuItemComponent implements UIComponentConta
     @FieldDescription("Y 座標")
     private String y;
 
-    private List<UIComponent> children = new ArrayList<UIComponent>();
+    private List<UIElement> children = new ArrayList<UIElement>();
 
     /**
      * デフォルトアイテムIDを取得します。<br />
@@ -130,14 +132,20 @@ public class MenuComponent extends MenuItemComponent implements UIComponentConta
         this.y = y;
     }
 
-    public void addChild(final UIComponent child) {
+    /*
+     * @see org.seasar.uruma.component.UIElementContainer#addChild(org.seasar.uruma.component.UIElement)
+     */
+    public void addChild(final UIElement child) {
         AssertionUtil.assertNotNull("child", child);
         AssertionUtil.assertInstanceOf("child", MenuItemComponent.class, child);
 
         this.children.add(child);
     }
 
-    public List<UIComponent> getChildren() {
+    /*
+     * @see org.seasar.uruma.component.UIElementContainer#getChildren()
+     */
+    public List<UIElement> getChildren() {
         return this.children;
     }
 
@@ -162,8 +170,11 @@ public class MenuComponent extends MenuItemComponent implements UIComponentConta
             }
         }
 
-        for (UIComponent uiComponent : children) {
-            uiComponent.preRender(context.getWidgetHandle(getId()), context);
+        for (UIElement child : children) {
+            if (child instanceof UIComponent) {
+                ((UIComponent) child).preRender(context
+                        .getWidgetHandle(getId()), context);
+            }
         }
     }
 }
