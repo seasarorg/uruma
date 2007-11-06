@@ -12,6 +12,7 @@
       </application>
    </extension>
    
+   <!--
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
@@ -20,6 +21,7 @@
             name="Fileman Perspective">
       </perspective>
    </extension>
+   -->
    
    <!--
    <extension
