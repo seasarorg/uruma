@@ -49,10 +49,4 @@ public class ViewPartComponent extends PartConfigurationElement {
      */
     @RenderingPolicy(targetType = TargetType.NONE)
     public String allowMultiple;
-
-    /**
-     * RCP 上での ID です。<br />
-     */
-    @RenderingPolicy(targetType = TargetType.NONE)
-    public String rcpId;
 }

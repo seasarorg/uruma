@@ -62,8 +62,8 @@ public class AutoPerspectiveFactory implements IPerspectiveFactory {
                 position = IPageLayout.RIGHT;
             }
 
-            layout.addStandaloneView(viewPart.rcpId, true, position, ratio,
-                    layout.getEditorArea());
+            layout.addStandaloneView(viewPart.getRcpId(), true, position,
+                    ratio, layout.getEditorArea());
         }
     }
 }

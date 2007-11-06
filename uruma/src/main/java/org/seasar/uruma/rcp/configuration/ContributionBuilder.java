@@ -16,6 +16,7 @@
 package org.seasar.uruma.rcp.configuration;
 
 import java.io.ByteArrayInputStream;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -26,7 +27,6 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.rcp.configuration.impl.ViewElement;
 
 /**
  * {@link Bundle} に対してコントリビューションを動的に追加するためのクラスです。<br />
@@ -46,56 +46,32 @@ public class ContributionBuilder {
     public static void build(final IContributor contributor,
             final List<Extension> extensions) {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
-        StringBuilder builder = new StringBuilder(BUFFER_SIZE);
+        StringWriter writer = new StringWriter(BUFFER_SIZE);
 
-        builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        builder.append("<?eclipse version=\"3.2\"?>\n");
-        builder.append("<plugin>\n");
+        writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        writer.write("<?eclipse version=\"3.2\"?>\n");
+        writer.write("<plugin>\n");
 
         for (Extension extension : extensions) {
-            writeExtension(extension, builder);
+            extension.writeConfiguration(writer);
         }
 
-        builder.append("</plugin>\n");
+        writer.write("</plugin>\n");
+
+        String content = writer.getBuffer().toString();
 
         if (logger.isDebugEnabled()) {
-            logger.log(UrumaMessageCodes.CREATE_CONTRIBUTION, builder
-                    .toString());
+            logger.log(UrumaMessageCodes.CREATE_CONTRIBUTION, content);
         }
 
         ByteArrayInputStream is = null;
         try {
-            is = new ByteArrayInputStream(builder.toString().getBytes("UTF-8"));
+            is = new ByteArrayInputStream(content.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException ignore) {
         }
 
         Object token = ((ExtensionRegistry) registry).getTemporaryUserToken();
 
         registry.addContribution(is, contributor, false, null, null, token);
-    }
-
-    private static void writeExtension(final Extension extension,
-            final StringBuilder builder) {
-        builder.append("<extension point=\"" + extension.getPoint());
-        builder.append("\">\n");
-
-        List<ConfigurationElement> elements = extension
-                .getConfigurationElements();
-        for (ConfigurationElement element : elements) {
-            // TODO 要素毎にクラスをわけてファクトリから得るようにする
-            if (element instanceof ViewElement) {
-                writeViewElement((ViewElement) element, builder);
-            }
-        }
-
-        builder.append("</extension>\n");
-    }
-
-    private static void writeViewElement(final ViewElement element,
-            final StringBuilder builder) {
-        builder.append("<view class=\"" + element.className + "\" ");
-        builder.append("id=\"" + element.id + "\" ");
-        builder.append("name=\"" + element.name + "\" ");
-        builder.append("allowMultiple=\"" + element.allowMultiple + "\" />\n");
     }
 }

@@ -36,6 +36,8 @@ public abstract class PartConfigurationElement extends CompositeComponent
 
     protected ConfigurationWriter configurationWriter;
 
+    private String rcpId;
+
     /*
      * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#getElements()
      */
@@ -59,4 +61,19 @@ public abstract class PartConfigurationElement extends CompositeComponent
             configurationWriter.writeEndTag(this, writer);
         }
     }
+
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#getRcpId()
+     */
+    public String getRcpId() {
+        return this.rcpId;
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#setRcpId(java.lang.String)
+     */
+    public void setRcpId(final String rcpId) {
+        this.rcpId = rcpId;
+    }
+
 }

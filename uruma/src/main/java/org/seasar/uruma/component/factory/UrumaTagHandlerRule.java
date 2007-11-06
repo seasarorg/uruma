@@ -22,6 +22,7 @@ import org.seasar.uruma.component.factory.handler.GradientInfoTagHandler;
 import org.seasar.uruma.component.factory.handler.GradientItemTagHandler;
 import org.seasar.uruma.component.factory.handler.LayoutDataTagHandler;
 import org.seasar.uruma.component.factory.handler.LayoutTagHandler;
+import org.seasar.uruma.component.factory.handler.PartTagHandler;
 import org.seasar.uruma.component.factory.handler.RootComponentTagHandler;
 import org.seasar.uruma.component.factory.handler.SimpleItemTagHandler;
 import org.seasar.uruma.component.factory.handler.TableCellTagHandler;
@@ -83,8 +84,7 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
                 WindowComponent.class));
         addTagHandler("workbench", new RootComponentTagHandler(
                 WorkbenchComponent.class));
-        addTagHandler("viewPart", new RootComponentTagHandler(
-                ViewPartComponent.class));
+        addTagHandler("viewPart", new PartTagHandler(ViewPartComponent.class));
 
         addTagHandler(new CommonAttributesTagHandler());
 

@@ -15,7 +15,6 @@
  */
 package org.seasar.uruma.rcp;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,9 +48,8 @@ import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
+import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
-import org.seasar.uruma.rcp.configuration.impl.ViewElement;
-import org.seasar.uruma.rcp.ui.GenericViewPart;
 
 /**
  * Uruma RCP アプリケーションのためのアクティベータです。<br />
@@ -115,7 +113,9 @@ public class UrumaActivator extends AbstractUIPlugin {
         this.windowContext = ContextFactory.createWindowContext(
                 applicationContext, UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
 
-        setupViews();
+        templateLoader.loadViewTemplates();
+
+        setupViewExtensions();
         ContributionBuilder.build(contributor, extensions);
     }
 
@@ -149,29 +149,17 @@ public class UrumaActivator extends AbstractUIPlugin {
         super.stop(context);
     }
 
-    /**
-     * ビューを定義した XML を自動的に検索して読み込み、Extension として 動的に生成します。<br />
-     * 
-     * @throws IOException
-     */
-    protected void setupViews() throws IOException {
-        templateLoader.loadViewTemplates();
-
+    private void setupViewExtensions() {
         List<Template> viewTemplates = templateManager
                 .getTemplates(ViewPartComponent.class);
-        Extension extension = new Extension(ExtensionPoints.VIEWS);
 
+        Extension extension = ExtensionFactory
+                .createExtension(ExtensionPoints.VIEWS);
         for (Template template : viewTemplates) {
             ViewPartComponent component = (ViewPartComponent) template
                     .getRootComponent();
-            ViewElement element = new ViewElement();
-            element.id = pluginId + UrumaConstants.PERIOD + component.getId();
-            component.rcpId = element.id;
-            element.className = GenericViewPart.class.getName();
-            element.name = component.title;
-            element.allowMultiple = component.allowMultiple;
-
-            extension.addConfigurationElement(element);
+            component.setRcpId(createRcpId(component.getId()));
+            extension.addConfigurationElement(component);
         }
         extensions.add(extension);
     }
@@ -181,7 +169,8 @@ public class UrumaActivator extends AbstractUIPlugin {
             if (child instanceof PerspectiveComponent) {
                 PerspectiveComponent perspective = (PerspectiveComponent) child;
 
-                Extension extension = new Extension(ExtensionPoints.PERSPECTIVE);
+                Extension extension = ExtensionFactory
+                        .createExtension(ExtensionPoints.PERSPECTIVE);
 
             }
 
@@ -267,6 +256,11 @@ public class UrumaActivator extends AbstractUIPlugin {
         this.pluginId = contributor.getName();
     }
 
+    protected String createRcpId(final String id) {
+        return pluginId + UrumaConstants.PERIOD + id;
+    }
+
+    // TODO 後で削除
     private void test1() {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         // IExtensionPoint extensionPoint = registry

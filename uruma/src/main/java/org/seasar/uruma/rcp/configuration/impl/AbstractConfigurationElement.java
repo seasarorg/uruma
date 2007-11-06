@@ -36,6 +36,8 @@ public abstract class AbstractConfigurationElement extends
 
     private ConfigurationWriter configurationWriter;
 
+    private String rcpId;
+
     /*
      * @see org.seasar.uruma.component.jface.AbstractUIElementContainer#addChild(org.seasar.uruma.component.UIElement)
      */
@@ -80,4 +82,17 @@ public abstract class AbstractConfigurationElement extends
         }
     }
 
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#getRcpId()
+     */
+    public String getRcpId() {
+        return rcpId;
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#setRcpId(java.lang.String)
+     */
+    public void setRcpId(final String rcpId) {
+        this.rcpId = rcpId;
+    }
 }

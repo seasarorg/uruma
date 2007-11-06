@@ -32,4 +32,8 @@ public interface ConfigurationElement {
     public void setConfigurationWriter(ConfigurationWriter writer);
 
     public void writeConfiguration(Writer writer);
+
+    public String getRcpId();
+
+    public void setRcpId(String rcpId);
 }

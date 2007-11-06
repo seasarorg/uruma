@@ -21,6 +21,7 @@ import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.context.ApplicationContext;
+import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 
 /**
  * Uruma で利用するメッセージコードを定義するインターフェースです。<br />
@@ -509,6 +510,15 @@ public interface UrumaMessageCodes {
      * </dl>
      */
     public static final String CREATE_CONTRIBUTION = "DURM0504";
+
+    /**
+     * {@link ConfigurationWriter} が見つからない場合のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String CONFIGURATION_WRITER_NOT_FOUND = "EURM0505";
 
     // -------------------------------------------------------------------------
     // システムデバッグログ関連メッセージコード (99xx)
