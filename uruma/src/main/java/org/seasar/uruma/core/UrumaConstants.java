@@ -100,6 +100,15 @@ public interface UrumaConstants {
      */
     public static final String DEFAULT_IMAGE_BUNDLE_PATH = "urumaImages";
 
+    /**
+     * 画面定義XMLのスキーマファイルパスです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String SCHEMA_PATH = "org/seasar/uruma/component/factory/uruma.xsd";
+
     // -------------------------------------------------------------------------
     // プロトコル名称
     // -------------------------------------------------------------------------

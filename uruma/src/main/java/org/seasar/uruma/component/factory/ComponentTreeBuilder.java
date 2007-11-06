@@ -34,6 +34,7 @@ import org.seasar.framework.xml.SaxHandler;
 import org.seasar.framework.xml.SaxHandlerParser;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.core.UrumaConstants;
 import org.xml.sax.SAXException;
 
 /**
@@ -42,10 +43,6 @@ import org.xml.sax.SAXException;
  * @author y-komori
  */
 public class ComponentTreeBuilder {
-    /**
-     * 画面定義XMLのスキーマファイルパス
-     */
-    public static final String SCHEMA_PATH = "org/seasar/uruma/component/factory/uruma.xsd";
 
     protected ClassPathResourceResolver resolver = new ClassPathResourceResolver();
 
@@ -82,7 +79,7 @@ public class ComponentTreeBuilder {
 
         final SchemaFactory schemaFactory = SchemaFactory
                 .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        InputStream is = getInputStream(SCHEMA_PATH);
+        InputStream is = getInputStream(UrumaConstants.SCHEMA_PATH);
         try {
             final Schema schema = schemaFactory.newSchema(new StreamSource(is));
             factory.setSchema(schema);
