@@ -29,13 +29,13 @@ import org.seasar.uruma.rcp.UrumaActivator;
  * 
  * @author y-komori
  */
-public class GenericPerspectiveFactory implements IPerspectiveFactory {
+public class AutoPerspectiveFactory implements IPerspectiveFactory {
     private TemplateManager templateManager;
 
     /**
-     * {@link GenericPerspectiveFactory} を構築します。<br />
+     * {@link AutoPerspectiveFactory} を構築します。<br />
      */
-    public GenericPerspectiveFactory() {
+    public AutoPerspectiveFactory() {
         this.templateManager = (TemplateManager) UrumaActivator.getInstance()
                 .getS2Container().getComponent(TemplateManager.class);
     }
@@ -55,7 +55,8 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
             ViewPartComponent viewPart = (ViewPartComponent) template
                     .getRootComponent();
 
-            float ratio = calcRatio(size - i);
+            // 左から均等に配置されるように割合を計算
+            float ratio = (1 / (float) (size - i));
             int position = IPageLayout.LEFT;
             if (i == (templates.size() - 1)) {
                 position = IPageLayout.RIGHT;
@@ -64,9 +65,5 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
             layout.addStandaloneView(viewPart.rcpId, true, position, ratio,
                     layout.getEditorArea());
         }
-    }
-
-    private float calcRatio(final int leftViews) {
-        return (1 / (float) (leftViews));
     }
 }

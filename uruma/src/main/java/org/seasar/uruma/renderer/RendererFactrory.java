@@ -32,7 +32,6 @@ import org.seasar.uruma.component.impl.LabelComponent;
 import org.seasar.uruma.component.impl.LinkComponent;
 import org.seasar.uruma.component.impl.MenuComponent;
 import org.seasar.uruma.component.impl.MenuItemComponent;
-import org.seasar.uruma.component.impl.PerspectiveComponent;
 import org.seasar.uruma.component.impl.ProgressBarComponent;
 import org.seasar.uruma.component.impl.SashFormComponent;
 import org.seasar.uruma.component.impl.ScaleComponent;
@@ -134,7 +133,7 @@ public class RendererFactrory {
         addRenderer(SeparatorComponent.class, new SeparatorRenderer());
 
         addRenderer(WorkbenchComponent.class, new NullRenderer());
-        addRenderer(PerspectiveComponent.class, new NullRenderer());
+        // addRenderer(PerspectiveComponent.class, new NullRenderer());
     }
 
     /**

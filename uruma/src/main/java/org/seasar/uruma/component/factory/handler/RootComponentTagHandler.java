@@ -17,7 +17,7 @@ package org.seasar.uruma.component.factory.handler;
 
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.UIContainer;
+import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.UIElement;
 
 /**
@@ -48,7 +48,7 @@ public class RootComponentTagHandler extends GenericTagHandler {
     protected void setParent(final UIElement uiElement,
             final TagHandlerContext context) {
         Template template = (Template) context.peek();
-        template.setRootComponent((UIContainer) uiElement);
+        template.setRootComponent((UIComponentContainer) uiElement);
     }
 
     /*

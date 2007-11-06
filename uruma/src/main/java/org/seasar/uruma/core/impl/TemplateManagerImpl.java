@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.UIContainer;
+import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.factory.ComponentTreeBuilder;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaMessageCodes;
@@ -80,11 +80,11 @@ public class TemplateManagerImpl implements TemplateManager {
      * @see org.seasar.uruma.core.TemplateManager#getTemplates(java.lang.Class)
      */
     public List<Template> getTemplates(
-            final Class<? extends UIContainer> componentClass) {
+            final Class<? extends UIComponentContainer> componentClass) {
         List<Template> templates = new ArrayList<Template>();
 
         for (Template template : templateCache.values()) {
-            UIContainer root = template.getRootComponent();
+            UIComponentContainer root = template.getRootComponent();
             if ((root != null) && componentClass.equals(root.getClass())) {
                 templates.add(template);
             }

@@ -18,11 +18,11 @@ package org.seasar.uruma.component;
 import java.util.List;
 
 /**
- * 子を持つことができる画面要素を表すインターフェースです。<br />
+ * {@link UIComponent} を子を持つことができる画面要素を表すインターフェースです。<br />
  * 
  * @author y-komori
  */
-public interface UIContainer extends UIComponent {
+public interface UIComponentContainer extends UIComponent {
     /**
      * 子となる {@link UIComponent} を追加します。<br/ >
      * 

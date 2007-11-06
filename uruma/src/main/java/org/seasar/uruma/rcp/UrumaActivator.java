@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.rcp;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,9 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.UIComponentContainer;
+import org.seasar.uruma.component.impl.PerspectiveComponent;
 import org.seasar.uruma.component.impl.ViewPartComponent;
 import org.seasar.uruma.component.impl.WorkbenchComponent;
 import org.seasar.uruma.context.ApplicationContext;
@@ -74,6 +78,10 @@ public class UrumaActivator extends AbstractUIPlugin {
 
     private String pluginId;
 
+    private List<Extension> extensions = new ArrayList<Extension>();
+
+    private WorkbenchComponent workbenchComponent;
+
     /**
      * {@link UrumaActivator} を構築します。<br />
      */
@@ -93,40 +101,22 @@ public class UrumaActivator extends AbstractUIPlugin {
         setupContributor();
 
         Template workbenchTemplate = getTemplate(UrumaConstants.DEFAULT_WORKBENCH_XML);
-        if (!(workbenchTemplate.getRootComponent() instanceof WorkbenchComponent)) {
+        UIComponentContainer root = workbenchTemplate.getRootComponent();
+        if (root instanceof WorkbenchComponent) {
+            this.workbenchComponent = (WorkbenchComponent) root;
+        } else {
             throw new NotFoundException(
                     UrumaMessageCodes.WORKBENCH_ELEMENT_NOT_FOUND,
-                    workbenchTemplate.getBasePath());
+                    workbenchTemplate.getPath());
         }
+
         applicationContext.setValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME,
                 workbenchTemplate);
         this.windowContext = ContextFactory.createWindowContext(
                 applicationContext, UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
 
-        templateLoader.loadViewTemplates();
-
-        List<Template> viewTemplates = templateManager
-                .getTemplates(ViewPartComponent.class);
-        Extension viewExtension = new Extension(ExtensionPoints.VIEWS);
-
-        for (Template template : viewTemplates) {
-            ViewPartComponent component = (ViewPartComponent) template
-                    .getRootComponent();
-            ViewElement element = new ViewElement();
-            element.id = pluginId + UrumaConstants.PERIOD + component.getId();
-            component.rcpId = element.id;
-            element.className = GenericViewPart.class.getName();
-            element.name = component.title;
-            element.allowMultiple = component.allowMultiple;
-
-            viewExtension.addConfigurationElement(element);
-        }
-
-        List<Extension> extensions = new ArrayList<Extension>();
-        extensions.add(viewExtension);
+        setupViews();
         ContributionBuilder.build(contributor, extensions);
-
-        test1();
     }
 
     /**
@@ -157,6 +147,45 @@ public class UrumaActivator extends AbstractUIPlugin {
         container.destroy();
 
         super.stop(context);
+    }
+
+    /**
+     * ビューを定義した XML を自動的に検索して読み込み、Extension として 動的に生成します。<br />
+     * 
+     * @throws IOException
+     */
+    protected void setupViews() throws IOException {
+        templateLoader.loadViewTemplates();
+
+        List<Template> viewTemplates = templateManager
+                .getTemplates(ViewPartComponent.class);
+        Extension extension = new Extension(ExtensionPoints.VIEWS);
+
+        for (Template template : viewTemplates) {
+            ViewPartComponent component = (ViewPartComponent) template
+                    .getRootComponent();
+            ViewElement element = new ViewElement();
+            element.id = pluginId + UrumaConstants.PERIOD + component.getId();
+            component.rcpId = element.id;
+            element.className = GenericViewPart.class.getName();
+            element.name = component.title;
+            element.allowMultiple = component.allowMultiple;
+
+            extension.addConfigurationElement(element);
+        }
+        extensions.add(extension);
+    }
+
+    protected void setupPerspectives() {
+        for (UIComponent child : workbenchComponent.getChildren()) {
+            if (child instanceof PerspectiveComponent) {
+                PerspectiveComponent perspective = (PerspectiveComponent) child;
+
+                Extension extension = new Extension(ExtensionPoints.PERSPECTIVE);
+
+            }
+
+        }
     }
 
     /**

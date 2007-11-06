@@ -16,7 +16,7 @@
 package org.seasar.uruma.component.impl;
 
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.UIContainer;
+import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
@@ -35,7 +35,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         UIComponent {
     private UrumaLogger logger = UrumaLogger.getLogger(getClass());
 
-    private UIContainer parent;
+    private UIComponentContainer parent;
 
     private String id;
 
@@ -144,7 +144,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
     /*
      * @see org.seasar.uruma.component.UIComponent#getParent()
      */
-    public UIContainer getParent() {
+    public UIComponentContainer getParent() {
         return parent;
     }
 
@@ -172,7 +172,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
     /*
      * @see org.seasar.uruma.component.UIComponent#setParent(org.seasar.uruma.component.UIContainer)
      */
-    public void setParent(final UIContainer parent) {
+    public void setParent(final UIComponentContainer parent) {
         this.parent = parent;
     }
 

@@ -16,7 +16,7 @@
 package org.seasar.uruma.component.impl;
 
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.UIContainer;
+import org.seasar.uruma.component.UIComponentContainer;
 
 /**
  * {@link Template} の実装クラスです。<br />
@@ -24,21 +24,21 @@ import org.seasar.uruma.component.UIContainer;
  * @author y-komori
  */
 public class TemplateImpl extends AbstractUIElement implements Template {
-    private UIContainer rootComponent;
+    private UIComponentContainer rootComponent;
 
     private String extendsPath;
 
     /*
      * @see org.seasar.uruma.component.Template#getRootComponent()
      */
-    public UIContainer getRootComponent() {
+    public UIComponentContainer getRootComponent() {
         return this.rootComponent;
     }
 
     /*
      * @see org.seasar.uruma.component.Template#setRootComponent(org.seasar.uruma.component.UIContainer)
      */
-    public void setRootComponent(final UIContainer rootComponent) {
+    public void setRootComponent(final UIComponentContainer rootComponent) {
         this.rootComponent = rootComponent;
     }
 

@@ -27,7 +27,7 @@ public interface Template extends UIElement {
      * 
      * @return ルートコンポーネント
      */
-    public UIContainer getRootComponent();
+    public UIComponentContainer getRootComponent();
 
     /**
      * ルートコンポーネントを設定します。<br />
@@ -35,7 +35,7 @@ public interface Template extends UIElement {
      * @param rootComponent
      *            ルートコンポーネント
      */
-    public void setRootComponent(UIContainer rootComponent);
+    public void setRootComponent(UIComponentContainer rootComponent);
 
     /**
      * 継承元のパスを取得します。<br />

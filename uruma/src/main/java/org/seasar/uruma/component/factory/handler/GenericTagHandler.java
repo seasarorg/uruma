@@ -21,7 +21,7 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.UIContainer;
+import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.factory.UrumaTagHandler;
 import org.seasar.uruma.core.UrumaMessageCodes;
@@ -205,9 +205,9 @@ public class GenericTagHandler extends UrumaTagHandler {
             final TagHandlerContext context) {
         if (!context.isEmpty()) {
             Object parent = context.peek();
-            if (UIContainer.class.isAssignableFrom(parent.getClass())
+            if (UIComponentContainer.class.isAssignableFrom(parent.getClass())
                     && UIComponent.class.isAssignableFrom(uiElement.getClass())) {
-                UIContainer parentComponent = UIContainer.class.cast(parent);
+                UIComponentContainer parentComponent = UIComponentContainer.class.cast(parent);
                 UIComponent child = UIComponent.class.cast(uiElement);
                 parentComponent.addChild(child);
             }

@@ -15,6 +15,9 @@
  */
 package org.seasar.uruma.rcp.configuration;
 
+import java.io.Writer;
+import java.util.List;
+
 import org.eclipse.core.runtime.IConfigurationElement;
 
 /**
@@ -24,5 +27,11 @@ import org.eclipse.core.runtime.IConfigurationElement;
  * @author y-komori
  */
 public interface ConfigurationElement {
+    public void addElement(ConfigurationElement element);
 
+    public List<ConfigurationElement> getElements();
+
+    public void setConfigurationWriter(ConfigurationWriter writer);
+
+    public void writeConfiguration(Writer writer);
 }

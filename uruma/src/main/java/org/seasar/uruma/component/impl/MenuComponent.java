@@ -23,7 +23,7 @@ import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.UIContainer;
+import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.util.AssertionUtil;
@@ -34,7 +34,7 @@ import org.seasar.uruma.util.AssertionUtil;
  * @author bskuroneko
  * @author y-komori
  */
-public class MenuComponent extends MenuItemComponent implements UIContainer {
+public class MenuComponent extends MenuItemComponent implements UIComponentContainer {
 
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("デフォルトアイテムID")
@@ -148,7 +148,7 @@ public class MenuComponent extends MenuItemComponent implements UIContainer {
     @Override
     protected void doPreRender(final WidgetHandle parent,
             final WindowContext context) {
-        UIContainer parentComponent = getParent();
+        UIComponentContainer parentComponent = getParent();
 
         if (parentComponent instanceof WindowComponent) {
             WindowComponent windowComponent = (WindowComponent) parentComponent;

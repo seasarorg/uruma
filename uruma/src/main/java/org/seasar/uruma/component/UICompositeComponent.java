@@ -20,7 +20,7 @@ package org.seasar.uruma.component;
  * 
  * @author y-komori
  */
-public interface UICompositeComponent extends UIContainer {
+public interface UICompositeComponent extends UIComponentContainer {
     /**
      * レイアウトデータオブジェクトを取得します。<br />
      * 

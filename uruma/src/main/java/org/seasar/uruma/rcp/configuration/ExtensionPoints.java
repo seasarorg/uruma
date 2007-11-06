@@ -22,7 +22,12 @@ package org.seasar.uruma.rcp.configuration;
  */
 public interface ExtensionPoints {
     /**
-     * {@value} を表す定数です。<br />
+     * エクステンションポイント：{@value} を表す定数です。<br />
      */
     public static final String VIEWS = "org.eclipse.ui.views";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
+    public static final String PERSPECTIVE = "org.eclipse.ui.perspective";
 }

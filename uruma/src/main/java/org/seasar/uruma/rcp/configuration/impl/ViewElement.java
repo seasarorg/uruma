@@ -15,14 +15,13 @@
  */
 package org.seasar.uruma.rcp.configuration.impl;
 
-import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 
 /**
  * <code>view</code> 要素を表すクラスです。<br />
  * 
  * @author y-komori
  */
-public class ViewElement implements ConfigurationElement {
+public class ViewElement extends AbstractConfigurationElement {
     public String id;
 
     public String className;

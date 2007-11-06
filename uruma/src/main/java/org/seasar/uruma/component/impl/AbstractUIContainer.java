@@ -20,19 +20,19 @@ import java.util.Collections;
 import java.util.List;
 
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.UIContainer;
+import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
- * {@link UIContainer} のための基底クラスです。<br />
+ * {@link UIComponentContainer} のための基底クラスです。<br />
  * 
  * @author y-komori
  */
 public abstract class AbstractUIContainer extends AbstractUIComponent implements
-        UIContainer {
+        UIComponentContainer {
     protected List<UIComponent> children = new ArrayList<UIComponent>();
 
     /*

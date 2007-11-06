@@ -13,28 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.component.impl;
+package org.seasar.uruma.rcp.configuration;
 
-import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElement;
+import java.io.Writer;
 
 /**
- * <code>perspective</code> 要素を表すコンポーネントです。<br />
+ * {@link ConfigurationElement} の内容をXMLに書き出すためのインターフェースです。<br />
  * 
  * @author y-komori
  */
-public class PerspectiveComponent extends AbstractConfigurationElement {
-    /**
-     * パースペクティブの名称です。
-     */
-    public String name;
+public interface ConfigurationWriter {
+    public void writeStartTag(ConfigurationElement element, Writer writer);
 
-    /**
-     * アイコンのパスです。
-     */
-    public String icon;
+    public void writeEndTag(ConfigurationElement element, Writer writer);
 
-    /**
-     * パートの配置を固定するかどうかのフラグです。
-     */
-    public String fixed;
+    public Class<? extends ConfigurationElement> getSupportType();
 }

@@ -63,14 +63,14 @@ public interface UIComponent extends UIElement {
      * @param parent
      *            親コンポーネント
      */
-    public void setParent(UIContainer parent);
+    public void setParent(UIComponentContainer parent);
 
     /**
      * 親となる {@link UICompositeComponent} を取得します。<br />
      * 
      * @return 親コンポーネント
      */
-    public UIContainer getParent();
+    public UIComponentContainer getParent();
 
     /**
      * レンダラを取得します。

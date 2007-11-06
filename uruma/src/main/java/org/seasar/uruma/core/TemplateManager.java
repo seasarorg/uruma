@@ -18,7 +18,7 @@ package org.seasar.uruma.core;
 import java.util.List;
 
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.UIContainer;
+import org.seasar.uruma.component.UIComponentContainer;
 
 /**
  * 画面定義テンプレートを管理するためのインターフェースです。<br />
@@ -51,5 +51,5 @@ public interface TemplateManager {
      * @return {@link Template} のリスト
      */
     public List<Template> getTemplates(
-            Class<? extends UIContainer> componentClass);
+            Class<? extends UIComponentContainer> componentClass);
 }

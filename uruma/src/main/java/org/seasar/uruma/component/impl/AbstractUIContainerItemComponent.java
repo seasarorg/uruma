@@ -19,17 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.uruma.component.UIComponent;
-import org.seasar.uruma.component.UIContainer;
+import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 
 /**
- * {@link UIContainer} の子要素を表す基底クラスです。<br />
+ * {@link UIComponentContainer} の子要素を表す基底クラスです。<br />
  * 
  * @author bskuroneko
  */
 public abstract class AbstractUIContainerItemComponent extends
-        AbstractItemComponent implements UIContainer {
+        AbstractItemComponent implements UIComponentContainer {
 
     private List<UIComponent> children = new ArrayList<UIComponent>();
 
