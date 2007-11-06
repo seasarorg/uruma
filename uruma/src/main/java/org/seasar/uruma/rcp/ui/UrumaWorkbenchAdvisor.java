@@ -57,8 +57,8 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
      */
     @Override
     public String getInitialWindowPerspectiveId() {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
+        // TODO ハードコードのため、あとで修正
+        return "org.seasar.uruma.example.filemanager.perspective";
     }
 
     /*
