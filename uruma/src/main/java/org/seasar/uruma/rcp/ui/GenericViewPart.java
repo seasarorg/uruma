@@ -19,6 +19,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IViewSite;
@@ -92,7 +93,7 @@ public class GenericViewPart extends ViewPart {
 
             viewPart.render(parentHandle, context);
 
-            prepareSelectionProvider();
+            prepareSelectionProvider(context);
 
             // TODO 他のViewPartでのレンダリング結果もバインドできるようにする。
             // TODO 要修正
@@ -117,13 +118,12 @@ public class GenericViewPart extends ViewPart {
         // Do nothing.
     }
 
-    private void prepareSelectionProvider() {
-        // TODO 要修正
-        // List<Viewer> viewers = windowContext.getViewerComponents();
-        // if (viewers.size() == 1) {
-        // Viewer viewer = viewers.get(0);
-        // getSite().setSelectionProvider(viewer);
-        // }
+    private void prepareSelectionProvider(final PartContext context) {
+        List<WidgetHandle> viewers = context.getWidgetHandles(Viewer.class);
+        if (viewers.size() == 1) {
+            Viewer viewer = viewers.get(0).<Viewer> getCastWidget();
+            getSite().setSelectionProvider(viewer);
+        }
     }
 
     private void setupSelectionListeners() {

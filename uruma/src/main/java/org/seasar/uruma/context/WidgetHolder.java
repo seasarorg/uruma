@@ -16,6 +16,7 @@
 package org.seasar.uruma.context;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * {@link WidgetHandle} を保持するクラスのためのインターフェースです。<br />
@@ -57,4 +58,12 @@ public interface WidgetHolder {
      */
     public void putWidgetHandle(WidgetHandle handle);
 
+    /**
+     * 指定したクラスのオブジェクトを持つ {@link WidgetHandle} のリストを返します。<br />
+     * 
+     * @param clazz
+     *            クラス
+     * @return {@link WidgetHandle} のリスト
+     */
+    public List<WidgetHandle> getWidgetHandles(Class<?> clazz);
 }

@@ -76,6 +76,17 @@ public interface WindowContext extends WidgetHolder {
     public List<WidgetHandle> findWidgetHandles(String handleId);
 
     /**
+     * {@link WindowContext} 本体および配下のすべての {@link PartContext}
+     * から、指定されたクラスのオブジェクトを持つ {@link WidgetHandle} をすべて検索して返します。<br />
+     * 
+     * @param clazz
+     *            クラス
+     * @return 見つかった {@link WidgetHandle} のリスト
+     * @see WidgetHolder#getWidgetHandles(Class)
+     */
+    public List<WidgetHandle> getAllWidgetHandles(Class<?> clazz);
+
+    /**
      * {@link EnablesDependingDef} を追加します。<br />
      * 
      * @param enablesDependingDef

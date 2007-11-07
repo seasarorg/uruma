@@ -168,6 +168,20 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
+     * @see org.seasar.uruma.context.WindowContext#getAllWidgetHandles(java.lang.Class)
+     */
+    public List<WidgetHandle> getAllWidgetHandles(final Class<?> clazz) {
+        List<WidgetHandle> handles = new ArrayList<WidgetHandle>();
+        handles.addAll(getWidgetHandles(clazz));
+
+        for (PartContext part : getPartContextList()) {
+            handles.addAll(part.getWidgetHandles(clazz));
+        }
+
+        return handles;
+    }
+
+    /*
      * @see org.seasar.uruma.context.WindowContext#addEnablesDependingDef(org.seasar.uruma.binding.enables.EnablesDependingDef)
      */
     public void addEnablesDependingDef(

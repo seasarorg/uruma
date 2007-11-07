@@ -15,9 +15,11 @@
  */
 package org.seasar.uruma.context.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.seasar.uruma.context.WidgetHandle;
@@ -62,4 +64,16 @@ public abstract class AbstractWidgetHolder implements WidgetHolder {
         handleMap.put(handle.getId(), handle);
     }
 
+    /*
+     * @see org.seasar.uruma.context.WidgetHolder#getWidgetHandles(java.lang.Class)
+     */
+    public List<WidgetHandle> getWidgetHandles(final Class<?> clazz) {
+        List<WidgetHandle> handles = new ArrayList<WidgetHandle>();
+        for (WidgetHandle handle : handleMap.values()) {
+            if (handle.instanceOf(clazz)) {
+                handles.add(handle);
+            }
+        }
+        return handles;
+    }
 }
