@@ -11,8 +11,7 @@
          </run>
       </application>
    </extension>
-   
-   <!--
+	<!--   
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
