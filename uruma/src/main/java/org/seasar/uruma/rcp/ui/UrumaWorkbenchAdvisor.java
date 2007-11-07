@@ -60,15 +60,14 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
      */
     @Override
     public String getInitialWindowPerspectiveId() {
-        String perspectiveId = UrumaActivator.getInstance()
-                .getWorkbenchComponent().initialPerspectiveId;
+        UrumaActivator activator = UrumaActivator.getInstance();
+
+        String perspectiveId = activator.getWorkbenchComponent().initialPerspectiveId;
 
         if (StringUtil.isNotBlank(perspectiveId)) {
-            return perspectiveId;
+            return activator.createRcpId(perspectiveId);
         } else {
-            return UrumaActivator.getInstance().getPluginId()
-                    + UrumaConstants.PERIOD
-                    + UrumaConstants.DEFAULT_PERSPECTIVE_ID;
+            return activator.createRcpId(UrumaConstants.DEFAULT_PERSPECTIVE_ID);
         }
     }
 

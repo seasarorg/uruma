@@ -18,9 +18,11 @@ package org.seasar.uruma.rcp.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.seasar.uruma.component.rcp.PartComponent;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.rcp.configuration.writer.ExtensionWriter;
+import org.seasar.uruma.rcp.configuration.writer.NullConfigurationWriter;
 import org.seasar.uruma.rcp.configuration.writer.PerspectiveWriter;
 import org.seasar.uruma.rcp.configuration.writer.ViewWriter;
 import org.seasar.uruma.util.AssertionUtil;
@@ -37,6 +39,8 @@ public class ConfigurationWriterFactory {
         addWriter(new ExtensionWriter());
         addWriter(new ViewWriter());
         addWriter(new PerspectiveWriter());
+        addWriter(new NullConfigurationWriter<PartComponent>(
+                PartComponent.class));
     }
 
     public static final void addWriter(final ConfigurationWriter writer) {

@@ -25,6 +25,11 @@ import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElement;
  */
 public class PerspectiveComponent extends AbstractConfigurationElement {
     /**
+     * パースペクティブのIDです。
+     */
+    public String id;
+
+    /**
      * パースペクティブの名称です。
      */
     public String name;

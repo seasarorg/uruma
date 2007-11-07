@@ -32,7 +32,7 @@ public class NotFoundException extends UrumaRuntimeException {
      * @param name
      *            名称
      */
-    public NotFoundException(final String code, final String name) {
-        super(code, name);
+    public NotFoundException(final String code, final String... name) {
+        super(code, (Object[]) name);
     }
 }

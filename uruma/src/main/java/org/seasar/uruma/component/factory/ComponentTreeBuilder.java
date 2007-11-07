@@ -92,10 +92,7 @@ public class ComponentTreeBuilder {
         final SAXParser saxParser = SAXParserFactoryUtil.newSAXParser(factory);
         final SaxHandler handler = createSaxHandler();
 
-        final TagHandlerContext ctx = handler.getTagHandlerContext();
-        ctx.addParameter(UrumaTagHandler.PARAM_PATH, path);
-        ctx.addParameter(UrumaTagHandler.PARAM_BASE_PATH, (new File(path))
-                .getParent());
+        createContext(handler, path);
 
         return new SaxHandlerParser(handler, saxParser);
     }
@@ -103,5 +100,12 @@ public class ComponentTreeBuilder {
     protected SaxHandler createSaxHandler() {
         SaxHandler handler = new SaxHandler(new UrumaTagHandlerRule());
         return handler;
+    }
+
+    protected void createContext(final SaxHandler handler, final String path) {
+        final TagHandlerContext context = handler.getTagHandlerContext();
+        context.addParameter(UrumaTagHandler.PARAM_PATH, path);
+        context.addParameter(UrumaTagHandler.PARAM_BASE_PATH, (new File(path))
+                .getParent());
     }
 }

@@ -17,6 +17,7 @@ package org.seasar.uruma.component.factory;
 
 import org.seasar.framework.xml.TagHandlerRule;
 import org.seasar.uruma.component.factory.handler.CommonAttributesTagHandler;
+import org.seasar.uruma.component.factory.handler.ConfigurationTagHandler;
 import org.seasar.uruma.component.factory.handler.GenericTagHandler;
 import org.seasar.uruma.component.factory.handler.GradientInfoTagHandler;
 import org.seasar.uruma.component.factory.handler.GradientItemTagHandler;
@@ -150,9 +151,9 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
                 SeparatorComponent.class));
 
         // RCP
-        addTagHandler("perspective", new GenericTagHandler(
+        addTagHandler("perspective", new ConfigurationTagHandler(
                 PerspectiveComponent.class));
-        addTagHandler("part", new GenericTagHandler(PartComponent.class));
+        addTagHandler("part", new ConfigurationTagHandler(PartComponent.class));
     }
 
     protected void addTagHandler(final UrumaTagHandler tagHandler) {

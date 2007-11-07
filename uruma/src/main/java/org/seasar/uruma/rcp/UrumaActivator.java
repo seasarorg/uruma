@@ -46,8 +46,6 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.ViewTemplateLoader;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
-import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
@@ -170,28 +168,32 @@ public class UrumaActivator extends AbstractUIPlugin {
     }
 
     protected void setupPerspectives() {
+        Extension extension = ExtensionFactory
+                .createExtension(ExtensionPoints.PERSPECTIVES);
         for (UIElement child : workbenchComponent.getChildren()) {
             if (child instanceof PerspectiveComponent) {
-                return;
-            } else {
-                Extension extension = ExtensionFactory
-                        .createExtension(ExtensionPoints.PERSPECTIVE);
+                PerspectiveComponent perspective = (PerspectiveComponent) child;
 
-                PerspectiveComponent perspective = new PerspectiveComponent();
                 perspective.perspectiveClass = AutoPerspectiveFactory.class
                         .getName();
-                perspective
-                        .setRcpId(createRcpId(UrumaConstants.DEFAULT_PERSPECTIVE_ID));
-                perspective.name = getPluginId();
-
-                ConfigurationWriter writer = ConfigurationWriterFactory
-                        .getConfigurationWriter(perspective);
-                perspective.setConfigurationWriter(writer);
 
                 extension.addConfigurationElement(perspective);
-                extensions.add(extension);
             }
         }
+
+        if (extension.getElements().size() == 0) {
+            // perspective 要素が定義されていないときにデフォルト設定を行う
+            PerspectiveComponent perspective = new PerspectiveComponent();
+
+            perspective.perspectiveClass = AutoPerspectiveFactory.class
+                    .getName();
+            perspective.id = UrumaConstants.DEFAULT_PERSPECTIVE_ID;
+            perspective.name = getPluginId();
+
+            extension.addConfigurationElement(perspective);
+        }
+
+        extensions.add(extension);
     }
 
     /**
@@ -273,7 +275,7 @@ public class UrumaActivator extends AbstractUIPlugin {
         this.pluginId = contributor.getName();
     }
 
-    protected String createRcpId(final String id) {
+    public String createRcpId(final String id) {
         return pluginId + UrumaConstants.PERIOD + id;
     }
 

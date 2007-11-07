@@ -15,9 +15,14 @@
  */
 package org.seasar.uruma.component.factory.handler;
 
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.exception.UnsupportedClassException;
+import org.seasar.uruma.rcp.UrumaActivator;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
@@ -58,6 +63,7 @@ public class ConfigurationTagHandler extends GenericTagHandler {
 
         ConfigurationElement element = (ConfigurationElement) context.peek();
 
+        setupRcpId(element, context);
         setupConfigurationWriter(element);
     }
 
@@ -65,5 +71,17 @@ public class ConfigurationTagHandler extends GenericTagHandler {
         ConfigurationWriter writer = ConfigurationWriterFactory
                 .getConfigurationWriter(element);
         element.setConfigurationWriter(writer);
+    }
+
+    protected void setupRcpId(final ConfigurationElement element,
+            final TagHandlerContext context) {
+        BeanDesc desc = BeanDescFactory.getBeanDesc(element.getClass());
+        if (desc.hasPropertyDesc("id")) {
+            PropertyDesc pd = desc.getPropertyDesc("id");
+            String id = (String) pd.getValue(element);
+            if (StringUtil.isNotBlank(id)) {
+                element.setRcpId(UrumaActivator.getInstance().createRcpId(id));
+            }
+        }
     }
 }

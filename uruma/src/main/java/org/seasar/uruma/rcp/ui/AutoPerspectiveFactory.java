@@ -20,8 +20,16 @@ import java.util.List;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.UIElement;
+import org.seasar.uruma.component.rcp.PartComponent;
+import org.seasar.uruma.component.rcp.PerspectiveComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
+import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.TemplateManager;
+import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.exception.NotFoundException;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaActivator;
 
 /**
@@ -30,6 +38,17 @@ import org.seasar.uruma.rcp.UrumaActivator;
  * @author y-komori
  */
 public class AutoPerspectiveFactory implements IPerspectiveFactory {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(AutoPerspectiveFactory.class);
+
+    private static final String PART_LEFT = "LEFT";
+
+    private static final String PART_RIGHT = "RIGHT";
+
+    private static final String PART_TOP = "TOP";
+
+    private static final String PART_BOTTOM = "BOTTOM";
+
     private TemplateManager templateManager;
 
     /**
@@ -44,8 +63,20 @@ public class AutoPerspectiveFactory implements IPerspectiveFactory {
      * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
      */
     public void createInitialLayout(final IPageLayout layout) {
+        UrumaActivator uruma = UrumaActivator.getInstance();
+
         layout.setEditorAreaVisible(false);
 
+        String perspectiveId = layout.getDescriptor().getId();
+        if (uruma.createRcpId(UrumaConstants.DEFAULT_PERSPECTIVE_ID).equals(
+                perspectiveId)) {
+            createLayoutAuto(layout);
+        } else {
+            createLayoutFromXML(layout);
+        }
+    }
+
+    protected void createLayoutAuto(final IPageLayout layout) {
         List<Template> templates = templateManager
                 .getTemplates(ViewPartComponent.class);
 
@@ -65,5 +96,83 @@ public class AutoPerspectiveFactory implements IPerspectiveFactory {
             layout.addStandaloneView(viewPart.getRcpId(), true, position,
                     ratio, layout.getEditorArea());
         }
+    }
+
+    protected void createLayoutFromXML(final IPageLayout layout) {
+        UrumaActivator uruma = UrumaActivator.getInstance();
+
+        WorkbenchComponent workbench = uruma.getWorkbenchComponent();
+        String perspectiveId = layout.getDescriptor().getId();
+        PerspectiveComponent pespective = findPerspective(workbench
+                .getChildren(), perspectiveId);
+        if (pespective != null) {
+            List<UIElement> parts = pespective.getChildren();
+            for (UIElement part : parts) {
+                if (part instanceof PartComponent) {
+                    if (!setupLayout(layout, (PartComponent) part)) {
+                        throw new NotFoundException(
+                                UrumaMessageCodes.PART_IN_PERSPECTIVE_NOT_FOUND,
+                                perspectiveId, ((PartComponent) part).ref);
+                    }
+                }
+            }
+        } else {
+            logger.error("パースペクティブ " + perspectiveId + " が見つかりません.");
+
+        }
+    }
+
+    protected PerspectiveComponent findPerspective(
+            final List<UIElement> elements, final String perspectiveId) {
+        for (UIElement element : elements) {
+            if (element instanceof PerspectiveComponent) {
+                PerspectiveComponent perspective = (PerspectiveComponent) element;
+                if (perspectiveId.equals(perspective.getRcpId())) {
+                    return perspective;
+                }
+            }
+        }
+        return null;
+    }
+
+    protected boolean setupLayout(final IPageLayout layout,
+            final PartComponent part) {
+        int pos = IPageLayout.LEFT;
+        if (PART_LEFT.equals(part.position)) {
+            pos = IPageLayout.LEFT;
+        } else if (PART_RIGHT.equals(part.position)) {
+            pos = IPageLayout.RIGHT;
+        } else if (PART_TOP.equals(part.position)) {
+            pos = IPageLayout.TOP;
+        } else if (PART_BOTTOM.equals(part.position)) {
+            pos = IPageLayout.BOTTOM;
+        }
+
+        float ratio = Integer.parseInt(part.ratio) / (float) 100;
+        String refViewId = UrumaActivator.getInstance().createRcpId(part.ref);
+
+        if (findViewPart(refViewId)) {
+            layout.addStandaloneView(refViewId, true, pos, ratio, layout
+                    .getEditorArea());
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    protected boolean findViewPart(final String viewId) {
+        List<Template> templates = templateManager
+                .getTemplates(ViewPartComponent.class);
+
+        for (Template template : templates) {
+            ViewPartComponent viewPart = (ViewPartComponent) template
+                    .getRootComponent();
+            if (viewId.equals(viewPart.getRcpId())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

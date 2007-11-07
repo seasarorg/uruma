@@ -520,6 +520,15 @@ public interface UrumaMessageCodes {
      */
     public static final String CONFIGURATION_WRITER_NOT_FOUND = "EURM0505";
 
+    /**
+     * <code>perspective</code> 要素内で参照されているパートの ID が見つからない場合のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String PART_IN_PERSPECTIVE_NOT_FOUND = "EURM0506";
+
     // -------------------------------------------------------------------------
     // システムデバッグログ関連メッセージコード (99xx)
     // -------------------------------------------------------------------------
