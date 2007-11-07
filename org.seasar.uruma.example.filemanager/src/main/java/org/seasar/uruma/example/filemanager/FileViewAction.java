@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.seasar.eclipse.rcp.ui.S2RcpViewPart;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.SelectionListener;
 
@@ -12,7 +11,7 @@ import org.seasar.uruma.annotation.SelectionListener;
  * @author y-komori
  * 
  */
-public class FileViewPart extends S2RcpViewPart {
+public class FileViewAction {
 	// private TableViewer fileDetailTable;
 
 	@ExportValue(id = "fileDetailTable")
