@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
   <workbench title="Uruma Example - FileManager" initWidth="50%"
-    initHeight="50%" image="/images/container.gif" statusLine="true">
+    initHeight="50%" image="/images/container.gif" statusLine="true" initialPerspectiveId="perspective">
     <menu>
       <menu text="ファイル(&amp;F)">
         <menuItem text="開く(&amp;O)" image="folder" />
@@ -11,7 +11,7 @@
       </menu>
     </menu>
 
-    <perspective>
+    <perspective id="perspective">
       <part ref="folderView" ratio="30" />
       <part ref="fileView" ratio="70" />
     </perspective>
