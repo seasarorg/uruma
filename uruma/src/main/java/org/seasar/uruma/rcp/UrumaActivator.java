@@ -50,6 +50,8 @@ import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
+import org.seasar.uruma.rcp.configuration.impl.ApplicationElement;
+import org.seasar.uruma.rcp.configuration.impl.RunElement;
 import org.seasar.uruma.rcp.ui.AutoPerspectiveFactory;
 import org.seasar.uruma.rcp.ui.GenericPerspectiveFactory;
 
@@ -119,6 +121,7 @@ public class UrumaActivator extends AbstractUIPlugin {
 
         templateLoader.loadViewTemplates();
 
+        setupApplication();
         setupViewExtensions();
         setupPerspectives();
 
@@ -155,6 +158,17 @@ public class UrumaActivator extends AbstractUIPlugin {
         container.destroy();
 
         super.stop(context);
+    }
+
+    protected void setupApplication() {
+        Extension extension = ExtensionFactory
+                .createExtension(ExtensionPoints.APPLICATIONS);
+        ApplicationElement application = new ApplicationElement();
+        RunElement run = new RunElement();
+        run.clazz = UrumaApplication.class.getName();
+        application.addElement(run);
+        extension.addConfigurationElement(application);
+        extensions.add(extension);
     }
 
     private void setupViewExtensions() {

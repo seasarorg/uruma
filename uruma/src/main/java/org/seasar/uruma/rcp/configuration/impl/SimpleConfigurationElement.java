@@ -22,6 +22,7 @@ import java.util.List;
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
+import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -37,6 +38,15 @@ public abstract class SimpleConfigurationElement implements
     private String rcpId;
 
     private ConfigurationWriter configurationWriter;
+
+    /**
+     * {@link SimpleConfigurationElement} を構築します。<br />
+     */
+    public SimpleConfigurationElement() {
+        ConfigurationWriter writer = ConfigurationWriterFactory
+                .getConfigurationWriter(getClass());
+        setConfigurationWriter(writer);
+    }
 
     /**
      * {@link ConfigurationElement} を追加します。<br />

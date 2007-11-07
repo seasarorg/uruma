@@ -20,7 +20,7 @@ import java.io.StringWriter;
 import junit.framework.TestCase;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
-import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
+import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
 import org.seasar.uruma.rcp.configuration.impl.SimpleConfigurationElement;
 
 /**
@@ -29,14 +29,26 @@ import org.seasar.uruma.rcp.configuration.impl.SimpleConfigurationElement;
  * @author y-komori
  */
 public class GenericConfigurationWriterTest extends TestCase {
+
+    @Override
+    protected void setUp() throws Exception {
+        ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
+                TestElement1.class, "element"));
+        ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
+                TestElement2.class, "element", true));
+        ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
+                TestElement3.class, "element", true));
+        ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
+                TestElement4.class, "element"));
+        ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
+                TestElement5.class, "child", true));
+    }
+
     /**
      * 開始/終了タグがある場合のテストです。<br />
      */
     public void testWrite1() {
-        ConfigurationWriter writer = new GenericConfigurationWriter(
-                TestElement1.class, "element");
         TestElement1 element = new TestElement1();
-        element.setConfigurationWriter(writer);
 
         StringWriter sw = new StringWriter();
         element.writeConfiguration(sw);
@@ -50,10 +62,7 @@ public class GenericConfigurationWriterTest extends TestCase {
      * 開始タグのみの場合のテストです。<br />
      */
     public void testWrite2() {
-        ConfigurationWriter writer = new GenericConfigurationWriter(
-                TestElement1.class, "element", true);
-        TestElement1 element = new TestElement1();
-        element.setConfigurationWriter(writer);
+        TestElement2 element = new TestElement2();
 
         StringWriter sw = new StringWriter();
         element.writeConfiguration(sw);
@@ -67,10 +76,7 @@ public class GenericConfigurationWriterTest extends TestCase {
      * 継承されたクラスに対するテストです。<br />
      */
     public void testWrite3() {
-        ConfigurationWriter writer = new GenericConfigurationWriter(
-                TestElement2.class, "element", true);
-        TestElement2 element = new TestElement2();
-        element.setConfigurationWriter(writer);
+        TestElement3 element = new TestElement3();
 
         StringWriter sw = new StringWriter();
         element.writeConfiguration(sw);
@@ -84,21 +90,14 @@ public class GenericConfigurationWriterTest extends TestCase {
      * 親子関係を持つ場合のテストです。<br />
      */
     public void testWrite4() {
-        ConfigurationWriter writer1 = new GenericConfigurationWriter(
-                TestElement3.class, "element");
-        ConfigurationWriter writer2 = new GenericConfigurationWriter(
-                TestElement4.class, "child", true);
-        TestElement3 element = new TestElement3();
-        element.setConfigurationWriter(writer1);
+        TestElement4 element = new TestElement4();
 
-        TestElement4 child1 = new TestElement4();
+        TestElement5 child1 = new TestElement5();
         child1.attr = "child1";
-        child1.setConfigurationWriter(writer2);
         element.addElement(child1);
 
-        TestElement4 child2 = new TestElement4();
+        TestElement5 child2 = new TestElement5();
         child2.attr = "child2";
-        child2.setConfigurationWriter(writer2);
         element.addElement(child2);
 
         StringWriter sw = new StringWriter();
@@ -121,6 +120,9 @@ public class GenericConfigurationWriterTest extends TestCase {
     }
 
     private static class TestElement2 extends TestElement1 {
+    }
+
+    private static class TestElement3 extends TestElement1 {
         @ConfigurationAttribute
         public String attr4 = "ghi";
 
@@ -131,11 +133,11 @@ public class GenericConfigurationWriterTest extends TestCase {
         public int attr6 = 456;
     }
 
-    private static class TestElement3 extends SimpleConfigurationElement {
+    private static class TestElement4 extends SimpleConfigurationElement {
 
     }
 
-    private static class TestElement4 extends SimpleConfigurationElement {
+    private static class TestElement5 extends SimpleConfigurationElement {
         @ConfigurationAttribute
         public String attr;
     }
