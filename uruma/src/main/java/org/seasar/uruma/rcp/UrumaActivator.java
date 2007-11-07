@@ -31,9 +31,9 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
-import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.rcp.PerspectiveComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
@@ -51,6 +51,7 @@ import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
 import org.seasar.uruma.rcp.ui.AutoPerspectiveFactory;
+import org.seasar.uruma.rcp.ui.GenericPerspectiveFactory;
 
 /**
  * Uruma RCP アプリケーションのためのアクティベータです。<br />
@@ -170,15 +171,22 @@ public class UrumaActivator extends AbstractUIPlugin {
     protected void setupPerspectives() {
         Extension extension = ExtensionFactory
                 .createExtension(ExtensionPoints.PERSPECTIVES);
-        for (UIElement child : workbenchComponent.getChildren()) {
-            if (child instanceof PerspectiveComponent) {
-                PerspectiveComponent perspective = (PerspectiveComponent) child;
 
-                perspective.perspectiveClass = AutoPerspectiveFactory.class
-                        .getName();
+        boolean defaultIdUsed = false;
 
-                extension.addConfigurationElement(perspective);
+        for (PerspectiveComponent perspective : workbenchComponent
+                .getPerspectives()) {
+            perspective.perspectiveClass = GenericPerspectiveFactory.class
+                    .getName();
+
+            // ID のついていない最初のパースペクティブにはデフォルトIDをつける
+            if (StringUtil.isBlank(perspective.id) && !defaultIdUsed) {
+                perspective.id = UrumaConstants.DEFAULT_PERSPECTIVE_ID;
+                perspective.setRcpId(createRcpId(perspective.id));
+                defaultIdUsed = true;
             }
+
+            extension.addConfigurationElement(perspective);
         }
 
         if (extension.getElements().size() == 0) {
@@ -191,6 +199,12 @@ public class UrumaActivator extends AbstractUIPlugin {
             perspective.name = getPluginId();
 
             extension.addConfigurationElement(perspective);
+        } else if (StringUtil.isBlank(workbenchComponent.initialPerspectiveId)) {
+            // initialPerspectiveId が定義されていない場合は
+            // 最初に記述されている perspective を表示する
+            PerspectiveComponent perspective = workbenchComponent
+                    .getPerspectives().get(0);
+            workbenchComponent.initialPerspectiveId = perspective.id;
         }
 
         extensions.add(extension);

@@ -21,8 +21,10 @@ import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaActivator;
 
@@ -65,7 +67,14 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
         String perspectiveId = activator.getWorkbenchComponent().initialPerspectiveId;
 
         if (StringUtil.isNotBlank(perspectiveId)) {
-            return activator.createRcpId(perspectiveId);
+            WorkbenchComponent workbench = UrumaActivator.getInstance()
+                    .getWorkbenchComponent();
+            if (workbench.findPerspective(perspectiveId) != null) {
+                return activator.createRcpId(perspectiveId);
+            } else {
+                throw new NotFoundException(
+                        UrumaMessageCodes.PERSPECTIVE_NOT_FOUND, perspectiveId);
+            }
         } else {
             return activator.createRcpId(UrumaConstants.DEFAULT_PERSPECTIVE_ID);
         }

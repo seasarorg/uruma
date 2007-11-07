@@ -529,6 +529,15 @@ public interface UrumaMessageCodes {
      */
     public static final String PART_IN_PERSPECTIVE_NOT_FOUND = "EURM0506";
 
+    /**
+     * パースペクティブが見つからない場合のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String PERSPECTIVE_NOT_FOUND = "EURM0507";
+
     // -------------------------------------------------------------------------
     // システムデバッグログ関連メッセージコード (99xx)
     // -------------------------------------------------------------------------

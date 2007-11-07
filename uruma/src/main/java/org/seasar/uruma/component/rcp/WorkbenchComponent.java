@@ -15,7 +15,11 @@
  */
 package org.seasar.uruma.component.rcp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.SWT;
+import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.base.AbstractUIContainer;
 
 /**
@@ -66,4 +70,45 @@ public class WorkbenchComponent extends AbstractUIContainer {
      * 最初に表示するパースペクティブの ID です。
      */
     public String initialPerspectiveId;
+
+    /**
+     * 指定された ID を持つ {@link PerspectiveComponent} を検索して返します。<br />
+     * 
+     * @param rowId
+     *            ID (画面定義 XML 上の ID)
+     * @return {@link PerspectiveComponent} オブジェクト
+     */
+    public PerspectiveComponent findPerspective(final String rowId) {
+        if (rowId == null) {
+            return null;
+        }
+
+        for (UIElement element : children) {
+            if (element instanceof PerspectiveComponent) {
+                if (rowId.equals(((PerspectiveComponent) element).id)) {
+                    return (PerspectiveComponent) element;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * {@link WorkbenchComponent} が保持する {@link PerspectiveComponent} のリストを返します。<br />
+     * 
+     * @return {@link PerspectiveComponent} のリスト
+     */
+    public List<PerspectiveComponent> getPerspectives() {
+        List<PerspectiveComponent> perspectives = new ArrayList<PerspectiveComponent>(
+                children.size());
+
+        for (UIElement element : children) {
+            if (element instanceof PerspectiveComponent) {
+                perspectives.add((PerspectiveComponent) element);
+            }
+        }
+
+        return perspectives;
+    }
 }
