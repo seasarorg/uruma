@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.eclipse.rcp.ui;
+package org.seasar.uruma.rcp.binding;
 
 import org.eclipse.ui.INullSelectionListener;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;

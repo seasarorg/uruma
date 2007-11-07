@@ -19,14 +19,16 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
-import org.seasar.eclipse.rcp.ui.GenericSelectionListener;
-import org.seasar.eclipse.rcp.ui.NullGenericSelectionListener;
+import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.SelectionListener;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
@@ -43,11 +45,22 @@ import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.rcp.UrumaActivator;
+import org.seasar.uruma.rcp.binding.GenericSelectionListener;
+import org.seasar.uruma.rcp.binding.NullGenericSelectionListener;
 import org.seasar.uruma.util.AnnotationUtil;
 import org.seasar.uruma.util.S2ContainerUtil;
 
 /**
- * 汎用的な {@link ViewPart} クラスです。<br />
+ * 汎用的な {@link IViewPart} クラスです。<br />
+ * <p>
+ * 本クラスのインタンスは、画面定義テンプレートで指定された ID をキーとして {@link S2Container} へ登録されます。
+ * </p>
+ * <p>
+ * また、当該 {@link IViewPart} の中で使用されている {@link Viewer} が一つしか存在しない場合、その
+ * {@link Viewer} を自動的に {@link ISelectionProvider} として
+ * {@link IWorkbenchPartSite} へ登録します。<br />
+ * {@link Viewer} が複数存在する場合、自動登録は行いません。<br />
+ * </p>
  * 
  * @author y-komori
  */
@@ -60,6 +73,8 @@ public class GenericViewPart extends ViewPart {
 
     private WindowContext windowContext;
 
+    private String componentId;
+
     /*
      * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
      *      org.eclipse.ui.IMemento)
@@ -70,6 +85,12 @@ public class GenericViewPart extends ViewPart {
         super.init(site, memento);
 
         S2ContainerUtil.injectDependency(this, activator.getS2Container());
+
+        this.componentId = activator.getLocalId(getSite().getId());
+
+        if (StringUtil.isNotBlank(componentId)) {
+            activator.getS2Container().register(this, componentId);
+        }
     }
 
     /**
@@ -80,13 +101,12 @@ public class GenericViewPart extends ViewPart {
 
     @Override
     public void createPartControl(final Composite parent) {
-        String id = activator.getLocalId(getSite().getId());
-        Template template = templateManager.getTemplateById(id);
+        Template template = templateManager.getTemplateById(componentId);
         UIComponentContainer root = template.getRootComponent();
         if (root instanceof ViewPartComponent) {
             ViewPartComponent viewPart = (ViewPartComponent) root;
 
-            PartContext context = createPartContext(id);
+            PartContext context = createPartContext(componentId);
             WidgetHandle parentHandle = ContextFactory
                     .createWidgetHandle(parent);
             parentHandle.setUiComponent(activator.getWorkbenchComponent());
