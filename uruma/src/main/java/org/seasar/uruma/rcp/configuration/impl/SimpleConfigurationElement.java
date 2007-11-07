@@ -13,55 +13,47 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.component.base;
+package org.seasar.uruma.rcp.configuration.impl;
 
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
-import org.seasar.uruma.component.jface.CompositeComponent;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
- * 子要素を持たない {@link ConfigurationElement} の基底クラスです。<br />
- * 主に <code>viewPart</code> や <code>editorPart</code> を定義するためのクラスです。<br />
+ * シンプルな {@link ConfigurationElement} の基底クラスです。<br />
  * 
  * @author y-komori
  */
-public abstract class PartConfigurationElement extends CompositeComponent
-        implements ConfigurationElement {
-    private static final List<ConfigurationElement> nullList = new ArrayList<ConfigurationElement>(
-            0);
-
-    protected ConfigurationWriter configurationWriter;
+public abstract class SimpleConfigurationElement implements
+        ConfigurationElement {
+    private List<ConfigurationElement> elements = new ArrayList<ConfigurationElement>();
 
     @ConfigurationAttribute(name = "id")
     private String rcpId;
+
+    private ConfigurationWriter configurationWriter;
+
+    /**
+     * {@link ConfigurationElement} を追加します。<br />
+     * 
+     * @param element
+     *            {@link ConfigurationElement} オブジェクト
+     */
+    public void addElement(final ConfigurationElement element) {
+        AssertionUtil.assertNotNull("element", element);
+        elements.add(element);
+    }
 
     /*
      * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#getElements()
      */
     public List<ConfigurationElement> getElements() {
-        return nullList;
-    }
-
-    /*
-     * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#setConfigurationWriter(org.seasar.uruma.rcp.configuration.ConfigurationWriter)
-     */
-    public void setConfigurationWriter(final ConfigurationWriter writer) {
-        this.configurationWriter = writer;
-    }
-
-    /*
-     * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#writeConfiguration(java.io.Writer)
-     */
-    public void writeConfiguration(final Writer writer) {
-        if (configurationWriter != null) {
-            configurationWriter.writeStartTag(this, writer);
-            configurationWriter.writeEndTag(this, writer);
-        }
+        return this.elements;
     }
 
     /*
@@ -72,10 +64,34 @@ public abstract class PartConfigurationElement extends CompositeComponent
     }
 
     /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#setConfigurationWriter(org.seasar.uruma.rcp.configuration.ConfigurationWriter)
+     */
+    public void setConfigurationWriter(final ConfigurationWriter writer) {
+        this.configurationWriter = writer;
+    }
+
+    /*
      * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#setRcpId(java.lang.String)
      */
     public void setRcpId(final String rcpId) {
         this.rcpId = rcpId;
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#writeConfiguration(java.io.Writer)
+     */
+    public void writeConfiguration(final Writer writer) {
+        if (configurationWriter != null) {
+            configurationWriter.writeStartTag(this, writer);
+        }
+
+        for (ConfigurationElement element : elements) {
+            element.writeConfiguration(writer);
+        }
+
+        if (configurationWriter != null) {
+            configurationWriter.writeEndTag(this, writer);
+        }
     }
 
 }

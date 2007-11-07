@@ -19,12 +19,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.seasar.uruma.component.rcp.PartComponent;
+import org.seasar.uruma.component.rcp.PerspectiveComponent;
+import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
-import org.seasar.uruma.rcp.configuration.writer.ExtensionWriter;
+import org.seasar.uruma.rcp.configuration.impl.ApplicationElement;
+import org.seasar.uruma.rcp.configuration.impl.RunElement;
+import org.seasar.uruma.rcp.configuration.writer.GenericConfigurationWriter;
 import org.seasar.uruma.rcp.configuration.writer.NullConfigurationWriter;
-import org.seasar.uruma.rcp.configuration.writer.PerspectiveWriter;
-import org.seasar.uruma.rcp.configuration.writer.ViewWriter;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -36,13 +38,24 @@ public class ConfigurationWriterFactory {
     private static final Map<Class<? extends ConfigurationElement>, ConfigurationWriter> writerMap = new HashMap<Class<? extends ConfigurationElement>, ConfigurationWriter>();
 
     static {
-        addWriter(new ExtensionWriter());
-        addWriter(new ViewWriter());
-        addWriter(new PerspectiveWriter());
+        addWriter(new GenericConfigurationWriter(Extension.class, "extension"));
+        addWriter(new GenericConfigurationWriter(ViewPartComponent.class,
+                "view", true));
+        addWriter(new GenericConfigurationWriter(PerspectiveComponent.class,
+                "perspective"));
         addWriter(new NullConfigurationWriter<PartComponent>(
                 PartComponent.class));
+        addWriter(new GenericConfigurationWriter(ApplicationElement.class,
+                "application"));
+        addWriter(new GenericConfigurationWriter(RunElement.class, "run", true));
     }
 
+    /**
+     * {@link ConfigurationWriter} を追加します。<br />
+     * 
+     * @param writer
+     *            {@link ConfigurationWriter} オブジェクト
+     */
     public static final void addWriter(final ConfigurationWriter writer) {
         AssertionUtil.assertNotNull("writer", writer);
 
@@ -50,6 +63,15 @@ public class ConfigurationWriterFactory {
         writerMap.put(clazz, writer);
     }
 
+    /**
+     * クラスを指定して {@link ConfigurationWriter} を取得します。<br />
+     * 
+     * @param clazz
+     *            {@link ConfigurationElement} のクラスオブジェクト
+     * @return {@link ConfigurationWriter} オブジェクト
+     * @throws NotFoundException
+     *             {@link ConfigurationWriter} が見つからない場合
+     */
     public static final ConfigurationWriter getConfigurationWriter(
             final Class<? extends ConfigurationElement> clazz) {
         ConfigurationWriter writer = writerMap.get(clazz);
@@ -62,6 +84,16 @@ public class ConfigurationWriterFactory {
         }
     }
 
+    /**
+     * {@link ConfigurationElement} オブジェクトを指定して {@link ConfigurationWriter}
+     * を取得します。<br />
+     * 
+     * @param element
+     *            {@link ConfigurationElement} オブジェクト
+     * @return {@link ConfigurationWriter} オブジェクト
+     * @throws NotFoundException
+     *             {@link ConfigurationWriter} が見つからない場合
+     */
     public static final ConfigurationWriter getConfigurationWriter(
             final ConfigurationElement element) {
         AssertionUtil.assertNotNull("element", element);

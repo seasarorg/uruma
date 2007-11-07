@@ -24,6 +24,11 @@ public interface ExtensionPoints {
     /**
      * エクステンションポイント：{@value} を表す定数です。<br />
      */
+    public static final String APPLICATIONS = "org.eclipse.core.runtime.applications";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
     public static final String VIEWS = "org.eclipse.ui.views";
 
     /**

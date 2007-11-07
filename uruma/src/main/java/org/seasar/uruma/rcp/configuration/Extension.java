@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IExtension;
+import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -30,9 +31,10 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 public class Extension implements ConfigurationElement {
     // TODO あとでインターフェース化する
-
+    @ConfigurationAttribute(name = "id")
     private String rcpId;
 
+    @ConfigurationAttribute(required = true)
     private String point;
 
     private ConfigurationWriter configurationWriter;

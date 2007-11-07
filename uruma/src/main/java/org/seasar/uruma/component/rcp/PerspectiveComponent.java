@@ -16,6 +16,7 @@
 package org.seasar.uruma.component.rcp;
 
 import org.eclipse.ui.IPerspectiveFactory;
+import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElement;
 
 /**
@@ -32,20 +33,24 @@ public class PerspectiveComponent extends AbstractConfigurationElement {
     /**
      * パースペクティブの名称です。
      */
+    @ConfigurationAttribute(required = true)
     public String name;
 
     /**
      * アイコンのパスです。
      */
+    @ConfigurationAttribute
     public String icon;
 
     /**
      * パートの配置を固定するかどうかのフラグです。
      */
+    @ConfigurationAttribute
     public String fixed;
 
     /**
      * {@link IPerspectiveFactory} のクラス名です。
      */
+    @ConfigurationAttribute(name = "class", required = true)
     public String perspectiveClass;
 }

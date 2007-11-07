@@ -16,9 +16,9 @@
 package org.seasar.uruma.component.rcp;
 
 import org.eclipse.ui.part.ViewPart;
-import org.seasar.uruma.annotation.RenderingPolicy;
-import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
+import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.component.base.PartConfigurationElement;
+import org.seasar.uruma.rcp.ui.GenericViewPart;
 
 /**
  * {@link ViewPart} のコンポーネント情報を保持するためのクラスです。<br />
@@ -29,24 +29,30 @@ public class ViewPartComponent extends PartConfigurationElement {
     /**
      * ビュータイトルです。<br />
      */
-    @RenderingPolicy(targetType = TargetType.NONE)
+    @ConfigurationAttribute(name = "name")
     public String title;
+
+    /**
+     * {@link ViewPart} クラスの名称です。<br />
+     */
+    @ConfigurationAttribute(name = "class")
+    public String clazz = GenericViewPart.class.getName();
 
     /**
      * カテゴリ名称です。<br />
      */
-    @RenderingPolicy(targetType = TargetType.NONE)
+    @ConfigurationAttribute
     public String category;
 
     /**
      * イメージを指定するパスです。<br />
      */
-    @RenderingPolicy(targetType = TargetType.NONE)
+    @ConfigurationAttribute(name = "icon")
     public String image;
 
     /**
      * 複数のオープンを許可するかどうかのフラグです。<br />
      */
-    @RenderingPolicy(targetType = TargetType.NONE)
+    @ConfigurationAttribute
     public String allowMultiple;
 }

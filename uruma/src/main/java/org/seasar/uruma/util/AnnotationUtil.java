@@ -56,8 +56,8 @@ public class AnnotationUtil {
      *            対象アノテーション
      * @return 見つかった {@link Field} オブジェクトのリスト
      */
-    public static List<Field> getAnnotatedFields(Class<?> clazz,
-            Class<? extends Annotation> annotationClass) {
+    public static List<Field> getAnnotatedFields(final Class<?> clazz,
+            final Class<? extends Annotation> annotationClass) {
         ClassEntry entry = new ClassEntry(clazz, annotationClass);
         List<Field> result = fieldCache.get(entry);
         if (result != null) {
@@ -91,8 +91,8 @@ public class AnnotationUtil {
      *            対象アノテーション
      * @return 見つかったメソッドのリスト
      */
-    public static List<Method> getAnnotatedMethods(Class<?> clazz,
-            Class<? extends Annotation> annotationClass) {
+    public static List<Method> getAnnotatedMethods(final Class<?> clazz,
+            final Class<? extends Annotation> annotationClass) {
         ClassEntry entry = new ClassEntry(clazz, annotationClass);
         List<Method> result = methodCache.get(entry);
         if (result != null) {
@@ -131,8 +131,9 @@ public class AnnotationUtil {
      *            対象アノテーション
      * @return 見つかった {@link PropertyDesc} のリスト
      */
-    public static List<PropertyDesc> getAnnotatedPropertyDescs(Class<?> clazz,
-            Class<? extends Annotation> annotationClass) {
+    public static List<PropertyDesc> getAnnotatedPropertyDescs(
+            final Class<?> clazz,
+            final Class<? extends Annotation> annotationClass) {
         ClassEntry entry = new ClassEntry(clazz, annotationClass);
         List<PropertyDesc> result = pdCache.get(entry);
         if (result != null) {
@@ -160,7 +161,8 @@ public class AnnotationUtil {
 
         private Class<? extends Annotation> annotationClass;
 
-        ClassEntry(Class<?> clazz, Class<? extends Annotation> annotationClass) {
+        ClassEntry(final Class<?> clazz,
+                final Class<? extends Annotation> annotationClass) {
             this.clazz = clazz;
             this.annotationClass = annotationClass;
         }
@@ -179,7 +181,7 @@ public class AnnotationUtil {
         }
 
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(final Object obj) {
             if (this == obj)
                 return true;
             if (obj == null)

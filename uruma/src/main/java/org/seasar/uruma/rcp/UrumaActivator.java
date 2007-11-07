@@ -94,6 +94,8 @@ public class UrumaActivator extends AbstractUIPlugin {
      */
     @Override
     public final void start(final BundleContext context) throws Exception {
+        logger.log(UrumaMessageCodes.URUMA_RCP_START);
+
         super.start(context);
 
         initS2Container();
@@ -146,6 +148,8 @@ public class UrumaActivator extends AbstractUIPlugin {
      */
     @Override
     public final void stop(final BundleContext context) throws Exception {
+        logger.log(UrumaMessageCodes.URUMA_RCP_STOP);
+
         plugin = null;
 
         container.destroy();

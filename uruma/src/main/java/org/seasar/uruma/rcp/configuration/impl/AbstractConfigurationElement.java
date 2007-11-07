@@ -19,6 +19,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.base.AbstractUIElementContainer;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
@@ -36,6 +37,7 @@ public abstract class AbstractConfigurationElement extends
 
     private ConfigurationWriter configurationWriter;
 
+    @ConfigurationAttribute(name = "id", required = true)
     private String rcpId;
 
     /*

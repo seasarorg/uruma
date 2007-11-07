@@ -20,8 +20,6 @@ import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.seasar.uruma.core.UrumaMessageCodes;
-import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.ui.UrumaWorkbenchAdvisor;
 
 /**
@@ -30,15 +28,11 @@ import org.seasar.uruma.rcp.ui.UrumaWorkbenchAdvisor;
  * @author y-komori
  */
 public class UrumaApplication implements IApplication {
-    private static final UrumaLogger logger = UrumaLogger
-            .getLogger(UrumaApplication.class);
 
     /*
      * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
      */
     public Object start(final IApplicationContext context) throws Exception {
-        logger.log(UrumaMessageCodes.URUMA_RCP_START);
-
         Display display = PlatformUI.createDisplay();
         try {
             int returnCode = PlatformUI.createAndRunWorkbench(display,
@@ -56,8 +50,6 @@ public class UrumaApplication implements IApplication {
      * @see org.eclipse.equinox.app.IApplication#stop()
      */
     public void stop() {
-        logger.log(UrumaMessageCodes.URUMA_RCP_STOP);
-
         final IWorkbench workbench = PlatformUI.getWorkbench();
         if (workbench == null)
             return;
