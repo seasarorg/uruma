@@ -44,8 +44,10 @@ public class PartActionUtil {
      *            対応するパートの ID
      * @param container
      *            クラスを検索する {@link S2Container} オブジェクト
+     * @return パートアクションクラスが見つかった場合、そのオブジェクト。<br />
+     *         見つからなかった場合は <code>null</code>
      */
-    public static void setupPartAction(final PartContext context,
+    public static Object setupPartAction(final PartContext context,
             final String id, final S2Container container) {
         String actionComponentName = StringUtil.decapitalize(id)
                 + UrumaConstants.PART_ACTION_SUFFIX;
@@ -61,6 +63,10 @@ public class PartActionUtil {
             logger.log(UrumaMessageCodes.PART_ACTION_CLASS_FOUND, id,
                     actionComponentName, partActionComponent.getClass()
                             .getName());
+
+            return partActionComponent;
+        } else {
+            return null;
         }
     }
 }

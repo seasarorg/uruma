@@ -27,6 +27,7 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
+import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.binding.context.ApplicationContextBinder;
@@ -46,6 +47,7 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.UrumaWindowManager;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
+import org.seasar.uruma.desc.PartActionUtil;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.renderer.impl.WindowRenderer;
@@ -131,15 +133,12 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
     }
 
     protected void setupActionComponent() {
-        String id = windowComponent.getId();
-        String actionComponentName = StringUtil.decapitalize(id) + "Action";
-        partActionComponent = S2ContainerUtil
-                .getComponentNoException(actionComponentName);
+        partActionComponent = PartActionUtil.setupPartAction(partContext,
+                windowComponent.getId(), SingletonS2ContainerFactory
+                        .getContainer());
         if (partActionComponent != null) {
-            partContext.setPartActionObject(partActionComponent);
-            desc = PartActionDescFactory.getPartActionDesc(partActionComponent
-                    .getClass());
-            partContext.setPartActionDesc(desc);
+            this.desc = PartActionDescFactory
+                    .getPartActionDesc(partActionComponent.getClass());
         }
     }
 
