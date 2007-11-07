@@ -36,6 +36,16 @@ public interface TemplateManager {
     public Template getTemplate(final String path);
 
     /**
+     * 指定された id を持つ {@link Template} オブジェクトを返します。<br />
+     * 事前に {@link #loadTemplates(List)} メソッドでロードしたテンプレートが対象です。<br />
+     * 
+     * @param id
+     *            テンプレート ID
+     * @return {@link Template} オブジェクト
+     */
+    public Template getTemplateById(String id);
+
+    /**
      * 指定されたパスの画面定義 XML を一括読み込みします。<br />
      * 
      * @param pathList

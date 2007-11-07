@@ -52,6 +52,38 @@ public class S2ContainerUtil {
     }
 
     /**
+     * 指定されたクラスに対応するコンポーネントを {@link S2Container} から取得して返します。<br />
+     * コンポーネントが存在しない場合は例外をスローせず、 <code>null</code> を返します。
+     * 
+     * @param componentClass
+     *            コンポーネントのクラス
+     * @param container
+     *            {@link S2Container}
+     * @return コンポーネントオブジェクト
+     */
+    public static Object getComponentNoException(final Class<?> componentClass,
+            final S2Container container) {
+        if (container.hasComponentDef(componentClass)) {
+            return container.getComponent(componentClass);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 指定されたクラスに対応するコンポーネントを {@link S2Container} から取得して返します。<br />
+     * コンポーネントが存在しない場合は例外をスローせず、 <code>null</code> を返します。
+     * 
+     * @param componentClass
+     *            コンポーネントのクラス
+     * @return コンポーネントオブジェクト
+     */
+    public static Object getComponentNoException(final Class<?> componentClass) {
+        return getComponentNoException(componentClass,
+                SingletonS2ContainerFactory.getContainer());
+    }
+
+    /**
      * 指定された名前に対応するコンポーネントを {@link S2Container} から取得して返します。<br />
      * 
      * @param componentName
@@ -108,13 +140,11 @@ public class S2ContainerUtil {
         int pdSize = desc.getPropertyDescSize();
         for (int i = 0; i < pdSize; i++) {
             PropertyDesc pd = desc.getPropertyDesc(i);
-            if (pd.hasWriteMethod()) {
-                String propertyName = pd.getPropertyName();
-                Object component = getComponentNoException(propertyName);
 
-                if (component != null) {
-                    pd.setValue(target, component);
-                }
+            Class<?> clazz = pd.getPropertyType();
+            Object component = getComponentNoException(clazz);
+            if (component != null) {
+                pd.setValue(target, component);
             }
         }
     }

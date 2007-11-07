@@ -121,7 +121,7 @@ public class UrumaActivator extends AbstractUIPlugin {
 
         templateLoader.loadViewTemplates();
 
-        setupApplication();
+        // setupApplication();
         setupViewExtensions();
         setupPerspectives();
 
@@ -309,6 +309,19 @@ public class UrumaActivator extends AbstractUIPlugin {
 
     public String createRcpId(final String id) {
         return pluginId + UrumaConstants.PERIOD + id;
+    }
+
+    public String getLocalId(final String rcpId) {
+        if (rcpId != null) {
+            if (rcpId.startsWith(pluginId)) {
+                return rcpId.substring(pluginId.length() + 1, rcpId.length());
+            } else {
+                return rcpId;
+            }
+
+        } else {
+            return null;
+        }
     }
 
     // TODO 後で削除

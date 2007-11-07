@@ -34,7 +34,12 @@ public class ViewPartRenderer extends AbstractRenderer {
     public WidgetHandle render(
             final org.seasar.uruma.component.UIComponent uiComponent,
             final WidgetHandle parent, final PartContext context) {
-        return parent;
+        setContext(context);
+
+        WidgetHandle handle = createWidgetHandle(uiComponent, parent
+                .getWidget());
+
+        return handle;
     }
 
     /*

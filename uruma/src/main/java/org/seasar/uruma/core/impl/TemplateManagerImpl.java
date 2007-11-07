@@ -27,6 +27,7 @@ import org.seasar.uruma.component.factory.ComponentTreeBuilder;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.DuplicateIdTemplateException;
+import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 
 /**
@@ -74,6 +75,20 @@ public class TemplateManagerImpl implements TemplateManager {
         }
 
         return template;
+    }
+
+    /*
+     * @see org.seasar.uruma.core.TemplateManager#getTemplateById(java.lang.String)
+     */
+    public Template getTemplateById(final String id) {
+        String path = idToPathMap.get(id);
+        if (path != null) {
+            logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_CACHE, path);
+            return templateCache.get(path);
+        } else {
+            throw new NotFoundException(UrumaMessageCodes.TEMPLATE_NOT_FOUND,
+                    id);
+        }
     }
 
     /*

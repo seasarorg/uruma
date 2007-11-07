@@ -224,6 +224,15 @@ public interface UrumaMessageCodes {
      */
     public static final String DUPLICATE_ID_TEMPLATE = "EURM0113";
 
+    /**
+     * 指定された ID を持つ画面定義テンプレートが見つからなかった際のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String TEMPLATE_NOT_FOUND = "EURM0114";
+
     // -------------------------------------------------------------------------
     // バインディング関連メッセージコード (02xx)
     // -------------------------------------------------------------------------
