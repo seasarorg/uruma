@@ -362,6 +362,15 @@ public interface UrumaMessageCodes {
      */
     public static final String ENABLES_DEPENDING_TARGET_NOT_FOUND = "EURM0213";
 
+    /**
+     * パートアクションクラス設定時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String PART_ACTION_CLASS_FOUND = "IURM0214";
+
     // -------------------------------------------------------------------------
     // レンダリング関連メッセージコード (03xx)
     // -------------------------------------------------------------------------

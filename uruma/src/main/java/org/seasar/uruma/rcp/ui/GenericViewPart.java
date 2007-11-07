@@ -43,6 +43,7 @@ import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.desc.PartActionUtil;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.rcp.UrumaActivator;
 import org.seasar.uruma.rcp.binding.GenericSelectionListener;
@@ -67,11 +68,19 @@ import org.seasar.uruma.util.S2ContainerUtil;
 public class GenericViewPart extends ViewPart {
     private UrumaActivator activator = UrumaActivator.getInstance();
 
+    /**
+     * {@link TemplateManager} オブジェクト
+     */
     public TemplateManager templateManager;
 
+    /**
+     * {@link ApplicationContext} オブジェクト
+     */
     public ApplicationContext applicationContext;
 
     private WindowContext windowContext;
+
+    private ViewPartComponent viewPart;
 
     private String componentId;
 
@@ -104,7 +113,7 @@ public class GenericViewPart extends ViewPart {
         Template template = templateManager.getTemplateById(componentId);
         UIComponentContainer root = template.getRootComponent();
         if (root instanceof ViewPartComponent) {
-            ViewPartComponent viewPart = (ViewPartComponent) root;
+            this.viewPart = (ViewPartComponent) root;
 
             PartContext context = createPartContext(componentId);
             WidgetHandle parentHandle = ContextFactory
@@ -112,6 +121,9 @@ public class GenericViewPart extends ViewPart {
             parentHandle.setUiComponent(activator.getWorkbenchComponent());
 
             viewPart.render(parentHandle, context);
+
+            PartActionUtil.setupPartAction(context, componentId, activator
+                    .getS2Container());
 
             prepareSelectionProvider(context);
 
@@ -127,18 +139,18 @@ public class GenericViewPart extends ViewPart {
         }
     }
 
+    @Override
+    public void setFocus() {
+        // Do nothing.
+    }
+
     protected PartContext createPartContext(final String id) {
         this.windowContext = applicationContext
                 .getWindowContext(UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
         return ContextFactory.createPartContext(windowContext, id);
     }
 
-    @Override
-    public void setFocus() {
-        // Do nothing.
-    }
-
-    private void prepareSelectionProvider(final PartContext context) {
+    protected void prepareSelectionProvider(final PartContext context) {
         List<WidgetHandle> viewers = context.getWidgetHandles(Viewer.class);
         if (viewers.size() == 1) {
             Viewer viewer = viewers.get(0).<Viewer> getCastWidget();
@@ -146,7 +158,7 @@ public class GenericViewPart extends ViewPart {
         }
     }
 
-    private void setupSelectionListeners() {
+    protected void setupSelectionListeners() {
         List<Method> listenerMethods = AnnotationUtil.getAnnotatedMethods(
                 getClass(), SelectionListener.class);
 
@@ -181,5 +193,4 @@ public class GenericViewPart extends ViewPart {
             }
         }
     }
-
 }

@@ -44,6 +44,23 @@ public class S2ContainerUtil {
      */
     public static Object getComponentNoException(final String componentName) {
         S2Container container = SingletonS2ContainerFactory.getContainer();
+        return getComponentNoException(componentName, container);
+    }
+
+    /**
+     * 指定された名前に対応するコンポーネントを {@link S2Container} から取得して返します。<br />
+     * <p>
+     * コンポーネントが存在しない場合は例外をスローせず、<code>null</code> を返します。
+     * </p>
+     * 
+     * @param componentName
+     *            コンポーネント名称
+     * @param container
+     *            検索対象の {@link S2Container}
+     * @return コンポーネントオブジェクト
+     */
+    public static Object getComponentNoException(final String componentName,
+            final S2Container container) {
         if (container.hasComponentDef(componentName)) {
             return container.getComponentDef(componentName).getComponent();
         } else {
