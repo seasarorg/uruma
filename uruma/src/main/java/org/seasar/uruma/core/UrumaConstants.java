@@ -179,7 +179,7 @@ public interface UrumaConstants {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String COMPARATOR_SUFFIX_SUFFIX = "Comparator";
+    public static final String SORTER_SUFFIX = "Sorter";
 
     // -------------------------------------------------------------------------
     // コンテキストへ登録されるID

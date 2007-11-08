@@ -43,13 +43,7 @@ public class GenericTableViewerSorter extends ViewerSorter {
 
     private SortingState sortingState = SortingState.NONE;
 
-    /**
-     * {@link GenericTableViewerSorter} を構築します。<br />
-     * 
-     * @param viewer
-     *            ソート対象の {@link TableViewer} オブジェクト
-     */
-    public GenericTableViewerSorter(final TableViewer viewer) {
+    protected void setupColumnMap(final TableViewer viewer) {
         this.table = viewer.getTable();
         TableColumn[] columns = table.getColumns();
         if (columns.length == 0) {
@@ -80,6 +74,18 @@ public class GenericTableViewerSorter extends ViewerSorter {
     @Override
     public int compare(final Viewer viewer, final Object e1, final Object e2) {
         TableViewer tableViewer = (TableViewer) viewer;
+
+        if (this.table == null) {
+            setupColumnMap(tableViewer);
+        }
+
+        int cat1 = category(e1);
+        int cat2 = category(e2);
+
+        if (cat1 != cat2) {
+            return cat1 - cat2;
+        }
+
         IBaseLabelProvider baseLabelProvider = tableViewer.getLabelProvider();
 
         String value1 = "";
@@ -100,7 +106,9 @@ public class GenericTableViewerSorter extends ViewerSorter {
         if (value2 == null) {
             value2 = "";
         }
-        int result = collator.compare(value1.toString(), value2.toString());
+
+        int result = getComparator().compare(value1.toString(),
+                value2.toString());
 
         if (sortingState == SortingState.ASCENDING) {
             return result;

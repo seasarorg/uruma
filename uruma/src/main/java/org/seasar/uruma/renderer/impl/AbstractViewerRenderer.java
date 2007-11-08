@@ -119,8 +119,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
 
             if (viewer instanceof StructuredViewer) {
                 ComponentUtil.setupComparator((StructuredViewer) viewer,
-                        uiComponent.getId(),
-                        getDefaultComparator(getViewerType().cast(viewer)));
+                        uiComponent.getId(), getDefaultComparator());
             }
         } else {
             super.renderAfter(handle, uiComponent, parent, context);
@@ -204,11 +203,9 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * デフォルトのコンパレータを変更したい場合、本メソッドをオーバーライドしてください。<br />
      * デフォルトでは <code>null</code> (ソートしない) を返します。<br />
      * 
-     * @param viewer
-     *            レンダリング対象の {@link Viewer}
      * @return デフォルトの {@link ViewerComparator}}
      */
-    protected ViewerComparator getDefaultComparator(final VIEWER_TYPE viewer) {
+    protected ViewerComparator getDefaultComparator() {
         return null;
     }
 

@@ -107,10 +107,10 @@ public class TableViewerRenderer extends
     }
 
     /*
-     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#getDefaultComparator(org.eclipse.jface.viewers.Viewer)
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#getDefaultComparator()
      */
     @Override
-    protected ViewerSorter getDefaultComparator(final TableViewer viewer) {
-        return new GenericTableViewerSorter(viewer);
+    protected ViewerSorter getDefaultComparator() {
+        return new GenericTableViewerSorter();
     }
 }

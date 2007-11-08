@@ -296,7 +296,7 @@ public class ComponentUtil {
         if (!StringUtil.isEmpty(id)) {
             Object comparator = S2ContainerUtil
                     .getComponentNoException(id
-                            + UrumaConstants.COMPARATOR_SUFFIX_SUFFIX,
+                            + UrumaConstants.SORTER_SUFFIX,
                             defaultContainer);
             if (comparator != null) {
                 if (comparator instanceof ViewerComparator) {
