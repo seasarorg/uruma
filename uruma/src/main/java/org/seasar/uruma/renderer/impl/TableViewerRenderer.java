@@ -88,7 +88,7 @@ public class TableViewerRenderer extends
      */
     @Override
     protected int getDefaultStyle() {
-        return SWT.BORDER;
+        return SWT.FULL_SELECTION | SWT.MULTI | SWT.BORDER;
     }
 
     /*

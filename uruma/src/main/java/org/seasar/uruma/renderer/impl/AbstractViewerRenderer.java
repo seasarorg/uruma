@@ -23,7 +23,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
@@ -69,9 +68,8 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
 
         inherit((COMPONENT_TYPE) uiComponent);
 
-        int style = SWTUtil.getStyle(uiComponent.getStyle());
         VIEWER_TYPE viewer = createViewer(parent.<Composite> getCastWidget(),
-                style);
+                getStyle(uiComponent));
 
         // ビューアに内包されるウィジットのレンダリングを行う
         renderWidget((COMPONENT_TYPE) uiComponent, (CONTROL_TYPE) viewer

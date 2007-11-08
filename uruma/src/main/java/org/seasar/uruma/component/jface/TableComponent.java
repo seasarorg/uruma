@@ -35,11 +35,11 @@ public class TableComponent extends CompositeComponent {
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
     @FieldDescription("ヘッダ表示状態")
-    private String headerVisible;
+    private String headerVisible = "true";
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
     @FieldDescription("罫線表示状態")
-    private String linesVisible;
+    private String linesVisible = "true";
 
     @RenderingPolicy(targetType = TargetType.NONE)
     @FieldDescription("選択状態")
