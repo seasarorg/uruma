@@ -1,7 +1,9 @@
 package org.seasar.uruma.example.filemanager;
 
 import org.eclipse.jface.viewers.TreeViewer;
+import org.seasar.uruma.annotation.Form;
 
+@Form(FolderViewAction.class)
 public class FolderViewAction {
 	public TreeViewer folderTree;
 

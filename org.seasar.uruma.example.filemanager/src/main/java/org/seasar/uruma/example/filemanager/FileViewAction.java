@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.uruma.annotation.ExportValue;
+import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.SelectionListener;
 
 /**
  * @author y-komori
  * 
  */
+@Form(FileViewAction.class)
 public class FileViewAction {
 	// private TableViewer fileDetailTable;
 
