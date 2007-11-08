@@ -7,6 +7,8 @@ import org.seasar.uruma.annotation.BindingLabel;
  * 
  */
 public class FileDto {
+	public String absolutePath;
+
 	@BindingLabel
 	public String fileName;
 

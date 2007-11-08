@@ -9,7 +9,4 @@ import org.seasar.uruma.annotation.Form;
 public class FolderViewAction {
 	@ExportValue(id = "folderTree")
 	public File root = new File("c:/");
-
-	public FolderViewAction() {
-	}
 }

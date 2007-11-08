@@ -4,6 +4,7 @@
 <components>
 	<component name="folderTreeContentProvider" class="org.seasar.uruma.example.filemanager.FolderTreeContentProvider" />
 	<component name="folderTreeLabelProvider" class="org.seasar.uruma.example.filemanager.FolderTreeLabelProvider" />
+	<component name="fileDetailTableLabelProvider" class="org.seasar.uruma.example.filemanager.FileDetailTableLabelProvider" />
 	
 	<component name="fileViewAction" class="org.seasar.uruma.example.filemanager.FileViewAction" />
 	<component name="folderViewAction" class="org.seasar.uruma.example.filemanager.FolderViewAction" />

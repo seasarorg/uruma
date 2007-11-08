@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
   <viewPart title="ファイル・ビュー" allowMultiple="true">
-    <table id="fileDetailTable" style="FULL_SELECTION, MULTI, BORDER"
-      headerVisible="true" linesVisible="true">
+    <table id="fileDetailTable" 
+      headerVisible="true" linesVisible="false" >
 
       <tableColumn id="fileName" width="70" text="名前" />
-      <tableColumn id="fileSize" width="70" text="サイズ" />
+      <tableColumn id="fileSize" width="70" text="サイズ" alignment="RIGHT" />
       <tableColumn id="fileUpdateTime" width="80" text="更新日時" />
     </table>
   </viewPart>

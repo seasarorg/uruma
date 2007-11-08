@@ -2,6 +2,8 @@ package org.seasar.uruma.example.filemanager;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Formatter;
 import java.util.List;
 
 import org.seasar.uruma.annotation.ExportValue;
@@ -24,12 +26,23 @@ public class FileViewAction {
 		File[] children = parentFolder.listFiles();
 
 		for (File file : children) {
+			FileDto fileDto = new FileDto();
+
+			fileDto.absolutePath = file.getAbsolutePath();
+			fileDto.fileName = file.getName();
+
 			if (file.isFile()) {
-				FileDto fileDto = new FileDto();
-				fileDto.fileName = file.getName();
 				fileDto.fileSize = Long.toString(file.length());
-				fileList.add(fileDto);
+			} else {
+				fileDto.fileSize = "";
 			}
+
+			Formatter formatter = new Formatter();
+			formatter.format("%tY/%<tm/%<td(%<ta) %<tk:%<tM:%<tS", new Date(
+					file.lastModified()));
+			fileDto.fileUpdateTime = formatter.out().toString();
+
+			fileList.add(fileDto);
 		}
 	}
 }
