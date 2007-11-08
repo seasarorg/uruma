@@ -14,10 +14,8 @@ import org.seasar.uruma.annotation.SelectionListener;
  */
 @Form(FileViewAction.class)
 public class FileViewAction {
-	// private TableViewer fileDetailTable;
-
 	@ExportValue(id = "fileDetailTable")
-	private List<FileDto> fileList = new ArrayList<FileDto>();
+	public List<FileDto> fileList = new ArrayList<FileDto>();
 
 	@SelectionListener
 	public void selectionChanged(final File parentFolder) {
