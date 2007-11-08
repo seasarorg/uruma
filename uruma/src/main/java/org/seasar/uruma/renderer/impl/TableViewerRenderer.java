@@ -18,7 +18,6 @@ package org.seasar.uruma.renderer.impl;
 import java.util.List;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
-import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
@@ -105,14 +104,6 @@ public class TableViewerRenderer extends
     @Override
     protected IBaseLabelProvider getDefaultLabelProvider() {
         return new GenericTableLabelProvider();
-    }
-
-    /*
-     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#getLabelProviderClass()
-     */
-    @Override
-    protected Class<? extends IBaseLabelProvider> getLabelProviderClass() {
-        return ITableLabelProvider.class;
     }
 
     /*

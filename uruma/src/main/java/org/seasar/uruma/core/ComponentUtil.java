@@ -250,8 +250,9 @@ public class ComponentUtil {
                     provider = providerClass.cast(defined);
                 } else {
                     throw new RenderException(
-                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, provider,
-                            providerClass.getName());
+                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, defined
+                                    .getClass().getName(), providerClass
+                                    .getName());
                 }
             }
         }
