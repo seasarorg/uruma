@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.seasar.uruma.binding.value.binder.ComboViewerValueBinder;
 import org.seasar.uruma.binding.value.binder.GenericValueBinder;
+import org.seasar.uruma.binding.value.binder.StatusLineManagerValueBinder;
 import org.seasar.uruma.binding.value.binder.TableValueBinder;
 import org.seasar.uruma.binding.value.binder.TableViewerValueBinder;
 import org.seasar.uruma.binding.value.binder.TreeViewerValueBinder;
@@ -42,6 +43,7 @@ public class ValueBinderFactory {
         addValueBinder(new TableViewerValueBinder());
         addValueBinder(new TableValueBinder());
         addValueBinder(new TreeViewerValueBinder());
+        addValueBinder(new StatusLineManagerValueBinder());
     }
 
     /**
