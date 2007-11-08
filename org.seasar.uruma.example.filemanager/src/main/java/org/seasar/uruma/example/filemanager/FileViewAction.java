@@ -26,7 +26,8 @@ public class FileViewAction {
 		for (File file : children) {
 			if (file.isFile()) {
 				FileDto fileDto = new FileDto();
-				fileDto.setFileName(file.getName());
+				fileDto.fileName = file.getName();
+				fileDto.fileSize = Long.toString(file.length());
 				fileList.add(fileDto);
 			}
 		}

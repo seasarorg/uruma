@@ -1,36 +1,18 @@
 package org.seasar.uruma.example.filemanager;
 
+import org.seasar.uruma.annotation.BindingLabel;
+
 /**
  * @author y-komori
  * 
  */
 public class FileDto {
-	private String fileName;
-	private String fileSize;
-	private String fileUpdateTime;
+	@BindingLabel
+	public String fileName;
 
-	public String getFileName() {
-		return fileName;
-	}
+	@BindingLabel
+	public String fileSize;
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(String fileSize) {
-		this.fileSize = fileSize;
-	}
-
-	public String getFileUpdateTime() {
-		return fileUpdateTime;
-	}
-
-	public void setFileUpdateTime(String fileUpdateTime) {
-		this.fileUpdateTime = fileUpdateTime;
-	}
-
+	@BindingLabel
+	public String fileUpdateTime;
 }
