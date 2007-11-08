@@ -28,6 +28,7 @@ import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.jface.TreeComponent;
 import org.seasar.uruma.component.jface.TreeItemComponent;
 import org.seasar.uruma.viewer.GenericLabelProvider;
+import org.seasar.uruma.viewer.UrumaTreeViewer;
 
 /**
  * {@link TreeViewer} のレンダリングを行うクラスです。<br />
@@ -35,7 +36,7 @@ import org.seasar.uruma.viewer.GenericLabelProvider;
  * @author y-komori
  */
 public class TreeViewerRenderer extends
-        AbstractViewerRenderer<TreeComponent, TreeViewer, Tree> {
+        AbstractViewerRenderer<TreeComponent, UrumaTreeViewer, Tree> {
 
     @Override
     protected Class<Tree> getWidgetType() {
@@ -77,8 +78,8 @@ public class TreeViewerRenderer extends
      * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#getViewerType()
      */
     @Override
-    protected Class<TreeViewer> getViewerType() {
-        return TreeViewer.class;
+    protected Class<UrumaTreeViewer> getViewerType() {
+        return UrumaTreeViewer.class;
     }
 
     /*

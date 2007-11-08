@@ -18,19 +18,20 @@ package org.seasar.uruma.binding.value.binder;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.viewer.UrumaTreeViewer;
 
 /**
  * {@link TreeViewer} のための {@link ValueBinder} です。<br />
  * 
  * @author y-komori
  */
-public class TreeViewerValueBinder extends AbstractValueBinder<TreeViewer> {
+public class TreeViewerValueBinder extends AbstractValueBinder<UrumaTreeViewer> {
 
     /**
      * {@link TreeViewerValueBinder} を構築します。<br />
      */
     public TreeViewerValueBinder() {
-        super(TreeViewer.class);
+        super(UrumaTreeViewer.class);
     }
 
     /*
@@ -38,8 +39,8 @@ public class TreeViewerValueBinder extends AbstractValueBinder<TreeViewer> {
      *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
      */
     @Override
-    public void doExportValue(final TreeViewer widget, final Object formObj,
-            final PropertyDesc propDesc) {
+    public void doExportValue(final UrumaTreeViewer widget,
+            final Object formObj, final PropertyDesc propDesc) {
         if (widget.getContentProvider() != null) {
             Object value = propDesc.getValue(formObj);
             if (value != null) {
