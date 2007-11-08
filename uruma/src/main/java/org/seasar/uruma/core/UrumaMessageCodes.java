@@ -468,6 +468,33 @@ public interface UrumaMessageCodes {
      */
     public static final String WIDGET_CREATED = "TURM0308";
 
+    /**
+     * コンテントプロバイダ設定時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String CONTENT_PROVIDER_FOUND = "DURM0309";
+
+    /**
+     * ラベルプロバイダ設定時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String LABEL_PROVIDER_FOUND = "DURM0310";
+
+    /**
+     * コンパレータ設定時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String COMPARATOR_FOUND = "DURM0311";
+
     // -------------------------------------------------------------------------
     // ウィンドウ管理関連メッセージコード (04xx)
     // -------------------------------------------------------------------------

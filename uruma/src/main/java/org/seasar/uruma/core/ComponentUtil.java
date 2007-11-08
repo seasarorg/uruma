@@ -15,6 +15,12 @@
  */
 package org.seasar.uruma.core;
 
+import org.eclipse.jface.viewers.ContentViewer;
+import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
@@ -24,6 +30,7 @@ import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
+import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 import org.seasar.uruma.util.S2ContainerUtil;
@@ -153,4 +160,159 @@ public class ComponentUtil {
         }
     }
 
+    /**
+     * <code>viewer</code> に対して {@link IContentProvider} を設定します。<br />
+     * <p>
+     * 本メソッドでは以下の動作を行います。<br />
+     * <ol>
+     * <li>S2Container 上に、&lt;コンポーネントのID&gt;ContentProvider という名称で S2
+     * コンポーネントが登録されているか確認する。
+     * <li>登録されていれば、その S2 コンポーネントが {@link IContentProvider} の実装クラスであるかどうかを確認する。
+     * <li>サブクラスであれば、その S2 コンポーネントをコンテントプロバイダとして <code>viewer</code> へ設定する。
+     * <li>S2 コンポーネントが見つからない場合、 <code>defaultProvider</code> で指定された
+     * オブジェクトをコンテントプロバイダとして <code>viewer</code> へ設定する。
+     * </ol>
+     * </p>
+     * 
+     * @param viewer
+     *            設定対象のビューア
+     * @param id
+     *            ビューアのコンポーネントID
+     * @param defaultProvider
+     *            デフォルトで指定するコンテントプロバイダ
+     * @throws RenderException
+     *             該当する名称の S2 コンポーネントが {@link IContentProvider} の実装クラスでない場合
+     * @see ContentViewer#setContentProvider(IContentProvider)
+     */
+    public static void setupContentProvider(final ContentViewer viewer,
+            final String id, final IContentProvider defaultProvider) {
+        IContentProvider provider = null;
+        if (!StringUtil.isEmpty(id)) {
+            Object defined = S2ContainerUtil.getComponentNoException(id
+                    + UrumaConstants.CONTENT_PROVIDER_SUFFIX, defaultContainer);
+            if (defined != null) {
+                if (defined instanceof IContentProvider) {
+                    provider = IContentProvider.class.cast(defined);
+                } else {
+                    throw new RenderException(
+                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, provider,
+                            IContentProvider.class.getName());
+                }
+            }
+        }
+
+        if (provider == null) {
+            provider = defaultProvider;
+        }
+
+        if (provider != null) {
+            viewer.setContentProvider(provider);
+
+            logger.log(UrumaMessageCodes.CONTENT_PROVIDER_FOUND, id, provider
+                    .getClass());
+        }
+    }
+
+    /**
+     * <code>viewer</code> に対して {@link ILabelProvider} を設定します。<br />
+     * <p>
+     * 本メソッドでは以下の動作を行います。<br />
+     * <ol>
+     * <li>S2Container 上に、&lt;コンポーネントのID&gt;LabelProvider という名称で S2
+     * コンポーネントが登録されているか確認する。
+     * <li>登録されていれば、その S2 コンポーネントが <code>providerClass</code>
+     * のサブクラスであるかどうかを確認する。
+     * <li>サブクラスであれば、その S2 コンポーネントをラベルプロバイダとして <code>viewer</code> へ設定する。
+     * <li>S2 コンポーネントが見つからない場合、 <code>defaultProvider</code> をラベルプロバイダとして
+     * <code>viewer</code> へ設定する。
+     * </ol>
+     * </p>
+     * 
+     * @param viewer
+     *            設定対象のビューア
+     * @param id
+     *            ビューアのコンポーネントID
+     * @throws RenderException
+     *             該当する名称の S2 コンポーネントが <code>providerClass</code> のサブクラスでない場合
+     * @see StructuredViewer#setLabelProvider(IBaseLabelProvider)
+     */
+    public static void setupLabelProvider(final StructuredViewer viewer,
+            final String id, final IBaseLabelProvider defaultProvider,
+            final Class<? extends IBaseLabelProvider> providerClass) {
+        IBaseLabelProvider provider = null;
+        if (!StringUtil.isEmpty(id)) {
+            Object defined = S2ContainerUtil.getComponentNoException(id
+                    + UrumaConstants.LABEL_PROVIDER_SUFFIX, defaultContainer);
+            if (defined != null) {
+                if (providerClass.isAssignableFrom(defined.getClass())) {
+                    provider = providerClass.cast(defined);
+                } else {
+                    throw new RenderException(
+                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, provider,
+                            providerClass.getName());
+                }
+            }
+        }
+
+        if (provider == null) {
+            provider = defaultProvider;
+        }
+
+        if (provider != null) {
+            viewer.setLabelProvider(provider);
+
+            logger.log(UrumaMessageCodes.LABEL_PROVIDER_FOUND, id, provider
+                    .getClass());
+        }
+    }
+
+    /**
+     * <code>viewer</code> に対して {@link ViewerComparator} を設定します。<br />
+     * <p>
+     * 本メソッドでは以下の動作を行います。<br />
+     * <ol>
+     * <li>S2Container 上に、&lt;コンポーネントのID&gt;Comparator という名称で S2
+     * コンポーネントが登録されているか確認する。
+     * <li>登録されていれば、その S2 コンポーネントが {@link ViewerComparator} のサブクラスであるかどうかを確認する。
+     * <li>サブクラスであれば、その S2 コンポーネントをコンパレータとして <code>viewer</code> へ設定する。
+     * <li>S2 コンポーネントが見つからない場合、 <code>defaultComparator</code> をコンパレータとして
+     * <code>viewer</code> へ設定する。
+     * </ol>
+     * </p>
+     * 
+     * @param viewer
+     *            設定対象のビューア
+     * @param id
+     *            ビューアのコンポーネントID
+     * @throws RenderException
+     *             該当する名称の S2 コンポーネントが {@link ViewerComparator} のサブクラスでない場合
+     * @see StructuredViewer#setComparator(ViewerComparator)
+     */
+    public static void setupComparator(final StructuredViewer viewer,
+            final String id, final ViewerComparator defaultComparator) {
+        if (!StringUtil.isEmpty(id)) {
+            Object comparator = S2ContainerUtil
+                    .getComponentNoException(id
+                            + UrumaConstants.COMPARATOR_SUFFIX_SUFFIX,
+                            defaultContainer);
+            if (comparator != null) {
+                if (comparator instanceof ViewerComparator) {
+                    viewer.setComparator(ViewerComparator.class
+                            .cast(comparator));
+
+                    logger.log(UrumaMessageCodes.COMPARATOR_FOUND, id,
+                            comparator.getClass());
+                } else {
+                    throw new RenderException(
+                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR,
+                            comparator, ViewerComparator.class.getName());
+                }
+            } else {
+                viewer.setComparator(defaultComparator);
+
+                logger.log(UrumaMessageCodes.COMPARATOR_FOUND, id,
+                        defaultComparator.getClass());
+            }
+        }
+    }
 }

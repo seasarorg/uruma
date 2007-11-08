@@ -20,7 +20,6 @@ import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ViewerComparator;
-import org.seasar.framework.container.S2Container;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.WindowContext;
@@ -185,14 +184,6 @@ public interface UrumaConstants {
     // -------------------------------------------------------------------------
     // コンテキストへ登録されるID
     // -------------------------------------------------------------------------
-    /**
-     * {@link ApplicationContext} へ {@link S2Container} が登録される際の ID です。
-     * <dl>
-     * <dt><b>値 :</b></dt>
-     * <dd>{@value}</dd>
-     * </dl>
-     */
-    public static final String S2CONTAINER_CID = "rootS2container";
 
     /**
      * 自ウィンドウのShellオブジェクトが登録されるIDです。
