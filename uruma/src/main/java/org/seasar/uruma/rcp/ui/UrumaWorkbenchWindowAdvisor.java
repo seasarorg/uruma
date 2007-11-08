@@ -26,6 +26,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.seasar.eclipse.common.util.GeometryUtil;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
@@ -102,6 +103,11 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     @Override
     public void postWindowCreate() {
         setupImage(workbench);
+
+        // Enable Depending の準備
+        WindowContext context = UrumaActivator.getInstance()
+                .getWorkbenchWindowContext();
+        EnablesDependingListenerSupport.setupEnableDependingListeners(context);
     }
 
     protected void setupImage(final WorkbenchComponent workbench) {

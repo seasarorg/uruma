@@ -31,7 +31,6 @@ import org.eclipse.ui.part.ViewPart;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.SelectionListener;
-import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
@@ -152,10 +151,6 @@ public class GenericViewPart extends ViewPart {
         // 画面初期表示時の、フォームから画面へのエクスポート処理を実施
         ValueBindingSupport.exportValue(partContext);
         ValueBindingSupport.exportSelection(partContext);
-
-        EnablesDependingListenerSupport
-                .setupEnableDependingListeners(partContext.getWindowContext());
-
     }
 
     @Override
