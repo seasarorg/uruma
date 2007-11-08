@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.binding.value.binder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
@@ -148,36 +149,45 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
             IContentProvider contentProvider = viewer.getContentProvider();
             IBaseLabelProvider labelProvider = viewer.getLabelProvider();
 
-            if (contents != null) {
-                if (contentProvider != null
-                        && contentProvider instanceof ContentsHolder) {
-                    ContentsHolder holder = (ContentsHolder) contentProvider;
-                    if (formFieldType.isArray()) {
+            if (contentProvider != null
+                    && contentProvider instanceof ContentsHolder) {
+                ContentsHolder holder = (ContentsHolder) contentProvider;
+                if (formFieldType.isArray()) {
+                    if (contents != null) {
                         holder.setContents((Object[]) contents);
-                        setClassToProvider(labelProvider, formFieldType
-                                .getComponentType());
-                    } else if (List.class.isAssignableFrom(formFieldType)) {
-                        List<?> listContents = (List<?>) contents;
-
-                        if (listContents.size() > 0) {
-                            holder.setContents(listContents);
-
-                            Object content = listContents.get(0);
-                            setClassToProvider(labelProvider, content
-                                    .getClass());
-                        }
                     } else {
+                        holder.setContents(new Object[] {});
+                    }
+                    setClassToProvider(labelProvider, formFieldType
+                            .getComponentType());
+                } else if (List.class.isAssignableFrom(formFieldType)) {
+                    List<?> listContents = (List<?>) contents;
+
+                    if ((listContents != null) && (listContents.size() > 0)) {
+                        holder.setContents(listContents);
+
+                        Object content = listContents.get(0);
+                        setClassToProvider(labelProvider, content.getClass());
+                    } else {
+                        holder.setContents(new ArrayList<Object>());
+                        setClassToProvider(labelProvider, Object.class);
+                    }
+                } else {
+                    if (contents != null) {
                         holder.setContents(new Object[] { contents });
                         setClassToProvider(labelProvider, contents.getClass());
+                    } else {
+                        holder.setContents(new Object[] {});
+                        setClassToProvider(labelProvider, Object.class);
                     }
-
-                    logBinding(EXPORT_VALUE, formObj, propDesc, widget, null,
-                            contents);
-                    viewer.setInput(contents);
                 }
+
+                logBinding(EXPORT_VALUE, formObj, propDesc, widget, null,
+                        contents);
+
+                viewer.setInput(contents);
             }
         }
-
     }
 
     /**

@@ -23,6 +23,9 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.seasar.uruma.binding.method.MethodBinding;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
+import org.seasar.uruma.binding.value.ValueBindingSupport;
+import org.seasar.uruma.binding.widget.WidgetBinder;
+import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -49,7 +52,7 @@ import org.seasar.uruma.util.AssertionUtil;
  * @author y-komori
  */
 public class GenericSelectionListener implements ISelectionListener {
-    private WindowContext context;
+    private PartContext context;
 
     private SingleParamTypeMethodBinding methodBinding;
 
@@ -57,11 +60,11 @@ public class GenericSelectionListener implements ISelectionListener {
      * {@link GenericSelectionListener} を構築します。<br />
      * 
      * @param context
-     *            {@link WindowContext} オブジェクト
+     *            {@link PartContext} オブジェクト
      * @param methodBinding
      *            呼び出し対象の {@link SingleParamTypeMethodBinding} オブジェクト
      */
-    public GenericSelectionListener(final WindowContext context,
+    public GenericSelectionListener(final PartContext context,
             final SingleParamTypeMethodBinding methodBinding) {
         AssertionUtil.assertNotNull("context", context);
         AssertionUtil.assertNotNull("methodBinding", methodBinding);
@@ -94,14 +97,16 @@ public class GenericSelectionListener implements ISelectionListener {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;
             Object[] selectedModels = structuredSelection.toArray();
 
-            // TODO 要修正
-            // context.setFormComponent(methodBinding.getTarget());
-            //
-            // ValueBinder.importSelection(context);
-            // ValueBinder.importValue(context);
-            // methodBinding.invoke(selectedModels);
-            // ValueBinder.exportValue(context);
-            // ValueBinder.exportSelection(context);
+            WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
+
+            ValueBindingSupport.importSelection(context);
+            ValueBindingSupport.importValue(context);
+
+            methodBinding.invoke(selectedModels);
+
+            ValueBindingSupport.exportValue(context);
+            ValueBindingSupport.exportSelection(context);
+
         }
     }
 }

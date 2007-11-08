@@ -27,6 +27,8 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.Form;
+import org.seasar.uruma.binding.context.ApplicationContextBinder;
+import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
@@ -310,9 +312,37 @@ public class ComponentUtil {
             } else {
                 viewer.setComparator(defaultComparator);
 
-                logger.log(UrumaMessageCodes.COMPARATOR_FOUND, id,
-                        defaultComparator.getClass());
+                String className = "(null)";
+                if (defaultComparator != null) {
+                    className = defaultComparator.getClass().getName();
+                    logger.log(UrumaMessageCodes.COMPARATOR_FOUND, id,
+                            className);
+                }
             }
+        }
+    }
+
+    /**
+     * パートアクションクラスの初期化メソッドを呼び出します。<br />
+     * 
+     * @param partAction
+     *            パートアクションオブジェクト
+     * @param context
+     *            {@link PartContext}
+     */
+    public static void invokeInitMethodOnAction(final Object partAction,
+            final PartContext context) {
+        if (partAction != null) {
+            WidgetBinder.bindWidgets(partAction, context);
+
+            // ApplicationContext からのインポート処理
+            PartActionDesc desc = PartActionDescFactory
+                    .getPartActionDesc(partAction.getClass());
+            ApplicationContextBinder.importObjects(partAction, desc
+                    .getApplicationContextDefList(), context.getWindowContext()
+                    .getApplicationContext());
+
+            desc.invokeInitializeMethod(partAction);
         }
     }
 }

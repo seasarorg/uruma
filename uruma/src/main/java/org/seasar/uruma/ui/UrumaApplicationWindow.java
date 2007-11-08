@@ -29,7 +29,6 @@ import org.seasar.uruma.binding.context.ApplicationContextBinder;
 import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
-import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.jface.WindowComponent;
 import org.seasar.uruma.context.ApplicationContext;
@@ -121,10 +120,14 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
 
         setupActionComponent();
         ComponentUtil.setupFormComponent(partContext, windowComponent.getId());
-        // setupFormComponent();
+
         setupMenuBar();
         setupShellStyle(component, modal);
         setupStatusLine();
+
+        // パートアクションの @Initialize メソッドを呼び出す
+        ComponentUtil
+                .invokeInitMethodOnAction(partActionComponent, partContext);
     }
 
     protected void setupActionComponent() {
@@ -135,53 +138,6 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
                     .getPartActionDesc(partActionComponent.getClass());
         }
     }
-
-    // protected void setupFormComponent() {
-    // Object formObject = null;
-    // Object actionObject = partContext.getPartActionObject();
-    // if (actionObject != null) {
-    // Form formAnnotation = actionObject.getClass().getAnnotation(
-    // Form.class);
-    // if (formAnnotation != null) {
-    // Class<?> formClass = formAnnotation.value();
-    // if (formClass == partContext.getPartActionObject().getClass()) {
-    // formObject = partContext.getPartActionObject();
-    // } else {
-    // formObject = S2ContainerUtil.getComponent(formClass);
-    // }
-    // }
-    // }
-    //
-    // if (formObject == null) {
-    // String formComponentName = StringUtil.decapitalize(windowComponent
-    // .getId())
-    // + "Form";
-    // formObject = S2ContainerUtil
-    // .getComponentNoException(formComponentName);
-    // }
-    //
-    // if (formObject != null) {
-    // partContext.setFormObject(formObject);
-    // injectFormToAction();
-    // }
-    // }
-    //
-    // /**
-    // * パートアクションオブジェクトにフォームオブジェクトのプロパティが存在する場合、 {@link PartContext}
-    // * が保持するフォームオブジェクトをインジェクションする。
-    // */
-    // protected void injectFormToAction() {
-    // Object partActionObject = partContext.getPartActionObject();
-    // Object formObject = partContext.getFormObject();
-    //
-    // String formObjectName = formObject.getClass().getSimpleName();
-    // BeanDesc beanDesc = BeanDescFactory.getBeanDesc(partActionObject
-    // .getClass());
-    // if (beanDesc.hasPropertyDesc(formObjectName)) {
-    // PropertyDesc pd = beanDesc.getPropertyDesc(formObjectName);
-    // pd.setValue(partActionObject, formObject);
-    // }
-    // }
 
     protected void setupShellStyle(final WindowComponent component,
             final boolean modal) {
@@ -262,22 +218,6 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
                 .setupEnableDependingListeners(windowContext);
 
         return parent;
-    }
-
-    /**
-     * アクションコンポーネントの初期化メソッドを呼び出します。<br />
-     */
-    public void initActionComponent() {
-        if (partActionComponent != null) {
-            WidgetBinder.bindWidgets(partActionComponent, partContext);
-
-            // ApplicationContext からのインポート処理
-            ApplicationContextBinder.importObjects(partActionComponent, desc
-                    .getApplicationContextDefList(), windowContext
-                    .getApplicationContext());
-
-            desc.invokeInitializeMethod(partActionComponent);
-        }
     }
 
     /**

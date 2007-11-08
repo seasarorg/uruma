@@ -31,8 +31,10 @@ import org.eclipse.ui.part.ViewPart;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.SelectionListener;
+import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
+import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
-import org.seasar.uruma.binding.widget.WidgetBinder;
+import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
@@ -79,7 +81,7 @@ public class GenericViewPart extends ViewPart {
      */
     public ApplicationContext applicationContext;
 
-    private WindowContext windowContext;
+    private PartContext partContext;
 
     private ViewPartComponent viewPart;
 
@@ -103,6 +105,29 @@ public class GenericViewPart extends ViewPart {
         if (StringUtil.isNotBlank(componentId)) {
             activator.getS2Container().register(this, componentId);
         }
+
+        Template template = templateManager.getTemplateById(componentId);
+        UIComponentContainer root = template.getRootComponent();
+        if (root instanceof ViewPartComponent) {
+            this.viewPart = (ViewPartComponent) root;
+
+            this.partContext = createPartContext(componentId);
+
+            this.partAction = ComponentUtil.setupPartAction(partContext,
+                    componentId);
+
+            // TODO 他のViewPartでのレンダリング結果もバインドできるようにする。
+            if (partAction != null) {
+                ComponentUtil.setupFormComponent(partContext, componentId);
+
+                // @Initialize メソッドの呼び出し
+                ComponentUtil.invokeInitMethodOnAction(partAction, partContext);
+            }
+        } else {
+            throw new RenderException(
+                    UrumaMessageCodes.REQUIRED_VIEWPART_ERROR, template
+                            .getPath());
+        }
     }
 
     /**
@@ -113,36 +138,24 @@ public class GenericViewPart extends ViewPart {
 
     @Override
     public void createPartControl(final Composite parent) {
-        Template template = templateManager.getTemplateById(componentId);
-        UIComponentContainer root = template.getRootComponent();
-        if (root instanceof ViewPartComponent) {
-            this.viewPart = (ViewPartComponent) root;
+        WidgetHandle parentHandle = ContextFactory.createWidgetHandle(parent);
+        parentHandle.setUiComponent(activator.getWorkbenchComponent());
 
-            PartContext context = createPartContext(componentId);
-            WidgetHandle parentHandle = ContextFactory
-                    .createWidgetHandle(parent);
-            parentHandle.setUiComponent(activator.getWorkbenchComponent());
+        viewPart.render(parentHandle, partContext);
 
-            viewPart.render(parentHandle, context);
+        prepareSelectionProvider(partContext);
 
-            this.partAction = ComponentUtil.setupPartAction(context,
-                    componentId);
+        setupSelectionListeners();
 
-            // TODO 他のViewPartでのレンダリング結果もバインドできるようにする。
-            if (partAction != null) {
-                ComponentUtil.setupFormComponent(context, componentId);
+        MethodBindingSupport.createListeners(partContext);
 
-                prepareSelectionProvider(context);
+        // 画面初期表示時の、フォームから画面へのエクスポート処理を実施
+        ValueBindingSupport.exportValue(partContext);
+        ValueBindingSupport.exportSelection(partContext);
 
-                WidgetBinder.bindWidgets(this, context);
-            }
+        EnablesDependingListenerSupport
+                .setupEnableDependingListeners(partContext.getWindowContext());
 
-            setupSelectionListeners();
-        } else {
-            throw new RenderException(
-                    UrumaMessageCodes.REQUIRED_VIEWPART_ERROR, template
-                            .getPath());
-        }
     }
 
     @Override
@@ -151,7 +164,7 @@ public class GenericViewPart extends ViewPart {
     }
 
     protected PartContext createPartContext(final String id) {
-        this.windowContext = applicationContext
+        WindowContext windowContext = applicationContext
                 .getWindowContext(UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
         return ContextFactory.createPartContext(windowContext, id);
     }
@@ -183,9 +196,9 @@ public class GenericViewPart extends ViewPart {
                     GenericSelectionListener listener;
                     if (nullSelection) {
                         listener = new NullGenericSelectionListener(
-                                windowContext, methodBinding);
+                                partContext, methodBinding);
                     } else {
-                        listener = new GenericSelectionListener(windowContext,
+                        listener = new GenericSelectionListener(partContext,
                                 methodBinding);
                     }
 

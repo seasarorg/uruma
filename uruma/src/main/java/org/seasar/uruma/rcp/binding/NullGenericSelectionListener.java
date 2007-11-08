@@ -17,7 +17,7 @@ package org.seasar.uruma.rcp.binding;
 
 import org.eclipse.ui.INullSelectionListener;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
-import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.context.PartContext;
 
 /**
  * {@link INullSelectionListener} を実装した {@link GenericSelectionListener} です。<br />
@@ -35,12 +35,11 @@ public class NullGenericSelectionListener extends GenericSelectionListener
      * {@link NullGenericSelectionListener} を構築します。<br />
      * 
      * @param context
-     *            {@link WindowContext} オブジェクト
+     *            {@link PartContext} オブジェクト
      * @param methodBinding
      *            呼び出し対象の {@link SingleParamTypeMethodBinding} オブジェクト
      */
-    // TODO WindowContext でよいか?
-    public NullGenericSelectionListener(final WindowContext context,
+    public NullGenericSelectionListener(final PartContext context,
             final SingleParamTypeMethodBinding methodBinding) {
         super(context, methodBinding);
     }

@@ -100,8 +100,6 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
         logger.log(UrumaMessageCodes.INIT_WINDOW, windowId);
         window.init(windowContext, windowComponent, modal);
 
-        window.initActionComponent();
-
         if (modal) {
             window.setBlockOnOpen(true);
         }
