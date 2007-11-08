@@ -17,6 +17,10 @@ package org.seasar.uruma.core;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
+import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ViewerComparator;
+import org.seasar.framework.container.S2Container;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.WindowContext;
@@ -142,9 +146,54 @@ public interface UrumaConstants {
      */
     public static final String PART_ACTION_SUFFIX = "Action";
 
+    /**
+     * フォームクラスのサフィックスです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String FORM_SUFFIX = "Form";
+
+    /**
+     * {@link ILabelProvider} の S2Container 上でのコンポーネント名称サフィックスです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String LABEL_PROVIDER_SUFFIX = "LabelProvider";
+
+    /**
+     * {@link IContentProvider} の S2Container 上でのコンポーネント名称サフィックスです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String CONTENT_PROVIDER_SUFFIX = "ContentProvider";
+
+    /**
+     * {@link ViewerComparator} の S2Container 上でのコンポーネント名称サフィックスです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String COMPARATOR_SUFFIX_SUFFIX = "Comparator";
+
     // -------------------------------------------------------------------------
     // コンテキストへ登録されるID
     // -------------------------------------------------------------------------
+    /**
+     * {@link ApplicationContext} へ {@link S2Container} が登録される際の ID です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String S2CONTAINER_CID = "rootS2container";
+
     /**
      * 自ウィンドウのShellオブジェクトが登録されるIDです。
      * <dl>

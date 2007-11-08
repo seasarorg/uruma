@@ -32,6 +32,7 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.SelectionListener;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
+import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
@@ -40,10 +41,10 @@ import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.ComponentUtil;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
-import org.seasar.uruma.desc.PartActionUtil;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.rcp.UrumaActivator;
 import org.seasar.uruma.rcp.binding.GenericSelectionListener;
@@ -84,6 +85,8 @@ public class GenericViewPart extends ViewPart {
 
     private String componentId;
 
+    private Object partAction;
+
     /*
      * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
      *      org.eclipse.ui.IMemento)
@@ -122,14 +125,17 @@ public class GenericViewPart extends ViewPart {
 
             viewPart.render(parentHandle, context);
 
-            PartActionUtil.setupPartAction(context, componentId, activator
-                    .getS2Container());
-
-            prepareSelectionProvider(context);
+            this.partAction = ComponentUtil.setupPartAction(context,
+                    componentId);
 
             // TODO 他のViewPartでのレンダリング結果もバインドできるようにする。
-            // TODO 要修正
-            // WidgetBinder.bindWidgets(this, windowContext);
+            if (partAction != null) {
+                ComponentUtil.setupFormComponent(context, componentId);
+
+                prepareSelectionProvider(context);
+
+                WidgetBinder.bindWidgets(this, context);
+            }
 
             setupSelectionListeners();
         } else {
@@ -160,7 +166,7 @@ public class GenericViewPart extends ViewPart {
 
     protected void setupSelectionListeners() {
         List<Method> listenerMethods = AnnotationUtil.getAnnotatedMethods(
-                getClass(), SelectionListener.class);
+                partAction.getClass(), SelectionListener.class);
 
         for (Method method : listenerMethods) {
             if (Modifier.isPublic(method.getModifiers())) {
@@ -172,7 +178,7 @@ public class GenericViewPart extends ViewPart {
                 Class<?>[] paramTypes = method.getParameterTypes();
                 if (paramTypes.length <= 1) {
                     SingleParamTypeMethodBinding methodBinding = new SingleParamTypeMethodBinding(
-                            this, method);
+                            partAction, method);
 
                     GenericSelectionListener listener;
                     if (nullSelection) {

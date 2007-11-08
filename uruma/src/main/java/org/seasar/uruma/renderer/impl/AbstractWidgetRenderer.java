@@ -145,10 +145,9 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
         WIDGET_TYPE widget = ClassUtil.<WIDGET_TYPE> newInstance(widgetClass,
                 parent, style);
 
-        if (logger.isDebugEnabled()) {
-            logger
-                    .debug(UrumaLogger.getObjectDescription(widget)
-                            + " created.");
+        if (logger.isTraceEnabled()) {
+            logger.log(UrumaMessageCodes.WIDGET_CREATED, UrumaLogger
+                    .getObjectDescription(widget));
         }
 
         return widget;

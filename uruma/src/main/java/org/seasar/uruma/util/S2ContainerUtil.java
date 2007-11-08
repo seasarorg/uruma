@@ -132,7 +132,22 @@ public class S2ContainerUtil {
      * @return コンポーネントオブジェクト
      */
     public static Object getComponent(final Class<?> componentClass) {
-        return getComponentDef(componentClass).getComponent();
+        return getComponent(componentClass, SingletonS2ContainerFactory
+                .getContainer());
+    }
+
+    /**
+     * 指定されたクラスに対応するコンポーネントを {@link S2Container} から取得して返します。<br />
+     * 
+     * @param componentClass
+     *            コンポーネントクラス
+     * @param container
+     *            検索対象の {@link S2Container}
+     * @return コンポーネントオブジェクト
+     */
+    public static Object getComponent(final Class<?> componentClass,
+            final S2Container container) {
+        return container.getComponent(componentClass);
     }
 
     /**

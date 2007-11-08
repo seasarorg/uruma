@@ -22,14 +22,9 @@ import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.seasar.framework.beans.BeanDesc;
-import org.seasar.framework.beans.PropertyDesc;
-import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
-import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
-import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.binding.context.ApplicationContextBinder;
 import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
@@ -42,17 +37,16 @@ import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.ComponentUtil;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.UrumaWindowManager;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
-import org.seasar.uruma.desc.PartActionUtil;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.renderer.impl.WindowRenderer;
 import org.seasar.uruma.util.AssertionUtil;
-import org.seasar.uruma.util.S2ContainerUtil;
 
 /**
  * {@link Template} オブジェクトを元にして画面描画を行う、{@link ApplicationWindow} です。
@@ -126,68 +120,68 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
         component.preRender(null, windowContext);
 
         setupActionComponent();
-        setupFormComponent();
+        ComponentUtil.setupFormComponent(partContext, windowComponent.getId());
+        // setupFormComponent();
         setupMenuBar();
         setupShellStyle(component, modal);
         setupStatusLine();
     }
 
     protected void setupActionComponent() {
-        partActionComponent = PartActionUtil.setupPartAction(partContext,
-                windowComponent.getId(), SingletonS2ContainerFactory
-                        .getContainer());
+        partActionComponent = ComponentUtil.setupPartAction(partContext,
+                windowComponent.getId());
         if (partActionComponent != null) {
             this.desc = PartActionDescFactory
                     .getPartActionDesc(partActionComponent.getClass());
         }
     }
 
-    protected void setupFormComponent() {
-        Object formObject = null;
-        Object actionObject = partContext.getPartActionObject();
-        if (actionObject != null) {
-            Form formAnnotation = actionObject.getClass().getAnnotation(
-                    Form.class);
-            if (formAnnotation != null) {
-                Class<?> formClass = formAnnotation.value();
-                if (formClass == partContext.getPartActionObject().getClass()) {
-                    formObject = partContext.getPartActionObject();
-                } else {
-                    formObject = S2ContainerUtil.getComponent(formClass);
-                }
-            }
-        }
-
-        if (formObject == null) {
-            String formComponentName = StringUtil.decapitalize(windowComponent
-                    .getId())
-                    + "Form";
-            formObject = S2ContainerUtil
-                    .getComponentNoException(formComponentName);
-        }
-
-        if (formObject != null) {
-            partContext.setFormObject(formObject);
-            injectFormToAction();
-        }
-    }
-
-    /**
-     * パートアクションオブジェクトにフォームオブジェクトのプロパティが存在する場合、 {@link PartContext}
-     * が保持するフォームオブジェクトをインジェクションする。
-     */
-    protected void injectFormToAction() {
-        Object partActionObject = partContext.getPartActionObject();
-        Object formObject = partContext.getFormObject();
-
-        String formObjectName = formObject.getClass().getSimpleName();
-        BeanDesc beanDesc = BeanDescFactory.getBeanDesc(partActionObject
-                .getClass());
-        if (beanDesc.hasPropertyDesc(formObjectName)) {
-            PropertyDesc pd = beanDesc.getPropertyDesc(formObjectName);
-            pd.setValue(partActionObject, formObject);
-        }
-    }
+    // protected void setupFormComponent() {
+    // Object formObject = null;
+    // Object actionObject = partContext.getPartActionObject();
+    // if (actionObject != null) {
+    // Form formAnnotation = actionObject.getClass().getAnnotation(
+    // Form.class);
+    // if (formAnnotation != null) {
+    // Class<?> formClass = formAnnotation.value();
+    // if (formClass == partContext.getPartActionObject().getClass()) {
+    // formObject = partContext.getPartActionObject();
+    // } else {
+    // formObject = S2ContainerUtil.getComponent(formClass);
+    // }
+    // }
+    // }
+    //
+    // if (formObject == null) {
+    // String formComponentName = StringUtil.decapitalize(windowComponent
+    // .getId())
+    // + "Form";
+    // formObject = S2ContainerUtil
+    // .getComponentNoException(formComponentName);
+    // }
+    //
+    // if (formObject != null) {
+    // partContext.setFormObject(formObject);
+    // injectFormToAction();
+    // }
+    // }
+    //
+    // /**
+    // * パートアクションオブジェクトにフォームオブジェクトのプロパティが存在する場合、 {@link PartContext}
+    // * が保持するフォームオブジェクトをインジェクションする。
+    // */
+    // protected void injectFormToAction() {
+    // Object partActionObject = partContext.getPartActionObject();
+    // Object formObject = partContext.getFormObject();
+    //
+    // String formObjectName = formObject.getClass().getSimpleName();
+    // BeanDesc beanDesc = BeanDescFactory.getBeanDesc(partActionObject
+    // .getClass());
+    // if (beanDesc.hasPropertyDesc(formObjectName)) {
+    // PropertyDesc pd = beanDesc.getPropertyDesc(formObjectName);
+    // pd.setValue(partActionObject, formObject);
+    // }
+    // }
 
     protected void setupShellStyle(final WindowComponent component,
             final boolean modal) {

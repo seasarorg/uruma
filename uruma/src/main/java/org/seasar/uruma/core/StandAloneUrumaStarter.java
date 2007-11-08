@@ -122,6 +122,8 @@ public class StandAloneUrumaStarter {
 
         container.init();
         SingletonS2ContainerFactory.setContainer(container);
+
+        ComponentUtil.setS2Container(container);
     }
 
     /**

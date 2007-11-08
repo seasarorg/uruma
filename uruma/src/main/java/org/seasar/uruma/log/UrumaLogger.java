@@ -76,6 +76,41 @@ public final class UrumaLogger {
     }
 
     /**
+     * TRACE情報が出力されるかどうかを返します。<br />
+     * 
+     * @return TRACE情報が出力されるかどうか
+     */
+    public final boolean isTraceEnabled() {
+        return log.isTraceEnabled();
+    }
+
+    /**
+     * TRACE情報を出力します。<br />
+     * 
+     * @param message
+     *            メッセージ
+     * @param throwable
+     *            {@link Throwable} オブジェクト
+     */
+    public final void trace(final Object message, final Throwable throwable) {
+        if (isTraceEnabled()) {
+            log.trace(message, throwable);
+        }
+    }
+
+    /**
+     * TRACE情報を出力します。<br />
+     * 
+     * @param message
+     *            メッセージ
+     */
+    public final void trace(final Object message) {
+        if (isTraceEnabled()) {
+            log.trace(message);
+        }
+    }
+
+    /**
      * DEBUG情報が出力されるかどうかを返します。<br />
      * 
      * @return DEBUG情報が出力されるかどうか
@@ -250,6 +285,9 @@ public final class UrumaLogger {
             String message = MessageFormatter.getMessage(messageCode, args);
 
             switch (messageType) {
+            case 'T':
+                log.trace(message, throwable);
+                break;
             case 'D':
                 log.debug(message, throwable);
                 break;
@@ -273,6 +311,8 @@ public final class UrumaLogger {
 
     private boolean isEnabledFor(final char messageType) {
         switch (messageType) {
+        case 'T':
+            return log.isTraceEnabled();
         case 'D':
             return log.isDebugEnabled();
         case 'I':

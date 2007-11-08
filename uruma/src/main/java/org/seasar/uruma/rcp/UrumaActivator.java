@@ -40,6 +40,7 @@ import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.ComponentUtil;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
@@ -284,6 +285,8 @@ public class UrumaActivator extends AbstractUIPlugin {
 
             container.init();
             SingletonS2ContainerFactory.setContainer(container);
+            ComponentUtil.setS2Container(container);
+
         } catch (ResourceNotFoundRuntimeException ex) {
             logger.error(ex.getMessage(), ex);
             throw ex;

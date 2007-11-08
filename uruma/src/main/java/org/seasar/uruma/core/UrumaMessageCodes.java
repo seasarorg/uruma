@@ -369,7 +369,16 @@ public interface UrumaMessageCodes {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String PART_ACTION_CLASS_FOUND = "IURM0214";
+    public static final String PART_ACTION_CLASS_FOUND = "DURM0214";
+
+    /**
+     * フォームクラス設定時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String FORM_CLASS_FOUND = "DURM0215";
 
     // -------------------------------------------------------------------------
     // レンダリング関連メッセージコード (03xx)
@@ -418,7 +427,7 @@ public interface UrumaMessageCodes {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String PRE_RENDER_START = "DURM0304";
+    public static final String PRE_RENDER_START = "TURM0304";
 
     /**
      * {@link UIComponent#preRender(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.WindowContext)}
@@ -428,7 +437,7 @@ public interface UrumaMessageCodes {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String PRE_RENDER_END = "DURM0305";
+    public static final String PRE_RENDER_END = "TURM0305";
 
     /**
      * {@link UIComponent#render(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)}
@@ -438,7 +447,7 @@ public interface UrumaMessageCodes {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String RENDER_START = "DURM0306";
+    public static final String RENDER_START = "TURM0306";
 
     /**
      * {@link UIComponent#render(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)}
@@ -448,7 +457,16 @@ public interface UrumaMessageCodes {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String RENDER_END = "DURM0307";
+    public static final String RENDER_END = "TURM0307";
+
+    /**
+     * ウィジット生成時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String WIDGET_CREATED = "TURM0308";
 
     // -------------------------------------------------------------------------
     // ウィンドウ管理関連メッセージコード (04xx)

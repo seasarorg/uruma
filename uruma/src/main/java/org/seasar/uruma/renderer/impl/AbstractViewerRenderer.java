@@ -31,6 +31,7 @@ import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.jface.CompositeComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
@@ -52,21 +53,6 @@ import org.seasar.uruma.viewer.GenericContentProvider;
 public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeComponent, VIEWER_TYPE extends Viewer, CONTROL_TYPE extends Control>
         extends AbstractControlRenderer<COMPONENT_TYPE, CONTROL_TYPE> {
     private UrumaLogger logger = UrumaLogger.getLogger(getClass());
-
-    /**
-     * {@link ILabelProvider} の S2Container 上でのコンポーネント名称サフィックス
-     */
-    protected static final String LABEL_PROVIDER = "LabelProvider";
-
-    /**
-     * {@link IContentProvider} の S2Container 上でのコンポーネント名称サフィックス
-     */
-    protected static final String CONTENT_PROVIDER = "ContentProvider";
-
-    /**
-     * {@link ViewerComparator} の S2Container 上でのコンポーネント名称サフィックス
-     */
-    protected static final String COMPARATOR = "Comparator";
 
     /*
      * @see org.seasar.uruma.renderer.Renderer#render(org.seasar.uruma.component.UIComponent,
@@ -180,7 +166,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
         IContentProvider provider = null;
         if (!StringUtil.isEmpty(id)) {
             Object defined = S2ContainerUtil.getComponentNoException(id
-                    + CONTENT_PROVIDER);
+                    + UrumaConstants.CONTENT_PROVIDER_SUFFIX);
             if (defined != null) {
                 if (defined instanceof IContentProvider) {
                     provider = IContentProvider.class.cast(defined);
@@ -233,7 +219,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
         IBaseLabelProvider provider = null;
         if (!StringUtil.isEmpty(id)) {
             Object defined = S2ContainerUtil.getComponentNoException(id
-                    + LABEL_PROVIDER);
+                    + UrumaConstants.LABEL_PROVIDER_SUFFIX);
             if (defined != null) {
                 Class<? extends IBaseLabelProvider> providerClass = getLabelProviderClass();
                 if (providerClass.isAssignableFrom(defined.getClass())) {
@@ -282,7 +268,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
             final String id) {
         if (!StringUtil.isEmpty(id)) {
             Object comparator = S2ContainerUtil.getComponentNoException(id
-                    + COMPARATOR);
+                    + UrumaConstants.COMPARATOR_SUFFIX_SUFFIX);
             if (comparator != null) {
                 if (comparator instanceof ViewerComparator) {
                     viewer.setComparator(ViewerComparator.class
@@ -313,10 +299,9 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
         VIEWER_TYPE viewer = ClassUtil.<VIEWER_TYPE> newInstance(
                 getViewerType(), parent, style);
 
-        if (logger.isDebugEnabled()) {
-            logger
-                    .debug(UrumaLogger.getObjectDescription(viewer)
-                            + " created.");
+        if (logger.isTraceEnabled()) {
+            logger.log(UrumaMessageCodes.WIDGET_CREATED, UrumaLogger
+                    .getObjectDescription(viewer));
         }
 
         return viewer;

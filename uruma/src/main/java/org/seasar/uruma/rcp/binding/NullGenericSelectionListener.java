@@ -39,6 +39,7 @@ public class NullGenericSelectionListener extends GenericSelectionListener
      * @param methodBinding
      *            呼び出し対象の {@link SingleParamTypeMethodBinding} オブジェクト
      */
+    // TODO WindowContext でよいか?
     public NullGenericSelectionListener(final WindowContext context,
             final SingleParamTypeMethodBinding methodBinding) {
         super(context, methodBinding);
