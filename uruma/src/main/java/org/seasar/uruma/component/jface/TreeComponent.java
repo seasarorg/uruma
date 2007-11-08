@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Tree;
-import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 
@@ -30,53 +29,19 @@ import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
  * @author y-komori
  */
 public class TreeComponent extends CompositeComponent {
+    /**
+     * ヘッダの表示状態です。<br />
+     */
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
-    @FieldDescription("ヘッダ表示状態")
-    private boolean headerVisible;
+    public String headerVisible;
 
+    /**
+     * ラインの表示状態です。<br />
+     */
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
-    @FieldDescription("ライン表示状態")
-    private boolean linesVisible;
+    public String linesVisible;
 
     private List<TreeItemComponent> children = new ArrayList<TreeItemComponent>();
-
-    /**
-     * ヘッダ表示状態を取得します。<br />
-     * 
-     * @return ヘッダ表示状態
-     */
-    public boolean getHeaderVisible() {
-        return this.headerVisible;
-    }
-
-    /**
-     * ヘッダ表示状態を設定します。<br />
-     * 
-     * @param headerVisible
-     *            ヘッダ表示状態
-     */
-    public void setHeaderVisible(final boolean headerVisible) {
-        this.headerVisible = headerVisible;
-    }
-
-    /**
-     * ライン表示状態を取得します。<br />
-     * 
-     * @return ライン表示状態
-     */
-    public boolean getLinesVisible() {
-        return this.linesVisible;
-    }
-
-    /**
-     * ライン表示状態を設定します。<br />
-     * 
-     * @param linesVisible
-     *            ライン表示状態
-     */
-    public void setLinesVisible(final boolean linesVisible) {
-        this.linesVisible = linesVisible;
-    }
 
     /**
      * ツリー項目を追加します。<br />

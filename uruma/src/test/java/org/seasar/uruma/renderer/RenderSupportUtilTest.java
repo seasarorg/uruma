@@ -97,9 +97,10 @@ public class RenderSupportUtilTest extends TestCase {
 
         try {
             RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER);
-            fail();
-        } catch (RenderException ex) {
+            // TODO エラーログ出力を確認するようにする
             assertTrue(true);
+        } catch (RenderException ex) {
+            fail(ex.getMessage());
         }
     }
 
@@ -109,9 +110,10 @@ public class RenderSupportUtilTest extends TestCase {
 
         try {
             RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER);
-            fail();
-        } catch (RenderException ex) {
+            // TODO エラーログ出力を確認するようにする
             assertTrue(true);
+        } catch (RenderException ex) {
+            fail(ex.getMessage());
         }
     }
 
@@ -121,9 +123,10 @@ public class RenderSupportUtilTest extends TestCase {
 
         try {
             RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER);
-            fail();
-        } catch (RenderException ex) {
+            // TODO エラーログ出力を確認するようにする
             assertTrue(true);
+        } catch (RenderException ex) {
+            fail(ex.getMessage());
         }
     }
 }

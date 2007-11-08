@@ -495,6 +495,21 @@ public interface UrumaMessageCodes {
      */
     public static final String COMPARATOR_FOUND = "DURM0311";
 
+    /**
+     * コンポーネントのプロパティが String 型ではないため、読み出しに失敗した際のメッセージコードです。<br />
+     */
+    public static final String COMPONENT_PROPERTY_IS_NOT_STRING = "EURM0312";
+
+    /**
+     * ウィジットにプロパティが見つからず、値を設定しなかった際のメッセージコードです。<br />
+     */
+    public static final String WIDGET_PROPERTY_NOT_FOUND = "EURM0313";
+
+    /**
+     * プロパティの書き込みに失敗した際のメッセージコードです。<br />
+     */
+    public static final String PROPERTY_IS_NOT_WRITABLE = "EURM0314";
+
     // -------------------------------------------------------------------------
     // ウィンドウ管理関連メッセージコード (04xx)
     // -------------------------------------------------------------------------
@@ -572,7 +587,7 @@ public interface UrumaMessageCodes {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String CREATE_CONTRIBUTION = "DURM0504";
+    public static final String CREATE_CONTRIBUTION = "TURM0504";
 
     /**
      * {@link ConfigurationWriter} が見つからない場合のメッセージコードです。<br />

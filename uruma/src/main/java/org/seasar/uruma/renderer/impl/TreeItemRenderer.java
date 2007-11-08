@@ -50,7 +50,7 @@ public class TreeItemRenderer extends
 
     protected void renderText(final TreeItemComponent component,
             final TreeItem widget) {
-        String text = component.getText();
+        String text = component.text;
         if (text != null) {
             widget.setText(text);
         }
@@ -58,7 +58,7 @@ public class TreeItemRenderer extends
 
     protected void renderImage(final TreeItemComponent component,
             final TreeItem widget) {
-        String value = component.getImage();
+        String value = component.image;
 
         if (value != null) {
             Image image = ImageManager.getImage(value);

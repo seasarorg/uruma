@@ -60,7 +60,7 @@ public class ContributionBuilder {
 
         String content = writer.getBuffer().toString();
 
-        if (logger.isDebugEnabled()) {
+        if (logger.isTraceEnabled()) {
             logger.log(UrumaMessageCodes.CREATE_CONTRIBUTION, content);
         }
 

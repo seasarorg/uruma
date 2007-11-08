@@ -31,13 +31,14 @@ import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.framework.util.FieldUtil;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
+import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.PathUtil;
 
 /**
@@ -46,6 +47,9 @@ import org.seasar.uruma.util.PathUtil;
  * @author y-komori
  */
 public class RendererSupportUtil {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(RendererSupportUtil.class);
+
     /**
      * <code>src</code> でアノテートされたフィールドを <code>dest</code> へコピーします。<br />
      * <p>
@@ -65,52 +69,59 @@ public class RendererSupportUtil {
     public static void setAttributes(final UIElement src, final Object dest,
             final SetTiming nowTiming) {
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(src.getClass());
-        int fieldSize = beanDesc.getFieldSize();
-        for (int i = 0; i < fieldSize; i++) {
-            Field field = beanDesc.getField(i);
-            RenderingPolicy policy = field.getAnnotation(RenderingPolicy.class);
-            if (policy != null && policy.setTiming() == nowTiming) {
-                String value = getSrcValue(src, beanDesc, field);
-                if (value != null) {
-                    setValue(src, dest, field, policy, value);
+        int pdSize = beanDesc.getPropertyDescSize();
+
+        for (int i = 0; i < pdSize; i++) {
+            PropertyDesc pd = beanDesc.getPropertyDesc(i);
+            Field field = pd.getField();
+
+            if (field != null) {
+                RenderingPolicy policy = field
+                        .getAnnotation(RenderingPolicy.class);
+                if ((policy != null) && (policy.setTiming() == nowTiming)
+                        && (policy.targetType() != TargetType.NONE)) {
+                    String value = getSrcValue(src, pd);
+                    if (value != null) {
+                        setValue(src, dest, pd, policy, value);
+                    }
                 }
             }
         }
     }
 
-    private static String getSrcValue(final UIElement src,
-            final BeanDesc beanDesc, final Field field) {
-        if (field.getType() == String.class) {
-            String fieldName = field.getName();
-            if (beanDesc.hasPropertyDesc(field.getName())) {
-                PropertyDesc pd = beanDesc.getPropertyDesc(fieldName);
-                if (pd.hasReadMethod()) {
-                    return (String) pd.getValue(src);
-                }
-            }
+    private static String getSrcValue(final UIElement src, final PropertyDesc pd) {
+        if (String.class.isAssignableFrom(pd.getPropertyType())) {
+            return (String) pd.getValue(src);
+        } else {
+            logger.log(UrumaMessageCodes.COMPONENT_PROPERTY_IS_NOT_STRING, pd
+                    .getBeanDesc().getBeanClass().getName(), pd
+                    .getPropertyName());
+            return null;
         }
-        return null;
     }
 
     private static void setValue(final UIElement src, final Object dest,
-            final Field field, final RenderingPolicy policy, final String value) {
+            final PropertyDesc srcPd, final RenderingPolicy policy,
+            final String value) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(dest.getClass());
-
+        String propertyName = srcPd.getPropertyName();
         try {
-            if (policy.targetType() == RenderingPolicy.TargetType.PROPERTY) {
-                PropertyDesc pd = desc.getPropertyDesc(field.getName());
-                if (pd.hasWriteMethod()) {
-                    pd.setValue(dest, convertValue(src, value, policy
+            if (desc.hasPropertyDesc(propertyName)) {
+                PropertyDesc destPd = desc.getPropertyDesc(propertyName);
+                if (destPd.isWritable()) {
+                    destPd.setValue(dest, convertValue(src, value, policy
                             .conversionType()));
+                } else {
+                    logger.log(UrumaMessageCodes.PROPERTY_IS_NOT_WRITABLE, dest
+                            .getClass().getName(), destPd.getPropertyName());
                 }
-            } else if (policy.targetType() == RenderingPolicy.TargetType.FIELD) {
-                Field destField = desc.getField(field.getName());
-                FieldUtil.set(destField, dest, convertValue(src, value, policy
-                        .conversionType()));
+            } else {
+                logger.log(UrumaMessageCodes.WIDGET_PROPERTY_NOT_FOUND, dest
+                        .getClass().getName(), propertyName);
             }
         } catch (Exception ex) {
             throw new RenderException(UrumaMessageCodes.RENDER_MAPPING_FAILED,
-                    ex, field.getName(), dest.getClass().getName(), value);
+                    ex, propertyName, dest.getClass().getName(), value);
         }
     }
 
