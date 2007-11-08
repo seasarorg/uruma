@@ -14,6 +14,8 @@ import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.annotation.SelectionListener;
+import org.seasar.uruma.ui.dialogs.UrumaInputDialog;
+import org.seasar.uruma.ui.dialogs.UrumaMessageDialog;
 
 /**
  * @author y-komori
@@ -61,6 +63,23 @@ public class FileViewAction {
 		if (selectedFile.size() == 1) {
 			FileDto dto = selectedFile.get(0);
 			File file = new File(dto.absolutePath);
+
+			if (file.isDirectory()) {
+			} else {
+				openFile();
+			}
+		}
+	}
+
+	@EventListener(id = "fileOpen")
+	public void onFileOpenMenu() {
+		openFile();
+	}
+
+	private void openFile() {
+		if (selectedFile.size() == 1) {
+			FileDto dto = selectedFile.get(0);
+			File file = new File(dto.absolutePath);
 			if (file.isFile()) {
 				Program program = Program.findProgram(StringUtil
 						.substringToLast(dto.fileName, "."));
@@ -68,6 +87,39 @@ public class FileViewAction {
 					Program.launch(dto.absolutePath);
 				}
 			}
+		}
+	}
+
+	@EventListener(id = "fileRename")
+	public void renameFile() {
+		if (selectedFile.size() == 1) {
+			FileDto dto = selectedFile.get(0);
+			String newName = UrumaInputDialog.open("名前の変更", "新しい名前を入力してください.",
+					dto.fileName);
+			if (newName != null) {
+				File oldFile = new File(dto.absolutePath);
+				File newFile = new File(oldFile.getParent() + File.separator
+						+ newName);
+
+				oldFile.renameTo(newFile);
+
+				dto.absolutePath = newFile.getAbsolutePath();
+				dto.fileName = newFile.getName();
+			}
+		}
+	}
+
+	@EventListener(id = "fileDelete")
+	public void deleteFile() {
+		if (selectedFile.size() > 0) {
+			if (UrumaMessageDialog.openConfirm("削除確認", "選択されたファイルを削除してもよいですか？")) {
+				for (FileDto dto : selectedFile) {
+					File file = new File(dto.absolutePath);
+					file.delete();
+					fileList.remove(dto);
+				}
+			}
+
 		}
 	}
 }
