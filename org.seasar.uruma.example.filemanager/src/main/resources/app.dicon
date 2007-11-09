@@ -2,6 +2,20 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
+<!--
+    <component class="org.seasar.framework.container.autoregister.ComponentAutoRegister">
+		<property name="instanceDef">
+			@org.seasar.framework.container.deployer.InstanceDefFactory@PROTOTYPE
+		</property>
+		<initMethod name="addReferenceClass">
+		    <arg>@org.seasar.uruma.example.filemanager.FileManager@class</arg>
+		</initMethod>
+        <initMethod name="addClassPattern">
+            <arg>"org.seasar.uruma.example.filemanager"</arg>
+            <arg>".*Action"</arg>
+        </initMethod>
+    </component>
+-->
 	<component name="folderTreeContentProvider" class="org.seasar.uruma.example.filemanager.FolderTreeContentProvider" />
 	<component name="folderTreeLabelProvider" class="org.seasar.uruma.example.filemanager.FolderTreeLabelProvider" />
 	
