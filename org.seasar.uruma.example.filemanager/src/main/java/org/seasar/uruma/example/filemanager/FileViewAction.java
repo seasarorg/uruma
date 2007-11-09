@@ -27,6 +27,7 @@ import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
+import org.seasar.uruma.annotation.ImportExportValue;
 import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.annotation.SelectionListener;
 import org.seasar.uruma.ui.dialogs.UrumaInputDialog;
@@ -40,7 +41,10 @@ public class FileViewAction {
 	@ImportSelection(id = "fileDetailTable")
 	public List<FileDto> selectedFile;
 
-	@SelectionListener
+	@ImportExportValue
+	public String statusLineManager;
+
+	@SelectionListener(partId = "folderView")
 	public void selectionChanged(final File parentFolder) {
 		fileList.clear();
 
@@ -70,7 +74,7 @@ public class FileViewAction {
 	}
 
 	@EventListener(id = "fileDetailTable", type = EventListenerType.MOUSE_DOUBLE_CLICK)
-	public void onSelected() {
+	public void onDoubleClick() {
 		if (selectedFile.size() == 1) {
 			FileDto dto = selectedFile.get(0);
 			File file = new File(dto.absolutePath);
@@ -79,6 +83,13 @@ public class FileViewAction {
 			} else {
 				openFile();
 			}
+		}
+	}
+
+	@EventListener(id = "fileDetailTable")
+	public void onSelected() {
+		if (selectedFile.size() > 0) {
+			statusLineManager = selectedFile.size() + "個のファイルが選択されています.";
 		}
 	}
 
