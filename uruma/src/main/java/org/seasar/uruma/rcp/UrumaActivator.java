@@ -47,6 +47,8 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.ViewTemplateLoader;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
+import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
@@ -105,6 +107,7 @@ public class UrumaActivator extends AbstractUIPlugin {
         registComponentsToS2Container();
         setupContributor();
 
+        // TODO workbench.xml が読み込めなかった場合のハンドリング
         Template workbenchTemplate = getTemplate(UrumaConstants.DEFAULT_WORKBENCH_XML);
         UIComponentContainer root = workbenchTemplate.getRootComponent();
         if (root instanceof WorkbenchComponent) {
@@ -211,13 +214,20 @@ public class UrumaActivator extends AbstractUIPlugin {
         if (extension.getElements().size() == 0) {
             // perspective 要素が定義されていないときにデフォルト設定を行う
             PerspectiveComponent perspective = new PerspectiveComponent();
+            ConfigurationWriter writer = ConfigurationWriterFactory
+                    .getConfigurationWriter(perspective);
+            perspective.setConfigurationWriter(writer);
 
             perspective.perspectiveClass = AutoPerspectiveFactory.class
                     .getName();
             perspective.id = UrumaConstants.DEFAULT_PERSPECTIVE_ID;
+            perspective.setRcpId(createRcpId(perspective.id));
             perspective.name = getPluginId();
 
             extension.addConfigurationElement(perspective);
+
+            workbenchComponent.addChild(perspective);
+            workbenchComponent.initialPerspectiveId = UrumaConstants.DEFAULT_PERSPECTIVE_ID;
         } else if (StringUtil.isBlank(workbenchComponent.initialPerspectiveId)) {
             // initialPerspectiveId が定義されていない場合は
             // 最初に記述されている perspective を表示する
@@ -279,12 +289,15 @@ public class UrumaActivator extends AbstractUIPlugin {
         try {
             S2Container urumaContainer = S2ContainerFactory
                     .create(UrumaConstants.URUMA_RCP_DICON_PATH);
+
+            // TODO app.dicon が読み込めない場合のハンドリング
             String configPath = SingletonS2ContainerFactory.getConfigPath();
             container = S2ContainerFactory.create(configPath);
             container.include(urumaContainer);
 
             container.init();
             SingletonS2ContainerFactory.setContainer(container);
+
             ComponentUtil.setS2Container(container);
 
         } catch (ResourceNotFoundRuntimeException ex) {
