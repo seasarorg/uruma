@@ -48,7 +48,7 @@ public @interface SelectionListener {
      * 
      * @see ISelectionService#addSelectionListener(String, ISelectionListener)
      */
-    String value() default "";
+    String partId() default "";
 
     /**
      * <code>true</code> に指定すると、選択結果が <code>null</code>

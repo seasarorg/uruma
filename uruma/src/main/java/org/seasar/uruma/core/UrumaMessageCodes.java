@@ -380,6 +380,33 @@ public interface UrumaMessageCodes {
      */
     public static final String FORM_CLASS_FOUND = "DURM0215";
 
+    /**
+     * メソッドバインディング生成時のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String CREATE_METHOD_BINDING = "DURM0216";
+
+    /**
+     * ISelectionListener 登録時のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String ISELECTION_LISTENER_REGISTERED = "DURM0217";
+
+    /**
+     * リスナからのメソッド実行中に例外が発生した場合のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String EXCEPTION_OCCURED_INVOKING_METHOD = "EURM0218";
+
     // -------------------------------------------------------------------------
     // レンダリング関連メッセージコード (03xx)
     // -------------------------------------------------------------------------

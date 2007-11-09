@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -28,6 +29,8 @@ import org.seasar.uruma.util.AssertionUtil;
  * @author bskuroneko
  */
 public class GenericListener implements Listener {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(GenericListener.class);
 
     private PartContext context;
 
@@ -67,19 +70,24 @@ public class GenericListener implements Listener {
      * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
      */
     public void handleEvent(final Event event) {
-        WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
+        try {
+            // TODO 他の汎用リスナと共通化する
+            WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
 
-        ValueBindingSupport.importSelection(context);
-        ValueBindingSupport.importValue(context);
+            ValueBindingSupport.importSelection(context);
+            ValueBindingSupport.importValue(context);
 
-        methodBinding.invoke(new Object[] { event });
+            methodBinding.invoke(new Object[] { event });
 
-        if (!event.widget.isDisposed()) {
-            ValueBindingSupport.exportValue(context);
-            ValueBindingSupport.exportSelection(context);
+            if (!event.widget.isDisposed()) {
+                ValueBindingSupport.exportValue(context);
+                ValueBindingSupport.exportSelection(context);
+            }
+
+            // TODO 見直し
+            // EnabledDependBinder.updateEnabled(context);
+        } catch (Throwable ex) {
+            logger.log(ex);
         }
-
-        // TODO 見直し
-        // EnabledDependBinder.updateEnabled(context);
     }
 }

@@ -43,4 +43,16 @@ public class BindingException extends UrumaRuntimeException {
         super(messageCode,
                 new Object[] { id, clazz.getName(), field.getName() });
     }
+
+    /**
+     * {@link BindingException} を構築します。<br />
+     * 
+     * @param messageCode
+     *            メッセージコード
+     * @param arg
+     *            引数の配列
+     */
+    public BindingException(final String messageCode, final String... arg) {
+        super(messageCode, (Object[]) (arg));
+    }
 }

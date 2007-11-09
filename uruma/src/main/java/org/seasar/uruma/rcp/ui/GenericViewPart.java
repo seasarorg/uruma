@@ -17,14 +17,17 @@ package org.seasar.uruma.rcp.ui;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
@@ -47,6 +50,7 @@ import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaActivator;
 import org.seasar.uruma.rcp.binding.GenericSelectionListener;
 import org.seasar.uruma.rcp.binding.NullGenericSelectionListener;
@@ -70,6 +74,9 @@ import org.seasar.uruma.util.S2ContainerUtil;
 public class GenericViewPart extends ViewPart {
     private UrumaActivator activator = UrumaActivator.getInstance();
 
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(GenericViewPart.class);
+
     /**
      * {@link TemplateManager} オブジェクト
      */
@@ -87,6 +94,8 @@ public class GenericViewPart extends ViewPart {
     private String componentId;
 
     private Object partAction;
+
+    private List<ISelectionListener> listeners = new ArrayList<ISelectionListener>();
 
     /*
      * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
@@ -115,7 +124,6 @@ public class GenericViewPart extends ViewPart {
             this.partAction = ComponentUtil.setupPartAction(partContext,
                     componentId);
 
-            // TODO 他のViewPartでのレンダリング結果もバインドできるようにする。
             if (partAction != null) {
                 ComponentUtil.setupFormComponent(partContext, componentId);
 
@@ -153,9 +161,24 @@ public class GenericViewPart extends ViewPart {
         ValueBindingSupport.exportSelection(partContext);
     }
 
+    /*
+     * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
+     */
     @Override
     public void setFocus() {
         // Do nothing.
+    }
+
+    /*
+     * @see org.eclipse.ui.part.WorkbenchPart#dispose()
+     */
+    @Override
+    public void dispose() {
+        IWorkbenchPage page = getSite().getPage();
+        for (ISelectionListener listener : listeners) {
+            page.removeSelectionListener(listener);
+        }
+        super.dispose();
     }
 
     protected PartContext createPartContext(final String id) {
@@ -178,11 +201,9 @@ public class GenericViewPart extends ViewPart {
 
         for (Method method : listenerMethods) {
             if (Modifier.isPublic(method.getModifiers())) {
-                SelectionListener annotation = method
+                SelectionListener anno = method
                         .getAnnotation(SelectionListener.class);
-                boolean nullSelection = annotation.nullSelection();
-                String providerPartId = annotation.value();
-
+                boolean nullSelection = anno.nullSelection();
                 Class<?>[] paramTypes = method.getParameterTypes();
                 if (paramTypes.length <= 1) {
                     SingleParamTypeMethodBinding methodBinding = new SingleParamTypeMethodBinding(
@@ -197,12 +218,21 @@ public class GenericViewPart extends ViewPart {
                                 methodBinding);
                     }
 
-                    if (StringUtil.isEmpty(providerPartId)) {
+                    String partId = anno.partId();
+
+                    if (StringUtil.isEmpty(partId)) {
                         getSite().getPage().addSelectionListener(listener);
                     } else {
-                        getSite().getPage().addSelectionListener(
-                                providerPartId, listener);
+                        partId = UrumaActivator.getInstance().createRcpId(
+                                partId);
+                        getSite().getPage().addSelectionListener(partId,
+                                listener);
                     }
+
+                    logger.log(
+                            UrumaMessageCodes.ISELECTION_LISTENER_REGISTERED,
+                            getViewSite().getId(), methodBinding, partId);
+                    listeners.add(listener);
                 }
             }
         }

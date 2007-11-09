@@ -27,6 +27,8 @@ import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -52,6 +54,9 @@ import org.seasar.uruma.util.AssertionUtil;
  * @author y-komori
  */
 public class GenericSelectionListener implements ISelectionListener {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(GenericSelectionListener.class);
+
     private PartContext context;
 
     private SingleParamTypeMethodBinding methodBinding;
@@ -93,20 +98,28 @@ public class GenericSelectionListener implements ISelectionListener {
      */
     public void selectionChanged(final IWorkbenchPart part,
             final ISelection selection) {
-        if (selection instanceof IStructuredSelection) {
-            IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-            Object[] selectedModels = structuredSelection.toArray();
+        try {
+            if (selection instanceof IStructuredSelection) {
+                IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+                Object[] selectedModels = structuredSelection.toArray();
+                if (selectedModels.length > 0) {
 
-            WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
+                    WidgetBinder
+                            .bindWidgets(methodBinding.getTarget(), context);
 
-            ValueBindingSupport.importSelection(context);
-            ValueBindingSupport.importValue(context);
+                    ValueBindingSupport.importSelection(context);
+                    ValueBindingSupport.importValue(context);
 
-            methodBinding.invoke(selectedModels);
+                    methodBinding.invoke(selectedModels);
 
-            ValueBindingSupport.exportValue(context);
-            ValueBindingSupport.exportSelection(context);
-
+                    ValueBindingSupport.exportValue(context);
+                    ValueBindingSupport.exportSelection(context);
+                }
+            }
+        } catch (Throwable ex) {
+            logger.log(UrumaMessageCodes.EXCEPTION_OCCURED_INVOKING_METHOD,
+                    methodBinding.toString());
+            logger.log(ex);
         }
     }
 }

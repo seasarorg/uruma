@@ -56,6 +56,9 @@ public class SingleParamTypeMethodBinding extends MethodBinding {
         }
     }
 
+    /*
+     * @see org.seasar.uruma.binding.method.MethodBinding#invoke(java.lang.Object[])
+     */
     @Override
     public Object invoke(final Object[] args) {
         if (paramType == null || args == null) {

@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.binding.value.binder;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -218,15 +219,14 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                 Object firstElement = selection.getFirstElement();
                 if (propertyType.isArray()) {
                     Object[] selectedArray = selection.toArray();
-                    if (propertyType.isAssignableFrom(selectedArray.getClass())) {
-                        logBinding(IMPORT_SELECTION, widget, null, formObj,
-                                propDesc, selectedArray);
-                        propDesc.setValue(formObj, selectedArray);
-                    } else {
-                        throw new BindingException(
-                                UrumaMessageCodes.CLASS_NOT_MUTCH, null,
-                                formObj.getClass(), propDesc.getField());
-                    }
+                    Object content = Array.newInstance(propertyType
+                            .getComponentType(), selectedArray.length);
+                    System.arraycopy(selectedArray, 0, content, 0,
+                            selectedArray.length);
+
+                    logBinding(IMPORT_SELECTION, widget, null, formObj,
+                            propDesc, content);
+                    propDesc.setValue(formObj, content);
                 } else if (propertyType.isAssignableFrom(List.class)) {
                     List<?> list = selection.toList();
                     logBinding(IMPORT_SELECTION, widget, null, formObj,
@@ -239,8 +239,9 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
                     propDesc.setValue(formObj, firstElement);
                 } else {
                     throw new BindingException(
-                            UrumaMessageCodes.CLASS_NOT_MUTCH, null, formObj
-                                    .getClass(), propDesc.getField());
+                            UrumaMessageCodes.CLASS_NOT_MUTCH, formObj
+                                    .getClass().getName(), propDesc
+                                    .getPropertyName());
                 }
             }
         }

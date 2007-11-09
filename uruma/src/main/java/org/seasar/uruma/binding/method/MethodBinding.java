@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.framework.util.MethodUtil;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
@@ -39,6 +40,8 @@ public class MethodBinding {
 
     protected List<ArgumentsFilter> argumentsFilterList = new ArrayList<ArgumentsFilter>();
 
+    private String description;
+
     /**
      * {@link MethodBinding} を構築します。<br />
      * 
@@ -53,6 +56,8 @@ public class MethodBinding {
 
         this.target = target;
         this.method = method;
+        this.description = UrumaLogger.getObjectDescription(target)
+                + UrumaConstants.HASH_MARK + method.getName();
     }
 
     /**
@@ -125,5 +130,13 @@ public class MethodBinding {
      */
     public Object getTarget() {
         return this.target;
+    }
+
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return this.description;
     }
 }

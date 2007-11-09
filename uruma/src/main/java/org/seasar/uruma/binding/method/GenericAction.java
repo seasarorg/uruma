@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
-import org.seasar.uruma.exception.MethodInvocationException;
+import org.seasar.uruma.log.UrumaLogger;
 
 /**
  * 汎用的な {@link IAction} クラスです。<br />
@@ -31,6 +31,8 @@ import org.seasar.uruma.exception.MethodInvocationException;
  * @author y-komori
  */
 public class GenericAction extends Action {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(GenericAction.class);
 
     private Listener listener;
 
@@ -84,7 +86,7 @@ public class GenericAction extends Action {
                 listener.handleEvent(event);
             }
         } catch (Throwable ex) {
-            throw new MethodInvocationException(ex);
+            logger.log(ex);
         }
     }
 

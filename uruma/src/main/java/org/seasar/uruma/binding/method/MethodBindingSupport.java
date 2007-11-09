@@ -19,6 +19,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.uruma.annotation.EventListener;
@@ -26,10 +27,13 @@ import org.seasar.uruma.binding.method.impl.OmissionArgumentsFilter;
 import org.seasar.uruma.binding.method.impl.TypedEventArgumentsFilter;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.exception.UnsupportedClassException;
 import org.seasar.uruma.exception.WidgetNotFoundException;
+import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.viewer.UrumaTreeViewer;
 
 /**
  * メソッドバインディングの生成をサポートするクラスです。</br>
@@ -37,6 +41,9 @@ import org.seasar.uruma.exception.WidgetNotFoundException;
  * @author y-komori
  */
 public class MethodBindingSupport {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(MethodBindingSupport.class);
+
     /**
      * 指定された名前のウィンドウに対して、メソッドバインディングを行います。<br>
      * <p>
@@ -72,6 +79,7 @@ public class MethodBindingSupport {
     private static void createListener(final PartContext context,
             final EventListenerDef eventListenerDef) {
         Method targetMethod = eventListenerDef.getTargetMethod();
+
         MethodBinding methodBinding = new MethodBinding(context
                 .getPartActionObject(), targetMethod);
         methodBinding.addArgumentsFilter(new OmissionArgumentsFilter(
@@ -84,17 +92,30 @@ public class MethodBindingSupport {
         for (String id : ids) {
             WidgetHandle handle = context.getWidgetHandle(id);
             if (handle != null) {
-                if (handle.instanceOf(Viewer.class)) {
+                if (handle.instanceOf(UrumaTreeViewer.class)) {
+                    SelectionListener slistener = new GenericSWTSelectionListener(
+                            context, methodBinding);
+                    handle.<UrumaTreeViewer> getCastWidget().getTree()
+                            .addSelectionListener(slistener);
+                    logger.log(UrumaMessageCodes.CREATE_METHOD_BINDING, id,
+                            methodBinding);
+                } else if (handle.instanceOf(Viewer.class)) {
                     Widget widget = handle.<Viewer> getCastWidget()
                             .getControl();
                     setListenerToWidget(widget, eventListenerDef, listener);
+                    logger.log(UrumaMessageCodes.CREATE_METHOD_BINDING, id,
+                            methodBinding);
                 } else if (handle.instanceOf(Widget.class)) {
                     Widget widget = handle.<Widget> getCastWidget();
                     setListenerToWidget(widget, eventListenerDef, listener);
+                    logger.log(UrumaMessageCodes.CREATE_METHOD_BINDING, id,
+                            methodBinding);
                 } else if (handle.instanceOf(GenericAction.class)) {
                     GenericAction action = handle
                             .<GenericAction> getCastWidget();
                     action.setListener(listener);
+                    logger.log(UrumaMessageCodes.CREATE_METHOD_BINDING, id,
+                            methodBinding);
                 } else {
                     throw new UnsupportedClassException(handle.getWidgetClass());
                 }
