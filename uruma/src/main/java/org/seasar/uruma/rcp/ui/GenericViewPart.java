@@ -196,6 +196,10 @@ public class GenericViewPart extends ViewPart {
     }
 
     protected void setupSelectionListeners() {
+        if (partAction == null) {
+            return;
+        }
+
         List<Method> listenerMethods = AnnotationUtil.getAnnotatedMethods(
                 partAction.getClass(), SelectionListener.class);
 
