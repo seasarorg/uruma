@@ -30,8 +30,8 @@ import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.ImportExportValue;
 import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.annotation.SelectionListener;
-import org.seasar.uruma.ui.dialogs.UrumaInputDialog;
 import org.seasar.uruma.ui.dialogs.UrumaMessageDialog;
+import org.seasar.uruma.util.MessageUtil;
 
 @Form(FileViewAction.class)
 public class FileViewAction {
@@ -89,7 +89,8 @@ public class FileViewAction {
 	@EventListener(id = "fileDetailTable")
 	public void onSelected() {
 		if (selectedFile.size() > 0) {
-			statusLineManager = selectedFile.size() + "個のファイルが選択されています.";
+			statusLineManager = MessageUtil.getMessage("SELECTED", selectedFile
+					.size());
 		}
 	}
 
@@ -116,7 +117,7 @@ public class FileViewAction {
 	public void renameFile() {
 		if (selectedFile.size() == 1) {
 			FileDto dto = selectedFile.get(0);
-			String newName = UrumaInputDialog.open("名前の変更", "新しい名前を入力してください.",
+			String newName = UrumaMessageDialog.openInput("RENAME",
 					dto.fileName);
 			if (newName != null) {
 				File oldFile = new File(dto.absolutePath);
@@ -134,7 +135,7 @@ public class FileViewAction {
 	@EventListener(id = "fileDelete")
 	public void deleteFile() {
 		if (selectedFile.size() > 0) {
-			if (UrumaMessageDialog.openConfirm("削除確認", "選択されたファイルを削除してもよいですか？")) {
+			if (UrumaMessageDialog.openConfirm("DELETE")) {
 				for (FileDto dto : selectedFile) {
 					File file = new File(dto.absolutePath);
 					file.delete();

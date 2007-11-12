@@ -3,8 +3,14 @@
 	<!-- プラグイン名 -->
 	<property name="PLUGIN_NAME" value="org.seasar.uruma.example.filemanager" />
 
+	<!-- プラグイン jar ファイル名 -->
+	<property name="PLUGIN_JAR" value="${RCP_DEPLOY_DIR}/plugins/${PLUGIN_NAME}_1.0.0.jar" />
+
 	<!-- RCP デプロイ先ディレクトリ -->
 	<property name="RCP_DEPLOY_DIR" value="D:/Develop/RCP-3.3.1.1/eclipse" />
+
+	<!-- エクスポートログファイル -->
+	<property name="LOGS_ZIP" value="${RCP_DEPLOY_DIR}/logs.zip" />
 
 	<property name="CONFIG_DIR" value="${RCP_DEPLOY_DIR}/configuration" />
 	<property name="LOG_DIR" value="${RCP_DEPLOY_DIR}/log" />
@@ -31,7 +37,16 @@
 	</target>
 
 	<target name="plugin_export" depends="copy_jar">
+		<delete file="${RCP_DEPLOY_DIR}/plugins/${PLUGIN_JAR}" />
+		<delete file="${LOGS_ZIP}" />
+		
 		<pde.exportPlugins destination="${RCP_DEPLOY_DIR}" exportSource="true" exportType="directory" plugins="${PLUGIN_NAME}" useJARFormat="true" />
+	
+		<fail message="プラグインのエクスポートに失敗しました.">
+			<condition>
+				<available file="${LOGS_ZIP}" />
+			</condition>
+		</fail>
 	</target>
 
 	<target name="clean_rcp" depends="plugin_export">
