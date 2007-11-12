@@ -29,6 +29,21 @@ public class NotFoundException extends UrumaRuntimeException {
      * 
      * @param code
      *            メッセージコード
+     * @param cause
+     *            原因となった例外
+     * @param name
+     *            名称
+     */
+    public NotFoundException(final String code, final Throwable cause,
+            final String... name) {
+        super(code, cause, (Object[]) name);
+    }
+
+    /**
+     * {@link NotFoundException} を構築します。<br />
+     * 
+     * @param code
+     *            メッセージコード
      * @param name
      *            名称
      */
