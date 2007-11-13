@@ -9,7 +9,7 @@
   <groupId>org.seasar.uruma</groupId>
   <artifactId>uruma</artifactId>
   <name>Uruma</name>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <url>http://uruma.sandbox.seasar.org/</url>
   <inceptionYear>2006</inceptionYear>
 
@@ -172,7 +172,6 @@
         </executions>
       </plugin>
       
-      <!-- 
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
@@ -212,7 +211,6 @@
           </execution>
         </executions>
       </plugin>
-      -->
       
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
