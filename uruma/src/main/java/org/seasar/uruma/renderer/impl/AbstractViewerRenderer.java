@@ -34,6 +34,7 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.ClassUtil;
 import org.seasar.uruma.viewer.GenericContentProvider;
+import org.seasar.uruma.viewer.PojoLabelProvider;
 
 /**
  * {@link Viewer} のレンダリングを行うための基底クラスです。<br />
@@ -83,7 +84,8 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
 
         if (viewer instanceof StructuredViewer) {
             ComponentUtil.setupLabelProvider((StructuredViewer) viewer, id,
-                    getDefaultLabelProvider(), getLabelProviderClass());
+                    getDefaultLabelProvider(), getLabelProviderClass(),
+                    getPojoLabelProviderClass());
         }
 
         doRenderViewer((COMPONENT_TYPE) uiComponent, viewer);
@@ -194,6 +196,17 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      */
     protected Class<? extends IBaseLabelProvider> getLabelProviderClass() {
         return IBaseLabelProvider.class;
+    }
+
+    /**
+     * POJO をラベルプロバイダとして利用する場合のアダプタクラスを返します。<br />
+     * デフォルトでは <code>null</code>
+     * を返しますので、必要に応じてサブクラスでオーバーライドして、適切なクラスオブジェクトを返してください。
+     * 
+     * @return {@link PojoLabelProvider} のクラス
+     */
+    protected Class<? extends PojoLabelProvider> getPojoLabelProviderClass() {
+        return null;
     }
 
     /**

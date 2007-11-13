@@ -32,6 +32,8 @@ import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.renderer.RendererSupportUtil;
 import org.seasar.uruma.viewer.GenericTableLabelProvider;
 import org.seasar.uruma.viewer.GenericTableViewerSorter;
+import org.seasar.uruma.viewer.PojoLabelProvider;
+import org.seasar.uruma.viewer.PojoTableLabelProvider;
 
 /**
  * {@link TableViewer} のレンダリングを行うクラスです。<br />
@@ -104,6 +106,14 @@ public class TableViewerRenderer extends
     @Override
     protected IBaseLabelProvider getDefaultLabelProvider() {
         return new GenericTableLabelProvider();
+    }
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#getPojoLabelProviderClass()
+     */
+    @Override
+    protected Class<? extends PojoLabelProvider> getPojoLabelProviderClass() {
+        return PojoTableLabelProvider.class;
     }
 
     /*

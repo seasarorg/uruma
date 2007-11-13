@@ -35,7 +35,9 @@ import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
+import org.seasar.uruma.util.ClassUtil;
 import org.seasar.uruma.util.S2ContainerUtil;
+import org.seasar.uruma.viewer.PojoLabelProvider;
 
 /**
  * パートアクションクラスに関するユーティリティクラスです。<br />
@@ -225,6 +227,8 @@ public class ComponentUtil {
      * <li>登録されていれば、その S2 コンポーネントが <code>providerClass</code>
      * のサブクラスであるかどうかを確認する。
      * <li>サブクラスであれば、その S2 コンポーネントをラベルプロバイダとして <code>viewer</code> へ設定する。
+     * <li>サブクラスであれば、POJO によるラベルプロバイダと認識して <code>pojoProviderClass</code>
+     * で与えられたオブジェクトでラップする。
      * <li>S2 コンポーネントが見つからない場合、 <code>defaultProvider</code> をラベルプロバイダとして
      * <code>viewer</code> へ設定する。
      * </ol>
@@ -234,13 +238,19 @@ public class ComponentUtil {
      *            設定対象のビューア
      * @param id
      *            ビューアのコンポーネントID
-     * @throws RenderException
-     *             該当する名称の S2 コンポーネントが <code>providerClass</code> のサブクラスでない場合
+     * @param defaultProvider
+     *            デフォルトのラベルプロバイダ
+     * @param providerClass
+     *            S2コンポーネントをラベルプロバイダとして認識するためのクラス
+     * @param pojoProviderClass
+     *            S2コンポーネントが <code>providerClass</code> ではなかった場合に使用する
+     *            {@link PojoLabelProvider} のクラス
      * @see StructuredViewer#setLabelProvider(IBaseLabelProvider)
      */
     public static void setupLabelProvider(final StructuredViewer viewer,
             final String id, final IBaseLabelProvider defaultProvider,
-            final Class<? extends IBaseLabelProvider> providerClass) {
+            final Class<? extends IBaseLabelProvider> providerClass,
+            final Class<? extends PojoLabelProvider> pojoProviderClass) {
         IBaseLabelProvider provider = null;
         if (!StringUtil.isEmpty(id)) {
             Object defined = S2ContainerUtil.getComponentNoException(id
@@ -249,10 +259,12 @@ public class ComponentUtil {
                 if (providerClass.isAssignableFrom(defined.getClass())) {
                     provider = providerClass.cast(defined);
                 } else {
-                    throw new RenderException(
-                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, defined
-                                    .getClass().getName(), providerClass
-                                    .getName());
+                    AssertionUtil.assertNotNull("pojoProviderClass",
+                            pojoProviderClass);
+                    PojoLabelProvider pojoProvider = ClassUtil
+                            .<PojoLabelProvider> newInstance(pojoProviderClass);
+                    pojoProvider.setPojo(defined);
+                    provider = pojoProvider;
                 }
             }
         }
@@ -294,10 +306,8 @@ public class ComponentUtil {
     public static void setupComparator(final StructuredViewer viewer,
             final String id, final ViewerComparator defaultComparator) {
         if (!StringUtil.isEmpty(id)) {
-            Object comparator = S2ContainerUtil
-                    .getComponentNoException(id
-                            + UrumaConstants.SORTER_SUFFIX,
-                            defaultContainer);
+            Object comparator = S2ContainerUtil.getComponentNoException(id
+                    + UrumaConstants.SORTER_SUFFIX, defaultContainer);
             if (comparator != null) {
                 if (comparator instanceof ViewerComparator) {
                     viewer.setComparator(ViewerComparator.class
