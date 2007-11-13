@@ -15,7 +15,6 @@
  */
 package org.seasar.uruma.viewer;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,8 +22,8 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
-import org.seasar.framework.util.FieldUtil;
 import org.seasar.uruma.annotation.BindingLabel;
 
 /**
@@ -40,7 +39,7 @@ public class GenericTableLabelProvider implements ITableLabelProvider,
         TargetClassHoldingProvider {
     protected Map<String, Integer> columnNoMap = new HashMap<String, Integer>();
 
-    protected Map<Integer, Field> columnMap = new HashMap<Integer, Field>();
+    protected Map<Integer, PropertyDesc> columnMap = new HashMap<Integer, PropertyDesc>();
 
     /*
      * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object,
@@ -55,9 +54,9 @@ public class GenericTableLabelProvider implements ITableLabelProvider,
      *      int)
      */
     public String getColumnText(final Object element, final int columnIndex) {
-        Field field = columnMap.get(columnIndex);
-        if (field != null) {
-            Object value = FieldUtil.get(field, element);
+        PropertyDesc pd = columnMap.get(columnIndex);
+        if (pd != null && pd.isReadable()) {
+            Object value = pd.getValue(element);
 
             return (value != null) ? value.toString() : "";
         } else {
@@ -88,9 +87,9 @@ public class GenericTableLabelProvider implements ITableLabelProvider,
     public void setTargetClass(final Class<?> clazz) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(clazz);
         for (String columnName : columnNoMap.keySet()) {
-            if (desc.hasField(columnName)) {
-                Field field = desc.getField(columnName);
-                columnMap.put(columnNoMap.get(columnName), field);
+            if (desc.hasPropertyDesc(columnName)) {
+                PropertyDesc pd = desc.getPropertyDesc(columnName);
+                columnMap.put(columnNoMap.get(columnName), pd);
             }
         }
     }
