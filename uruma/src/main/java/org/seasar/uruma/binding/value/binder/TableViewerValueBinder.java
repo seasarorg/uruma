@@ -16,6 +16,7 @@
 package org.seasar.uruma.binding.value.binder;
 
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
@@ -44,10 +45,13 @@ public class TableViewerValueBinder extends AbstractValueBinder<TableViewer> {
             final Object formObj, final PropertyDesc propDesc) {
         super.doExportValue(widget, formObj, propDesc);
 
-        TableColumn[] columns = widget.getTable().getColumns();
+        Table table = widget.getTable();
+        table.setRedraw(false);
+        TableColumn[] columns = table.getColumns();
         for (int i = 0; i < columns.length; i++) {
             columns[i].pack();
         }
+        table.setRedraw(true);
     }
 
 }
