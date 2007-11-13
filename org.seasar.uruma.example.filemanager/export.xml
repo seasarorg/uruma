@@ -27,7 +27,7 @@
 
 	<target name="compile">
 		<exec dir="${URUMA_DIR}" executable="cmd">
-			<arg line="/c ${MAVEN_HOME}/bin/mvn clean install" />
+			<arg line="/c ${MAVEN_HOME}/bin/mvn install" />
 		</exec>
 	</target>
 
