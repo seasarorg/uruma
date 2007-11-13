@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Uruma Example - FileManager
 Bundle-SymbolicName: org.seasar.uruma.example.filemanager;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 0.3.0
 Bundle-Activator: org.seasar.uruma.rcp.UrumaActivator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
@@ -18,4 +18,4 @@ Bundle-ClassPath: .,
  lib/s2-extension-2.4.18-rc2.jar,
  lib/s2-framework-2.4.18-rc2.jar,
  lib/s2-tiger-2.4.18-rc2.jar,
- lib/uruma-0.2.0-SNAPSHOT.jar
+ lib/uruma-0.3.0-SNAPSHOT.jar
