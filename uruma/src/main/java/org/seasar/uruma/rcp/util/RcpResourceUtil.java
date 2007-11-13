@@ -70,27 +70,6 @@ public class RcpResourceUtil {
     }
 
     /**
-     * 指定されたパスの配下を再帰的にリソースを検索して返します。<br />
-     * <code>basePath</code>
-     * 
-     * @param basePath
-     * @param relativePath
-     * @param filter
-     * @return
-     */
-    public static List<File> findResources(final URL basePath,
-            final String relativePath, final FileFilter filter) {
-        // TODO 使わない可能性が高いのであとで削除を検討
-        if (PROTCOL_FILE.equals(basePath.getProtocol())) {
-            String path = basePath.getPath() + SLASH + relativePath;
-            File dir = new File(path);
-            return findFileResources(dir, filter);
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * 指定されたパスを起点として、ファイルシステムからリソースを再帰的に検索して返します。<br />
      * 
      * @param baseDir
