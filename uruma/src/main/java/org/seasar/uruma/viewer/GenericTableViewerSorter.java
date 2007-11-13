@@ -22,7 +22,7 @@ import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.TableColumn;
  * 
  * @author y-komori
  */
-public class GenericTableViewerSorter extends ViewerSorter {
+public class GenericTableViewerSorter extends ViewerComparator {
     private Table table;
 
     private Map<TableColumn, Integer> columnMap = new HashMap<TableColumn, Integer>();
@@ -42,6 +42,13 @@ public class GenericTableViewerSorter extends ViewerSorter {
     private TableColumn sortKey;
 
     private SortingState sortingState = SortingState.NONE;
+
+    /**
+     * {@link GenericTableViewerSorter} を構築します。<br />
+     */
+    public GenericTableViewerSorter() {
+        super(new StringAndNumberComparator());
+    }
 
     protected void setupColumnMap(final TableViewer viewer) {
         this.table = viewer.getTable();
@@ -107,8 +114,7 @@ public class GenericTableViewerSorter extends ViewerSorter {
             value2 = "";
         }
 
-        int result = getComparator().compare(value1.toString(),
-                value2.toString());
+        int result = getComparator().compare(value1, value2);
 
         if (sortingState == SortingState.ASCENDING) {
             return result;

@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -110,7 +110,7 @@ public class TableViewerRenderer extends
      * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#getDefaultComparator()
      */
     @Override
-    protected ViewerSorter getDefaultComparator() {
+    protected ViewerComparator getDefaultComparator() {
         return new GenericTableViewerSorter();
     }
 }
