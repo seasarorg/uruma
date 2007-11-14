@@ -19,8 +19,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.swt.graphics.Image;
 import org.seasar.framework.beans.BeanDesc;
-import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.util.MethodUtil;
 import org.seasar.framework.util.StringUtil;
@@ -36,32 +36,34 @@ import org.seasar.uruma.util.AssertionUtil;
  * <code>public String get<i>&lt;キャピタライズされたカラムID&gt;</i>Text(Object
  * model);</code>
  * <br />
- * 引数が {@link Object} 型以外の場合、呼び出し時にその方へのキャストを試みます。 </dd>
+ * 引数が {@link Object} 型以外の場合、呼び出し時にその型へのキャストを試みます。 </dd>
  * 
  * <br />
  * 
  * <dt>カラムイメージの取得</dt>
  * <dd> 以下のようなメソッドをPOJO側に必要なカラムの分だけ用意します。<br />
- * <code>public String get<i>&lt;キャピタライズされたカラムID&gt;</i>Image(Object
+ * <code>public Image get<i>&lt;キャピタライズされたカラムID&gt;</i>Image(Object
  * model);</code><br />
- * 引数が {@link Object} 型以外の場合、呼び出し時にその方へのキャストを試みます。 </dd>
+ * 引数が {@link Object} 型以外の場合、呼び出し時にその型へのキャストを試みます。 </dd>
  * </dl>
  * 
  * @author y-komori
  */
 public class PojoTableLabelProvider extends GenericTableLabelProvider implements
         PojoLabelProvider {
-    private Object pojo;
+    protected Object pojo;
 
-    private static final String GET_PREFIX = "get";
+    protected static final String GET_PREFIX = "get";
 
-    private static final String TEXT_SUFFIX = "Text";
+    protected static final String TEXT_SUFFIX = "Text";
 
-    private static final String IMAGE_SUFFIX = "Image";
+    protected static final String IMAGE_SUFFIX = "Image";
 
-    private Map<Integer, Method> textMethodCache = new HashMap<Integer, Method>();
+    protected Map<Integer, Method> textMethodCache = new HashMap<Integer, Method>();
 
-    private Map<Integer, Method> imageMethodCache = new HashMap<Integer, Method>();
+    protected Map<Integer, Method> imageMethodCache = new HashMap<Integer, Method>();
+
+    protected Map<Integer, String> columnNoToNameMap = new HashMap<Integer, String>();
 
     /*
      * @see org.seasar.uruma.viewer.GenericTableLabelProvider#getColumnText(java.lang.Object,
@@ -69,7 +71,8 @@ public class PojoTableLabelProvider extends GenericTableLabelProvider implements
      */
     @Override
     public String getColumnText(final Object element, final int columnIndex) {
-        Method method = getTextMethod(columnIndex);
+        Method method = getMethod(columnIndex, TEXT_SUFFIX, String.class,
+                textMethodCache);
         if (method != null) {
             Class<?> paramType = method.getParameterTypes()[0];
             if (paramType.isAssignableFrom(element.getClass())) {
@@ -85,30 +88,46 @@ public class PojoTableLabelProvider extends GenericTableLabelProvider implements
         return super.getColumnText(element, columnIndex);
     }
 
-    protected Method getTextMethod(final int columnIndex) {
-        Method textMethod = textMethodCache.get(columnIndex);
-        if (textMethod == null) {
-            PropertyDesc pd = columnMap.get(columnIndex);
-            if (pd != null) {
-                String columnName = pd.getPropertyName();
-                String methodName = GET_PREFIX
-                        + StringUtil.capitalize(columnName) + TEXT_SUFFIX;
-                BeanDesc desc = BeanDescFactory.getBeanDesc(pojo.getClass());
-                if (desc.hasMethod(methodName)) {
-                    Method[] methods = desc.getMethods(methodName);
-                    for (int i = 0; i < methods.length; i++) {
-                        Method method = methods[i];
-                        if ((method.getParameterTypes().length == 1)
-                                && (method.getReturnType() == String.class)) {
-                            textMethod = method;
-                            textMethodCache.put(columnIndex, textMethod);
-                        }
+    /*
+     * @see org.seasar.uruma.viewer.GenericTableLabelProvider#getColumnImage(java.lang.Object,
+     *      int)
+     */
+    @Override
+    public Image getColumnImage(final Object element, final int columnIndex) {
+        Method method = getMethod(columnIndex, IMAGE_SUFFIX, Image.class,
+                imageMethodCache);
+        if (method != null) {
+            Class<?> paramType = method.getParameterTypes()[0];
+            if (paramType.isAssignableFrom(element.getClass())) {
+                Image image = (Image) MethodUtil.invoke(method, pojo,
+                        new Object[] { paramType.cast(element) });
+                return image;
+            }
+        }
+        return super.getColumnImage(element, columnIndex);
+    }
+
+    protected Method getMethod(final int columnIndex, final String suffix,
+            final Class<?> retClass, final Map<Integer, Method> cache) {
+        Method getMethod = cache.get(columnIndex);
+        if (getMethod == null) {
+            String columnName = columnNoToNameMap.get(columnIndex);
+            String methodName = GET_PREFIX + StringUtil.capitalize(columnName)
+                    + suffix;
+            BeanDesc desc = BeanDescFactory.getBeanDesc(pojo.getClass());
+            if (desc.hasMethod(methodName)) {
+                Method[] methods = desc.getMethods(methodName);
+                for (int i = 0; i < methods.length; i++) {
+                    Method method = methods[i];
+                    if ((method.getParameterTypes().length == 1)
+                            && (method.getReturnType() == retClass)) {
+                        getMethod = method;
+                        cache.put(columnIndex, getMethod);
                     }
                 }
             }
         }
-
-        return textMethod;
+        return getMethod;
     }
 
     /*
@@ -118,4 +137,15 @@ public class PojoTableLabelProvider extends GenericTableLabelProvider implements
         AssertionUtil.assertNotNull("pojo", pojo);
         this.pojo = pojo;
     }
+
+    /*
+     * @see org.seasar.uruma.viewer.GenericTableLabelProvider#addColumnMap(int,
+     *      java.lang.String)
+     */
+    @Override
+    public void addColumnMap(final int columnNo, final String columnName) {
+        super.addColumnMap(columnNo, columnName);
+        columnNoToNameMap.put(columnNo, columnName);
+    }
+
 }
