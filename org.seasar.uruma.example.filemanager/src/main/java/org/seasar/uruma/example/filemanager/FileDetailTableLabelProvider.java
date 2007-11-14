@@ -15,36 +15,54 @@
  */
 package org.seasar.uruma.example.filemanager;
 
+import java.io.File;
+import java.util.Date;
+import java.util.Formatter;
+
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.program.Program;
+import org.seasar.eclipse.common.util.ImageManager;
+import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.core.UrumaConstants;
 
 public class FileDetailTableLabelProvider {
 
-	public String getFileNameText(final FileDto dto) {
-		return "TEST";
+	public String getFileNameText(final File file) {
+		return file.getName();
 	}
-	// @Override
-	// public Image getColumnImage(final Object element, final int columnIndex)
-	// {
-	// if (columnIndex != 0) {
-	// return null;
-	// }
-	//
-	// File file = new File(((FileDto) element).absolutePath);
-	// if (file.isDirectory()) {
-	// return ImageManager.getImage("folder");
-	// } else {
-	// String ext = StringUtil.substringToLast(file.getName(), ".");
-	// Image image = ImageManager.getImage(ext);
-	//
-	// if (image == null) {
-	// Program program = Program.findProgram(ext);
-	// if (program != null) {
-	// image = ImageManager.putImage(ext, program.getImageData());
-	// } else {
-	// return ImageManager.getImage("file");
-	// }
-	// }
-	// return image;
-	//
-	// }
-	// }
+
+	public String getFileSizeText(final File file) {
+		if (file.isFile()) {
+			Formatter formatter = new Formatter();
+			return formatter.format("%,d", file.length()).out().toString();
+		} else {
+			return UrumaConstants.NULL_STRING;
+		}
+	}
+
+	public String getFileUpdateTimeText(final File file) {
+		Formatter formatter = new Formatter();
+		formatter.format("%tY/%<tm/%<td(%<ta) %<tk:%<tM:%<tS", new Date(file
+				.lastModified()));
+		return formatter.out().toString();
+	}
+
+	public Image getFileNameImage(final File file) {
+		if (file.isDirectory()) {
+			return ImageManager.getImage("folder");
+		} else {
+			String ext = StringUtil.substringToLast(file.getName(), ".");
+			Image image = ImageManager.getImage(ext);
+
+			if (image == null) {
+				Program program = Program.findProgram(ext);
+				if (program != null) {
+					image = ImageManager.putImage(ext, program.getImageData());
+				} else {
+					return ImageManager.getImage("file");
+				}
+			}
+			return image;
+		}
+	}
 }

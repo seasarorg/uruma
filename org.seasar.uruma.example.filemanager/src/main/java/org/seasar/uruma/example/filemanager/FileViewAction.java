@@ -17,8 +17,6 @@ package org.seasar.uruma.example.filemanager;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Formatter;
 import java.util.List;
 
 import org.eclipse.swt.program.Program;
@@ -36,10 +34,10 @@ import org.seasar.uruma.util.MessageUtil;
 @Form(FileViewAction.class)
 public class FileViewAction {
 	@ExportValue(id = "fileDetailTable")
-	public List<FileDto> fileList = new ArrayList<FileDto>();
+	public List<File> fileList = new ArrayList<File>();
 
 	@ImportSelection(id = "fileDetailTable")
-	public List<FileDto> selectedFile;
+	public List<File> selectedFile;
 
 	@ImportExportValue
 	public String statusLineManager;
@@ -51,33 +49,32 @@ public class FileViewAction {
 		File[] children = parentFolder.listFiles();
 
 		for (File file : children) {
-			FileDto fileDto = new FileDto();
+			// FileDto fileDto = new FileDto();
+			//
+			// fileDto.absolutePath = file.getAbsolutePath();
+			// fileDto.fileName = file.getName();
+			//
+			// if (file.isFile()) {
+			// Formatter formatter = new Formatter();
+			// fileDto.fileSize = formatter.format("%,d", file.length()).out()
+			// .toString();
+			// } else {
+			// fileDto.fileSize = "";
+			// }
+			//
+			// Formatter formatter = new Formatter();
+			// formatter.format("%tY/%<tm/%<td(%<ta) %<tk:%<tM:%<tS", new Date(
+			// file.lastModified()));
+			// fileDto.fileUpdateTime = formatter.out().toString();
 
-			fileDto.absolutePath = file.getAbsolutePath();
-			fileDto.fileName = file.getName();
-
-			if (file.isFile()) {
-				Formatter formatter = new Formatter();
-				fileDto.fileSize = formatter.format("%,d", file.length()).out()
-						.toString();
-			} else {
-				fileDto.fileSize = "";
-			}
-
-			Formatter formatter = new Formatter();
-			formatter.format("%tY/%<tm/%<td(%<ta) %<tk:%<tM:%<tS", new Date(
-					file.lastModified()));
-			fileDto.fileUpdateTime = formatter.out().toString();
-
-			fileList.add(fileDto);
+			fileList.add(file);
 		}
 	}
 
 	@EventListener(id = "fileDetailTable", type = EventListenerType.MOUSE_DOUBLE_CLICK)
 	public void onDoubleClick() {
 		if (selectedFile.size() == 1) {
-			FileDto dto = selectedFile.get(0);
-			File file = new File(dto.absolutePath);
+			File file = selectedFile.get(0);
 
 			if (file.isDirectory()) {
 			} else {
@@ -101,13 +98,12 @@ public class FileViewAction {
 
 	private void openFile() {
 		if (selectedFile.size() == 1) {
-			FileDto dto = selectedFile.get(0);
-			File file = new File(dto.absolutePath);
+			File file = selectedFile.get(0);
 			if (file.isFile()) {
 				Program program = Program.findProgram(StringUtil
-						.substringToLast(dto.fileName, "."));
+						.substringToLast(file.getName(), "."));
 				if (program != null) {
-					Program.launch(dto.absolutePath);
+					Program.launch(file.getAbsolutePath());
 				}
 			}
 		}
@@ -116,18 +112,14 @@ public class FileViewAction {
 	@EventListener(id = "fileRename")
 	public void renameFile() {
 		if (selectedFile.size() == 1) {
-			FileDto dto = selectedFile.get(0);
-			String newName = UrumaMessageDialog.openInput("RENAME",
-					dto.fileName);
+			File oldFile = selectedFile.get(0);
+			String newName = UrumaMessageDialog.openInput("RENAME", oldFile
+					.getName());
 			if (newName != null) {
-				File oldFile = new File(dto.absolutePath);
 				File newFile = new File(oldFile.getParent() + File.separator
 						+ newName);
 
 				oldFile.renameTo(newFile);
-
-				dto.absolutePath = newFile.getAbsolutePath();
-				dto.fileName = newFile.getName();
 			}
 		}
 	}
@@ -136,10 +128,9 @@ public class FileViewAction {
 	public void deleteFile() {
 		if (selectedFile.size() > 0) {
 			if (UrumaMessageDialog.openConfirm("DELETE")) {
-				for (FileDto dto : selectedFile) {
-					File file = new File(dto.absolutePath);
+				for (File file : selectedFile) {
 					file.delete();
-					fileList.remove(dto);
+					fileList.remove(file);
 				}
 			}
 

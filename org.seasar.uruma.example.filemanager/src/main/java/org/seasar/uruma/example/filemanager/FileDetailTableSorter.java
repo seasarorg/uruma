@@ -23,13 +23,10 @@ public class FileDetailTableSorter extends GenericTableViewerSorter {
 
 	@Override
 	public int category(final Object element) {
-		FileDto dto = (FileDto) element;
-		File file = new File(dto.absolutePath);
-		if (file.isDirectory()) {
+		if (((File) element).isDirectory()) {
 			return 0;
 		} else {
 			return 1;
 		}
 	}
-
 }
