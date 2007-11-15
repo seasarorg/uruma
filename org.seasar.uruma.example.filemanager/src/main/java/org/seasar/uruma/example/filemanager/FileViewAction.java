@@ -47,26 +47,7 @@ public class FileViewAction {
 		fileList.clear();
 
 		File[] children = parentFolder.listFiles();
-
 		for (File file : children) {
-			// FileDto fileDto = new FileDto();
-			//
-			// fileDto.absolutePath = file.getAbsolutePath();
-			// fileDto.fileName = file.getName();
-			//
-			// if (file.isFile()) {
-			// Formatter formatter = new Formatter();
-			// fileDto.fileSize = formatter.format("%,d", file.length()).out()
-			// .toString();
-			// } else {
-			// fileDto.fileSize = "";
-			// }
-			//
-			// Formatter formatter = new Formatter();
-			// formatter.format("%tY/%<tm/%<td(%<ta) %<tk:%<tM:%<tS", new Date(
-			// file.lastModified()));
-			// fileDto.fileUpdateTime = formatter.out().toString();
-
 			fileList.add(file);
 		}
 	}
@@ -97,43 +78,36 @@ public class FileViewAction {
 	}
 
 	private void openFile() {
-		if (selectedFile.size() == 1) {
-			File file = selectedFile.get(0);
-			if (file.isFile()) {
-				Program program = Program.findProgram(StringUtil
-						.substringToLast(file.getName(), "."));
-				if (program != null) {
-					Program.launch(file.getAbsolutePath());
-				}
+		File file = selectedFile.get(0);
+		if (file.isFile()) {
+			Program program = Program.findProgram(StringUtil.substringToLast(
+					file.getName(), "."));
+			if (program != null) {
+				Program.launch(file.getAbsolutePath());
 			}
 		}
 	}
 
 	@EventListener(id = "fileRename")
 	public void renameFile() {
-		if (selectedFile.size() == 1) {
-			File oldFile = selectedFile.get(0);
-			String newName = UrumaMessageDialog.openInput("RENAME", oldFile
-					.getName());
-			if (newName != null) {
-				File newFile = new File(oldFile.getParent() + File.separator
-						+ newName);
+		File oldFile = selectedFile.get(0);
+		String newName = UrumaMessageDialog.openInput("RENAME", oldFile
+				.getName());
+		if (newName != null) {
+			File newFile = new File(oldFile.getParent() + File.separator
+					+ newName);
 
-				oldFile.renameTo(newFile);
-			}
+			oldFile.renameTo(newFile);
 		}
 	}
 
 	@EventListener(id = "fileDelete")
 	public void deleteFile() {
-		if (selectedFile.size() > 0) {
-			if (UrumaMessageDialog.openConfirm("DELETE")) {
-				for (File file : selectedFile) {
-					file.delete();
-					fileList.remove(file);
-				}
+		if (UrumaMessageDialog.openConfirm("DELETE")) {
+			for (File file : selectedFile) {
+				file.delete();
+				fileList.remove(file);
 			}
-
 		}
 	}
 }
