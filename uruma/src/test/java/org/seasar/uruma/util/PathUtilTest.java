@@ -153,4 +153,15 @@ public class PathUtilTest extends TestCase {
 
         assertEquals("5", "test.abc", PathUtil.getBaseName("test.abc.txt"));
     }
+
+    /**
+     * {@link PathUtil#getExt(String)} メソッドのテストです。<br />
+     */
+    public void testGetExt() {
+        assertNull("1", PathUtil.getExt(null));
+        assertEquals("2", "txt", PathUtil.getExt("test.txt"));
+        assertEquals("3", "txt", PathUtil.getExt("test.abc.txt"));
+        assertEquals("4", "", PathUtil.getExt("test"));
+        assertEquals("5", "", PathUtil.getExt(""));
+    }
 }

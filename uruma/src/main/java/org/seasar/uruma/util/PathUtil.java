@@ -169,4 +169,23 @@ public class PathUtil {
             return null;
         }
     }
+
+    /**
+     * パスの拡張子の部分(最後に登場するピリオド以降)を返します。<br />
+     * 
+     * @param path
+     *            パス
+     * @return 拡張子
+     */
+    public static String getExt(final String path) {
+        if (path != null) {
+            if (path.indexOf(PERIOD) > 0) {
+                return StringUtil.substringToLast(path, PERIOD);
+            } else {
+                return NULL_STRING;
+            }
+        } else {
+            return null;
+        }
+    }
 }
