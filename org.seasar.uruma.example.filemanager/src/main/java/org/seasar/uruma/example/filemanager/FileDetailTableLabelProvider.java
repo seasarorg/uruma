@@ -22,9 +22,12 @@ import java.util.Formatter;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.program.Program;
 import org.seasar.eclipse.common.util.ImageManager;
-import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.util.PathUtil;
 
+/**
+ * @author y-komori
+ */
 public class FileDetailTableLabelProvider {
 
 	public String getFileNameText(final File file) {
@@ -51,7 +54,7 @@ public class FileDetailTableLabelProvider {
 		if (file.isDirectory()) {
 			return ImageManager.getImage("folder");
 		} else {
-			String ext = StringUtil.substringToLast(file.getName(), ".");
+			String ext = PathUtil.getExt(file.getName());
 			Image image = ImageManager.getImage(ext);
 
 			if (image == null) {

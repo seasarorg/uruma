@@ -20,6 +20,9 @@ import java.io.File;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
 
+/**
+ * @author y-komori
+ */
 @Form(FolderViewAction.class)
 public class FolderViewAction {
 	@ExportValue(id = "folderTree")

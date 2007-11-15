@@ -21,6 +21,9 @@ import java.util.Date;
 import org.eclipse.jface.viewers.TableViewer;
 import org.seasar.uruma.viewer.GenericTableViewerComparator;
 
+/**
+ * @author y-komori
+ */
 public class FileDetailTableSorter extends GenericTableViewerComparator {
 
 	@Override

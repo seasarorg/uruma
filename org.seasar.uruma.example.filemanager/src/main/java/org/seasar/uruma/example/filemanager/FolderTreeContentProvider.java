@@ -22,6 +22,9 @@ import java.util.List;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+/**
+ * @author y-komori
+ */
 public class FolderTreeContentProvider implements ITreeContentProvider {
 
 	public Object[] getChildren(final Object parentElement) {

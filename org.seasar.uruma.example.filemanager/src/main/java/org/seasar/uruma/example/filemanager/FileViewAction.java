@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.program.Program;
-import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.ExportValue;
@@ -30,7 +29,11 @@ import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.annotation.SelectionListener;
 import org.seasar.uruma.ui.dialogs.UrumaMessageDialog;
 import org.seasar.uruma.util.MessageUtil;
+import org.seasar.uruma.util.PathUtil;
 
+/**
+ * @author y-komori
+ */
 @Form(FileViewAction.class)
 public class FileViewAction {
 	@ExportValue(id = "fileDetailTable")
@@ -80,8 +83,8 @@ public class FileViewAction {
 	private void openFile() {
 		File file = selectedFile.get(0);
 		if (file.isFile()) {
-			Program program = Program.findProgram(StringUtil.substringToLast(
-					file.getName(), "."));
+			Program program = Program.findProgram(PathUtil.getExt(file
+					.getName()));
 			if (program != null) {
 				Program.launch(file.getAbsolutePath());
 			}

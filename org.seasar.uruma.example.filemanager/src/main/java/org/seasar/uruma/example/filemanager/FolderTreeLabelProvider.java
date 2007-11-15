@@ -21,6 +21,9 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.seasar.eclipse.common.util.ImageManager;
 
+/**
+ * @author y-komori
+ */
 public class FolderTreeLabelProvider extends LabelProvider {
 
 	@Override
