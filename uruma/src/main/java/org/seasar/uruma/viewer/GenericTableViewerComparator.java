@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.TableColumn;
  * 
  * @author y-komori
  */
-public class GenericTableViewerSorter extends ViewerComparator {
+public class GenericTableViewerComparator extends ViewerComparator {
     private Table table;
 
     private Map<TableColumn, Integer> columnMap = new HashMap<TableColumn, Integer>();
@@ -44,9 +44,9 @@ public class GenericTableViewerSorter extends ViewerComparator {
     private SortingState sortingState = SortingState.NONE;
 
     /**
-     * {@link GenericTableViewerSorter} を構築します。<br />
+     * {@link GenericTableViewerComparator} を構築します。<br />
      */
-    public GenericTableViewerSorter() {
+    public GenericTableViewerComparator() {
         super(new StringAndNumberComparator());
     }
 
@@ -93,15 +93,41 @@ public class GenericTableViewerSorter extends ViewerComparator {
             return cat1 - cat2;
         }
 
-        IBaseLabelProvider baseLabelProvider = tableViewer.getLabelProvider();
+        int result = doCompare(tableViewer, e1, e2, columnMap.get(sortKey));
+
+        if (sortingState == SortingState.ASCENDING) {
+            return result;
+        } else if (sortingState == SortingState.DESCENDING) {
+            return result * (-1);
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * モデルオブジェクトの比較を行います。<br />
+     * 比較方法をカスタマイズする場合、サブクラスで本メソッドをオーバーライドしてください。<br />
+     * 
+     * @param viewer
+     *            {@link TableViewer} オブジェクト
+     * @param e1
+     *            比較対象1
+     * @param e2
+     *            比較対象2
+     * @param sortColumn
+     *            ソート対象のカラム番号
+     * @return 比較結果
+     */
+    protected int doCompare(final TableViewer viewer, final Object e1,
+            final Object e2, final int sortColumn) {
+        IBaseLabelProvider baseLabelProvider = viewer.getLabelProvider();
 
         String value1 = "";
         String value2 = "";
         if (baseLabelProvider instanceof ITableLabelProvider) {
             ITableLabelProvider prov = (ITableLabelProvider) baseLabelProvider;
-            int column = columnMap.get(sortKey);
-            value1 = prov.getColumnText(e1, column);
-            value2 = prov.getColumnText(e2, column);
+            value1 = prov.getColumnText(e1, sortColumn);
+            value2 = prov.getColumnText(e2, sortColumn);
         } else {
             value1 = e1.toString();
             value2 = e2.toString();
@@ -114,15 +140,7 @@ public class GenericTableViewerSorter extends ViewerComparator {
             value2 = "";
         }
 
-        int result = getComparator().compare(value1, value2);
-
-        if (sortingState == SortingState.ASCENDING) {
-            return result;
-        } else if (sortingState == SortingState.DESCENDING) {
-            return result * (-1);
-        } else {
-            return 0;
-        }
+        return getComparator().compare(value1, value2);
     }
 
     /**

@@ -31,7 +31,7 @@ import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.renderer.RendererSupportUtil;
 import org.seasar.uruma.viewer.GenericTableLabelProvider;
-import org.seasar.uruma.viewer.GenericTableViewerSorter;
+import org.seasar.uruma.viewer.GenericTableViewerComparator;
 import org.seasar.uruma.viewer.PojoLabelProvider;
 import org.seasar.uruma.viewer.PojoTableLabelProvider;
 
@@ -121,6 +121,6 @@ public class TableViewerRenderer extends
      */
     @Override
     protected ViewerComparator getDefaultComparator() {
-        return new GenericTableViewerSorter();
+        return new GenericTableViewerComparator();
     }
 }
