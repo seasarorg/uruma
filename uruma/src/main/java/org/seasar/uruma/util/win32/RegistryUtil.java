@@ -17,6 +17,7 @@ package org.seasar.uruma.util.win32;
 
 import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.internal.win32.TCHAR;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.exception.Win32ApiException;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -106,5 +107,43 @@ public class RegistryUtil {
             regCloseKey(handle);
             throw new Win32ApiException("RegQueryValueEx", retCode);
         }
+    }
+
+    /**
+     * レジストリから値を読み込んで返します。<br />
+     * 
+     * @param hKey
+     *            ハンドル({@link #HKEY_LOCAL_MACHINE}, {@link #HKEY_CLASSES_ROOT},
+     *            {@link #HKEY_CURRENT_USER} のいずれかを指定)
+     * @param entry
+     *            レジストリエントリ
+     * @param key
+     *            キー
+     * @return 読み込んだ値。エントリやキーが見つからなかった場合は <code>null</code>
+     */
+    public static String getRegistryValue(final int hKey, final String entry,
+            final String key) {
+        try {
+            RegistryHandle handle = RegistryUtil.regOpenKey(hKey, entry);
+            String value = RegistryUtil.regQueryValue(handle, key);
+            RegistryUtil.regCloseKey(handle);
+            return value;
+        } catch (Win32ApiException ex) {
+            return null;
+        }
+    }
+
+    /**
+     * レジストリから規定値を読み込んで返します。<br />
+     * 
+     * @param hKey
+     *            ハンドル({@link #HKEY_LOCAL_MACHINE}, {@link #HKEY_CLASSES_ROOT},
+     *            {@link #HKEY_CURRENT_USER} のいずれかを指定)
+     * @param entry
+     *            レジストリエントリ
+     * @return 読み込んだ値。エントリやキーが見つからなかった場合は <code>null</code>
+     */
+    public static String getRegistryValue(final int hKey, final String entry) {
+        return getRegistryValue(hKey, entry, UrumaConstants.NULL_STRING);
     }
 }
