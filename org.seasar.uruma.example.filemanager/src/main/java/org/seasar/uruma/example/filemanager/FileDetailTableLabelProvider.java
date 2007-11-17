@@ -24,6 +24,7 @@ import org.eclipse.swt.program.Program;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.util.PathUtil;
+import org.seasar.uruma.util.win32.RegistryUtil;
 
 /**
  * @author y-komori
@@ -40,6 +41,23 @@ public class FileDetailTableLabelProvider {
 			return formatter.format("%,d", file.length()).out().toString();
 		} else {
 			return UrumaConstants.NULL_STRING;
+		}
+	}
+
+	public String getFileTypeText(final File file) {
+		if (file.isFile()) {
+			String ext = PathUtil.getExt(file.getName());
+			String type = RegistryUtil.getRegistryValue(
+					RegistryUtil.HKEY_CLASSES_ROOT, "." + ext);
+			if (type != null) {
+				String typeStr = RegistryUtil.getRegistryValue(
+						RegistryUtil.HKEY_CLASSES_ROOT, type);
+				return typeStr;
+			} else {
+				return ext.toUpperCase() + " ファイル";
+			}
+		} else {
+			return "ファイル フォルダ";
 		}
 	}
 
