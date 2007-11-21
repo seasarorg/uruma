@@ -71,7 +71,6 @@ public class ContributionBuilder {
         }
 
         Object token = ((ExtensionRegistry) registry).getTemporaryUserToken();
-
         registry.addContribution(is, contributor, false, null, null, token);
     }
 }

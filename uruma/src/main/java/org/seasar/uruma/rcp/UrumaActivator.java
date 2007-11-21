@@ -129,6 +129,8 @@ public class UrumaActivator extends AbstractUIPlugin {
         setupViewExtensions();
         setupPerspectives();
 
+        System.err.println("Contributor="
+                + UrumaLogger.getObjectDescription(contributor));
         ContributionBuilder.build(contributor, extensions);
     }
 

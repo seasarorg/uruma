@@ -148,10 +148,13 @@
           </excludes>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
+          <finalName>org.seasar.uruma_${project.version}</finalName>
           <archive>
+            <manifestFile>META-INF/MANIFEST.MF</manifestFile>
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib</classpathPrefix>
@@ -159,6 +162,7 @@
           </archive>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-source-plugin</artifactId>
         <executions>
@@ -170,49 +174,54 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <finalName>org.seasar.uruma_${project.version}</finalName>
+        </configuration>
       </plugin>
-      <!--
-      <plugin>
+
+      <!-- 
+        <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <encoding>UTF-8</encoding>
-          <docencoding>UTF-8</docencoding>
-          <charset>UTF-8</charset>
-          <doctitle>
-            ${project.name} ${project.version} API Specifications
-          </doctitle>
-          <windowtitle>Uruma API Specifications</windowtitle>
-          <links>
-            <link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
-            <link>http://java.sun.com/javaee/5/docs/api/</link>
-            <link>http://aopalliance.sourceforge.net/doc/</link>
-            <link>
-              http://s2container.seasar.org/2.4/s2-framework/ja/apidocs/
-            </link>
-            <link>
-              http://s2container.seasar.org/2.4/s2-extension/ja/apidocs/
-            </link>
-            <link>
-              http://s2container.seasar.org/2.4/s2-tiger/ja/apidocs/
-            </link>
-            <link>
-              http://help.eclipse.org/help33/nftopic/org.eclipse.platform.doc.isv/reference/api/
-            </link>
-            <link>http://www2.osgi.org/javadoc/r4/</link>
-          </links>
+        <encoding>UTF-8</encoding>
+        <docencoding>UTF-8</docencoding>
+        <charset>UTF-8</charset>
+        <doctitle>
+        ${project.name} ${project.version} API Specifications
+        </doctitle>
+        <windowtitle>Uruma API Specifications</windowtitle>
+        <finalName>org.seasar.uruma_${project.version}</finalName>
+        <links>
+        <link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
+        <link>http://java.sun.com/javaee/5/docs/api/</link>
+        <link>http://aopalliance.sourceforge.net/doc/</link>
+        <link>
+        http://s2container.seasar.org/2.4/s2-framework/ja/apidocs/
+        </link>
+        <link>
+        http://s2container.seasar.org/2.4/s2-extension/ja/apidocs/
+        </link>
+        <link>
+        http://s2container.seasar.org/2.4/s2-tiger/ja/apidocs/
+        </link>
+        <link>
+        http://help.eclipse.org/help33/nftopic/org.eclipse.platform.doc.isv/reference/api/
+        </link>
+        <link>http://www2.osgi.org/javadoc/r4/</link>
+        </links>
         </configuration>
         <executions>
-          <execution>
-            <id>javadoc-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
+        <execution>
+        <id>javadoc-jar</id>
+        <phase>package</phase>
+        <goals>
+        <goal>jar</goal>
+        </goals>
+        </execution>
         </executions>
-      </plugin>
+        </plugin>
       -->
-      
+
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -228,6 +237,27 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>ant-dist</id>
+            <phase>install</phase>
+            <configuration>
+              <tasks>
+                <ant antfile="build.xml" target="deployPlugin">
+                  <property name="ver" value="${version}" />
+                </ant>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
 
     <extensions>
@@ -438,8 +468,8 @@
       <artifactId>ognl</artifactId>
       <version>2.6.9-patch-20070908</version>
     </dependency>
-  
-    <!-- Source dependency -->    
+
+    <!-- Source dependency -->
     <dependency>
       <groupId>org.eclipse</groupId>
       <artifactId>ui-workbench-source</artifactId>
@@ -556,10 +586,12 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse</groupId>
-      <artifactId>core-runtime-compatibility-registry-source</artifactId>
+      <artifactId>
+        core-runtime-compatibility-registry-source
+      </artifactId>
       <version>3.3.1.1</version>
       <scope>provided</scope>
     </dependency>
-    
+
   </dependencies>
 </project>

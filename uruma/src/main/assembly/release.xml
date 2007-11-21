@@ -9,9 +9,9 @@
       <directory>target</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>uruma-0.3.0.jar</include>
-        <include>uruma-0.3.0-sources.jar</include>
-        <include>uruma-0.3.0-javadoc.jar</include>
+        <include>org.seasar.uruma_${propject.version}.jar</include>
+        <include>org.seasar.uruma_${propject.version}-sources.jar</include>
+        <include>org.seasar.uruma_${propject.version}-javadoc.jar</include>
       </includes>
     </fileSet>
     <fileSet>
@@ -33,7 +33,7 @@
       <directory>target/apidocs</directory>
       <outputDirectory>/apidocs</outputDirectory>
     </fileSet>
-    
+
     <fileSet>
       <directory>/</directory>
       <outputDirectory></outputDirectory>

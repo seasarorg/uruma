@@ -234,6 +234,15 @@ public interface UrumaConstants {
     // RCP関連機能
     // -------------------------------------------------------------------------
     /**
+     * Uruma Core バンドルのシンボリックネームです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_BUNDLE_SYMBOLIC_NAME = "org.seasar.uruma.rcp.core";
+
+    /**
      * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパスです。<br />
      * <dl>
      * <dt><b>値 :</b></dt>
