@@ -20,6 +20,8 @@ import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.ui.UrumaWorkbenchAdvisor;
 
 /**
@@ -28,19 +30,24 @@ import org.seasar.uruma.rcp.ui.UrumaWorkbenchAdvisor;
  * @author y-komori
  */
 public class UrumaApplication implements IApplication {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(UrumaApplication.class);
 
     /*
      * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
      */
     public Object start(final IApplicationContext context) throws Exception {
+        logger.log(UrumaMessageCodes.URUMA_RCP_START);
+
         Display display = PlatformUI.createDisplay();
         try {
             int returnCode = PlatformUI.createAndRunWorkbench(display,
                     new UrumaWorkbenchAdvisor());
-            if (returnCode == PlatformUI.RETURN_RESTART)
+            if (returnCode == PlatformUI.RETURN_RESTART) {
                 return IApplication.EXIT_RESTART;
-            else
+            } else {
                 return IApplication.EXIT_OK;
+            }
         } finally {
             display.dispose();
         }
@@ -50,14 +57,17 @@ public class UrumaApplication implements IApplication {
      * @see org.eclipse.equinox.app.IApplication#stop()
      */
     public void stop() {
+        logger.log(UrumaMessageCodes.URUMA_RCP_STOP);
+
         final IWorkbench workbench = PlatformUI.getWorkbench();
         if (workbench == null)
             return;
         final Display display = workbench.getDisplay();
         display.syncExec(new Runnable() {
             public void run() {
-                if (!display.isDisposed())
+                if (!display.isDisposed()) {
                     workbench.close();
+                }
             }
         });
     }
