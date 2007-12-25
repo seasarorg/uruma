@@ -17,7 +17,6 @@ package org.seasar.uruma.rcp.core;
 
 import org.eclipse.osgi.framework.adaptor.BundleWatcher;
 import org.osgi.framework.Bundle;
-import org.seasar.uruma.log.UrumaLogger;
 
 /**
  * バンドルのライフサイクルを監視するためのクラスです。<br />
@@ -25,22 +24,26 @@ import org.seasar.uruma.log.UrumaLogger;
  * @author y-komori
  */
 public class UrumaBundleWatcher implements BundleWatcher {
-    private static final UrumaLogger logger = UrumaLogger
-            .getLogger(UrumaBundleWatcher.class);
+    // private static final UrumaLogger logger = UrumaLogger
+    // .getLogger(UrumaBundleWatcher.class);
 
     public void watchBundle(final Bundle bundle, final int type) {
         switch (type) {
         case START_INSTALLING:
-            logger.info("StartInstalling : " + bundle.getSymbolicName());
+            System.err.println("StartInstalling : " + bundle.getSymbolicName());
+            // logger.info("StartInstalling : " + bundle.getSymbolicName());
             break;
         case END_INSTALLING:
-            logger.info("EndInstalling : " + bundle.getSymbolicName());
+            System.err.println("EndInstalling : " + bundle.getSymbolicName());
+            // logger.info("EndInstalling : " + bundle.getSymbolicName());
             break;
         case START_ACTIVATION:
-            logger.info("StartActivation : " + bundle.getSymbolicName());
+            System.err.println("StartActivation : " + bundle.getSymbolicName());
+            // logger.info("StartActivation : " + bundle.getSymbolicName());
             break;
         case END_ACTIVATION:
-            logger.info("EndActivation : " + bundle.getSymbolicName());
+            System.err.println("EndActivation : " + bundle.getSymbolicName());
+            // logger.info("EndActivation : " + bundle.getSymbolicName());
             break;
         default:
             break;

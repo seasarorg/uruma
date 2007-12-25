@@ -2,6 +2,7 @@
 	<property name="PLUGINS_DIR" value="C:/eclipse/plugins" />
 
 	<target name="deployPlugin">
-		<copy file="target/org.seasar.uruma_${ver}.jar" todir="${PLUGINS_DIR}" />
+		<copy file="target/uruma-${ver}-plugin-jar.zip"
+			tofile="${PLUGINS_DIR}/org.seasar.uruma_${ver}.jar" />
 	</target>
 </project>
