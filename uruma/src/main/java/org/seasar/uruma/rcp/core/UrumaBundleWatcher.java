@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.rcp.core;
 
+import java.util.Dictionary;
+
 import org.eclipse.osgi.framework.adaptor.BundleWatcher;
 import org.osgi.framework.Bundle;
 
@@ -31,6 +33,16 @@ public class UrumaBundleWatcher implements BundleWatcher {
         switch (type) {
         case START_INSTALLING:
             System.err.println("StartInstalling : " + bundle.getSymbolicName());
+
+            Dictionary<String, String> headers = bundle.getHeaders();
+            String require = headers.get("Require-Bundle");
+            if (require != null) {
+                if (require.indexOf("org.seasar.uruma") > 0) {
+                    System.out.println(bundle.getSymbolicName()
+                            + ":UrumaApplication!!");
+                }
+            }
+
             // logger.info("StartInstalling : " + bundle.getSymbolicName());
             break;
         case END_INSTALLING:

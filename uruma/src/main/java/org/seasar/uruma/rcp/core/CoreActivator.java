@@ -27,6 +27,7 @@ public class CoreActivator implements BundleActivator {
 
     public void start(final BundleContext context) throws Exception {
         System.err.println("UrumaCoreActivaterStart");
+        context.addBundleListener(new UrumaBundleListener());
     }
 
     public void stop(final BundleContext context) throws Exception {

@@ -188,6 +188,7 @@ Bundle-ClassPath: lib/aopalliance-1.0.jar,
  lib/s2-extension-2.4.18-rc3-SNAPSHOT.jar,
  lib/s2-framework-2.4.18-rc3-SNAPSHOT.jar,
  lib/s2-tiger-2.4.18-rc3-SNAPSHOT.jar,
- lib/log4j-1.2.13.jar
+ lib/log4j-1.2.13.jar,
+ .
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: org.seasar.uruma.rcp.core.CoreActivator
