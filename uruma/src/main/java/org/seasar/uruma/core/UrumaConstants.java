@@ -240,7 +240,7 @@ public interface UrumaConstants {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String URUMA_BUNDLE_SYMBOLIC_NAME = "org.seasar.uruma.rcp.core";
+    public static final String URUMA_BUNDLE_SYMBOLIC_NAME = "org.seasar.uruma";
 
     /**
      * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパスです。<br />
@@ -259,6 +259,15 @@ public interface UrumaConstants {
      * </dl>
      */
     public static final String URUMA_PLUGIN_S2NAME = "urumaPlugin";
+
+    /**
+     * バンドルマニフェストにおける <code>Require-Bundle</code> ヘッダの名称です。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String REQUIRE_BUNDLE_HEADER = "Require-Bundle";
 
     /**
      * ワークベンチに関する画面定義を記述した XML のデフォルトパスです。
@@ -325,4 +334,18 @@ public interface UrumaConstants {
      * </dl>
      */
     public static final String DEFAULT_PERSPECTIVE_ID = "defaultPerspective";
+
+    // -------------------------------------------------------------------------
+    // UrumaService に関する定数
+    // -------------------------------------------------------------------------
+
+    /**
+     * UrumaアプリケーションであるバンドルのSymbolicNameを保持するプロパティ名称です。
+     * 
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_SERVICE_PROP_APPS = "UrumaApplications";
 }

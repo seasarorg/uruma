@@ -15,22 +15,80 @@
  */
 package org.seasar.uruma.rcp.core;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.List;
+import java.util.Properties;
+
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.rcp.UrumaService;
 
 /**
  * Uruma のための {@link BundleActivator} です。<br />
  * 
  * @author y-komori
  */
-public class CoreActivator implements BundleActivator {
+public class CoreActivator implements BundleActivator, UrumaConstants,
+        UrumaMessageCodes {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(CoreActivator.class);
 
     public void start(final BundleContext context) throws Exception {
-        System.err.println("UrumaCoreActivaterStart");
+        logger.log(URUMA_BUNDLE_START);
+
         context.addBundleListener(new UrumaBundleListener());
+
+        initUrumaService(context);
     }
 
     public void stop(final BundleContext context) throws Exception {
-        System.err.println("UrumaCoreActivaterStop");
+        logger.log(URUMA_BUNDLE_STOP);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void initUrumaService(final BundleContext context) {
+        List<String> appBundles = findUrumaApplications(context);
+        Dictionary props = new Properties();
+        props.put(URUMA_SERVICE_PROP_APPS, appBundles.toArray());
+
+        UrumaServiceFactory factory = new UrumaServiceFactory();
+        context.registerService(UrumaService.class.getName(), factory, props);
+    }
+
+    /**
+     * インストールされているバンドルから Uruma に依存しているバンドルを探して登録します。
+     * 
+     * @param context
+     *            {@link BundleContext} オブジェクト
+     * @return Urumaに依存しているバンドルのシンボリックネームリスト
+     */
+    protected List<String> findUrumaApplications(final BundleContext context) {
+        Bundle[] bundles = context.getBundles();
+        List<String> appBundles = new ArrayList<String>();
+        for (Bundle bundle : bundles) {
+            if (isUrumaApplication(bundle)) {
+                logger.log(URUMA_APPLICATION_FOUND, bundle.getSymbolicName());
+                appBundles.add(bundle.getSymbolicName());
+            }
+        }
+        return appBundles;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected boolean isUrumaApplication(final Bundle bundle) {
+        logger.log(ANALYZING_BUNDLE, bundle.getSymbolicName());
+        Dictionary<String, String> headers = bundle.getHeaders();
+        String require = headers.get(REQUIRE_BUNDLE_HEADER);
+        if (require != null) {
+            if (require.indexOf(URUMA_BUNDLE_SYMBOLIC_NAME) > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

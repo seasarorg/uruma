@@ -27,29 +27,26 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.rcp.PerspectiveComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.ApplicationContext;
-import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.ComponentUtil;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.ViewTemplateLoader;
-import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
-import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
@@ -63,7 +60,8 @@ import org.seasar.uruma.rcp.ui.GenericPerspectiveFactory;
  * 
  * @author y-komori
  */
-public class UrumaActivator extends AbstractUIPlugin {
+public class UrumaActivator extends AbstractUIPlugin implements UrumaConstants,
+        UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaActivator.class);
 
@@ -99,39 +97,49 @@ public class UrumaActivator extends AbstractUIPlugin {
      */
     @Override
     public final void start(final BundleContext context) throws Exception {
-        logger.log(UrumaMessageCodes.URUMA_RCP_START);
+        logger.log(URUMA_BUNDLE_START);
 
         super.start(context);
 
-        initS2Container();
-        registComponentsToS2Container();
-        setupContributor();
+        ServiceReference ref = context.getServiceReference(UrumaService.class
+                .getName());
 
-        // TODO workbench.xml が読み込めなかった場合のハンドリング
-        Template workbenchTemplate = getTemplate(UrumaConstants.DEFAULT_WORKBENCH_XML);
-        UIComponentContainer root = workbenchTemplate.getRootComponent();
-        if (root instanceof WorkbenchComponent) {
-            this.workbenchComponent = (WorkbenchComponent) root;
+        if (ref != null) {
+            System.err.println("ServiceRef 取得成功!");
         } else {
-            throw new NotFoundException(
-                    UrumaMessageCodes.WORKBENCH_ELEMENT_NOT_FOUND,
-                    workbenchTemplate.getPath());
+            System.err.println("ServiceRef 取得失敗!");
         }
 
-        applicationContext.setValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME,
-                workbenchTemplate);
-        this.windowContext = ContextFactory.createWindowContext(
-                applicationContext, UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
+        // initS2Container();
+        // registComponentsToS2Container();
+        // setupContributor();
 
-        templateLoader.loadViewTemplates();
+        // TODO workbench.xml が読み込めなかった場合のハンドリング
+        // Template workbenchTemplate =
+        // getTemplate(UrumaConstants.DEFAULT_WORKBENCH_XML);
+        // UIComponentContainer root = workbenchTemplate.getRootComponent();
+        // if (root instanceof WorkbenchComponent) {
+        // this.workbenchComponent = (WorkbenchComponent) root;
+        // } else {
+        // throw new NotFoundException(
+        // UrumaMessageCodes.WORKBENCH_ELEMENT_NOT_FOUND,
+        // workbenchTemplate.getPath());
+        // }
+        //
+        // applicationContext.setValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME,
+        // workbenchTemplate);
+        // this.windowContext = ContextFactory.createWindowContext(
+        // applicationContext, UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
+        //
+        // templateLoader.loadViewTemplates();
 
         // setupApplication();
-        setupViewExtensions();
-        setupPerspectives();
-
-        System.err.println("Contributor="
-                + UrumaLogger.getObjectDescription(contributor));
-        ContributionBuilder.build(contributor, extensions);
+        // setupViewExtensions();
+        // setupPerspectives();
+        //
+        // System.err.println("Contributor="
+        // + UrumaLogger.getObjectDescription(contributor));
+        // ContributionBuilder.build(contributor, extensions);
     }
 
     /**
@@ -157,7 +165,7 @@ public class UrumaActivator extends AbstractUIPlugin {
      */
     @Override
     public final void stop(final BundleContext context) throws Exception {
-        logger.log(UrumaMessageCodes.URUMA_RCP_STOP);
+        logger.log(UrumaMessageCodes.URUMA_BUNDLE_STOP);
 
         plugin = null;
 

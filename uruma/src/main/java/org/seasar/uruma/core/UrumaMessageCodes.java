@@ -572,22 +572,22 @@ public interface UrumaMessageCodes {
     // -------------------------------------------------------------------------
 
     /**
-     * Uruma RCP 開始時のメッセージコードです。
+     * Uruma バンドル開始時のメッセージコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String URUMA_RCP_START = "IURM0500";
+    public static final String URUMA_BUNDLE_START = "IURM0500";
 
     /**
-     * Uruma RCP 終了時のメッセージコードです。
+     * Uruma バンドル終了時のメッセージコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String URUMA_RCP_STOP = "IURM0501";
+    public static final String URUMA_BUNDLE_STOP = "IURM0501";
 
     /**
      * 画面定義 XML に <code>workbench</code> 要素が定義されていなかった場合のメッセージコードです。
@@ -642,6 +642,24 @@ public interface UrumaMessageCodes {
      * </dl>
      */
     public static final String PERSPECTIVE_NOT_FOUND = "EURM0507";
+
+    /**
+     * Urumaアプリケーションを発見した場合のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APPLICATION_FOUND = "IURM0508";
+
+    /**
+     * バンドル調査時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String ANALYZING_BUNDLE = "DURM0509";
 
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)

@@ -37,7 +37,7 @@ public class UrumaApplication implements IApplication {
      * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
      */
     public Object start(final IApplicationContext context) throws Exception {
-        logger.log(UrumaMessageCodes.URUMA_RCP_START);
+        logger.log(UrumaMessageCodes.URUMA_BUNDLE_START);
 
         Display display = PlatformUI.createDisplay();
         try {
@@ -57,7 +57,7 @@ public class UrumaApplication implements IApplication {
      * @see org.eclipse.equinox.app.IApplication#stop()
      */
     public void stop() {
-        logger.log(UrumaMessageCodes.URUMA_RCP_STOP);
+        logger.log(UrumaMessageCodes.URUMA_BUNDLE_STOP);
 
         final IWorkbench workbench = PlatformUI.getWorkbench();
         if (workbench == null)

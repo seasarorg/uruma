@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.rcp.core;
 
+import org.osgi.framework.Bundle;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
@@ -25,18 +26,24 @@ import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.ComponentUtil;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.ViewTemplateLoader;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.rcp.UrumaService;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
- * @author y-komori
+ * {@link UrumaService} の実装クラスです。
  * 
+ * @author y-komori
  */
-public class UrumaService {
-    private static UrumaService instance;
+public class UrumaServiceImpl implements UrumaService, UrumaConstants,
+        UrumaMessageCodes {
 
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaService.class);
+
+    private Bundle targetBundle;
 
     private S2Container container;
 
@@ -50,20 +57,15 @@ public class UrumaService {
 
     private WorkbenchComponent workbenchComponent;
 
-    private UrumaService() {
-    }
-
-    public static UrumaService getInstance() {
-        if (instance != null) {
-            return instance;
-        } else {
-            // TODO 例外クラスを作る
-            throw new RuntimeException();
-        }
-    }
-
-    static void init() {
-        instance = new UrumaService();
+    /**
+     * {@link UrumaServiceImpl} を構築します。<br />
+     * 
+     * @param targetBundle
+     *            ターゲットバンドル
+     */
+    public UrumaServiceImpl(final Bundle targetBundle) {
+        AssertionUtil.assertNotNull("targetBundle", targetBundle);
+        this.targetBundle = targetBundle;
     }
 
     protected void initS2Container() {
