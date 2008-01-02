@@ -22,7 +22,7 @@ import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.rcp.UrumaActivator;
+import org.seasar.uruma.rcp.UrumaAppActivator;
 
 /**
  * {@link Shell} に関するユーティリティクラスです。<br />
@@ -31,7 +31,7 @@ import org.seasar.uruma.rcp.UrumaActivator;
  */
 public class ShellUtil {
     public static Shell getShell() {
-        UrumaActivator activator = UrumaActivator.getInstance();
+        UrumaAppActivator activator = UrumaAppActivator.getInstance();
         if (activator != null) {
             return activator.getWorkbench().getActiveWorkbenchWindow()
                     .getShell();

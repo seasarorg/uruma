@@ -31,7 +31,7 @@ import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.RenderException;
-import org.seasar.uruma.rcp.UrumaActivator;
+import org.seasar.uruma.rcp.UrumaAppActivator;
 
 /**
  * {@link WorkbenchComponent} の内容からメニューバーを構築するクラスです。<br />
@@ -57,10 +57,10 @@ public class UrumaActionBarAdvisor extends ActionBarAdvisor {
      */
     @Override
     protected void fillMenuBar(final IMenuManager menuBar) {
-        WindowContext context = UrumaActivator.getInstance()
+        WindowContext context = UrumaAppActivator.getInstance()
                 .getWorkbenchWindowContext();
 
-        WorkbenchComponent workbench = UrumaActivator.getInstance()
+        WorkbenchComponent workbench = UrumaAppActivator.getInstance()
                 .getWorkbenchComponent();
         WidgetHandle handle;
         if (StringUtil.isNotBlank(workbench.menu)) {
@@ -100,14 +100,14 @@ public class UrumaActionBarAdvisor extends ActionBarAdvisor {
     @Override
     protected void fillStatusLine(final IStatusLineManager statusLine) {
         // IStatusLineManager を WindowContext へ登録しておく
-        WorkbenchComponent workbench = UrumaActivator.getInstance()
+        WorkbenchComponent workbench = UrumaAppActivator.getInstance()
                 .getWorkbenchComponent();
 
         if (Boolean.parseBoolean(workbench.statusLine)) {
             WidgetHandle handle = ContextFactory.createWidgetHandle(statusLine);
             handle.setId(UrumaConstants.STATUS_LINE_MANAGER_CID);
 
-            UrumaActivator.getInstance().getWorkbenchWindowContext()
+            UrumaAppActivator.getInstance().getWorkbenchWindowContext()
                     .putWidgetHandle(handle);
         }
     }

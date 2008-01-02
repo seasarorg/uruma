@@ -23,7 +23,7 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.WindowContext;
-import org.seasar.uruma.rcp.UrumaActivator;
+import org.seasar.uruma.rcp.UrumaAppActivator;
 
 /**
  * Uruma で利用する定数を保持するインターフェースです。</br>
@@ -252,22 +252,13 @@ public interface UrumaConstants {
     public static final String URUMA_RCP_DICON_PATH = "urumaRcp.dicon";
 
     /**
-     * {@link UrumaActivator} を登録時のコンポーネント名称です。
+     * {@link UrumaAppActivator} を登録時のコンポーネント名称です。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
      * </dl>
      */
     public static final String URUMA_PLUGIN_S2NAME = "urumaPlugin";
-
-    /**
-     * バンドルマニフェストにおける <code>Require-Bundle</code> ヘッダの名称です。
-     * <dl>
-     * <dt><b>値 :</b></dt>
-     * <dd>{@value}</dd>
-     * </dl>
-     */
-    public static final String REQUIRE_BUNDLE_HEADER = "Require-Bundle";
 
     /**
      * ワークベンチに関する画面定義を記述した XML のデフォルトパスです。

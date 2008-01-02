@@ -56,16 +56,16 @@ import org.seasar.uruma.rcp.ui.AutoPerspectiveFactory;
 import org.seasar.uruma.rcp.ui.GenericPerspectiveFactory;
 
 /**
- * Uruma RCP アプリケーションのためのアクティベータです。<br />
+ * Uruma アプリケーションのためのアクティベータです。<br />
  * 
  * @author y-komori
  */
-public class UrumaActivator extends AbstractUIPlugin implements UrumaConstants,
-        UrumaMessageCodes {
+public class UrumaAppActivator extends AbstractUIPlugin implements
+        UrumaConstants, UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
-            .getLogger(UrumaActivator.class);
+            .getLogger(UrumaAppActivator.class);
 
-    private static UrumaActivator plugin;
+    private static UrumaAppActivator plugin;
 
     private S2Container container;
 
@@ -86,9 +86,9 @@ public class UrumaActivator extends AbstractUIPlugin implements UrumaConstants,
     private WorkbenchComponent workbenchComponent;
 
     /**
-     * {@link UrumaActivator} を構築します。<br />
+     * {@link UrumaAppActivator} を構築します。<br />
      */
-    public UrumaActivator() {
+    public UrumaAppActivator() {
         plugin = this;
     }
 
@@ -97,8 +97,6 @@ public class UrumaActivator extends AbstractUIPlugin implements UrumaConstants,
      */
     @Override
     public final void start(final BundleContext context) throws Exception {
-        logger.log(URUMA_BUNDLE_START);
-
         super.start(context);
 
         ServiceReference ref = context.getServiceReference(UrumaService.class
@@ -106,6 +104,8 @@ public class UrumaActivator extends AbstractUIPlugin implements UrumaConstants,
 
         if (ref != null) {
             System.err.println("ServiceRef 取得成功!");
+
+            UrumaService service = (UrumaService) context.getService(ref);
         } else {
             System.err.println("ServiceRef 取得失敗!");
         }
@@ -143,11 +143,11 @@ public class UrumaActivator extends AbstractUIPlugin implements UrumaConstants,
     }
 
     /**
-     * {@link UrumaActivator} のインスタンスを返します。<br />
+     * {@link UrumaAppActivator} のインスタンスを返します。<br />
      * 
-     * @return {@link UrumaActivator} のインスタンス
+     * @return {@link UrumaAppActivator} のインスタンス
      */
-    public static UrumaActivator getInstance() {
+    public static UrumaAppActivator getInstance() {
         return plugin;
     }
 

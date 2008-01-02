@@ -15,18 +15,22 @@
  */
 package org.seasar.uruma.rcp.core;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
+import org.seasar.uruma.rcp.util.BundleInfoUtil;
 
 /**
  * Uruma のための {@link BundleActivator} です。<br />
@@ -43,7 +47,7 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
 
         context.addBundleListener(new UrumaBundleListener());
 
-        initUrumaService(context);
+        prepareUrumaService(context);
     }
 
     public void stop(final BundleContext context) throws Exception {
@@ -51,13 +55,18 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
     }
 
     @SuppressWarnings("unchecked")
-    protected void initUrumaService(final BundleContext context) {
-        List<String> appBundles = findUrumaApplications(context);
+    protected void prepareUrumaService(final BundleContext context) {
+        String serviceName = UrumaService.class.getName();
+        List<Bundle> appBundles = findUrumaApplications(context);
         Dictionary props = new Properties();
-        props.put(URUMA_SERVICE_PROP_APPS, appBundles.toArray());
+        props.put(URUMA_SERVICE_PROP_APPS, getBundleSymbolicNames(appBundles));
 
         UrumaServiceFactory factory = new UrumaServiceFactory();
-        context.registerService(UrumaService.class.getName(), factory, props);
+        context.registerService(serviceName, factory, props);
+
+        for (Bundle bundle : appBundles) {
+            activateUrumaApplication(bundle);
+        }
     }
 
     /**
@@ -65,15 +74,15 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
      * 
      * @param context
      *            {@link BundleContext} オブジェクト
-     * @return Urumaに依存しているバンドルのシンボリックネームリスト
+     * @return Urumaアプリケーションバンドルのリスト
      */
-    protected List<String> findUrumaApplications(final BundleContext context) {
+    protected List<Bundle> findUrumaApplications(final BundleContext context) {
         Bundle[] bundles = context.getBundles();
-        List<String> appBundles = new ArrayList<String>();
+        List<Bundle> appBundles = new ArrayList<Bundle>();
         for (Bundle bundle : bundles) {
             if (isUrumaApplication(bundle)) {
                 logger.log(URUMA_APPLICATION_FOUND, bundle.getSymbolicName());
-                appBundles.add(bundle.getSymbolicName());
+                appBundles.add(bundle);
             }
         }
         return appBundles;
@@ -82,13 +91,64 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
     @SuppressWarnings("unchecked")
     protected boolean isUrumaApplication(final Bundle bundle) {
         logger.log(ANALYZING_BUNDLE, bundle.getSymbolicName());
-        Dictionary<String, String> headers = bundle.getHeaders();
-        String require = headers.get(REQUIRE_BUNDLE_HEADER);
+        String require = BundleInfoUtil.getHeader(bundle,
+                BundleInfoUtil.REQUIRE_BUNDLE);
         if (require != null) {
             if (require.indexOf(URUMA_BUNDLE_SYMBOLIC_NAME) > 0) {
                 return true;
             }
         }
         return false;
+    }
+
+    protected String[] getBundleSymbolicNames(final List<Bundle> bundles) {
+        String[] names = new String[bundles.size()];
+        for (int i = 0; i < bundles.size(); i++) {
+            names[i] = bundles.get(i).getSymbolicName();
+        }
+        return names;
+    }
+
+    protected void activateUrumaApplication(final Bundle bundle) {
+        String symbolicName = bundle.getSymbolicName();
+        logger.log(URUMA_APP_STARTING, symbolicName);
+
+        String className = getFirstClassName(bundle);
+        if (className != null) {
+            try {
+                bundle.loadClass(className);
+            } catch (ClassNotFoundException ex) {
+                // TODO 自動生成された catch ブロック
+                ex.printStackTrace();
+            }
+        }
+
+        logger.log(URUMA_APP_STARTED, symbolicName);
+    }
+
+    /**
+     * {@link Bundle} に含まれるクラスファイルのうち、最初に見つかった一つのクラス名を返します。
+     * 
+     * @param bundle
+     *            {@link Bundle} オブジェクト
+     * @return 見つかったクラス名。見つからなかった場合は <code>null</code>。
+     */
+    @SuppressWarnings("unchecked")
+    protected String getFirstClassName(final Bundle bundle) {
+        String prefix = StringUtil.replace(bundle.getSymbolicName(), PERIOD,
+                SLASH);
+        Enumeration entries = bundle.findEntries("", "*.class", true);
+        while (entries.hasMoreElements()) {
+            URL url = (URL) entries.nextElement();
+            String path = url.getPath();
+
+            int pos = path.indexOf(prefix);
+            if (pos > 0) {
+                String className = StringUtil.replace(path.substring(pos, path
+                        .length() - 6), SLASH, PERIOD);
+                return className;
+            }
+        }
+        return null;
     }
 }

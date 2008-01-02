@@ -28,7 +28,7 @@ import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
-import org.seasar.uruma.rcp.UrumaActivator;
+import org.seasar.uruma.rcp.UrumaAppActivator;
 
 /**
  * <code>workbench.xml</code> に記述された <code>perspective</code>
@@ -52,7 +52,7 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
      * {@link GenericPerspectiveFactory} を構築します。<br />
      */
     public GenericPerspectiveFactory() {
-        this.templateManager = (TemplateManager) UrumaActivator.getInstance()
+        this.templateManager = (TemplateManager) UrumaAppActivator.getInstance()
                 .getS2Container().getComponent(TemplateManager.class);
     }
 
@@ -60,7 +60,7 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
      * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
      */
     public void createInitialLayout(final IPageLayout layout) {
-        UrumaActivator uruma = UrumaActivator.getInstance();
+        UrumaAppActivator uruma = UrumaAppActivator.getInstance();
 
         layout.setEditorAreaVisible(false);
 
@@ -113,7 +113,7 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
         }
 
         float ratio = Integer.parseInt(part.ratio) / (float) 100;
-        String refViewId = UrumaActivator.getInstance().createRcpId(part.ref);
+        String refViewId = UrumaAppActivator.getInstance().createRcpId(part.ref);
 
         if (findViewPart(refViewId)) {
             layout.addStandaloneView(refViewId, true, pos, ratio, layout

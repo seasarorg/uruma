@@ -22,7 +22,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.rcp.ui.UrumaWorkbenchAdvisor;
 
 /**
  * Uruma RCP のブートストラップクラスです。<br />
@@ -39,18 +38,20 @@ public class UrumaApplication implements IApplication {
     public Object start(final IApplicationContext context) throws Exception {
         logger.log(UrumaMessageCodes.URUMA_BUNDLE_START);
 
-        Display display = PlatformUI.createDisplay();
-        try {
-            int returnCode = PlatformUI.createAndRunWorkbench(display,
-                    new UrumaWorkbenchAdvisor());
-            if (returnCode == PlatformUI.RETURN_RESTART) {
-                return IApplication.EXIT_RESTART;
-            } else {
-                return IApplication.EXIT_OK;
-            }
-        } finally {
-            display.dispose();
-        }
+        return IApplication.EXIT_OK;
+
+        // Display display = PlatformUI.createDisplay();
+        // try {
+        // int returnCode = PlatformUI.createAndRunWorkbench(display,
+        // new UrumaWorkbenchAdvisor());
+        // if (returnCode == PlatformUI.RETURN_RESTART) {
+        // return IApplication.EXIT_RESTART;
+        // } else {
+        // return IApplication.EXIT_OK;
+        // }
+        // } finally {
+        // display.dispose();
+        // }
     }
 
     /*
@@ -71,4 +72,5 @@ public class UrumaApplication implements IApplication {
             }
         });
     }
+
 }

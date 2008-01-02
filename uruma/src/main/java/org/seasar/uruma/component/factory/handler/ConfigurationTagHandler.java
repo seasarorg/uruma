@@ -22,7 +22,7 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.exception.UnsupportedClassException;
-import org.seasar.uruma.rcp.UrumaActivator;
+import org.seasar.uruma.rcp.UrumaAppActivator;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
@@ -80,7 +80,7 @@ public class ConfigurationTagHandler extends GenericTagHandler {
             PropertyDesc pd = desc.getPropertyDesc("id");
             String id = (String) pd.getValue(element);
             if (StringUtil.isNotBlank(id)) {
-                element.setRcpId(UrumaActivator.getInstance().createRcpId(id));
+                element.setRcpId(UrumaAppActivator.getInstance().createRcpId(id));
             }
         }
     }

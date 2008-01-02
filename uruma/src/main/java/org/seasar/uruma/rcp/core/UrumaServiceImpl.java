@@ -45,6 +45,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
     private Bundle targetBundle;
 
+    private ClassLoader urumaClassLoader;
+
     private S2Container container;
 
     private TemplateManager templateManager;
@@ -66,10 +68,21 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     public UrumaServiceImpl(final Bundle targetBundle) {
         AssertionUtil.assertNotNull("targetBundle", targetBundle);
         this.targetBundle = targetBundle;
+        this.urumaClassLoader = getClass().getClassLoader();
+    }
+
+    void initialize() {
+        logger.log(URUMA_SERVICE_INIT_START, targetBundle.getSymbolicName());
+
+        initS2Container();
+
+        logger.log(URUMA_SERVICE_INIT_END, targetBundle.getSymbolicName());
     }
 
     protected void initS2Container() {
         try {
+            switchToAppClassLoader();
+
             S2Container urumaContainer = S2ContainerFactory
                     .create(UrumaConstants.URUMA_RCP_DICON_PATH);
 
@@ -86,6 +99,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         } catch (ResourceNotFoundRuntimeException ex) {
             logger.error(ex.getMessage(), ex);
             throw ex;
+        } finally {
+            switchToUrumaClassLoader();
         }
     }
 
@@ -100,4 +115,14 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         container.register(this, UrumaConstants.URUMA_PLUGIN_S2NAME);
     }
 
+    protected void switchToAppClassLoader() {
+        Thread currentThread = Thread.currentThread();
+        this.urumaClassLoader = currentThread.getContextClassLoader();
+        currentThread.setContextClassLoader(targetBundle.getClass()
+                .getClassLoader());
+    }
+
+    protected void switchToUrumaClassLoader() {
+        Thread.currentThread().setContextClassLoader(this.urumaClassLoader);
+    }
 }

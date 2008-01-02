@@ -21,6 +21,7 @@ import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.context.ApplicationContext;
+import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 
 /**
@@ -660,6 +661,51 @@ public interface UrumaMessageCodes {
      * </dl>
      */
     public static final String ANALYZING_BUNDLE = "DURM0509";
+
+    /**
+     * {@link UrumaService} 初期化開始時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_SERVICE_INIT_START = "IURM0510";
+
+    /**
+     * {@link UrumaService} 初期化完了時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_SERVICE_INIT_END = "IURM0511";
+
+    /**
+     * Urumaアプリケーションのアクティベーション開始時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APP_STARTING = "IURM0512";
+
+    /**
+     * Urumaアプリケーションのアクティベーション完了時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APP_STARTED = "IURM0513";
+
+    /**
+     * Urumaアプリケーションのアクティベーション失敗時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APP_STARTING_FAILED = "EURM0514";
 
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)

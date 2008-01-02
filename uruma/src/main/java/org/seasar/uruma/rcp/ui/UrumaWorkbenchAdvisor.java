@@ -26,7 +26,7 @@ import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.rcp.UrumaActivator;
+import org.seasar.uruma.rcp.UrumaAppActivator;
 
 /**
  * Uruma における {@link WorkbenchAdvisor} です。<br />
@@ -62,12 +62,12 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
      */
     @Override
     public String getInitialWindowPerspectiveId() {
-        UrumaActivator activator = UrumaActivator.getInstance();
+        UrumaAppActivator activator = UrumaAppActivator.getInstance();
 
         String perspectiveId = activator.getWorkbenchComponent().initialPerspectiveId;
 
         if (StringUtil.isNotBlank(perspectiveId)) {
-            WorkbenchComponent workbench = UrumaActivator.getInstance()
+            WorkbenchComponent workbench = UrumaAppActivator.getInstance()
                     .getWorkbenchComponent();
             if (workbench.findPerspective(perspectiveId) != null) {
                 return activator.createRcpId(perspectiveId);
