@@ -15,17 +15,15 @@
  */
 package org.seasar.uruma.rcp.core;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.seasar.framework.util.StringUtil;
+import org.osgi.framework.ServiceReference;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
@@ -64,8 +62,15 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
         UrumaServiceFactory factory = new UrumaServiceFactory();
         context.registerService(serviceName, factory, props);
 
+        // Urumaアプリケーションのバンドルに対応する UrumaService を取得することで、
+        // Urumaアプリケーションをアクティベートする
+        // @see UrumaServiceFactory
+        // @see UrumaServiceImpl#initialize()
         for (Bundle bundle : appBundles) {
-            activateUrumaApplication(bundle);
+            BundleContext appContext = bundle.getBundleContext();
+            ServiceReference ref = appContext
+                    .getServiceReference(UrumaService.class.getName());
+            appContext.getService(ref);
         }
     }
 
@@ -107,48 +112,5 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
             names[i] = bundles.get(i).getSymbolicName();
         }
         return names;
-    }
-
-    protected void activateUrumaApplication(final Bundle bundle) {
-        String symbolicName = bundle.getSymbolicName();
-        logger.log(URUMA_APP_STARTING, symbolicName);
-
-        String className = getFirstClassName(bundle);
-        if (className != null) {
-            try {
-                bundle.loadClass(className);
-            } catch (ClassNotFoundException ex) {
-                // TODO 自動生成された catch ブロック
-                ex.printStackTrace();
-            }
-        }
-
-        logger.log(URUMA_APP_STARTED, symbolicName);
-    }
-
-    /**
-     * {@link Bundle} に含まれるクラスファイルのうち、最初に見つかった一つのクラス名を返します。
-     * 
-     * @param bundle
-     *            {@link Bundle} オブジェクト
-     * @return 見つかったクラス名。見つからなかった場合は <code>null</code>。
-     */
-    @SuppressWarnings("unchecked")
-    protected String getFirstClassName(final Bundle bundle) {
-        String prefix = StringUtil.replace(bundle.getSymbolicName(), PERIOD,
-                SLASH);
-        Enumeration entries = bundle.findEntries("", "*.class", true);
-        while (entries.hasMoreElements()) {
-            URL url = (URL) entries.nextElement();
-            String path = url.getPath();
-
-            int pos = path.indexOf(prefix);
-            if (pos > 0) {
-                String className = StringUtil.replace(path.substring(pos, path
-                        .length() - 6), SLASH, PERIOD);
-                return className;
-            }
-        }
-        return null;
     }
 }
