@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
@@ -99,16 +98,16 @@ public class UrumaAppActivator extends AbstractUIPlugin implements
     public final void start(final BundleContext context) throws Exception {
         super.start(context);
 
-        ServiceReference ref = context.getServiceReference(UrumaService.class
-                .getName());
-
-        if (ref != null) {
-            System.err.println("ServiceRef 取得成功!");
-
-            UrumaService service = (UrumaService) context.getService(ref);
-        } else {
-            System.err.println("ServiceRef 取得失敗!");
-        }
+        // ServiceReference ref = context.getServiceReference(UrumaService.class
+        // .getName());
+        //
+        // if (ref != null) {
+        // System.err.println("ServiceRef 取得成功!");
+        //
+        // UrumaService service = (UrumaService) context.getService(ref);
+        // } else {
+        // System.err.println("ServiceRef 取得失敗!");
+        // }
 
         // initS2Container();
         // registComponentsToS2Container();
@@ -165,7 +164,6 @@ public class UrumaAppActivator extends AbstractUIPlugin implements
      */
     @Override
     public final void stop(final BundleContext context) throws Exception {
-        logger.log(UrumaMessageCodes.URUMA_BUNDLE_STOP);
 
         plugin = null;
 

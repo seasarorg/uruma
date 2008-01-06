@@ -24,11 +24,11 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 
 /**
- * Uruma RCP のブートストラップクラスです。<br />
+ * RCP 環境での Uruma ブートストラップクラスです。<br />
  * 
  * @author y-komori
  */
-public class UrumaApplication implements IApplication {
+public class UrumaApplication implements IApplication, UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaApplication.class);
 
@@ -36,7 +36,7 @@ public class UrumaApplication implements IApplication {
      * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
      */
     public Object start(final IApplicationContext context) throws Exception {
-        logger.log(UrumaMessageCodes.URUMA_BUNDLE_START);
+        logger.log(URUMA_APPLICATION_STARTING);
 
         return IApplication.EXIT_OK;
 
@@ -58,7 +58,7 @@ public class UrumaApplication implements IApplication {
      * @see org.eclipse.equinox.app.IApplication#stop()
      */
     public void stop() {
-        logger.log(UrumaMessageCodes.URUMA_BUNDLE_STOP);
+        logger.log(URUMA_APPLICATION_STOPPING);
 
         final IWorkbench workbench = PlatformUI.getWorkbench();
         if (workbench == null)

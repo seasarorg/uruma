@@ -21,6 +21,7 @@ import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.context.ApplicationContext;
+import org.seasar.uruma.rcp.UrumaApplication;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 
@@ -706,6 +707,24 @@ public interface UrumaMessageCodes {
      * </dl>
      */
     public static final String URUMA_APP_STARTING_FAILED = "EURM0514";
+
+    /**
+     * {@link UrumaApplication} 開始時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APPLICATION_STARTING = "IURM0515";
+
+    /**
+     * {@link UrumaApplication} 終了時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APPLICATION_STOPPING = "IURM0516";
 
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)
