@@ -15,10 +15,67 @@
  */
 package org.seasar.uruma.rcp;
 
+import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.rcp.WorkbenchComponent;
+import org.seasar.uruma.context.WindowContext;
+
 /**
  * @author y-komori
  * 
  */
 public interface UrumaService {
+    /**
+     * 現在のプラグイン ID を返します。<br />
+     * 
+     * @return プラグイン ID
+     */
+    public String getPluginId();
 
+    /**
+     * 画面コンポーネントのIDをRCP上のIDに変換します。<br />
+     * RCP上のIDは、画面コンポーネントのIDにサフィックスとしてプラグインIDを追加したものになります。<br />
+     * <p>
+     * 【例】プラグインID: <code>org.seasar.uruma.example</code>、コンポーネントID:
+     * <code>button</code> の場合、本メソッドの戻り値は、<code>org.seasar.uruma.example.button</code>
+     * となります。
+     * </p>
+     * 
+     * @param id
+     *            画面コンポーネントのID
+     * @return RCP上のID
+     */
+    public String createRcpId(String id);
+
+    /**
+     * RCP上のIDから画面コンポーネントのIDを取得します。<br />
+     * 
+     * @param rcpId
+     *            RCP上のID
+     * @return 画面コンポーネントのID
+     * @see #createRcpId(String)
+     */
+    public String getLocalId(String rcpId);
+
+    /**
+     * 指定されたパスの画面定義XMLを読み込み、{@link Template} オブジェクトを生成します。<br />
+     * 
+     * @param path
+     *            画面定義XMLのパス
+     * @return {@link Template} オブジェクト
+     */
+    public Template getTemplate(String path);
+
+    /**
+     * {@link WorkbenchComponent} を返します。<br />
+     * 
+     * @return {@link WorkbenchComponent} オブジェクト
+     */
+    public WorkbenchComponent getWorkbenchComponent();
+
+    /**
+     * ワークベンチウィンドウに対応する {@link WindowContext} を返します。<br />
+     * 
+     * @return {@link WindowContext}
+     */
+    public WindowContext getWorkbenchWindowContext();
 }

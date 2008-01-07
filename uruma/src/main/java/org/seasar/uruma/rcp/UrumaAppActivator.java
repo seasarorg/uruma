@@ -322,7 +322,7 @@ public class UrumaAppActivator extends AbstractUIPlugin implements
         this.applicationContext = (ApplicationContext) container
                 .getComponent(ApplicationContext.class);
 
-        container.register(this, UrumaConstants.URUMA_PLUGIN_S2NAME);
+        container.register(this, UrumaConstants.URUMA_SERVICE_S2NAME);
     }
 
     protected void setupContributor() {
