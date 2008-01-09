@@ -248,28 +248,11 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         container.register(this, UrumaConstants.URUMA_SERVICE_S2NAME);
     }
 
-    /**
-     * コンテクストクラスローダを Uruma アプリケーションのクラスローダに切り替えます。<br />
-     */
-    protected void switchToAppClassLoader() {
-        switchClassLoader(appClassLoader);
-    }
-
-    /**
-     * コンテクストクラスローダを Uruma バンドルのクラスローダに切り替えます。<br />
-     */
-    protected void switchToUrumaClassLoader() {
-        switchClassLoader(urumaClassLoader);
-    }
-
     protected void switchClassLoader(final ClassLoader loader) {
         Thread currentThread = Thread.currentThread();
         this.oldClassLoader = currentThread.getContextClassLoader();
+        logger.log(SWITCH_CONTEXT_CLASS_LOADER, loader);
         currentThread.setContextClassLoader(loader);
-    }
-
-    protected void restoreClassLoader() {
-        Thread.currentThread().setContextClassLoader(oldClassLoader);
     }
 
     protected void setupContributor() {
@@ -430,6 +413,35 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      */
     public S2Container getContainer() {
         return this.container;
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#getAppClassLoader()
+     */
+    public ClassLoader getAppClassLoader() {
+        return this.appClassLoader;
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#switchToAppClassLoader()
+     */
+    public void switchToAppClassLoader() {
+        switchClassLoader(appClassLoader);
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#switchToUrumaClassLoader()
+     */
+    public void switchToUrumaClassLoader() {
+        switchClassLoader(urumaClassLoader);
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#restoreClassLoader()
+     */
+    public void restoreClassLoader() {
+        logger.log(SWITCH_CONTEXT_CLASS_LOADER, oldClassLoader);
+        Thread.currentThread().setContextClassLoader(oldClassLoader);
     }
 
     /**

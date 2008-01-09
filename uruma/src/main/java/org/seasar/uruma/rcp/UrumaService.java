@@ -94,4 +94,28 @@ public interface UrumaService {
      * @return {@link S2Container} のインスタンス
      */
     public S2Container getContainer();
+
+    /**
+     * Urumaアプリケーションバンドルのクラスローダを返します。<br />
+     * 
+     * @return Urumaアプリケーションバンドルのクラスローダ
+     */
+    public ClassLoader getAppClassLoader();
+
+    /**
+     * コンテクストクラスローダを Uruma アプリケーションのクラスローダに切り替えます。<br />
+     */
+    public void switchToAppClassLoader();
+
+    /**
+     * コンテクストクラスローダを Uruma バンドルのクラスローダに切り替えます。<br />
+     */
+    public void switchToUrumaClassLoader();
+
+    /**
+     * 直前に使用していたクラスローダに切り替えます。<br />
+     * 直前に実行された {@link #switchToUrumaClassLoader()} メソッドまたは、
+     * {@link #switchToAppClassLoader()} メソッド実行前のクラスローダに切り替えます。
+     */
+    public void restoreClassLoader();
 }

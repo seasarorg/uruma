@@ -44,9 +44,12 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
     @Override
     public void initialize(final IWorkbenchConfigurer configurer) {
         String imageBundle = UrumaConstants.DEFAULT_IMAGE_BUNDLE_PATH;
-
+        ClassLoader appClassLoader = UrumaServiceUtil.getService()
+                .getAppClassLoader();
         logger.log(UrumaMessageCodes.LOADING_IMAGE_BUNDLE, imageBundle);
-        ImageManager.loadImages(imageBundle);
+
+        // TODO urumaImages.properties が見つからなかった場合のハンドリングが必要
+        ImageManager.loadImages(imageBundle, appClassLoader);
     }
 
     /*

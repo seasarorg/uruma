@@ -735,6 +735,15 @@ public interface UrumaMessageCodes {
      */
     public static final String URUMA_SERVICE_DESTROY = "IURM0517";
 
+    /**
+     * コンテクストクラスローダ切り替え時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String SWITCH_CONTEXT_CLASS_LOADER = "DURM0518";
+
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)
     // -------------------------------------------------------------------------
