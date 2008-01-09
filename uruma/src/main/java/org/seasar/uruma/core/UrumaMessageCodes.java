@@ -726,6 +726,15 @@ public interface UrumaMessageCodes {
      */
     public static final String URUMA_APPLICATION_STOPPING = "IURM0516";
 
+    /**
+     * {@link UrumaService} 破棄時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_SERVICE_DESTROY = "IURM0517";
+
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)
     // -------------------------------------------------------------------------

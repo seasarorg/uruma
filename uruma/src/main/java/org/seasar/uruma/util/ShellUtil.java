@@ -22,7 +22,8 @@ import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.rcp.UrumaAppActivator;
+import org.seasar.uruma.rcp.UrumaService;
+import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
 /**
  * {@link Shell} に関するユーティリティクラスです。<br />
@@ -30,11 +31,15 @@ import org.seasar.uruma.rcp.UrumaAppActivator;
  * @author y-komori
  */
 public class ShellUtil {
+    /**
+     * 現在のウィンドウの {@link Shell} オブジェクトを返します。<br />
+     * 
+     * @return {@link Shell} オブジェクト
+     */
     public static Shell getShell() {
-        UrumaAppActivator activator = UrumaAppActivator.getInstance();
-        if (activator != null) {
-            return activator.getWorkbench().getActiveWorkbenchWindow()
-                    .getShell();
+        UrumaService service = UrumaServiceUtil.getService();
+        if (service != null) {
+            return service.getWorkbench().getActiveWorkbenchWindow().getShell();
         } else {
             S2Container container = SingletonS2ContainerFactory.getContainer();
             ApplicationContext context = (ApplicationContext) container

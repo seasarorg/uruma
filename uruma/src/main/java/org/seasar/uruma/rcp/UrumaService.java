@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.rcp;
 
+import org.eclipse.ui.IWorkbench;
+import org.seasar.framework.container.S2Container;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WindowContext;
@@ -66,6 +68,13 @@ public interface UrumaService {
     public Template getTemplate(String path);
 
     /**
+     * {@link IWorkbench} のインスタンスを返します。<br />
+     * 
+     * @return {@link IWorkbench} のインスタンス
+     */
+    public IWorkbench getWorkbench();
+
+    /**
      * {@link WorkbenchComponent} を返します。<br />
      * 
      * @return {@link WorkbenchComponent} オブジェクト
@@ -78,4 +87,11 @@ public interface UrumaService {
      * @return {@link WindowContext}
      */
     public WindowContext getWorkbenchWindowContext();
+
+    /**
+     * {@link S2Container} のインスタンスを返します。<br />
+     * 
+     * @return {@link S2Container} のインスタンス
+     */
+    public S2Container getContainer();
 }

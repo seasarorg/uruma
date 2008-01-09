@@ -57,7 +57,10 @@ public class UrumaServiceFactory implements ServiceFactory {
     public void ungetService(final Bundle bundle,
             final ServiceRegistration registration, final Object service) {
         String symbolicName = bundle.getSymbolicName();
-        if (serviceMap.containsKey(symbolicName)) {
+        UrumaServiceImpl urumaService = (UrumaServiceImpl) serviceMap
+                .get(symbolicName);
+        if (urumaService != null) {
+            urumaService.destroy();
             serviceMap.remove(symbolicName);
         }
     }

@@ -26,7 +26,8 @@ import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.rcp.UrumaAppActivator;
+import org.seasar.uruma.rcp.UrumaService;
+import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
 /**
  * Uruma における {@link WorkbenchAdvisor} です。<br />
@@ -62,21 +63,21 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
      */
     @Override
     public String getInitialWindowPerspectiveId() {
-        UrumaAppActivator activator = UrumaAppActivator.getInstance();
+        UrumaService service = UrumaServiceUtil.getService();
 
-        String perspectiveId = activator.getWorkbenchComponent().initialPerspectiveId;
+        String perspectiveId = service.getWorkbenchComponent().initialPerspectiveId;
 
         if (StringUtil.isNotBlank(perspectiveId)) {
-            WorkbenchComponent workbench = UrumaAppActivator.getInstance()
+            WorkbenchComponent workbench = UrumaServiceUtil.getService()
                     .getWorkbenchComponent();
             if (workbench.findPerspective(perspectiveId) != null) {
-                return activator.createRcpId(perspectiveId);
+                return service.createRcpId(perspectiveId);
             } else {
                 throw new NotFoundException(
                         UrumaMessageCodes.PERSPECTIVE_NOT_FOUND, perspectiveId);
             }
         } else {
-            return activator.createRcpId(UrumaConstants.DEFAULT_PERSPECTIVE_ID);
+            return service.createRcpId(UrumaConstants.DEFAULT_PERSPECTIVE_ID);
         }
     }
 

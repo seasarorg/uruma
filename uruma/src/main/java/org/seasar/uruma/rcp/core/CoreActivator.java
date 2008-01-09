@@ -70,7 +70,9 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
             BundleContext appContext = bundle.getBundleContext();
             ServiceReference ref = appContext
                     .getServiceReference(UrumaService.class.getName());
-            appContext.getService(ref);
+            UrumaServiceImpl service = (UrumaServiceImpl) appContext
+                    .getService(ref);
+            service.registerExtensions();
         }
     }
 

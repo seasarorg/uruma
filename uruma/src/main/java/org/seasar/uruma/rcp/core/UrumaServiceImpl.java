@@ -21,7 +21,14 @@ import java.util.Enumeration;
 import java.util.List;
 
 import org.eclipse.core.runtime.ContributorFactoryOSGi;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
@@ -73,6 +80,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
     private ClassLoader appClassLoader;
 
+    private ClassLoader oldClassLoader;
+
     private IContributor contributor;
 
     private String pluginId;
@@ -117,6 +126,18 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         try {
             initS2Container();
             prepareS2Components();
+
+            logger.log(URUMA_SERVICE_INIT_END, targetBundle.getSymbolicName());
+        } catch (Exception ex) {
+            throw new UrumaAppInitException(targetBundle, ex, ex.getMessage());
+        } finally {
+            restoreClassLoader();
+        }
+    }
+
+    void registerExtensions() {
+        switchToAppClassLoader();
+        try {
             setupContributor();
 
             setupContexts();
@@ -128,12 +149,11 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
             setupViewExtensions();
             setupPerspectives();
             ContributionBuilder.build(contributor, extensions);
-
-            logger.log(URUMA_SERVICE_INIT_END, targetBundle.getSymbolicName());
         } catch (Exception ex) {
+            // TODO 例外が不適切
             throw new UrumaAppInitException(targetBundle, ex, ex.getMessage());
         } finally {
-            switchToUrumaClassLoader();
+            restoreClassLoader();
         }
     }
 
@@ -232,16 +252,24 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * コンテクストクラスローダを Uruma アプリケーションのクラスローダに切り替えます。<br />
      */
     protected void switchToAppClassLoader() {
-        Thread currentThread = Thread.currentThread();
-        this.urumaClassLoader = currentThread.getContextClassLoader();
-        currentThread.setContextClassLoader(appClassLoader);
+        switchClassLoader(appClassLoader);
     }
 
     /**
      * コンテクストクラスローダを Uruma バンドルのクラスローダに切り替えます。<br />
      */
     protected void switchToUrumaClassLoader() {
-        Thread.currentThread().setContextClassLoader(this.urumaClassLoader);
+        switchClassLoader(urumaClassLoader);
+    }
+
+    protected void switchClassLoader(final ClassLoader loader) {
+        Thread currentThread = Thread.currentThread();
+        this.oldClassLoader = currentThread.getContextClassLoader();
+        currentThread.setContextClassLoader(loader);
+    }
+
+    protected void restoreClassLoader() {
+        Thread.currentThread().setContextClassLoader(oldClassLoader);
     }
 
     protected void setupContributor() {
@@ -375,6 +403,13 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     }
 
     /*
+     * @see org.seasar.uruma.rcp.UrumaService#getWorkbench()
+     */
+    public IWorkbench getWorkbench() {
+        return PlatformUI.getWorkbench();
+    }
+
+    /*
      * @see org.seasar.uruma.rcp.UrumaService#getWorkbenchComponent()
      */
     public WorkbenchComponent getWorkbenchComponent() {
@@ -388,5 +423,61 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      */
     public WindowContext getWorkbenchWindowContext() {
         return this.windowContext;
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#getContainer()
+     */
+    public S2Container getContainer() {
+        return this.container;
+    }
+
+    /**
+     * 本サービスを破棄します。<br />
+     */
+    void destroy() {
+        logger.log(URUMA_SERVICE_DESTROY, targetBundle.getSymbolicName());
+        container.destroy();
+    }
+
+    // TODO テスト用メソッド。後で削除
+    private void test1() {
+        IExtensionRegistry registry = Platform.getExtensionRegistry();
+        // IExtensionPoint extensionPoint = registry
+        // .getExtensionPoint("org.eclipse.ui.views");
+        IExtensionPoint extensionPoint = registry
+                .getExtensionPoint("org.eclipse.ui.actionSets");
+
+        IExtension[] extensions = extensionPoint.getExtensions();
+        for (IExtension extension : extensions) {
+            System.out.println("\nNamespaceIdentifier="
+                    + extension.getNamespaceIdentifier());
+            System.out.println("ExtensionPointUniqueIdentifier="
+                    + extension.getExtensionPointUniqueIdentifier());
+            System.out.println("Label=" + extension.getLabel());
+            System.out.println("SimpleIdentifier="
+                    + extension.getSimpleIdentifier());
+            System.out.println("UniqueIdentifier="
+                    + extension.getUniqueIdentifier());
+
+            IConfigurationElement[] configurationElements = extension
+                    .getConfigurationElements();
+            for (IConfigurationElement configurationElement : configurationElements) {
+                IContributor contributor = configurationElement
+                        .getContributor();
+                System.out.println("  ContributorClass = "
+                        + contributor.getClass().getName());
+                System.out.println("  ContributorName = "
+                        + contributor.getName());
+                System.out.println("  ConfigurationElementClass = "
+                        + configurationElement.getClass().getName());
+
+                String[] attrs = configurationElement.getAttributeNames();
+                for (String string : attrs) {
+                    System.out.println("    " + string + "="
+                            + configurationElement.getAttribute(string));
+                }
+            }
+        }
     }
 }

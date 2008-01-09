@@ -51,9 +51,10 @@ import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.rcp.UrumaAppActivator;
+import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.binding.GenericSelectionListener;
 import org.seasar.uruma.rcp.binding.NullGenericSelectionListener;
+import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.util.AnnotationUtil;
 import org.seasar.uruma.util.S2ContainerUtil;
 
@@ -72,7 +73,7 @@ import org.seasar.uruma.util.S2ContainerUtil;
  * @author y-komori
  */
 public class GenericViewPart extends ViewPart {
-    private UrumaAppActivator activator = UrumaAppActivator.getInstance();
+    private UrumaService service = UrumaServiceUtil.getService();
 
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(GenericViewPart.class);
@@ -106,12 +107,12 @@ public class GenericViewPart extends ViewPart {
             throws PartInitException {
         super.init(site, memento);
 
-        S2ContainerUtil.injectDependency(this, activator.getS2Container());
+        S2ContainerUtil.injectDependency(this, service.getContainer());
 
-        this.componentId = activator.getLocalId(getSite().getId());
+        this.componentId = service.getLocalId(getSite().getId());
 
         if (StringUtil.isNotBlank(componentId)) {
-            activator.getS2Container().register(this, componentId);
+            service.getContainer().register(this, componentId);
         }
 
         Template template = templateManager.getTemplateById(componentId);
@@ -146,7 +147,7 @@ public class GenericViewPart extends ViewPart {
     @Override
     public void createPartControl(final Composite parent) {
         WidgetHandle parentHandle = ContextFactory.createWidgetHandle(parent);
-        parentHandle.setUiComponent(activator.getWorkbenchComponent());
+        parentHandle.setUiComponent(service.getWorkbenchComponent());
 
         viewPart.render(parentHandle, partContext);
 
@@ -227,7 +228,7 @@ public class GenericViewPart extends ViewPart {
                     if (StringUtil.isEmpty(partId)) {
                         getSite().getPage().addSelectionListener(listener);
                     } else {
-                        partId = UrumaAppActivator.getInstance().createRcpId(
+                        partId = UrumaServiceUtil.getService().createRcpId(
                                 partId);
                         getSite().getPage().addSelectionListener(partId,
                                 listener);

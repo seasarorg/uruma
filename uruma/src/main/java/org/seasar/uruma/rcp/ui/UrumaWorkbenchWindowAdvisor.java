@@ -30,7 +30,7 @@ import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.rcp.UrumaAppActivator;
+import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.util.PathUtil;
 
 /**
@@ -63,7 +63,7 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     @Override
     public void preWindowOpen() {
-        workbench = UrumaAppActivator.getInstance().getWorkbenchComponent();
+        workbench = UrumaServiceUtil.getService().getWorkbenchComponent();
 
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 
@@ -75,7 +75,7 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         setupStatusLine(workbench, configurer);
 
         // プリレンダリング処理
-        WindowContext windowContext = UrumaAppActivator.getInstance()
+        WindowContext windowContext = UrumaServiceUtil.getService()
                 .getWorkbenchWindowContext();
         workbench.preRender(null, windowContext);
 
@@ -105,7 +105,7 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         setupImage(workbench);
 
         // Enable Depending の準備
-        WindowContext context = UrumaAppActivator.getInstance()
+        WindowContext context = UrumaServiceUtil.getService()
                 .getWorkbenchWindowContext();
         EnablesDependingListenerSupport.setupEnableDependingListeners(context);
     }

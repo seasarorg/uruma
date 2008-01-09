@@ -22,7 +22,7 @@ import org.eclipse.ui.IPerspectiveFactory;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.core.TemplateManager;
-import org.seasar.uruma.rcp.UrumaAppActivator;
+import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
 /**
  * パースペクティブを自動的に生成するための {@link IPerspectiveFactory} です。<br />
@@ -37,8 +37,8 @@ public class AutoPerspectiveFactory implements IPerspectiveFactory {
      * {@link AutoPerspectiveFactory} を構築します。<br />
      */
     public AutoPerspectiveFactory() {
-        this.templateManager = (TemplateManager) UrumaAppActivator.getInstance()
-                .getS2Container().getComponent(TemplateManager.class);
+        this.templateManager = (TemplateManager) UrumaServiceUtil.getService()
+                .getContainer().getComponent(TemplateManager.class);
     }
 
     /*

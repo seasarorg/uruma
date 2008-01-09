@@ -28,7 +28,8 @@ import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
-import org.seasar.uruma.rcp.UrumaAppActivator;
+import org.seasar.uruma.rcp.UrumaService;
+import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
 /**
  * <code>workbench.xml</code> に記述された <code>perspective</code>
@@ -52,19 +53,19 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
      * {@link GenericPerspectiveFactory} を構築します。<br />
      */
     public GenericPerspectiveFactory() {
-        this.templateManager = (TemplateManager) UrumaAppActivator.getInstance()
-                .getS2Container().getComponent(TemplateManager.class);
+        this.templateManager = (TemplateManager) UrumaServiceUtil.getService()
+                .getContainer().getComponent(TemplateManager.class);
     }
 
     /*
      * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
      */
     public void createInitialLayout(final IPageLayout layout) {
-        UrumaAppActivator uruma = UrumaAppActivator.getInstance();
+        UrumaService service = UrumaServiceUtil.getService();
 
         layout.setEditorAreaVisible(false);
 
-        WorkbenchComponent workbench = uruma.getWorkbenchComponent();
+        WorkbenchComponent workbench = service.getWorkbenchComponent();
         String perspectiveId = layout.getDescriptor().getId();
         PerspectiveComponent pespective = findPerspective(workbench
                 .getChildren(), perspectiveId);
@@ -74,7 +75,7 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
             for (UIElement part : parts) {
                 if (part instanceof PartComponent) {
                     if (!setupLayout(layout, (PartComponent) part)) {
-                        String rowId = perspectiveId.substring(uruma
+                        String rowId = perspectiveId.substring(service
                                 .getPluginId().length() + 1, perspectiveId
                                 .length());
                         throw new NotFoundException(
@@ -113,7 +114,7 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
         }
 
         float ratio = Integer.parseInt(part.ratio) / (float) 100;
-        String refViewId = UrumaAppActivator.getInstance().createRcpId(part.ref);
+        String refViewId = UrumaServiceUtil.getService().createRcpId(part.ref);
 
         if (findViewPart(refViewId)) {
             layout.addStandaloneView(refViewId, true, pos, ratio, layout
