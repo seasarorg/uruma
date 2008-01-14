@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
+import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
@@ -52,6 +53,7 @@ import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.UrumaAppInitException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
+import org.seasar.uruma.rcp.autoregister.UrumaAppAutoRegisterBuilder;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
@@ -110,6 +112,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         AssertionUtil.assertNotNull("targetBundle", targetBundle);
         this.targetBundle = targetBundle;
         this.urumaClassLoader = getClass().getClassLoader();
+        this.pluginId = targetBundle.getSymbolicName();
 
         initialize();
     }
@@ -171,7 +174,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
         ClassLoader bundleLoader = null;
 
-        String className = getFirstClassName(bundle);
+        String className = findFirstClassName(bundle);
         if (className != null) {
             try {
                 Class<?> clazz = bundle.loadClass(className);
@@ -199,7 +202,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * @return 見つかったクラス名。見つからなかった場合は <code>null</code>。
      */
     @SuppressWarnings("unchecked")
-    protected String getFirstClassName(final Bundle bundle) {
+    protected String findFirstClassName(final Bundle bundle) {
         String prefix = StringUtil.replace(bundle.getSymbolicName(), PERIOD,
                 SLASH);
         Enumeration entries = bundle.findEntries("", "*.class", true);
@@ -220,7 +223,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     /**
      * {@link S2Container} の初期化を行います。<br />
      */
-    protected void initS2Container() {
+    protected void initS2Container() throws ClassNotFoundException {
         switchToUrumaClassLoader();
         S2Container urumaContainer = S2ContainerFactory
                 .create(UrumaConstants.URUMA_RCP_DICON_PATH);
@@ -230,6 +233,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         String configPath = SingletonS2ContainerFactory.getConfigPath();
         container = S2ContainerFactory.create(configPath);
         container.include(urumaContainer);
+        registAutoRegister(container);
 
         container.init();
         SingletonS2ContainerFactory.setContainer(container);
@@ -248,6 +252,16 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         container.register(this, UrumaConstants.URUMA_SERVICE_S2NAME);
     }
 
+    protected void registAutoRegister(final S2Container container)
+            throws ClassNotFoundException {
+        String refClassName = findFirstClassName(targetBundle);
+        if (refClassName != null) {
+            ComponentDef def = UrumaAppAutoRegisterBuilder.build(refClassName,
+                    getPluginId());
+            container.register(def);
+        }
+    }
+
     protected void switchClassLoader(final ClassLoader loader) {
         Thread currentThread = Thread.currentThread();
         this.oldClassLoader = currentThread.getContextClassLoader();
@@ -258,7 +272,6 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     protected void setupContributor() {
         this.contributor = ContributorFactoryOSGi
                 .createContributor(targetBundle);
-        this.pluginId = contributor.getName();
     }
 
     protected void setupViewExtensions() {
