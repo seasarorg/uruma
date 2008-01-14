@@ -35,6 +35,7 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
+import org.seasar.framework.util.ResourceUtil;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
@@ -229,9 +230,16 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
                 .create(UrumaConstants.URUMA_RCP_DICON_PATH);
         switchToAppClassLoader();
 
-        // TODO app.dicon が読み込めない場合のハンドリング
         String configPath = SingletonS2ContainerFactory.getConfigPath();
-        container = S2ContainerFactory.create(configPath);
+
+        try {
+            ResourceUtil.getResource(configPath);
+            container = S2ContainerFactory.create(configPath);
+        } catch (ResourceNotFoundRuntimeException ex) {
+            // app.dicon が存在しない場合は、空の S2Container を生成する
+            container = S2ContainerFactory.create();
+        }
+
         container.include(urumaContainer);
         registAutoRegister(container);
 
