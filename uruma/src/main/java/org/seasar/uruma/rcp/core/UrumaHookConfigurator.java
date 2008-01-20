@@ -17,18 +17,28 @@ package org.seasar.uruma.rcp.core;
 
 import org.eclipse.osgi.baseadaptor.HookConfigurator;
 import org.eclipse.osgi.baseadaptor.HookRegistry;
+import org.seasar.uruma.core.UrumaConstants;
 
 /**
  * OSGi フレームワークに対するフックの準備を行うためのクラスです。<br />
  * 
  * @author y-komori
  */
-public class UrumaHookConfigurator implements HookConfigurator {
+public class UrumaHookConfigurator implements HookConfigurator, UrumaConstants {
+    private static boolean DEBUG;
+
+    static {
+        if (Boolean.getBoolean(URUMA_EXTENSION_DEBUG)) {
+            DEBUG = true;
+        }
+    }
 
     /*
      * @see org.eclipse.osgi.baseadaptor.HookConfigurator#addHooks(org.eclipse.osgi.baseadaptor.HookRegistry)
      */
     public void addHooks(final HookRegistry hookRegistry) {
-        hookRegistry.addWatcher(new UrumaBundleWatcher());
+        if (DEBUG) {
+            hookRegistry.addWatcher(new UrumaBundleWatcher());
+        }
     }
 }

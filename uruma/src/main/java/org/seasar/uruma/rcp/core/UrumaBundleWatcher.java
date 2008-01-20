@@ -28,19 +28,19 @@ public class UrumaBundleWatcher implements BundleWatcher {
     public void watchBundle(final Bundle bundle, final int type) {
         switch (type) {
         case START_INSTALLING:
-            System.err.println("StartInstalling : " + bundle.getSymbolicName());
+            System.out.println("StartInstalling : " + bundle.getSymbolicName());
             break;
 
         case END_INSTALLING:
-            System.err.println("EndInstalling : " + bundle.getSymbolicName());
+            System.out.println("EndInstalling : " + bundle.getSymbolicName());
             break;
 
         case START_ACTIVATION:
-            System.err.println("StartActivation : " + bundle.getSymbolicName());
+            System.out.println("StartActivation : " + bundle.getSymbolicName());
             break;
 
         case END_ACTIVATION:
-            System.err.println("EndActivation : " + bundle.getSymbolicName());
+            System.out.println("EndActivation : " + bundle.getSymbolicName());
             break;
 
         default:

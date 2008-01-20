@@ -17,12 +17,17 @@ package org.seasar.uruma.rcp.core;
 
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
+import org.seasar.uruma.log.UrumaLogger;
 
 /**
- * @author y-komori
+ * OSGi バンドルの動作を監視するためのクラスです。<br />
+ * 現在は未使用です。<br />
  * 
+ * @author y-komori
  */
 public class UrumaBundleListener implements BundleListener {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(UrumaBundleListener.class);
 
     /*
      * @see org.osgi.framework.BundleListener#bundleChanged(org.osgi.framework.BundleEvent)
@@ -51,22 +56,37 @@ public class UrumaBundleListener implements BundleListener {
     }
 
     protected void resolvedBundle(final BundleEvent event) {
-        System.err.println("Resolved : " + event.getBundle().getSymbolicName());
+        if (logger.isDebugEnabled()) {
+            logger.debug("BundleResolved : "
+                    + event.getBundle().getSymbolicName());
+        }
     }
 
     protected void startingBundle(final BundleEvent event) {
-        System.err.println("Starting : " + event.getBundle().getSymbolicName());
+        if (logger.isDebugEnabled()) {
+            logger.debug("BundleStarting : "
+                    + event.getBundle().getSymbolicName());
+        }
     }
 
     protected void startedBundle(final BundleEvent event) {
-        System.err.println("Started : " + event.getBundle().getSymbolicName());
+        if (logger.isDebugEnabled()) {
+            logger.debug("BundleStarted : "
+                    + event.getBundle().getSymbolicName());
+        }
     }
 
     protected void stoppingBundle(final BundleEvent event) {
-        // Do nothing.
+        if (logger.isDebugEnabled()) {
+            logger.debug("BundleStopping : "
+                    + event.getBundle().getSymbolicName());
+        }
     }
 
     protected void stoppedBundle(final BundleEvent event) {
-        // Do nothing.
+        if (logger.isDebugEnabled()) {
+            logger.debug("BundleStopped : "
+                    + event.getBundle().getSymbolicName());
+        }
     }
 }
