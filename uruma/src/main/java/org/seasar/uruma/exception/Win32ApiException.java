@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.exception;
 
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.util.win32.Win32Util;
 
@@ -23,9 +24,20 @@ import org.seasar.uruma.util.win32.Win32Util;
  * 
  * @author y-komori
  */
-public class Win32ApiException extends UrumaRuntimeException {
+public class Win32ApiException extends UrumaRuntimeException implements
+        UrumaConstants {
 
     private static final long serialVersionUID = 214038110299619208L;
+
+    /**
+     * {@link Win32ApiException} を構築します。<br />
+     * 
+     * @param message
+     *            メッセージ
+     */
+    public Win32ApiException(final String message) {
+        super(UrumaMessageCodes.WIN32_API_CALL_FAILED, NULL_STRING, message);
+    }
 
     /**
      * {@link Win32ApiException} を構築します。<br />

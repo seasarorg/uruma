@@ -1,0 +1,148 @@
+/*
+ * Copyright 2004-2008 the Seasar Foundation and the Others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+package org.seasar.uruma.util.win32;
+
+import java.io.StringWriter;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
+import nlink.Holder;
+import nlink.win32.NLink;
+
+import org.seasar.uruma.exception.Win32ApiException;
+
+/**
+ * Java から Win32 API を呼び出すためのユーティリティクラスです。<br />
+ * 
+ * @author y-komori
+ */
+public class Win32API {
+    protected static final int MAX_COMPUTERNAME_LENGTH = 15;
+
+    private static Kernel32 kernel32 = NLink.create(Kernel32.class);
+
+    private Win32API() {
+
+    }
+
+    /**
+     * ローカルコンピュータの NetBIOS 名を取得します。<br />
+     * 
+     * @return ローカルコンピュータのNetBIOS名
+     */
+    public static String getComputerName() {
+        ByteBuffer buffer = ByteBuffer
+                .allocateDirect(MAX_COMPUTERNAME_LENGTH + 1);
+        Holder<Integer> holder = new Holder<Integer>(buffer.capacity());
+
+        try {
+            kernel32.GetComputerName(buffer, holder);
+            return convertToJavaString(buffer);
+        } catch (Exception ex) {
+            throw new Win32ApiException(ex.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * 現在利用可能なディスクドライブを取得します。<br />
+     * 
+     * @return 利用可能なディスクドライブ名の配列
+     */
+    public static String[] getLogicalDrives() {
+        try {
+            int result = kernel32.GetLogicalDrives();
+
+            int mask = 0x01;
+            int cnt = 0;
+            for (int i = 0; i < 26; i++, mask = mask << 1) {
+                if ((result & mask) != 0) {
+                    cnt++;
+                }
+            }
+            String[] drives = new String[cnt];
+            char drive = 'A';
+            mask = 0x01;
+            cnt = 0;
+            for (int i = 0; i < 26; i++, drive++, mask = mask << 1) {
+                if ((result & mask) != 0) {
+                    drives[cnt++] = drive + ":\\";
+                }
+            }
+            return drives;
+
+        } catch (Exception ex) {
+            throw new Win32ApiException(ex.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * ボリューム情報を取得します。<br />
+     * 
+     * @param rootPathName
+     *            ボリュームのルートパス
+     * @return ボリューム情報。取得できなかった場合は <code>null</code>
+     */
+    public static VolumeInformation getVolumeInformation(
+            final String rootPathName) {
+        try {
+            kernel32.SetErrorMode(Kernel32.SEM_NOOPENFILEERRORBOX);
+        } catch (Exception ex) {
+            throw new Win32ApiException(ex.getLocalizedMessage());
+        }
+
+        ByteBuffer volumeNameBuf = ByteBuffer.allocateDirect(128);
+        Holder<Integer> volumeSerialNum = new Holder<Integer>(new Integer(0));
+        Holder<Integer> maxComponentLength = new Holder<Integer>(new Integer(0));
+        Holder<Integer> fileSystemFlags = new Holder<Integer>(new Integer(0));
+        ByteBuffer fileSystemNameBuf = ByteBuffer.allocateDirect(128);
+
+        try {
+            int result = kernel32.GetVolumeInformation(rootPathName,
+                    volumeNameBuf, volumeNameBuf.capacity(), volumeSerialNum,
+                    maxComponentLength, fileSystemFlags, fileSystemNameBuf,
+                    fileSystemNameBuf.capacity());
+            if (result != 0) {
+                VolumeInformation info = new VolumeInformation();
+                info.setRootPath(rootPathName);
+                info.setVolumeLabel(convertToJavaString(volumeNameBuf));
+                info.setSerialNumber(volumeSerialNum.value);
+                info.setFileSystemName(convertToJavaString(fileSystemNameBuf));
+                info.setMaxComponentLength(maxComponentLength.value);
+                info.setFileSystemFlags(fileSystemFlags.value);
+                return info;
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
+            throw new Win32ApiException(ex.getLocalizedMessage());
+        }
+    }
+
+    static String convertToJavaString(final ByteBuffer buffer) {
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+        StringWriter writer = new StringWriter();
+        for (int i = 0; buffer.remaining() > 0; i++) {
+            short chr = buffer.getShort();
+            if (chr == 0x00) {
+                break;
+            } else {
+                writer.write(chr);
+            }
+        }
+        writer.flush();
+        return writer.toString();
+    }
+}

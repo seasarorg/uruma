@@ -1,76 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <assembly>
-	<id></id>
-	<formats>
-		<format>zip</format>
-	</formats>
-	<fileSets>
-		<fileSet>
-			<directory>target</directory>
-			<outputDirectory>/</outputDirectory>
-			<includes>
-				<include>uruma-${propject.version}.jar</include>
-				<include>uruma-${propject.version}-sources.jar</include>
-				<include>uruma-${propject.version}-javadoc.jar</include>
-			</includes>
-		</fileSet>
-		
-		<fileSet>
-			<directory>lib</directory>
-			<outputDirectory>/lib</outputDirectory>
-			<includes>
-				<include>*.dll</include>
-			</includes>
-		</fileSet>
-		
-		<fileSet>
-			<directory>src</directory>
-			<outputDirectory>/src</outputDirectory>
-			<excludes>
-				<exclude>main/assembly/*.*</exclude>
-				<exclude>main/assembly</exclude>
-			</excludes>
-		</fileSet>
-		
-		<fileSet>
-			<directory>target/apidocs</directory>
-			<outputDirectory>/apidocs</outputDirectory>
-		</fileSet>
+  <id></id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <directory>target</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>uruma-${propject.version}.jar</include>
+        <include>uruma-${propject.version}-sources.jar</include>
+        <include>uruma-${propject.version}-javadoc.jar</include>
+      </includes>
+    </fileSet>
 
-		<fileSet>
-			<directory>/</directory>
-			<outputDirectory></outputDirectory>
-			<includes>
-				<include>LICENSE.txt</include>
-			</includes>
-		</fileSet>
-		
-		<fileSet>
-			<directory>licenses</directory>
-			<outputDirectory>/licenses</outputDirectory>
-		</fileSet>
-	</fileSets>
+    <fileSet>
+      <directory>lib</directory>
+      <outputDirectory>/lib</outputDirectory>
+      <includes>
+        <include>*.dll</include>
+      </includes>
+    </fileSet>
 
-	<files>
-		<file>
-			<source>
-				target/uruma-${propject.version}-plugin-jar.zip
-			</source>
-			<outputDirectory>/</outputDirectory>
-			<destName>
-				org.seasar.uruma_${propject.version}.jar
-			</destName>
-		</file>
-	</files>
+    <fileSet>
+      <directory>src</directory>
+      <outputDirectory>/src</outputDirectory>
+      <excludes>
+        <exclude>main/assembly/*.*</exclude>
+        <exclude>main/assembly</exclude>
+      </excludes>
+    </fileSet>
 
-	<dependencySets>
-		<dependencySet>
-			<unpack>false</unpack>
-			<scope>runtime</scope>
-			<outputDirectory>/lib</outputDirectory>
-			<includes>
-				<include>org.eclipse:*:jar:*</include>
-			</includes>
-		</dependencySet>
-	</dependencySets>
+    <fileSet>
+      <directory>target/apidocs</directory>
+      <outputDirectory>/apidocs</outputDirectory>
+    </fileSet>
+
+    <fileSet>
+      <directory>/</directory>
+      <outputDirectory></outputDirectory>
+      <includes>
+        <include>LICENSE.txt</include>
+      </includes>
+    </fileSet>
+
+    <fileSet>
+      <directory>licenses</directory>
+      <outputDirectory>/licenses</outputDirectory>
+    </fileSet>
+  </fileSets>
+
+  <files>
+    <file>
+      <source>target/uruma-${propject.version}-plugin-jar.zip</source>
+      <outputDirectory>/</outputDirectory>
+      <destName>org.seasar.uruma_${propject.version}.jar</destName>
+    </file>
+  </files>
+
+  <dependencySets>
+    <dependencySet>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+      <outputDirectory>/lib</outputDirectory>
+      <includes>
+        <include>org.eclipse:*:jar:*</include>
+        <include>nlink:*:jar:*</include>
+      </includes>
+    </dependencySet>
+  </dependencySets>
 </assembly>
