@@ -47,4 +47,15 @@ public class Win32AIPTest extends TestCase {
         VolumeInformation info = Win32API.getVolumeInformation("c:\\");
         System.out.println(info);
     }
+
+    /**
+     * {@link Win32API#getDriveType(String)} のテストです。<br />
+     */
+    public void testGetDriveType() {
+        String[] drives = Win32API.getLogicalDrives();
+        for (int i = 0; i < drives.length; i++) {
+            DriveType type = Win32API.getDriveType(drives[i]);
+            System.out.println(drives[i] + "..." + type);
+        }
+    }
 }

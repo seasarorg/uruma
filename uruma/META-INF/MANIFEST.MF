@@ -9,7 +9,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.swt,
  org.eclipse.jface
 Eclipse-AutoStart: true
-Export-Package: org.seasar.eclipse.common,
+Export-Package: nlink,
+ nlink.impl,
+ nlink.win32,
+ org.seasar.eclipse.common,
  org.seasar.eclipse.common.action,
  org.seasar.eclipse.common.launch,
  org.seasar.eclipse.common.preference,
@@ -190,6 +193,7 @@ Bundle-ClassPath: lib/aopalliance-1.0.jar,
  lib/s2-extension-2.4.20.jar,
  lib/s2-tiger-2.4.20.jar,
  lib/log4j-1.2.13.jar,
+ lib/nlink-20080119.jar,
  .
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: org.seasar.uruma.rcp.core.CoreActivator

@@ -52,6 +52,44 @@ public interface Kernel32 {
      */
     static final int SEM_NOOPENFILEERRORBOX = 0x8000;
 
+    // GetDriveType 用の定数
+    /**
+     * ドライブの種類を判別できませんでした。
+     */
+    static final int DRIVE_UNKNOWN = 0;
+
+    /**
+     * 指定のルートディレクトリが存在しません。<br />
+     * たとえば、パスにボリュームがマウントされていません。<br />
+     * （未フォーマットや、メディアが挿入されていないなど）。
+     */
+    static final int DRIVE_NO_ROOT_DIR = 1;
+
+    /**
+     * このディスクは、ドライブから取り出せます。
+     */
+    static final int DRIVE_REMOVABLE = 2;
+
+    /**
+     * このディスクは、ドライブから取り出せません。
+     */
+    static final int DRIVE_FIXED = 3;
+
+    /**
+     * このドライブは、リモート（ネットワーク）ドライブです。
+     */
+    static final int DRIVE_REMOTE = 4;
+
+    /**
+     * このドライブは、CD-ROM ドライブです。
+     */
+    static final int DRIVE_CDROM = 5;
+
+    /**
+     * このドライブは、RAM ディスクです。
+     */
+    static final int DRIVE_RAMDISK = 6;
+
     /**
      * @see <a
      *      href="http://msdn.microsoft.com/library/ja/jpsysinf/html/_win32_getcomputername.asp">GetComputerName</a>
@@ -84,6 +122,13 @@ public interface Kernel32 {
             @MarshalAs(NativeType.Int32_ByRef)
             Holder<Integer> fileSystemFlags, @MarshalAs(NativeType.PVOID)
             Buffer fileSystemNameBuffer, int fileSystemNameSize);
+
+    /**
+     * @see <a
+     *      href="http://msdn.microsoft.com/library/ja/jpfileio/html/_win32_getdrivetype.asp">GetDriveType</a>
+     */
+    @DllMethod
+    int GetDriveType(String rootPathName);
 
     /**
      * @see <a

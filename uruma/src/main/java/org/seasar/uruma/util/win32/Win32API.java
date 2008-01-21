@@ -97,12 +97,6 @@ public class Win32API {
      */
     public static VolumeInformation getVolumeInformation(
             final String rootPathName) {
-        try {
-            kernel32.SetErrorMode(Kernel32.SEM_NOOPENFILEERRORBOX);
-        } catch (Exception ex) {
-            throw new Win32ApiException(ex.getLocalizedMessage());
-        }
-
         ByteBuffer volumeNameBuf = ByteBuffer.allocateDirect(128);
         Holder<Integer> volumeSerialNum = new Holder<Integer>(new Integer(0));
         Holder<Integer> maxComponentLength = new Holder<Integer>(new Integer(0));
@@ -110,6 +104,7 @@ public class Win32API {
         ByteBuffer fileSystemNameBuf = ByteBuffer.allocateDirect(128);
 
         try {
+            kernel32.SetErrorMode(Kernel32.SEM_FAILCRITICALERRORS);
             int result = kernel32.GetVolumeInformation(rootPathName,
                     volumeNameBuf, volumeNameBuf.capacity(), volumeSerialNum,
                     maxComponentLength, fileSystemFlags, fileSystemNameBuf,
@@ -125,6 +120,48 @@ public class Win32API {
                 return info;
             } else {
                 return null;
+            }
+        } catch (Exception ex) {
+            throw new Win32ApiException(ex.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * 指定したルートパスのドライブの種類を調べます。<br />
+     * 
+     * @param rootPathName
+     *            種類を調べるドライブのルートパス
+     * @return ドライブの種類
+     * @see DriveType
+     */
+    public static DriveType getDriveType(final String rootPathName) {
+        try {
+            int result = kernel32.GetDriveType(rootPathName);
+
+            switch (result) {
+            case Kernel32.DRIVE_UNKNOWN:
+                return DriveType.DRIVE_UNKNOWN;
+
+            case Kernel32.DRIVE_NO_ROOT_DIR:
+                return DriveType.DRIVE_NO_ROOT_DIR;
+
+            case Kernel32.DRIVE_REMOVABLE:
+                return DriveType.DRIVE_REMOVABLE;
+
+            case Kernel32.DRIVE_FIXED:
+                return DriveType.DRIVE_FIXED;
+
+            case Kernel32.DRIVE_REMOTE:
+                return DriveType.DRIVE_REMOTE;
+
+            case Kernel32.DRIVE_CDROM:
+                return DriveType.DRIVE_CDROM;
+
+            case Kernel32.DRIVE_RAMDISK:
+                return DriveType.DRIVE_RAMDISK;
+
+            default:
+                return DriveType.DRIVE_UNKNOWN;
             }
         } catch (Exception ex) {
             throw new Win32ApiException(ex.getLocalizedMessage());
