@@ -22,7 +22,13 @@ import java.nio.ByteOrder;
 import nlink.Holder;
 import nlink.win32.NLink;
 
+import org.eclipse.swt.internal.win32.OS;
+import org.eclipse.swt.internal.win32.SHFILEINFO;
+import org.eclipse.swt.internal.win32.SHFILEINFOA;
+import org.eclipse.swt.internal.win32.SHFILEINFOW;
+import org.eclipse.swt.internal.win32.TCHAR;
 import org.seasar.uruma.exception.Win32ApiException;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * Java から Win32 API を呼び出すためのユーティリティクラスです。<br />
@@ -37,6 +43,8 @@ public class Win32API {
     private Win32API() {
 
     }
+
+    private static final int SHGFI_TYPENAME = 1024;
 
     /**
      * ローカルコンピュータの NetBIOS 名を取得します。<br />
@@ -168,6 +176,42 @@ public class Win32API {
         }
     }
 
+    /**
+     * 指定されたファイルの種類を取得します。<br />
+     * 
+     * @param path
+     *            種類を調べるファイルのパス
+     * @return ファイルの種類
+     */
+    public static String getFileTypeName(final String path) {
+        AssertionUtil.assertNotNull("path", path);
+        SHFILEINFO shfi = OS.IsUnicode ? (SHFILEINFO) new SHFILEINFOW()
+                : new SHFILEINFOA();
+        int flags = SHGFI_TYPENAME | OS.SHGFI_USEFILEATTRIBUTES;
+        TCHAR pszPath = new TCHAR(0, path, true);
+        int retCode = OS.SHGetFileInfo(pszPath, OS.FILE_ATTRIBUTE_NORMAL, shfi,
+                SHFILEINFO.sizeof, flags);
+        if (retCode != 0) {
+            if (shfi instanceof SHFILEINFOW) {
+                return convertToJavaString(((SHFILEINFOW) shfi).szTypeName);
+            } else if (shfi instanceof SHFILEINFOA) {
+                byte[] szTypeName = ((SHFILEINFOA) shfi).szTypeName;
+                byte[] typeName;
+                for (int i = 0; i < szTypeName.length; i++) {
+                    if (szTypeName[i] == 0x00) {
+                        typeName = new byte[i];
+                        System.arraycopy(szTypeName, 0, typeName, 0,
+                                typeName.length);
+                        return new String(typeName);
+                    }
+                }
+            }
+            return "";
+        } else {
+            throw new Win32ApiException("SHGetFileInfo", retCode);
+        }
+    }
+
     static String convertToJavaString(final ByteBuffer buffer) {
         buffer.order(ByteOrder.LITTLE_ENDIAN);
         StringWriter writer = new StringWriter();
@@ -182,4 +226,18 @@ public class Win32API {
         writer.flush();
         return writer.toString();
     }
+
+    static String convertToJavaString(final char[] str) {
+        StringWriter writer = new StringWriter();
+        for (int i = 0; i < str.length; i++) {
+            if (str[i] == 0x00) {
+                break;
+            } else {
+                writer.write(str[i]);
+            }
+        }
+        writer.flush();
+        return writer.toString();
+    }
+
 }

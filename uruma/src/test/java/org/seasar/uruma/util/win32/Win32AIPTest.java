@@ -58,4 +58,15 @@ public class Win32AIPTest extends TestCase {
             System.out.println(drives[i] + "..." + type);
         }
     }
+
+    /**
+     * {@link Win32API#getFileTypeName(String)} のテストです。<br />
+     */
+    public void testGetFileTypeName() {
+        String[] drives = Win32API.getLogicalDrives();
+        for (int i = 0; i < drives.length; i++) {
+            String type = Win32API.getFileTypeName(drives[i]);
+            System.out.println(drives[i] + "..." + type);
+        }
+    }
 }
