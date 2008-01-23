@@ -49,9 +49,11 @@ public class FileViewAction {
 	public void selectionChanged(final File parentFolder) {
 		fileList.clear();
 
-		File[] children = parentFolder.listFiles();
-		for (File file : children) {
-			fileList.add(file);
+		if (!parentFolder.getPath().equals("::")) {
+			File[] children = parentFolder.listFiles();
+			for (File file : children) {
+				fileList.add(file);
+			}
 		}
 	}
 
