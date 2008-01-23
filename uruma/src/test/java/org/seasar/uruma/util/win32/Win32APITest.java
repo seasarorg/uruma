@@ -22,7 +22,7 @@ import junit.framework.TestCase;
  * 
  * @author y-komori
  */
-public class Win32AIPTest extends TestCase {
+public class Win32APITest extends TestCase {
     /**
      * {@link Win32API#getComputerName()} のテストです。<br />
      */
