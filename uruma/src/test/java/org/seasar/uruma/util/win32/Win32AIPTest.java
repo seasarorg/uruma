@@ -69,4 +69,15 @@ public class Win32AIPTest extends TestCase {
             System.out.println(drives[i] + "..." + type);
         }
     }
+
+    /**
+     * {@link Win32API#expandEnvironmentStrings(String)} のテストです。<br />
+     */
+    public void testExpandEnvironmentStrings() {
+        String sysroot = System.getenv("systemroot");
+        String expSysroot = Win32API.expandEnvironmentStrings("%systemroot%");
+        assertEquals("1", sysroot, expSysroot);
+
+        assertEquals("2", "noenv", Win32API.expandEnvironmentStrings("noenv"));
+    }
 }

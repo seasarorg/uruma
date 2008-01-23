@@ -22,6 +22,9 @@ import java.nio.ByteOrder;
 import nlink.Holder;
 import nlink.win32.NLink;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.internal.win32.SHFILEINFO;
 import org.eclipse.swt.internal.win32.SHFILEINFOA;
@@ -210,6 +213,48 @@ public class Win32API {
         } else {
             throw new Win32ApiException("SHGetFileInfo", retCode);
         }
+    }
+
+    /**
+     * ファイルからインデックスで指定したアイコンを取得します。<br />
+     * 
+     * @param fileName
+     *            ファイル名
+     * @param index
+     *            アイコンのインデックス番号
+     * @return アイコンの {@link ImageData} オブジェクト
+     */
+    public static ImageData extractIcon(final String fileName, final int index) {
+        TCHAR lpszFile = new TCHAR(0, fileName, true);
+        int[] phiconSmall = new int[1];
+        int[] phiconLarge = null;
+        OS.ExtractIconEx(lpszFile, index, phiconLarge, phiconSmall, 1);
+        if (phiconSmall[0] == 0) {
+            return null;
+        }
+        Image image = Image.win32_new(null, SWT.ICON, phiconSmall[0]);
+        ImageData imageData = image.getImageData();
+        image.dispose();
+        return imageData;
+    }
+
+    /**
+     * 指定した文字列に含まれる環境変数を展開します。<br />
+     * 
+     * @param str
+     *            対象文字列
+     * @return 環境変数展開後の文字列
+     */
+    public static String expandEnvironmentStrings(final String str) {
+        TCHAR lpSrc = new TCHAR(OS.CP_INSTALLED, str, true);
+        String result = str;
+        int length = OS.ExpandEnvironmentStrings(lpSrc, null, 0);
+        if (length != 0) {
+            TCHAR lpDst = new TCHAR(0, length);
+            OS.ExpandEnvironmentStrings(lpSrc, lpDst, length);
+            result = lpDst.toString(0, Math.max(0, length - 1));
+        }
+        return result;
     }
 
     static String convertToJavaString(final ByteBuffer buffer) {
