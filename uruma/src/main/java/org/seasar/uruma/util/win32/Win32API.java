@@ -49,6 +49,8 @@ public class Win32API {
 
     private static final int SHGFI_TYPENAME = 1024;
 
+    private static final int SHGFI_DISPLAYNAME = 512;
+
     /**
      * ローカルコンピュータの NetBIOS 名を取得します。<br />
      * 
@@ -187,29 +189,41 @@ public class Win32API {
      * @return ファイルの種類
      */
     public static String getFileTypeName(final String path) {
-        AssertionUtil.assertNotNull("path", path);
-        SHFILEINFO shfi = OS.IsUnicode ? (SHFILEINFO) new SHFILEINFOW()
-                : new SHFILEINFOA();
         int flags = SHGFI_TYPENAME | OS.SHGFI_USEFILEATTRIBUTES;
+        SHFILEINFO info = getFileInfo(path, flags);
+        if (info instanceof SHFILEINFOW) {
+            return convertToJavaString(((SHFILEINFOW) info).szTypeName);
+        } else {
+            return convertToJavaString(((SHFILEINFOA) info).szTypeName);
+        }
+    }
+
+    /**
+     * 指定されたファイルの表示名称を取得します。<br />
+     * 
+     * @param path
+     *            ファイルのパス
+     * @return 表示名称
+     */
+    public static String getFileDisplayName(final String path) {
+        int flags = SHGFI_DISPLAYNAME | OS.SHGFI_USEFILEATTRIBUTES;
+        SHFILEINFO info = getFileInfo(path, flags);
+        if (info instanceof SHFILEINFOW) {
+            return convertToJavaString(((SHFILEINFOW) info).szDisplayName);
+        } else {
+            return convertToJavaString(((SHFILEINFOA) info).szDisplayName);
+        }
+    }
+
+    private static SHFILEINFO getFileInfo(final String path, final int flags) {
+        AssertionUtil.assertNotNull("path", path);
+        SHFILEINFO info = OS.IsUnicode ? (SHFILEINFO) new SHFILEINFOW()
+                : new SHFILEINFOA();
         TCHAR pszPath = new TCHAR(0, path, true);
-        int retCode = OS.SHGetFileInfo(pszPath, OS.FILE_ATTRIBUTE_NORMAL, shfi,
+        int retCode = OS.SHGetFileInfo(pszPath, OS.FILE_ATTRIBUTE_NORMAL, info,
                 SHFILEINFO.sizeof, flags);
         if (retCode != 0) {
-            if (shfi instanceof SHFILEINFOW) {
-                return convertToJavaString(((SHFILEINFOW) shfi).szTypeName);
-            } else if (shfi instanceof SHFILEINFOA) {
-                byte[] szTypeName = ((SHFILEINFOA) shfi).szTypeName;
-                byte[] typeName;
-                for (int i = 0; i < szTypeName.length; i++) {
-                    if (szTypeName[i] == 0x00) {
-                        typeName = new byte[i];
-                        System.arraycopy(szTypeName, 0, typeName, 0,
-                                typeName.length);
-                        return new String(typeName);
-                    }
-                }
-            }
-            return "";
+            return info;
         } else {
             throw new Win32ApiException("SHGetFileInfo", retCode);
         }
@@ -285,4 +299,15 @@ public class Win32API {
         return writer.toString();
     }
 
+    static String convertToJavaString(final byte[] bytes) {
+        byte[] result = null;
+        for (int i = 0; i < bytes.length; i++) {
+            if (bytes[i] == 0x00) {
+                result = new byte[i];
+                System.arraycopy(bytes, 0, result, 0, result.length);
+                return new String(result);
+            }
+        }
+        return "";
+    }
 }

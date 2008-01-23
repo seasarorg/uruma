@@ -71,6 +71,17 @@ public class Win32APITest extends TestCase {
     }
 
     /**
+     * {@link Win32API#getFileDisplayName(String)} のテストです。<br />
+     */
+    public void testGetFileDisplayName() {
+        String[] drives = Win32API.getLogicalDrives();
+        for (int i = 0; i < drives.length; i++) {
+            String type = Win32API.getFileDisplayName(drives[i]);
+            System.out.println(drives[i] + "..." + type);
+        }
+    }
+
+    /**
      * {@link Win32API#expandEnvironmentStrings(String)} のテストです。<br />
      */
     public void testExpandEnvironmentStrings() {
