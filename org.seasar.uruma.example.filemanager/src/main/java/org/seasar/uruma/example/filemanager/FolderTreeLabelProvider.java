@@ -23,7 +23,6 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Display;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.uruma.util.win32.RegistryUtil;
-import org.seasar.uruma.util.win32.VolumeInformation;
 import org.seasar.uruma.util.win32.Win32API;
 
 /**
@@ -33,8 +32,12 @@ public class FolderTreeLabelProvider extends LabelProvider {
 	@Override
 	public Image getImage(final Object element) {
 		File folder = (File) element;
-		if (folder.getPath().equals("::")) {
+		String path = folder.getPath();
+		if (path.equals("::")) {
 			return getMyComputerImage();
+		} else if (path.endsWith(":\\")) {
+			ImageData icon = Win32API.getFileIcon(path);
+			return new Image(Display.getCurrent(), icon);
 		} else {
 			Image folderImage = ImageManager.loadImage("folder");
 			return folderImage;
@@ -47,15 +50,7 @@ public class FolderTreeLabelProvider extends LabelProvider {
 		if (folder.getPath().equals("::")) {
 			return getMyComputerName();
 		} else if (folder.getAbsolutePath().endsWith(":\\")) {
-			String rootPath = folder.getAbsolutePath();
-			String label = Win32API.getFileTypeName(folder.getAbsolutePath());
-			String drive = "(" + rootPath.substring(0, rootPath.length() - 1)
-					+ ")";
-			VolumeInformation info = Win32API.getVolumeInformation(rootPath);
-			if (info != null) {
-				label = info.getVolumeLabel();
-			}
-			return label + drive;
+			return Win32API.getFileDisplayName(folder.getAbsolutePath());
 		} else {
 			return folder.getName();
 		}
