@@ -215,6 +215,27 @@ public class Win32API {
         }
     }
 
+    /**
+     * 指定したパスのアイコンをを取得します。<br />
+     * 
+     * @param path
+     *            パス
+     * @return アイコンの {@link ImageData} オブジェクト
+     */
+    public static ImageData getFileIcon(final String path) {
+        int flags = OS.SHGFI_ICON | OS.SHGFI_SMALLICON
+                | OS.SHGFI_USEFILEATTRIBUTES;
+        SHFILEINFO info = getFileInfo(path, flags);
+        if (info.hIcon != 0) {
+            Image image = Image.win32_new(null, SWT.ICON, info.hIcon);
+            ImageData imageData = image.getImageData();
+            image.dispose();
+            return imageData;
+        } else {
+            return null;
+        }
+    }
+
     private static SHFILEINFO getFileInfo(final String path, final int flags) {
         AssertionUtil.assertNotNull("path", path);
         SHFILEINFO info = OS.IsUnicode ? (SHFILEINFO) new SHFILEINFOW()
