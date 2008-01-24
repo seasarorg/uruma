@@ -82,15 +82,16 @@ public class FolderTreeContentProvider implements ITreeContentProvider,
 
 	protected File[] getFolders(final File parent) {
 		File[] children = parent.listFiles();
-		List<File> folders = new ArrayList<File>();
-
-		for (File child : children) {
-			if (child.isDirectory()) {
-				folders.add(child);
+		if (children != null) {
+			List<File> folders = new ArrayList<File>();
+			for (File child : children) {
+				if (child.isDirectory()) {
+					folders.add(child);
+				}
 			}
+			return folders.toArray(new File[folders.size()]);
+		} else {
+			return new File[] {};
 		}
-
-		return folders.toArray(new File[folders.size()]);
-
 	}
 }
