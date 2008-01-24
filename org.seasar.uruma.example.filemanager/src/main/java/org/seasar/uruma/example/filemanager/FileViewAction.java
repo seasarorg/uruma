@@ -35,7 +35,7 @@ import org.seasar.uruma.util.PathUtil;
  * @author y-komori
  */
 @Form(FileViewAction.class)
-public class FileViewAction {
+public class FileViewAction implements Constants {
 	@ExportValue(id = "fileDetailTable")
 	public List<File> fileList = new ArrayList<File>();
 
@@ -49,10 +49,12 @@ public class FileViewAction {
 	public void selectionChanged(final File parentFolder) {
 		fileList.clear();
 
-		if (!parentFolder.getPath().equals("::")) {
+		if (!parentFolder.getPath().equals(MY_COMPUTER_PATH)) {
 			File[] children = parentFolder.listFiles();
-			for (File file : children) {
-				fileList.add(file);
+			if (children != null) {
+				for (File file : children) {
+					fileList.add(file);
+				}
 			}
 		}
 	}
