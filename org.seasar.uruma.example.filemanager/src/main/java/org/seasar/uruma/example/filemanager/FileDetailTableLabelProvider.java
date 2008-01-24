@@ -20,11 +20,8 @@ import java.util.Date;
 import java.util.Formatter;
 
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.program.Program;
-import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.util.PathUtil;
-import org.seasar.uruma.util.win32.RegistryUtil;
+import org.seasar.uruma.util.win32.Win32API;
 
 /**
  * @author y-komori
@@ -46,16 +43,7 @@ public class FileDetailTableLabelProvider {
 
 	public String getFileTypeText(final File file) {
 		if (file.isFile()) {
-			String ext = PathUtil.getExt(file.getName());
-			String type = RegistryUtil.getRegistryValue(
-					RegistryUtil.HKEY_CLASSES_ROOT, "." + ext);
-			if (type != null) {
-				String typeStr = RegistryUtil.getRegistryValue(
-						RegistryUtil.HKEY_CLASSES_ROOT, type);
-				return typeStr;
-			} else {
-				return ext.toUpperCase() + " ファイル";
-			}
+			return Win32API.getFileTypeName(file.getAbsolutePath());
 		} else {
 			return "ファイル フォルダ";
 		}
@@ -70,20 +58,9 @@ public class FileDetailTableLabelProvider {
 
 	public Image getFileNameImage(final File file) {
 		if (file.isDirectory()) {
-			return ImageManager.getImage("folder");
+			return IconManager.getFolderIcon();
 		} else {
-			String ext = PathUtil.getExt(file.getName());
-			Image image = ImageManager.getImage(ext);
-
-			if (image == null) {
-				Program program = Program.findProgram(ext);
-				if (program != null) {
-					image = ImageManager.putImage(ext, program.getImageData());
-				} else {
-					return ImageManager.getImage("file");
-				}
-			}
-			return image;
+			return IconManager.getExtIcon(file.getAbsolutePath());
 		}
 	}
 }

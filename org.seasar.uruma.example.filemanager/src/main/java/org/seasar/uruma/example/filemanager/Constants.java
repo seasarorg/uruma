@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2007 the Seasar Foundation and the Others.
+ * Copyright 2004-2008 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,15 @@
  */
 package org.seasar.uruma.example.filemanager;
 
-import java.io.File;
-
-import org.seasar.uruma.annotation.ExportValue;
-import org.seasar.uruma.annotation.Form;
-
 /**
  * @author y-komori
+ * 
  */
-@Form(FolderViewAction.class)
-public class FolderViewAction implements Constants {
-	@ExportValue(id = "folderTree")
-	public File root = new File(ROOT_PATH);
+public interface Constants {
+	public static final String ROOT_PATH = ":";
+
+	public static final String MY_COMPUTER_PATH = "::";
+
+	public static final String DRIVE_SUFFIX = ":\\";
+
 }

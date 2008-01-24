@@ -26,13 +26,14 @@ import org.seasar.uruma.util.win32.Win32API;
 /**
  * @author y-komori
  */
-public class FolderTreeContentProvider implements ITreeContentProvider {
+public class FolderTreeContentProvider implements ITreeContentProvider,
+		Constants {
 
 	public Object[] getChildren(final Object parentElement) {
 		File parentFolder = (File) parentElement;
-		if (parentFolder.getPath().equals(":")) {
-			return new Object[] { new File("::") };
-		} else if (parentFolder.getPath().equals("::")) {
+		if (parentFolder.getPath().equals(ROOT_PATH)) {
+			return new Object[] { new File(MY_COMPUTER_PATH) };
+		} else if (parentFolder.getPath().equals(MY_COMPUTER_PATH)) {
 			return getLogicalDrives();
 		} else {
 			return getFolders(parentFolder);
