@@ -193,7 +193,7 @@ Bundle-ClassPath: lib/aopalliance-1.0.jar,
  lib/s2-extension-2.4.20.jar,
  lib/s2-tiger-2.4.20.jar,
  lib/log4j-1.2.13.jar,
- lib/nlink-20080119.jar,
+ lib/nlink-20080126.jar,
  .
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: org.seasar.uruma.rcp.core.CoreActivator
