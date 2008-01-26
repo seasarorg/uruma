@@ -127,6 +127,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/s2-extension-2.4.20.jar" sourcepath="lib/s2-extension-2.4.20-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/s2-framework-2.4.20.jar" sourcepath="lib/s2-framework-2.4.20-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/s2-tiger-2.4.20.jar" sourcepath="lib/s2-tiger-2.4.20-sources.jar"/>
-	<classpathentry kind="lib" path="lib/nlink-20080119.jar" sourcepath="/nlink/nlink/runtime/src"/>
+	<classpathentry kind="lib" path="lib/nlink-20080126.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

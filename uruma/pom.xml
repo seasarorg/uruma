@@ -355,7 +355,7 @@
     <dependency>
       <groupId>nlink</groupId>
       <artifactId>nlink</artifactId>
-      <version>20080119</version>
+      <version>20080126</version>
     </dependency>
 
     <dependency>
