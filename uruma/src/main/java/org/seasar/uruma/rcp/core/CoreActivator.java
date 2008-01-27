@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.rcp.core;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
@@ -67,6 +68,7 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
         // @see UrumaServiceFactory
         // @see UrumaServiceImpl#initialize()
         for (Bundle bundle : appBundles) {
+            setupLog4jConfig(bundle);
             BundleContext appContext = bundle.getBundleContext();
             ServiceReference ref = appContext
                     .getServiceReference(UrumaService.class.getName());
@@ -114,5 +116,17 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
             names[i] = bundles.get(i).getSymbolicName();
         }
         return names;
+    }
+
+    protected void setupLog4jConfig(final Bundle bundle) {
+        URL xmlConfig = bundle.getResource(DEFAULT_LOG_XML);
+        if (xmlConfig != null) {
+            logger.addXmlConfig(xmlConfig);
+        } else {
+            URL propConfig = bundle.getResource(DEFAULT_LOG_PROPERTIES);
+            if (propConfig != null) {
+                logger.addPropertyConfig(propConfig);
+            }
+        }
     }
 }

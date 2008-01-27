@@ -246,6 +246,26 @@ public interface UrumaConstants {
     public static final String URUMA_EXTENSION_DEBUG = "org.seasar.uruma.extension.debug";
 
     /**
+     * Uruma アプリケーションのデフォルトログ設定ファイル名(properties形式)です。<br />
+     * 
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String DEFAULT_LOG_PROPERTIES = "log4j.properties";
+
+    /**
+     * Uruma アプリケーションのデフォルトログ設定ファイル名(xml形式)です。<br />
+     * 
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String DEFAULT_LOG_XML = "log4j.xml";
+
+    /**
      * Uruma Core バンドルのシンボリックネームです。<br />
      * <dl>
      * <dt><b>値 :</b></dt>

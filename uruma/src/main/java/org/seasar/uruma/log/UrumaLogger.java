@@ -15,13 +15,17 @@
  */
 package org.seasar.uruma.log;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.seasar.framework.message.MessageFormatter;
 import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * ログ出力を提供するクラスです。<br />
@@ -73,6 +77,30 @@ public final class UrumaLogger {
 
     private UrumaLogger(final Class<?> clazz) {
         log = LogFactory.getLog(clazz);
+    }
+
+    /**
+     * XML ファイル形式のコンフィグレーションを追加します。<br />
+     * コンフィグレーションファイルの書式は log4j に準じます。
+     * 
+     * @param config
+     *            コンフィグレーションファイルの {@link URL}
+     */
+    public void addXmlConfig(final URL config) {
+        AssertionUtil.assertNotNull("config", config);
+        DOMConfigurator.configure(config);
+    }
+
+    /**
+     * properties ファイル形式のコンフィグレーションを追加します。<br />
+     * コンフィグレーションファイルの書式は log4j に準じます。
+     * 
+     * @param config
+     *            コンフィグレーションファイルの {@link URL}
+     */
+    public void addPropertyConfig(final URL config) {
+        AssertionUtil.assertNotNull("config", config);
+        PropertyConfigurator.configure(config);
     }
 
     /**
