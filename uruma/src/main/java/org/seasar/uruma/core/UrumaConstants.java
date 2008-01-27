@@ -20,6 +20,8 @@ import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ViewerComparator;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Shell;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.WindowContext;
@@ -204,13 +206,22 @@ public interface UrumaConstants {
     // -------------------------------------------------------------------------
 
     /**
-     * 自ウィンドウのShellオブジェクトが登録されるIDです。
+     * 自ウィンドウの {@link Shell} オブジェクトが登録されるIDです。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
      * </dl>
      */
     public static final String SHELL_CID = "shell";
+
+    /**
+     * 自ウィンドウの {@link Window} オブジェクトが登録されるIDです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String WINDOW_CID = "window";
 
     /**
      * メニューバー用の {@link IMenuManager} が登録される ID です。

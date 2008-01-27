@@ -38,7 +38,7 @@ public abstract class AbstractGUITest extends S2FrameworkTestCase {
 
     public Shell shell;
 
-    private boolean result;
+    protected boolean result;
 
     /*
      * @see junit.framework.TestCase#setUp()

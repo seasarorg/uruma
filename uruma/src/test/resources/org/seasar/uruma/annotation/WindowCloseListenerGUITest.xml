@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window height="400" width="600" defaultButtonId="okButton">
+    <gridLayout numColumns="1" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+      <label text="Xボタンで閉じてください." />
+      
+      <button id="okButton" text="OK" enabled="false" />
+      <button id="ngButton" text="NG" enabled="false" />
+      
+    </composite>
+  </window>
+</template>

@@ -30,10 +30,13 @@ public class UrumaServiceUtil {
 
     /**
      * {@link UrumaService} のインスタンスを取得します。<br />
+     * {@link UrumaService} は RCP 環境でのみ利用可能です。<br />
+     * RCP環境でない場合、本メソッドの戻り値は <code>null</code> となります。<br />
      * 
-     * @return {@link UrumaService} のインスタンス
+     * @return {@link UrumaService} のインスタンス。RCP 環境でない場合は <code>null</code>。
      */
     public static UrumaService getService() {
-        return (UrumaService) S2ContainerUtil.getComponent(UrumaService.class);
+        return (UrumaService) S2ContainerUtil
+                .getComponentNoException(UrumaService.class);
     }
 }

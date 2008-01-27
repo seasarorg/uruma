@@ -29,8 +29,10 @@ public class EventListenerTypeTest extends TestCase {
     public void testGetSWTEventType() {
         EventListenerType[] types = EventListenerType.values();
         for (EventListenerType type : types) {
-            assertTrue("SWTEventTypeが取得できない: " + type.getName(), type
-                    .getSWTEventType() != SWT.NONE);
+            if (type.isSWTEvent()) {
+                assertTrue("SWTEventTypeが取得できない: " + type.getName(), type
+                        .getSWTEventType() != SWT.NONE);
+            }
         }
     }
 }

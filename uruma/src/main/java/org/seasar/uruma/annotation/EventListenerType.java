@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.eclipse.swt.SWT;
 import org.seasar.eclipse.common.util.SWTUtil;
+import org.seasar.uruma.binding.method.WindowCloseListener;
 
 /**
  * {@link EventListener} の種別を表す列挙型です。<br />
@@ -227,7 +228,14 @@ public enum EventListenerType {
     /**
      * @see SWT#MouseWheel
      */
-    MOUSE_WHEEL;
+    MOUSE_WHEEL,
+
+    /**
+     * ウィンドウクローズ直前に呼び出されるイベントです。<br />
+     * 
+     * @see WindowCloseListener
+     */
+    WINDOW_CLOSING(false);
 
     private static Map<String, Integer> constantMap = new HashMap<String, Integer>();
 
@@ -237,6 +245,15 @@ public enum EventListenerType {
             constantMap.put(values[i].toString(), SWTUtil
                     .getSWTConstant(values[i].getName()));
         }
+    }
+
+    private boolean isSwtEvent = true;
+
+    private EventListenerType() {
+    }
+
+    private EventListenerType(final boolean isSwtEvent) {
+        this.isSwtEvent = isSwtEvent;
     }
 
     /**
@@ -255,5 +272,15 @@ public enum EventListenerType {
      */
     public int getSWTEventType() {
         return constantMap.get(toString());
+    }
+
+    /**
+     * {@link SWT} クラスで定義されたイベントかどうかを返します。<br />
+     * 
+     * @return SWT クラスで定義されたイベントの場合は <code>true</code>、そうでない場合は
+     *         <code>false</code>。
+     */
+    public boolean isSWTEvent() {
+        return this.isSwtEvent;
     }
 }

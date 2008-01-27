@@ -15,11 +15,12 @@
  */
 package org.seasar.uruma.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ShellEvent;
-import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
@@ -28,6 +29,7 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.context.ApplicationContextBinder;
 import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
+import org.seasar.uruma.binding.method.WindowCloseListener;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.jface.WindowComponent;
@@ -54,7 +56,7 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 @Component(autoBinding = AutoBindingType.NONE)
 public class UrumaApplicationWindow extends ApplicationWindow implements
-        ShellListener {
+        UrumaConstants, UrumaMessageCodes {
     private UrumaWindowManager windowManager;
 
     private WindowComponent windowComponent;
@@ -66,6 +68,8 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
     private PartActionDesc desc;
 
     private Object partActionComponent;
+
+    private List<WindowCloseListener> closeListeners;
 
     /**
      * {@link UrumaApplicationWindow} を構築します。<br />
@@ -173,13 +177,11 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
             if (handle.instanceOf(MenuManager.class)) {
                 return handle.<MenuManager> getCastWidget();
             } else {
-                throw new RenderException(
-                        UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, menuId,
+                throw new RenderException(UNSUPPORTED_TYPE_ERROR, menuId,
                         MenuManager.class.getName());
             }
         } else {
-            throw new NotFoundException(
-                    UrumaMessageCodes.UICOMPONENT_NOT_FOUND, menuId);
+            throw new NotFoundException(UICOMPONENT_NOT_FOUND, menuId);
         }
     }
 
@@ -189,7 +191,7 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
             addStatusLine();
             WidgetHandle handle = ContextFactory
                     .createWidgetHandle(getStatusLineManager());
-            handle.setId(UrumaConstants.STATUS_LINE_MANAGER_CID);
+            handle.setId(STATUS_LINE_MANAGER_CID);
             partContext.putWidgetHandle(handle);
         }
     }
@@ -199,14 +201,16 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
      */
     @Override
     protected Control createContents(final Composite parent) {
-        getShell().addShellListener(this);
-
         // ウィンドウのレンダリングを開始する
-        WidgetHandle handle = ContextFactory.createWidgetHandle(parent);
-        handle.setId(UrumaConstants.SHELL_CID);
-        partContext.putWidgetHandle(handle);
+        WidgetHandle windowHandle = ContextFactory.createWidgetHandle(this);
+        windowHandle.setId(WINDOW_CID);
+        partContext.putWidgetHandle(windowHandle);
 
-        windowComponent.render(handle, partContext);
+        WidgetHandle shellHandle = ContextFactory.createWidgetHandle(parent);
+        shellHandle.setId(SHELL_CID);
+        partContext.putWidgetHandle(shellHandle);
+
+        windowComponent.render(shellHandle, partContext);
 
         MethodBindingSupport.createListeners(partContext);
 
@@ -238,43 +242,50 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
         return windowComponent.getId();
     }
 
-    /*
-     * @see org.eclipse.swt.events.ShellListener#shellActivated(org.eclipse.swt.events.ShellEvent)
+    /**
+     * {@link WindowCloseListener} を追加します。<br />
+     * 
+     * @param listener
+     *            {@link WindowCloseListener} オブジェクト
      */
-    public void shellActivated(final ShellEvent e) {
-        // Do nothing.
+    public void addWindowCloseListener(final WindowCloseListener listener) {
+        AssertionUtil.assertNotNull("listener", listener);
+
+        if (closeListeners == null) {
+            closeListeners = new ArrayList<WindowCloseListener>();
+        }
+        closeListeners.add(listener);
     }
 
     /*
-     * @see org.eclipse.swt.events.ShellListener#shellClosed(org.eclipse.swt.events.ShellEvent)
+     * @see org.eclipse.jface.window.ApplicationWindow#close()
      */
-    public void shellClosed(final ShellEvent e) {
-        // ApplicationContext へのエクスポート処理
-        ApplicationContextBinder.exportObjects(partActionComponent, desc
-                .getApplicationContextDefList(), windowContext
-                .getApplicationContext());
+    @Override
+    public boolean close() {
+        // ウィンドウをクローズしてよいか確認する
+        boolean canClose = true;
+        if (closeListeners != null) {
+            for (WindowCloseListener listener : closeListeners) {
+                canClose &= listener.canWindowClose(this);
+            }
+        }
 
-        this.windowManager.close(getWindowId());
-    }
+        if (canClose && super.close()) {
+            // ApplicationContext へのエクスポート処理
+            ApplicationContextBinder.exportObjects(partActionComponent, desc
+                    .getApplicationContextDefList(), windowContext
+                    .getApplicationContext());
 
-    /*
-     * @see org.eclipse.swt.events.ShellListener#shellDeactivated(org.eclipse.swt.events.ShellEvent)
-     */
-    public void shellDeactivated(final ShellEvent e) {
-        // Do nothing.
-    }
+            if (closeListeners != null) {
+                closeListeners.clear();
+                closeListeners = null;
+            }
 
-    /*
-     * @see org.eclipse.swt.events.ShellListener#shellDeiconified(org.eclipse.swt.events.ShellEvent)
-     */
-    public void shellDeiconified(final ShellEvent e) {
-        // Do nothing.
-    }
+            this.windowManager.close(getWindowId());
 
-    /*
-     * @see org.eclipse.swt.events.ShellListener#shellIconified(org.eclipse.swt.events.ShellEvent)
-     */
-    public void shellIconified(final ShellEvent e) {
-        // Do nothing.
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -23,6 +23,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.binding.method.impl.OmissionArgumentsFilter;
 import org.seasar.uruma.binding.method.impl.TypedEventArgumentsFilter;
 import org.seasar.uruma.context.PartContext;
@@ -33,6 +34,7 @@ import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.exception.UnsupportedClassException;
 import org.seasar.uruma.exception.WidgetNotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.ui.UrumaApplicationWindow;
 import org.seasar.uruma.viewer.UrumaTreeViewer;
 
 /**
@@ -40,7 +42,7 @@ import org.seasar.uruma.viewer.UrumaTreeViewer;
  * 
  * @author y-komori
  */
-public class MethodBindingSupport {
+public class MethodBindingSupport implements UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(MethodBindingSupport.class);
 
@@ -97,25 +99,32 @@ public class MethodBindingSupport {
                             context, methodBinding);
                     handle.<UrumaTreeViewer> getCastWidget().getTree()
                             .addSelectionListener(slistener);
-                    logger.log(UrumaMessageCodes.CREATE_METHOD_BINDING, id,
-                            methodBinding);
+                    logger.log(CREATE_METHOD_BINDING, id, methodBinding);
                 } else if (handle.instanceOf(Viewer.class)) {
                     Widget widget = handle.<Viewer> getCastWidget()
                             .getControl();
                     setListenerToWidget(widget, eventListenerDef, listener);
-                    logger.log(UrumaMessageCodes.CREATE_METHOD_BINDING, id,
-                            methodBinding);
+                    logger.log(CREATE_METHOD_BINDING, id, methodBinding);
+                } else if (handle.instanceOf(UrumaApplicationWindow.class)) {
+                    EventListener anno = targetMethod
+                            .getAnnotation(EventListener.class);
+                    if ((anno != null)
+                            && (anno.type() == EventListenerType.WINDOW_CLOSING)) {
+                        UrumaApplicationWindow window = handle
+                                .<UrumaApplicationWindow> getCastWidget();
+                        WindowCloseListener closeListener = new WindowCloseListener(
+                                context, methodBinding);
+                        window.addWindowCloseListener(closeListener);
+                    }
                 } else if (handle.instanceOf(Widget.class)) {
                     Widget widget = handle.<Widget> getCastWidget();
                     setListenerToWidget(widget, eventListenerDef, listener);
-                    logger.log(UrumaMessageCodes.CREATE_METHOD_BINDING, id,
-                            methodBinding);
+                    logger.log(CREATE_METHOD_BINDING, id, methodBinding);
                 } else if (handle.instanceOf(GenericAction.class)) {
                     GenericAction action = handle
                             .<GenericAction> getCastWidget();
                     action.setListener(listener);
-                    logger.log(UrumaMessageCodes.CREATE_METHOD_BINDING, id,
-                            methodBinding);
+                    logger.log(CREATE_METHOD_BINDING, id, methodBinding);
                 } else {
                     throw new UnsupportedClassException(handle.getWidgetClass());
                 }

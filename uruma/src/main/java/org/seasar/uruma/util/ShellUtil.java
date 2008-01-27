@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.util;
 
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
@@ -48,7 +49,11 @@ public class ShellUtil {
                     .next();
             WidgetHandle handle = wContext
                     .getWidgetHandle(UrumaConstants.SHELL_CID);
-            return handle.<Shell> getCastWidget();
+            if (handle != null) {
+                return handle.<Shell> getCastWidget();
+            } else {
+                return Display.getCurrent().getActiveShell();
+            }
         }
     }
 }
