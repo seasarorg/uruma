@@ -18,12 +18,7 @@ package org.seasar.uruma.binding.method;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Widget;
 import org.seasar.uruma.annotation.EventListener;
-import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.binding.method.impl.OmissionArgumentsFilter;
 import org.seasar.uruma.binding.method.impl.TypedEventArgumentsFilter;
 import org.seasar.uruma.context.PartContext;
@@ -34,8 +29,6 @@ import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.exception.UnsupportedClassException;
 import org.seasar.uruma.exception.WidgetNotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.ui.UrumaApplicationWindow;
-import org.seasar.uruma.viewer.UrumaTreeViewer;
 
 /**
  * メソッドバインディングの生成をサポートするクラスです。</br>
@@ -89,41 +82,16 @@ public class MethodBindingSupport implements UrumaMessageCodes {
         methodBinding.addArgumentsFilter(new TypedEventArgumentsFilter(
                 targetMethod));
 
-        Listener listener = new GenericListener(context, methodBinding);
         String[] ids = eventListenerDef.getEventListener().id();
         for (String id : ids) {
             WidgetHandle handle = context.getWidgetHandle(id);
             if (handle != null) {
-                if (handle.instanceOf(UrumaTreeViewer.class)) {
-                    SelectionListener slistener = new GenericSWTSelectionListener(
-                            context, methodBinding);
-                    handle.<UrumaTreeViewer> getCastWidget().getTree()
-                            .addSelectionListener(slistener);
-                    logger.log(CREATE_METHOD_BINDING, id, methodBinding);
-                } else if (handle.instanceOf(Viewer.class)) {
-                    Widget widget = handle.<Viewer> getCastWidget()
-                            .getControl();
-                    setListenerToWidget(widget, eventListenerDef, listener);
-                    logger.log(CREATE_METHOD_BINDING, id, methodBinding);
-                } else if (handle.instanceOf(UrumaApplicationWindow.class)) {
-                    EventListener anno = targetMethod
-                            .getAnnotation(EventListener.class);
-                    if ((anno != null)
-                            && (anno.type() == EventListenerType.WINDOW_CLOSING)) {
-                        UrumaApplicationWindow window = handle
-                                .<UrumaApplicationWindow> getCastWidget();
-                        WindowCloseListener closeListener = new WindowCloseListener(
-                                context, methodBinding);
-                        window.addWindowCloseListener(closeListener);
-                    }
-                } else if (handle.instanceOf(Widget.class)) {
-                    Widget widget = handle.<Widget> getCastWidget();
-                    setListenerToWidget(widget, eventListenerDef, listener);
-                    logger.log(CREATE_METHOD_BINDING, id, methodBinding);
-                } else if (handle.instanceOf(GenericAction.class)) {
-                    GenericAction action = handle
-                            .<GenericAction> getCastWidget();
-                    action.setListener(listener);
+                ListenerBinder binder = ListenerBinderFactory
+                        .getListenerBinder(handle);
+
+                if (binder != null) {
+                    binder.bindListener(handle, context, methodBinding,
+                            eventListenerDef);
                     logger.log(CREATE_METHOD_BINDING, id, methodBinding);
                 } else {
                     throw new UnsupportedClassException(handle.getWidgetClass());
@@ -133,11 +101,5 @@ public class MethodBindingSupport implements UrumaMessageCodes {
                 throw new WidgetNotFoundException(id, className);
             }
         }
-    }
-
-    private static void setListenerToWidget(final Widget widget,
-            final EventListenerDef def, final Listener listener) {
-        widget.addListener(def.getEventListener().type().getSWTEventType(),
-                listener);
     }
 }
