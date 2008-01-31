@@ -15,24 +15,23 @@
  */
 package org.seasar.uruma.binding.method.impl;
 
-import java.lang.reflect.Method;
-
 /**
  * {@link OmissionArgumentsFilter} のためのテストクラスです。<br />
  * 
  * @author y-komori
  */
-public class OmissionArgumentsFilterTest extends AbstractArgumentFilterTest {
+public class OmissionArgumentsFilterTest extends
+        AbstractArgumentFilterTest<OmissionArgumentsFilter> {
     /**
      * {@link OmissionArgumentsFilter#filter(Object[])} メソッドのテストです。<br />
      */
     public void testFilter1() throws Exception {
-        OmissionArgumentsFilter filter = cleateFilter("targetMethod1");
+        OmissionArgumentsFilter filter = createFilter("targetMethod1");
         // 引数が同数の場合
         assertNull("1", filter.filter(null));
 
         // 引数が多い場合
-        assertEqualArray("2", new Object[] {}, filter
+        assertArrayEquals("2", new Object[] {}, filter
                 .filter(new Object[] { "test" }));
     }
 
@@ -40,15 +39,15 @@ public class OmissionArgumentsFilterTest extends AbstractArgumentFilterTest {
      * {@link OmissionArgumentsFilter#filter(Object[])} メソッドのテストです。<br />
      */
     public void testFilter2() throws Exception {
-        OmissionArgumentsFilter filter = cleateFilter("targetMethod2",
+        OmissionArgumentsFilter filter = createFilter("targetMethod2",
                 Object.class);
 
         // 引数が同数の場合
         Object[] args = new Object[] { "test1" };
-        assertEqualArray("1", args, filter.filter(args));
+        assertArrayEquals("1", args, filter.filter(args));
 
         // 引数が多いの場合
-        assertEqualArray("1", args, filter.filter(new Object[] { "test1",
+        assertArrayEquals("1", args, filter.filter(new Object[] { "test1",
                 "test2" }));
     }
 
@@ -56,22 +55,16 @@ public class OmissionArgumentsFilterTest extends AbstractArgumentFilterTest {
      * {@link OmissionArgumentsFilter#filter(Object[])} メソッドのテストです。<br />
      */
     public void testFilter3() throws Exception {
-        OmissionArgumentsFilter filter = cleateFilter("targetMethod3",
+        OmissionArgumentsFilter filter = createFilter("targetMethod3",
                 Object.class, Object.class);
 
         // 引数が同数の場合
         Object[] args = new Object[] { "test1", "test2" };
-        assertEqualArray("1", args, filter.filter(args));
+        assertArrayEquals("1", args, filter.filter(args));
 
         // 引数が多いの場合
-        assertEqualArray("2", args, filter.filter(new Object[] { "test1",
+        assertArrayEquals("2", args, filter.filter(new Object[] { "test1",
                 "test2", "test3" }));
-    }
-
-    private OmissionArgumentsFilter cleateFilter(final String methodName,
-            final Class<?>... args) throws NoSuchMethodException {
-        Method method = getClass().getMethod(methodName, args);
-        return new OmissionArgumentsFilter(method);
     }
 
     /**
@@ -93,5 +86,13 @@ public class OmissionArgumentsFilterTest extends AbstractArgumentFilterTest {
      */
     public void targetMethod3(final Object arg1, final Object arg2) {
 
+    }
+
+    /*
+     * @see org.seasar.uruma.binding.method.impl.AbstractArgumentFilterTest#getFilterType()
+     */
+    @Override
+    protected Class<OmissionArgumentsFilter> getFilterType() {
+        return OmissionArgumentsFilter.class;
     }
 }

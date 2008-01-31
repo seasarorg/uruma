@@ -74,11 +74,7 @@ public class StructuredSelectionArgumentsFilter implements ArgumentsFilter,
      * @see org.seasar.uruma.binding.method.ArgumentsFilter#filter(java.lang.Object[])
      */
     public Object[] filter(final Object[] args) {
-        if (args == null) {
-            return null;
-        }
-
-        if (paramType == null) {
+        if ((args == null) || (paramType == null)) {
             return null;
         }
 
