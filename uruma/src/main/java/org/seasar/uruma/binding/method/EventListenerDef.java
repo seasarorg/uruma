@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.method;
 import java.lang.reflect.Method;
 
 import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -34,7 +35,9 @@ public class EventListenerDef {
      * {@link EventListenerDef} を構築します。<br />
      * 
      * @param target
+     *            ターゲットメソッド
      * @param eventListener
+     *            {@link EventListener}
      */
     public EventListenerDef(final Method target,
             final EventListener eventListener) {
@@ -45,20 +48,29 @@ public class EventListenerDef {
     }
 
     /**
-     * {@link EventListener} オブジェクトを取得します。<br />
-     * 
-     * @return {@link EventListener} オブジェクト
-     */
-    public EventListener getEventListener() {
-        return this.eventListener;
-    }
-
-    /**
      * ターゲットメソッドの {@link Method} オブジェクトを取得します。<br />
      * 
      * @return ターゲットメソッドの {@link Method} オブジェクト
      */
     public Method getTargetMethod() {
         return this.targetMethod;
+    }
+
+    /**
+     * 対応するコンポーネントの ID を取得します。<br />
+     * 
+     * @return 対応するコンポーネントの ID
+     */
+    public String[] getId() {
+        return this.eventListener.id();
+    }
+
+    /**
+     * イベントの種類を返します。<br />
+     * 
+     * @return イベントの種類
+     */
+    public EventListenerType getType() {
+        return this.eventListener.type();
     }
 }

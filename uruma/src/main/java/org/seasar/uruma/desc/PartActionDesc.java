@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
+import org.seasar.uruma.binding.method.DoubleClickListenerDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
 
 /**
@@ -57,4 +58,11 @@ public interface PartActionDesc {
      * @return {@link ApplicationContextDef} のリスト
      */
     public List<ApplicationContextDef> getApplicationContextDefList();
+
+    /**
+     * {@link DoubleClickListenerDef} のリストを取得します。<br />
+     * 
+     * @return {@link DoubleClickListenerDef} のリスト
+     */
+    public List<DoubleClickListenerDef> getDoubleClickListenerDefList();
 }

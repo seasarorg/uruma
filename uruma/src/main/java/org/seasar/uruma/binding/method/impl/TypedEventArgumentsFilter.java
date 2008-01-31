@@ -23,42 +23,51 @@ import org.seasar.uruma.binding.method.ArgumentsFilter;
 import org.seasar.uruma.util.ClassUtil;
 
 /**
- * @author bskuroneko
+ * 引数を {@link TypedEvent} オブジェクトへ変換する {@link ArgumentsFilter} です。<br />
  * 
+ * ターゲットメソッドの引数型が {@link TypedEvent} のサブクラスであった場合、引数オブジェクトをその型にあわせてラップします。<br />
+ * 与えられる引数は {@link Event} のサブクラスである必要があります。<br />
+ * ターゲットメソッドの引数型が {@link TypedEvent} のサブクラスでない場合や、与えられた引数が {@link Event}
+ * のサブクラスではない場合、変換は行いません。<br />
+ * 
+ * @author bskuroneko
+ * @author y-komori
  */
 public class TypedEventArgumentsFilter implements ArgumentsFilter {
 
-    private Class<?>[] targetParameterTypes;
+    private Class<?>[] targetParamTypes;
 
     /**
      * {@link TypedEventArgumentsFilter} を構築します。<br />
      * 
      * @param targetMethod
+     *            対象メソッド
      */
     public TypedEventArgumentsFilter(final Method targetMethod) {
-        this.targetParameterTypes = targetMethod.getParameterTypes();
+        this.targetParamTypes = targetMethod.getParameterTypes();
     }
 
+    /*
+     * @see org.seasar.uruma.binding.method.ArgumentsFilter#filter(java.lang.Object[])
+     */
     public Object[] filter(final Object[] args) {
         if (args == null) {
             return null;
         }
 
-        if (targetParameterTypes.length != args.length) {
+        if (targetParamTypes.length != args.length) {
             return args;
         }
 
         Object[] filteredArgs = new Object[args.length];
         for (int i = 0; i < args.length; i++) {
-            Class<?> paramType = targetParameterTypes[i];
-            Object arg = args[i];
+            Class<?> paramType = targetParamTypes[i];
             if (TypedEvent.class.isAssignableFrom(paramType)
-                    && arg instanceof Event) {
+                    && args[i] instanceof Event) {
                 // TODO 別タイプのイベントでもインスタンス化できてしまうが、制限するかを検討
-                filteredArgs[i] = ClassUtil.newInstance(paramType,
-                        new Object[] { arg });
+                filteredArgs[i] = ClassUtil.newInstance(paramType, args[i]);
             } else {
-                filteredArgs[i] = arg;
+                filteredArgs[i] = args[i];
             }
         }
         return filteredArgs;

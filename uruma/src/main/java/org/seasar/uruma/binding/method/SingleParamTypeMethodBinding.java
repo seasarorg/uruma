@@ -19,13 +19,16 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
 import org.seasar.framework.util.MethodUtil;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.exception.UIllegalArgumentException;
 
 /**
  * 引数の型を一種類に限定した {@link MethodBinding} クラスです。<br />
  * 
  * @author y-komori
  */
-public class SingleParamTypeMethodBinding extends MethodBinding {
+public class SingleParamTypeMethodBinding extends MethodBinding implements
+        UrumaMessageCodes {
     private Class<?> paramType;
 
     /**
@@ -50,9 +53,8 @@ public class SingleParamTypeMethodBinding extends MethodBinding {
         } else if (paramTypes.length == 1) {
             paramType = paramTypes[0];
         } else {
-            // TODO メッセージをリソース化
-            throw new IllegalArgumentException(
-                    "targetMethod の引数は 0 個または 1個でなくてはなりません.");
+            throw new UIllegalArgumentException(ILLEGAL_ARG_NUMBERS, method
+                    .getDeclaringClass().getName(), method.getName());
         }
     }
 

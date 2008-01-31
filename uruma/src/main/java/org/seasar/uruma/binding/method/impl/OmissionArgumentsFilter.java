@@ -38,6 +38,9 @@ public class OmissionArgumentsFilter implements ArgumentsFilter {
         this.targetParameterLength = targetMethod.getParameterTypes().length;
     }
 
+    /*
+     * @see org.seasar.uruma.binding.method.ArgumentsFilter#filter(java.lang.Object[])
+     */
     public Object[] filter(final Object[] args) {
         if (args == null) {
             return null;

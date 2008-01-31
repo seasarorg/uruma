@@ -42,8 +42,7 @@ public class WidgetListenerBinder implements ListenerBinder {
             final EventListenerDef def) {
         Widget widget = handle.<Widget> getCastWidget();
         Listener listener = new GenericListener(context, binding);
-        widget.addListener(def.getEventListener().type().getSWTEventType(),
-                listener);
+        widget.addListener(def.getType().getSWTEventType(), listener);
     }
 
     /*

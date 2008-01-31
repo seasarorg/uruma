@@ -43,8 +43,7 @@ public class ViewerListenerBinder implements ListenerBinder {
         Widget widget = handle.<Viewer> getCastWidget().getControl();
 
         Listener listener = new GenericListener(context, binding);
-        widget.addListener(def.getEventListener().type().getSWTEventType(),
-                listener);
+        widget.addListener(def.getType().getSWTEventType(), listener);
     }
 
     /*

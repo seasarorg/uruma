@@ -409,6 +409,16 @@ public interface UrumaMessageCodes {
      */
     public static final String EXCEPTION_OCCURED_INVOKING_METHOD = "EURM0218";
 
+    /**
+     * メソッドバインディング対象メソッドの引数の数が不正である場合のメッセージコードです。<br />
+     * 
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String ILLEGAL_ARG_NUMBERS = "EURM0219";
+
     // -------------------------------------------------------------------------
     // レンダリング関連メッセージコード (03xx)
     // -------------------------------------------------------------------------

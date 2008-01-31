@@ -18,7 +18,9 @@ package org.seasar.uruma.binding.method;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.binding.method.impl.StructuredSelectionArgumentsFilter;
 import org.seasar.uruma.binding.method.impl.OmissionArgumentsFilter;
 import org.seasar.uruma.binding.method.impl.TypedEventArgumentsFilter;
 import org.seasar.uruma.context.PartContext;
@@ -63,17 +65,23 @@ public class MethodBindingSupport implements UrumaMessageCodes {
             PartActionDesc actionDesc = PartActionDescFactory
                     .getPartActionDesc(actionObj.getClass());
 
-            List<EventListenerDef> defList = actionDesc
+            List<EventListenerDef> eDefList = actionDesc
                     .getEventListenerDefList();
-            for (EventListenerDef eventListenerDef : defList) {
-                createListener(context, eventListenerDef);
+            for (EventListenerDef def : eDefList) {
+                createListener(context, def);
+            }
+
+            List<DoubleClickListenerDef> dDefList = actionDesc
+                    .getDoubleClickListenerDefList();
+            for (DoubleClickListenerDef def : dDefList) {
+                createDoubleClickListener(context, def);
             }
         }
     }
 
     private static void createListener(final PartContext context,
-            final EventListenerDef eventListenerDef) {
-        Method targetMethod = eventListenerDef.getTargetMethod();
+            final EventListenerDef def) {
+        Method targetMethod = def.getTargetMethod();
 
         MethodBinding methodBinding = new MethodBinding(context
                 .getPartActionObject(), targetMethod);
@@ -82,7 +90,7 @@ public class MethodBindingSupport implements UrumaMessageCodes {
         methodBinding.addArgumentsFilter(new TypedEventArgumentsFilter(
                 targetMethod));
 
-        String[] ids = eventListenerDef.getEventListener().id();
+        String[] ids = def.getId();
         for (String id : ids) {
             WidgetHandle handle = context.getWidgetHandle(id);
             if (handle != null) {
@@ -90,8 +98,39 @@ public class MethodBindingSupport implements UrumaMessageCodes {
                         .getListenerBinder(handle);
 
                 if (binder != null) {
-                    binder.bindListener(handle, context, methodBinding,
-                            eventListenerDef);
+                    binder.bindListener(handle, context, methodBinding, def);
+                    logger.log(CREATE_METHOD_BINDING, id, methodBinding);
+                } else {
+                    throw new UnsupportedClassException(handle.getWidgetClass());
+                }
+            } else {
+                String className = targetMethod.getDeclaringClass().getName();
+                throw new WidgetNotFoundException(id, className);
+            }
+        }
+    }
+
+    private static void createDoubleClickListener(final PartContext context,
+            final DoubleClickListenerDef def) {
+        Method targetMethod = def.getTargetMethod();
+
+        MethodBinding methodBinding = new MethodBinding(context
+                .getPartActionObject(), targetMethod);
+        methodBinding.addArgumentsFilter(new StructuredSelectionArgumentsFilter(
+                targetMethod));
+
+        String[] ids = def.getId();
+        for (String id : ids) {
+            WidgetHandle handle = context.getWidgetHandle(id);
+            if (handle != null) {
+                if (handle.instanceOf(StructuredViewer.class)) {
+                    StructuredViewer viewer = handle
+                            .<StructuredViewer> getCastWidget();
+
+                    GenericDoubleClickListener listener = new GenericDoubleClickListener(
+                            context, methodBinding);
+                    viewer.addDoubleClickListener(listener);
+
                     logger.log(CREATE_METHOD_BINDING, id, methodBinding);
                 } else {
                     throw new UnsupportedClassException(handle.getWidgetClass());
