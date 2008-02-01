@@ -16,7 +16,6 @@
 package org.seasar.uruma.binding.method.impl;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
 import org.seasar.eclipse.common.util.AbstractShellTest;
 import org.seasar.framework.beans.BeanDesc;
@@ -40,52 +39,6 @@ public abstract class AbstractArgumentFilterTest<T> extends AbstractShellTest {
     protected T createFilter(final String methodName, final Class<?>... types) {
         Method method = desc.getMethod(methodName, types);
         return ClassUtil.<T> newInstance(getFilterType(), method);
-    }
-
-    /**
-     * 配列の各要素が同じであるかどうかをチェックします。<br />
-     * 
-     * @param message
-     *            メッセージ
-     * @param arg1
-     *            引数1
-     * @param arg2
-     *            引数2
-     */
-    protected void assertArrayEquals(final String message, final Object[] arg1,
-            final Object[] arg2) {
-        if (arg1.length != arg2.length) {
-            fail(message);
-        }
-
-        for (int i = 0; i < arg1.length; i++) {
-            Class<?> arg1Class = arg1[i].getClass();
-            Class<?> arg2Class = arg2[i].getClass();
-            if (arg1Class.isArray() && arg2Class.isArray()) {
-                assertArrayEquals(message, (Object[]) arg1[i],
-                        (Object[]) arg2[i]);
-            } else if (List.class.isAssignableFrom(arg1Class)
-                    && List.class.isAssignableFrom(arg2Class)) {
-                assertListEquals(message, List.class.cast(arg1[i]), List.class
-                        .cast(arg2[i]));
-            } else if (!arg1[i].equals(arg2[i])) {
-                fail(message);
-            }
-        }
-        assertTrue(message, true);
-    }
-
-    protected void assertListEquals(final String message, final List<?> arg1,
-            final List<?> arg2) {
-        if (arg1.size() != arg2.size()) {
-            fail(message);
-        }
-
-        for (int i = 0; i < arg1.size(); i++) {
-            if (!(arg1.get(i).equals(arg2.get(i)))) {
-                fail(message);
-            }
-        }
     }
 
     protected abstract Class<T> getFilterType();

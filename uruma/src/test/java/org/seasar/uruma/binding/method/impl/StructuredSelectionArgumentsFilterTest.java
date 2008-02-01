@@ -19,6 +19,8 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
+import junitx.framework.ArrayAssert;
+
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.seasar.uruma.exception.UIllegalArgumentException;
 
@@ -53,7 +55,7 @@ public class StructuredSelectionArgumentsFilterTest extends
 
         Object[] expected = new Object[] { "arg" };
         Object[] actual = filter.filter(new Object[] { selection });
-        assertArrayEquals("1", expected, actual);
+        ArrayAssert.assertEquals(expected, actual);
     }
 
     /**
@@ -68,7 +70,8 @@ public class StructuredSelectionArgumentsFilterTest extends
 
         Object[] expected = new Object[] { args };
         Object[] actual = filter.filter(new Object[] { selection });
-        assertArrayEquals("1", expected, actual);
+        assertEquals(1, actual.length);
+        ArrayAssert.assertEquals((Object[]) expected[0], (Object[]) actual[0]);
     }
 
     /**
@@ -83,7 +86,7 @@ public class StructuredSelectionArgumentsFilterTest extends
 
         Object[] expected = new Object[] { Arrays.<String> asList(args) };
         Object[] actual = filter.filter(new Object[] { selection });
-        assertArrayEquals("1", expected, actual);
+        ArrayAssert.assertEquals(expected, actual);
     }
 
     /**

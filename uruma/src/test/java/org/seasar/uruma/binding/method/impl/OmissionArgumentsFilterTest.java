@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.binding.method.impl;
 
+import junitx.framework.ArrayAssert;
+
 /**
  * {@link OmissionArgumentsFilter} のためのテストクラスです。<br />
  * 
@@ -31,7 +33,7 @@ public class OmissionArgumentsFilterTest extends
         assertNull("1", filter.filter(null));
 
         // 引数が多い場合
-        assertArrayEquals("2", new Object[] {}, filter
+        ArrayAssert.assertEquals("2", new Object[] {}, filter
                 .filter(new Object[] { "test" }));
     }
 
@@ -44,11 +46,11 @@ public class OmissionArgumentsFilterTest extends
 
         // 引数が同数の場合
         Object[] args = new Object[] { "test1" };
-        assertArrayEquals("1", args, filter.filter(args));
+        ArrayAssert.assertEquals("1", args, filter.filter(args));
 
         // 引数が多いの場合
-        assertArrayEquals("1", args, filter.filter(new Object[] { "test1",
-                "test2" }));
+        ArrayAssert.assertEquals("2", args, filter.filter(new Object[] {
+                "test1", "test2" }));
     }
 
     /**
@@ -60,11 +62,11 @@ public class OmissionArgumentsFilterTest extends
 
         // 引数が同数の場合
         Object[] args = new Object[] { "test1", "test2" };
-        assertArrayEquals("1", args, filter.filter(args));
+        ArrayAssert.assertEquals("1", args, filter.filter(args));
 
         // 引数が多いの場合
-        assertArrayEquals("2", args, filter.filter(new Object[] { "test1",
-                "test2", "test3" }));
+        ArrayAssert.assertEquals("2", args, filter.filter(new Object[] {
+                "test1", "test2", "test3" }));
     }
 
     /**
