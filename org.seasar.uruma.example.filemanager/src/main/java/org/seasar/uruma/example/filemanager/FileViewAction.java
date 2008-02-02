@@ -26,7 +26,6 @@ import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.ImportExportValue;
 import org.seasar.uruma.annotation.ImportSelection;
-import org.seasar.uruma.annotation.SelectionListener;
 import org.seasar.uruma.ui.dialogs.UrumaMessageDialog;
 import org.seasar.uruma.util.MessageUtil;
 import org.seasar.uruma.util.PathUtil;
@@ -45,18 +44,10 @@ public class FileViewAction implements Constants {
 	@ImportExportValue
 	public String statusLineManager;
 
-	@SelectionListener(partId = "folderView")
-	public void selectionChanged(final File parentFolder) {
-		fileList.clear();
-
-		if (!parentFolder.getPath().equals(MY_COMPUTER_PATH)) {
-			File[] children = parentFolder.listFiles();
-			if (children != null) {
-				for (File file : children) {
-					fileList.add(file);
-				}
-			}
-		}
+	// @SelectionListener(partId = "folderView")
+	@EventListener(id = "folderTree")
+	public void onFolderSelected(final File parentFolder) {
+		listFiles(parentFolder);
 	}
 
 	@EventListener(id = "fileDetailTable", type = EventListenerType.MOUSE_DOUBLE_CLICK)
@@ -65,6 +56,7 @@ public class FileViewAction implements Constants {
 			File file = selectedFile.get(0);
 
 			if (file.isDirectory()) {
+				listFiles(file);
 			} else {
 				openFile();
 			}
@@ -82,6 +74,18 @@ public class FileViewAction implements Constants {
 	@EventListener(id = "fileOpen")
 	public void onFileOpenMenu() {
 		openFile();
+	}
+
+	private void listFiles(final File parent) {
+		fileList.clear();
+		if (!parent.getPath().equals(MY_COMPUTER_PATH)) {
+			File[] children = parent.listFiles();
+			if (children != null) {
+				for (File file : children) {
+					fileList.add(file);
+				}
+			}
+		}
 	}
 
 	private void openFile() {

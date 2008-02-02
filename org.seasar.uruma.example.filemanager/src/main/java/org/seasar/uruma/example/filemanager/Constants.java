@@ -16,8 +16,9 @@
 package org.seasar.uruma.example.filemanager;
 
 /**
- * @author y-komori
+ * 本アプリケーションで使用する定数を定義するインターフェースです。<br />
  * 
+ * @author y-komori
  */
 public interface Constants {
 	public static final String ROOT_PATH = ":";
@@ -25,5 +26,4 @@ public interface Constants {
 	public static final String MY_COMPUTER_PATH = "::";
 
 	public static final String DRIVE_SUFFIX = ":\\";
-
 }
