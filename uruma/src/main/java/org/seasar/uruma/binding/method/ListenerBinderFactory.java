@@ -18,7 +18,9 @@ package org.seasar.uruma.binding.method;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.binding.method.impl.GenericActionListenerBinder;
+import org.seasar.uruma.binding.method.impl.StructuredViewerListenerBinder;
 import org.seasar.uruma.binding.method.impl.UrumaApplicationWindowListenerBinder;
 import org.seasar.uruma.binding.method.impl.UrumaTreeViewerListenerBinder;
 import org.seasar.uruma.binding.method.impl.ViewerListenerBinder;
@@ -37,6 +39,7 @@ public class ListenerBinderFactory {
         List<ListenerBinder> binderList = new ArrayList<ListenerBinder>();
 
         binderList.add(new UrumaTreeViewerListenerBinder());
+        binderList.add(new StructuredViewerListenerBinder());
         binderList.add(new ViewerListenerBinder());
         binderList.add(new UrumaApplicationWindowListenerBinder());
         binderList.add(new WidgetListenerBinder());
@@ -56,11 +59,15 @@ public class ListenerBinderFactory {
      *            {@link WidgetHandle} オブジェクト
      * @return {@link ListenerBinder} オブジェクト
      */
-    public static ListenerBinder getListenerBinder(final WidgetHandle handle) {
+    public static ListenerBinder getListenerBinder(final WidgetHandle handle,
+            final EventListenerType type) {
         for (int i = 0; i < binders.length; i++) {
             Class<?> clazz = binders[i].getTargetCLass();
             if (clazz.isAssignableFrom(handle.getWidgetClass())) {
-                return binders[i];
+                EventListenerType supportType = binders[i].getEventType();
+                if (supportType == null || supportType == type) {
+                    return binders[i];
+                }
             }
         }
         return null;

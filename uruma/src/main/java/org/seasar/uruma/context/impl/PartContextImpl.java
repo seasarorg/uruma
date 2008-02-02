@@ -15,6 +15,9 @@
  */
 package org.seasar.uruma.context.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
@@ -56,6 +59,25 @@ public class PartContextImpl extends AbstractWidgetHolder implements
 
         this.partName = partName;
         this.parent = (WindowContextImpl) parent;
+    }
+
+    /**
+     * 親 {@link WindowContext} が管理するすべての {@link PartContext} から、指定された
+     * {@link WidgetHandle} を検索して返します。<br />
+     * 
+     * @param handleId
+     *            ハンドル ID
+     * @return 見つかった {@link WidgetHandle} のリスト。
+     */
+    public List<WidgetHandle> findWidgetHandle(final String handleId) {
+        List<WidgetHandle> result = new ArrayList<WidgetHandle>();
+        WidgetHandle handle = super.getWidgetHandle(handleId);
+        if (handle != null) {
+            result.add(handle);
+        } else if (parent != null) {
+            result = parent.findWidgetHandles(handleId);
+        }
+        return result;
     }
 
     /*

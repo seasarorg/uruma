@@ -29,7 +29,7 @@ import org.seasar.uruma.context.WidgetHandle;
  * 
  * @author y-komori
  */
-public class GenericActionListenerBinder implements ListenerBinder {
+public class GenericActionListenerBinder extends AbstractListenerBinder {
 
     /*
      * @see org.seasar.uruma.binding.method.ListenerBinder#bindListener(org.seasar.uruma.context.WidgetHandle,
@@ -51,5 +51,4 @@ public class GenericActionListenerBinder implements ListenerBinder {
     public Class<?> getTargetCLass() {
         return GenericAction.class;
     }
-
 }

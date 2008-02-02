@@ -29,7 +29,7 @@ import org.seasar.uruma.viewer.UrumaTreeViewer;
  * 
  * @author y-komori
  */
-public class UrumaTreeViewerListenerBinder implements ListenerBinder {
+public class UrumaTreeViewerListenerBinder extends AbstractListenerBinder {
 
     /*
      * @see org.seasar.uruma.binding.method.ListenerBinder#bindListener(org.seasar.uruma.context.WidgetHandle,

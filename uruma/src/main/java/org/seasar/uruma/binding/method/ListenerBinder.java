@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.binding.method;
 
+import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 
@@ -45,4 +46,12 @@ public interface ListenerBinder {
      * @return 対象クラス
      */
     public Class<?> getTargetCLass();
+
+    /**
+     * 本 {@link ListenerBinder} が対象とする {@link EventListenerType} を返します。<br />
+     * すべての種類のイベントを対象とする場合、<code>null</code> を返します。<br />
+     * 
+     * @return {@link EventListenerType} または <code>null</code>
+     */
+    public EventListenerType getEventType();
 }

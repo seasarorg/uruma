@@ -30,11 +30,9 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.ApplicationContext;
-import org.seasar.uruma.annotation.DoubleClickListener;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
-import org.seasar.uruma.binding.method.DoubleClickListenerDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.desc.PartActionDesc;
@@ -59,8 +57,6 @@ public class PartActionDescImpl implements PartActionDesc {
     private Map<String, Field> fieldsCache = new HashMap<String, Field>();
 
     private List<EventListenerDef> eventListenerDefs = new ArrayList<EventListenerDef>();
-
-    private List<DoubleClickListenerDef> doubleClickListenerDefs = new ArrayList<DoubleClickListenerDef>();
 
     private List<ApplicationContextDef> appContextDefs = new ArrayList<ApplicationContextDef>();
 
@@ -118,13 +114,6 @@ public class PartActionDescImpl implements PartActionDesc {
         return Collections.unmodifiableList(appContextDefs);
     }
 
-    /*
-     * @see org.seasar.uruma.desc.PartActionDesc#getDoubleClickListenerDefList()
-     */
-    public List<DoubleClickListenerDef> getDoubleClickListenerDefList() {
-        return Collections.unmodifiableList(doubleClickListenerDefs);
-    }
-
     protected void setupMethods() {
         Map<String, List<Method>> methodListMap = new HashMap<String, List<Method>>();
         Method[] methods = partActionClass.getMethods();
@@ -138,7 +127,6 @@ public class PartActionDescImpl implements PartActionDesc {
 
             setupInitializeMethod(methods[i]);
             setupEventListenerMethod(methods[i]);
-            setupDoubleClickListenerMethod(methods[i]);
         }
 
         for (Entry<String, List<Method>> entry : methodListMap.entrySet()) {
@@ -172,16 +160,6 @@ public class PartActionDescImpl implements PartActionDesc {
         if (anno != null) {
             EventListenerDef def = new EventListenerDef(method, anno);
             eventListenerDefs.add(def);
-        }
-    }
-
-    protected void setupDoubleClickListenerMethod(final Method method) {
-        DoubleClickListener anno = method
-                .getAnnotation(DoubleClickListener.class);
-        if (anno != null) {
-            DoubleClickListenerDef def = new DoubleClickListenerDef(method,
-                    anno);
-            doubleClickListenerDefs.add(def);
         }
     }
 

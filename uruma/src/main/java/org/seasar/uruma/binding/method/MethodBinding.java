@@ -50,7 +50,7 @@ public class MethodBinding {
      * @param method
      *            ターゲットメソッド
      */
-    public MethodBinding(final Object target, final Method method) {
+    MethodBinding(final Object target, final Method method) {
         AssertionUtil.assertNotNull("target", target);
         AssertionUtil.assertNotNull("method", method);
 

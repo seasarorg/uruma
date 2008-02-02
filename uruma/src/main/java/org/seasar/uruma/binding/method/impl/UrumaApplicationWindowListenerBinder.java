@@ -40,13 +40,11 @@ public class UrumaApplicationWindowListenerBinder implements ListenerBinder {
     public void bindListener(final WidgetHandle handle,
             final PartContext context, final MethodBinding binding,
             final EventListenerDef def) {
-        if (def.getType() == EventListenerType.WINDOW_CLOSING) {
-            UrumaApplicationWindow window = handle
-                    .<UrumaApplicationWindow> getCastWidget();
-            WindowCloseListener closeListener = new WindowCloseListener(
-                    context, binding);
-            window.addWindowCloseListener(closeListener);
-        }
+        UrumaApplicationWindow window = handle
+                .<UrumaApplicationWindow> getCastWidget();
+        WindowCloseListener closeListener = new WindowCloseListener(context,
+                binding);
+        window.addWindowCloseListener(closeListener);
     }
 
     /*
@@ -54,5 +52,9 @@ public class UrumaApplicationWindowListenerBinder implements ListenerBinder {
      */
     public Class<?> getTargetCLass() {
         return UrumaApplicationWindow.class;
+    }
+
+    public EventListenerType getEventType() {
+        return EventListenerType.WINDOW_CLOSING;
     }
 }

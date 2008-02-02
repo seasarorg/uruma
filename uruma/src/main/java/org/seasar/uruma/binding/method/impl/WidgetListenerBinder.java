@@ -29,7 +29,7 @@ import org.seasar.uruma.context.WidgetHandle;
  * 
  * @author y-komori
  */
-public class WidgetListenerBinder implements ListenerBinder {
+public class WidgetListenerBinder extends AbstractListenerBinder {
 
     /*
      * @see org.seasar.uruma.binding.method.ListenerBinder#bindListener(org.seasar.uruma.context.WidgetHandle,

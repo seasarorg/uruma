@@ -13,23 +13,22 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.annotation;
+package org.seasar.uruma.binding.method.impl;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.seasar.uruma.annotation.EventListenerType;
+import org.seasar.uruma.binding.method.ListenerBinder;
 
 /**
- * ビューアでの項目ダブルクリック時に呼び出されるメソッドを指定するためのアノテーションです。<br />
+ * {@link ListenerBinder} のための基底クラスです。<br />
  * 
  * @author y-komori
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.METHOD })
-public @interface DoubleClickListener {
-    /**
-     * @return 対応するコンポーネントの ID
+public abstract class AbstractListenerBinder implements ListenerBinder {
+
+    /*
+     * @see org.seasar.uruma.binding.method.ListenerBinder#getEventType()
      */
-    String[] id() default {};
+    public EventListenerType getEventType() {
+        return null;
+    }
 }
