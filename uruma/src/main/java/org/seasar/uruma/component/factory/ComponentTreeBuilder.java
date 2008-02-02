@@ -74,6 +74,8 @@ public class ComponentTreeBuilder {
     }
 
     protected SaxHandlerParser createSaxHandlerParser(final String path) {
+        System.setProperty("javax.xml.parsers.SAXParserFactory",
+                "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
         final SAXParserFactory factory = SAXParserFactoryUtil.newInstance();
         factory.setNamespaceAware(true);
 
