@@ -19,6 +19,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.binding.method.EventListenerDef;
 import org.seasar.uruma.binding.method.GenericDoubleClickListener;
+import org.seasar.uruma.binding.method.GenericSelectionChangedListener;
 import org.seasar.uruma.binding.method.ListenerBinder;
 import org.seasar.uruma.binding.method.MethodBinding;
 import org.seasar.uruma.context.PartContext;
@@ -30,6 +31,8 @@ import org.seasar.uruma.context.WidgetHandle;
  * @author y-komori
  */
 public class StructuredViewerListenerBinder implements ListenerBinder {
+    private static final EventListenerType[] SUPPORT_TYPES = new EventListenerType[] {
+            EventListenerType.SELECTION, EventListenerType.MOUSE_DOUBLE_CLICK };
 
     /*
      * @see org.seasar.uruma.binding.method.ListenerBinder#bindListener(org.seasar.uruma.context.WidgetHandle,
@@ -40,8 +43,12 @@ public class StructuredViewerListenerBinder implements ListenerBinder {
     public void bindListener(final WidgetHandle handle,
             final PartContext context, final MethodBinding binding,
             final EventListenerDef def) {
-        if (def.getType() == EventListenerType.MOUSE_DOUBLE_CLICK) {
-            StructuredViewer viewer = handle.<StructuredViewer> getCastWidget();
+        StructuredViewer viewer = handle.<StructuredViewer> getCastWidget();
+        if (def.getType() == EventListenerType.SELECTION) {
+            GenericSelectionChangedListener listener = new GenericSelectionChangedListener(
+                    context, binding);
+            viewer.addSelectionChangedListener(listener);
+        } else if (def.getType() == EventListenerType.MOUSE_DOUBLE_CLICK) {
             GenericDoubleClickListener listener = new GenericDoubleClickListener(
                     context, binding);
             viewer.addDoubleClickListener(listener);
@@ -49,10 +56,10 @@ public class StructuredViewerListenerBinder implements ListenerBinder {
     }
 
     /*
-     * @see org.seasar.uruma.binding.method.ListenerBinder#getEventType()
+     * @see org.seasar.uruma.binding.method.ListenerBinder#getEventTypes()
      */
-    public EventListenerType getEventType() {
-        return EventListenerType.MOUSE_DOUBLE_CLICK;
+    public EventListenerType[] getEventTypes() {
+        return SUPPORT_TYPES;
     }
 
     /*

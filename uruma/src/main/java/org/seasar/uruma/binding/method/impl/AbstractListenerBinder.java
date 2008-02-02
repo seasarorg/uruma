@@ -26,9 +26,9 @@ import org.seasar.uruma.binding.method.ListenerBinder;
 public abstract class AbstractListenerBinder implements ListenerBinder {
 
     /*
-     * @see org.seasar.uruma.binding.method.ListenerBinder#getEventType()
+     * @see org.seasar.uruma.binding.method.ListenerBinder#getEventTypes()
      */
-    public EventListenerType getEventType() {
+    public EventListenerType[] getEventTypes() {
         return null;
     }
 }

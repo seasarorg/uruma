@@ -51,7 +51,7 @@ public interface ListenerBinder {
      * 本 {@link ListenerBinder} が対象とする {@link EventListenerType} を返します。<br />
      * すべての種類のイベントを対象とする場合、<code>null</code> を返します。<br />
      * 
-     * @return {@link EventListenerType} または <code>null</code>
+     * @return {@link EventListenerType} の配列または <code>null</code>
      */
-    public EventListenerType getEventType();
+    public EventListenerType[] getEventTypes();
 }

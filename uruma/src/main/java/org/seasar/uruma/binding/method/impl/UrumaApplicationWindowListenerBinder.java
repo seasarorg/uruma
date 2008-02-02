@@ -30,6 +30,7 @@ import org.seasar.uruma.ui.UrumaApplicationWindow;
  * @author y-komori
  */
 public class UrumaApplicationWindowListenerBinder implements ListenerBinder {
+    private static final EventListenerType[] SUPPORT_TYPES = new EventListenerType[] { EventListenerType.WINDOW_CLOSING };
 
     /*
      * @see org.seasar.uruma.binding.method.ListenerBinder#bindListener(org.seasar.uruma.context.WidgetHandle,
@@ -54,7 +55,10 @@ public class UrumaApplicationWindowListenerBinder implements ListenerBinder {
         return UrumaApplicationWindow.class;
     }
 
-    public EventListenerType getEventType() {
-        return EventListenerType.WINDOW_CLOSING;
+    /*
+     * @see org.seasar.uruma.binding.method.ListenerBinder#getEventTypes()
+     */
+    public EventListenerType[] getEventTypes() {
+        return SUPPORT_TYPES;
     }
 }
