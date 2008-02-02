@@ -44,8 +44,6 @@ public class GenericDoubleClickListener extends AbstractGenericListener
      * @see org.eclipse.jface.viewers.IDoubleClickListener#doubleClick(org.eclipse.jface.viewers.DoubleClickEvent)
      */
     public void doubleClick(final DoubleClickEvent event) {
-        // TODO 自動生成されたメソッド・スタブ
-
+        invokeMethod(event.getSelection());
     }
-
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
@@ -38,7 +39,20 @@ public class MethodBindingSupport implements UrumaMessageCodes {
             .getLogger(MethodBindingSupport.class);
 
     /**
-     * 指定された名前のウィンドウに対して、メソッドバインディングを行います。<br>
+     * 指定された {@link WindowContext} 配下のすべての {@link PartContext} に対して、
+     * {@link #createListeners(PartContext)} メソッドを実行します。<br />
+     * 
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     */
+    public static void createListeners(final WindowContext context) {
+        for (PartContext partContext : context.getPartContextList()) {
+            createListeners(partContext);
+        }
+    }
+
+    /**
+     * 指定された {@link PartContext} のパートアクションコンポーネントに対して、メソッドバインディングを生成します。<br />
      * <p>
      * 本メソッドでは、以下の手順でメソッドバインディングを行います。
      * <ol>
