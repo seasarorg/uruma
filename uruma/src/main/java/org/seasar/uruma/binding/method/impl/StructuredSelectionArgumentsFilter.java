@@ -82,6 +82,9 @@ public class StructuredSelectionArgumentsFilter implements ArgumentsFilter,
             if (args[0] instanceof IStructuredSelection) {
                 IStructuredSelection selection = (IStructuredSelection) args[0];
 
+                if (selection.size() == 0) {
+                    return null;
+                }
                 Object firstElement = selection.getFirstElement();
                 Class<?> argClazz = firstElement.getClass();
 
