@@ -37,12 +37,13 @@ public class WidgetListenerBinder extends AbstractListenerBinder {
      *      org.seasar.uruma.binding.method.MethodBinding,
      *      org.seasar.uruma.binding.method.EventListenerDef)
      */
-    public void bindListener(final WidgetHandle handle,
+    public Class<?> bindListener(final WidgetHandle handle,
             final PartContext context, final MethodBinding binding,
             final EventListenerDef def) {
         Widget widget = handle.<Widget> getCastWidget();
         Listener listener = new GenericListener(context, binding);
         widget.addListener(def.getType().getSWTEventType(), listener);
+        return GenericListener.class;
     }
 
     /*

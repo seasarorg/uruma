@@ -99,18 +99,7 @@ public class MethodBindingSupport implements UrumaMessageCodes {
                     ListenerBinder binder = ListenerBinderFactory
                             .getListenerBinder(handle, def.getType());
 
-                    if (binder != null) {
-                        MethodBinding binding = MethodBindingFactory
-                                .createMethodBinding(context
-                                        .getPartActionObject(), def
-                                        .getTargetMethod(), handle);
-                        binder.bindListener(handle, context, binding, def);
-                        logger.log(CREATE_METHOD_BINDING, id, binding);
-                    } else {
-                        throw new UnsupportedClassException(handle
-                                .getWidgetClass());
-                    }
-
+                    bindMethod(binder, id, handle, context, def);
                 }
             } else {
                 String className = targetMethod.getDeclaringClass().getName();
@@ -118,4 +107,25 @@ public class MethodBindingSupport implements UrumaMessageCodes {
             }
         }
     }
+
+    private static void bindMethod(final ListenerBinder binder,
+            final String id, final WidgetHandle handle,
+            final PartContext context, final EventListenerDef def) {
+        if (binder != null) {
+            MethodBinding binding = MethodBindingFactory.createMethodBinding(
+                    context.getPartActionObject(), def.getTargetMethod(),
+                    handle);
+            Class<?> listenerClass = binder.bindListener(handle, context,
+                    binding, def);
+
+            if (logger.isDebugEnabled()) {
+                logger.log(CREATE_METHOD_BINDING, id, def.getType(), binding,
+                        listenerClass.getName());
+            }
+        } else {
+            throw new UnsupportedClassException(handle.getWidgetClass());
+        }
+
+    }
+
 }

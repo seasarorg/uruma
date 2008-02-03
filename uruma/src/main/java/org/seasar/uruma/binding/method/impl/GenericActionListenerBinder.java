@@ -37,12 +37,13 @@ public class GenericActionListenerBinder extends AbstractListenerBinder {
      *      org.seasar.uruma.binding.method.MethodBinding,
      *      org.seasar.uruma.binding.method.EventListenerDef)
      */
-    public void bindListener(final WidgetHandle handle,
+    public Class<?> bindListener(final WidgetHandle handle,
             final PartContext context, final MethodBinding binding,
             final EventListenerDef def) {
         GenericAction action = handle.<GenericAction> getCastWidget();
         Listener listener = new GenericListener(context, binding);
         action.setListener(listener);
+        return GenericListener.class;
     }
 
     /*

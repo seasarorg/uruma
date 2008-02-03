@@ -36,8 +36,9 @@ public interface ListenerBinder {
      *            {@link MethodBinding} オブジェクト
      * @param def
      *            {@link EventListenerDef} オブジェクト
+     * @return バインドしたリスナのクラス
      */
-    public void bindListener(WidgetHandle handle, PartContext context,
+    public Class<?> bindListener(WidgetHandle handle, PartContext context,
             MethodBinding binding, EventListenerDef def);
 
     /**

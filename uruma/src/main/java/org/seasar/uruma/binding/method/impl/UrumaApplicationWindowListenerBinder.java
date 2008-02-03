@@ -38,7 +38,7 @@ public class UrumaApplicationWindowListenerBinder implements ListenerBinder {
      *      org.seasar.uruma.binding.method.MethodBinding,
      *      org.seasar.uruma.binding.method.EventListenerDef)
      */
-    public void bindListener(final WidgetHandle handle,
+    public Class<?> bindListener(final WidgetHandle handle,
             final PartContext context, final MethodBinding binding,
             final EventListenerDef def) {
         UrumaApplicationWindow window = handle
@@ -46,6 +46,7 @@ public class UrumaApplicationWindowListenerBinder implements ListenerBinder {
         WindowCloseListener closeListener = new WindowCloseListener(context,
                 binding);
         window.addWindowCloseListener(closeListener);
+        return WindowCloseListener.class;
     }
 
     /*

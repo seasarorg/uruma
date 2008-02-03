@@ -40,7 +40,7 @@ public class StructuredViewerListenerBinder implements ListenerBinder {
      *      org.seasar.uruma.binding.method.MethodBinding,
      *      org.seasar.uruma.binding.method.EventListenerDef)
      */
-    public void bindListener(final WidgetHandle handle,
+    public Class<?> bindListener(final WidgetHandle handle,
             final PartContext context, final MethodBinding binding,
             final EventListenerDef def) {
         StructuredViewer viewer = handle.<StructuredViewer> getCastWidget();
@@ -48,11 +48,14 @@ public class StructuredViewerListenerBinder implements ListenerBinder {
             GenericSelectionChangedListener listener = new GenericSelectionChangedListener(
                     context, binding);
             viewer.addSelectionChangedListener(listener);
+            return GenericSelectionChangedListener.class;
         } else if (def.getType() == EventListenerType.MOUSE_DOUBLE_CLICK) {
             GenericDoubleClickListener listener = new GenericDoubleClickListener(
                     context, binding);
             viewer.addDoubleClickListener(listener);
+            return GenericDoubleClickListener.class;
         }
+        return null;
     }
 
     /*
