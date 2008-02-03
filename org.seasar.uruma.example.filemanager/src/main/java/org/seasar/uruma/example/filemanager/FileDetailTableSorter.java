@@ -19,9 +19,12 @@ import java.io.File;
 import java.util.Date;
 
 import org.eclipse.jface.viewers.TableViewer;
+import org.seasar.uruma.util.win32.Win32API;
 import org.seasar.uruma.viewer.GenericTableViewerComparator;
 
 /**
+ * ファイルビューのソートを行うためのクラスです。<br />
+ * 
  * @author y-komori
  */
 public class FileDetailTableSorter extends GenericTableViewerComparator {
@@ -43,12 +46,21 @@ public class FileDetailTableSorter extends GenericTableViewerComparator {
 
 		switch (sortColumn) {
 		case 0:
-			return getComparator().compare(f1.getName(), f2.getName());
+			return f1.getName().compareToIgnoreCase(f2.getName());
 
 		case 1:
 			return (int) (f1.length() - f2.length());
 
 		case 2:
+			String type1 = Win32API.getFileTypeName(f1.getAbsolutePath());
+			String type2 = Win32API.getFileTypeName(f2.getAbsolutePath());
+			if ((type1 != null) && (type2 != null)) {
+				return type1.compareTo(type2);
+			} else {
+				return 0;
+			}
+
+		case 3:
 			Date d1 = new Date(f1.lastModified());
 			Date d2 = new Date(f2.lastModified());
 			return d1.compareTo(d2);
