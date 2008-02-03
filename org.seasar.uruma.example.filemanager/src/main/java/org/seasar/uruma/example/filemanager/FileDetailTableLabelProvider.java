@@ -17,13 +17,14 @@ package org.seasar.uruma.example.filemanager;
 
 import java.io.File;
 import java.util.Date;
-import java.util.Formatter;
 
 import org.eclipse.swt.graphics.Image;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.util.win32.Win32API;
 
 /**
+ * ファイルビューのためのラベルプロバイダです。<br />
+ * 
  * @author y-komori
  */
 public class FileDetailTableLabelProvider {
@@ -34,8 +35,7 @@ public class FileDetailTableLabelProvider {
 
 	public String getFileSizeText(final File file) {
 		if (file.isFile()) {
-			Formatter formatter = new Formatter();
-			return formatter.format("%,d", file.length()).out().toString();
+			return String.format("%,d", file.length());
 		} else {
 			return UrumaConstants.NULL_STRING;
 		}
@@ -50,10 +50,8 @@ public class FileDetailTableLabelProvider {
 	}
 
 	public String getFileUpdateTimeText(final File file) {
-		Formatter formatter = new Formatter();
-		formatter.format("%tY/%<tm/%<td(%<ta) %<tk:%<tM:%<tS", new Date(file
-				.lastModified()));
-		return formatter.out().toString();
+		return String.format("%tY/%<tm/%<td(%<ta) %<tk:%<tM:%<tS", new Date(
+				file.lastModified()));
 	}
 
 	public Image getFileNameImage(final File file) {
