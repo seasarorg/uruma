@@ -27,13 +27,41 @@ import org.eclipse.core.runtime.IConfigurationElement;
  * @author y-komori
  */
 public interface ConfigurationElement {
+    /**
+     * 子の {@link ConfigurationElement} を返します。<br />
+     * 
+     * @return {@link ConfigurationElement} のリスト
+     */
     public List<ConfigurationElement> getElements();
 
+    /**
+     * {@link ConfigurationWriter} を設定します。<br />
+     * 
+     * @param writer
+     *            {@link ConfigurationWriter} オブジェクト
+     */
     public void setConfigurationWriter(ConfigurationWriter writer);
 
+    /**
+     * 指定した {@link Writer} に対してコンフィグレーションを書き出します。<br />
+     * 
+     * @param writer
+     *            コンフィグレーション書き出し対象の {@link Writer} オブジェクト
+     */
     public void writeConfiguration(Writer writer);
 
+    /**
+     * RCP における ID を取得します。<br />
+     * 
+     * @return ID
+     */
     public String getRcpId();
 
+    /**
+     * RCP における ID を設定します。<br />
+     * 
+     * @param rcpId
+     *            ID
+     */
     public void setRcpId(String rcpId);
 }

@@ -369,6 +369,24 @@ public interface UrumaConstants {
      */
     public static final String DEFAULT_PERSPECTIVE_ID = "defaultPerspective";
 
+    /**
+     * <code>menu</code> 要素で id が未指定のときに自動的に設定される id のプレフィックスです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String AUTO_MENU_ID_PREFIX = "autoDefinedMenu_";
+
+    /**
+     * <code>menuItem</code> 要素で id が未指定のときに自動的に設定される id のプレフィックスです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String AUTO_ACTION_ID_PREFIX = "autoDefinedAction_";
+
     // -------------------------------------------------------------------------
     // UrumaService に関する定数
     // -------------------------------------------------------------------------

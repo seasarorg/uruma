@@ -21,6 +21,7 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.base.AbstractUIContainer;
+import org.seasar.uruma.component.jface.MenuComponent;
 
 /**
  * ワークベンチのためのコンポーネントです。<br />
@@ -100,15 +101,27 @@ public class WorkbenchComponent extends AbstractUIContainer {
      * @return {@link PerspectiveComponent} のリスト
      */
     public List<PerspectiveComponent> getPerspectives() {
-        List<PerspectiveComponent> perspectives = new ArrayList<PerspectiveComponent>(
-                children.size());
+        return getElements(PerspectiveComponent.class);
+    }
+
+    /**
+     * {@link WorkbenchComponent} が保持する {@link MenuComponent} のリストを返します。<br />
+     * 
+     * @return {@link MenuComponent} のリスト
+     */
+    public List<MenuComponent> getMenus() {
+        return getElements(MenuComponent.class);
+    }
+
+    protected <E> List<E> getElements(final Class<E> clazz) {
+        List<E> result = new ArrayList<E>(children.size());
 
         for (UIElement element : children) {
-            if (element instanceof PerspectiveComponent) {
-                perspectives.add((PerspectiveComponent) element);
+            if (clazz.isAssignableFrom(element.getClass())) {
+                result.add(clazz.cast(element));
             }
         }
 
-        return perspectives;
+        return result;
     }
 }

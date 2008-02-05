@@ -60,7 +60,7 @@ public class GenericTagHandler extends UrumaTagHandler {
     @Override
     public void start(final TagHandlerContext context,
             final Attributes attributes) {
-        UIElement uiElement = createUIElement(uiElementClass);
+        UIElement uiElement = createUIElement(uiElementClass, context);
 
         setPath(uiElement, context);
 
@@ -101,10 +101,15 @@ public class GenericTagHandler extends UrumaTagHandler {
      * 
      * @param uiElementClass
      *            {@link UIElement} クラス
+     * @param context
+     *            {@link TagHandlerContext} オブジェクト。<br />
+     *            コンテクストに応じて生成する {@link UIElement} を変更するために使用します。<br />
+     *            本クラスでは利用しませんが、サブクラスで必要に応じて利用することができます。<br />
      * @return {@link UIElement} オブジェクト
      */
     protected UIElement createUIElement(
-            final Class<? extends UIElement> uiElementClass) {
+            final Class<? extends UIElement> uiElementClass,
+            final TagHandlerContext context) {
         return ClassUtil.<UIElement> newInstance(uiElementClass);
     }
 
@@ -188,8 +193,7 @@ public class GenericTagHandler extends UrumaTagHandler {
             PropertyDesc pd = desc.getPropertyDesc(name);
             pd.setValue(uiElement, value);
         } else {
-            throw new ParseException(ParseException.PROPERTY_NOT_FOUND, name,
-                    uiElement.getClass().getName());
+            throw new ParseException(name, uiElement.getClass().getName());
         }
     }
 

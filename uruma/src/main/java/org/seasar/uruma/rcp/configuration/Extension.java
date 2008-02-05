@@ -118,4 +118,12 @@ public class Extension implements ConfigurationElement {
             configurationWriter.writeEndTag(this, writer);
         }
     }
+
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return this.point;
+    }
 }

@@ -15,54 +15,27 @@
  */
 package org.seasar.uruma.exception;
 
+import org.seasar.uruma.core.UrumaMessageCodes;
+
 /**
  * 画面定義 XML ファイルのパースに失敗した場合にスローされる例外です。<br />
  * 
  * @author y-komori
  */
-public class ParseException extends UrumaRuntimeException {
+public class ParseException extends UrumaRuntimeException implements
+        UrumaMessageCodes {
 
     private static final long serialVersionUID = 7575786499116429810L;
 
     /**
-     * 属性が見つからなかった場合のメッセージコードです。
-     */
-    public static final String PROPERTY_NOT_FOUND = "EJFC0110";
-
-    /**
      * {@link ParseException} を構築します。<br />
      * 
-     * @param messageCode
-     *            メッセージコード
-     * @param args
-     *            原因オブジェクト
+     * @param attrName
+     *            見つからなかった属性名
+     * @param className
+     *            対象クラス名
      */
-    public ParseException(final String messageCode, final Object... args) {
-        super(messageCode, args);
-    }
-
-    /**
-     * {@link ParseException} を構築します。<br />
-     * 
-     * @param messageCode
-     *            メッセージコード
-     * @param cause
-     *            原因となった例外
-     * @param args
-     *            原因オブジェクト
-     */
-    public ParseException(final String messageCode, final Throwable cause,
-            final Object... args) {
-        super(messageCode, cause, args);
-    }
-
-    /**
-     * {@link ParseException} を構築します。<br />
-     * 
-     * @param messageCode
-     *            メッセージコード
-     */
-    public ParseException(final String messageCode) {
-        super(messageCode);
+    public ParseException(final String attrName, final String className) {
+        super(PROPERY_NOT_FOUND, attrName, className);
     }
 }

@@ -67,11 +67,37 @@ public abstract class AbstractConfigurationWriter<ELEMENT_TYPE extends Configura
         }
     }
 
+    /**
+     * 出力対象とする {@link ConfigurationElement} クラスを返します。<br />
+     * 本メソッドはサブクラスでオーバーライドしてください。
+     * 
+     * @return {@link ConfigurationElement} クラス
+     */
     public abstract Class<ELEMENT_TYPE> doGetSupportType();
 
+    /**
+     * 開始タグを出力します。<br />
+     * 本メソッドはサブクラスでオーバーライドしてください。
+     * 
+     * @param element
+     *            出力対象の {@link ConfigurationElement}
+     * @param writer
+     *            出力対象の {@link Writer} オブジェクト
+     * @throws IOException
+     */
     public abstract void doWriteStartTag(final ELEMENT_TYPE element,
             final Writer writer) throws IOException;
 
+    /**
+     * 終了タグを出力します。<br />
+     * 本メソッドはサブクラスでオーバーライドしてください。
+     * 
+     * @param element
+     *            出力対象の {@link ConfigurationElement}
+     * @param writer
+     *            出力対象の {@link Writer} オブジェクト
+     * @throws IOException
+     */
     public abstract void doWriteEndTag(ELEMENT_TYPE element, Writer writer)
             throws IOException;
 }

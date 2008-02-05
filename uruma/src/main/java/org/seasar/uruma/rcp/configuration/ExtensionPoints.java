@@ -35,4 +35,9 @@ public interface ExtensionPoints {
      * エクステンションポイント：{@value} を表す定数です。<br />
      */
     public static final String PERSPECTIVES = "org.eclipse.ui.perspectives";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
+    public static final String ACTIONSETS = "org.eclipse.ui.actionSets";
 }

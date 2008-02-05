@@ -70,4 +70,12 @@ public abstract class AbstractUIElement implements UIElement {
     public void setLocation(final String location) {
         this.location = location;
     }
+
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return path;
+    }
 }

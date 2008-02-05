@@ -197,4 +197,12 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
                     + Integer.toHexString(hashCode()));
         }
     }
+
+    /*
+     * @see org.seasar.uruma.component.base.AbstractUIElement#toString()
+     */
+    @Override
+    public String toString() {
+        return getPath() + " id:" + getId();
+    }
 }

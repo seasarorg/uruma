@@ -77,31 +77,31 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaService.class);
 
-    private Bundle targetBundle;
+    protected Bundle targetBundle;
 
-    private ClassLoader urumaClassLoader;
+    protected ClassLoader urumaClassLoader;
 
-    private ClassLoader appClassLoader;
+    protected ClassLoader appClassLoader;
 
-    private ClassLoader oldClassLoader;
+    protected ClassLoader oldClassLoader;
 
-    private IContributor contributor;
+    protected IContributor contributor;
 
-    private String pluginId;
+    protected String pluginId;
 
-    private S2Container container;
+    protected S2Container container;
 
-    private TemplateManager templateManager;
+    protected TemplateManager templateManager;
 
-    private ViewTemplateLoader templateLoader;
+    protected ViewTemplateLoader templateLoader;
 
-    private ApplicationContext applicationContext;
+    protected ApplicationContext applicationContext;
 
-    private WindowContext windowContext;
+    protected WindowContext windowContext;
 
-    private WorkbenchComponent workbenchComponent;
+    protected WorkbenchComponent workbenchComponent;
 
-    private List<Extension> extensions = new ArrayList<Extension>();
+    protected List<Extension> extensions = new ArrayList<Extension>();
 
     /**
      * {@link UrumaServiceImpl} を構築します。<br />
@@ -113,6 +113,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         AssertionUtil.assertNotNull("targetBundle", targetBundle);
         this.targetBundle = targetBundle;
         this.urumaClassLoader = getClass().getClassLoader();
+        this.appClassLoader = getClass().getClassLoader();
         this.pluginId = targetBundle.getSymbolicName();
 
         initialize();
@@ -152,9 +153,9 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
             // ビュー、パースペクティブの登録
             setupViewExtensions();
             setupPerspectives();
+
             ContributionBuilder.build(contributor, extensions);
         } catch (Exception ex) {
-            // TODO 例外が不適切
             throw new UrumaAppInitException(targetBundle, ex, ex.getMessage());
         } finally {
             restoreClassLoader();

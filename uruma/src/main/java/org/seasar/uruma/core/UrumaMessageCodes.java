@@ -235,6 +235,15 @@ public interface UrumaMessageCodes {
      */
     public static final String TEMPLATE_NOT_FOUND = "EURM0114";
 
+    /**
+     * XML 要素をマッピングする Java クラス側に対応する属性が見つからなかった際のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String PROPERY_NOT_FOUND = "EURM0115";
+
     // -------------------------------------------------------------------------
     // バインディング関連メッセージコード (02xx)
     // -------------------------------------------------------------------------

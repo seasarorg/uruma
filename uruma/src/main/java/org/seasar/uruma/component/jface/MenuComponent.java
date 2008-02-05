@@ -15,11 +15,12 @@
  */
 package org.seasar.uruma.component.jface;
 
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.framework.util.StringUtil;
-import org.seasar.uruma.annotation.FieldDescription;
+import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIComponent;
@@ -28,6 +29,7 @@ import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -35,103 +37,44 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author bskuroneko
  * @author y-komori
+ * @see <a
+ *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_actionSets.html">ActionSets</a>
  */
 public class MenuComponent extends MenuItemComponent implements
         UIComponentContainer {
-
+    /**
+     * デフォルトアイテムIDです。<br />
+     */
     @RenderingPolicy(targetType = TargetType.NONE)
-    @FieldDescription("デフォルトアイテムID")
-    private String defaultItemId;
+    public String defaultItemId;
 
+    /**
+     * 可視状態です。<br />
+     */
     @RenderingPolicy(targetType = TargetType.NONE)
-    @FieldDescription("可視状態")
-    private String visible;
+    public String visible;
 
+    /**
+     * メニューの X 表示座標です。<br />
+     */
     @RenderingPolicy(targetType = TargetType.NONE)
-    @FieldDescription("X 座標")
-    private String x;
+    public String x;
 
+    /**
+     * メニューの Y 表示座標です。<br />
+     */
     @RenderingPolicy(targetType = TargetType.NONE)
-    @FieldDescription("Y 座標")
-    private String y;
+    public String y;
+
+    /**
+     * メニューのパスです。<br />
+     */
+    @ConfigurationAttribute(name = "path")
+    public String menuPath;
 
     private List<UIElement> children = new ArrayList<UIElement>();
 
-    /**
-     * デフォルトアイテムIDを取得します。<br />
-     * 
-     * @return デフォルトアイテムID
-     */
-    public String getDefaultItemId() {
-        return this.defaultItemId;
-    }
-
-    /**
-     * デフォルトアイテムIDを設定します。<br />
-     * 
-     * @param defaultItemId
-     *            デフォルトアイテムID
-     */
-    public void setDefaultItemId(final String defaultItemId) {
-        this.defaultItemId = defaultItemId;
-    }
-
-    /**
-     * 可視状態を取得します。<br />
-     * 
-     * @return 可視状態
-     */
-    public String getVisible() {
-        return this.visible;
-    }
-
-    /**
-     * 可視状態を設定します。<br />
-     * 
-     * @param visible
-     *            可視状態
-     */
-    public void setVisible(final String visible) {
-        this.visible = visible;
-    }
-
-    /**
-     * X 座標を取得します。<br />
-     * 
-     * @return X 座標
-     */
-    public String getX() {
-        return this.x;
-    }
-
-    /**
-     * X 座標を設定します。<br />
-     * 
-     * @param x
-     *            X 座標
-     */
-    public void setX(final String x) {
-        this.x = x;
-    }
-
-    /**
-     * Y 座標を取得します。<br />
-     * 
-     * @return Y 座標
-     */
-    public String getY() {
-        return this.y;
-    }
-
-    /**
-     * Y 座標を設定します。<br />
-     * 
-     * @param y
-     *            Y 座標
-     */
-    public void setY(final String y) {
-        this.y = y;
-    }
+    protected List<ConfigurationElement> configElements = new ArrayList<ConfigurationElement>();
 
     /*
      * @see org.seasar.uruma.component.UIElementContainer#addChild(org.seasar.uruma.component.UIElement)
@@ -177,5 +120,31 @@ public class MenuComponent extends MenuItemComponent implements
                         .getWidgetHandle(getId()), context);
             }
         }
+    }
+
+    @Override
+    public void writeConfiguration(final Writer writer) {
+        if (configurationWriter != null) {
+            configurationWriter.writeStartTag(this, writer);
+        }
+
+        for (ConfigurationElement element : configElements) {
+            element.writeConfiguration(writer);
+        }
+
+        if (configurationWriter != null) {
+            configurationWriter.writeEndTag(this, writer);
+        }
+    }
+
+    /**
+     * 子要素となる {@link ConfigurationElement} を追加します。<br />
+     * 
+     * @param element
+     *            {@link ConfigurationElement} オブジェクト
+     */
+    public void addConfigurationElement(final ConfigurationElement element) {
+        AssertionUtil.assertNotNull("element", element);
+        configElements.add(element);
     }
 }

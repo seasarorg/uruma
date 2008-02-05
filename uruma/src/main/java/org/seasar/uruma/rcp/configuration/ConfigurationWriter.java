@@ -18,14 +18,36 @@ package org.seasar.uruma.rcp.configuration;
 import java.io.Writer;
 
 /**
- * {@link ConfigurationElement} の内容をXMLに書き出すためのインターフェースです。<br />
+ * {@link ConfigurationElement} の内容を コンフィグレーション XML に書き出すためのインターフェースです。<br />
  * 
  * @author y-komori
  */
 public interface ConfigurationWriter {
+    /**
+     * 開始タグを出力します。<br />
+     * 
+     * @param element
+     *            要素名
+     * @param writer
+     *            出力先 {@link Writer} オブジェクト
+     */
     public void writeStartTag(ConfigurationElement element, Writer writer);
 
+    /**
+     * 終了タグを出力します。<br />
+     * 
+     * @param element
+     *            要素名
+     * @param writer
+     *            出力先 {@link Writer} オブジェクト
+     */
     public void writeEndTag(ConfigurationElement element, Writer writer);
 
+    /**
+     * {@link ConfigurationWriter} がサポートする {@link ConfigurationElement}
+     * のクラスオブジェクトを返します。<br />
+     * 
+     * @return {@link ConfigurationElement} サブクラスの {@link Class} オブジェクト
+     */
     public Class<? extends ConfigurationElement> getSupportType();
 }

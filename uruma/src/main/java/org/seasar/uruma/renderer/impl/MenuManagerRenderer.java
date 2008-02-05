@@ -68,8 +68,8 @@ public class MenuManagerRenderer extends AbstractRenderer {
      *            {@link Menu} オブジェクト
      */
     public void renderMenu(final MenuComponent menuComponent, final Menu menu) {
-        String x = menuComponent.getX();
-        String y = menuComponent.getY();
+        String x = menuComponent.x;
+        String y = menuComponent.y;
         if (!StringUtil.isEmpty(x) && !StringUtil.isEmpty(y)) {
             menu.setLocation(Integer.valueOf(x), Integer.valueOf(y));
         }
@@ -100,7 +100,7 @@ public class MenuManagerRenderer extends AbstractRenderer {
 
     protected void setVisivle(final MenuComponent menuComponent,
             final MenuManager menuManager) {
-        String visible = menuComponent.getVisible();
+        String visible = menuComponent.visible;
         if (visible != null) {
             menuManager.setVisible(RendererSupportUtil.convertBoolean(visible));
         }

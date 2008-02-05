@@ -43,6 +43,14 @@ public class ContributionBuilder {
 
     }
 
+    /**
+     * コントリビューションをビルドして追加します。<br />
+     * 
+     * @param contributor
+     *            コントリビュート対象の {@link IContributor} オブジェクト
+     * @param extensions
+     *            ビルド対象の {@link Extension} オブジェクトのリスト
+     */
     public static void build(final IContributor contributor,
             final List<Extension> extensions) {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
