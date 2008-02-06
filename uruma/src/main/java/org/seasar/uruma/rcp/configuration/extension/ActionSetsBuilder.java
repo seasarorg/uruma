@@ -115,7 +115,10 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
 
         List<UIElement> children = menuComponent.getChildren();
         for (UIElement child : children) {
-            String childPath = chopStartMarker(path) + SLASH + START_MARKER;
+            String childPath = ((menu.path != null) ? chopStartMarker(menu.path)
+                    : menu.id)
+                    + SLASH + START_MARKER;
+
             if (child instanceof MenuComponent) {
                 setupMenu(actionSet, (MenuComponent) child, childPath);
             } else if (child instanceof MenuItemComponent) {

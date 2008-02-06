@@ -13,10 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.rcp.core;
+package org.seasar.uruma.rcp.unit;
 
 import org.seasar.uruma.exception.UrumaAppInitException;
 import org.seasar.uruma.rcp.UrumaService;
+import org.seasar.uruma.rcp.core.UrumaServiceImpl;
 
 /**
  * テスト用のモック {@link UrumaService} です。<br />

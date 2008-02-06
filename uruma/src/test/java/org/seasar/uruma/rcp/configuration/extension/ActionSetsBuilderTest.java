@@ -16,7 +16,7 @@
 package org.seasar.uruma.rcp.configuration.extension;
 
 import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.rcp.core.UrumaRcpTestCase;
+import org.seasar.uruma.rcp.unit.UrumaRcpTestCase;
 
 /**
  * {@link ActionSetsBuilder} のためのテストクラスです。<br />

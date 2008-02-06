@@ -18,6 +18,7 @@ package org.seasar.uruma.rcp.configuration;
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.internal.registry.ExtensionRegistry;
@@ -27,6 +28,7 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.rcp.configuration.extension.ActionSetsBuilder;
 
 /**
  * {@link Bundle} に対してコントリビューションを動的に追加するためのクラスです。<br />
@@ -38,6 +40,12 @@ public class ContributionBuilder {
 
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(ContributionBuilder.class);
+
+    private static final List<ExtensionBuilder> builders = new ArrayList<ExtensionBuilder>();
+
+    static {
+        builders.add(new ActionSetsBuilder());
+    }
 
     private ContributionBuilder() {
 
@@ -53,6 +61,8 @@ public class ContributionBuilder {
      */
     public static void build(final IContributor contributor,
             final List<Extension> extensions) {
+        buildExtensions(extensions);
+
         IExtensionRegistry registry = Platform.getExtensionRegistry();
         StringWriter writer = new StringWriter(BUFFER_SIZE);
 
@@ -80,5 +90,11 @@ public class ContributionBuilder {
 
         Object token = ((ExtensionRegistry) registry).getTemporaryUserToken();
         registry.addContribution(is, contributor, false, null, null, token);
+    }
+
+    protected static void buildExtensions(final List<Extension> extensions) {
+        for (ExtensionBuilder builder : builders) {
+            extensions.add(builder.buildExtension());
+        }
     }
 }
