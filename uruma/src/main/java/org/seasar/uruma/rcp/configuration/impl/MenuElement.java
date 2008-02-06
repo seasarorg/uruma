@@ -27,7 +27,24 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElement;
  *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_actionSets.html">ActionSets</a>
  */
 public class MenuElement extends AbstractConfigurationElement {
-    // TODO 未使用なので削除を検討
+
+    /**
+     * {@link MenuElement} を構築します。<br />
+     * 
+     * @param menu
+     *            元となる {@link MenuComponent} オブジェクト
+     */
+    public MenuElement(final MenuComponent menu) {
+        this.id = menu.getId();
+        this.label = menu.getText();
+    }
+
+    /**
+     * メニューの ID です。<br />
+     */
+    @ConfigurationAttribute(required = true)
+    public String id;
+
     /**
      * メニューの表示ラベルです。<br />
      */
@@ -39,65 +56,4 @@ public class MenuElement extends AbstractConfigurationElement {
      */
     @ConfigurationAttribute
     public String path;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String defaultItemId;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String visible;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String x;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String y;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String accelerator;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String enabled;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String selection;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String disabledImage;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String hoverImage;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String description;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String enablesDependingId;
-
-    /**
-     * {@link MenuComponent} と共通化するためのダミー属性です。<br />
-     */
-    public String enablesFor;
-
 }

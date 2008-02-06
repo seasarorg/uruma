@@ -18,16 +18,16 @@ package org.seasar.uruma.rcp.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.seasar.uruma.component.jface.MenuComponent;
-import org.seasar.uruma.component.jface.MenuItemComponent;
 import org.seasar.uruma.component.rcp.PartComponent;
 import org.seasar.uruma.component.rcp.PerspectiveComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
+import org.seasar.uruma.rcp.configuration.impl.ActionElement;
 import org.seasar.uruma.rcp.configuration.impl.ActionSetElement;
 import org.seasar.uruma.rcp.configuration.impl.ApplicationElement;
 import org.seasar.uruma.rcp.configuration.impl.GroupMarkerElement;
+import org.seasar.uruma.rcp.configuration.impl.MenuElement;
 import org.seasar.uruma.rcp.configuration.impl.RunElement;
 import org.seasar.uruma.rcp.configuration.writer.GenericConfigurationWriter;
 import org.seasar.uruma.rcp.configuration.writer.NullConfigurationWriter;
@@ -51,9 +51,9 @@ public class ConfigurationWriterFactory {
                 PartComponent.class));
         addWriter(new GenericConfigurationWriter(ActionSetElement.class,
                 "actionSet"));
-        addWriter(new GenericConfigurationWriter(MenuComponent.class, "menu"));
-        addWriter(new GenericConfigurationWriter(MenuItemComponent.class,
-                "action", true));
+        addWriter(new GenericConfigurationWriter(MenuElement.class, "menu"));
+        addWriter(new GenericConfigurationWriter(ActionElement.class, "action",
+                true));
         addWriter(new GenericConfigurationWriter(GroupMarkerElement.class,
                 "groupMarker"));
 

@@ -16,6 +16,7 @@
 package org.seasar.uruma.rcp.configuration.impl;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
+import org.seasar.uruma.component.jface.MenuItemComponent;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 
 /**
@@ -26,6 +27,24 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElement;
  *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_actionSets.html">ActionSets</a>
  */
 public class ActionElement extends AbstractConfigurationElement {
+
+    /**
+     * {@link ActionElement} を構築します。<br />
+     */
+    public ActionElement(final MenuItemComponent menuItem) {
+        label = menuItem.getText();
+        icon = menuItem.getImage();
+        disabledIcon = menuItem.disabledImage;
+        hoverIcon = menuItem.hoverImage;
+        tooltip = menuItem.description;
+    }
+
+    /**
+     * ID です。<br />
+     */
+    @ConfigurationAttribute(required = true)
+    public String id;
+
     /**
      * 表示ラベルです。<br />
      */

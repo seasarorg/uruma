@@ -15,12 +15,10 @@
  */
 package org.seasar.uruma.component.jface;
 
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.framework.util.StringUtil;
-import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIComponent;
@@ -29,7 +27,6 @@ import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
-import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -37,8 +34,6 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author bskuroneko
  * @author y-komori
- * @see <a
- *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_actionSets.html">ActionSets</a>
  */
 public class MenuComponent extends MenuItemComponent implements
         UIComponentContainer {
@@ -66,15 +61,7 @@ public class MenuComponent extends MenuItemComponent implements
     @RenderingPolicy(targetType = TargetType.NONE)
     public String y;
 
-    /**
-     * メニューのパスです。<br />
-     */
-    @ConfigurationAttribute(name = "path")
-    public String menuPath;
-
     private List<UIElement> children = new ArrayList<UIElement>();
-
-    protected List<ConfigurationElement> configElements = new ArrayList<ConfigurationElement>();
 
     /*
      * @see org.seasar.uruma.component.UIElementContainer#addChild(org.seasar.uruma.component.UIElement)
@@ -120,31 +107,5 @@ public class MenuComponent extends MenuItemComponent implements
                         .getWidgetHandle(getId()), context);
             }
         }
-    }
-
-    @Override
-    public void writeConfiguration(final Writer writer) {
-        if (configurationWriter != null) {
-            configurationWriter.writeStartTag(this, writer);
-        }
-
-        for (ConfigurationElement element : configElements) {
-            element.writeConfiguration(writer);
-        }
-
-        if (configurationWriter != null) {
-            configurationWriter.writeEndTag(this, writer);
-        }
-    }
-
-    /**
-     * 子要素となる {@link ConfigurationElement} を追加します。<br />
-     * 
-     * @param element
-     *            {@link ConfigurationElement} オブジェクト
-     */
-    public void addConfigurationElement(final ConfigurationElement element) {
-        AssertionUtil.assertNotNull("element", element);
-        configElements.add(element);
     }
 }

@@ -28,8 +28,10 @@ import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionBuilder;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
+import org.seasar.uruma.rcp.configuration.impl.ActionElement;
 import org.seasar.uruma.rcp.configuration.impl.ActionSetElement;
 import org.seasar.uruma.rcp.configuration.impl.GroupMarkerElement;
+import org.seasar.uruma.rcp.configuration.impl.MenuElement;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
 /**
@@ -67,9 +69,7 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
         Extension extension = ExtensionFactory
                 .createExtension(ExtensionPoints.ACTIONSETS);
 
-        ActionSetElement actionSet = new ActionSetElement();
-        actionSet.label = service.getPluginId() + "'s actionSet.";
-        actionSet.setRcpId(service.getPluginId() + ".actionSet");
+        ActionSetElement actionSet = createActionSet();
 
         WorkbenchComponent workbenchComponent = service.getWorkbenchComponent();
         for (MenuComponent menu : workbenchComponent.getMenus()) {
@@ -86,25 +86,34 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
         return extension;
     }
 
+    protected ActionSetElement createActionSet() {
+        ActionSetElement actionSet = new ActionSetElement();
+        actionSet.label = service.getPluginId() + "'s actionSet.";
+        actionSet.setRcpId(service.getPluginId() + ".actionSet");
+        return actionSet;
+    }
+
     protected void setupMenu(final ActionSetElement actionSet,
-            final MenuComponent menu, final String path) {
+            final MenuComponent menuComponent, final String path) {
+        MenuElement menu = new MenuElement(menuComponent);
+
         // Menu の id が設定されていない場合は自動設定する
-        if (StringUtil.isEmpty(menu.getId())) {
-            menu.setId(AUTO_MENU_ID_PREFIX + menuCount++);
+        if (StringUtil.isEmpty(menu.id)) {
+            menu.id = AUTO_MENU_ID_PREFIX + menuCount++;
         }
-        menu.setRcpId(service.createRcpId(menu.getId()));
+        menu.id = service.createRcpId(menu.id);
 
         if (path != null) {
-            menu.setPath(path);
+            menu.path = path;
         }
 
         GroupMarkerElement marker = new GroupMarkerElement();
         marker.name = START_MARKER;
-        menu.addConfigurationElement(marker);
+        menu.addChild(marker);
 
         actionSet.addChild(menu);
 
-        List<UIElement> children = menu.getChildren();
+        List<UIElement> children = menuComponent.getChildren();
         for (UIElement child : children) {
             String childPath = chopStartMarker(path) + SLASH + START_MARKER;
             if (child instanceof MenuComponent) {
@@ -117,17 +126,19 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
 
     protected void setupMenuItem(final ActionSetElement actionSet,
             final MenuItemComponent menuItem, final String path) {
+        ActionElement action = new ActionElement(menuItem);
+
         // MenuItem の id が設定されていない場合は自動設定する
         if (StringUtil.isEmpty(menuItem.getId())) {
-            menuItem.setId(AUTO_ACTION_ID_PREFIX + actionCount++);
+            action.id = AUTO_ACTION_ID_PREFIX + actionCount++;
         }
-        menuItem.setRcpId(service.createRcpId(menuItem.getId()));
+        action.id = service.createRcpId(action.id);
 
         if (path != null) {
-            menuItem.setPath(path);
+            action.menubarPath = path;
         }
 
-        actionSet.addChild(menuItem);
+        actionSet.addChild(action);
     }
 
     protected String chopStartMarker(final String path) {

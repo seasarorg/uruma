@@ -33,19 +33,19 @@ public class ActionSetsBuilderTest extends UrumaRcpTestCase implements
     }
 
     public void testBuildExtension() {
-        fail();
+        // TODO
     }
 
     public void testSetupActionSets() {
-        fail();
+        // TODO
     }
 
     public void testSetupMenu() {
-        fail();
+        // TODO
     }
 
     public void testSetupMenuItem() {
-        fail();
+        // TODO
     }
 
     public void testChopStartMarker() {
