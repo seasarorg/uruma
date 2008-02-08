@@ -98,17 +98,17 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
         MenuElement menu = new MenuElement(menuComponent);
 
         // Menu の id が設定されていない場合は自動設定する
-        if (StringUtil.isEmpty(menu.id)) {
-            menu.id = AUTO_MENU_ID_PREFIX + menuCount++;
+        String id = menuComponent.getId();
+        if (StringUtil.isEmpty(id)) {
+            id = AUTO_MENU_ID_PREFIX + menuCount++;
         }
-        menu.id = service.createRcpId(menu.id);
+        menu.setRcpId(service.createRcpId(id));
 
         if (path != null) {
             menu.path = path;
         }
 
         GroupMarkerElement marker = new GroupMarkerElement();
-        marker.name = START_MARKER;
         menu.addChild(marker);
 
         actionSet.addChild(menu);
@@ -116,7 +116,7 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
         List<UIElement> children = menuComponent.getChildren();
         for (UIElement child : children) {
             String childPath = ((menu.path != null) ? chopStartMarker(menu.path)
-                    : menu.id)
+                    : menu.getRcpId())
                     + SLASH + START_MARKER;
 
             if (child instanceof MenuComponent) {
@@ -132,10 +132,11 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
         ActionElement action = new ActionElement(menuItem);
 
         // MenuItem の id が設定されていない場合は自動設定する
-        if (StringUtil.isEmpty(menuItem.getId())) {
-            action.id = AUTO_ACTION_ID_PREFIX + actionCount++;
+        String id = menuItem.getId();
+        if (StringUtil.isEmpty(id)) {
+            id = AUTO_ACTION_ID_PREFIX + actionCount++;
         }
-        action.id = service.createRcpId(action.id);
+        action.setRcpId(service.createRcpId(id));
 
         if (path != null) {
             action.menubarPath = path;

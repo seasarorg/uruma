@@ -24,6 +24,7 @@ import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.base.AbstractUIElementContainer;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
+import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -39,6 +40,15 @@ public abstract class AbstractConfigurationElement extends
 
     @ConfigurationAttribute(name = "id", required = true)
     private String rcpId;
+
+    /**
+     * {@link AbstractConfigurationElement} を構築します。<br />
+     */
+    public AbstractConfigurationElement() {
+        ConfigurationWriter writer = ConfigurationWriterFactory
+                .getConfigurationWriter(getClass());
+        setConfigurationWriter(writer);
+    }
 
     /*
      * @see org.seasar.uruma.component.jface.AbstractUIElementContainer#addChild(org.seasar.uruma.component.UIElement)

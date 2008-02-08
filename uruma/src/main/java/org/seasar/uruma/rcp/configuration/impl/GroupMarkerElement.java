@@ -27,6 +27,20 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElement;
  */
 public class GroupMarkerElement extends AbstractConfigurationElement {
     /**
+     * スタートマーカーとして使用する場合の名称です。<br />
+     */
+    public static final String START_MARKER = "startMarker";
+
+    /**
+     * {@link GroupMarkerElement} を構築します。<br />
+     */
+    public GroupMarkerElement() {
+        super();
+        setRcpId(START_MARKER);
+        this.name = START_MARKER;
+    }
+
+    /**
      * グループマーカの名称です。<br />
      */
     @ConfigurationAttribute(required = true)

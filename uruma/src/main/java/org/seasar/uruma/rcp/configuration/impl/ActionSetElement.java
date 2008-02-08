@@ -17,7 +17,6 @@ package org.seasar.uruma.rcp.configuration.impl;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
-import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
 
 /**
  * <code>actionSet</code> 要素のための {@link ConfigurationElement} です。<br />
@@ -31,8 +30,7 @@ public class ActionSetElement extends AbstractConfigurationElement {
      * {@link ActionSetElement} を構築します。<br />
      */
     public ActionSetElement() {
-        setConfigurationWriter(ConfigurationWriterFactory
-                .getConfigurationWriter(getClass()));
+        super();
     }
 
     /**

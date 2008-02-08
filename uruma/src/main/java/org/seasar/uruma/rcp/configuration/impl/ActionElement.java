@@ -32,18 +32,13 @@ public class ActionElement extends AbstractConfigurationElement {
      * {@link ActionElement} を構築します。<br />
      */
     public ActionElement(final MenuItemComponent menuItem) {
+        super();
         label = menuItem.getText();
         icon = menuItem.getImage();
         disabledIcon = menuItem.disabledImage;
         hoverIcon = menuItem.hoverImage;
         tooltip = menuItem.description;
     }
-
-    /**
-     * ID です。<br />
-     */
-    @ConfigurationAttribute(required = true)
-    public String id;
 
     /**
      * 表示ラベルです。<br />

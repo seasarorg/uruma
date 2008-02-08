@@ -55,7 +55,7 @@ public class ConfigurationWriterFactory {
         addWriter(new GenericConfigurationWriter(ActionElement.class, "action",
                 true));
         addWriter(new GenericConfigurationWriter(GroupMarkerElement.class,
-                "groupMarker"));
+                "groupMarker", true));
 
         addWriter(new GenericConfigurationWriter(ApplicationElement.class,
                 "application"));

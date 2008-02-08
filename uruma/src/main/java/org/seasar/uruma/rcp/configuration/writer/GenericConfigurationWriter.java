@@ -108,7 +108,7 @@ public class GenericConfigurationWriter implements ConfigurationWriter {
                 if (value != null) {
                     writer.write(name);
                     writer.write("=\"");
-                    writer.write(value.toString());
+                    escapeChars(value.toString(), writer);
                     writer.write("\" ");
                 } else if (anno.required()) {
                     writer.write(name);
@@ -141,4 +141,35 @@ public class GenericConfigurationWriter implements ConfigurationWriter {
         }
     }
 
+    protected void escapeChars(final String str, final Writer writer)
+            throws IOException {
+        for (int i = 0; i < str.length(); i++) {
+            int chr = str.charAt(i);
+
+            switch (chr) {
+            case '&':
+                writer.write("&amp;");
+                break;
+
+            case '<':
+                writer.write("&lt;");
+                break;
+
+            case '>':
+                writer.write("&gt;");
+                break;
+
+            case '"':
+                writer.write("&quot;");
+                break;
+
+            case ' ':
+                writer.write("&nbsp;");
+                break;
+
+            default:
+                writer.write(chr);
+            }
+        }
+    }
 }
