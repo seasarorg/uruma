@@ -4,11 +4,17 @@
     initHeight="50%" image="/images/container.gif" statusLine="true">
     <menu>
       <menu text="ファイル(&amp;F)">
-        <menuItem id="fileOpen" text="開く(&amp;O)" image="folder" accelerator="Ctrl+O" enablesDependingId="fileDetailTable" enablesFor="SINGLE"/>
-        <menuItem id="fileRename" text="名前の変更(&amp;M)" image="rename" accelerator="F2" enablesDependingId="fileDetailTable" enablesFor="SINGLE"/>
+        <menuItem id="fileOpen" text="開く(&amp;O)" image="folder"
+          accelerator="Ctrl+O" enablesDependingId="fileDetailTable"
+          enablesFor="SINGLE" />
+        <menuItem id="fileRename" text="名前の変更(&amp;M)\tF2"
+          image="rename" accelerator="F2"
+          enablesDependingId="fileDetailTable" enablesFor="SINGLE" />
       </menu>
       <menu text="編集(&amp;E)">
-        <menuItem id="fileDelete" text="削除(&amp;D)" image="cross" accelerator="Delete" enablesDependingId="fileDetailTable" enablesFor="SELECTION" />
+        <menuItem id="fileDelete" text="削除(&amp;D)\tDELETE"
+          image="cross" accelerator="DELETE"
+          enablesDependingId="fileDetailTable" enablesFor="SELECTION" />
       </menu>
     </menu>
 
@@ -16,6 +22,6 @@
       <part ref="folderView" ratio="30" />
       <part ref="fileView" ratio="70" />
     </perspective>
-    
+
   </workbench>
 </template>
