@@ -36,7 +36,7 @@ public class GroupMarkerElement extends AbstractConfigurationElement {
      */
     public GroupMarkerElement() {
         super();
-        setRcpId(START_MARKER);
+        this.id = START_MARKER;
         this.name = START_MARKER;
     }
 
