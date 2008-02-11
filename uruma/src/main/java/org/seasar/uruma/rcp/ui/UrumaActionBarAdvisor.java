@@ -15,22 +15,16 @@
  */
 package org.seasar.uruma.rcp.ui;
 
-import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
-import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WidgetHandle;
-import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.core.UrumaMessageCodes;
-import org.seasar.uruma.exception.NotFoundException;
-import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
 /**
@@ -52,51 +46,56 @@ public class UrumaActionBarAdvisor extends ActionBarAdvisor {
         this.configurer = configurer;
     }
 
+    @Override
+    protected void fillMenuBar(final IMenuManager menuBar) {
+        GroupMarker marker = new GroupMarker("urumaMenu");
+        menuBar.add(marker);
+    }
+
     /*
      * @see org.eclipse.ui.application.ActionBarAdvisor#fillMenuBar(org.eclipse.jface.action.IMenuManager)
      */
-    @Override
-    protected void fillMenuBar(final IMenuManager menuBar) {
-        WindowContext context = UrumaServiceUtil.getService()
-                .getWorkbenchWindowContext();
-
-        WorkbenchComponent workbench = UrumaServiceUtil.getService()
-                .getWorkbenchComponent();
-        WidgetHandle handle;
-        if (StringUtil.isNotBlank(workbench.menu)) {
-            handle = context.getWidgetHandle(workbench.menu);
-        } else {
-            return;
-        }
-
-        if (handle != null) {
-            if (handle.instanceOf(MenuManager.class)) {
-                MenuManager menuManager = handle.<MenuManager> getCastWidget();
-                IContributionItem[] items = menuManager.getItems();
-                for (int i = 0; i < items.length; i++) {
-                    menuBar.add(items[i]);
-                }
-
-                // ビューの表示アクションの作成
-                // MenuManager showViewMenu = new MenuManager("ビューの表示(&V)");
-                // showViewMenu.add(ContributionItemFactory.VIEWS_SHORTLIST
-                // .create(configurer.getWindowConfigurer().getWindow()));
-                // menuBar.add(showViewMenu);
-                // 複数のウィンドウが開かれている場合にのみ表示され、
-                // ウィンドウの切り替えを行うアクション
-                // menu.add(ContributionItemFactory.OPEN_WINDOWS.create(window));
-            } else {
-                throw new RenderException(
-                        UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR,
-                        workbench.menu, MenuManager.class.getName());
-            }
-        } else {
-            throw new NotFoundException(
-                    UrumaMessageCodes.UICOMPONENT_NOT_FOUND, workbench.menu);
-        }
-
-    }
-
+    // @Override
+    // protected void fillMenuBar(final IMenuManager menuBar) {
+    // WindowContext context = UrumaServiceUtil.getService()
+    // .getWorkbenchWindowContext();
+    //
+    // WorkbenchComponent workbench = UrumaServiceUtil.getService()
+    // .getWorkbenchComponent();
+    // WidgetHandle handle;
+    // if (StringUtil.isNotBlank(workbench.menu)) {
+    // handle = context.getWidgetHandle(workbench.menu);
+    // } else {
+    // return;
+    // }
+    //
+    // if (handle != null) {
+    // if (handle.instanceOf(MenuManager.class)) {
+    // MenuManager menuManager = handle.<MenuManager> getCastWidget();
+    // IContributionItem[] items = menuManager.getItems();
+    // for (int i = 0; i < items.length; i++) {
+    // menuBar.add(items[i]);
+    // }
+    //
+    // // ビューの表示アクションの作成
+    // // MenuManager showViewMenu = new MenuManager("ビューの表示(&V)");
+    // // showViewMenu.add(ContributionItemFactory.VIEWS_SHORTLIST
+    // // .create(configurer.getWindowConfigurer().getWindow()));
+    // // menuBar.add(showViewMenu);
+    // // 複数のウィンドウが開かれている場合にのみ表示され、
+    // // ウィンドウの切り替えを行うアクション
+    // // menu.add(ContributionItemFactory.OPEN_WINDOWS.create(window));
+    // } else {
+    // throw new RenderException(
+    // UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR,
+    // workbench.menu, MenuManager.class.getName());
+    // }
+    // } else {
+    // throw new NotFoundException(
+    // UrumaMessageCodes.UICOMPONENT_NOT_FOUND, workbench.menu);
+    // }
+    //
+    // }
     @Override
     protected void fillStatusLine(final IStatusLineManager statusLine) {
         // IStatusLineManager を WindowContext へ登録しておく

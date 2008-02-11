@@ -30,7 +30,6 @@ import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
 import org.seasar.uruma.rcp.configuration.impl.ActionElement;
 import org.seasar.uruma.rcp.configuration.impl.ActionSetElement;
-import org.seasar.uruma.rcp.configuration.impl.GroupMarkerElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuElement;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
@@ -41,6 +40,10 @@ import org.seasar.uruma.rcp.util.UrumaServiceUtil;
  */
 public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
     static final String START_MARKER = "startMarker";
+
+    static final String ADDITIONS = "additions";
+
+    static final String URUMA_MENU = "urumaMenu";
 
     protected UrumaService service;
 
@@ -94,7 +97,7 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
     }
 
     protected void setupMenu(final ActionSetElement actionSet,
-            final MenuComponent menuComponent, final String path) {
+            final MenuComponent menuComponent, final String parentPath) {
         MenuElement menu = new MenuElement(menuComponent);
 
         // Menu の id が設定されていない場合は自動設定する
@@ -104,31 +107,23 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
         }
         menu.setRcpId(service.createRcpId(id));
 
-        if (path != null) {
-            menu.path = path;
-        }
-
-        GroupMarkerElement marker = new GroupMarkerElement();
-        menu.addChild(marker);
-
+        String path = ((parentPath != null) ? parentPath + SLASH : NULL_STRING)
+                + menu.getRcpId();
+        menu.path = path + SLASH + URUMA_MENU;
         actionSet.addChild(menu);
 
         List<UIElement> children = menuComponent.getChildren();
         for (UIElement child : children) {
-            String childPath = ((menu.path != null) ? chopStartMarker(menu.path)
-                    : menu.getRcpId())
-                    + SLASH + START_MARKER;
-
             if (child instanceof MenuComponent) {
-                setupMenu(actionSet, (MenuComponent) child, childPath);
+                setupMenu(actionSet, (MenuComponent) child, path);
             } else if (child instanceof MenuItemComponent) {
-                setupMenuItem(actionSet, (MenuItemComponent) child, childPath);
+                setupMenuItem(actionSet, (MenuItemComponent) child, path);
             }
         }
     }
 
     protected void setupMenuItem(final ActionSetElement actionSet,
-            final MenuItemComponent menuItem, final String path) {
+            final MenuItemComponent menuItem, final String parentPath) {
         ActionElement action = new ActionElement(menuItem);
 
         // MenuItem の id が設定されていない場合は自動設定する
@@ -138,19 +133,10 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
         }
         action.setRcpId(service.createRcpId(id));
 
-        if (path != null) {
-            action.menubarPath = path;
-        }
+        action.menubarPath = ((parentPath != null) ? (parentPath + SLASH)
+                : NULL_STRING)
+                + ADDITIONS;
 
         actionSet.addChild(action);
-    }
-
-    protected String chopStartMarker(final String path) {
-        if (path.endsWith(SLASH + START_MARKER)) {
-            return path.substring(0, path.length()
-                    - (SLASH + START_MARKER).length());
-        } else {
-            return path;
-        }
     }
 }

@@ -163,10 +163,6 @@ public class GenericConfigurationWriter implements ConfigurationWriter {
                 writer.write("&quot;");
                 break;
 
-            case ' ':
-                writer.write("&nbsp;");
-                break;
-
             default:
                 writer.write(chr);
             }

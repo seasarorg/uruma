@@ -81,7 +81,7 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         workbench.preRender(null, windowContext);
 
         // TODO ここで XML から情報を読み込んでワークベンチの情報を設定する
-        // configurer.setShowMenuBar(true);
+        configurer.setShowMenuBar(true);
         configurer.setShowCoolBar(false);
     }
 

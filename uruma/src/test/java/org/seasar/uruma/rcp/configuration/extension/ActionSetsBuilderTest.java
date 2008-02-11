@@ -47,13 +47,4 @@ public class ActionSetsBuilderTest extends UrumaRcpTestCase implements
     public void testSetupMenuItem() {
         // TODO
     }
-
-    public void testChopStartMarker() {
-        assertEquals("1", "test1", builder.chopStartMarker("test1" + SLASH
-                + ActionSetsBuilder.START_MARKER));
-        assertEquals("2", "test2/", builder.chopStartMarker("test2/"));
-        assertEquals("3", "", builder.chopStartMarker(SLASH
-                + ActionSetsBuilder.START_MARKER));
-    }
-
 }

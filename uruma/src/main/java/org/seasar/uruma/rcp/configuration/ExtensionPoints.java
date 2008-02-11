@@ -40,4 +40,24 @@ public interface ExtensionPoints {
      * エクステンションポイント：{@value} を表す定数です。<br />
      */
     public static final String ACTIONSETS = "org.eclipse.ui.actionSets";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
+    public static final String COMMANDS = "org.eclipse.ui.commands";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
+    public static final String HANDLERS = "org.eclipse.ui.handlers";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
+    public static final String BINDINGS = "org.eclipse.ui.bindings";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
+    public static final String MENUS = "org.eclipse.ui.menus";
 }
