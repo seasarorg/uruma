@@ -18,19 +18,18 @@ package org.seasar.uruma.rcp.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.seasar.uruma.component.rcp.PartComponent;
-import org.seasar.uruma.component.rcp.PerspectiveComponent;
-import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.rcp.configuration.impl.ActionElement;
 import org.seasar.uruma.rcp.configuration.impl.ActionSetElement;
 import org.seasar.uruma.rcp.configuration.impl.ApplicationElement;
+import org.seasar.uruma.rcp.configuration.impl.CategoryElement;
 import org.seasar.uruma.rcp.configuration.impl.GroupMarkerElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuElement;
+import org.seasar.uruma.rcp.configuration.impl.PerspectiveElement;
 import org.seasar.uruma.rcp.configuration.impl.RunElement;
+import org.seasar.uruma.rcp.configuration.impl.ViewElement;
 import org.seasar.uruma.rcp.configuration.writer.GenericConfigurationWriter;
-import org.seasar.uruma.rcp.configuration.writer.NullConfigurationWriter;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -43,12 +42,10 @@ public class ConfigurationWriterFactory {
 
     static {
         addWriter(new GenericConfigurationWriter(Extension.class, "extension"));
-        addWriter(new GenericConfigurationWriter(ViewPartComponent.class,
-                "view", true));
-        addWriter(new GenericConfigurationWriter(PerspectiveComponent.class,
+        addWriter(new GenericConfigurationWriter(ViewElement.class, "view",
+                true));
+        addWriter(new GenericConfigurationWriter(PerspectiveElement.class,
                 "perspective"));
-        addWriter(new NullConfigurationWriter<PartComponent>(
-                PartComponent.class));
         addWriter(new GenericConfigurationWriter(ActionSetElement.class,
                 "actionSet"));
         addWriter(new GenericConfigurationWriter(MenuElement.class, "menu"));
@@ -56,7 +53,8 @@ public class ConfigurationWriterFactory {
                 true));
         addWriter(new GenericConfigurationWriter(GroupMarkerElement.class,
                 "groupMarker", true));
-
+        addWriter(new GenericConfigurationWriter(CategoryElement.class,
+                "category"));
         addWriter(new GenericConfigurationWriter(ApplicationElement.class,
                 "application"));
         addWriter(new GenericConfigurationWriter(RunElement.class, "run", true));

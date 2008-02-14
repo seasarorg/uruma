@@ -22,6 +22,7 @@ import org.eclipse.ui.IPerspectiveFactory;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.core.TemplateManager;
+import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
 /**
@@ -30,15 +31,17 @@ import org.seasar.uruma.rcp.util.UrumaServiceUtil;
  * @author y-komori
  */
 public class AutoPerspectiveFactory implements IPerspectiveFactory {
+    protected UrumaService service;
 
-    private TemplateManager templateManager;
+    protected TemplateManager templateManager;
 
     /**
      * {@link AutoPerspectiveFactory} を構築します。<br />
      */
     public AutoPerspectiveFactory() {
-        this.templateManager = (TemplateManager) UrumaServiceUtil.getService()
-                .getContainer().getComponent(TemplateManager.class);
+        this.service = UrumaServiceUtil.getService();
+        this.templateManager = (TemplateManager) service.getContainer()
+                .getComponent(TemplateManager.class);
     }
 
     /*
@@ -64,8 +67,8 @@ public class AutoPerspectiveFactory implements IPerspectiveFactory {
                 position = IPageLayout.RIGHT;
             }
 
-            layout.addStandaloneView(viewPart.getRcpId(), true, position,
-                    ratio, layout.getEditorArea());
+            layout.addStandaloneView(service.createRcpId(viewPart.getId()),
+                    true, position, ratio, layout.getEditorArea());
         }
     }
 }

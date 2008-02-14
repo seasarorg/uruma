@@ -97,6 +97,15 @@ public interface UrumaConstants {
     public static final String HASH_MARK = "#";
 
     /**
+     * コロン (:) を表す定数です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String COLON = ":";
+
+    /**
      * Uruma が内部で使用するコンポーネントを定義した dicon ファイルのパスです。<br />
      * <dl>
      * <dt><b>値 :</b></dt>

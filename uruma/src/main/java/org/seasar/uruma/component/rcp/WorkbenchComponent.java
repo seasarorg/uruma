@@ -29,6 +29,10 @@ import org.seasar.uruma.component.jface.MenuComponent;
  * @author y-komori
  */
 public class WorkbenchComponent extends AbstractUIContainer {
+    /**
+     * ID です。<br />
+     */
+    public String id;
 
     /**
      * ワークベンチウィンドウのタイトルです。

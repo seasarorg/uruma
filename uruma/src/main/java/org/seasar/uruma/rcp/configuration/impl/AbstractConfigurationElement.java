@@ -17,9 +17,11 @@ package org.seasar.uruma.rcp.configuration.impl;
 
 import java.io.Writer;
 
+import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
+import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -56,5 +58,17 @@ public abstract class AbstractConfigurationElement implements
             configurationWriter.writeStartTag(this, writer);
             configurationWriter.writeEndTag(this, writer);
         }
+    }
+
+    /**
+     * <code>id</code> を RCP 上の ID に変換します。<br />
+     * 
+     * @param id
+     *            変換対象ID
+     * @return RCP上のID
+     * @see UrumaService#createRcpId(String)
+     */
+    protected String createRcpId(final String id) {
+        return UrumaServiceUtil.getService().createRcpId(id);
     }
 }

@@ -15,15 +15,19 @@
  */
 package org.seasar.uruma.rcp;
 
+import java.util.List;
+
 import org.eclipse.ui.IWorkbench;
 import org.seasar.framework.container.S2Container;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.rcp.configuration.Extension;
 
 /**
- * @author y-komori
+ * RCP 環境で Uruma が提供するサービスです。<br />
  * 
+ * @author y-komori
  */
 public interface UrumaService {
     /**
@@ -80,6 +84,22 @@ public interface UrumaService {
      * @return {@link WorkbenchComponent} オブジェクト
      */
     public WorkbenchComponent getWorkbenchComponent();
+
+    /**
+     * 現在登録されている拡張ポイントのリストを返します。<br />
+     * 
+     * @return 拡張ポイントのリスト
+     */
+    public List<Extension> getExtensions();
+
+    /**
+     * 指定した名前の拡張ポイントを返します。<br />
+     * 
+     * @param point
+     *            拡張ポイントの名称
+     * @return 拡張ポイント。見つからなかった場合は <code>null</code>。
+     */
+    public Extension getExtension(String point);
 
     /**
      * ワークベンチウィンドウに対応する {@link WindowContext} を返します。<br />

@@ -15,14 +15,14 @@
  */
 package org.seasar.uruma.component.rcp;
 
-import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElement;
+import org.seasar.uruma.component.base.AbstractUIElement;
 
 /**
  * <code>part</code> 要素を表すコンポーネントです。<br />
  * 
  * @author y-komori
  */
-public class PartComponent extends AbstractConfigurationElement {
+public class PartComponent extends AbstractUIElement {
     /**
      * 配置する <code>viewPart</code> や <code>editorPart</code> の ID を表します。<br />
      */

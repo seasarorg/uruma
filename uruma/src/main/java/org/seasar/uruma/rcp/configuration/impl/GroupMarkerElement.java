@@ -41,6 +41,12 @@ public class GroupMarkerElement extends AbstractConfigurationElement {
     }
 
     /**
+     * ID です。<br />
+     */
+    @ConfigurationAttribute(required = true)
+    public String id;
+
+    /**
      * グループマーカの名称です。<br />
      */
     @ConfigurationAttribute(required = true)

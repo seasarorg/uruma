@@ -24,7 +24,6 @@ import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.rcp.PartComponent;
 import org.seasar.uruma.component.rcp.PerspectiveComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
-import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
@@ -37,7 +36,8 @@ import org.seasar.uruma.rcp.util.UrumaServiceUtil;
  * 
  * @author y-komori
  */
-public class GenericPerspectiveFactory implements IPerspectiveFactory {
+public class GenericPerspectiveFactory implements IPerspectiveFactory,
+        UrumaMessageCodes {
 
     private static final String PART_LEFT = "LEFT";
 
@@ -47,14 +47,17 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
 
     private static final String PART_BOTTOM = "BOTTOM";
 
-    private TemplateManager templateManager;
+    protected UrumaService service;
+
+    protected TemplateManager templateManager;
 
     /**
      * {@link GenericPerspectiveFactory} を構築します。<br />
      */
     public GenericPerspectiveFactory() {
-        this.templateManager = (TemplateManager) UrumaServiceUtil.getService()
-                .getContainer().getComponent(TemplateManager.class);
+        this.service = UrumaServiceUtil.getService();
+        this.templateManager = (TemplateManager) service.getContainer()
+                .getComponent(TemplateManager.class);
     }
 
     /*
@@ -65,22 +68,23 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
 
         layout.setEditorAreaVisible(false);
 
-        WorkbenchComponent workbench = service.getWorkbenchComponent();
         String perspectiveId = layout.getDescriptor().getId();
-        PerspectiveComponent pespective = findPerspective(workbench
-                .getChildren(), perspectiveId);
 
-        if (pespective != null) {
-            List<UIElement> parts = pespective.getChildren();
+        List<PerspectiveComponent> perspectives = service
+                .getWorkbenchComponent().getPerspectives();
+
+        PerspectiveComponent perspective = findPerspective(perspectives,
+                perspectiveId);
+
+        if (perspective != null) {
+            List<UIElement> parts = perspective.getChildren();
             for (UIElement part : parts) {
                 if (part instanceof PartComponent) {
                     if (!setupLayout(layout, (PartComponent) part)) {
-                        String rowId = perspectiveId.substring(service
-                                .getPluginId().length() + 1, perspectiveId
-                                .length());
                         throw new NotFoundException(
-                                UrumaMessageCodes.PART_IN_PERSPECTIVE_NOT_FOUND,
-                                rowId, ((PartComponent) part).ref);
+                                PART_IN_PERSPECTIVE_NOT_FOUND, service
+                                        .getLocalId(perspectiveId),
+                                ((PartComponent) part).ref);
                     }
                 }
             }
@@ -88,13 +92,12 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
     }
 
     protected PerspectiveComponent findPerspective(
-            final List<UIElement> elements, final String perspectiveId) {
-        for (UIElement element : elements) {
-            if (element instanceof PerspectiveComponent) {
-                PerspectiveComponent perspective = (PerspectiveComponent) element;
-                if (perspectiveId.equals(perspective.getRcpId())) {
-                    return perspective;
-                }
+            final List<PerspectiveComponent> perspectives,
+            final String perspectiveId) {
+        String localId = service.getLocalId(perspectiveId);
+        for (PerspectiveComponent perspective : perspectives) {
+            if (localId.equals(perspective.id)) {
+                return perspective;
             }
         }
         return null;
@@ -129,11 +132,12 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory {
     protected boolean findViewPart(final String viewId) {
         List<Template> templates = templateManager
                 .getTemplates(ViewPartComponent.class);
+        String localViewId = service.getLocalId(viewId);
 
         for (Template template : templates) {
             ViewPartComponent viewPart = (ViewPartComponent) template
                     .getRootComponent();
-            if (viewId.equals(viewPart.getRcpId())) {
+            if (localViewId.equals(viewPart.getId())) {
                 return true;
             }
         }

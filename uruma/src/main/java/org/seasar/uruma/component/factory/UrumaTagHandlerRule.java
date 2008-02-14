@@ -17,13 +17,11 @@ package org.seasar.uruma.component.factory;
 
 import org.seasar.framework.xml.TagHandlerRule;
 import org.seasar.uruma.component.factory.handler.CommonAttributesTagHandler;
-import org.seasar.uruma.component.factory.handler.ConfigurationTagHandler;
 import org.seasar.uruma.component.factory.handler.GenericTagHandler;
 import org.seasar.uruma.component.factory.handler.GradientInfoTagHandler;
 import org.seasar.uruma.component.factory.handler.GradientItemTagHandler;
 import org.seasar.uruma.component.factory.handler.LayoutDataTagHandler;
 import org.seasar.uruma.component.factory.handler.LayoutTagHandler;
-import org.seasar.uruma.component.factory.handler.PartTagHandler;
 import org.seasar.uruma.component.factory.handler.RootComponentTagHandler;
 import org.seasar.uruma.component.factory.handler.SimpleItemTagHandler;
 import org.seasar.uruma.component.factory.handler.TableCellTagHandler;
@@ -80,13 +78,16 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
      * {@link UrumaTagHandlerRule} クラスを構築します。<br />
      */
     public UrumaTagHandlerRule() {
+        // Root components
         addTagHandler(new TemplateTagHandler());
         addTagHandler("window", new RootComponentTagHandler(
                 WindowComponent.class));
         addTagHandler("workbench", new RootComponentTagHandler(
                 WorkbenchComponent.class));
-        addTagHandler("viewPart", new PartTagHandler(ViewPartComponent.class));
+        addTagHandler("viewPart", new RootComponentTagHandler(
+                ViewPartComponent.class));
 
+        // Common Attribute
         addTagHandler(new CommonAttributesTagHandler());
 
         // Layout
@@ -151,9 +152,9 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
                 SeparatorComponent.class));
 
         // RCP
-        addTagHandler("perspective", new ConfigurationTagHandler(
+        addTagHandler("perspective", new GenericTagHandler(
                 PerspectiveComponent.class));
-        addTagHandler("part", new ConfigurationTagHandler(PartComponent.class));
+        addTagHandler("part", new GenericTagHandler(PartComponent.class));
     }
 
     protected void addTagHandler(final UrumaTagHandler tagHandler) {

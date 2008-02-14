@@ -25,13 +25,19 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElement;
  * @see <a
  *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_actionSets.html">ActionSets</a>
  */
-public class ActionSetElement extends AbstractConfigurationElement {
+public class ActionSetElement extends AbstractConfigurationElementContainer {
     /**
      * {@link ActionSetElement} を構築します。<br />
      */
     public ActionSetElement() {
         super();
     }
+
+    /**
+     * ID です。<br />
+     */
+    @ConfigurationAttribute(required = true)
+    public String id;
 
     /**
      * アクションセットに表示するラベルです。<br />

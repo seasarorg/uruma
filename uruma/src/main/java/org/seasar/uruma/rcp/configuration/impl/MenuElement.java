@@ -36,9 +36,15 @@ public class MenuElement extends AbstractConfigurationElement {
      */
     public MenuElement(final MenuComponent menu) {
         super();
-        setRcpId(menu.getId());
+        this.id = menu.getId();
         this.label = menu.getText();
     }
+
+    /**
+     * ID です。<br />
+     */
+    @ConfigurationAttribute(required = true)
+    public String id;
 
     /**
      * メニューの表示ラベルです。<br />

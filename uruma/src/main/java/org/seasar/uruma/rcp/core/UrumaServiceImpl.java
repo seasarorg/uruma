@@ -17,6 +17,7 @@ package org.seasar.uruma.rcp.core;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -55,19 +56,19 @@ import org.seasar.uruma.exception.UrumaAppInitException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.autoregister.UrumaAppAutoRegisterBuilder;
-import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
-import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
+import org.seasar.uruma.rcp.configuration.impl.PerspectiveElement;
+import org.seasar.uruma.rcp.configuration.impl.ViewElement;
 import org.seasar.uruma.rcp.ui.AutoPerspectiveFactory;
 import org.seasar.uruma.rcp.ui.GenericPerspectiveFactory;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * {@link UrumaService} の実装クラスです。<br />
- * 本クラスは、 {@link UrumaServiceFactory} によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。
+ * 本クラスは、 {@link UrumaServiceFactory} によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。<br />
  * 
  * @author y-komori
  */
@@ -292,8 +293,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         for (Template template : viewTemplates) {
             ViewPartComponent component = (ViewPartComponent) template
                     .getRootComponent();
-            component.setRcpId(createRcpId(component.getId()));
-            extension.addConfigurationElement(component);
+            ViewElement element = new ViewElement(component);
+            extension.addElement(element);
         }
         extensions.add(extension);
     }
@@ -324,36 +325,32 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
         for (PerspectiveComponent perspective : workbenchComponent
                 .getPerspectives()) {
-            perspective.perspectiveClass = GenericPerspectiveFactory.class
-                    .getName();
 
             // ID のついていない最初のパースペクティブにはデフォルトIDをつける
             if (StringUtil.isBlank(perspective.id) && !defaultIdUsed) {
-                perspective.id = UrumaConstants.DEFAULT_PERSPECTIVE_ID;
-                perspective.setRcpId(createRcpId(perspective.id));
+                perspective.id = DEFAULT_PERSPECTIVE_ID;
                 defaultIdUsed = true;
             }
 
-            extension.addConfigurationElement(perspective);
+            PerspectiveElement element = new PerspectiveElement(perspective);
+            element.clazz = GenericPerspectiveFactory.class.getName();
+
+            extension.addElement(element);
         }
 
         if (extension.getElements().size() == 0) {
             // perspective 要素が定義されていないときにデフォルト設定を行う
-            PerspectiveComponent perspective = new PerspectiveComponent();
-            ConfigurationWriter writer = ConfigurationWriterFactory
-                    .getConfigurationWriter(perspective);
-            perspective.setConfigurationWriter(writer);
+            PerspectiveComponent component = new PerspectiveComponent();
+            component.clazz = AutoPerspectiveFactory.class.getName();
+            component.id = DEFAULT_PERSPECTIVE_ID;
+            component.name = getPluginId();
 
-            perspective.perspectiveClass = AutoPerspectiveFactory.class
-                    .getName();
-            perspective.id = UrumaConstants.DEFAULT_PERSPECTIVE_ID;
-            perspective.setRcpId(createRcpId(perspective.id));
-            perspective.name = getPluginId();
+            workbenchComponent.addChild(component);
+            workbenchComponent.initialPerspectiveId = DEFAULT_PERSPECTIVE_ID;
 
-            extension.addConfigurationElement(perspective);
+            PerspectiveElement element = new PerspectiveElement(component);
+            extension.addElement(element);
 
-            workbenchComponent.addChild(perspective);
-            workbenchComponent.initialPerspectiveId = UrumaConstants.DEFAULT_PERSPECTIVE_ID;
         } else if (StringUtil.isBlank(workbenchComponent.initialPerspectiveId)) {
             // initialPerspectiveId が定義されていない場合は
             // 最初に記述されている perspective を表示する
@@ -421,6 +418,25 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         Template template = (Template) applicationContext
                 .getValue(UrumaConstants.WORKBENCH_TEMPLATE_NAME);
         return (WorkbenchComponent) template.getRootComponent();
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#getExtensions()
+     */
+    public List<Extension> getExtensions() {
+        return Collections.unmodifiableList(extensions);
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#getExtension(java.lang.String)
+     */
+    public Extension getExtension(final String point) {
+        for (Extension extension : extensions) {
+            if (extension.point.equals(point)) {
+                return extension;
+            }
+        }
+        return null;
     }
 
     /*

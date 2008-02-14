@@ -84,15 +84,15 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
             }
         }
 
-        extension.addConfigurationElement(actionSet);
+        extension.addElement(actionSet);
 
         return extension;
     }
 
     protected ActionSetElement createActionSet() {
         ActionSetElement actionSet = new ActionSetElement();
+        actionSet.id = service.getPluginId() + ".actionSet";
         actionSet.label = service.getPluginId() + "'s actionSet.";
-        actionSet.setRcpId(service.getPluginId() + ".actionSet");
         return actionSet;
     }
 
@@ -105,12 +105,12 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
         if (StringUtil.isEmpty(id)) {
             id = AUTO_MENU_ID_PREFIX + menuCount++;
         }
-        menu.setRcpId(service.createRcpId(id));
+        menu.id = service.createRcpId(id);
 
         String path = ((parentPath != null) ? parentPath + SLASH : NULL_STRING)
-                + menu.getRcpId();
+                + menu.id;
         menu.path = path + SLASH + URUMA_MENU;
-        actionSet.addChild(menu);
+        actionSet.addElement(menu);
 
         List<UIElement> children = menuComponent.getChildren();
         for (UIElement child : children) {
@@ -131,12 +131,12 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
         if (StringUtil.isEmpty(id)) {
             id = AUTO_ACTION_ID_PREFIX + actionCount++;
         }
-        action.setRcpId(service.createRcpId(id));
+        action.id = service.createRcpId(id);
 
         action.menubarPath = ((parentPath != null) ? (parentPath + SLASH)
                 : NULL_STRING)
                 + ADDITIONS;
 
-        actionSet.addChild(action);
+        actionSet.addElement(action);
     }
 }
