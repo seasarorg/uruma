@@ -34,6 +34,19 @@ public interface ConfigurationWriter {
     public void writeStartTag(ConfigurationElement element, Writer writer);
 
     /**
+     * インデント付きで開始タグを出力します。<br />
+     * 
+     * @param element
+     *            要素名
+     * @param writer
+     *            出力先 {@link Writer} オブジェクト
+     * @param level
+     *            インデントレベル
+     */
+    public void writeStartTag(ConfigurationElement element, Writer writer,
+            int level);
+
+    /**
      * 終了タグを出力します。<br />
      * 
      * @param element
@@ -42,6 +55,19 @@ public interface ConfigurationWriter {
      *            出力先 {@link Writer} オブジェクト
      */
     public void writeEndTag(ConfigurationElement element, Writer writer);
+
+    /**
+     * インデント付きで終了タグを出力します。<br />
+     * 
+     * @param element
+     *            要素名
+     * @param writer
+     *            出力先 {@link Writer} オブジェクト
+     * @param level
+     *            インデントレベル
+     */
+    public void writeEndTag(ConfigurationElement element, Writer writer,
+            int level);
 
     /**
      * {@link ConfigurationWriter} がサポートする {@link ConfigurationElement}

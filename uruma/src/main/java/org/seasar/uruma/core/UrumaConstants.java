@@ -43,6 +43,15 @@ public interface UrumaConstants {
     public static final String NULL_STRING = "";
 
     /**
+     * 半角スペースを表す定数です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String WHITE_SPACE = " ";
+
+    /**
      * スラッシュ (/) を表す定数です。<br />
      * <dl>
      * <dt><b>値 :</b></dt>

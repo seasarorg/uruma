@@ -24,6 +24,7 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.exception.IORuntimeException;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.ConfigurationAttribute;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
 import org.seasar.uruma.util.AnnotationUtil;
@@ -33,7 +34,8 @@ import org.seasar.uruma.util.AnnotationUtil;
  * 
  * @author y-komori
  */
-public class GenericConfigurationWriter implements ConfigurationWriter {
+public class GenericConfigurationWriter implements ConfigurationWriter,
+        UrumaConstants {
 
     private Class<? extends ConfigurationElement> supportType;
 
@@ -86,10 +88,20 @@ public class GenericConfigurationWriter implements ConfigurationWriter {
      */
     public void writeStartTag(final ConfigurationElement element,
             final Writer writer) {
+        writeStartTag(element, writer, 0);
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationWriter#writeStartTag(org.seasar.uruma.rcp.configuration.ConfigurationElement,
+     *      java.io.Writer, int)
+     */
+    public void writeStartTag(final ConfigurationElement element,
+            final Writer writer, final int level) {
         try {
+            writer.write(createIndent(level));
             writer.write("<");
             writer.write(elementName);
-            writer.write(" ");
+            writer.write(WHITE_SPACE);
 
             List<PropertyDesc> pdLists = AnnotationUtil
                     .getAnnotatedPropertyDescs(supportType,
@@ -132,8 +144,18 @@ public class GenericConfigurationWriter implements ConfigurationWriter {
      */
     public void writeEndTag(final ConfigurationElement element,
             final Writer writer) {
+        writeEndTag(element, writer, 0);
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationWriter#writeEndTag(org.seasar.uruma.rcp.configuration.ConfigurationElement,
+     *      java.io.Writer, int)
+     */
+    public void writeEndTag(final ConfigurationElement element,
+            final Writer writer, final int level) {
         if (!startTagOnly) {
             try {
+                writer.write(createIndent(level));
                 writer.write("</" + elementName + ">\n");
             } catch (IOException ex) {
                 throw new IORuntimeException(ex);
@@ -166,6 +188,18 @@ public class GenericConfigurationWriter implements ConfigurationWriter {
             default:
                 writer.write(chr);
             }
+        }
+    }
+
+    protected String createIndent(final int level) {
+        if (level > 0) {
+            StringBuilder builder = new StringBuilder(level);
+            for (int i = 0; i < level; i++) {
+                builder.append(WHITE_SPACE);
+            }
+            return builder.toString();
+        } else {
+            return NULL_STRING;
         }
     }
 }

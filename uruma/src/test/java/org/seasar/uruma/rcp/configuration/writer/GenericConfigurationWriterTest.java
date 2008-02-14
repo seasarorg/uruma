@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
-import org.seasar.uruma.rcp.configuration.impl.SimpleConfigurationElement;
+import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElementContainer;
 
 /**
  * {@link GenericConfigurationWriter} に対するテストクラスです。<br />
@@ -103,12 +103,13 @@ public class GenericConfigurationWriterTest extends TestCase {
         StringWriter sw = new StringWriter();
         element.writeConfiguration(sw);
 
-        assertEquals("<element >\n<child attr=\"child1\" />\n"
-                + "<child attr=\"child2\" />\n</element>\n", sw.getBuffer()
+        assertEquals("<element >\n <child attr=\"child1\" />\n"
+                + " <child attr=\"child2\" />\n</element>\n", sw.getBuffer()
                 .toString());
     }
 
-    private static class TestElement1 extends SimpleConfigurationElement {
+    private static class TestElement1 extends
+            AbstractConfigurationElementContainer {
         @ConfigurationAttribute
         public String attr1 = "abc";
 
@@ -133,11 +134,13 @@ public class GenericConfigurationWriterTest extends TestCase {
         public int attr6 = 456;
     }
 
-    private static class TestElement4 extends SimpleConfigurationElement {
+    private static class TestElement4 extends
+            AbstractConfigurationElementContainer {
 
     }
 
-    private static class TestElement5 extends SimpleConfigurationElement {
+    private static class TestElement5 extends
+            AbstractConfigurationElementContainer {
         @ConfigurationAttribute
         public String attr;
     }

@@ -71,6 +71,7 @@ public class ContributionBuilder {
         writer.write("<plugin>\n");
 
         for (Extension extension : extensions) {
+            extension.setLevel(1);
             extension.writeConfiguration(writer);
         }
 

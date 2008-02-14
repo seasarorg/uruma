@@ -41,4 +41,12 @@ public interface ConfigurationElement {
      *            コンフィグレーション書き出し対象の {@link Writer} オブジェクト
      */
     public void writeConfiguration(Writer writer);
+
+    /**
+     * コンフィグレーション書き出し時のインデントレベルを設定します。<br />
+     * 
+     * @param level
+     *            インデントレベル
+     */
+    public void setLevel(int level);
 }

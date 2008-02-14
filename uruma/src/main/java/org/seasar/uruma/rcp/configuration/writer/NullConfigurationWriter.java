@@ -51,22 +51,22 @@ public class NullConfigurationWriter<ELEMENT_TYPE extends ConfigurationElement>
     }
 
     /*
-     * @see org.seasar.uruma.rcp.configuration.writer.AbstractConfigurationWriter#doWriteStartTag(org.seasar.uruma.rcp.configuration.ConfigurationElement,
-     *      java.io.Writer)
+     * @see org.seasar.uruma.rcp.configuration.writer.AbstractConfigurationWriter#doWriteEndTag(org.seasar.uruma.rcp.configuration.ConfigurationElement,
+     *      java.io.Writer, int)
      */
     @Override
-    public void doWriteStartTag(final ConfigurationElement element,
-            final Writer writer) throws IOException {
+    public void doWriteEndTag(final ELEMENT_TYPE element, final Writer writer,
+            final int level) throws IOException {
         // Do nothing.
     }
 
     /*
-     * @see org.seasar.uruma.rcp.configuration.writer.AbstractConfigurationWriter#doWriteEndTag(org.seasar.uruma.rcp.configuration.ConfigurationElement,
-     *      java.io.Writer)
+     * @see org.seasar.uruma.rcp.configuration.writer.AbstractConfigurationWriter#doWriteStartTag(org.seasar.uruma.rcp.configuration.ConfigurationElement,
+     *      java.io.Writer, int)
      */
     @Override
-    public void doWriteEndTag(final ConfigurationElement element,
-            final Writer writer) throws IOException {
+    public void doWriteStartTag(final ELEMENT_TYPE element,
+            final Writer writer, final int level) throws IOException {
         // Do nothing.
     }
 }

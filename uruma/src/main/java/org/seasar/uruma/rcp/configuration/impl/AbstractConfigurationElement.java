@@ -31,6 +31,8 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 public abstract class AbstractConfigurationElement implements
         ConfigurationElement {
+    protected int level;
+
     protected ConfigurationWriter configurationWriter;
 
     /**
@@ -55,9 +57,16 @@ public abstract class AbstractConfigurationElement implements
      */
     public void writeConfiguration(final Writer writer) {
         if (configurationWriter != null) {
-            configurationWriter.writeStartTag(this, writer);
-            configurationWriter.writeEndTag(this, writer);
+            configurationWriter.writeStartTag(this, writer, level);
+            configurationWriter.writeEndTag(this, writer, level);
         }
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationElement#setLevel(int)
+     */
+    public void setLevel(final int level) {
+        this.level = level;
     }
 
     /**

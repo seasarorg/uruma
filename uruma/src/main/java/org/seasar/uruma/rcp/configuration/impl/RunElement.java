@@ -22,8 +22,16 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElement;
  * <code>run</code> 要素のための {@link ConfigurationElement} です。<br />
  * 
  * @author y-komori
+ * @see <a
+ *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_core_runtime_applications.html#e.run">run</a>
  */
-public class RunElement extends SimpleConfigurationElement {
+public class RunElement extends AbstractConfigurationElement {
+    /**
+     * id です。<br />
+     */
+    @ConfigurationAttribute
+    public String id;
+
     /**
      * クラス名称です。<br />
      */

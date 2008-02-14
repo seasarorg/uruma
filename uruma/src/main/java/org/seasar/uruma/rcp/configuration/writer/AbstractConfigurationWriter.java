@@ -47,8 +47,17 @@ public abstract class AbstractConfigurationWriter<ELEMENT_TYPE extends Configura
      */
     public final void writeStartTag(final ConfigurationElement element,
             final Writer writer) {
+        writeStartTag(element, writer, 0);
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationWriter#writeStartTag(org.seasar.uruma.rcp.configuration.ConfigurationElement,
+     *      java.io.Writer, int)
+     */
+    public void writeStartTag(final ConfigurationElement element,
+            final Writer writer, final int level) {
         try {
-            doWriteStartTag(doGetSupportType().cast(element), writer);
+            doWriteStartTag(doGetSupportType().cast(element), writer, level);
         } catch (IOException ex) {
             throw new IORuntimeException(ex);
         }
@@ -60,8 +69,17 @@ public abstract class AbstractConfigurationWriter<ELEMENT_TYPE extends Configura
      */
     public final void writeEndTag(final ConfigurationElement element,
             final Writer writer) {
+        writeEndTag(element, writer, 0);
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.configuration.ConfigurationWriter#writeEndTag(org.seasar.uruma.rcp.configuration.ConfigurationElement,
+     *      java.io.Writer, int)
+     */
+    public void writeEndTag(final ConfigurationElement element,
+            final Writer writer, final int level) {
         try {
-            doWriteEndTag(doGetSupportType().cast(element), writer);
+            doWriteEndTag(doGetSupportType().cast(element), writer, level);
         } catch (IOException ex) {
             throw new IORuntimeException(ex);
         }
@@ -83,10 +101,12 @@ public abstract class AbstractConfigurationWriter<ELEMENT_TYPE extends Configura
      *            出力対象の {@link ConfigurationElement}
      * @param writer
      *            出力対象の {@link Writer} オブジェクト
+     * @param level
+     *            インデントレベル
      * @throws IOException
      */
     public abstract void doWriteStartTag(final ELEMENT_TYPE element,
-            final Writer writer) throws IOException;
+            final Writer writer, int level) throws IOException;
 
     /**
      * 終了タグを出力します。<br />
@@ -96,8 +116,10 @@ public abstract class AbstractConfigurationWriter<ELEMENT_TYPE extends Configura
      *            出力対象の {@link ConfigurationElement}
      * @param writer
      *            出力対象の {@link Writer} オブジェクト
+     * @param level
+     *            インデントレベル
      * @throws IOException
      */
-    public abstract void doWriteEndTag(ELEMENT_TYPE element, Writer writer)
-            throws IOException;
+    public abstract void doWriteEndTag(ELEMENT_TYPE element, Writer writer,
+            int level) throws IOException;
 }

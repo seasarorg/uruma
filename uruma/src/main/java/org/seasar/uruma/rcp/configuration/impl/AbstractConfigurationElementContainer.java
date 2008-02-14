@@ -53,15 +53,16 @@ public class AbstractConfigurationElementContainer extends
     @Override
     public void writeConfiguration(final Writer writer) {
         if (configurationWriter != null) {
-            configurationWriter.writeStartTag(this, writer);
+            configurationWriter.writeStartTag(this, writer, level);
         }
 
         for (ConfigurationElement element : children) {
+            element.setLevel(level + 1);
             element.writeConfiguration(writer);
         }
 
         if (configurationWriter != null) {
-            configurationWriter.writeEndTag(this, writer);
+            configurationWriter.writeEndTag(this, writer, level);
         }
     }
 }
