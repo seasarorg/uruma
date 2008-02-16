@@ -21,6 +21,7 @@ import junit.framework.TestCase;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
+import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElement;
 import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElementContainer;
 
 /**
@@ -33,15 +34,15 @@ public class GenericConfigurationWriterTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
-                TestElement1.class, "element"));
+                TestElement1.class));
         ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
-                TestElement2.class, "element", true));
+                TestElement2.class));
         ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
-                TestElement3.class, "element", true));
+                TestElement3.class));
         ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
-                TestElement4.class, "element"));
+                TestElement4.class));
         ConfigurationWriterFactory.addWriter(new GenericConfigurationWriter(
-                TestElement5.class, "child", true));
+                TestElement5.class));
     }
 
     /**
@@ -81,9 +82,10 @@ public class GenericConfigurationWriterTest extends TestCase {
         StringWriter sw = new StringWriter();
         element.writeConfiguration(sw);
 
-        assertEquals("<element attr4=\"ghi\" attribute5=\"jkl\" attr6=\"456\""
-                + " attr1=\"abc\" attribute2=\"def\" attr3=\"123\" />\n", sw
-                .getBuffer().toString());
+        assertEquals(
+                "<element attr4=\"ghi\" attribute5=\"jkl\" attr6=\"456\""
+                        + " attr1=\"abc\" attribute2=\"def\" attr3=\"123\" >\n</element>\n",
+                sw.getBuffer().toString());
     }
 
     /**
@@ -110,6 +112,8 @@ public class GenericConfigurationWriterTest extends TestCase {
 
     private static class TestElement1 extends
             AbstractConfigurationElementContainer {
+        public static final String ELEMENT_NAME = "element";
+
         @ConfigurationAttribute
         public String attr1 = "abc";
 
@@ -120,7 +124,17 @@ public class GenericConfigurationWriterTest extends TestCase {
         public int attr3 = 123;
     }
 
-    private static class TestElement2 extends TestElement1 {
+    private static class TestElement2 extends AbstractConfigurationElement {
+        public static final String ELEMENT_NAME = "element";
+
+        @ConfigurationAttribute
+        public String attr1 = "abc";
+
+        @ConfigurationAttribute(name = "attribute2")
+        public String attr2 = "def";
+
+        @ConfigurationAttribute
+        public int attr3 = 123;
     }
 
     private static class TestElement3 extends TestElement1 {
@@ -136,11 +150,12 @@ public class GenericConfigurationWriterTest extends TestCase {
 
     private static class TestElement4 extends
             AbstractConfigurationElementContainer {
-
+        public static final String ELEMENT_NAME = "element";
     }
 
-    private static class TestElement5 extends
-            AbstractConfigurationElementContainer {
+    private static class TestElement5 extends AbstractConfigurationElement {
+        public static final String ELEMENT_NAME = "child";
+
         @ConfigurationAttribute
         public String attr;
     }

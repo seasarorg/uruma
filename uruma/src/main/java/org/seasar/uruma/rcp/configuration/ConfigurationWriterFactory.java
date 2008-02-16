@@ -24,7 +24,11 @@ import org.seasar.uruma.rcp.configuration.impl.ActionElement;
 import org.seasar.uruma.rcp.configuration.impl.ActionSetElement;
 import org.seasar.uruma.rcp.configuration.impl.ApplicationElement;
 import org.seasar.uruma.rcp.configuration.impl.CategoryElement;
+import org.seasar.uruma.rcp.configuration.impl.CommandElement;
 import org.seasar.uruma.rcp.configuration.impl.GroupMarkerElement;
+import org.seasar.uruma.rcp.configuration.impl.HandlerElement;
+import org.seasar.uruma.rcp.configuration.impl.KeyElement;
+import org.seasar.uruma.rcp.configuration.impl.MenuCommandElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuElement;
 import org.seasar.uruma.rcp.configuration.impl.PerspectiveElement;
 import org.seasar.uruma.rcp.configuration.impl.RunElement;
@@ -41,23 +45,21 @@ public class ConfigurationWriterFactory {
     private static final Map<Class<? extends ConfigurationElement>, ConfigurationWriter> writerMap = new HashMap<Class<? extends ConfigurationElement>, ConfigurationWriter>();
 
     static {
-        addWriter(new GenericConfigurationWriter(Extension.class, "extension"));
-        addWriter(new GenericConfigurationWriter(ViewElement.class, "view",
-                true));
-        addWriter(new GenericConfigurationWriter(PerspectiveElement.class,
-                "perspective"));
-        addWriter(new GenericConfigurationWriter(ActionSetElement.class,
-                "actionSet"));
-        addWriter(new GenericConfigurationWriter(MenuElement.class, "menu"));
-        addWriter(new GenericConfigurationWriter(ActionElement.class, "action",
-                true));
-        addWriter(new GenericConfigurationWriter(GroupMarkerElement.class,
-                "groupMarker", true));
-        addWriter(new GenericConfigurationWriter(CategoryElement.class,
-                "category"));
-        addWriter(new GenericConfigurationWriter(ApplicationElement.class,
-                "application"));
-        addWriter(new GenericConfigurationWriter(RunElement.class, "run", true));
+        addWriter(new GenericConfigurationWriter(Extension.class));
+
+        addWriter(new GenericConfigurationWriter(ActionElement.class));
+        addWriter(new GenericConfigurationWriter(ActionSetElement.class));
+        addWriter(new GenericConfigurationWriter(ApplicationElement.class));
+        addWriter(new GenericConfigurationWriter(CategoryElement.class));
+        addWriter(new GenericConfigurationWriter(CommandElement.class));
+        addWriter(new GenericConfigurationWriter(GroupMarkerElement.class));
+        addWriter(new GenericConfigurationWriter(HandlerElement.class));
+        addWriter(new GenericConfigurationWriter(KeyElement.class));
+        addWriter(new GenericConfigurationWriter(MenuCommandElement.class));
+        addWriter(new GenericConfigurationWriter(MenuElement.class));
+        addWriter(new GenericConfigurationWriter(PerspectiveElement.class));
+        addWriter(new GenericConfigurationWriter(RunElement.class));
+        addWriter(new GenericConfigurationWriter(ViewElement.class));
     }
 
     /**

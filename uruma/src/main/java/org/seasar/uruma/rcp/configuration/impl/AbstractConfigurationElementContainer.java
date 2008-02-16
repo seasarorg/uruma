@@ -28,7 +28,7 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElementContainer;
  * 
  * @author y-komori
  */
-public class AbstractConfigurationElementContainer extends
+public abstract class AbstractConfigurationElementContainer extends
         AbstractConfigurationElement implements ConfigurationElementContainer {
 
     private List<ConfigurationElement> children = new ArrayList<ConfigurationElement>();

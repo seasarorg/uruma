@@ -20,13 +20,17 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.exception.IORuntimeException;
+import org.seasar.framework.util.FieldUtil;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
+import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElementContainer;
 import org.seasar.uruma.util.AnnotationUtil;
 
 /**
@@ -43,18 +47,22 @@ public class GenericConfigurationWriter implements ConfigurationWriter,
 
     private boolean startTagOnly;
 
+    private static final String ELEMENT_NAME = "ELEMENT_NAME";
+
     /**
      * {@link GenericConfigurationWriter} を構築します。<br />
      * 
      * @param supportType
      *            対応する {@link ConfigurationElement} の型
-     * @param elementName
-     *            要素名
      */
     public GenericConfigurationWriter(
-            final Class<? extends ConfigurationElement> supportType,
-            final String elementName) {
-        this(supportType, elementName, false);
+            final Class<? extends ConfigurationElement> supportType) {
+        this.supportType = supportType;
+        this.startTagOnly = AbstractConfigurationElementContainer.class
+                .isAssignableFrom(supportType) ? false : true;
+        BeanDesc desc = BeanDescFactory.getBeanDesc(supportType);
+        Field field = desc.getField(ELEMENT_NAME);
+        this.elementName = FieldUtil.getString(field);
     }
 
     /**

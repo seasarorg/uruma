@@ -27,6 +27,11 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElement;
  */
 public class ActionSetElement extends AbstractConfigurationElementContainer {
     /**
+     * 要素名です。<br />
+     */
+    public static final String ELEMENT_NAME = "actionSet";
+
+    /**
      * {@link ActionSetElement} を構築します。<br />
      */
     public ActionSetElement() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2007 the Seasar Foundation and the Others.
+ * Copyright 2004-2008 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,25 +15,38 @@
  */
 package org.seasar.uruma.rcp.configuration.impl;
 
+import org.eclipse.core.commands.IHandler;
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 
 /**
- * <code>application</code> 要素のための {@link ConfigurationElement} です。<br />
+ * <code>handler</code> 要素のための {@link ConfigurationElement} です。<br />
  * 
  * @author y-komori
  * @see <a
- *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_core_runtime_applications.html">application</a>
+ *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_handlers.html#e.handler">handler</a>
  */
-public class ApplicationElement extends AbstractConfigurationElementContainer {
+public class HandlerElement extends AbstractConfigurationElement {
     /**
      * 要素名です。<br />
      */
-    public static final String ELEMENT_NAME = "application";
+    public static final String ELEMENT_NAME = "handler";
 
     /**
-     * アプリケーションの ID です。<br />
+     * ハンドラの対応するコマンド ID です。<br />
+     */
+    @ConfigurationAttribute(required = true)
+    public String commandId;
+
+    /**
+     * {@link IHandler} を実装したハンドラのクラスです。<br />
      */
     @ConfigurationAttribute
-    public String id;
+    public String clazz;
+
+    /**
+     * ハンドラのヘルプコンテクスト ID です。<br />
+     */
+    @ConfigurationAttribute
+    public String helpContextId;
 }

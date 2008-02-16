@@ -31,6 +31,11 @@ public class ViewElement extends AbstractConfigurationElement implements
         UrumaConstants {
 
     /**
+     * 要素名です。<br />
+     */
+    public static final String ELEMENT_NAME = "view";
+
+    /**
      * {@link ViewElement} を構築します。<br />
      */
     public ViewElement() {

@@ -16,54 +16,52 @@
 package org.seasar.uruma.rcp.configuration.impl;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
+import org.seasar.uruma.component.jface.MenuComponent;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
-import org.seasar.uruma.util.AssertionUtil;
 
 /**
- * <code>category</code> 要素を表す {@link ConfigurationElement} です。<br />
+ * <code>ActionSets</code> 拡張要素における <code>menu</code> 要素のための
+ * {@link ConfigurationElement} です。<br />
  * 
  * @author y-komori
+ * 
  * @see <a
- *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_commands.html#e.category">category</a>
+ *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_actionSets.html">ActionSets</a>
  */
-public class CategoryElement extends AbstractConfigurationElement {
+public class ActionSetsMenuElement extends AbstractConfigurationElement {
     /**
      * 要素名です。<br />
      */
-    public static final String ELEMENT_NAME = "category";
+    public static final String ELEMENT_NAME = "menu";
 
     /**
-     * {@link CategoryElement} を構築します。<br />
+     * {@link MenuElement} を構築します。<br />
      * 
-     * @param id
-     *            カテゴリ ID
-     * @param name
-     *            カテゴリ名称
+     * @param menu
+     *            元となる {@link MenuComponent} オブジェクト
      */
-    public CategoryElement(final String id, final String name) {
+    public ActionSetsMenuElement(final MenuComponent menu) {
         super();
-
-        AssertionUtil.assertNotNull("id", id);
-        AssertionUtil.assertNotNull("name", name);
-        this.id = id;
-        this.name = name;
+        this.id = menu.getId();
+        this.label = menu.getText();
     }
 
     /**
-     * カテゴリの ID です。<br />
+     * ID です。<br />
      */
     @ConfigurationAttribute(required = true)
     public String id;
 
     /**
-     * カテゴリの名称です。<br />
+     * メニューの表示ラベルです。<br />
      */
     @ConfigurationAttribute(required = true)
-    public String name;
+    public String label;
 
     /**
-     * カテゴリの詳細説明です。<br />
+     * メニューのパスです。<br />
      */
     @ConfigurationAttribute
-    public String description;
+    public String path;
+
 }

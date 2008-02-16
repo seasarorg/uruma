@@ -19,45 +19,52 @@ import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 
 /**
- * <code>menu</code> 要素のための {@link ConfigurationElement} です。<br />
+ * <code>key</code> 要素のための {@link ConfigurationElement} です。<br />
  * 
  * @author y-komori
  * @see <a
- *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_menus.html#e.menu">menu</a>
+ *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_bindings.html#e.key">key</a>
  */
-public class MenuElement extends AbstractConfigurationElementContainer {
+public class KeyElement extends AbstractConfigurationElement {
     /**
      * 要素名です。<br />
      */
-    public static final String ELEMENT_NAME = "menu";
+    public static final String ELEMENT_NAME = "key";
 
     /**
-     * メニューの ID です。<br />
-     */
-    @ConfigurationAttribute
-    public String id;
-
-    /**
-     * メニューのニーモニックです。<br />
-     */
-    @ConfigurationAttribute
-    public String mnemonic;
-
-    /**
-     * メニューのアイコンです。<br />
-     */
-    @ConfigurationAttribute
-    public String icon;
-
-    /**
-     * メニューのツールチップテキストです。<br />
-     */
-    @ConfigurationAttribute
-    public String tooltip;
-
-    /**
-     * メニューの表示ラベルです。<br />
+     * キーシーケンスです。<br />
      */
     @ConfigurationAttribute(required = true)
-    public String label;
+    public String sequence;
+
+    /**
+     * スキーム ID です。<br />
+     */
+    @ConfigurationAttribute(required = true)
+    public String schemeId;
+
+    /**
+     * コンテクスト ID です。<br />
+     */
+    @ConfigurationAttribute
+    public String contextId;
+
+    /**
+     * コマンド ID です。<br />
+     */
+    @ConfigurationAttribute
+    public String commandId;
+
+    /**
+     * キーバインディングを適用するプラットフォームです。<br />
+     */
+    @ConfigurationAttribute
+    public String platform;
+
+    /**
+     * キーバインディングを適用するロケールです。<br />
+     */
+    @ConfigurationAttribute
+    public String locale;
+
 }

@@ -28,6 +28,10 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElement;
  *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_perspectives.html#e.perspective">perspective</a>
  */
 public class PerspectiveElement extends AbstractConfigurationElement {
+    /**
+     * 要素名です。<br />
+     */
+    public static final String ELEMENT_NAME = "perspective";
 
     /**
      * {@link PerspectiveElement} を構築します。<br />
@@ -77,5 +81,4 @@ public class PerspectiveElement extends AbstractConfigurationElement {
      */
     @ConfigurationAttribute
     public boolean fixed;
-
 }

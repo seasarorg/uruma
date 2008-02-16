@@ -30,7 +30,7 @@ import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
 import org.seasar.uruma.rcp.configuration.impl.ActionElement;
 import org.seasar.uruma.rcp.configuration.impl.ActionSetElement;
-import org.seasar.uruma.rcp.configuration.impl.MenuElement;
+import org.seasar.uruma.rcp.configuration.impl.ActionSetsMenuElement;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
 /**
@@ -98,7 +98,7 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
 
     protected void setupMenu(final ActionSetElement actionSet,
             final MenuComponent menuComponent, final String parentPath) {
-        MenuElement menu = new MenuElement(menuComponent);
+        ActionSetsMenuElement menu = new ActionSetsMenuElement(menuComponent);
 
         // Menu の id が設定されていない場合は自動設定する
         String id = menuComponent.getId();

@@ -27,6 +27,11 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElement;
  */
 public class GroupMarkerElement extends AbstractConfigurationElement {
     /**
+     * 要素名です。<br />
+     */
+    public static final String ELEMENT_NAME = "groupMarker";
+
+    /**
      * スタートマーカーとして使用する場合の名称です。<br />
      */
     public static final String START_MARKER = "startMarker";
@@ -51,5 +56,4 @@ public class GroupMarkerElement extends AbstractConfigurationElement {
      */
     @ConfigurationAttribute(required = true)
     public String name;
-
 }

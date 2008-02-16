@@ -28,7 +28,7 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.rcp.configuration.extension.ActionSetsBuilder;
+import org.seasar.uruma.rcp.configuration.extension.CommandsBuilder;
 
 /**
  * {@link Bundle} に対してコントリビューションを動的に追加するためのクラスです。<br />
@@ -44,7 +44,8 @@ public class ContributionBuilder {
     private static final List<ExtensionBuilder> builders = new ArrayList<ExtensionBuilder>();
 
     static {
-        builders.add(new ActionSetsBuilder());
+        builders.add(new CommandsBuilder());
+        // builders.add(new ActionSetsBuilder());
     }
 
     private ContributionBuilder() {

@@ -28,6 +28,11 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 public class Extension extends AbstractConfigurationElementContainer {
     /**
+     * 要素名です。<br />
+     */
+    public static final String ELEMENT_NAME = "extension";
+
+    /**
      * 拡張ポイントの名称です。<br />
      */
     @ConfigurationAttribute(required = true)

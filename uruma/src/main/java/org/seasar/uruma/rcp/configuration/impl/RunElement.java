@@ -27,6 +27,11 @@ import org.seasar.uruma.rcp.configuration.ConfigurationElement;
  */
 public class RunElement extends AbstractConfigurationElement {
     /**
+     * 要素名です。<br />
+     */
+    public static final String ELEMENT_NAME = "run";
+
+    /**
      * id です。<br />
      */
     @ConfigurationAttribute
