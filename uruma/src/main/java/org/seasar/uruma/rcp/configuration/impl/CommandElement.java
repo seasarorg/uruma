@@ -19,6 +19,7 @@ import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.component.jface.MenuItemComponent;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.util.AssertionUtil;
+import org.seasar.uruma.util.MnemonicUtil;
 
 /**
  * <code>command</code> 要素を表す {@link ConfigurationElement} です。<br />
@@ -106,27 +107,8 @@ public class CommandElement extends AbstractConfigurationElement {
      */
     public CommandElement(final MenuItemComponent component) {
         AssertionUtil.assertNotNull("component", component);
-        this.id = createRcpId(component.getId());
-        this.name = chopAccelerator(chopMnemonic(component.getText()));
-    }
-
-    protected String chopMnemonic(final String title) {
-        int startPos = title.indexOf("(&");
-        if (startPos > 0) {
-            int endPos = title.indexOf(")", startPos);
-            if (endPos > 0) {
-                return title.substring(0, startPos)
-                        + title.substring(endPos + 1);
-            }
-        }
-        return title;
-    }
-
-    protected String chopAccelerator(final String title) {
-        int startPos = title.indexOf("\\t");
-        if (startPos > 0) {
-            return title.substring(0, startPos);
-        }
-        return title;
+        this.id = getPluginId() + DEFAULT_COMMAND_ID_SUFFIX + component.getId();
+        this.name = MnemonicUtil.chopAccelerator(MnemonicUtil
+                .chopMnemonic(component.getText()));
     }
 }

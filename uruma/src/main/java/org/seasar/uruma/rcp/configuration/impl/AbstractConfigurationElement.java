@@ -80,4 +80,13 @@ public abstract class AbstractConfigurationElement implements
     protected String createRcpId(final String id) {
         return UrumaServiceUtil.getService().createRcpId(id);
     }
+
+    /**
+     * プラグイン ID を返します。<br />
+     * 
+     * @return プラグイン ID
+     */
+    protected String getPluginId() {
+        return UrumaServiceUtil.getService().getPluginId();
+    }
 }
