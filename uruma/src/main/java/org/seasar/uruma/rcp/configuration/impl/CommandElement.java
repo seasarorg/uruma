@@ -37,7 +37,7 @@ public class CommandElement extends AbstractConfigurationElement {
     /**
      * デフォルトのコマンド ID サフィックスです。<br />
      */
-    public String DEFAULT_COMMAND_ID_SUFFIX = ".command.";
+    public static final String DEFAULT_COMMAND_ID_SUFFIX = ".command.";
 
     /**
      * コマンドの詳細説明です。<br />

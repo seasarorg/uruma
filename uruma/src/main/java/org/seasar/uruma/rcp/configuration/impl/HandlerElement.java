@@ -18,6 +18,7 @@ package org.seasar.uruma.rcp.configuration.impl;
 import org.eclipse.core.commands.IHandler;
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * <code>handler</code> 要素のための {@link ConfigurationElement} です。<br />
@@ -41,7 +42,7 @@ public class HandlerElement extends AbstractConfigurationElement {
     /**
      * {@link IHandler} を実装したハンドラのクラスです。<br />
      */
-    @ConfigurationAttribute
+    @ConfigurationAttribute(name = "class")
     public String clazz;
 
     /**
@@ -49,4 +50,13 @@ public class HandlerElement extends AbstractConfigurationElement {
      */
     @ConfigurationAttribute
     public String helpContextId;
+
+    /**
+     * {@link HandlerElement} を構築します。<br />
+     */
+    public HandlerElement(final String commandId) {
+        super();
+        AssertionUtil.assertNotNull("commandId", commandId);
+        this.commandId = commandId;
+    }
 }

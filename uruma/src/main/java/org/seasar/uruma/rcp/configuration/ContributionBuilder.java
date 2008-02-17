@@ -29,6 +29,7 @@ import org.osgi.framework.Bundle;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.configuration.extension.CommandsBuilder;
+import org.seasar.uruma.rcp.configuration.extension.HandlersBuilder;
 
 /**
  * {@link Bundle} に対してコントリビューションを動的に追加するためのクラスです。<br />
@@ -45,6 +46,7 @@ public class ContributionBuilder {
 
     static {
         builders.add(new CommandsBuilder());
+        builders.add(new HandlersBuilder());
         // builders.add(new ActionSetsBuilder());
     }
 
