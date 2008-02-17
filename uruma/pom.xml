@@ -264,7 +264,7 @@
             <configuration>
               <tasks>
                 <ant antfile="build.xml" target="deployPlugin">
-                  <property name="ver" value="${version}" />
+                  <property name="ver" value="${pom.version}" />
                 </ant>
               </tasks>
             </configuration>
