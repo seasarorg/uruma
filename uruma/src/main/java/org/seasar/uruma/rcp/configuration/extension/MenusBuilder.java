@@ -32,6 +32,9 @@ import org.seasar.uruma.rcp.configuration.impl.CategoryElement;
 import org.seasar.uruma.rcp.configuration.impl.CommandElement;
 import org.seasar.uruma.rcp.configuration.impl.HandlerElement;
 import org.seasar.uruma.rcp.configuration.impl.KeyElement;
+import org.seasar.uruma.rcp.configuration.impl.MenuCommandElement;
+import org.seasar.uruma.rcp.configuration.impl.MenuContributionElement;
+import org.seasar.uruma.rcp.configuration.impl.MenuElement;
 import org.seasar.uruma.util.MnemonicUtil;
 
 /**
@@ -48,6 +51,11 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
     public static final String DEFAULT_COMMAND_ID_SUFFIX = ".command.";
 
     /**
+     * デフォルトのメニュー ID サフィックスです。<br />
+     */
+    public static final String DEFAULT_MENUS_ID_SUFFIX = ".menus.";
+
+    /**
      * デフォルトのカテゴリ ID サフィックスです。<br />
      */
     public String DEFAULT_CATEGORY_ID_SUFFIX = ".command.category";
@@ -60,6 +68,10 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected Extension bindings;
 
+    protected Extension menus;
+
+    protected MenuContributionElement menuContribution;
+
     /*
      * @see org.seasar.uruma.rcp.configuration.ExtensionBuilder#buildExtension()
      */
@@ -67,19 +79,21 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         createExtensions();
 
         CategoryElement category = setupCategory();
+        setupMenuContribution();
 
         WorkbenchComponent workbenchComponent = service.getWorkbenchComponent();
         for (MenuComponent menu : workbenchComponent.getMenus()) {
-            traverseMenu(category, menu);
+            traverseMenu(category, menu, null);
         }
 
-        return new Extension[] { commands, handlers, bindings };
+        return new Extension[] { commands, handlers, bindings, menus };
     }
 
     protected void createExtensions() {
         commands = ExtensionFactory.createExtension(ExtensionPoints.COMMANDS);
         handlers = ExtensionFactory.createExtension(ExtensionPoints.HANDLERS);
         bindings = ExtensionFactory.createExtension(ExtensionPoints.BINDINGS);
+        menus = ExtensionFactory.createExtension(ExtensionPoints.MENUS);
     }
 
     protected CategoryElement setupCategory() {
@@ -90,12 +104,21 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         return category;
     }
 
+    protected void setupMenuContribution() {
+        this.menuContribution = new MenuContributionElement();
+        this.menuContribution.locationURI = "menu:org.eclipse.ui.main.menu?after=additions";
+        menus.addElement(this.menuContribution);
+    }
+
     protected void traverseMenu(final CategoryElement category,
-            final MenuComponent menu) {
-        List<UIElement> children = menu.getChildren();
+            final MenuComponent menuComponent,
+            final MenuElement parentMenuElement) {
+        List<UIElement> children = menuComponent.getChildren();
         for (UIElement child : children) {
             if (child instanceof MenuComponent) {
-                traverseMenu(category, (MenuComponent) child);
+                MenuElement menuElement = setupMenu((MenuComponent) child,
+                        parentMenuElement);
+                traverseMenu(category, (MenuComponent) child, menuElement);
             } else if (child instanceof MenuItemComponent) {
                 MenuItemComponent menuItem = (MenuItemComponent) child;
                 String commandId = createCommandId(menuItem);
@@ -103,7 +126,39 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
                 setupCommand(category, commandId, menuItem);
                 setupHandler(commandId, menuItem);
                 setupKey(commandId, menuItem);
+                setupMenuCommand(commandId, menuItem, parentMenuElement);
             }
+        }
+    }
+
+    protected MenuElement setupMenu(final MenuComponent component,
+            final MenuElement parentElement) {
+        if (!(component.getParent() instanceof WorkbenchComponent)) {
+            String text = component.getText();
+            if (text == null) {
+                text = NULL_STRING;
+            }
+            MenuElement menu = new MenuElement(MnemonicUtil
+                    .chopMnemonicAndAccelerator(text));
+            if (!StringUtil.isEmpty(component.getId())) {
+                menu.id = service.createRcpId(component.getId());
+            }
+
+            if (!StringUtil.isEmpty(text)) {
+                menu.mnemonic = MnemonicUtil.getMnemonic(text);
+            }
+
+            if (parentElement == null) {
+                // トップレベルメニューの場合
+                menuContribution.addElement(menu);
+            } else {
+                // サブメニューの場合
+                parentElement.addElement(menu);
+            }
+
+            return menu;
+        } else {
+            return null;
         }
     }
 
@@ -118,8 +173,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected void setupCommand(final CategoryElement category,
             final String commandId, final MenuItemComponent component) {
-        String name = MnemonicUtil.chopAccelerator(MnemonicUtil
-                .chopMnemonic(component.getText()));
+        String name = MnemonicUtil.chopMnemonicAndAccelerator(component
+                .getText());
 
         CommandElement command = new CommandElement(commandId, name);
         command.categoryId = category.id;
@@ -142,5 +197,16 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         key.commandId = commandId;
 
         bindings.addElement(key);
+    }
+
+    protected void setupMenuCommand(final String commandId,
+            final MenuItemComponent menuItem,
+            final MenuElement parentMenuElement) {
+        MenuCommandElement command = new MenuCommandElement(commandId);
+        if (!StringUtil.isEmpty(menuItem.getText())) {
+            command.mnemonic = MnemonicUtil.getMnemonic(menuItem.getText());
+        }
+
+        parentMenuElement.addElement(command);
     }
 }

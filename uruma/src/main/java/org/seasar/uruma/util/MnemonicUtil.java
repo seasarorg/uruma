@@ -15,36 +15,44 @@
  */
 package org.seasar.uruma.util;
 
+import org.seasar.uruma.core.UrumaConstants;
+
 /**
  * メニューのニーモニックを扱うためのユーティリティクラスです。<br />
  * 
  * @author y-komori
  */
-public class MnemonicUtil {
+public class MnemonicUtil implements UrumaConstants {
     private MnemonicUtil() {
 
     }
 
     /**
-     * テキストからニーモニック部分を削除します。<br />
+     * テキストからニーモニックとアクセラレータを削除します。<br />
+     * 
+     * @param text
+     *            テキスト
+     * @return 削除結果
+     */
+    public static String chopMnemonicAndAccelerator(final String text) {
+        return chopMnemonic(chopAccelerator(text));
+    }
+
+    /**
+     * テキストからニーモニックプレフィックス(&記号)を削除します。<br />
+     * 【例】「ファイル(&F)」の場合、結果は「ファイル(F)」となります。
      * 
      * @param text
      *            テキスト
      * @return 削除結果
      */
     public static String chopMnemonic(final String text) {
-        int startPos = text.indexOf("(&");
-        if (startPos > 0) {
-            int endPos = text.indexOf(")", startPos);
-            if (endPos > 0) {
-                return text.substring(0, startPos) + text.substring(endPos + 1);
-            }
-        }
-        return text;
+        return text.replace(AMPERSAND, NULL_STRING);
     }
 
     /**
      * テキストからアクセラレータ部分を削除します。<br />
+     * 【例】「開く(&O)\tCtrl-O」の場合、結果は「Ctrl-O」となります。
      * 
      * @param title
      *            テキスト
@@ -56,5 +64,22 @@ public class MnemonicUtil {
             return title.substring(0, startPos);
         }
         return title;
+    }
+
+    /**
+     * テキストからニーモニックを取り出します。<br />
+     * ニーモニックは最初の「&」(アンパサンド)に続く一文字です。<br />
+     * 【例】「ファイル(&F)」の場合、結果は「F」となります。
+     * 
+     * @param text
+     *            テキスト
+     * @return ニーモニック。見つからない場合は空文字列。
+     */
+    public static String getMnemonic(final String text) {
+        int startPos = text.indexOf(AMPERSAND);
+        if (startPos > 0) {
+            return text.substring(startPos + 1, startPos + 2);
+        }
+        return NULL_STRING;
     }
 }

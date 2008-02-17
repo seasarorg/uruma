@@ -60,4 +60,15 @@ public class MenuElement extends AbstractConfigurationElementContainer {
      */
     @ConfigurationAttribute(required = true)
     public String label;
+
+    /**
+     * {@link MenuElement} を構築します。<br />
+     * 
+     * @param label
+     *            表示ラベル
+     */
+    public MenuElement(final String label) {
+        super();
+        this.label = label;
+    }
 }

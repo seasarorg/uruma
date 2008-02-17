@@ -17,6 +17,7 @@ package org.seasar.uruma.rcp.configuration.impl;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * <code>command</code> 要素のための {@link ConfigurationElement} です。<br />
@@ -110,4 +111,15 @@ public class MenuCommandElement extends AbstractConfigurationElementContainer {
     @ConfigurationAttribute
     public String style;
 
+    /**
+     * {@link MenuCommandElement} を構築します。<br />
+     * 
+     * @param commandId
+     *            コマンド ID
+     */
+    public MenuCommandElement(final String commandId) {
+        super();
+        AssertionUtil.assertNotNull("commandId", commandId);
+        this.commandId = commandId;
+    }
 }
