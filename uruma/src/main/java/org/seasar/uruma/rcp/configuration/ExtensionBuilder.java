@@ -24,7 +24,7 @@ public interface ExtensionBuilder {
     /**
      * 拡張ポイントを生成します。<br />
      * 
-     * @return 生成した {@link Extension} オブジェクト
+     * @return 生成した {@link Extension} オブジェクトの配列
      */
-    public Extension buildExtension();
+    public Extension[] buildExtension();
 }

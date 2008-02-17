@@ -16,10 +16,8 @@
 package org.seasar.uruma.rcp.configuration.impl;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
-import org.seasar.uruma.component.jface.MenuItemComponent;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.util.AssertionUtil;
-import org.seasar.uruma.util.MnemonicUtil;
 
 /**
  * <code>command</code> 要素を表す {@link ConfigurationElement} です。<br />
@@ -33,11 +31,6 @@ public class CommandElement extends AbstractConfigurationElement {
      * 要素名です。<br />
      */
     public static final String ELEMENT_NAME = "command";
-
-    /**
-     * デフォルトのコマンド ID サフィックスです。<br />
-     */
-    public static final String DEFAULT_COMMAND_ID_SUFFIX = ".command.";
 
     /**
      * コマンドの詳細説明です。<br />
@@ -97,18 +90,5 @@ public class CommandElement extends AbstractConfigurationElement {
 
         this.id = id;
         this.name = name;
-    }
-
-    /**
-     * {@link MenuItemComponent} から {@link CommandElement} を構築します。<br />
-     * 
-     * @param component
-     *            {@link MenuItemComponent} オブジェクト
-     */
-    public CommandElement(final MenuItemComponent component) {
-        AssertionUtil.assertNotNull("component", component);
-        this.id = getPluginId() + DEFAULT_COMMAND_ID_SUFFIX + component.getId();
-        this.name = MnemonicUtil.chopAccelerator(MnemonicUtil
-                .chopMnemonic(component.getText()));
     }
 }

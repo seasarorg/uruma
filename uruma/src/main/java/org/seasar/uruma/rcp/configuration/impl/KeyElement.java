@@ -17,6 +17,7 @@ package org.seasar.uruma.rcp.configuration.impl;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * <code>key</code> 要素のための {@link ConfigurationElement} です。<br />
@@ -67,4 +68,19 @@ public class KeyElement extends AbstractConfigurationElement {
     @ConfigurationAttribute
     public String locale;
 
+    /**
+     * {@link KeyElement} を構築します。<br />
+     * 
+     * @param sequence
+     *            キーシーケンス
+     * @param schemeId
+     *            スキームID
+     */
+    public KeyElement(final String sequence, final String schemeId) {
+        super();
+        AssertionUtil.assertNotNull("sequence", sequence);
+        AssertionUtil.assertNotNull("schemeId", schemeId);
+        this.sequence = sequence;
+        this.schemeId = schemeId;
+    }
 }

@@ -61,11 +61,11 @@ public class ActionSetsBuilder implements ExtensionBuilder, UrumaConstants {
     /*
      * @see org.seasar.uruma.rcp.configuration.ExtensionBuilder#buildExtension()
      */
-    public Extension buildExtension() {
+    public Extension[] buildExtension() {
         this.menuCount = 0;
         this.actionCount = 0;
 
-        return setupActionSets();
+        return new Extension[] { setupActionSets() };
     }
 
     protected Extension setupActionSets() {
