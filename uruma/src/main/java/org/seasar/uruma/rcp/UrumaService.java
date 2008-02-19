@@ -22,6 +22,7 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.rcp.binding.CommandRegistry;
 import org.seasar.uruma.rcp.configuration.Extension;
 
 /**
@@ -138,4 +139,9 @@ public interface UrumaService {
      * {@link #switchToAppClassLoader()} メソッド実行前のクラスローダに切り替えます。
      */
     public void restoreClassLoader();
+
+    /**
+     * {@link CommandRegistry} のインスタンスを返します。<br />
+     */
+    public CommandRegistry getCommandRegistry();
 }

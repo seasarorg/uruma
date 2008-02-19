@@ -27,7 +27,7 @@ import org.seasar.uruma.util.AssertionUtil;
  * @see <a
  *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_handlers.html#e.handler">handler</a>
  */
-public class HandlerElement extends AbstractConfigurationElement {
+public class HandlerElement extends AbstractConfigurationElementContainer {
     /**
      * 要素名です。<br />
      */

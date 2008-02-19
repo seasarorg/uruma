@@ -15,22 +15,30 @@
  */
 package org.seasar.uruma.rcp.ui;
 
+import org.eclipse.core.commands.IHandler;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.seasar.eclipse.common.util.GeometryUtil;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
+import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.context.impl.WidgetHandleImpl;
 import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.rcp.binding.CommandDesc;
+import org.seasar.uruma.rcp.binding.CommandRegistry;
+import org.seasar.uruma.rcp.binding.GenericHandler;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.util.PathUtil;
 
@@ -79,6 +87,8 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         WindowContext windowContext = UrumaServiceUtil.getService()
                 .getWorkbenchWindowContext();
         workbench.preRender(null, windowContext);
+
+        setupCommandHandler(configurer, windowContext);
 
         // TODO ここで XML から情報を読み込んでワークベンチの情報を設定する
         configurer.setShowMenuBar(true);
@@ -135,5 +145,30 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             final IWorkbenchWindowConfigurer configurer) {
         configurer
                 .setShowStatusLine(Boolean.parseBoolean(workbench.statusLine));
+    }
+
+    /**
+     * {@link IHandler} の実装クラスを {@link IHandlerService} へ登録します。<br />
+     * {@link IHandler} は {@link WidgetHandle} として {@link WindowContext}
+     * へも登録されます。<br />
+     */
+    protected void setupCommandHandler(
+            final IWorkbenchWindowConfigurer configurer,
+            final WindowContext context) {
+        IWorkbench workbench = configurer.getWorkbenchConfigurer()
+                .getWorkbench();
+        IHandlerService service = (IHandlerService) workbench
+                .getService(IHandlerService.class);
+
+        CommandRegistry registry = UrumaServiceUtil.getService()
+                .getCommandRegistry();
+        for (CommandDesc desc : registry.getCommandDescs()) {
+            GenericHandler handler = new GenericHandler();
+            service.activateHandler(desc.getCommandId(), handler);
+
+            WidgetHandle handle = new WidgetHandleImpl(handler);
+            handle.setId(desc.getUrumaId());
+            context.putWidgetHandle(handle);
+        }
     }
 }

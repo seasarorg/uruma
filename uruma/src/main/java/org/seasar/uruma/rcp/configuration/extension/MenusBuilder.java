@@ -23,14 +23,14 @@ import org.seasar.uruma.component.jface.MenuComponent;
 import org.seasar.uruma.component.jface.MenuItemComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.rcp.binding.GenericHandler;
+import org.seasar.uruma.rcp.binding.CommandDesc;
+import org.seasar.uruma.rcp.binding.CommandRegistry;
 import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionBuilder;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
 import org.seasar.uruma.rcp.configuration.impl.CategoryElement;
 import org.seasar.uruma.rcp.configuration.impl.CommandElement;
-import org.seasar.uruma.rcp.configuration.impl.HandlerElement;
 import org.seasar.uruma.rcp.configuration.impl.KeyElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuCommandElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuContributionElement;
@@ -72,10 +72,14 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected MenuContributionElement menuContribution;
 
+    protected CommandRegistry commandRegistry;
+
     /*
      * @see org.seasar.uruma.rcp.configuration.ExtensionBuilder#buildExtension()
      */
     public Extension[] buildExtension() {
+        this.commandRegistry = service.getCommandRegistry();
+
         createExtensions();
 
         CategoryElement category = setupCategory();
@@ -124,7 +128,6 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
                 String commandId = createCommandId(menuItem);
 
                 setupCommand(category, commandId, menuItem);
-                setupHandler(commandId, menuItem);
                 setupKey(commandId, menuItem);
                 setupMenuCommand(commandId, menuItem, parentMenuElement);
             }
@@ -179,24 +182,22 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         CommandElement command = new CommandElement(commandId, name);
         command.categoryId = category.id;
         commands.addElement(command);
-    }
 
-    protected void setupHandler(final String commandId,
-            final MenuItemComponent menuItem) {
-        HandlerElement handler = new HandlerElement(commandId);
-        handler.clazz = GenericHandler.class.getName();
-
-        handlers.addElement(handler);
+        CommandDesc desc = new CommandDesc(commandId, component.getId());
+        commandRegistry.registerCommandDesc(desc);
     }
 
     protected void setupKey(final String commandId,
             final MenuItemComponent menuItem) {
-        String sequence = "";
-        KeyElement key = new KeyElement(sequence,
-                "org.eclipse.ui.defaultAcceleratorConfiguration");
-        key.commandId = commandId;
+        if (!StringUtil.isEmpty(menuItem.accelerator)) {
+            // TODO キーシーケンスの変換
+            String sequence = menuItem.accelerator;
+            KeyElement key = new KeyElement(sequence,
+                    "org.eclipse.ui.defaultAcceleratorConfiguration");
+            key.commandId = commandId;
 
-        bindings.addElement(key);
+            bindings.addElement(key);
+        }
     }
 
     protected void setupMenuCommand(final String commandId,

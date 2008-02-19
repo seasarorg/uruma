@@ -56,6 +56,7 @@ import org.seasar.uruma.exception.UrumaAppInitException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.autoregister.UrumaAppAutoRegisterBuilder;
+import org.seasar.uruma.rcp.binding.CommandRegistry;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
@@ -480,6 +481,13 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     public void restoreClassLoader() {
         logger.log(SWITCH_CONTEXT_CLASS_LOADER, oldClassLoader);
         Thread.currentThread().setContextClassLoader(oldClassLoader);
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#getCommandRegistry()
+     */
+    public CommandRegistry getCommandRegistry() {
+        return (CommandRegistry) container.getComponent(CommandRegistry.class);
     }
 
     /**

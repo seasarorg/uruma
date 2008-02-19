@@ -5,5 +5,6 @@
 	<component class="org.seasar.uruma.core.impl.TemplateManagerImpl" instance="singleton" />
 	<component class="org.seasar.uruma.core.impl.ViewTemplateLoaderImpl" instance="singleton" />
 	<component class="org.seasar.uruma.core.impl.UrumaWindowManagerImpl" instance="singleton" />
+	<component class="org.seasar.uruma.rcp.binding.impl.CommandRegistryImpl" instance="singleton" />
 	<component class="org.seasar.uruma.context.ApplicationContext">@org.seasar.uruma.context.ContextFactory@createApplicationContext()</component>
 </components>

@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.binding.method.impl.GenericActionListenerBinder;
+import org.seasar.uruma.binding.method.impl.GenericHandlerListenerBinder;
 import org.seasar.uruma.binding.method.impl.StructuredViewerListenerBinder;
 import org.seasar.uruma.binding.method.impl.UrumaApplicationWindowListenerBinder;
 import org.seasar.uruma.binding.method.impl.ViewerListenerBinder;
@@ -42,6 +43,7 @@ public class ListenerBinderFactory {
         binderList.add(new UrumaApplicationWindowListenerBinder());
         binderList.add(new WidgetListenerBinder());
         binderList.add(new GenericActionListenerBinder());
+        binderList.add(new GenericHandlerListenerBinder());
 
         binders = binderList.toArray(new ListenerBinder[binderList.size()]);
     }

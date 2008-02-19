@@ -19,6 +19,9 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.seasar.uruma.log.UrumaLogger;
 
 /**
  * 任意のメソッドを呼び出すことができる、汎用的な {@link IHandler} の実装クラスです。<br />
@@ -26,22 +29,34 @@ import org.eclipse.core.commands.IHandler;
  * @author y-komori
  */
 public class GenericHandler extends AbstractHandler {
-    protected String id;
+    protected static final UrumaLogger logger = UrumaLogger
+            .getLogger(GenericHandler.class);
 
-    /**
-     * {@link GenericHandler} を構築します。<br />
-     * 
-     * @param id
-     *            Uruma画面定義 XML 上の ID
+    protected Listener listener;
+
+    /*
+     * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
      */
-    public GenericHandler(final String id) {
-        this.id = id;
+    @Override
+    public Object execute(final ExecutionEvent event) throws ExecutionException {
+        try {
+            if (listener != null) {
+                listener.handleEvent((Event) event.getTrigger());
+            }
+        } catch (Throwable ex) {
+            logger.log(ex);
+        }
+        return null;
     }
 
-    @Override
-    public Object execute(final ExecutionEvent arg0) throws ExecutionException {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
+    /**
+     * {@link Listener} を設定します。<br />
+     * 
+     * @param listener
+     *            {@link Listener} オブジェクト
+     */
+    public void setListener(final Listener listener) {
+        this.listener = listener;
     }
 
 }
