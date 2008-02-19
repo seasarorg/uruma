@@ -17,6 +17,7 @@ set ECLIPSE=-Dfile=C:\eclipse\plugins\
 %MVN% %GROUPID% %VER% -DartifactId=ui-texteditor %ECLIPSE%org.eclipse.ui.workbench.texteditor_3.3.1.r331_v20070806.jar
 %MVN% %GROUPID% %VER% -DartifactId=core-commands %ECLIPSE%org.eclipse.core.commands_3.3.0.I20070605-0010.jar
 %MVN% %GROUPID% %VER% -DartifactId=core-contenttype %ECLIPSE%org.eclipse.core.contenttype_3.2.100.v20070319.jar
+%MVN% %GROUPID% %VER% -DartifactId=core-expressions %ECLIPSE%org.eclipse.core.expressions_3.3.0.v20070606-0010.jar
 %MVN% %GROUPID% %VER% -DartifactId=core-filebuffers %ECLIPSE%org.eclipse.core.filebuffers_3.3.1.r331_v20070829.jar
 %MVN% %GROUPID% %VER% -DartifactId=core-jobs %ECLIPSE%org.eclipse.core.jobs_3.3.1.R33x_v20070709.jar
 %MVN% %GROUPID% %VER% -DartifactId=core-resources %ECLIPSE%org.eclipse.core.resources_3.3.0.v20070604.jar
@@ -39,6 +40,7 @@ set ECLIPSE=-Dfile=C:\eclipse\plugins\
 %MVN% %GROUPID% %VER% -DartifactId=ui-texteditor-source %ECLIPSE%org.eclipse.platform.source_3.3.2.R33x_v20071022-_19UEksF-G8Yc6bUv3Dz\src\org.eclipse.ui.workbench.texteditor_3.3.1.r331_v20070806\src.zip
 %MVN% %GROUPID% %VER% -DartifactId=core-commands-source %ECLIPSE%org.eclipse.rcp.source_3.3.2.R33x_r20071022-8y8eE9CEV3FspP8HJrY1M2dS\src\org.eclipse.core.commands_3.3.0.I20070605-0010\src.zip
 %MVN% %GROUPID% %VER% -DartifactId=core-contenttype-source %ECLIPSE%org.eclipse.rcp.source_3.3.2.R33x_r20071022-8y8eE9CEV3FspP8HJrY1M2dS\src\org.eclipse.core.contenttype_3.2.100.v20070319\src.zip
+%MVN% %GROUPID% %VER% -DartifactId=core-expressions-source %ECLIPSE%org.eclipse.rcp.source_3.3.2.R33x_r20071022-8y8eE9CEV3FspP8HJrY1M2dS\src\org.eclipse.core.expressions_3.3.0.v20070606-0010\src.zip
 %MVN% %GROUPID% %VER% -DartifactId=core-filebuffers-source %ECLIPSE%org.eclipse.platform.source_3.3.2.R33x_v20071022-_19UEksF-G8Yc6bUv3Dz\src\org.eclipse.core.filebuffers_3.3.1.r331_v20070829\src.zip
 %MVN% %GROUPID% %VER% -DartifactId=core-jobs-source %ECLIPSE%org.eclipse.rcp.source_3.3.2.R33x_r20071022-8y8eE9CEV3FspP8HJrY1M2dS\src\org.eclipse.core.jobs_3.3.1.R33x_v20070709\src.zip
 %MVN% %GROUPID% %VER% -DartifactId=core-resources-source %ECLIPSE%org.eclipse.platform.source_3.3.2.R33x_v20071022-_19UEksF-G8Yc6bUv3Dz\src\org.eclipse.core.resources_3.3.0.v20070604\src.zip

@@ -391,6 +391,11 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse</groupId>
+      <artifactId>core-expressions</artifactId>
+      <version>${eclipseVer}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse</groupId>
       <artifactId>core-filebuffers</artifactId>
       <version>${eclipseVer}</version>
     </dependency>
