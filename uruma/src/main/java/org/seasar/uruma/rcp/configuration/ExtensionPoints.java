@@ -60,4 +60,14 @@ public interface ExtensionPoints {
      * エクステンションポイント：{@value} を表す定数です。<br />
      */
     public static final String MENUS = "org.eclipse.ui.menus";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
+    public static final String PREFERENCES = "org.eclipse.core.runtime.preferences";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
+    public static final String CONTEXTS = "org.eclipse.ui.contexts";
 }

@@ -31,10 +31,13 @@ import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
 import org.seasar.uruma.rcp.configuration.impl.CategoryElement;
 import org.seasar.uruma.rcp.configuration.impl.CommandElement;
+import org.seasar.uruma.rcp.configuration.impl.ContextElement;
 import org.seasar.uruma.rcp.configuration.impl.KeyElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuCommandElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuContributionElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuElement;
+import org.seasar.uruma.rcp.configuration.impl.SchemeElement;
+import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.util.MnemonicUtil;
 
 /**
@@ -44,6 +47,11 @@ import org.seasar.uruma.util.MnemonicUtil;
  */
 public class MenusBuilder extends AbstractExtensionBuilder implements
         UrumaConstants {
+
+    /**
+     * コンテクスト ID のサフィックスです。<br />
+     */
+    public static final String CONTEXT_SUFFIX = ".context";
 
     /**
      * デフォルトのコマンド ID サフィックスです。<br />
@@ -62,6 +70,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected int actionCount;
 
+    protected Extension contexts;
+
     protected Extension commands;
 
     protected Extension handlers;
@@ -74,6 +84,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected CommandRegistry commandRegistry;
 
+    protected String localContextId;
+
     /*
      * @see org.seasar.uruma.rcp.configuration.ExtensionBuilder#buildExtension()
      */
@@ -82,22 +94,31 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
         createExtensions();
 
-        CategoryElement category = setupCategory();
+        setupScheme();
+        setupContexts();
         setupMenuContribution();
 
+        CategoryElement category = setupCategory();
         WorkbenchComponent workbenchComponent = service.getWorkbenchComponent();
         for (MenuComponent menu : workbenchComponent.getMenus()) {
             traverseMenu(category, menu, null);
         }
 
-        return new Extension[] { commands, handlers, bindings, menus };
+        return new Extension[] { contexts, commands, handlers, bindings, menus };
     }
 
     protected void createExtensions() {
+        contexts = ExtensionFactory.createExtension(ExtensionPoints.CONTEXTS);
         commands = ExtensionFactory.createExtension(ExtensionPoints.COMMANDS);
         handlers = ExtensionFactory.createExtension(ExtensionPoints.HANDLERS);
         bindings = ExtensionFactory.createExtension(ExtensionPoints.BINDINGS);
         menus = ExtensionFactory.createExtension(ExtensionPoints.MENUS);
+    }
+
+    protected void setupScheme() {
+        SchemeElement scheme = new SchemeElement(URUMA_APP_SCHEME_ID,
+                URUMA_APP_SCHEME_NAME);
+        bindings.addElement(scheme);
     }
 
     protected CategoryElement setupCategory() {
@@ -187,14 +208,21 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         commandRegistry.registerCommandDesc(desc);
     }
 
+    protected void setupContexts() {
+        this.localContextId = UrumaServiceUtil.getService().getPluginId()
+                + CONTEXT_SUFFIX;
+        ContextElement context = new ContextElement(localContextId,
+                "Uruma allication local context");
+        contexts.addElement(context);
+    }
+
     protected void setupKey(final String commandId,
             final MenuItemComponent menuItem) {
         if (!StringUtil.isEmpty(menuItem.accelerator)) {
-            // TODO キーシーケンスの変換
             String sequence = menuItem.accelerator;
-            KeyElement key = new KeyElement(sequence,
-                    "org.eclipse.ui.defaultAcceleratorConfiguration");
+            KeyElement key = new KeyElement(sequence, URUMA_APP_SCHEME_ID);
             key.commandId = commandId;
+            // key.contextId = localContextId;
 
             bindings.addElement(key);
         }

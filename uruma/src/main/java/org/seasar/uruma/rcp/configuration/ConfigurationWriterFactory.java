@@ -26,8 +26,10 @@ import org.seasar.uruma.rcp.configuration.impl.ApplicationElement;
 import org.seasar.uruma.rcp.configuration.impl.CategoryElement;
 import org.seasar.uruma.rcp.configuration.impl.ClassElement;
 import org.seasar.uruma.rcp.configuration.impl.CommandElement;
+import org.seasar.uruma.rcp.configuration.impl.ContextElement;
 import org.seasar.uruma.rcp.configuration.impl.GroupMarkerElement;
 import org.seasar.uruma.rcp.configuration.impl.HandlerElement;
+import org.seasar.uruma.rcp.configuration.impl.InitializerElement;
 import org.seasar.uruma.rcp.configuration.impl.KeyElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuCommandElement;
 import org.seasar.uruma.rcp.configuration.impl.MenuContributionElement;
@@ -35,6 +37,7 @@ import org.seasar.uruma.rcp.configuration.impl.MenuElement;
 import org.seasar.uruma.rcp.configuration.impl.ParameterElement;
 import org.seasar.uruma.rcp.configuration.impl.PerspectiveElement;
 import org.seasar.uruma.rcp.configuration.impl.RunElement;
+import org.seasar.uruma.rcp.configuration.impl.SchemeElement;
 import org.seasar.uruma.rcp.configuration.impl.ViewElement;
 import org.seasar.uruma.rcp.configuration.writer.GenericConfigurationWriter;
 import org.seasar.uruma.util.AssertionUtil;
@@ -56,8 +59,10 @@ public class ConfigurationWriterFactory {
         addWriter(new GenericConfigurationWriter(CategoryElement.class));
         addWriter(new GenericConfigurationWriter(ClassElement.class));
         addWriter(new GenericConfigurationWriter(CommandElement.class));
+        addWriter(new GenericConfigurationWriter(ContextElement.class));
         addWriter(new GenericConfigurationWriter(GroupMarkerElement.class));
         addWriter(new GenericConfigurationWriter(HandlerElement.class));
+        addWriter(new GenericConfigurationWriter(InitializerElement.class));
         addWriter(new GenericConfigurationWriter(KeyElement.class));
         addWriter(new GenericConfigurationWriter(MenuCommandElement.class));
         addWriter(new GenericConfigurationWriter(MenuContributionElement.class));
@@ -65,6 +70,7 @@ public class ConfigurationWriterFactory {
         addWriter(new GenericConfigurationWriter(ParameterElement.class));
         addWriter(new GenericConfigurationWriter(PerspectiveElement.class));
         addWriter(new GenericConfigurationWriter(RunElement.class));
+        addWriter(new GenericConfigurationWriter(SchemeElement.class));
         addWriter(new GenericConfigurationWriter(ViewElement.class));
     }
 

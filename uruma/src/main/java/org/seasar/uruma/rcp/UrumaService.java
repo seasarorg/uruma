@@ -144,4 +144,12 @@ public interface UrumaService {
      * {@link CommandRegistry} のインスタンスを返します。<br />
      */
     public CommandRegistry getCommandRegistry();
+
+    /**
+     * Uruma アプリケーションのためのデフォルトコンテクスト ID を返します。<br />
+     * デフォルト値は <code>&lt;プラグインID&gt;.context</code> となります。<br />
+     * 
+     * @return デフォルトコンテクスト ID
+     */
+    public String getDefaultContextId();
 }

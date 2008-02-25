@@ -18,12 +18,16 @@ package org.seasar.uruma.rcp.core;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 
+import org.eclipse.core.internal.preferences.exchange.IProductPreferencesService;
+import org.eclipse.core.internal.preferences.legacy.ProductPreferencesService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
@@ -47,6 +51,8 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
         context.addBundleListener(new UrumaBundleListener());
 
         prepareUrumaService(context);
+
+        registerProductPreferenceService(context);
     }
 
     public void stop(final BundleContext context) throws Exception {
@@ -129,4 +135,22 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
             }
         }
     }
+
+    /**
+     * {@link UrumaPreferencesService} を {@link IProductPreferencesService}
+     * としてサービス登録します。<br />
+     * {@link Constants#SERVICE_RANKING} プロパティを 1 に設定することで、 Eclipse の提供する
+     * {@link ProductPreferencesService} クラスよりも高い優先度で使用されるようにしています。
+     * 
+     * @param context
+     *            {@link BundleContext} オブジェクト
+     */
+    protected void registerProductPreferenceService(final BundleContext context) {
+        IProductPreferencesService service = new UrumaPreferencesService();
+        Dictionary<String, Integer> prop = new Hashtable<String, Integer>();
+        prop.put(Constants.SERVICE_RANKING, 1);
+        context.registerService(IProductPreferencesService.class.getName(),
+                service, prop);
+    }
+
 }

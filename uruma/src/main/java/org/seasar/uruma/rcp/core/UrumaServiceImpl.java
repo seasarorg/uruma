@@ -105,6 +105,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
     protected List<Extension> extensions = new ArrayList<Extension>();
 
+    protected String defaultContextId;
+
     /**
      * {@link UrumaServiceImpl} を構築します。<br />
      * 
@@ -117,6 +119,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         this.urumaClassLoader = getClass().getClassLoader();
         this.appClassLoader = getClass().getClassLoader();
         this.pluginId = targetBundle.getSymbolicName();
+        this.defaultContextId = pluginId + ".context";
 
         initialize();
     }
@@ -488,6 +491,13 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      */
     public CommandRegistry getCommandRegistry() {
         return (CommandRegistry) container.getComponent(CommandRegistry.class);
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#getDefaultContextId()
+     */
+    public String getDefaultContextId() {
+        return this.defaultContextId;
     }
 
     /**

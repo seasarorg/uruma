@@ -414,6 +414,24 @@ public interface UrumaConstants {
      */
     public static final String AUTO_ACTION_ID_PREFIX = "autoDefinedAction_";
 
+    /**
+     * Uruma アプリケーションが使用するキーコンフィグレーション(スキーム)の ID です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APP_SCHEME_ID = "org.seasar.uruma.keyConfiguration";
+
+    /**
+     * Uruma アプリケーションが使用するキーコンフィグレーション(スキーム)の名称です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APP_SCHEME_NAME = "UrumaApplication";
+
     // -------------------------------------------------------------------------
     // UrumaService に関する定数
     // -------------------------------------------------------------------------
