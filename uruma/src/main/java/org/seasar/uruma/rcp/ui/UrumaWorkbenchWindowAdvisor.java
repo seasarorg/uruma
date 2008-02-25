@@ -155,7 +155,6 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     protected void setupCommandHandler(
             final IWorkbenchWindowConfigurer configurer,
             final WindowContext context) {
-        // TODO このメソッドは UrumaWorkbenchAdvisor へ移動
         IWorkbench workbench = configurer.getWorkbenchConfigurer()
                 .getWorkbench();
         IHandlerService service = (IHandlerService) workbench
