@@ -31,6 +31,8 @@ import org.seasar.uruma.util.MessageUtil;
 import org.seasar.uruma.util.PathUtil;
 
 /**
+ * ファイルビューのためのアクションクラスです。<br />
+ * 
  * @author y-komori
  */
 @Form(FileViewAction.class)
@@ -44,36 +46,47 @@ public class FileViewAction implements Constants {
 	@ImportExportValue
 	public String statusLineManager;
 
-	// @SelectionListener(partId = "folderView")
+	/**
+	 * フォルダツリーのノードが選択されたときに呼び出されるメソッドです。<br />
+	 * 
+	 * @param parentFolder
+	 *            選択されたノードに対応する {@link File} オブジェクト
+	 */
 	@EventListener(id = "folderTree")
 	public void onFolderSelected(final File parentFolder) {
-		listFiles(parentFolder);
+		if (parentFolder != null) {
+			listFiles(parentFolder);
+		}
 	}
 
+	/**
+	 * ファイルビューでファイルをダブルクリックしたときに呼び出されるメソッドです。<br />
+	 */
 	@EventListener(id = "fileDetailTable", type = EventListenerType.MOUSE_DOUBLE_CLICK)
 	public void onDoubleClick() {
 		if (selectedFile.size() == 1) {
 			File file = selectedFile.get(0);
 
 			if (file.isDirectory()) {
+				// フォルダがダブルクリックされた時はフォルダを開く
 				listFiles(file);
 			} else {
+				// ファイルの場合はファイルを開く
 				openFile();
 			}
 		}
 	}
 
+	/**
+	 * ファイルビューでファイルが選択されたときに呼び出されるメソッドです。<br />
+	 */
 	@EventListener(id = "fileDetailTable")
 	public void onSelected() {
+		// ステータスラインに選択しているファイルの数を表示
 		if (selectedFile.size() > 0) {
 			statusLineManager = MessageUtil.getMessage("SELECTED", selectedFile
 					.size());
 		}
-	}
-
-	@EventListener(id = "fileOpen")
-	public void onFileOpenMenu() {
-		openFile();
 	}
 
 	private void listFiles(final File parent) {
@@ -88,7 +101,11 @@ public class FileViewAction implements Constants {
 		}
 	}
 
-	private void openFile() {
+	/**
+	 * 選択されているファイルを開きます。<br />
+	 */
+	@EventListener(id = "fileOpen")
+	public void openFile() {
 		File file = selectedFile.get(0);
 		if (file.isFile()) {
 			Program program = Program.findProgram(PathUtil.getExt(file
@@ -99,6 +116,9 @@ public class FileViewAction implements Constants {
 		}
 	}
 
+	/**
+	 * 選択されているファイルの名前を変更します。<br />
+	 */
 	@EventListener(id = "fileRename")
 	public void renameFile() {
 		File oldFile = selectedFile.get(0);
@@ -112,6 +132,9 @@ public class FileViewAction implements Constants {
 		}
 	}
 
+	/**
+	 * 選択されているファイルを削除します。<br />
+	 */
 	@EventListener(id = "fileDelete")
 	public void deleteFile() {
 		if (UrumaMessageDialog.openConfirm("DELETE")) {

@@ -24,6 +24,8 @@ import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
 
 /**
+ * フォルダビューのためのアクションクラスです。<br />
+ * 
  * @author y-komori
  */
 @Form(FolderViewAction.class)
@@ -34,8 +36,17 @@ public class FolderViewAction implements Constants {
 	@ExportSelection(id = "folderTree")
 	public File selection = root;
 
+	/**
+	 * ファイルビューでファイルが選択されたときに呼び出されるメソッドです。<br />
+	 * 
+	 * @param selectedFile
+	 *            選択されている {@link File} オブジェクト
+	 */
 	@EventListener(id = "fileDetailTable", type = EventListenerType.MOUSE_DOUBLE_CLICK)
-	public void folderSelected(final File parentFolder) {
-		selection = parentFolder;
+	public void fileSelected(final File selectedFile) {
+		if (selectedFile.isDirectory()) {
+			// フォルダが選択されたらツリー側も対応するフォルダを選択状態にする
+			this.selection = selectedFile;
+		}
 	}
 }
