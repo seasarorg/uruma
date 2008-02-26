@@ -23,7 +23,7 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 
 /**
- * EnablesDepending のセットアップを行うクラスで。<br />
+ * EnablesDepending のセットアップを行うクラスです。<br />
  * 
  * @author y-komori
  */

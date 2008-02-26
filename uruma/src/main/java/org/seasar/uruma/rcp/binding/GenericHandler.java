@@ -18,6 +18,7 @@ package org.seasar.uruma.rcp.binding;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.HandlerEvent;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -33,6 +34,8 @@ public class GenericHandler extends AbstractHandler {
             .getLogger(GenericHandler.class);
 
     protected Listener listener;
+
+    protected boolean enabled = true;
 
     /*
      * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
@@ -59,4 +62,22 @@ public class GenericHandler extends AbstractHandler {
         this.listener = listener;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * ハンドラのイネーブル状態を変更します。<br />
+     * 
+     * @param enabled
+     *            <code>true</code> の場合、イネーブル。<code>false</code>
+     *            の場合、ディスエーブル。
+     */
+    public void setEnabled(final boolean enabled) {
+        if (this.enabled != enabled) {
+            this.enabled = enabled;
+            fireHandlerChanged(new HandlerEvent(this, true, false));
+        }
+    }
 }
