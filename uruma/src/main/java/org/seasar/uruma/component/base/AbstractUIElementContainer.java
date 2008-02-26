@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.UIElementContainer;
+import org.seasar.uruma.component.UIElementVisitor;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -44,5 +45,13 @@ public class AbstractUIElementContainer extends AbstractUIElement implements
      */
     public List<UIElement> getChildren() {
         return children;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.base.AbstractUIElement#accept(org.seasar.uruma.component.UIElementVisitor)
+     */
+    @Override
+    public void accept(final UIElementVisitor visitor) {
+        visitor.visit(this);
     }
 }

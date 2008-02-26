@@ -16,6 +16,7 @@
 package org.seasar.uruma.component.base;
 
 import org.seasar.uruma.component.UIElement;
+import org.seasar.uruma.component.UIElementVisitor;
 
 /**
  * {@link UIElement} を表す基底クラスです。<br />
@@ -77,5 +78,12 @@ public abstract class AbstractUIElement implements UIElement {
     @Override
     public String toString() {
         return path;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.UIElementVisitorAcceptor#accept(org.seasar.uruma.component.UIElementVisitor)
+     */
+    public void accept(final UIElementVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -24,7 +24,7 @@ import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.component.rcp.WorkbenchComponent;
+import org.seasar.uruma.component.UIElementVisitor;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.util.AssertionUtil;
@@ -94,11 +94,6 @@ public class MenuComponent extends MenuItemComponent implements
             if (StringUtil.isEmpty(windowComponent.getMenu())) {
                 windowComponent.setMenu(getId());
             }
-        } else if (parentComponent instanceof WorkbenchComponent) {
-            WorkbenchComponent workbench = (WorkbenchComponent) parentComponent;
-            if (StringUtil.isEmpty(workbench.menu)) {
-                workbench.menu = getId();
-            }
         }
 
         for (UIElement child : children) {
@@ -107,5 +102,13 @@ public class MenuComponent extends MenuItemComponent implements
                         .getWidgetHandle(getId()), context);
             }
         }
+    }
+
+    /*
+     * @see org.seasar.uruma.component.base.AbstractUIElement#accept(org.seasar.uruma.component.UIElementVisitor)
+     */
+    @Override
+    public void accept(final UIElementVisitor visitor) {
+        visitor.visit(this);
     }
 }

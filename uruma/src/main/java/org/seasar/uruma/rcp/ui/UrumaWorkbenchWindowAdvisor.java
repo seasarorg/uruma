@@ -31,6 +31,8 @@ import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
+import org.seasar.uruma.component.EnablesDependableVisitor;
+import org.seasar.uruma.component.jface.MenuComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
@@ -83,12 +85,11 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         setupStatusLine(workbench, configurer);
 
-        // プリレンダリング処理
         WindowContext windowContext = UrumaServiceUtil.getService()
                 .getWorkbenchWindowContext();
-        workbench.preRender(null, windowContext);
 
         setupCommandHandler(configurer, windowContext);
+        setupEnablesDependable(windowContext);
 
         // TODO ここで XML から情報を読み込んでワークベンチの情報を設定する
         configurer.setShowMenuBar(true);
@@ -169,6 +170,13 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             WidgetHandle handle = new WidgetHandleImpl(handler);
             handle.setId(desc.getUrumaId());
             context.putWidgetHandle(handle);
+        }
+    }
+
+    protected void setupEnablesDependable(final WindowContext context) {
+        EnablesDependableVisitor visitor = new EnablesDependableVisitor(context);
+        for (MenuComponent menu : workbench.getMenus()) {
+            menu.accept(visitor);
         }
     }
 }

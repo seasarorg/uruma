@@ -22,7 +22,7 @@ import org.seasar.uruma.component.factory.UrumaTagHandler;
  * 
  * @author y-komori
  */
-public interface UIElement {
+public interface UIElement extends UIElementVisitorAcceptor {
     /**
      * 画面定義テンプレートファイルのパスを設定します。<br />
      * 
