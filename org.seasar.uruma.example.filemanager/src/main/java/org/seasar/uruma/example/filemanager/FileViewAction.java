@@ -43,19 +43,22 @@ public class FileViewAction implements Constants {
 	@ImportSelection(id = "fileDetailTable")
 	public List<File> selectedFile;
 
+	private File selectedFolder;
+
 	@ImportExportValue
 	public String statusLineManager;
 
 	/**
 	 * フォルダツリーのノードが選択されたときに呼び出されるメソッドです。<br />
 	 * 
-	 * @param parentFolder
+	 * @param selectedFolder
 	 *            選択されたノードに対応する {@link File} オブジェクト
 	 */
 	@EventListener(id = "folderTree")
-	public void onFolderSelected(final File parentFolder) {
-		if (parentFolder != null) {
-			listFiles(parentFolder);
+	public void onFolderSelected(final File selectedFolder) {
+		this.selectedFolder = selectedFolder;
+		if (selectedFolder != null) {
+			listFiles(selectedFolder);
 		}
 	}
 
@@ -86,6 +89,12 @@ public class FileViewAction implements Constants {
 		if (selectedFile.size() > 0) {
 			statusLineManager = MessageUtil.getMessage("SELECTED", selectedFile
 					.size());
+		}
+	}
+
+	private void refresh() {
+		if (selectedFolder != null) {
+			listFiles(selectedFolder);
 		}
 	}
 
@@ -129,6 +138,8 @@ public class FileViewAction implements Constants {
 					+ newName);
 
 			oldFile.renameTo(newFile);
+
+			refresh();
 		}
 	}
 
