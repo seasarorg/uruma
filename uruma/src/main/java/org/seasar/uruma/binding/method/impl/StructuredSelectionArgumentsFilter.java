@@ -46,6 +46,8 @@ public class StructuredSelectionArgumentsFilter implements ArgumentsFilter,
         UrumaMessageCodes {
     private Class<?> paramType;
 
+    private Method targetMethod;
+
     /**
      * {@link StructuredSelectionArgumentsFilter} を構築します。<br />
      * 
@@ -55,6 +57,7 @@ public class StructuredSelectionArgumentsFilter implements ArgumentsFilter,
      *             対象メソッドの引数が0または1個でない場合
      */
     public StructuredSelectionArgumentsFilter(final Method targetMethod) {
+        this.targetMethod = targetMethod;
         setup(targetMethod);
     }
 
@@ -74,8 +77,14 @@ public class StructuredSelectionArgumentsFilter implements ArgumentsFilter,
      * @see org.seasar.uruma.binding.method.ArgumentsFilter#filter(java.lang.Object[])
      */
     public Object[] filter(final Object[] args) {
-        if ((args == null) || (paramType == null)) {
+        // ターゲットが引数なしの場合は引数を無視する
+        if (paramType == null) {
             return null;
+        }
+
+        // 引数が null の場合は null を渡す
+        if (args == null) {
+            return new Object[] { null };
         }
 
         if ((args.length >= 1) && (args[0] != null)) {
@@ -83,7 +92,7 @@ public class StructuredSelectionArgumentsFilter implements ArgumentsFilter,
                 IStructuredSelection selection = (IStructuredSelection) args[0];
 
                 if (selection.size() == 0) {
-                    return null;
+                    return new Object[] { null };
                 }
                 Object firstElement = selection.getFirstElement();
                 Class<?> argClazz = firstElement.getClass();
@@ -104,5 +113,13 @@ public class StructuredSelectionArgumentsFilter implements ArgumentsFilter,
         }
 
         return args;
+    }
+
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return targetMethod.toString();
     }
 }
