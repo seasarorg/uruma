@@ -50,6 +50,13 @@
       <url>http://d.hatena.ne.jp/cero-t/</url>
       <timezone>+9</timezone>
     </developer>
+    <developer>
+      <id>snuffkin</id>
+      <name></name>
+      <email></email>
+      <url>http://d.hatena.ne.jp/snuffkin/</url>
+      <timezone>+9</timezone>
+    </developer>
   </developers>
 
   <licenses>
