@@ -436,11 +436,6 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse</groupId>
-      <artifactId>eclipse-equinox-registry-nl1</artifactId>
-      <version>3.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse</groupId>
       <artifactId>equinox-common</artifactId>
       <version>${eclipseVer}</version>
     </dependency>
