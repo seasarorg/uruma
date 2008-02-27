@@ -28,9 +28,9 @@ import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionBuilder;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
 import org.seasar.uruma.rcp.configuration.ExtensionPoints;
-import org.seasar.uruma.rcp.configuration.impl.ActionElement;
-import org.seasar.uruma.rcp.configuration.impl.ActionSetElement;
-import org.seasar.uruma.rcp.configuration.impl.ActionSetsMenuElement;
+import org.seasar.uruma.rcp.configuration.elements.ActionElement;
+import org.seasar.uruma.rcp.configuration.elements.ActionSetElement;
+import org.seasar.uruma.rcp.configuration.elements.ActionSetsMenuElement;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 
 /**

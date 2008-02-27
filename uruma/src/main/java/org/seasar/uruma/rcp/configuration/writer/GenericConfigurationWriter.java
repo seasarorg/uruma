@@ -30,7 +30,7 @@ import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriter;
-import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElementContainer;
+import org.seasar.uruma.rcp.configuration.elements.AbstractConfigurationElementContainer;
 import org.seasar.uruma.util.AnnotationUtil;
 
 /**

@@ -17,7 +17,7 @@ package org.seasar.uruma.rcp.configuration;
 
 import org.eclipse.core.runtime.IExtension;
 import org.seasar.uruma.annotation.ConfigurationAttribute;
-import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElementContainer;
+import org.seasar.uruma.rcp.configuration.elements.AbstractConfigurationElementContainer;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**

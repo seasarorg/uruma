@@ -21,8 +21,8 @@ import junit.framework.TestCase;
 
 import org.seasar.uruma.annotation.ConfigurationAttribute;
 import org.seasar.uruma.rcp.configuration.ConfigurationWriterFactory;
-import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElement;
-import org.seasar.uruma.rcp.configuration.impl.AbstractConfigurationElementContainer;
+import org.seasar.uruma.rcp.configuration.elements.AbstractConfigurationElement;
+import org.seasar.uruma.rcp.configuration.elements.AbstractConfigurationElementContainer;
 
 /**
  * {@link GenericConfigurationWriter} に対するテストクラスです。<br />
