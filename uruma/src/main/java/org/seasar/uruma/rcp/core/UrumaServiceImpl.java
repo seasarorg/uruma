@@ -22,12 +22,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 import org.eclipse.core.runtime.ContributorFactoryOSGi;
-import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
@@ -41,7 +36,6 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.jface.TemplateImpl;
-import org.seasar.uruma.component.rcp.PerspectiveComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.ContextFactory;
@@ -59,12 +53,6 @@ import org.seasar.uruma.rcp.autoregister.UrumaAppAutoRegisterBuilder;
 import org.seasar.uruma.rcp.binding.CommandRegistry;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
-import org.seasar.uruma.rcp.configuration.ExtensionFactory;
-import org.seasar.uruma.rcp.configuration.ExtensionPoints;
-import org.seasar.uruma.rcp.configuration.elements.PerspectiveElement;
-import org.seasar.uruma.rcp.ui.AutoPerspectiveFactory;
-import org.seasar.uruma.rcp.ui.BlankPerspectiveFactory;
-import org.seasar.uruma.rcp.ui.GenericPerspectiveFactory;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -145,6 +133,9 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         }
     }
 
+    /**
+     * 拡張ポイントの設定を行います。<br />
+     */
     protected void registerExtensions() {
         switchToAppClassLoader();
         try {
@@ -318,64 +309,6 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         return template;
     }
 
-    protected void setupPerspectives() {
-        Extension extension = ExtensionFactory
-                .createExtension(ExtensionPoints.PERSPECTIVES);
-
-        boolean defaultIdUsed = false;
-
-        for (PerspectiveComponent perspective : workbenchComponent
-                .getPerspectives()) {
-
-            // ID のついていない最初のパースペクティブにはデフォルトIDをつける
-            if (StringUtil.isBlank(perspective.id) && !defaultIdUsed) {
-                perspective.id = DEFAULT_PERSPECTIVE_ID;
-                defaultIdUsed = true;
-            }
-
-            PerspectiveElement element = new PerspectiveElement(perspective);
-            element.clazz = GenericPerspectiveFactory.class.getName();
-
-            extension.addElement(element);
-        }
-
-        if (extension.getElements().size() == 0) {
-            // perspective 要素が定義されていないときにデフォルト設定を行う
-            PerspectiveComponent component = new PerspectiveComponent();
-            component.clazz = AutoPerspectiveFactory.class.getName();
-            component.id = DEFAULT_PERSPECTIVE_ID;
-            component.name = getPluginId();
-
-            workbenchComponent.addChild(component);
-            workbenchComponent.initialPerspectiveId = DEFAULT_PERSPECTIVE_ID;
-
-            PerspectiveElement element = new PerspectiveElement(component);
-            extension.addElement(element);
-
-        } else if (StringUtil.isBlank(workbenchComponent.initialPerspectiveId)) {
-            // initialPerspectiveId が定義されていない場合は
-            // 最初に記述されている perspective を表示する
-            PerspectiveComponent perspective = workbenchComponent
-                    .getPerspectives().get(0);
-            workbenchComponent.initialPerspectiveId = perspective.id;
-        }
-
-        extensions.add(extension);
-    }
-
-    protected void setupBlankPerspective() {
-        Extension extension = ExtensionFactory
-                .createExtension(ExtensionPoints.PERSPECTIVES);
-
-        PerspectiveElement blank = new PerspectiveElement();
-        blank.clazz = BlankPerspectiveFactory.class.getName();
-        blank.id = createRcpId(DEFAULT_PERSPECTIVE_ID);
-        blank.name = "";
-
-        extension.addElement(blank);
-        extensions.add(extension);
-    }
-
     /*
      * @see org.seasar.uruma.rcp.UrumaService#getPluginId()
      */
@@ -515,46 +448,5 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     void destroy() {
         logger.log(URUMA_SERVICE_DESTROY, targetBundle.getSymbolicName());
         container.destroy();
-    }
-
-    // TODO テスト用メソッド。後で削除
-    private void test1() {
-        IExtensionRegistry registry = Platform.getExtensionRegistry();
-        // IExtensionPoint extensionPoint = registry
-        // .getExtensionPoint("org.eclipse.ui.views");
-        IExtensionPoint extensionPoint = registry
-                .getExtensionPoint("org.eclipse.ui.actionSets");
-
-        IExtension[] extensions = extensionPoint.getExtensions();
-        for (IExtension extension : extensions) {
-            System.out.println("\nNamespaceIdentifier="
-                    + extension.getNamespaceIdentifier());
-            System.out.println("ExtensionPointUniqueIdentifier="
-                    + extension.getExtensionPointUniqueIdentifier());
-            System.out.println("Label=" + extension.getLabel());
-            System.out.println("SimpleIdentifier="
-                    + extension.getSimpleIdentifier());
-            System.out.println("UniqueIdentifier="
-                    + extension.getUniqueIdentifier());
-
-            IConfigurationElement[] configurationElements = extension
-                    .getConfigurationElements();
-            for (IConfigurationElement configurationElement : configurationElements) {
-                IContributor contributor = configurationElement
-                        .getContributor();
-                System.out.println("  ContributorClass = "
-                        + contributor.getClass().getName());
-                System.out.println("  ContributorName = "
-                        + contributor.getName());
-                System.out.println("  ConfigurationElementClass = "
-                        + configurationElement.getClass().getName());
-
-                String[] attrs = configurationElement.getAttributeNames();
-                for (String string : attrs) {
-                    System.out.println("    " + string + "="
-                            + configurationElement.getAttribute(string));
-                }
-            }
-        }
     }
 }
