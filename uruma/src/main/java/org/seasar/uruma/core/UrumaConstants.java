@@ -432,6 +432,15 @@ public interface UrumaConstants {
      */
     public static final String URUMA_APP_SCHEME_NAME = "UrumaApplication";
 
+    /**
+     * workbench.xml が存在しないときに使用されるダミーのパスです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String DUMMY_WORKBENCH_PATH = "dummyWorkbench.xml";
+
     // -------------------------------------------------------------------------
     // UrumaService に関する定数
     // -------------------------------------------------------------------------

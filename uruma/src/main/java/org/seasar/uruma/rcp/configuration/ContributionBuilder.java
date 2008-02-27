@@ -29,6 +29,8 @@ import org.osgi.framework.Bundle;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.configuration.extension.MenusBuilder;
+import org.seasar.uruma.rcp.configuration.extension.PerspectivesBuilder;
+import org.seasar.uruma.rcp.configuration.extension.ViewsBuilder;
 
 /**
  * {@link Bundle} に対してコントリビューションを動的に追加するためのクラスです。<br />
@@ -45,6 +47,8 @@ public class ContributionBuilder {
 
     static {
         builders.add(new MenusBuilder());
+        builders.add(new ViewsBuilder());
+        builders.add(new PerspectivesBuilder());
     }
 
     private ContributionBuilder() {

@@ -66,7 +66,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
     /**
      * デフォルトのカテゴリ ID サフィックスです。<br />
      */
-    public String DEFAULT_CATEGORY_ID_SUFFIX = ".command.category";
+    public static String DEFAULT_CATEGORY_ID_SUFFIX = ".command.category";
 
     protected int actionCount;
 
