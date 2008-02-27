@@ -803,6 +803,15 @@ public interface UrumaMessageCodes {
      */
     public static final String IMAGE_DEF_BUNDLE_NOT_FOUND = "WURM0603";
 
+    /**
+     * workbench.xml が見つからない場合のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String WORKBENCH_DEF_FILE_NOT_FOUND = "WURM0604";
+
     // -------------------------------------------------------------------------
     // Win32API関連メッセージコード (98xx)
     // -------------------------------------------------------------------------

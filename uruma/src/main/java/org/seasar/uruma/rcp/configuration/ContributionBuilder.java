@@ -45,7 +45,6 @@ public class ContributionBuilder {
 
     static {
         builders.add(new MenusBuilder());
-        // builders.add(new ActionSetsBuilder());
     }
 
     private ContributionBuilder() {

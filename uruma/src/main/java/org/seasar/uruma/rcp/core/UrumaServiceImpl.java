@@ -40,6 +40,7 @@ import org.seasar.framework.util.ResourceUtil;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
+import org.seasar.uruma.component.jface.TemplateImpl;
 import org.seasar.uruma.component.rcp.PerspectiveComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
@@ -64,6 +65,7 @@ import org.seasar.uruma.rcp.configuration.ExtensionPoints;
 import org.seasar.uruma.rcp.configuration.impl.PerspectiveElement;
 import org.seasar.uruma.rcp.configuration.impl.ViewElement;
 import org.seasar.uruma.rcp.ui.AutoPerspectiveFactory;
+import org.seasar.uruma.rcp.ui.BlankPerspectiveFactory;
 import org.seasar.uruma.rcp.ui.GenericPerspectiveFactory;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -107,6 +109,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
     protected String defaultContextId;
 
+    private static final String DUMMY_WORKBENCH_PATH = "dummy";
+
     /**
      * {@link UrumaServiceImpl} を構築します。<br />
      * 
@@ -145,19 +149,23 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         }
     }
 
-    void registerExtensions() {
+    protected void registerExtensions() {
         switchToAppClassLoader();
         try {
             setupContributor();
 
             setupContexts();
+            if (!workbenchComponent.getPath().equals(DUMMY_WORKBENCH_PATH)) {
+                // ビューテンプレートの読み込み
+                templateLoader.loadViewTemplates();
 
-            // ビューテンプレートの読み込み
-            templateLoader.loadViewTemplates();
-
-            // ビュー、パースペクティブの登録
-            setupViewExtensions();
-            setupPerspectives();
+                // ビュー、パースペクティブの登録
+                setupViewExtensions();
+                setupPerspectives();
+            } else {
+                // workbench.xml が存在しない場合、ダミーパースペクティブを生成
+                setupBlankPerspective();
+            }
 
             ContributionBuilder.build(contributor, extensions);
         } catch (Exception ex) {
@@ -304,21 +312,35 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     }
 
     protected void setupContexts() {
-        // TODO workbench.xml が読み込めなかった場合のハンドリング
-        Template workbenchTemplate = getTemplate(UrumaConstants.DEFAULT_WORKBENCH_XML);
+        Template workbenchTemplate = getTemplate(DEFAULT_WORKBENCH_XML);
+        if (workbenchTemplate == null) {
+            // workbench.xml が見つからない場合はダミーを生成する
+            workbenchTemplate = createDummyWorkbenchTemplate();
+        }
+
         UIComponentContainer root = workbenchTemplate.getRootComponent();
         if (root instanceof WorkbenchComponent) {
             this.workbenchComponent = (WorkbenchComponent) root;
         } else {
-            throw new NotFoundException(
-                    UrumaMessageCodes.WORKBENCH_ELEMENT_NOT_FOUND,
+            throw new NotFoundException(WORKBENCH_ELEMENT_NOT_FOUND,
                     workbenchTemplate.getPath());
         }
 
-        this.applicationContext.setValue(
-                UrumaConstants.WORKBENCH_TEMPLATE_NAME, workbenchTemplate);
+        this.applicationContext.setValue(WORKBENCH_TEMPLATE_NAME,
+                workbenchTemplate);
         this.windowContext = ContextFactory.createWindowContext(
-                applicationContext, UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
+                applicationContext, WORKBENCH_WINDOW_CONTEXT_ID);
+    }
+
+    protected Template createDummyWorkbenchTemplate() {
+        Template template = new TemplateImpl();
+        WorkbenchComponent workbench = new WorkbenchComponent();
+        workbench.setPath(DUMMY_WORKBENCH_PATH);
+        workbench.title = "Uruma";
+        workbench.initWidth = "50%";
+        workbench.initHeight = "50%";
+        template.setRootComponent(workbench);
+        return template;
     }
 
     protected void setupPerspectives() {
@@ -366,6 +388,19 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         extensions.add(extension);
     }
 
+    protected void setupBlankPerspective() {
+        Extension extension = ExtensionFactory
+                .createExtension(ExtensionPoints.PERSPECTIVES);
+
+        PerspectiveElement blank = new PerspectiveElement();
+        blank.clazz = BlankPerspectiveFactory.class.getName();
+        blank.id = createRcpId(DEFAULT_PERSPECTIVE_ID);
+        blank.name = "";
+
+        extension.addElement(blank);
+        extensions.add(extension);
+    }
+
     /*
      * @see org.seasar.uruma.rcp.UrumaService#getPluginId()
      */
@@ -403,7 +438,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
             Template template = templateManager.getTemplate(path);
             return template;
         } catch (ResourceNotFoundRuntimeException ex) {
-            logger.error(ex.getMessage(), ex);
+            logger.log(WORKBENCH_DEF_FILE_NOT_FOUND, path);
             return null;
         }
     }

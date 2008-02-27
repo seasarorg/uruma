@@ -37,7 +37,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
 
     private String windowName;
 
-    private List<PartContext> partContextList;
+    private List<PartContext> partContextList = new ArrayList<PartContext>();
 
     private ApplicationContextImpl parent;
 
@@ -112,10 +112,6 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      *             パート名称が既に登録されている場合
      */
     public void addPartContext(final PartContext context) {
-        if (partContextList == null) {
-            partContextList = new ArrayList<PartContext>();
-        }
-
         if (getPartContext(context.getName()) == null) {
             partContextList.add(context);
         } else {

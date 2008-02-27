@@ -43,7 +43,8 @@ import org.seasar.uruma.util.PathUtil;
  * 
  * @author y-komori
  */
-public class ViewTemplateLoaderImpl implements ViewTemplateLoader {
+public class ViewTemplateLoaderImpl implements ViewTemplateLoader,
+        UrumaConstants, UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(TemplateManager.class);
 
@@ -56,13 +57,13 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader {
      */
     public void loadViewTemplates() throws IOException {
         URL localUrl = RcpResourceUtil
-                .getLocalResourceUrl(UrumaConstants.DEFAULT_WORKBENCH_XML);
+                .getLocalResourceUrl(DEFAULT_WORKBENCH_XML);
 
         // TODO プロトコル毎にクラスを分けて整理する
         if (UrumaConstants.PROTCOL_FILE.equals(localUrl.getProtocol())) {
             File localFile = new File(localUrl.getPath());
-            File baseDir = new File(localFile.getParent()
-                    + UrumaConstants.SLASH + UrumaConstants.DEFAULT_VIEWS_PATH);
+            File baseDir = new File(localFile.getParent() + SLASH
+                    + DEFAULT_VIEWS_PATH);
 
             logger.log(UrumaMessageCodes.FINDING_XML_START, baseDir
                     .getAbsolutePath());
@@ -80,21 +81,20 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader {
             }
 
             templateManager.loadTemplates(viewFilePaths);
-        } else if (UrumaConstants.PROTCOL_JAR.equals(localUrl.getProtocol())) {
+        } else if (PROTCOL_JAR.equals(localUrl.getProtocol())) {
             String jarFilePath = StringUtil.substringFromLast(localUrl
-                    .getPath(), UrumaConstants.EXCLAMATION_MARK);
+                    .getPath(), EXCLAMATION_MARK);
             JarFile jarFile = JarFileUtil.create((new URL(jarFilePath))
                     .getFile());
 
-            logger.log(UrumaMessageCodes.FINDING_XML_START, jarFilePath);
+            logger.log(FINDING_XML_START, jarFilePath);
 
             List<String> viewFilePaths = new ArrayList<String>();
             Enumeration<JarEntry> entries = jarFile.entries();
             while (entries.hasMoreElements()) {
                 JarEntry entry = entries.nextElement();
 
-                String basePath = UrumaConstants.DEFAULT_VIEWS_PATH
-                        + UrumaConstants.SLASH;
+                String basePath = DEFAULT_VIEWS_PATH + SLASH;
                 String entryPath = entry.getName();
                 if (entryPath.startsWith(basePath)
                         && entryPath.endsWith(".xml")) {
