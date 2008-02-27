@@ -210,6 +210,7 @@
       <artifactId>uruma</artifactId>
       <version>${urumaVer}</version>
     </dependency>
+    <!-- 
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-framework</artifactId>
@@ -269,6 +270,7 @@
       <artifactId>geronimo-j2ee_1.4_spec</artifactId>
       <version>1.0</version>
     </dependency>
+    -->
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-jta_1.1_spec</artifactId>
@@ -293,6 +295,7 @@
       <scope>runtime</scope>
     </dependency>
     
+<!-- 
     <dependency>
       <groupId>org.eclipse</groupId>
       <artifactId>equinox-common</artifactId>
@@ -314,6 +317,7 @@
       <artifactId>core-commands</artifactId>
       <version>${eclipseVer}</version>
     </dependency>
+-->
     
   </dependencies>
 </project>

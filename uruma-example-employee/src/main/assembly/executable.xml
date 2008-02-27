@@ -51,6 +51,7 @@
     <dependencySet>
       <unpack>false</unpack>
       <outputDirectory>/lib</outputDirectory>
+      <!-- 
       <includes>
         <include>org.seasar.uruma:uruma</include>
         <include>org.eclipse:equinox-common</include>
@@ -73,6 +74,7 @@
         <include>org.seasar.dao:s2-dao-tiger</include>
         <include>hsqldb:hsqldb</include>
       </includes>
+      -->
     </dependencySet>
   </dependencySets>
 </assembly>
