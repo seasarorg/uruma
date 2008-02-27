@@ -8,7 +8,7 @@
   <!-- More Project Information -->
   <groupId>org.seasar.uruma</groupId>
   <artifactId>uruma-example-employee</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <url>http://uruma.sandbox.seasar.org/</url>
   <inceptionYear>2006</inceptionYear>
 
@@ -47,6 +47,13 @@
       <name></name>
       <email></email>
       <url>http://d.hatena.ne.jp/cero-t/</url>
+      <timezone>+9</timezone>
+    </developer>
+    <developer>
+      <id>snuffkin</id>
+      <name></name>
+      <email></email>
+      <url>http://d.hatena.ne.jp/snuffkin/</url>
       <timezone>+9</timezone>
     </developer>
   </developers>
@@ -191,76 +198,57 @@
   </build>
 
   <!-- Dependency Settings -->
+  <properties>
+    <seasarVer>2.4.20</seasarVer>
+    <eclipseVer>3.3.1.1</eclipseVer>
+    <urumaVer>0.3.0</urumaVer>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.seasar.uruma</groupId>
       <artifactId>uruma</artifactId>
-      <version>0.2.0</version>
+      <version>${urumaVer}</version>
     </dependency>
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-framework</artifactId>
-      <version>2.4.18-rc2</version>
+      <version>${seasarVer}</version>
     </dependency>
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-extension</artifactId>
-      <version>2.4.18-rc2</version>
+      <version>${seasarVer}</version>
     </dependency>
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-tiger</artifactId>
-      <version>2.4.18-rc2</version>
+      <version>${seasarVer}</version>
     </dependency>
     <dependency>
-      <groupId>org.seasar.dao</groupId>
-      <artifactId>s2-dao</artifactId>
-      <version>1.0.46</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse</groupId>
-      <artifactId>equinox-common</artifactId>
-      <version>3.3.0</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse</groupId>
-      <artifactId>swt-win32-win32-x86</artifactId>
-      <version>3.3.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse</groupId>
-      <artifactId>jface</artifactId>
-      <version>3.3.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse</groupId>
-      <artifactId>core-commands</artifactId>
-      <version>3.3.0</version>
-    </dependency>
-    <dependency>
-      <groupId>hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>1.8.0.1</version>
-      <scope>runtime</scope>
+      <groupId>ognl</groupId>
+      <artifactId>ognl</artifactId>
+      <version>2.6.9-patch-20070908</version>
     </dependency>
     <dependency>
       <groupId>aopalliance</groupId>
       <artifactId>aopalliance</artifactId>
       <version>1.0</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>jboss</groupId>
       <artifactId>javassist</artifactId>
       <version>3.4.ga</version>
-      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.13</version>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>1.1</version>
-      <type>jar</type>
       <exclusions>
         <exclusion>
           <artifactId>avalon-framework</artifactId>
@@ -271,41 +259,50 @@
           <groupId>logkit</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>log4j</artifactId>
-          <groupId>log4j</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>servlet-api</artifactId>
           <groupId>javax.servlet</groupId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.13</version>
-      <type>jar</type>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-j2ee_1.4_spec</artifactId>
       <version>1.0</version>
-      <type>jar</type>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.seasar.dao</groupId>
+      <artifactId>s2-dao</artifactId>
+      <version>1.0.47</version>
+    </dependency>
+    <dependency>
+      <groupId>hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>1.8.0.1</version>
+      <scope>runtime</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.eclipse</groupId>
+      <artifactId>equinox-common</artifactId>
+      <version>${eclipseVer}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-jta_1.1_spec</artifactId>
-      <version>1.0</version>
-      <type>jar</type>
-      <scope>runtime</scope>
+      <groupId>org.eclipse</groupId>
+      <artifactId>swt-win32-win32-x86</artifactId>
+      <version>${eclipseVer}</version>
     </dependency>
     <dependency>
-      <groupId>ognl</groupId>
-      <artifactId>ognl</artifactId>
-      <version>2.6.9-patch-20070908</version>
-      <type>jar</type>
+      <groupId>org.eclipse</groupId>
+      <artifactId>jface</artifactId>
+      <version>${eclipseVer}</version>
     </dependency>
+    <dependency>
+      <groupId>org.eclipse</groupId>
+      <artifactId>core-commands</artifactId>
+      <version>${eclipseVer}</version>
+    </dependency>
+    
   </dependencies>
 </project>
