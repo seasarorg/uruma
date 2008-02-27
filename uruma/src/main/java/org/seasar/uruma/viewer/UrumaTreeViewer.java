@@ -80,5 +80,4 @@ public class UrumaTreeViewer extends TreeViewer implements IDoubleClickListener 
         boolean expandedState = getExpandedState(selected);
         setExpandedState(selected, !expandedState);
     }
-
 }

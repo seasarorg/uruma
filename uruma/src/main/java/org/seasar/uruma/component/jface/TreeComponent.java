@@ -22,6 +22,7 @@ import java.util.List;
 import org.eclipse.swt.widgets.Tree;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
+import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 
 /**
  * {@link Tree} を表すコンポーネントです。<br />
@@ -40,6 +41,13 @@ public class TreeComponent extends CompositeComponent {
      */
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
     public String linesVisible;
+
+    /**
+     * デフォルトでツリーを展開する階層です。<br />
+     * 【例】2を指定した場合、常に2階層目まで展開されます。<br />
+     */
+    @RenderingPolicy(targetType = TargetType.NONE)
+    public String autoExpandLevel = "1";
 
     private List<TreeItemComponent> children = new ArrayList<TreeItemComponent>();
 

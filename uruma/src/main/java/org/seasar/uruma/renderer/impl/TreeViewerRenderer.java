@@ -59,6 +59,17 @@ public class TreeViewerRenderer extends
     }
 
     /*
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#doRenderViewer(org.seasar.uruma.component.jface.CompositeComponent,
+     *      org.eclipse.jface.viewers.Viewer)
+     */
+    @Override
+    protected void doRenderViewer(final TreeComponent uiComponent,
+            final UrumaTreeViewer viewer) {
+        int autoExpandLevel = Integer.parseInt(uiComponent.autoExpandLevel);
+        viewer.setAutoExpandLevel(autoExpandLevel);
+    }
+
+    /*
      * @see org.seasar.uruma.renderer.impl.AbstractRenderer#getDefaultStyle()
      */
     @Override
