@@ -93,12 +93,17 @@ public class GenericTableViewerComparator extends ViewerComparator {
             return cat1 - cat2;
         }
 
-        int result = doCompare(tableViewer, e1, e2, columnMap.get(sortKey));
+        Integer sortColumn = columnMap.get(sortKey);
+        if (sortColumn != null) {
+            int result = doCompare(tableViewer, e1, e2, sortColumn.intValue());
 
-        if (sortingState == SortingState.ASCENDING) {
-            return result;
-        } else if (sortingState == SortingState.DESCENDING) {
-            return result * (-1);
+            if (sortingState == SortingState.ASCENDING) {
+                return result;
+            } else if (sortingState == SortingState.DESCENDING) {
+                return result * (-1);
+            } else {
+                return 0;
+            }
         } else {
             return 0;
         }
