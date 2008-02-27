@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.rcp.ui;
 
+import java.util.MissingResourceException;
+
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
@@ -34,7 +36,8 @@ import org.seasar.uruma.rcp.util.UrumaServiceUtil;
  * 
  * @author y-komori
  */
-public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
+public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
+        UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaWorkbenchAdvisor.class);
 
@@ -48,8 +51,11 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
                 .getAppClassLoader();
         logger.log(UrumaMessageCodes.LOADING_IMAGE_BUNDLE, imageBundle);
 
-        // TODO urumaImages.properties が見つからなかった場合のハンドリングが必要
-        ImageManager.loadImages(imageBundle, appClassLoader);
+        try {
+            ImageManager.loadImages(imageBundle, appClassLoader);
+        } catch (MissingResourceException ex) {
+            logger.log(IMAGE_DEF_BUNDLE_NOT_FOUND, imageBundle);
+        }
     }
 
     /*

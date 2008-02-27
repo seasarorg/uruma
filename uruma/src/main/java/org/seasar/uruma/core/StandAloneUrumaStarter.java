@@ -15,11 +15,14 @@
  */
 package org.seasar.uruma.core;
 
+import java.util.MissingResourceException;
+
 import org.eclipse.swt.widgets.Display;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.log.UrumaLogger;
 
 /**
@@ -27,7 +30,8 @@ import org.seasar.uruma.log.UrumaLogger;
  * 
  * @author y-komori
  */
-public class StandAloneUrumaStarter {
+public class StandAloneUrumaStarter implements UrumaMessageCodes,
+        UrumaConstants {
     private final UrumaLogger logger = UrumaLogger
             .getLogger(StandAloneUrumaStarter.class);
 
@@ -37,7 +41,7 @@ public class StandAloneUrumaStarter {
 
     private Display display;
 
-    private String imageBundleName = UrumaConstants.DEFAULT_IMAGE_BUNDLE_PATH;
+    private String imageBundleName = DEFAULT_IMAGE_BUNDLE_PATH;
 
     /**
      * アプリケーションを開始します。<br />
@@ -69,7 +73,7 @@ public class StandAloneUrumaStarter {
     }
 
     private StandAloneUrumaStarter() {
-        logger.log(UrumaMessageCodes.STAND_ALONE_URUMA_STARTER_INIT);
+        logger.log(STAND_ALONE_URUMA_STARTER_INIT);
         initS2Container();
     }
 
@@ -107,8 +111,7 @@ public class StandAloneUrumaStarter {
             try {
                 dispose();
             } catch (Throwable ex) {
-                logger.log(UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, ex
-                        .getMessage());
+                logger.log(EXCEPTION_OCCURED_WITH_REASON, ex.getMessage());
             }
         }
     }
@@ -117,7 +120,13 @@ public class StandAloneUrumaStarter {
         S2Container urumaContainer = S2ContainerFactory
                 .create(UrumaConstants.URUMA_DICON_PATH);
         String configPath = SingletonS2ContainerFactory.getConfigPath();
-        container = S2ContainerFactory.create(configPath);
+
+        try {
+            container = S2ContainerFactory.create(configPath);
+        } catch (ResourceNotFoundRuntimeException ex) {
+            logger.log(DICON_FILE_NOT_FOUND, configPath);
+            container = S2ContainerFactory.create();
+        }
         container.include(urumaContainer);
 
         container.init();
@@ -139,8 +148,13 @@ public class StandAloneUrumaStarter {
 
     protected void setupImageManager(final Display display) {
         ImageManager.init(display);
-        logger.log(UrumaMessageCodes.LOADING_IMAGE_BUNDLE, imageBundleName);
-        ImageManager.loadImages(imageBundleName);
+        logger.log(LOADING_IMAGE_BUNDLE, imageBundleName);
+
+        try {
+            ImageManager.loadImages(imageBundleName);
+        } catch (MissingResourceException ex) {
+            logger.log(IMAGE_DEF_BUNDLE_NOT_FOUND, imageBundleName);
+        }
     }
 
     protected void dispose() {
@@ -156,8 +170,7 @@ public class StandAloneUrumaStarter {
      */
     public static void destroy() {
         if (instance != null) {
-            instance.logger
-                    .log(UrumaMessageCodes.STAND_ALONE_URUMA_STARTER_STOP);
+            instance.logger.log(STAND_ALONE_URUMA_STARTER_STOP);
             instance.dispose();
             instance = null;
         }
