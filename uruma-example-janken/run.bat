@@ -1,1 +1,1 @@
-javaw -Dlibrary.path=. -jar uruma-example-janken-0.1.0.jar
+javaw -Dlibrary.path=. -jar uruma-example-janken-0.3.0.jar
