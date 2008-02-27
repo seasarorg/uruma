@@ -9,14 +9,7 @@
       <directory>target</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>uruma-example-janken-0.2.0.jar</include>
-      </includes>
-    </fileSet>
-    <fileSet>
-      <directory>lib</directory>
-      <outputDirectory>/</outputDirectory>
-      <includes>
-        <include>*.dll</include>
+        <include>uruma-example-janken-0.3.0.jar</include>
       </includes>
     </fileSet>
     <fileSet>
@@ -50,7 +43,6 @@
   <dependencySets>
     <dependencySet>
       <unpack>false</unpack>
-      <scope>runtime</scope>
       <outputDirectory>/lib</outputDirectory>
     </dependencySet>
   </dependencySets>
