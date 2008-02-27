@@ -30,123 +30,34 @@ import org.seasar.uruma.example.employee.dto.DepartmentDto;
  */
 public class EmployeeEditForm {
 	@ImportExportValue
-	private String empno;
+	public String empno;
 
 	@ImportExportValue
-	private String ename;
+	public String ename;
 
 	@ImportExportValue
-	private String job;
+	public String job;
 
 	@ImportExportValue
-	private String mgr;
+	public String mgr;
 
 	@ImportExportValue
-	private String hiredate;
+	public String hiredate;
 
 	@ImportExportValue
-	private String sal;
+	public String sal;
 
 	@ImportExportValue
-	private String comm;
+	public String comm;
 
 	@ExportValue(id = "dept")
-	private List<DepartmentDto> deptList;
+	public List<DepartmentDto> deptList;
 
 	@ExportSelection(id = "dept")
 	@ImportSelection(id = "dept")
-	private DepartmentDto selectedDepartmentDto;
+	public DepartmentDto selectedDepartmentDto;
 
-	private Integer deptno;
+	public Integer deptno;
 
-	private int versionNo;
-
-	public String getComm() {
-		return comm;
-	}
-
-	public void setComm(final String comm) {
-		this.comm = comm;
-	}
-
-	public List<DepartmentDto> getDeptList() {
-		return deptList;
-	}
-
-	public void setDeptList(final List<DepartmentDto> deptList) {
-		this.deptList = deptList;
-	}
-
-	public Integer getDeptno() {
-		return deptno;
-	}
-
-	public void setDeptno(final Integer deptno) {
-		this.deptno = deptno;
-	}
-
-	public String getEmpno() {
-		return empno;
-	}
-
-	public void setEmpno(final String empno) {
-		this.empno = empno;
-	}
-
-	public String getEname() {
-		return ename;
-	}
-
-	public void setEname(final String ename) {
-		this.ename = ename;
-	}
-
-	public String getHiredate() {
-		return hiredate;
-	}
-
-	public void setHiredate(final String hiredate) {
-		this.hiredate = hiredate;
-	}
-
-	public String getJob() {
-		return job;
-	}
-
-	public void setJob(final String job) {
-		this.job = job;
-	}
-
-	public String getMgr() {
-		return mgr;
-	}
-
-	public void setMgr(final String mgr) {
-		this.mgr = mgr;
-	}
-
-	public String getSal() {
-		return sal;
-	}
-
-	public void setSal(final String sal) {
-		this.sal = sal;
-	}
-
-	public DepartmentDto getSelectedDepartmentDto() {
-		return selectedDepartmentDto;
-	}
-
-	public void setSelectedDepartmentDto(
-			final DepartmentDto selectedDepartmentDto) {
-		this.selectedDepartmentDto = selectedDepartmentDto;
-	}
-
-	public int getVersionNo() {
-		return versionNo;
-	}
-
-	public void setVersionNo(final int versionNo) {
-		this.versionNo = versionNo;
-	}
+	public int versionNo;
 }

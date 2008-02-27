@@ -25,101 +25,30 @@ import org.seasar.uruma.annotation.ImportExportValue;
  */
 public class InquireForm {
 	@ImportExportValue
-	private String empno;
+	public String empno;
 
 	@ImportExportValue
-	private String ename;
+	public String ename;
 
 	@ImportExportValue
-	private String job;
+	public String job;
 
 	@ImportExportValue
-	private String mgr;
+	public String mgr;
 
 	@ExportValue
-	private String mname;
+	public String mname;
 
 	@ImportExportValue
-	private String hiredate;
+	public String hiredate;
 
 	@ImportExportValue
-	private String sal;
+	public String sal;
 
 	@ImportExportValue
-	private String comm;
+	public String comm;
 
 	@ExportValue
-	private String dname;
+	public String dname;
 
-	public String getComm() {
-		return comm;
-	}
-
-	public void setComm(final String comm) {
-		this.comm = comm;
-	}
-
-	public String getEmpno() {
-		return empno;
-	}
-
-	public void setEmpno(final String empno) {
-		this.empno = empno;
-	}
-
-	public String getEname() {
-		return ename;
-	}
-
-	public void setEname(final String ename) {
-		this.ename = ename;
-	}
-
-	public String getHiredate() {
-		return hiredate;
-	}
-
-	public void setHiredate(final String hiredate) {
-		this.hiredate = hiredate;
-	}
-
-	public String getJob() {
-		return job;
-	}
-
-	public void setJob(final String job) {
-		this.job = job;
-	}
-
-	public String getMgr() {
-		return mgr;
-	}
-
-	public void setMgr(final String mgr) {
-		this.mgr = mgr;
-	}
-
-	public String getMname() {
-		return mname;
-	}
-
-	public void setMname(final String mname) {
-		this.mname = mname;
-	}
-
-	public String getSal() {
-		return sal;
-	}
-
-	public void setSal(final String sal) {
-		this.sal = sal;
-	}
-
-	public String getDname() {
-		return dname;
-	}
-
-	public void setDname(final String dname) {
-		this.dname = dname;
-	}
 }

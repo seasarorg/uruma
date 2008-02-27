@@ -53,22 +53,21 @@ public class EditAction {
 
 	@InitializeMethod
 	public void initialize() {
-		Employee employee = employeeLogic.getEmployee(selectedEmployees.get(0)
-				.getEmpno());
+		Employee employee = employeeLogic
+				.getEmployee(selectedEmployees.get(0).empno);
 		employeeEditFormDxo.convert(employee, employeeEditForm);
-		employeeEditForm.setDeptList(employeeLogic.getAllDepartments());
+		employeeEditForm.deptList = employeeLogic.getAllDepartments();
 
 		DepartmentDto selectedDepartment = new DepartmentDto();
-		selectedDepartment.setDeptno(employeeEditForm.getDeptno());
-		employeeEditForm.setSelectedDepartmentDto(selectedDepartment);
+		selectedDepartment.deptno = employeeEditForm.deptno;
+		employeeEditForm.selectedDepartmentDto = selectedDepartment;
 	}
 
 	@EventListener(id = "ok")
 	public void onOk() {
-		DepartmentDto selectedDepartmentDto = employeeEditForm
-				.getSelectedDepartmentDto();
+		DepartmentDto selectedDepartmentDto = employeeEditForm.selectedDepartmentDto;
 		if (selectedDepartmentDto != null) {
-			employeeEditForm.setDeptno(selectedDepartmentDto.getDeptno());
+			employeeEditForm.deptno = selectedDepartmentDto.deptno;
 		}
 		employeeEditFormDxo.convert(employeeEditForm, selectedEmployees.get(0));
 		employeeLogic.update(selectedEmployees.get(0));

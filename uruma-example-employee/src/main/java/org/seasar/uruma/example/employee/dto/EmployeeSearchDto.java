@@ -18,126 +18,49 @@ package org.seasar.uruma.example.employee.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.seasar.framework.container.annotation.tiger.Component;
+import org.seasar.framework.container.annotation.tiger.InstanceType;
+
+@Component(instance = InstanceType.SESSION)
 public class EmployeeSearchDto implements Serializable {
 
-    public static final String COMPONENT = "instance = session";
+	private static final long serialVersionUID = -281548543209718005L;
 
-    private static final long serialVersionUID = 1L;
+	public Integer empno;
 
-    private Integer empno;
+	public String ename;
 
-    private String ename;
+	public String job;
 
-    private String job;
+	public Short mgr;
 
-    private Short mgr;
+	public String mname;
 
-    private String mname;
+	public java.util.Date fromHiredate;
 
-    private java.util.Date fromHiredate;
+	public java.util.Date toHiredate;
 
-    private java.util.Date toHiredate;
+	public BigDecimal fromSal;
 
-    private BigDecimal fromSal;
+	public BigDecimal toSal;
 
-    private BigDecimal toSal;
+	public Integer deptno;
 
-    private Integer deptno;
+	public EmployeeSearchDto() {
+	}
 
-    public EmployeeSearchDto() {
-    }
-
-    public Integer getEmpno() {
-        return this.empno;
-    }
-
-    public void setEmpno(Integer empno) {
-        this.empno = empno;
-    }
-
-    public java.lang.String getEname() {
-        return this.ename;
-    }
-
-    public void setEname(java.lang.String ename) {
-        this.ename = ename;
-    }
-
-    public java.lang.String getJob() {
-        return this.job;
-    }
-
-    public void setJob(java.lang.String job) {
-        this.job = job;
-    }
-
-    public Short getMgr() {
-        return this.mgr;
-    }
-
-    public void setMgr(Short mgr) {
-        this.mgr = mgr;
-    }
-
-    public String getMname() {
-        return mname;
-    }
-
-    public void setMname(String mname) {
-        this.mname = mname;
-    }
-
-    public java.util.Date getFromHiredate() {
-        return this.fromHiredate;
-    }
-
-    public void setFromHiredate(java.util.Date fromHiredate) {
-        this.fromHiredate = fromHiredate;
-    }
-
-    public java.util.Date getToHiredate() {
-        return this.toHiredate;
-    }
-
-    public void setToHiredate(java.util.Date toHiredate) {
-        this.toHiredate = toHiredate;
-    }
-
-    public BigDecimal getFromSal() {
-        return this.fromSal;
-    }
-
-    public void setFromSal(BigDecimal fromSal) {
-        this.fromSal = fromSal;
-    }
-
-    public BigDecimal getToSal() {
-        return this.toSal;
-    }
-
-    public void setToSal(BigDecimal toSal) {
-        this.toSal = toSal;
-    }
-
-    public Integer getDeptno() {
-        return this.deptno;
-    }
-
-    public void setDeptno(Integer deptno) {
-        this.deptno = deptno;
-    }
-
-    public String toString() {
-        StringBuffer buf = new StringBuffer("[");
-        buf.append(empno).append(", ");
-        buf.append(ename).append(", ");
-        buf.append(job).append(", ");
-        buf.append(mgr).append(", ");
-        buf.append(fromHiredate).append(", ");
-        buf.append(toHiredate).append(", ");
-        buf.append(fromSal).append(", ");
-        buf.append(toSal).append(", ");
-        buf.append(deptno).append("]");
-        return buf.toString();
-    }
+	@Override
+	public String toString() {
+		StringBuffer buf = new StringBuffer("[");
+		buf.append(empno).append(", ");
+		buf.append(ename).append(", ");
+		buf.append(job).append(", ");
+		buf.append(mgr).append(", ");
+		buf.append(fromHiredate).append(", ");
+		buf.append(toHiredate).append(", ");
+		buf.append(fromSal).append(", ");
+		buf.append(toSal).append(", ");
+		buf.append(deptno).append("]");
+		return buf.toString();
+	}
 }

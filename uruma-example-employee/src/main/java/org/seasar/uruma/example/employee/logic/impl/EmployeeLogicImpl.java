@@ -85,26 +85,26 @@ public class EmployeeLogicImpl implements EmployeeLogic {
 	}
 
 	public EmployeeDto insert(final EmployeeDto dto) {
-		if (existEmployee(dto.getEmpno())) {
-			throw new EmployeeAlreadyExistRuntimeException(dto.getEmpno());
+		if (existEmployee(dto.empno)) {
+			throw new EmployeeAlreadyExistRuntimeException(dto.empno);
 		}
 		employeeDao.insert(employeeDxo.convert(dto));
-		Employee employee = getEmployee(dto.getEmpno());
+		Employee employee = getEmployee(dto.empno);
 		return employeeDxo.convert(employee);
 	}
 
 	public EmployeeDto update(final EmployeeDto dto) {
-		if (!existEmployee(dto.getEmpno())) {
-			throw new EmployeeNotFoundRuntimeException(dto.getEmpno());
+		if (!existEmployee(dto.empno)) {
+			throw new EmployeeNotFoundRuntimeException(dto.empno);
 		}
 		employeeDao.update(employeeDxo.convert(dto));
-		Employee employee = getEmployee(dto.getEmpno());
+		Employee employee = getEmployee(dto.empno);
 		return employeeDxo.convert(employee);
 	}
 
 	public void delete(final Employee employee) {
-		if (!existEmployee(employee.getEmpno())) {
-			throw new EmployeeNotFoundRuntimeException(employee.getEmpno());
+		if (!existEmployee(employee.empno)) {
+			throw new EmployeeNotFoundRuntimeException(employee.empno);
 		}
 		employeeDao.delete(employee);
 	}

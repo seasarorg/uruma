@@ -53,15 +53,14 @@ public class RegistAction {
 
 	@InitializeMethod
 	public void initialize() {
-		employeeEditForm.setDeptList(employeeLogic.getAllDepartments());
+		employeeEditForm.deptList = employeeLogic.getAllDepartments();
 	}
 
 	@EventListener(id = "ok")
 	public void onOk() {
-		DepartmentDto selectedDepartmentDto = employeeEditForm
-				.getSelectedDepartmentDto();
+		DepartmentDto selectedDepartmentDto = employeeEditForm.selectedDepartmentDto;
 		if (selectedDepartmentDto != null) {
-			employeeEditForm.setDeptno(selectedDepartmentDto.getDeptno());
+			employeeEditForm.deptno = selectedDepartmentDto.deptno;
 		}
 		EmployeeDto employeeDto = employeeEditFormDxo.convert(employeeEditForm);
 		employeeDto = employeeLogic.insert(employeeDto);

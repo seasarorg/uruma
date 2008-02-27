@@ -17,72 +17,44 @@ package org.seasar.uruma.example.employee.entity;
 
 import java.io.Serializable;
 
+import org.seasar.dao.annotation.tiger.Bean;
+
+@Bean(table = "DEPT")
 public class Department implements Serializable {
 
-    private static final long serialVersionUID = -4568025031619752935L;
+	private static final long serialVersionUID = -1118005104108335819L;
 
-    public static final String TABLE = "DEPT";
+	public int deptno;
 
-    private int deptno;
+	public String dname;
 
-    private String dname;
+	public String loc;
 
-    private String loc;
+	public int versionNo;
 
-    private int versionNo;
+	public Department() {
+	}
 
-    public Department() {
-    }
+	@Override
+	public boolean equals(final Object other) {
+		if (!(other instanceof Department))
+			return false;
+		Department castOther = (Department) other;
+		return this.deptno == castOther.deptno;
+	}
 
-    public int getDeptno() {
-        return this.deptno;
-    }
+	@Override
+	public String toString() {
+		StringBuffer buf = new StringBuffer("[");
+		buf.append(deptno).append(", ");
+		buf.append(dname).append(", ");
+		buf.append(loc).append(", ");
+		buf.append(versionNo).append("]");
+		return buf.toString();
+	}
 
-    public void setDeptno(int deptno) {
-        this.deptno = deptno;
-    }
-
-    public java.lang.String getDname() {
-        return this.dname;
-    }
-
-    public void setDname(java.lang.String dname) {
-        this.dname = dname;
-    }
-
-    public java.lang.String getLoc() {
-        return this.loc;
-    }
-
-    public void setLoc(java.lang.String loc) {
-        this.loc = loc;
-    }
-
-    public int getVersionNo() {
-        return this.versionNo;
-    }
-
-    public void setVersionNo(int versionNo) {
-        this.versionNo = versionNo;
-    }
-
-    public boolean equals(Object other) {
-        if (!(other instanceof Department))
-            return false;
-        Department castOther = (Department) other;
-        return this.getDeptno() == castOther.getDeptno();
-    }
-
-    public String toString() {
-        StringBuffer buf = new StringBuffer("[");
-        buf.append(deptno).append(", ");
-        buf.append(dname).append(", ");
-        buf.append(loc).append(", ");
-        buf.append(versionNo).append("]");
-        return buf.toString();
-    }
-
-    public int hashCode() {
-        return this.getDeptno();
-    }
+	@Override
+	public int hashCode() {
+		return this.deptno;
+	}
 }

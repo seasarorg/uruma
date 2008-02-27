@@ -51,14 +51,14 @@ public class SearchAction {
 
 	@InitializeMethod
 	public void initialize() {
-		searchForm.setDeptList(employeeLogic.getAllDepartments());
+		searchForm.deptList = employeeLogic.getAllDepartments();
 	}
 
 	@EventListener(id = "ok")
 	public void onOk() {
-		DepartmentDto selectedDepartment = searchForm.getSelectedDepartment();
+		DepartmentDto selectedDepartment = searchForm.selectedDepartment;
 		if (selectedDepartment != null) {
-			searchForm.setDeptno(selectedDepartment.getDeptno());
+			searchForm.deptno = selectedDepartment.deptno;
 		}
 
 		EmployeeSearchDto searchDto = searchFormDxo.convert(searchForm);

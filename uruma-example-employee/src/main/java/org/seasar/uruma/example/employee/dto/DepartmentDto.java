@@ -19,28 +19,10 @@ import org.seasar.uruma.annotation.BindingLabel;
 
 public class DepartmentDto {
 
-	private static final long serialVersionUID = 1L;
-
-	private int deptno;
+	public int deptno;
 
 	@BindingLabel
-	private String dname;
-
-	public Integer getDeptno() {
-		return deptno;
-	}
-
-	public void setDeptno(final Integer deptno) {
-		this.deptno = deptno;
-	}
-
-	public String getDname() {
-		return dname;
-	}
-
-	public void setDname(final String dname) {
-		this.dname = dname;
-	}
+	public String dname;
 
 	@Override
 	public int hashCode() {

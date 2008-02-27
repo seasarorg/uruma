@@ -47,8 +47,8 @@ public class InquireAction {
 
 	@InitializeMethod
 	public void initialize() {
-		Employee employee = employeeLogic.getEmployee(selectedEmployees.get(0)
-				.getEmpno());
+		Employee employee = employeeLogic
+				.getEmployee(selectedEmployees.get(0).empno);
 		inquireFormDxo.convert(employee, inquireForm);
 	}
 

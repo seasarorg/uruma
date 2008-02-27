@@ -17,15 +17,15 @@ package org.seasar.uruma.example.employee.dao;
 
 import java.util.List;
 
+import org.seasar.dao.annotation.tiger.Arguments;
+import org.seasar.dao.annotation.tiger.S2Dao;
 import org.seasar.uruma.example.employee.entity.Department;
 
+@S2Dao(bean = Department.class)
 public interface DepartmentDao {
 
-    public Class BEAN = Department.class;
+	public List<Department> getAllDepartments();
 
-    public List<Department> getAllDepartments();
-
-    public String getDname_ARGS = "deptno";
-
-    public String getDname(Integer deptno);
+	@Arguments("deptno")
+	public String getDname(Integer deptno);
 }

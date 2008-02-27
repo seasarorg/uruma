@@ -18,164 +18,75 @@ package org.seasar.uruma.example.employee.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.seasar.dao.annotation.tiger.Bean;
+import org.seasar.dao.annotation.tiger.Relation;
+
+@Bean(table = "EMP")
 public class Employee implements Serializable {
 
-    private static final long serialVersionUID = -6679304819468621714L;
+	private static final long serialVersionUID = 5593337544677032847L;
 
-    public static final String TABLE = "EMP";
+	public Integer empno;
 
-    public static final int department_RELNO = 0;
+	public String ename;
 
-    public static final String department_RELKEYS = "deptno";
+	public String job;
 
-    public static final int manager_RELNO = 1;
+	public Integer mgr;
 
-    public static final String manager_RELKEYS = "mgr:empno";
+	public java.util.Date hiredate;
 
-    private Integer empno;
+	public BigDecimal sal;
 
-    private String ename;
+	public BigDecimal comm;
 
-    private String job;
+	public Integer deptno;
 
-    private Integer mgr;
+	public int versionNo;
 
-    private java.util.Date hiredate;
+	@Relation(relationNo = 0, relationKey = "deptno")
+	public Department department;
 
-    private BigDecimal sal;
+	@Relation(relationNo = 1, relationKey = "mgr:empno")
+	public Employee manager;
 
-    private BigDecimal comm;
+	public Employee() {
+	}
 
-    private Integer deptno;
+	@Override
+	public boolean equals(final Object other) {
+		if (!(other instanceof Employee)) {
+			return false;
+		}
+		Employee castOther = (Employee) other;
+		return empno == castOther.empno;
+	}
 
-    private int versionNo;
+	@Override
+	public String toString() {
+		StringBuffer buf = new StringBuffer("[");
+		setupToString(buf);
+		buf.append("]");
+		return buf.toString();
+	}
 
-    private Department department;
+	protected void setupToString(final StringBuffer buf) {
+		buf.append(empno).append(", ");
+		buf.append(ename).append(", ");
+		buf.append(job).append(", ");
+		buf.append(mgr).append(", ");
+		buf.append(hiredate).append(", ");
+		buf.append(sal).append(", ");
+		buf.append(comm).append(", ");
+		buf.append(deptno).append(", ");
+		buf.append(versionNo);
+	}
 
-    private Employee manager;
-
-    public Employee() {
-    }
-
-    public Integer getEmpno() {
-        return this.empno;
-    }
-
-    public void setEmpno(Integer empno) {
-        this.empno = empno;
-    }
-
-    public java.lang.String getEname() {
-        return this.ename;
-    }
-
-    public void setEname(java.lang.String ename) {
-        this.ename = ename;
-    }
-
-    public java.lang.String getJob() {
-        return this.job;
-    }
-
-    public void setJob(java.lang.String job) {
-        this.job = job;
-    }
-
-    public Integer getMgr() {
-        return this.mgr;
-    }
-
-    public void setMgr(Integer mgr) {
-        this.mgr = mgr;
-    }
-
-    public java.util.Date getHiredate() {
-        return this.hiredate;
-    }
-
-    public void setHiredate(java.util.Date hiredate) {
-        this.hiredate = hiredate;
-    }
-
-    public BigDecimal getSal() {
-        return this.sal;
-    }
-
-    public void setSal(BigDecimal sal) {
-        this.sal = sal;
-    }
-
-    public BigDecimal getComm() {
-        return this.comm;
-    }
-
-    public void setComm(BigDecimal comm) {
-        this.comm = comm;
-    }
-
-    public Integer getDeptno() {
-        return this.deptno;
-    }
-
-    public void setDeptno(Integer deptno) {
-        this.deptno = deptno;
-    }
-
-    public int getVersionNo() {
-        return versionNo;
-    }
-
-    public void setVersionNo(int versionNo) {
-        this.versionNo = versionNo;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Employee getManager() {
-        return manager;
-    }
-
-    public void setManager(Employee manager) {
-        this.manager = manager;
-    }
-
-    public boolean equals(Object other) {
-        if (!(other instanceof Employee)) {
-            return false;
-        }
-        Employee castOther = (Employee) other;
-        return getEmpno() == castOther.getEmpno();
-    }
-
-    public String toString() {
-        StringBuffer buf = new StringBuffer("[");
-        setupToString(buf);
-        buf.append("]");
-        return buf.toString();
-    }
-
-    protected void setupToString(StringBuffer buf) {
-        buf.append(empno).append(", ");
-        buf.append(ename).append(", ");
-        buf.append(job).append(", ");
-        buf.append(mgr).append(", ");
-        buf.append(hiredate).append(", ");
-        buf.append(sal).append(", ");
-        buf.append(comm).append(", ");
-        buf.append(deptno).append(", ");
-        buf.append(versionNo);
-    }
-
-    public int hashCode() {
-        if (empno != null) {
-            return empno.intValue();
-        }
-        return 0;
-    }
+	@Override
+	public int hashCode() {
+		if (empno != null) {
+			return empno.intValue();
+		}
+		return 0;
+	}
 }

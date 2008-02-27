@@ -98,8 +98,7 @@ public class MainAction {
 		if (result) {
 			try {
 				for (EmployeeDto dto : selectedEmployees) {
-					Employee employee = employeeLogic.getEmployee(dto
-							.getEmpno());
+					Employee employee = employeeLogic.getEmployee(dto.empno);
 					employeeLogic.delete(employee);
 					statusLineManager.setMessage(null);
 				}

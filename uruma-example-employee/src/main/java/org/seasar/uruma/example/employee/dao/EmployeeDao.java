@@ -17,28 +17,26 @@ package org.seasar.uruma.example.employee.dao;
 
 import java.util.List;
 
+import org.seasar.dao.annotation.tiger.Arguments;
+import org.seasar.dao.annotation.tiger.S2Dao;
 import org.seasar.uruma.example.employee.dto.EmployeeSearchDto;
 import org.seasar.uruma.example.employee.entity.Employee;
 
+@S2Dao(bean = Employee.class)
 public interface EmployeeDao {
 
-    public Class BEAN = Employee.class;
+	@Arguments("dto")
+	public List<Employee> searchEmployeeList(EmployeeSearchDto dto);
 
-    public String searchEmployeeList_ARGS = "dto";
+	@Arguments("dto")
+	public int getSearchCount(EmployeeSearchDto dto);
 
-    public List<Employee> searchEmployeeList(EmployeeSearchDto dto);
+	@Arguments("empno")
+	public Employee getEmployee(Integer empno);
 
-    public String getSearchCount_ARGS = "dto";
+	public void insert(Employee employee);
 
-    public int getSearchCount(EmployeeSearchDto dto);
+	public void update(Employee employee);
 
-    public String getEmployee_ARGS = "empno";
-
-    public Employee getEmployee(Integer empno);
-
-    public void insert(Employee employee);
-
-    public void update(Employee employee);
-
-    public void delete(Employee employee);
+	public void delete(Employee employee);
 }

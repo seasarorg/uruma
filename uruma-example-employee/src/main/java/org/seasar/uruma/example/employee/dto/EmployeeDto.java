@@ -17,118 +17,28 @@ package org.seasar.uruma.example.employee.dto;
 
 public class EmployeeDto {
 
-	private static final long serialVersionUID = 1L;
+	public Integer empno;
 
-	private Integer empno;
+	public String ename;
 
-	private String ename;
+	public String job;
 
-	private String job;
+	public Integer mgr;
 
-	private Integer mgr;
+	public String mname;
 
-	private String mname;
+	public String hiredate;
 
-	private String hiredate;
+	public String sal;
 
-	private String sal;
+	public String comm;
 
-	private String comm;
+	public String dname;
 
-	private String dname;
+	public Integer deptno;
 
-	private Integer deptno;
-
-	private int versionNo;
+	public int versionNo;
 
 	public EmployeeDto() {
-	}
-
-	public String getComm() {
-		return comm;
-	}
-
-	public void setComm(String comm) {
-		this.comm = comm;
-	}
-
-	public String getDname() {
-		return dname;
-	}
-
-	public void setDname(String dname) {
-		this.dname = dname;
-	}
-
-	public Integer getEmpno() {
-		return empno;
-	}
-
-	public void setEmpno(Integer empno) {
-		this.empno = empno;
-	}
-
-	public String getEname() {
-		return ename;
-	}
-
-	public void setEname(String ename) {
-		this.ename = ename;
-	}
-
-	public String getHiredate() {
-		return hiredate;
-	}
-
-	public void setHiredate(String hiredate) {
-		this.hiredate = hiredate;
-	}
-
-	public String getJob() {
-		return job;
-	}
-
-	public void setJob(String job) {
-		this.job = job;
-	}
-
-	public Integer getMgr() {
-		return mgr;
-	}
-
-	public void setMgr(Integer mgr) {
-		this.mgr = mgr;
-	}
-
-	public String getMname() {
-		return mname;
-	}
-
-	public void setMname(String mname) {
-		this.mname = mname;
-	}
-
-	public String getSal() {
-		return sal;
-	}
-
-	public void setSal(String sal) {
-		this.sal = sal;
-	}
-
-	public Integer getDeptno() {
-		return deptno;
-	}
-
-	public void setDeptno(Integer deptno) {
-		this.deptno = deptno;
-	}
-
-	public int getVersionNo() {
-		return versionNo;
-	}
-
-	public void setVersionNo(int versionNo) {
-		this.versionNo = versionNo;
 	}
 }
