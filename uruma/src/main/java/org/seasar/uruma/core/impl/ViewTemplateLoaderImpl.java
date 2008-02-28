@@ -46,7 +46,7 @@ import org.seasar.uruma.util.PathUtil;
 public class ViewTemplateLoaderImpl implements ViewTemplateLoader,
         UrumaConstants, UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
-            .getLogger(TemplateManager.class);
+            .getLogger(ViewTemplateLoader.class);
 
     private TemplateManager templateManager;
 
@@ -84,21 +84,27 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader,
         } else if (PROTCOL_JAR.equals(localUrl.getProtocol())) {
             String jarFilePath = StringUtil.substringFromLast(localUrl
                     .getPath(), EXCLAMATION_MARK);
+            String jarLocalPath = StringUtil.substringToLast(
+                    localUrl.getPath(), EXCLAMATION_MARK).substring(1);
+            // workebnch.xml の親ディレクトリをクラスパスルートとみなす
+            String classPathRoot = PathUtil.getParent(jarLocalPath) + SLASH;
             JarFile jarFile = JarFileUtil.create((new URL(jarFilePath))
                     .getFile());
 
-            logger.log(FINDING_XML_START, jarFilePath);
+            logger.log(FINDING_XML_START, jarFilePath + EXCLAMATION_MARK
+                    + classPathRoot);
 
             List<String> viewFilePaths = new ArrayList<String>();
             Enumeration<JarEntry> entries = jarFile.entries();
             while (entries.hasMoreElements()) {
                 JarEntry entry = entries.nextElement();
 
-                String basePath = DEFAULT_VIEWS_PATH + SLASH;
+                String basePath = classPathRoot + DEFAULT_VIEWS_PATH + SLASH;
                 String entryPath = entry.getName();
                 if (entryPath.startsWith(basePath)
                         && entryPath.endsWith(".xml")) {
-                    viewFilePaths.add(PathUtil.replaceSeparator(entryPath));
+                    viewFilePaths.add(PathUtil.replaceSeparator(entryPath)
+                            .substring(classPathRoot.length()));
                 }
             }
 
