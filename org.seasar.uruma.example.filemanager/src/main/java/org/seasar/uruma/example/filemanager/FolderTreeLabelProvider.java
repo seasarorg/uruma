@@ -23,6 +23,8 @@ import org.seasar.uruma.util.win32.RegistryUtil;
 import org.seasar.uruma.util.win32.Win32API;
 
 /**
+ * フォルダツリーのためのラベルプロバイダです。<br />
+ * 
  * @author y-komori
  */
 public class FolderTreeLabelProvider extends LabelProvider implements Constants {

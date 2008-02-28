@@ -23,8 +23,9 @@ import org.seasar.uruma.util.win32.RegistryUtil;
 import org.seasar.uruma.util.win32.Win32API;
 
 /**
- * @author y-komori
+ * アイコンを管理するためのクラスです。<br />
  * 
+ * @author y-komori
  */
 public class IconManager {
 	private IconManager() {

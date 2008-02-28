@@ -24,6 +24,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.seasar.uruma.util.win32.Win32API;
 
 /**
+ * フォルダツリーのためのコンテントプロバイダです。<br />
+ * 
  * @author y-komori
  */
 public class FolderTreeContentProvider implements ITreeContentProvider,
