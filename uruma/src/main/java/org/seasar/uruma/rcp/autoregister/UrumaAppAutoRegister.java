@@ -17,11 +17,19 @@ package org.seasar.uruma.rcp.autoregister;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.seasar.framework.container.autoregister.ComponentAutoRegister;
 import org.seasar.framework.exception.IORuntimeException;
+import org.seasar.framework.util.JarFileUtil;
 import org.seasar.framework.util.ResourceUtil;
+import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -29,7 +37,20 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y-komori
  */
-public class UrumaAppAutoRegister extends ComponentAutoRegister {
+public class UrumaAppAutoRegister extends ComponentAutoRegister implements
+        UrumaConstants, UrumaMessageCodes {
+    private UrumaLogger logger = UrumaLogger
+            .getLogger(UrumaAppAutoRegister.class);
+
+    /**
+     * {@link UrumaAppAutoRegister} を構築します。<br />
+     */
+    @SuppressWarnings("unchecked")
+    public UrumaAppAutoRegister() {
+        super();
+        strategies.put("jar", new RcpJarFileStrategy());
+    }
+
     /*
      * @see org.seasar.framework.container.autoregister.ComponentAutoRegister#registerAll()
      */
@@ -65,5 +86,58 @@ public class UrumaAppAutoRegister extends ComponentAutoRegister {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Class<?> refClass = loader.loadClass(referenceClassName);
         addReferenceClass(refClass);
+    }
+
+    /*
+     * @see org.seasar.framework.container.autoregister.AbstractComponentAutoRegister#register(java.lang.String)
+     */
+    @Override
+    protected void register(final String className) {
+        super.register(className);
+        logger.log(COMPONENT_REGISTERED, className);
+    }
+
+    /**
+     * RCP 環境における jar ファイル用の {@link ComponentAutoRegister.Strategy}です。
+     */
+    protected class RcpJarFileStrategy implements Strategy {
+        @SuppressWarnings("unchecked")
+        public void registerAll(final Class referenceClass, final URL url) {
+            final JarFile jarFile = JarFileUtil.toJarFile(url);
+            traverse(jarFile, getClassPathRoot(url, referenceClass));
+        }
+
+        private String getClassPathRoot(final URL url,
+                final Class<?> referenceClass) {
+            String innerParh = StringUtil.substringToLast(url.getPath(),
+                    EXCLAMATION_MARK);
+            String classPath = referenceClass.getName().replace('.', '/');
+            int pos = innerParh.indexOf(classPath);
+            if (pos > -1) {
+                return innerParh.substring(1, pos);
+            } else {
+                return NULL_STRING;
+            }
+        }
+
+        private void traverse(final JarFile jarFile, final String classPathRoot) {
+            final Enumeration<?> enumeration = jarFile.entries();
+            while (enumeration.hasMoreElements()) {
+                final JarEntry entry = (JarEntry) enumeration.nextElement();
+                final String entryName = entry.getName().replace('\\', '/');
+                if (entryName.endsWith(CLASS_SUFFIX)) {
+                    final String className = entryName.substring(
+                            classPathRoot.length(),
+                            entryName.length() - CLASS_SUFFIX.length())
+                            .replace('/', '.');
+                    final int pos = className.lastIndexOf('.');
+                    final String packageName = (pos == -1) ? null : className
+                            .substring(0, pos);
+                    final String shortClassName = (pos == -1) ? className
+                            : className.substring(pos + 1);
+                    processClass(packageName, shortClassName);
+                }
+            }
+        }
     }
 }

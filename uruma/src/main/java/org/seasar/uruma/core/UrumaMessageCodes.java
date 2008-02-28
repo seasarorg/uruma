@@ -763,6 +763,15 @@ public interface UrumaMessageCodes {
      */
     public static final String SWITCH_CONTEXT_CLASS_LOADER = "DURM0518";
 
+    /**
+     * S2コンポーネント登録時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String COMPONENT_REGISTERED = "DURM0519";
+
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)
     // -------------------------------------------------------------------------
