@@ -98,7 +98,7 @@ public class UrumaAppAutoRegister extends ComponentAutoRegister implements
     }
 
     /**
-     * RCP 環境における jar ファイル用の {@link ComponentAutoRegister.Strategy}です。
+     * RCP 環境における jar ファイル用のストラテジです。
      */
     protected class RcpJarFileStrategy implements Strategy {
         @SuppressWarnings("unchecked")
