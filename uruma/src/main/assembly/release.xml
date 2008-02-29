@@ -46,8 +46,12 @@
   <files>
     <file>
       <source>target/uruma-${propject.version}-plugin-jar.zip</source>
-      <outputDirectory>/</outputDirectory>
+      <outputDirectory>/rcp/eclipse/plugins</outputDirectory>
       <destName>org.seasar.uruma_${propject.version}.jar</destName>
+    </file>
+    <file>
+      <source>configuration/config.ini</source>
+      <outputDirectory>/rcp/eclipse/configuration</outputDirectory>
     </file>
   </files>
 
