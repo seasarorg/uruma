@@ -118,9 +118,13 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     protected void initialize() {
         logger.log(URUMA_SERVICE_INIT_START, targetBundle.getSymbolicName());
 
-        appClassLoader = activateUrumaApplication(targetBundle);
-
+        ClassLoader loader = activateUrumaApplication(targetBundle);
+        ;
+        if (loader != null) {
+            this.appClassLoader = loader;
+        }
         switchToAppClassLoader();
+
         try {
             initS2Container();
             prepareS2Components();
@@ -177,11 +181,6 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
             } catch (ClassNotFoundException ex) {
                 throw new UrumaAppInitException(bundle, ex, ex.getMessage());
             }
-        } else {
-            throw new UrumaAppInitException(bundle,
-                    "Class not found under the "
-                            + StringUtil.replace(bundle.getSymbolicName(),
-                                    PERIOD, SLASH) + " package.");
         }
 
         logger.log(URUMA_APP_STARTED, symbolicName);
@@ -201,15 +200,17 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         String prefix = StringUtil.replace(bundle.getSymbolicName(), PERIOD,
                 SLASH);
         Enumeration entries = bundle.findEntries("", "*.class", true);
-        while (entries.hasMoreElements()) {
-            URL url = (URL) entries.nextElement();
-            String path = url.getPath();
+        if (entries != null) {
+            while (entries.hasMoreElements()) {
+                URL url = (URL) entries.nextElement();
+                String path = url.getPath();
 
-            int pos = path.indexOf(prefix);
-            if (pos > 0) {
-                String className = StringUtil.replace(path.substring(pos, path
-                        .length() - 6), SLASH, PERIOD);
-                return className;
+                int pos = path.indexOf(prefix);
+                if (pos > 0) {
+                    String className = StringUtil.replace(path.substring(pos,
+                            path.length() - 6), SLASH, PERIOD);
+                    return className;
+                }
             }
         }
         return null;
