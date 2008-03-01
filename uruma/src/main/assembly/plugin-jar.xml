@@ -17,6 +17,7 @@
     <fileSet>
       <includes>
         <include>plugin.xml</include>
+        <include>splash.bmp</include>
       </includes>
       <outputDirectory>/</outputDirectory>
     </fileSet>
