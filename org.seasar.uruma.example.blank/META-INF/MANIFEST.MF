@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Uruma Blank Application
+Bundle-SymbolicName: org.seasar.uruma.example.blank;singleton:=true
+Bundle-Version: 0.3.0
+Eclipse-LazyStart: true
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.seasar.uruma
+Bundle-ClassPath: bin/
+Bundle-Activator: org.seasar.uruma.rcp.UrumaAppActivator
+Bundle-Vendor: Seasarファウンデーション

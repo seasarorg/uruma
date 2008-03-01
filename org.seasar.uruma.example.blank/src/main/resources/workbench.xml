@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <workbench title="Uruma Blank Application" initWidth="50%"
+    initHeight="50%">
+  </workbench>
+</template>
