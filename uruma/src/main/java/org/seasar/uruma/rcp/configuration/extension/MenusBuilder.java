@@ -190,9 +190,9 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         String id = menuItem.getId();
         if (StringUtil.isEmpty(id)) {
             id = AUTO_ACTION_ID_PREFIX + actionCount++;
+            menuItem.setId(id);
         }
         id = service.getPluginId() + DEFAULT_COMMAND_ID_SUFFIX + id;
-        menuItem.setId(id);
         return id;
     }
 
