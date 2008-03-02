@@ -60,7 +60,9 @@ public class UrumaApplication implements IApplication, UrumaMessageCodes {
             dialog.open();
             shell.dispose();
         } finally {
-            display.dispose();
+            if (!display.isDisposed()) {
+                display.dispose();
+            }
         }
         return IApplication.EXIT_OK;
     }
