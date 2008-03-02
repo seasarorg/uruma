@@ -19,7 +19,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
-import org.seasar.uruma.log.UrumaLogger;
 
 /**
  * Uruma アプリケーションのためのアクティベータです。<br />
@@ -28,26 +27,12 @@ import org.seasar.uruma.log.UrumaLogger;
  */
 public class UrumaAppActivator extends AbstractUIPlugin implements
         UrumaConstants, UrumaMessageCodes {
-    private static final UrumaLogger logger = UrumaLogger
-            .getLogger(UrumaAppActivator.class);
-
     /*
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
      */
     @Override
     public final void start(final BundleContext context) throws Exception {
         super.start(context);
-
-        // ServiceReference ref = context.getServiceReference(UrumaService.class
-        // .getName());
-        //
-        // if (ref != null) {
-        // System.err.println("ServiceRef 取得成功!");
-        //
-        // UrumaService service = (UrumaService) context.getService(ref);
-        // } else {
-        // System.err.println("ServiceRef 取得失敗!");
-        // }
     }
 
     /*

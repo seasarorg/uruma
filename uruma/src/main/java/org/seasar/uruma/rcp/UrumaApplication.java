@@ -18,12 +18,14 @@ package org.seasar.uruma.rcp;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.ui.UrumaWorkbenchAdvisor;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
+import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 
 /**
  * RCP 環境での Uruma ブートストラップクラスです。<br />
@@ -51,11 +53,16 @@ public class UrumaApplication implements IApplication, UrumaMessageCodes {
             } else {
                 return IApplication.EXIT_OK;
             }
-
-            // TODO 例外キャッチ時にダイアログ表示
+        } catch (Throwable ex) {
+            Shell shell = new Shell(display);
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
+                    "Uruma 実行中に例外が発生しました.", ex);
+            dialog.open();
+            shell.dispose();
         } finally {
             display.dispose();
         }
+        return IApplication.EXIT_OK;
     }
 
     /*

@@ -24,6 +24,8 @@ import java.util.Properties;
 
 import org.eclipse.core.internal.preferences.exchange.IProductPreferencesService;
 import org.eclipse.core.internal.preferences.legacy.ProductPreferencesService;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -34,6 +36,7 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.util.BundleInfoUtil;
+import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 
 /**
  * Uruma のための {@link BundleActivator} です。<br />
@@ -48,11 +51,21 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
     public void start(final BundleContext context) throws Exception {
         logger.log(URUMA_BUNDLE_START);
 
-        context.addBundleListener(new UrumaBundleListener());
+        try {
+            context.addBundleListener(new UrumaBundleListener());
 
-        prepareUrumaService(context);
+            prepareUrumaService(context);
 
-        registerProductPreferenceService(context);
+            registerProductPreferenceService(context);
+        } catch (Throwable ex) {
+            Display display = new Display();
+            Shell shell = new Shell(display);
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
+                    "Uruma の起動に失敗しました.", ex);
+            dialog.open();
+            shell.dispose();
+            display.dispose();
+        }
     }
 
     public void stop(final BundleContext context) throws Exception {

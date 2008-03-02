@@ -18,12 +18,14 @@ package org.seasar.uruma.core;
 import java.util.MissingResourceException;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 
 /**
  * RCP を利用せずに単独でウィンドウを開くアプリケーションのためのスタートアップクラスです。<br />
@@ -73,8 +75,17 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
     }
 
     private StandAloneUrumaStarter() {
-        logger.log(STAND_ALONE_URUMA_STARTER_INIT);
-        initS2Container();
+        try {
+            logger.log(STAND_ALONE_URUMA_STARTER_INIT);
+            initS2Container();
+        } catch (Throwable ex) {
+            Display display = new Display();
+            Shell shell = new Shell(display);
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
+                    "Uruma の起動に失敗しました.", ex);
+            dialog.open();
+            shell.dispose();
+        }
     }
 
     /**
@@ -97,16 +108,23 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
      *            画面定義XMLのパス
      */
     public void openWindow(final String templatePath) {
-        display = Display.getCurrent();
-        if (display == null) {
-            display = new Display();
-            setupImageManager(display);
-        }
         try {
+            display = Display.getCurrent();
+            if (display == null) {
+                display = new Display();
+                setupImageManager(display);
+            }
 
             UrumaWindowManager windowManager = (UrumaWindowManager) container
                     .getComponent(UrumaWindowManager.class);
             windowManager.openWindow(templatePath, true);
+        } catch (Throwable ex) {
+            Display display = new Display();
+            Shell shell = new Shell(display);
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
+                    "Uruma 実行中に例外が発生しました.", ex);
+            dialog.open();
+            shell.dispose();
         } finally {
             try {
                 dispose();
