@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.ashikunep.irenka.studio.RUNTIME"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/uruma"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
