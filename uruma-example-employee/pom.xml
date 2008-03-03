@@ -8,7 +8,7 @@
   <!-- More Project Information -->
   <groupId>org.seasar.uruma</groupId>
   <artifactId>uruma-example-employee</artifactId>
-  <version>0.3.0</version>
+  <version>0.4.0</version>
   <url>http://uruma.sandbox.seasar.org/</url>
   <inceptionYear>2006</inceptionYear>
 
@@ -201,7 +201,7 @@
   <properties>
     <seasarVer>2.4.23</seasarVer>
     <eclipseVer>3.3.1.1</eclipseVer>
-    <urumaVer>0.3.0</urumaVer>
+    <urumaVer>0.4.0</urumaVer>
   </properties>
 
   <dependencies>
