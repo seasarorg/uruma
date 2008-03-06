@@ -92,7 +92,7 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y-komori
  */
-public class RendererFactrory {
+public class RendererFactory {
     private static final Map<Class<? extends UIComponent>, Renderer> rendererMap = new HashMap<Class<? extends UIComponent>, Renderer>();
 
     static {

@@ -28,7 +28,7 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.ParseException;
 import org.seasar.uruma.renderer.Renderer;
-import org.seasar.uruma.renderer.RendererFactrory;
+import org.seasar.uruma.renderer.RendererFactory;
 import org.seasar.uruma.util.ClassUtil;
 import org.seasar.uruma.util.PathUtil;
 import org.xml.sax.Attributes;
@@ -223,7 +223,7 @@ public class GenericTagHandler extends UrumaTagHandler {
      *            {@link UIComponent} オブジェクト
      */
     protected void setRenderer(final UIComponent uiComponent) {
-        Renderer renderer = RendererFactrory
+        Renderer renderer = RendererFactory
                 .getRenderer(uiComponent.getClass());
         if (renderer != null) {
             uiComponent.setRenderer(renderer);
