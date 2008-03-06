@@ -1,0 +1,138 @@
+ -----
+バリュー・バインディング
+ ------
+ ------
+ ------
+
+{バリュー・バインディング}
+
+ GUI アプリケーションにおいて、次のようば画面から値を入力する場面はよくあります。
+
+ Uruma では、画面上のテキストフィールドに入力された値を、直接 POJO ヘバインドすることができます。
+
+ また、逆に画面の初期表示時にあらかじめテキストフィールドへ値を表示させておきたい場合、POJO のフィールドからテキストフィールドに値をバインドすることもできます。
+
+ これらの機能を、<<バリュー・バインディング(Value Binding)>> と呼びます。
+
+[../images/employeeEdit.png] 値を入力する画面
+
+* {フォーム・オブジェクト}
+
+ バリュー・バインディングの対象となるのは、<<フォーム・オブジェクト>> と呼ばれる POJO です。
+
+ フォーム・オブジェクトは、基本的に画面と1対1で対応しますが、新規作成画面と編集画面など、複数の画面から共通の入力項目を扱う場合もあるため、複数の画面に対して1つのフォーム・オブジェクトを割り当てることもできます。
+
+ フォーム・オブジェクトは、アクション・クラスと同様に S2Container へコンポーネントとして登録します。
+
+ その場合は、以下のような命名規則で名前を付けます。
+
+---
+(画面の id (先頭を大文字にしたもの)) + Form
+---
+
+ たとえば、画面の id (window 要素の id です)が、「hoge」の場合、「HogeForm」がフォーム・オブジェクトのコンポーネント名となります。
+
+ 一方、複数の画面に対応するフォーム・オブジェクトを作成する場合、アクション・クラスにアノテーションで対応するフォーム・オブジェクトを指定します。
+
+ 以下のように、{{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/Form.html}<<<@Form>>>}} アノテーションをアクション・クラスに指定し、その値でフォーム・オブジェクトのクラスを指定します。
+
+---
+  @Form(EmployeeEditForm.class)
+  public class EmployeeEditAction {
+  }
+---
+
+ フォーム・オブジェクトには、画面上の GUI コンポーネントの id と同じ名前のフィールドを用意します。
+
+ 上記の画面の画面定義 XML は、次のようなものです。
+
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="edit" style="TITLE, CLOSE, PRIMARY_MODAL" title="従業員情報編集"
+    image="title" defaultButtonId="ok" defaultFocusId="ename">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" />
+    </gridLayout>
+    <composite>
+      <gridLayout numColumns="2">
+        <gridData horizontalAlignment="FILL" />
+      </gridLayout>
+      <label text="従業員No." />
+      <text id="empno" editable="false"/>
+      <label text="従業員名" />
+      <text id="ename" />
+      <label text="役職" />
+      <text id="job" />
+      <label text="管理者No." />
+      <text id="mgr" />
+      <label text="雇用日" />
+      <text id="hiredate" />
+      <label text="給与" />
+      <text id="sal" />
+      <label text="報奨金" />
+      <text id="comm" />
+      <label text="部署" />
+      <combo id="dept" style="DROP_DOWN, READ_ONLY" />
+    </composite>
+    <composite>
+      <fillLayout type="HORIZONTAL" />
+      <button id="ok" text="OK" />
+      <button id="cancel" text="キャンセル" />
+    </composite>
+  </window>
+</template>
+---
+
+ これに対応するフォームオブジェクトは、以下のような String 型のフィールドを持ちます。フィールド名は、対応する GUI コンポーネントの id と一致するようにします。 
+
+---
+    public String empno;
+    public String ename;
+    public String job;
+    public String mgr;
+    public String hiredate;
+    public String sal;
+    public String comm;
+---
+
+* {インポート・バリュー・バインディング}
+
+ 画面上の GUI コンポーネントに入力された値をフィールドにバインドするには、以下のようにフィールドに {{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/ImportValue.html}<<<@ImportValue>>>}} アノテーションを記述します。 
+
+---
+    @ImportValue
+    public String empno;
+---
+
+ また、フィールド名と GUI コンポーネントの id が異なる場合、{{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/ImportValue.html}<<<@ImportValue>>>}} アノテーションの <<<id>>> 属性で指定します。 
+
+ このようにすることで、メソッド・バインディングによりアクション・クラスのメソッドが呼び出されるタイミングで、バリュー・バインディングが行われます。
+
+* {エクスポート・バリュー・バインディング}
+
+ 画面の表示した際、テキストフィールド等にフォーム・オブジェクトのフィールドの値をあらかじめ表示させたい場合、フィールドに {{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/ExportValue.html}<<<@ExportValue>>>}} アノテーションを記述します。 
+
+---
+    @ExportValue
+    public String empno;
+---
+
+ フィールド名と GUI コンポーネントの id が異なる場合、{{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/ImportValue.html}<<<@ImportValue>>>}} と同様に <<<id>>> 属性が使用できます。 
+
+ また、{{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/ImportValue.html}<<<@ImportValue>>>}} と {{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/ExportValue.html}<<<@ExportValue>>>}} を同時に指定する場合、 {{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/ImportExportValue.html}<<<@ImportExportValue>>>}} を使ってまとめて記述することができます。つまり、以下の二つの記述は同じ意味になります。 
+
+---
+    @ImportValue
+    @ExportValue
+    public String empno;
+---
+
+ コンボボックスやテーブルなど、複数の項目を表示するコンポーネントの場合、項目に対応する DTO(POJO) を要素として持つ List や配列をフォーム・オブジェクトのフィールドに持たせます。
+
+---
+    @ExportValue(id = "employeeTable")
+    public List&let;EmployeeDto> employees;
+---
+
+ DTO のフィールドのうち、画面に表示するものには、{{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/BindingLabel.html}<<<@BindingLabel>>>}} アノテーションを記述します。テーブルにバインドする場合は、{{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/BindingLabel.html}<<<@BindingLabel>>>}} アノテーションのついたフィールドの名前と画面定義 XML における <<<column>>> 要素の <<<id>>> が一致させることで、表示させる列を指定することができます。

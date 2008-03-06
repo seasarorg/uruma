@@ -1,0 +1,37 @@
+ -----
+セレクション・バインディング
+ ------
+ ------
+ ------
+
+セレクション・バインディング
+
+* {セレクション・バインディング}
+
+ コンボボックスやリストなど、複数項目を扱うコンポーネントでは、選択状態をフォームオブジェクトに取得したり、逆に設定したりすることができます。
+
+ このような機能を <<セレクション・バインディング(Selection Binding)>> と呼びます。
+
+** {インポート・セレクション・バインディング}
+
+ 先ほどの画面で、コンボボックス(id は dept)の選択項目を得るには、以下のように {{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/ImportSelection.html}<<<@ImportSelection>>>}} アノテーションをフィールドに記述します。
+
+ フィールドの型は、バリュー・バインディングで指定した型と同じである必要があります。
+
+ このように記述することで、コンボボックスで選択された項目に対応するオブジェクトが、フィールドへバインドされます。
+
+---
+    @ImportSelection(id = "dept")
+    private DepartmentDto selectedDepartmentDto;
+---
+
+** {エクスポート・セレクション・バインディング}
+
+ 逆に、画面表示の際にあらかじめ選択項目を指定する場合、以下のように {{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/ExportSelection.html}<<<@ExportSelection>>>}} アノテーションをフィールドに記述します。
+
+ これで、フィールドの持つオブジェクトに対応する項目が選択されます。
+
+---
+    @ExportSelection(id = "dept")
+    private DepartmentDto selectedDepartmentDto;
+---

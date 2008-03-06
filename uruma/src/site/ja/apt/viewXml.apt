@@ -1,0 +1,109 @@
+ -----
+画面表示機能
+ ------
+ ------
+ ------
+
+{画面表示機能}
+
+ Uruma では、画面定義情報が記述されたXMLファイルを読み込んで、画面を表示することができます。これにより、画面表示のための面倒なコーディングを行わなくとも、GUI画面を簡単に作成することができます。
+
+ 残念ながら、現在のところ、Uruma の画面定義を作成するにはある程度 SWT に関する知識が必要になります。 (とはいっても、そんなに難しいものではありませんが・・・) しかし、将来的には SWT の知識がなくても、画面定義ファイルを作成できるよう、簡便化していく予定です。 
+
+ なお、Uruma は現在開発中であるため、ここで紹介する画面定義 XML の仕様は 将来変更される可能性があります。何卒、ご了承ください。 
+
+ さて、実際に画面定義 XML の例を見てみましょう。 
+
+
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window id="janken" title="DIでジャンケン" image="container.gif" background="white">
+    <commonAttributes background="white" foreground="black" fontHeight="50"/>
+    <gridLayout numColumns="3" marginHeight="5" marginWidth="5">
+      <gridData horizontalAlignment="CENTER" verticalAlignment="CENTER" />
+    </gridLayout>
+
+    <label text="コンピュータ" />
+    <composite />
+    <label text="あなた" />
+
+    <label id="computerWinLabel" text="0 勝" />
+    <composite />
+    <label id="playerWinLabel" text="0 勝" />
+
+    <label id="computerHandImage" image="blank" />
+    <label text="vs" fontHeight="100">
+      <gridData verticalAlignment="CENTER"
+        grabExcessHorizontalSpace="true" />
+    </label>
+    <label id="playerHandImage" image="blank" />
+
+    <label id="messageLabel" text="じゃんけん・・・" alignment="CENTER">
+      <gridData horizontalSpan="3" horizontalAlignment="FILL"/>
+    </label>
+
+    <composite>
+      <fillLayout spacing="20" marginWidth="20" />
+      <gridData horizontalSpan="3" />
+
+      <button id="guButton" text="グー!" />
+      <button id="cyokiButton" text="チョキ!" />
+      <button id="paButton" text="パー!" />
+    </composite>
+  </window>
+</template>
+---
+
+ たとえば、このような画面定義XMLファイルからは、以下のような画面が表示されます。 
+
+[../images/diDeJanken.png]
+
+ Uruma の画面定義XMLファイルは、XML Schema で定義されています。スキーマファイルは、配布アーカイブ内の /uruma/src/main/resources/org/seasar/uruma/component/factory/uruma.xsd にあります。 Eclipse-WTP 付属の XML エディタなど、XML Schema によるタグ補完に対応している XML エディタを使用すれば、補完機能により快適に XML を作成することができます。(なお、GUI による画面定義エディタは将来提供予定です) 
+
+
+* {画面定義 XML の構造}
+
+ Uruma の画面定義 XML は、1つの画面について1つのXMLファイルが対応し、template 要素をルートとします。 
+
+ template 要素の配下には、必ず window 要素を記述します。window 要素は、その名の通りウィンドウを表示するための要素です。 id 属性では、画面の名前を指定します。これは、画面毎にユニークな値を指定します。 title 属性では、ウィンドウに表示するタイトルを、backgroud 属性では、ウィンドウの背景色を指定しています。また、image 属性でウィンドウに表示するアイコンを指定することもできます。 
+
+ window 要素の配下にある commonAttributes 要素では、window 要素の配下にある他の GUI コンポーネント(label や button など) に共通な属性を指定することができます。 background や forground、fontHeight など、共通で指定したい属性は commonAttributes 要素で指定しておくと、いちいち指定する必要がありません。 
+
+ 次の gridLayout 要素は、GUI 部品を並べるためのレイアウトを指定する要素です。gridLayout を指定すると、 SWT の GridLayout が window 要素の配下に適用されます。 GUI 部品の配置は、各部品の x 属性、y 属性で絶対座標を指定することができますが、ウィンドウを可変サイズにしたアプリケーションでは、レイアウトを利用した方がウィンドウのサイズに従って部品が再配置されるため、見栄えが良くなるという利点があります。 gridLayout の各属性は、SWT の GridLayout とまったく同じ属性が指定できますので、詳細は {{{http://help.eclipse.org/help33/nftopic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/swt/layout/GridLayout.html}GridLayout の APIリファレンス}}をご覧ください。 (このあたりが SWT の知識が必要となる所以です) 
+
+ 現在、Uruma では、RowLayout、FillLayout、GridLayout の 3 種類が利用できます。 
+
+ SWTのレイアウト指定については、{{{http://www13.plala.or.jp/observe/swt/swt_layout.html}こちらのサイト}}が参考になるでしょう。 
+
+ 次の label 要素は、文字通りテキストラベルを表示するためのものです。text 属性で指定した文字列が表示されます。 
+
+ composite 要素は通常、他の GUI 部品を格納するためのコンテナとして利用します。 composite 要素には、window 要素と同じように commonAttributes や レイアウトが指定できます。 (SWTをご存じの方は、SWT における Composite クラスと同様と思っていただければ良いでしょう) ここでは、空の GUI コンポーネントとして配置しています。(GridLayoutで横3列の配置としているため) 
+
+ gridData 要素は、親要素の配置情報を詳細に指定するためのもので、これも SWT における gridData と全く同じです。 
+
+ 最後の button 要素はボタンを表示するためのものです。 id 属性は画面表示とは直接関係はありませんが、後で紹介する MethodBinding と密接な関係を持っています。 
+
+ 以上が、簡単な画面定義 XML の構造です。残念ながらリファレンスはまだ作成中ですが、 {{{components.html}こちら}}のページを参考にすれば、だいたいの記述方法はわかると思います。 
+
+* {画面表示の方法}
+
+ Uruma で画面定義 XML ファイルを表示するには、まず、画面定義ファイルがクラスパスに通っている必要があります。また、画面で表示する画像ファイルなどのリソースも同様です。 
+
+ 画面を表示するには、2つの方法があります。1つめは、起動引数として指定する方法です。 
+
+ 以下のように、{{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/core/StandAloneUrumaStarter.html}<<<StandAloneUrumaStarter>>>}} をメインクラスとしてJavaを実行し、第1引数に画面定義ファイルのパスを渡すだけで画面が表示されます。 
+
+---
+java -cp (クラスパス) org.seasar.uruma.core.StandAloneUrumaStarter (続く)
+org/seasar/uruma/example/janken/DIdeJanken.xml
+---
+
+ この場合、画面定義ファイルは DIdeJanken.xml という名前で、クラスパス中の org/seasar/uruma/example/janken/ というディレクトリに存在します。 
+
+ もう一つの方法は、プログラム内部から利用する方法です。以下のように、StandAloneUrumaStarter クラスの openWindow() メソッドの引数として画面定義XMLのパスを渡します。
+
+---
+  StandAloneUrumaStarter uruma = StandAloneUrumaStarter.getInstance();
+  uruma.openWindow("org/seasar/uruma/example/janken/DIdeJanken.xml");
+---
