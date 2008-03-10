@@ -17,9 +17,9 @@
     <developer>
       <id>y-komori</id>
       <name>KOMORI Yusuke</name>
-      <email></email>
+      <email>komo _at_ littleforest.jp</email>
       <url>http://d.hatena.ne.jp/y-komori/</url>
-      <organization></organization>
+      <organization>SMG Co.,Ltd.</organization>
       <timezone>+9</timezone>
     </developer>
     <developer>
@@ -55,6 +55,13 @@
       <name></name>
       <email></email>
       <url>http://d.hatena.ne.jp/snuffkin/</url>
+      <timezone>+9</timezone>
+    </developer>
+    <developer>
+      <id>susie</id>
+      <name></name>
+      <email></email>
+      <url>http://d.hatena.ne.jp/susie_y/</url>
       <timezone>+9</timezone>
     </developer>
   </developers>
