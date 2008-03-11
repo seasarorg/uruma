@@ -15,23 +15,45 @@
  */
 package org.seasar.uruma.studio.hack;
 
+import org.ashikunep.irenka.dom.CtAnnotationInstance;
+import org.ashikunep.irenka.dom.CtAnnotationInstanceElement;
 import org.ashikunep.irenka.dom.CtClass;
+import org.ashikunep.irenka.dom.CtField;
+import org.ashikunep.irenka.toolkit.Messager;
 
 /**
  * Hackを利用するためのユーティリティ・メソッドを集めたクラス
  *  
- * @author snuffkin
+ * @author  snuffkin
  */
 public class HackUtil {
-    public static String getResourceName(CtClass<?> action)
-    {
-        // リソースのルート
-        String resourceRoot = "src/main/resources";
-        String fileName   = action.getName().replaceAll("\\.", "/").replace("Action", "") + ".xml";
+    public static String getResourceName(CtClass<?> action) {
+		String resourceRoot = "src/main/resources";
+		String fileName = action.getName().replaceAll("\\.", "/").replace(
+				"Action", "")
+				+ ".xml";
+		String resourceName = resourceRoot + "/" + fileName;
+		return resourceName;
+	}
 
-        // あるべきxmlファイル名
-        String resourceName = resourceRoot + "/" + fileName;
-        
-    	return resourceName;
-    }
+	public static void validateField(CtClass<?> action, CtField<?> field,
+			CtAnnotationInstance<?> annotation, Messager messager) {
+		String resourceName = HackUtil.getResourceName(action);
+		if (!Id2WidgetMapHolder.exists(resourceName)) {
+			return;
+		}
+		CtAnnotationInstanceElement<?> element = annotation.getElement("id");
+		String id;
+		if (element != null) {
+			id = element.getValue().toString().replaceAll("\"", "");
+		} else {
+			id = field.getSimpleName();
+		}
+		String widget = Id2WidgetMapHolder.getWidgetName(resourceName, id);
+		if (widget == null) {
+			messager.warn(field, "フィールドに対応するid(" + id + ")が画面定義("
+					+ resourceName + ")に存在しません。");
+			return;
+		}
+	}
 }
