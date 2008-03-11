@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window title="Uruma Blank Application" width="25%" height="25%"
+    minimumWidth="200" minimumHeight="120" statusLine="true">
+
+  </window>
+</template>
