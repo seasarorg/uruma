@@ -55,7 +55,7 @@ public class ViewElement extends AbstractConfigurationElement implements
         this.category = component.category;
         this.clazz = component.clazz;
         this.icon = component.image;
-        this.allowMultiple = Boolean.getBoolean(component.allowMultiple);
+        this.allowMultiple = Boolean.valueOf(component.allowMultiple);
     }
 
     /**
