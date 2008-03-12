@@ -126,9 +126,6 @@ public class GenericViewPart extends ViewPart {
 
             if (partAction != null) {
                 ComponentUtil.setupFormComponent(partContext, componentId);
-
-                // @Initialize メソッドの呼び出し
-                ComponentUtil.invokeInitMethodOnAction(partAction, partContext);
             }
         } else {
             throw new RenderException(
@@ -153,6 +150,9 @@ public class GenericViewPart extends ViewPart {
         prepareSelectionProvider(partContext);
 
         setupSelectionListeners();
+
+        // PartActionの@Initialize メソッドの呼び出し
+        ComponentUtil.invokeInitMethodOnAction(partAction, partContext);
 
         // 画面初期表示時の、フォームから画面へのエクスポート処理を実施
         ValueBindingSupport.exportValue(partContext);
