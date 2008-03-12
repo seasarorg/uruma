@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+    "http://www.seasar.org/dtd/components24.dtd">
+<components>
+    <include path="default-customizer.dicon"/>
+	
+	<component name="instancePrototypeCustomizer" class="org.seasar.uruma.container.customizer.InstancePrototypeCustomizer">
+  	</component>
+
+	<component name="instanceSingletonCustomizer" class="org.seasar.uruma.container.customizer.InstanceSingletonCustomizer">
+  	</component>
+	
+    <component name="actionCustomizer"
+        class="org.seasar.framework.container.customizer.CustomizerChain">
+        <initMethod name="addCustomizer">
+      		<arg>instancePrototypeCustomizer</arg>
+    	</initMethod>
+        <initMethod name="addCustomizer">
+            <arg>traceCustomizer</arg>
+        </initMethod>
+    </component>
+	
+    <component name="logicCustomizer"
+        class="org.seasar.framework.container.customizer.CustomizerChain">
+        <initMethod name="addCustomizer">
+      		<arg>instanceSingletonCustomizer</arg>
+    	</initMethod>
+        <initMethod name="addCustomizer">
+            <arg>traceCustomizer</arg>
+        </initMethod>
+    </component>
+</components>

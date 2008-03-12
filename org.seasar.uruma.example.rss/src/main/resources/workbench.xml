@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <workbench title="Uruma - RSS Reader" initWidth="1024"
+    initHeight="800" image="uruma" statusLine="true">
+    
+    <perspective>
+      <part ref="feedTreeView" ratio="30" position="LEFT"/>
+      <part ref="feedListView" ratio="70"  position="TOP"/>
+      <part ref="feedBrowserView" ratio="50"  position="BOTTOM"/>
+    </perspective>
+    
+  </workbench>
+</template>

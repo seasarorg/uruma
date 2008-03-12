@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <viewPart title="フィード・ビュー">
+     <table id="feedListTable" linesVisible="true">
+      <tableColumn id="name" width="70" text="名前" />
+      <tableColumn id="updateTime" width="80" text="更新日時" />
+    </table>
+  </viewPart>
+</template>

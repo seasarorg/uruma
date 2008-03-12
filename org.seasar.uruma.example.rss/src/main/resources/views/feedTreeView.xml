@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <viewPart title="フィードツリー・ビュー">
+    <tree id="feedTree" autoExpandLevel="2"/>
+  </viewPart>
+</template>
