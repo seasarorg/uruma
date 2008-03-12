@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.jface.BrowserComponent;
 import org.seasar.uruma.component.jface.ButtonComponent;
 import org.seasar.uruma.component.jface.CTabFolderComponent;
 import org.seasar.uruma.component.jface.CTabItemComponent;
@@ -53,6 +54,7 @@ import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
+import org.seasar.uruma.renderer.impl.BrowserRenderer;
 import org.seasar.uruma.renderer.impl.ButtonRenderer;
 import org.seasar.uruma.renderer.impl.CTabFolderRenderer;
 import org.seasar.uruma.renderer.impl.CTabItemRenderer;
@@ -116,6 +118,7 @@ public class RendererFactory {
         addRenderer(CoolItemComponent.class, new CoolItemRenderer());
         addRenderer(CanvasComponent.class, new CanvasRenderer());
         addRenderer(SashFormComponent.class, new SashFormRenderer());
+        addRenderer(BrowserComponent.class, new BrowserRenderer());
 
         addRenderer(TreeComponent.class, new TreeViewerRenderer());
         addRenderer(TreeItemComponent.class, new TreeItemRenderer());

@@ -28,6 +28,7 @@ import org.seasar.uruma.component.factory.handler.TableCellTagHandler;
 import org.seasar.uruma.component.factory.handler.TableColumnTagHandler;
 import org.seasar.uruma.component.factory.handler.TemplateTagHandler;
 import org.seasar.uruma.component.factory.handler.TreeItemTagHandler;
+import org.seasar.uruma.component.jface.BrowserComponent;
 import org.seasar.uruma.component.jface.ButtonComponent;
 import org.seasar.uruma.component.jface.CTabFolderComponent;
 import org.seasar.uruma.component.jface.CTabItemComponent;
@@ -140,6 +141,7 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
         addTagHandler("scale", new GenericTagHandler(ScaleComponent.class));
         addTagHandler("slider", new GenericTagHandler(SliderComponent.class));
         addTagHandler("link", new GenericTagHandler(LinkComponent.class));
+        addTagHandler("browser", new GenericTagHandler(BrowserComponent.class));
 
         // SimpleItem
         addTagHandler(new SimpleItemTagHandler());
