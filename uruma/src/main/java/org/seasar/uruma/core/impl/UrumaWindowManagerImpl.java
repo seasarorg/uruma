@@ -22,6 +22,9 @@ import java.util.Map;
 
 import org.eclipse.jface.window.WindowManager;
 import org.eclipse.swt.widgets.Shell;
+import org.seasar.framework.container.annotation.tiger.Binding;
+import org.seasar.framework.container.annotation.tiger.BindingType;
+import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.AssertionUtil;
 import org.seasar.uruma.binding.context.ApplicationContextBinder;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
@@ -45,6 +48,7 @@ import org.seasar.uruma.ui.UrumaApplicationWindow;
  * @author y-komori
  * @author bskuroneko
  */
+@Component
 public class UrumaWindowManagerImpl implements UrumaWindowManager {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaWindowManager.class);
@@ -60,6 +64,7 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
     /**
      * 画面間のパラメータ共有に使用する {@link ApplicationContext} オブジェクトです。
      */
+    @Binding(bindingType = BindingType.MUST)
     public ApplicationContext applicationContext;
 
     /*

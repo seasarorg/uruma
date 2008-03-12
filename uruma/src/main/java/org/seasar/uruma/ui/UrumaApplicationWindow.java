@@ -272,9 +272,11 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
 
         if (canClose && super.close()) {
             // ApplicationContext へのエクスポート処理
-            ApplicationContextBinder.exportObjects(partActionComponent, desc
-                    .getApplicationContextDefList(), windowContext
-                    .getApplicationContext());
+            if (partActionComponent != null) {
+                ApplicationContextBinder.exportObjects(partActionComponent,
+                        desc.getApplicationContextDefList(), windowContext
+                                .getApplicationContext());
+            }
 
             if (closeListeners != null) {
                 closeListeners.clear();
