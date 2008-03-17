@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <window defaultButtonId="okButton">
+    <gridLayout numColumns="1">
+      <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+        grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
+    </gridLayout>
+
+    <composite id="contents">
+      <gridLayout numColumns="2">
+        <gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+          grabExcessHorizontalSpace="true"
+          grabExcessVerticalSpace="true" />
+      </gridLayout>
+
+      <label text="style = DATE, SHORT" />
+      <datetime style="DATE, SHORT" />
+
+      <label text="style = DATE, MEDIUM" />
+      <datetime style="DATE, MEDIUM" />
+
+      <label text="style = DATE, LONG" />
+      <datetime style="DATE, LONG" />
+
+      <label text="style = TIME, SHORT" />
+      <datetime style="TIME, SHORT" />
+
+      <label text="style = TIME, MEDIUM" />
+      <datetime style="TIME, MEDIUM" />
+
+      <label text="style = TIME, LONG" />
+      <datetime style="TIME, LONG" />
+
+      <datetime style="CALENDAR">
+        <gridData horizontalSpan="2" />
+      </datetime>
+    </composite>
+
+    <label style="SEPARATOR, HORIZONTAL" />
+
+    <composite>
+      <fillLayout type="HORIZONTAL" spacing="5" />
+
+      <button id="okButton" text="OK"></button>
+      <button id="ngButton" text="NG"></button>
+    </composite>
+  </window>
+</template>

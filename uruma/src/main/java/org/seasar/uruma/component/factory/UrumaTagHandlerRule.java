@@ -37,6 +37,7 @@ import org.seasar.uruma.component.jface.ComboComponent;
 import org.seasar.uruma.component.jface.CompositeComponent;
 import org.seasar.uruma.component.jface.CoolBarComponent;
 import org.seasar.uruma.component.jface.CoolItemComponent;
+import org.seasar.uruma.component.jface.DateTimeComponent;
 import org.seasar.uruma.component.jface.FillLayoutInfo;
 import org.seasar.uruma.component.jface.GridDataInfo;
 import org.seasar.uruma.component.jface.GridLayoutInfo;
@@ -142,6 +143,8 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
         addTagHandler("slider", new GenericTagHandler(SliderComponent.class));
         addTagHandler("link", new GenericTagHandler(LinkComponent.class));
         addTagHandler("browser", new GenericTagHandler(BrowserComponent.class));
+        addTagHandler("datetime",
+                new GenericTagHandler(DateTimeComponent.class));
 
         // SimpleItem
         addTagHandler(new SimpleItemTagHandler());

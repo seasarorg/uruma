@@ -28,6 +28,7 @@ import org.seasar.uruma.component.jface.ComboComponent;
 import org.seasar.uruma.component.jface.CompositeComponent;
 import org.seasar.uruma.component.jface.CoolBarComponent;
 import org.seasar.uruma.component.jface.CoolItemComponent;
+import org.seasar.uruma.component.jface.DateTimeComponent;
 import org.seasar.uruma.component.jface.GroupComponent;
 import org.seasar.uruma.component.jface.LabelComponent;
 import org.seasar.uruma.component.jface.LinkComponent;
@@ -63,6 +64,7 @@ import org.seasar.uruma.renderer.impl.ComboViewerRenderer;
 import org.seasar.uruma.renderer.impl.CompositeRenderer;
 import org.seasar.uruma.renderer.impl.CoolBarRenderer;
 import org.seasar.uruma.renderer.impl.CoolItemRenderer;
+import org.seasar.uruma.renderer.impl.DateTimeRenderer;
 import org.seasar.uruma.renderer.impl.GroupRenderer;
 import org.seasar.uruma.renderer.impl.LabelRenderer;
 import org.seasar.uruma.renderer.impl.LinkRenderer;
@@ -134,6 +136,7 @@ public class RendererFactory {
         addRenderer(MenuComponent.class, new MenuManagerRenderer());
         addRenderer(MenuItemComponent.class, new MenuItemRenderer());
         addRenderer(SeparatorComponent.class, new SeparatorRenderer());
+        addRenderer(DateTimeComponent.class, new DateTimeRenderer());
 
         addRenderer(WorkbenchComponent.class, new NullRenderer());
     }

@@ -661,7 +661,8 @@
           <xs:attribute name="headerVisible" type="xs:boolean" />
           <xs:attribute name="linesVisible" type="xs:boolean" />
           <xs:attribute name="selection" type="xs:string" />
-          <xs:attribute name="autoExpandLevel" type="tns:PositiveNumber" />
+          <xs:attribute name="autoExpandLevel"
+            type="tns:PositiveNumber" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -850,6 +851,25 @@
           <xs:attribute name="text" type="xs:string" />
           <xs:attribute name="textLimit" type="xs:int" />
           <xs:attribute name="topIndex" type="xs:int" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- datetime  -->
+  <xs:element name="datetime" substitutionGroup="tns:control">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:ControlClass">
+          <xs:sequence>
+            <xs:group ref="tns:controlElems" />
+          </xs:sequence>
+          <xs:attribute name="year" type="xs:int" />
+          <xs:attribute name="month" type="xs:int" />
+          <xs:attribute name="day" type="xs:int" />
+          <xs:attribute name="hours" type="xs:int" />
+          <xs:attribute name="minutes" type="xs:int" />
+          <xs:attribute name="seconds" type="xs:int" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
