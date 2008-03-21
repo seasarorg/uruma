@@ -82,10 +82,10 @@ public class ComponentUtil {
 
         Object workbenchActionComponent = S2ContainerUtil
                 .getComponentNoException(actionComponentName, defaultContainer);
-        S2ContainerUtil.injectDependency(workbenchActionComponent,
-                defaultContainer);
-
         if (workbenchActionComponent != null) {
+            S2ContainerUtil.injectDependency(workbenchActionComponent,
+                    defaultContainer);
+
             context.setWorkbenchActionObject(workbenchActionComponent);
             PartActionDesc desc = PartActionDescFactory
                     .getPartActionDesc(workbenchActionComponent.getClass());
