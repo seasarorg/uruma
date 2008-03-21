@@ -61,6 +61,8 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public UrumaWorkbenchWindowAdvisor(
             final IWorkbenchWindowConfigurer configurer) {
         super(configurer);
+
+        UrumaServiceUtil.getService().getContainer().register(configurer);
     }
 
     /*

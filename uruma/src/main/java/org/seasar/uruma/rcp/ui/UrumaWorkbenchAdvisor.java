@@ -51,6 +51,8 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
                 .getAppClassLoader();
         logger.log(UrumaMessageCodes.LOADING_IMAGE_BUNDLE, imageBundle);
 
+        UrumaServiceUtil.getService().getContainer().register(configurer);
+
         try {
             ImageManager.loadImages(imageBundle, appClassLoader);
         } catch (MissingResourceException ex) {

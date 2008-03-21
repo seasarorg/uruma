@@ -44,6 +44,7 @@ public class UrumaActionBarAdvisor extends ActionBarAdvisor {
     public UrumaActionBarAdvisor(final IActionBarConfigurer configurer) {
         super(configurer);
         this.configurer = configurer;
+        UrumaServiceUtil.getService().getContainer().register(configurer);
     }
 
     @Override
