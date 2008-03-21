@@ -64,6 +64,13 @@
       <url>http://d.hatena.ne.jp/susie_y/</url>
       <timezone>+9</timezone>
     </developer>
+    <developer>
+      <id>yazaki</id>
+      <name></name>
+      <email></email>
+      <url></url>
+      <timezone>+9</timezone>
+    </developer>
   </developers>
 
   <licenses>
