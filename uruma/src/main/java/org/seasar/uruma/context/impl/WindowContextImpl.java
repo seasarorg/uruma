@@ -24,6 +24,7 @@ import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.exception.DuplicateComponentIdException;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -42,6 +43,10 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     private ApplicationContextImpl parent;
 
     private List<EnablesDependingDef> enablesDependingDefList = new ArrayList<EnablesDependingDef>();
+
+    private Object workbenchActionObj;
+
+    private PartActionDesc partActionDesc;
 
     /**
      * {@link WindowContextImpl} を構築します。<br />
@@ -191,5 +196,33 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      */
     public List<EnablesDependingDef> getEnablesDependingDefList() {
         return Collections.unmodifiableList(enablesDependingDefList);
+    }
+
+    /*
+     * @see org.seasar.uruma.context.WindowContext#getWorkbenchActionObject()
+     */
+    public Object getWorkbenchActionObject() {
+        return this.workbenchActionObj;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.WindowContext#setWorkbenchActionObject(java.lang.Object)
+     */
+    public void setWorkbenchActionObject(final Object workbenchActionObj) {
+        this.workbenchActionObj = workbenchActionObj;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.PartContext#getPartActionDesc()
+     */
+    public PartActionDesc getPartActionDesc() {
+        return this.partActionDesc;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.PartContext#setPartActionDesc(org.seasar.uruma.desc.PartActionDesc)
+     */
+    public void setPartActionDesc(final PartActionDesc desc) {
+        this.partActionDesc = desc;
     }
 }

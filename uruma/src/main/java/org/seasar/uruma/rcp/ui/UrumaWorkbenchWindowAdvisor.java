@@ -37,6 +37,7 @@ import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.context.impl.WidgetHandleImpl;
+import org.seasar.uruma.core.ComponentUtil;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.rcp.binding.CommandDesc;
 import org.seasar.uruma.rcp.binding.CommandRegistry;
@@ -63,6 +64,22 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         super(configurer);
 
         UrumaServiceUtil.getService().getContainer().register(configurer);
+    }
+
+    /*
+     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#createWindowContents(org.eclipse.swt.widgets.Shell)
+     */
+    @Override
+    public void createWindowContents(final Shell shell) {
+        super.createWindowContents(shell);
+
+        WindowContext windowContext = UrumaServiceUtil.getService()
+                .getWorkbenchWindowContext();
+
+        // Workbench InitMethod
+        ComponentUtil.setupWorkbenchAction(windowContext,
+                UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
+        ComponentUtil.invokeInitMethodOnAction(windowContext);
     }
 
     /*

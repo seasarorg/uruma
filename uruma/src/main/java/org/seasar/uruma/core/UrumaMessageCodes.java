@@ -374,6 +374,15 @@ public interface UrumaMessageCodes {
     public static final String ENABLES_DEPENDING_TARGET_NOT_FOUND = "EURM0213";
 
     /**
+     * ワークベンチアクションクラス設定時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String WORKBENCH_ACTION_CLASS_FOUND = "DURM0220";
+
+    /**
      * パートアクションクラス設定時のメッセージコードです。
      * <dl>
      * <dt><b>値 :</b></dt>

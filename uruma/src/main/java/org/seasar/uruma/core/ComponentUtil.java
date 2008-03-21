@@ -30,6 +30,7 @@ import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.binding.context.ApplicationContextBinder;
 import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.exception.RenderException;
@@ -67,6 +68,40 @@ public class ComponentUtil {
     }
 
     /**
+     * ワークベンアクションクラスを準備します。<br />
+     * 
+     * @param context
+     *            {@link WindowContext} オブジェクト
+     * @return ワークベンチアクションクラスが見つかった場合、そのオブジェクト。<br />
+     *         見つからなかった場合は <code>null</code>
+     */
+    public static Object setupWorkbenchAction(final WindowContext context,
+            final String id) {
+        String actionComponentName = StringUtil.decapitalize(id)
+                + UrumaConstants.PART_ACTION_SUFFIX;
+
+        Object workbenchActionComponent = S2ContainerUtil
+                .getComponentNoException(actionComponentName, defaultContainer);
+        S2ContainerUtil.injectDependency(workbenchActionComponent,
+                defaultContainer);
+
+        if (workbenchActionComponent != null) {
+            context.setWorkbenchActionObject(workbenchActionComponent);
+            PartActionDesc desc = PartActionDescFactory
+                    .getPartActionDesc(workbenchActionComponent.getClass());
+            context.setPartActionDesc(desc);
+
+            logger.log(UrumaMessageCodes.WORKBENCH_ACTION_CLASS_FOUND, id,
+                    actionComponentName, workbenchActionComponent.getClass()
+                            .getName());
+
+            return workbenchActionComponent;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * パートアクションクラスを準備します。<br />
      * 
      * @param context
@@ -83,6 +118,8 @@ public class ComponentUtil {
 
         Object partActionComponent = S2ContainerUtil.getComponentNoException(
                 actionComponentName, defaultContainer);
+        S2ContainerUtil.injectDependency(partActionComponent, defaultContainer);
+
         if (partActionComponent != null) {
             context.setPartActionObject(partActionComponent);
             PartActionDesc desc = PartActionDescFactory
@@ -330,6 +367,28 @@ public class ComponentUtil {
                             className);
                 }
             }
+        }
+    }
+
+    /**
+     * ワークベンチアクションクラスの初期化メソッドを呼び出します。<br />
+     * 
+     * @param context
+     *            {@link WindowContext}
+     */
+    public static void invokeInitMethodOnAction(final WindowContext context) {
+        Object workbenchActionObject = context.getWorkbenchActionObject();
+        if (workbenchActionObject != null) {
+            // WidgetBinder.bindWidgets(workbenchActionObject, context);
+
+            // ApplicationContext からのインポート処理
+            PartActionDesc desc = PartActionDescFactory
+                    .getPartActionDesc(workbenchActionObject.getClass());
+            ApplicationContextBinder.importObjects(workbenchActionObject, desc
+                    .getApplicationContextDefList(), context
+                    .getApplicationContext());
+
+            desc.invokeInitializeMethod(workbenchActionObject);
         }
     }
 

@@ -18,6 +18,7 @@ package org.seasar.uruma.context;
 import java.util.List;
 
 import org.seasar.uruma.binding.enables.EnablesDependingDef;
+import org.seasar.uruma.desc.PartActionDesc;
 
 /**
  * ウィンドウやダイアログに関する情報を保持するクラスのためのインターフェースです。<br />
@@ -108,4 +109,34 @@ public interface WindowContext extends WidgetHolder {
      *            パート名称
      */
     public void disposePartContext(final String partName);
+
+    /**
+     * ワークベンチウィンドーアクションクラスのオブジェクトを取得します。<br />
+     * 
+     * @return ワークベンチウィンドーアクションクラスのオブジェクト
+     */
+    public Object getWorkbenchActionObject();
+
+    /**
+     * ワークベンチアクションクラスのオブジェクトを設定します。<br />
+     * 
+     * @param workbenchActionObj
+     *            ワークベンチアクションクラスのオブジェクト
+     */
+    public void setWorkbenchActionObject(final Object workbenchActionObj);
+
+    /**
+     * {@link PartActionDesc} オブジェクトを取得します。<br />
+     * 
+     * @return {@link PartActionDesc} オブジェクト
+     */
+    public PartActionDesc getPartActionDesc();
+
+    /**
+     * {@link PartActionDesc} オブジェクトを設定します。<br />
+     * 
+     * @param desc
+     *            {@link PartActionDesc} オブジェクト
+     */
+    public void setPartActionDesc(PartActionDesc desc);
 }
