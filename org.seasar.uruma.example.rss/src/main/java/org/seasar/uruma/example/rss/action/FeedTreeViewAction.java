@@ -1,5 +1,8 @@
 package org.seasar.uruma.example.rss.action;
 
+import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.application.IWorkbenchConfigurer;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.seasar.uruma.annotation.ExportSelection;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
@@ -7,6 +10,7 @@ import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.example.rss.dto.FeedDto;
 import org.seasar.uruma.example.rss.dto.Node;
 import org.seasar.uruma.example.rss.logic.FeedLogic;
+import org.seasar.uruma.example.rss.logic.impl.FeedLogicImpl;
 
 /**
  * 
@@ -15,7 +19,13 @@ import org.seasar.uruma.example.rss.logic.FeedLogic;
 @Form(FeedTreeViewAction.class)
 public class FeedTreeViewAction {
 	
-	public FeedLogic feedLogic;
+	public IWorkbenchConfigurer workbenchConfigurer;
+	
+	public IActionBarConfigurer actionBarConfigurer;
+	
+	public IWorkbenchWindowConfigurer workbenchWindowConfigurer;
+	
+	public FeedLogic feedLogic = new FeedLogicImpl();
 	
 	@ExportValue(id = "feedTree")
 	public Node<FeedDto> root;
