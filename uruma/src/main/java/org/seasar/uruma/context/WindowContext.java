@@ -100,4 +100,12 @@ public interface WindowContext extends WidgetHolder {
      * @return {@link EnablesDependingDef} のリスト
      */
     public List<EnablesDependingDef> getEnablesDependingDefList();
+
+    /**
+     * {@link PartContext} オブジェクトを削除します。<br />
+     * 
+     * @param partName
+     *            パート名称
+     */
+    public void disposePartContext(final String partName);
 }

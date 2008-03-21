@@ -176,6 +176,9 @@ public class GenericViewPart extends ViewPart {
         for (ISelectionListener listener : listeners) {
             page.removeSelectionListener(listener);
         }
+        WindowContext windowContext = applicationContext
+                .getWindowContext(UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
+        windowContext.disposePartContext(partContext.getName());
         super.dispose();
     }
 
