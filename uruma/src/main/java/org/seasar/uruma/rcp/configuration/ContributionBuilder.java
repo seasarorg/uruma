@@ -109,7 +109,7 @@ public class ContributionBuilder {
     }
 
     /**
-     * コントリビューションとして作成したXMLを返却。
+     * コントリビューションとして作成したXMLを返却します。<br />
      * 
      * @return コントリビューションXML
      */
