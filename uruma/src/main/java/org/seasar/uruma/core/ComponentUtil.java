@@ -45,7 +45,7 @@ import org.seasar.uruma.viewer.PojoLabelProvider;
  * 
  * @author y-komori
  */
-public class ComponentUtil {
+public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(ComponentUtil.class);
 
@@ -68,7 +68,7 @@ public class ComponentUtil {
     }
 
     /**
-     * ワークベンアクションクラスを準備します。<br />
+     * ワークベンチアクションクラスを準備します。<br />
      * 
      * @param context
      *            {@link WindowContext} オブジェクト
@@ -78,7 +78,7 @@ public class ComponentUtil {
     public static Object setupWorkbenchAction(final WindowContext context,
             final String id) {
         String actionComponentName = StringUtil.decapitalize(id)
-                + UrumaConstants.PART_ACTION_SUFFIX;
+                + PART_ACTION_SUFFIX;
 
         Object workbenchActionComponent = S2ContainerUtil
                 .getComponentNoException(actionComponentName, defaultContainer);
@@ -91,12 +91,14 @@ public class ComponentUtil {
                     .getPartActionDesc(workbenchActionComponent.getClass());
             context.setPartActionDesc(desc);
 
-            logger.log(UrumaMessageCodes.WORKBENCH_ACTION_CLASS_FOUND, id,
-                    actionComponentName, workbenchActionComponent.getClass()
-                            .getName());
+            logger.log(WORKBENCH_ACTION_CLASS_FOUND, id, actionComponentName,
+                    workbenchActionComponent.getClass().getName());
 
             return workbenchActionComponent;
         } else {
+            logger.log(WORKBENCH_ACTION_CLASS_NOT_FOUND, id,
+                    actionComponentName, workbenchActionComponent.getClass()
+                            .getName());
             return null;
         }
     }
@@ -114,7 +116,7 @@ public class ComponentUtil {
     public static Object setupPartAction(final PartContext context,
             final String id) {
         String actionComponentName = StringUtil.decapitalize(id)
-                + UrumaConstants.PART_ACTION_SUFFIX;
+                + PART_ACTION_SUFFIX;
 
         Object partActionComponent = S2ContainerUtil.getComponentNoException(
                 actionComponentName, defaultContainer);
@@ -126,12 +128,13 @@ public class ComponentUtil {
                     .getPartActionDesc(partActionComponent.getClass());
             context.setPartActionDesc(desc);
 
-            logger.log(UrumaMessageCodes.PART_ACTION_CLASS_FOUND, id,
-                    actionComponentName, partActionComponent.getClass()
-                            .getName());
+            logger.log(PART_ACTION_CLASS_FOUND, id, actionComponentName,
+                    partActionComponent.getClass().getName());
 
             return partActionComponent;
         } else {
+            logger.log(PART_ACTION_CLASS_NOT_FOUND, id, actionComponentName,
+                    partActionComponent.getClass().getName());
             return null;
         }
     }
@@ -167,19 +170,19 @@ public class ComponentUtil {
 
         if (formObject == null) {
             String formComponentName = StringUtil.decapitalize(id)
-                    + UrumaConstants.FORM_SUFFIX;
+                    + FORM_SUFFIX;
             formObject = S2ContainerUtil.getComponentNoException(
                     formComponentName, defaultContainer);
         }
 
         if (formObject != null) {
-            logger.log(UrumaMessageCodes.FORM_CLASS_FOUND, id, formObject
-                    .getClass().getName());
+            logger.log(FORM_CLASS_FOUND, id, formObject.getClass().getName());
 
             context.setFormObject(formObject);
             injectFormToAction(context);
             return formObject;
         } else {
+            logger.log(FORM_CLASS_NOT_FOUND, context.getName(), id);
             return null;
         }
     }
@@ -230,13 +233,12 @@ public class ComponentUtil {
         IContentProvider provider = null;
         if (!StringUtil.isEmpty(id)) {
             Object defined = S2ContainerUtil.getComponentNoException(id
-                    + UrumaConstants.CONTENT_PROVIDER_SUFFIX, defaultContainer);
+                    + CONTENT_PROVIDER_SUFFIX, defaultContainer);
             if (defined != null) {
                 if (defined instanceof IContentProvider) {
                     provider = IContentProvider.class.cast(defined);
                 } else {
-                    throw new RenderException(
-                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, provider,
+                    throw new RenderException(UNSUPPORTED_TYPE_ERROR, provider,
                             IContentProvider.class.getName());
                 }
             }
@@ -249,8 +251,7 @@ public class ComponentUtil {
         if (provider != null) {
             viewer.setContentProvider(provider);
 
-            logger.log(UrumaMessageCodes.CONTENT_PROVIDER_FOUND, id, provider
-                    .getClass());
+            logger.log(CONTENT_PROVIDER_FOUND, id, provider.getClass());
         }
     }
 
@@ -291,7 +292,7 @@ public class ComponentUtil {
         IBaseLabelProvider provider = null;
         if (!StringUtil.isEmpty(id)) {
             Object defined = S2ContainerUtil.getComponentNoException(id
-                    + UrumaConstants.LABEL_PROVIDER_SUFFIX, defaultContainer);
+                    + LABEL_PROVIDER_SUFFIX, defaultContainer);
             if (defined != null) {
                 if (providerClass.isAssignableFrom(defined.getClass())) {
                     provider = providerClass.cast(defined);
@@ -313,8 +314,7 @@ public class ComponentUtil {
         if (provider != null) {
             viewer.setLabelProvider(provider);
 
-            logger.log(UrumaMessageCodes.LABEL_PROVIDER_FOUND, id, provider
-                    .getClass());
+            logger.log(LABEL_PROVIDER_FOUND, id, provider.getClass());
         }
     }
 
@@ -344,17 +344,15 @@ public class ComponentUtil {
             final String id, final ViewerComparator defaultComparator) {
         if (!StringUtil.isEmpty(id)) {
             Object comparator = S2ContainerUtil.getComponentNoException(id
-                    + UrumaConstants.SORTER_SUFFIX, defaultContainer);
+                    + SORTER_SUFFIX, defaultContainer);
             if (comparator != null) {
                 if (comparator instanceof ViewerComparator) {
                     viewer.setComparator(ViewerComparator.class
                             .cast(comparator));
 
-                    logger.log(UrumaMessageCodes.COMPARATOR_FOUND, id,
-                            comparator.getClass());
+                    logger.log(COMPARATOR_FOUND, id, comparator.getClass());
                 } else {
-                    throw new RenderException(
-                            UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR,
+                    throw new RenderException(UNSUPPORTED_TYPE_ERROR,
                             comparator, ViewerComparator.class.getName());
                 }
             } else {
@@ -363,8 +361,7 @@ public class ComponentUtil {
                 String className = "(null)";
                 if (defaultComparator != null) {
                     className = defaultComparator.getClass().getName();
-                    logger.log(UrumaMessageCodes.COMPARATOR_FOUND, id,
-                            className);
+                    logger.log(COMPARATOR_FOUND, id, className);
                 }
             }
         }

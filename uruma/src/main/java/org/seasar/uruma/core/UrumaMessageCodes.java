@@ -374,15 +374,6 @@ public interface UrumaMessageCodes {
     public static final String ENABLES_DEPENDING_TARGET_NOT_FOUND = "EURM0213";
 
     /**
-     * ワークベンチアクションクラス設定時のメッセージコードです。
-     * <dl>
-     * <dt><b>値 :</b></dt>
-     * <dd>{@value}</dd>
-     * </dl>
-     */
-    public static final String WORKBENCH_ACTION_CLASS_FOUND = "DURM0220";
-
-    /**
      * パートアクションクラス設定時のメッセージコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
@@ -436,6 +427,42 @@ public interface UrumaMessageCodes {
      * </dl>
      */
     public static final String ILLEGAL_ARG_NUMBERS = "EURM0219";
+
+    /**
+     * ワークベンチアクションクラス設定時のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String WORKBENCH_ACTION_CLASS_FOUND = "DURM0220";
+
+    /**
+     * パートアクションクラスが見つからなかった場合のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String PART_ACTION_CLASS_NOT_FOUND = "WURM0221";
+
+    /**
+     * ワークベンチアクションクラスが見つからなかった場合のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String WORKBENCH_ACTION_CLASS_NOT_FOUND = "WURM0222";
+
+    /**
+     * フォームクラスが見つからなかった場合のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String FORM_CLASS_NOT_FOUND = "WURM0223";
 
     // -------------------------------------------------------------------------
     // レンダリング関連メッセージコード (03xx)
