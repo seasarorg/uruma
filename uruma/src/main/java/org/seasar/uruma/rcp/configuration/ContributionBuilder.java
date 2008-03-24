@@ -45,6 +45,8 @@ public class ContributionBuilder {
 
     private static final List<ExtensionBuilder> builders = new ArrayList<ExtensionBuilder>();
 
+    private static String content;
+
     static {
         builders.add(new MenusBuilder());
         builders.add(new ViewsBuilder());
@@ -81,7 +83,7 @@ public class ContributionBuilder {
 
         writer.write("</plugin>\n");
 
-        String content = writer.getBuffer().toString();
+        content = writer.getBuffer().toString();
 
         if (logger.isTraceEnabled()) {
             logger.log(UrumaMessageCodes.CREATE_CONTRIBUTION, content);
@@ -104,5 +106,14 @@ public class ContributionBuilder {
                 extensions.add(extension);
             }
         }
+    }
+
+    /**
+     * コントリビューションとして作成したXMLを返却。
+     * 
+     * @return コントリビューションXML
+     */
+    public static String getContent() {
+        return content;
     }
 }
