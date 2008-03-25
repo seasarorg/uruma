@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.seasar.uruma.binding.value.binder.BrowserValueBinder;
 import org.seasar.uruma.binding.value.binder.ComboViewerValueBinder;
@@ -40,6 +41,8 @@ public class ValueBinderFactory {
     static {
         addValueBinder(new GenericValueBinder<Label>(Label.class, "text"));
         addValueBinder(new GenericValueBinder<Text>(Text.class, "text"));
+        addValueBinder(new GenericValueBinder<Spinner>(Spinner.class,
+                "selection"));
         addValueBinder(new ComboViewerValueBinder());
         addValueBinder(new TableViewerValueBinder());
         addValueBinder(new TableValueBinder());
