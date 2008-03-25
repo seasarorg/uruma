@@ -182,15 +182,6 @@ public interface UrumaMessageCodes {
     public static final String UICOMPONENT_NOT_FOUND = "EURM0108";
 
     /**
-     * {@link ValueBinder} が見つからない場合のメッセージコードです。
-     * <dl>
-     * <dt><b>値 :</b></dt>
-     * <dd>{@value}</dd>
-     * </dl>
-     */
-    public static final String VALUE_BINDER_NOT_FOUND = "EURM0109";
-
-    /**
      * 画面定義テンプレートをファイルから読み込む際のメッセージコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
@@ -463,6 +454,15 @@ public interface UrumaMessageCodes {
      * </dl>
      */
     public static final String FORM_CLASS_NOT_FOUND = "WURM0223";
+
+    /**
+     * フォームクラスが見つからなかった場合のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String VALUE_BINDER_NOT_FOUND = "WURM0224";
 
     // -------------------------------------------------------------------------
     // レンダリング関連メッセージコード (03xx)

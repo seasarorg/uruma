@@ -28,6 +28,8 @@ import org.seasar.uruma.binding.value.binder.StatusLineManagerValueBinder;
 import org.seasar.uruma.binding.value.binder.TableValueBinder;
 import org.seasar.uruma.binding.value.binder.TableViewerValueBinder;
 import org.seasar.uruma.binding.value.binder.TreeViewerValueBinder;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -35,7 +37,10 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y-komori
  */
-public class ValueBinderFactory {
+public class ValueBinderFactory implements UrumaMessageCodes {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(ValueBinderFactory.class);
+
     private static final Map<Class<?>, ValueBinder> binderMap = new HashMap<Class<?>, ValueBinder>();
 
     static {
@@ -60,7 +65,11 @@ public class ValueBinderFactory {
      *         <code>null</code>
      */
     public static ValueBinder getValueBinder(final Class<?> widgetClass) {
-        return binderMap.get(widgetClass);
+        ValueBinder binder = binderMap.get(widgetClass);
+        if (binder == null) {
+            logger.log(VALUE_BINDER_NOT_FOUND, widgetClass.getName());
+        }
+        return binder;
     }
 
     /**
