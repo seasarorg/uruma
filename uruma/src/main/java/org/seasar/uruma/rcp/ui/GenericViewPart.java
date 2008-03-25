@@ -105,7 +105,15 @@ public class GenericViewPart extends ViewPart {
     public void init(final IViewSite site, final IMemento memento)
             throws PartInitException {
         super.init(site, memento);
+        try {
+            initInternal(site, memento);
+        } catch (RuntimeException e) {
+            logger.log(e);
+            throw e;
+        }
+    }
 
+    protected void initInternal(final IViewSite site, final IMemento memento) {
         S2ContainerUtil.injectDependency(this, service.getContainer());
 
         this.componentId = service.getLocalId(getSite().getId());
@@ -142,6 +150,15 @@ public class GenericViewPart extends ViewPart {
 
     @Override
     public void createPartControl(final Composite parent) {
+        try {
+            createPartControlInternal(parent);
+        } catch (RuntimeException e) {
+            logger.log(e);
+            throw e;
+        }
+    }
+
+    protected void createPartControlInternal(final Composite parent) {
         WidgetHandle parentHandle = ContextFactory.createWidgetHandle(parent);
         parentHandle.setUiComponent(service.getWorkbenchComponent());
 
