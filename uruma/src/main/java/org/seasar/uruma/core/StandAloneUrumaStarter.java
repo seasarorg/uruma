@@ -119,6 +119,8 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
                     .getComponent(UrumaWindowManager.class);
             windowManager.openWindow(templatePath, true);
         } catch (Throwable ex) {
+            logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
+
             Display display = new Display();
             Shell shell = new Shell(display);
             UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
@@ -129,7 +131,7 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
             try {
                 dispose();
             } catch (Throwable ex) {
-                logger.log(EXCEPTION_OCCURED_WITH_REASON, ex.getMessage());
+                logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
             }
         }
     }
