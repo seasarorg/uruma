@@ -24,7 +24,7 @@ import org.seasar.uruma.rcp.UrumaService;
  * 
  * @author y-komori
  */
-public class UrumaRcpTestCase extends TestCase {
+public abstract class UrumaRcpTestCase extends TestCase {
     private UrumaService service;
 
     @Override
