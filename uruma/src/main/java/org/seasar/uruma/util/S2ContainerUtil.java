@@ -175,7 +175,7 @@ public class S2ContainerUtil {
 
             Class<?> clazz = pd.getPropertyType();
             Object component = getComponentNoException(clazz);
-            if (component != null) {
+            if (component != null && pd.isWritable()) {
                 pd.setValue(target, component);
             }
         }

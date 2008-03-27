@@ -17,7 +17,6 @@ package org.seasar.uruma.core;
 
 import org.seasar.framework.exception.SIOException;
 import org.seasar.uruma.annotation.InitializeMethod;
-import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.context.ApplicationContext;
