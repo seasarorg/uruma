@@ -15,11 +15,72 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import junit.framework.AssertionFailedError;
+
+import org.eclipse.swt.widgets.DateTime;
+import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.Form;
+import org.seasar.uruma.annotation.ImportExportValue;
+import org.seasar.uruma.annotation.InitializeMethod;
 
 /**
  * {@link DateTimeRenderer} のためのテストクラスです。<br />
  * 
  * @author y-komori
  */
+@Form(DateTimeRendererGUITest.class)
 public class DateTimeRendererGUITest extends AbstractGUITest {
+    @ImportExportValue(id = "time")
+    public Date timeValue;
+
+    @ImportExportValue(id = "date")
+    public Date dateValue;
+
+    public DateTime date;
+
+    public DateTime time;
+
+    @InitializeMethod
+    public void initialize() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 1977);
+        calendar.set(Calendar.MONTH, 0);
+        calendar.set(Calendar.DATE, 12);
+        calendar.set(Calendar.HOUR, 20);
+        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.SECOND, 15);
+
+        dateValue = calendar.getTime();
+        timeValue = calendar.getTime();
+    }
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractGUITest#okButtonAction()
+     */
+    @Override
+    @EventListener(id = "okButton")
+    public void okButtonAction() {
+        Calendar calendar = Calendar.getInstance();
+
+        try {
+            calendar.setTime(dateValue);
+            assertEquals("1", date.getYear(), calendar.get(Calendar.YEAR));
+            assertEquals("2", date.getMonth(), calendar.get(Calendar.MONTH));
+            assertEquals("3", date.getDay(), calendar.get(Calendar.DATE));
+
+            calendar.setTime(timeValue);
+            assertEquals("4", time.getHours(), calendar.get(Calendar.HOUR));
+            assertEquals("5", time.getMinutes(), calendar.get(Calendar.MINUTE));
+            assertEquals("6", time.getSeconds(), calendar.get(Calendar.SECOND));
+
+            super.okButtonAction();
+        } catch (AssertionFailedError error) {
+            shell.close();
+            result = false;
+            throw error;
+        }
+    }
 }

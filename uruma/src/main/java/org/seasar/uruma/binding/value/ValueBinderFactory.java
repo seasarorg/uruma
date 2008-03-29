@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.seasar.uruma.binding.value.binder.BrowserValueBinder;
 import org.seasar.uruma.binding.value.binder.ComboViewerValueBinder;
+import org.seasar.uruma.binding.value.binder.DateTimeValueBinder;
 import org.seasar.uruma.binding.value.binder.GenericValueBinder;
 import org.seasar.uruma.binding.value.binder.StatusLineManagerValueBinder;
 import org.seasar.uruma.binding.value.binder.TableValueBinder;
@@ -54,6 +55,7 @@ public class ValueBinderFactory implements UrumaMessageCodes {
         addValueBinder(new TreeViewerValueBinder());
         addValueBinder(new StatusLineManagerValueBinder());
         addValueBinder(new BrowserValueBinder());
+        addValueBinder(new DateTimeValueBinder());
     }
 
     /**

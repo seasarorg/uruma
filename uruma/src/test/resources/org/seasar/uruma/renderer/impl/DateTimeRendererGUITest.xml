@@ -20,7 +20,7 @@
       <datetime style="DATE, MEDIUM" />
 
       <label text="style = DATE, LONG" />
-      <datetime style="DATE, LONG" />
+      <datetime id="date" style="DATE, LONG" />
 
       <label text="style = TIME, SHORT" />
       <datetime style="TIME, SHORT" />
@@ -29,7 +29,7 @@
       <datetime style="TIME, MEDIUM" />
 
       <label text="style = TIME, LONG" />
-      <datetime style="TIME, LONG" />
+      <datetime id="time" style="TIME, LONG" />
 
       <datetime style="CALENDAR">
         <gridData horizontalSpan="2" />
