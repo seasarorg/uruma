@@ -68,7 +68,7 @@ public class TableViewerRenderer extends
             final TableComponent uiComponent, final WidgetHandle parent,
             final PartContext context) {
         // TODO ISelection を用いた設定に変更する
-        String selection = uiComponent.getSelection();
+        String selection = uiComponent.selection;
         if (selection != null) {
             Table table = viewer.getTable();
             table.setSelection((int[]) RendererSupportUtil.convertValue(

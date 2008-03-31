@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.custom.CTabItem;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -27,97 +29,26 @@ import org.seasar.uruma.component.base.AbstractUIContainerItemComponent;
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class CTabItemComponent extends AbstractUIContainerItemComponent {
 
     @RenderingPolicy(conversionType = ConversionType.TEXT)
+    @ComponentAttribute
     @FieldDescription("ツールチップテキスト")
-    private String toolTipText;
+    public String toolTipText;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("フォント高さ")
-    private String fontHeight;
+    public String fontHeight;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("フォント名称")
-    private String fontName;
+    public String fontName;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("フォントスタイル")
-    private String fontStyle;
-
-    /**
-     * ツールチップテキストを取得します。<br />
-     * 
-     * @return ツールチップテキスト
-     */
-    public String getToolTipText() {
-        return this.toolTipText;
-    }
-
-    /**
-     * ツールチップテキストを設定します。<br />
-     * 
-     * @param toolTipText
-     *            ツールチップテキスト
-     */
-    public void setToolTipText(final String toolTipText) {
-        this.toolTipText = toolTipText;
-    }
-
-    /**
-     * フォント高さを取得します。<br />
-     * 
-     * @return フォント高さ
-     */
-    public String getFontHeight() {
-        return this.fontHeight;
-    }
-
-    /**
-     * フォント高さを設定します。<br />
-     * 
-     * @param fontHeight
-     *            フォント高さ
-     */
-    public void setFontHeight(final String fontHeight) {
-        this.fontHeight = fontHeight;
-    }
-
-    /**
-     * フォント名称を取得します。<br />
-     * 
-     * @return フォント名称
-     */
-    public String getFontName() {
-        return this.fontName;
-    }
-
-    /**
-     * フォント名称を設定します。<br />
-     * 
-     * @param fontName
-     *            フォント名称
-     */
-    public void setFontName(final String fontName) {
-        this.fontName = fontName;
-    }
-
-    /**
-     * フォントスタイルを取得します。<br />
-     * 
-     * @return フォントスタイル
-     */
-    public String getFontStyle() {
-        return this.fontStyle;
-    }
-
-    /**
-     * フォントスタイルを設定します。<br />
-     * 
-     * @param fontStyle
-     *            フォントスタイル
-     */
-    public void setFontStyle(final String fontStyle) {
-        this.fontStyle = fontStyle;
-    }
+    public String fontStyle;
 }

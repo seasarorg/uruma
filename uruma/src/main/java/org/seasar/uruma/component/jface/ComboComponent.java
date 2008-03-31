@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.Combo;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -25,98 +27,26 @@ import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class ComboComponent extends SimpleItemCompositeComponent {
 
     @RenderingPolicy(conversionType = ConversionType.SWT_CONST)
+    @ComponentAttribute
     @FieldDescription("表示方向")
-    private String orientation;
+    public String orientation;
 
     @RenderingPolicy(conversionType = ConversionType.STRING)
+    @ComponentAttribute
     @FieldDescription("テキスト")
-    private String text;
+    public String text;
 
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("最大入力文字数")
-    private String textLimit;
+    public String textLimit;
 
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("ドロップダウンリストへの表示項目数")
-    private String visibleItemCount;
-
-    /**
-     * 表示方向を取得します。<br />
-     * 
-     * @return 表示方向
-     */
-    public String getOrientation() {
-        return this.orientation;
-    }
-
-    /**
-     * 表示方向を設定します。<br />
-     * 
-     * @param orientation
-     *            表示方向
-     */
-    public void setOrientation(final String orientation) {
-        this.orientation = orientation;
-    }
-
-    /**
-     * テキストを取得します。<br />
-     * 
-     * @return テキスト
-     */
-    public String getText() {
-        return this.text;
-    }
-
-    /**
-     * テキストを設定します。<br />
-     * 
-     * @param text
-     *            テキスト
-     */
-    public void setText(final String text) {
-        this.text = text;
-    }
-
-    /**
-     * 最大入力文字数を取得します。<br />
-     * 
-     * @return 最大入力文字数
-     */
-    public String getTextLimit() {
-        return this.textLimit;
-    }
-
-    /**
-     * 最大入力文字数を設定します。<br />
-     * 
-     * @param textLimit
-     *            最大入力文字数
-     */
-    public void setTextLimit(final String textLimit) {
-        this.textLimit = textLimit;
-    }
-
-    /**
-     * ドロップダウンリストへの表示項目数を取得します。<br />
-     * 
-     * @return ドロップダウンリストへの表示項目数
-     */
-    public String getVisibleItemCount() {
-        return this.visibleItemCount;
-    }
-
-    /**
-     * ドロップダウンリストへの表示項目数を設定します。<br />
-     * 
-     * @param visibleItemCount
-     *            ドロップダウンリストへの表示項目数
-     */
-    public void setVisibleItemCount(final String visibleItemCount) {
-        this.visibleItemCount = visibleItemCount;
-    }
-
+    public String visibleItemCount;
 }

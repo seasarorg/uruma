@@ -15,8 +15,10 @@
  */
 package org.seasar.uruma.component.jface;
 
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
+import org.seasar.uruma.component.UIElementVisitor;
 import org.seasar.uruma.component.base.AbstractUIElement;
 
 /**
@@ -24,6 +26,7 @@ import org.seasar.uruma.component.base.AbstractUIElement;
  * 
  * @author y-komori
  */
+@ComponentElement("template")
 public class TemplateImpl extends AbstractUIElement implements Template {
     private UIComponentContainer rootComponent;
 
@@ -55,5 +58,13 @@ public class TemplateImpl extends AbstractUIElement implements Template {
      */
     public void setExtends(final String extendsPath) {
         this.extendsPath = extendsPath;
+    }
+
+    /*
+     * @see org.seasar.uruma.component.base.AbstractUIElement#accept(org.seasar.uruma.component.UIElementVisitor)
+     */
+    @Override
+    public void accept(final UIElementVisitor visitor) {
+        visitor.visit(this);
     }
 }

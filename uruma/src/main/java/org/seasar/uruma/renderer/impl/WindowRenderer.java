@@ -83,14 +83,13 @@ public class WindowRenderer extends
     protected void configureShell(final WindowComponent window,
             final Shell shell) {
         // タイトルの設定
-        String title = window.getTitle();
-        if (title != null) {
-            shell.setText(title);
+        if (window.title != null) {
+            shell.setText(window.title);
         }
 
         // ウィンドウサイズの設定
-        String width = window.getWidth();
-        String height = window.getHeight();
+        String width = window.width;
+        String height = window.height;
         if ((width != null) && (height != null)) {
             shell.setSize(calcWidth(width), calcHeight(height));
             shell.setLocation(calcX(window), calcY(window));
@@ -100,7 +99,7 @@ public class WindowRenderer extends
         setMinimumSize(window, shell);
 
         // アイコンの設定
-        String img = window.getImage();
+        String img = window.image;
         if (!StringUtil.isEmpty(img)) {
             Image image = ImageManager.getImage(img);
             if (image == null) {
@@ -122,19 +121,19 @@ public class WindowRenderer extends
     }
 
     protected int calcX(final WindowComponent window) {
-        return GeometryUtil.calcPosition(window.getX(), Display.getCurrent()
-                .getClientArea().width, calcWidth(window.getWidth()));
+        return GeometryUtil.calcPosition(window.x, Display.getCurrent()
+                .getClientArea().width, calcWidth(window.width));
     }
 
     protected int calcY(final WindowComponent window) {
-        return GeometryUtil.calcPosition(window.getY(), Display.getCurrent()
-                .getClientArea().height, calcHeight(window.getHeight()));
+        return GeometryUtil.calcPosition(window.y, Display.getCurrent()
+                .getClientArea().height, calcHeight(window.height));
     }
 
     protected void setDefaultButton(final WindowComponent windowComponent,
             final PartContext context) {
         WidgetHandle defaultButtonHandle = context
-                .getWidgetHandle(windowComponent.getDefaultButtonId());
+                .getWidgetHandle(windowComponent.defaultButtonId);
 
         if (defaultButtonHandle != null) {
             if (Button.class.isAssignableFrom(defaultButtonHandle
@@ -157,7 +156,7 @@ public class WindowRenderer extends
     protected void setDefaultFocus(final WindowComponent windowComponent,
             final PartContext context) {
         WidgetHandle defaultFocusHandle = context
-                .getWidgetHandle(windowComponent.getDefaultButtonId());
+                .getWidgetHandle(windowComponent.defaultButtonId);
         if (defaultFocusHandle != null) {
             if (Control.class.isAssignableFrom(defaultFocusHandle
                     .getWidgetClass())) {
@@ -169,8 +168,8 @@ public class WindowRenderer extends
 
     protected void setMinimumSize(final WindowComponent windowComponent,
             final Shell shell) {
-        String minWidth = windowComponent.getMinimumWidth();
-        String minHeight = windowComponent.getMinimumHeight();
+        String minWidth = windowComponent.minimumWidth;
+        String minHeight = windowComponent.minimumHeight;
         if ((minWidth != null) && (minHeight != null)) {
             shell.setMinimumSize(calcWidth(minWidth), calcHeight(minHeight));
         }

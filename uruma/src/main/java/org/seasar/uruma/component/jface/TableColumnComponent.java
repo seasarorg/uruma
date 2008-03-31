@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.TableColumn;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -27,143 +29,36 @@ import org.seasar.uruma.component.base.AbstractItemComponent;
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class TableColumnComponent extends AbstractItemComponent {
 
     @RenderingPolicy(conversionType = ConversionType.SWT_CONST)
+    @ComponentAttribute
     @FieldDescription("アライメント")
-    private String alignment;
+    public String alignment;
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("移動可不可状態")
-    private String moveable;
+    public String moveable;
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("サイズ変更可不可状態")
-    private String resizable;
+    public String resizable;
 
     @RenderingPolicy(conversionType = ConversionType.TEXT)
+    @ComponentAttribute
     @FieldDescription("ツールチップテキスト")
-    private String toolTipText;
+    public String toolTipText;
 
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("幅")
-    private String width;
+    public String width;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("カラム位置")
-    private int columnNo;
-
-    /**
-     * アライメントを取得します。<br />
-     * 
-     * @return アライメント
-     */
-    public String getAlignment() {
-        return this.alignment;
-    }
-
-    /**
-     * アライメントを設定します。<br />
-     * 
-     * @param alignment
-     *            アライメント
-     */
-    public void setAlignment(final String alignment) {
-        this.alignment = alignment;
-    }
-
-    /**
-     * 移動可不可状態を取得します。<br />
-     * 
-     * @return 移動可不可状態
-     */
-    public String getMoveable() {
-        return this.moveable;
-    }
-
-    /**
-     * 移動可不可状態を設定します。<br />
-     * 
-     * @param moveable
-     *            移動可不可状態
-     */
-    public void setMoveable(final String moveable) {
-        this.moveable = moveable;
-    }
-
-    /**
-     * サイズ変更可不可状態を取得します。<br />
-     * 
-     * @return サイズ変更可不可状態
-     */
-    public String getResizable() {
-        return this.resizable;
-    }
-
-    /**
-     * サイズ変更可不可状態を設定します。<br />
-     * 
-     * @param resizable
-     *            サイズ変更可不可状態
-     */
-    public void setResizable(final String resizable) {
-        this.resizable = resizable;
-    }
-
-    /**
-     * ツールチップテキストを取得します。<br />
-     * 
-     * @return ツールチップテキスト
-     */
-    public String getToolTipText() {
-        return this.toolTipText;
-    }
-
-    /**
-     * ツールチップテキストを設定します。<br />
-     * 
-     * @param toolTipText
-     *            ツールチップテキスト
-     */
-    public void setToolTipText(final String toolTipText) {
-        this.toolTipText = toolTipText;
-    }
-
-    /**
-     * 幅を取得します。<br />
-     * 
-     * @return 幅
-     */
-    public String getWidth() {
-        return this.width;
-    }
-
-    /**
-     * 幅を設定します。<br />
-     * 
-     * @param width
-     *            幅
-     */
-    public void setWidth(final String width) {
-        this.width = width;
-    }
-
-    /**
-     * カラム位置を取得します。<br />
-     * 
-     * @return カラム位置
-     */
-    public int getColumnNo() {
-        return this.columnNo;
-    }
-
-    /**
-     * カラム位置を設定します。<br />
-     * 
-     * @param columnNo
-     *            カラム位置
-     */
-    public void setColumnNo(final int columnNo) {
-        this.columnNo = columnNo;
-    }
+    public int columnNo;
 }

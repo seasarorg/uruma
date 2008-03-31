@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.layout.RowLayout;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -28,61 +30,75 @@ import org.seasar.uruma.component.base.AbstractUIElement;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class RowLayoutInfo extends AbstractUIElement implements
         LayoutInfo<RowDataInfo> {
     private RowDataInfo commonRowDataInfo;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("fill 属性")
-    private String fill;
+    public String fill;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("justify 属性")
-    private String justify;
+    public String justify;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("marginBottom 属性")
-    private String marginBottom;
+    public String marginBottom;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("marginHeight 属性")
-    private String marginHeight;
+    public String marginHeight;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("marginLeft 属性")
-    private String marginLeft;
+    public String marginLeft;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("marginRight 属性")
-    private String marginRight;
+    public String marginRight;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("marginTop 属性")
-    private String marginTop;
+    public String marginTop;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("marginWidth 属性")
-    private String marginWidth;
+    public String marginWidth;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("pack 属性")
-    private String pack;
+    public String pack;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("spacing 属性")
-    private String spacing;
+    public String spacing;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.SWT_CONST)
+    @ComponentAttribute
     @FieldDescription("conversionType 属性")
-    private String conversionType;
+    public String conversionType;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.SWT_CONST)
+    @ComponentAttribute
     @FieldDescription("type 属性")
-    private String type;
+    public String type;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("wrap 属性")
-    private String wrap;
+    public String wrap;
 
     /**
      * commonRowDataInfo を取得します。<br />
@@ -101,253 +117,6 @@ public class RowLayoutInfo extends AbstractUIElement implements
      */
     public void setCommonRowDataInfo(final RowDataInfo commonRowDataInfo) {
         this.commonRowDataInfo = commonRowDataInfo;
-    }
-
-    /**
-     * fill 属性を取得します。<br />
-     * 
-     * @return fill 属性
-     */
-    public String getFill() {
-        return this.fill;
-    }
-
-    /**
-     * fill 属性を設定します。<br />
-     * 
-     * @param fill
-     *            fill 属性
-     */
-    public void setFill(final String fill) {
-        this.fill = fill;
-    }
-
-    /**
-     * justify 属性を取得します。<br />
-     * 
-     * @return justify 属性
-     */
-    public String getJustify() {
-        return this.justify;
-    }
-
-    /**
-     * justify 属性を設定します。<br />
-     * 
-     * @param justify
-     *            justify 属性
-     */
-    public void setJustify(final String justify) {
-        this.justify = justify;
-    }
-
-    /**
-     * marginBottom 属性を取得します。<br />
-     * 
-     * @return marginBottom 属性
-     */
-    public String getMarginBottom() {
-        return this.marginBottom;
-    }
-
-    /**
-     * marginBottom 属性を設定します。<br />
-     * 
-     * @param marginBottom
-     *            marginBottom 属性
-     */
-    public void setMarginBottom(final String marginBottom) {
-        this.marginBottom = marginBottom;
-    }
-
-    /**
-     * marginHeight 属性を取得します。<br />
-     * 
-     * @return marginHeight 属性
-     */
-    public String getMarginHeight() {
-        return this.marginHeight;
-    }
-
-    /**
-     * marginHeight 属性を設定します。<br />
-     * 
-     * @param marginHeight
-     *            marginHeight 属性
-     */
-    public void setMarginHeight(final String marginHeight) {
-        this.marginHeight = marginHeight;
-    }
-
-    /**
-     * marginLeft 属性を取得します。<br />
-     * 
-     * @return marginLeft 属性
-     */
-    public String getMarginLeft() {
-        return this.marginLeft;
-    }
-
-    /**
-     * marginLeft 属性を設定します。<br />
-     * 
-     * @param marginLeft
-     *            marginLeft 属性
-     */
-    public void setMarginLeft(final String marginLeft) {
-        this.marginLeft = marginLeft;
-    }
-
-    /**
-     * marginRight 属性を取得します。<br />
-     * 
-     * @return marginRight 属性
-     */
-    public String getMarginRight() {
-        return this.marginRight;
-    }
-
-    /**
-     * marginRight 属性を設定します。<br />
-     * 
-     * @param marginRight
-     *            marginRight 属性
-     */
-    public void setMarginRight(final String marginRight) {
-        this.marginRight = marginRight;
-    }
-
-    /**
-     * marginTop 属性を取得します。<br />
-     * 
-     * @return marginTop 属性
-     */
-    public String getMarginTop() {
-        return this.marginTop;
-    }
-
-    /**
-     * marginTop 属性を設定します。<br />
-     * 
-     * @param marginTop
-     *            marginTop 属性
-     */
-    public void setMarginTop(final String marginTop) {
-        this.marginTop = marginTop;
-    }
-
-    /**
-     * marginWidth 属性を取得します。<br />
-     * 
-     * @return marginWidth 属性
-     */
-    public String getMarginWidth() {
-        return this.marginWidth;
-    }
-
-    /**
-     * marginWidth 属性を設定します。<br />
-     * 
-     * @param marginWidth
-     *            marginWidth 属性
-     */
-    public void setMarginWidth(final String marginWidth) {
-        this.marginWidth = marginWidth;
-    }
-
-    /**
-     * pack 属性を取得します。<br />
-     * 
-     * @return pack 属性
-     */
-    public String getPack() {
-        return this.pack;
-    }
-
-    /**
-     * pack 属性を設定します。<br />
-     * 
-     * @param pack
-     *            pack 属性
-     */
-    public void setPack(final String pack) {
-        this.pack = pack;
-    }
-
-    /**
-     * spacing 属性を取得します。<br />
-     * 
-     * @return spacing 属性
-     */
-    public String getSpacing() {
-        return this.spacing;
-    }
-
-    /**
-     * spacing 属性を設定します。<br />
-     * 
-     * @param spacing
-     *            spacing 属性
-     */
-    public void setSpacing(final String spacing) {
-        this.spacing = spacing;
-    }
-
-    /**
-     * conversionType 属性を取得します。<br />
-     * 
-     * @return conversionType 属性
-     */
-    public String getConversionType() {
-        return this.conversionType;
-    }
-
-    /**
-     * conversionType 属性を設定します。<br />
-     * 
-     * @param conversionType
-     *            conversionType 属性
-     */
-    public void setConversionType(final String conversionType) {
-        this.conversionType = conversionType;
-    }
-
-    /**
-     * type 属性を取得します。<br />
-     * 
-     * @return type 属性
-     */
-    public String getType() {
-        return this.type;
-    }
-
-    /**
-     * type 属性を設定します。<br />
-     * 
-     * @param type
-     *            type 属性
-     */
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    /**
-     * wrap 属性を取得します。<br />
-     * 
-     * @return wrap 属性
-     */
-    public String getWrap() {
-        return this.wrap;
-    }
-
-    /**
-     * wrap 属性を設定します。<br />
-     * 
-     * @param wrap
-     *            wrap 属性
-     */
-    public void setWrap(final String wrap) {
-        this.wrap = wrap;
     }
 
     /*

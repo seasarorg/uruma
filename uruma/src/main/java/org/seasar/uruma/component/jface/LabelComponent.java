@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.Label;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -25,73 +27,20 @@ import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class LabelComponent extends ControlComponent {
     @RenderingPolicy(conversionType = ConversionType.TEXT)
+    @ComponentAttribute
     @FieldDescription("テキスト")
-    private String text;
+    public String text;
 
     @RenderingPolicy(conversionType = ConversionType.IMAGE)
+    @ComponentAttribute
     @FieldDescription("イメージパス")
-    private String image;
+    public String image;
 
     @RenderingPolicy(conversionType = ConversionType.SWT_CONST)
+    @ComponentAttribute
     @FieldDescription("アライメント")
-    private String alignment;
-
-    /**
-     * アライメントを取得します。<br />
-     * 
-     * @return アライメント
-     */
-    public String getAlignment() {
-        return this.alignment;
-    }
-
-    /**
-     * アライメントを設定します。<br />
-     * 
-     * @param alignment
-     *            アライメント
-     */
-    public void setAlignment(final String alignment) {
-        this.alignment = alignment;
-    }
-
-    /**
-     * イメージパスを取得します。<br />
-     * 
-     * @return イメージパス
-     */
-    public String getImage() {
-        return this.image;
-    }
-
-    /**
-     * イメージパスを設定します。<br />
-     * 
-     * @param image
-     *            イメージパス
-     */
-    public void setImage(final String image) {
-        this.image = image;
-    }
-
-    /**
-     * テキストを取得します。<br />
-     * 
-     * @return テキスト
-     */
-    public String getText() {
-        return this.text;
-    }
-
-    /**
-     * テキストを設定します。<br />
-     * 
-     * @param text
-     *            テキスト
-     */
-    public void setText(final String text) {
-        this.text = text;
-    }
+    public String alignment;
 }

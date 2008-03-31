@@ -16,12 +16,13 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.jface.action.Separator;
+import org.seasar.uruma.annotation.ComponentElement;
 
 /**
  * {@link Separator} を表すコンポーネントです。<br />
  * 
  * @author y-komori
  */
+@ComponentElement
 public class SeparatorComponent extends MenuItemComponent {
-
 }

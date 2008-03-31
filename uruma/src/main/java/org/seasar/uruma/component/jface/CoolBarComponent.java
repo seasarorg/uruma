@@ -16,6 +16,7 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.CoolBar;
+import org.seasar.uruma.annotation.ComponentAttribute;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -29,48 +30,12 @@ import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 public class CoolBarComponent extends CompositeComponent {
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN, setTiming = SetTiming.RENDER_AFTER)
+    @ComponentAttribute
     @FieldDescription("ロック状態")
-    private String locked;
+    public String locked;
 
     @RenderingPolicy(conversionType = ConversionType.INT_ARRAY, setTiming = SetTiming.RENDER_AFTER)
+    @ComponentAttribute
     @FieldDescription("ラップ表示項目")
-    private String wrapIndices;
-
-    /**
-     * ロック状態を取得します。<br />
-     * 
-     * @return ロック状態
-     */
-    public String getLocked() {
-        return this.locked;
-    }
-
-    /**
-     * ロック状態を設定します。<br />
-     * 
-     * @param locked
-     *            ロック状態
-     */
-    public void setLocked(final String locked) {
-        this.locked = locked;
-    }
-
-    /**
-     * ラップ表示項目を取得します。<br />
-     * 
-     * @return ラップ表示項目
-     */
-    public String getWrapIndices() {
-        return this.wrapIndices;
-    }
-
-    /**
-     * ラップ表示項目を設定します。<br />
-     * 
-     * @param wrapIndices
-     *            ラップ表示項目
-     */
-    public void setWrapIndices(final String wrapIndices) {
-        this.wrapIndices = wrapIndices;
-    }
+    public String wrapIndices;
 }

@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.Spinner;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -25,142 +27,35 @@ import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class SpinnerComponent extends CompositeComponent {
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("最大値")
-    private String maximum;
+    public String maximum;
 
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("最小値")
-    private String minimum;
+    public String minimum;
 
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("現在値")
-    private String selection;
+    public String selection;
 
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("増分値")
-    private String increment;
+    public String increment;
 
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("ページ増分値")
-    private String pageIncrement;
+    public String pageIncrement;
 
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("小数位")
-    private String digits;
-
-    /**
-     * 最大値を取得します。<br />
-     * 
-     * @return 最大値
-     */
-    public String getMaximum() {
-        return this.maximum;
-    }
-
-    /**
-     * 最大値を設定します。<br />
-     * 
-     * @param maximum
-     *            最大値
-     */
-    public void setMaximum(final String maximum) {
-        this.maximum = maximum;
-    }
-
-    /**
-     * 最小値を取得します。<br />
-     * 
-     * @return 最小値
-     */
-    public String getMinimum() {
-        return this.minimum;
-    }
-
-    /**
-     * 最小値を設定します。<br />
-     * 
-     * @param minimum
-     *            最小値
-     */
-    public void setMinimum(final String minimum) {
-        this.minimum = minimum;
-    }
-
-    /**
-     * 現在値を取得します。<br />
-     * 
-     * @return 現在値
-     */
-    public String getSelection() {
-        return this.selection;
-    }
-
-    /**
-     * 現在値を設定します。<br />
-     * 
-     * @param selection
-     *            現在値
-     */
-    public void setSelection(final String selection) {
-        this.selection = selection;
-    }
-
-    /**
-     * 増分値を取得します。<br />
-     * 
-     * @return 増分値
-     */
-    public String getIncrement() {
-        return this.increment;
-    }
-
-    /**
-     * 増分値を設定します。<br />
-     * 
-     * @param increment
-     *            増分値
-     */
-    public void setIncrement(final String increment) {
-        this.increment = increment;
-    }
-
-    /**
-     * ページ増分値を取得します。<br />
-     * 
-     * @return ページ増分値
-     */
-    public String getPageIncrement() {
-        return this.pageIncrement;
-    }
-
-    /**
-     * ページ増分値を設定します。<br />
-     * 
-     * @param pageIncrement
-     *            ページ増分値
-     */
-    public void setPageIncrement(final String pageIncrement) {
-        this.pageIncrement = pageIncrement;
-    }
-
-    /**
-     * 小数位を取得します。<br />
-     * 
-     * @return 小数位
-     */
-    public String getDigits() {
-        return this.digits;
-    }
-
-    /**
-     * 小数位を設定します。<br />
-     * 
-     * @param digits
-     *            小数位
-     */
-    public void setDigits(final String digits) {
-        this.digits = digits;
-    }
+    public String digits;
 }

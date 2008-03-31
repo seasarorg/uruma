@@ -158,7 +158,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
     protected MenuElement setupMenu(final MenuComponent component,
             final MenuElement parentElement) {
         if (!(component.getParent() instanceof WorkbenchComponent)) {
-            String text = component.getText();
+            String text = component.text;
             if (text == null) {
                 text = NULL_STRING;
             }
@@ -198,8 +198,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected void setupCommand(final CategoryElement category,
             final String commandId, final MenuItemComponent component) {
-        String name = MnemonicUtil.chopMnemonicAndAccelerator(component
-                .getText());
+        String name = MnemonicUtil.chopMnemonicAndAccelerator(component.text);
 
         CommandElement command = new CommandElement(commandId, name);
         command.categoryId = category.id;
@@ -233,8 +232,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
             final MenuItemComponent menuItem,
             final MenuElement parentMenuElement) {
         MenuCommandElement command = new MenuCommandElement(commandId);
-        if (!StringUtil.isEmpty(menuItem.getText())) {
-            command.mnemonic = MnemonicUtil.getMnemonic(menuItem.getText());
+        if (!StringUtil.isEmpty(menuItem.text)) {
+            command.mnemonic = MnemonicUtil.getMnemonic(menuItem.text);
         }
 
         parentMenuElement.addElement(command);

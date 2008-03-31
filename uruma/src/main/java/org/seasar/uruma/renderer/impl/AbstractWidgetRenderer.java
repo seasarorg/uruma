@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import java.util.Stack;
+
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Widget;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
@@ -40,6 +42,8 @@ import org.seasar.uruma.util.ClassUtil;
 public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent, WIDGET_TYPE extends Widget>
         extends AbstractRenderer {
     private UrumaLogger logger = UrumaLogger.getLogger(getClass());
+
+    private Stack<Object> renderingContext = new Stack<Object>();
 
     /*
      * @see org.seasar.uruma.renderer.Renderer#render(org.seasar.uruma.component.UIComponent,
@@ -192,5 +196,17 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
             final COMPONENT_TYPE uiComponent, final WidgetHandle parent,
             final PartContext context) {
         // do nothing.
+    }
+
+    protected void pushRenderingContext(final Object object) {
+        renderingContext.push(object);
+    }
+    
+    protected Object popRenderingContext() {
+        return renderingContext.pop();
+    }
+
+    protected Object peekRenderingContext() {
+        return renderingContext.peek();
     }
 }

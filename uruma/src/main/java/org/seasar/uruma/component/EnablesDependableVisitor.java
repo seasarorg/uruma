@@ -83,4 +83,11 @@ public class EnablesDependableVisitor implements UIElementVisitor,
             element.accept(this);
         }
     }
+
+    /*
+     * @see org.seasar.uruma.component.UIElementVisitor#visit(org.seasar.uruma.component.Template)
+     */
+    public void visit(final Template template) {
+        // Do nothing.
+    }
 }

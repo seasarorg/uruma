@@ -39,7 +39,7 @@ public class LinkRenderer extends AbstractControlRenderer<LinkComponent, Link> {
 
     private void setText(final LinkComponent controlComponent,
             final Link control) {
-        String value = controlComponent.getText();
+        String value = controlComponent.text;
         String text = (String) RendererSupportUtil.convertValue(
                 controlComponent, value, ConversionType.TEXT);
         if (text.indexOf("<a") == -1 && text.indexOf("</a") == -1) {

@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.swt.widgets.TableItem;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -31,209 +33,55 @@ import org.seasar.uruma.component.base.AbstractItemComponent;
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class TableItemComponent extends AbstractItemComponent {
 
     private List<TableCellComponent> tableCells = new ArrayList<TableCellComponent>();
 
     @RenderingPolicy(conversionType = ConversionType.COLOR)
+    @ComponentAttribute
     @FieldDescription("背景色")
-    private String background;
+    public String background;
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("チェック状態")
-    private String checked;
+    public String checked;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("フォント高さ")
-    private String fontHeight;
+    public String fontHeight;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("フォント名称")
-    private String fontName;
+    public String fontName;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("フォントスタイル")
-    private String fontStyle;
+    public String fontStyle;
 
     @RenderingPolicy(conversionType = ConversionType.COLOR)
+    @ComponentAttribute
     @FieldDescription("前景色")
-    private String foreground;
+    public String foreground;
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("グレーアウト状態")
-    private String grayed;
+    public String grayed;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("イメージパス")
-    private String image;
+    public String image;
 
     @RenderingPolicy(targetType = TargetType.NONE)
-    private String text;
-
-    /**
-     * 背景色を取得します。<br />
-     * 
-     * @return 背景色
-     */
-    public String getBackground() {
-        return this.background;
-    }
-
-    /**
-     * 背景色を設定します。<br />
-     * 
-     * @param background
-     *            背景色
-     */
-    public void setBackground(final String background) {
-        this.background = background;
-    }
-
-    /**
-     * チェック状態を取得します。<br />
-     * 
-     * @return チェック状態
-     */
-    public String getChecked() {
-        return this.checked;
-    }
-
-    /**
-     * チェック状態を設定します。<br />
-     * 
-     * @param checked
-     *            チェック状態
-     */
-    public void setChecked(final String checked) {
-        this.checked = checked;
-    }
-
-    /**
-     * フォント高さを取得します。<br />
-     * 
-     * @return フォント高さ
-     */
-    public String getFontHeight() {
-        return this.fontHeight;
-    }
-
-    /**
-     * フォント高さを設定します。<br />
-     * 
-     * @param fontHeight
-     *            フォント高さ
-     */
-    public void setFontHeight(final String fontHeight) {
-        this.fontHeight = fontHeight;
-    }
-
-    /**
-     * フォント名称を取得します。<br />
-     * 
-     * @return フォント名称
-     */
-    public String getFontName() {
-        return this.fontName;
-    }
-
-    /**
-     * フォント名称を設定します。<br />
-     * 
-     * @param fontName
-     *            フォント名称
-     */
-    public void setFontName(final String fontName) {
-        this.fontName = fontName;
-    }
-
-    /**
-     * フォントスタイルを取得します。<br />
-     * 
-     * @return フォントスタイル
-     */
-    public String getFontStyle() {
-        return this.fontStyle;
-    }
-
-    /**
-     * フォントスタイルを設定します。<br />
-     * 
-     * @param fontStyle
-     *            フォントスタイル
-     */
-    public void setFontStyle(final String fontStyle) {
-        this.fontStyle = fontStyle;
-    }
-
-    /**
-     * 前景色を取得します。<br />
-     * 
-     * @return 前景色
-     */
-    public String getForeground() {
-        return this.foreground;
-    }
-
-    /**
-     * 前景色を設定します。<br />
-     * 
-     * @param foreground
-     *            前景色
-     */
-    public void setForeground(final String foreground) {
-        this.foreground = foreground;
-    }
-
-    /**
-     * グレーアウト状態を取得します。<br />
-     * 
-     * @return グレーアウト状態
-     */
-    public String getGrayed() {
-        return this.grayed;
-    }
-
-    /**
-     * グレーアウト状態を設定します。<br />
-     * 
-     * @param grayed
-     *            グレーアウト状態
-     */
-    public void setGrayed(final String grayed) {
-        this.grayed = grayed;
-    }
-
-    /*
-     * @see org.seasar.uruma.component.jface.AbstractItemComponent#getImage()
-     */
-    @Override
-    public String getImage() {
-        return this.image;
-    }
-
-    /*
-     * @see org.seasar.uruma.component.jface.AbstractItemComponent#setImage(java.lang.String)
-     */
-    @Override
-    public void setImage(final String image) {
-        this.image = image;
-    }
-
-    /*
-     * @see org.seasar.uruma.component.jface.AbstractItemComponent#getText()
-     */
-    @Override
-    public String getText() {
-        return this.text;
-    }
-
-    /*
-     * @see org.seasar.uruma.component.jface.AbstractItemComponent#setText(java.lang.String)
-     */
-    @Override
-    public void setText(final String text) {
-        this.text = text;
-    }
+    @ComponentAttribute
+    @FieldDescription("テキスト")
+    public String text;
 
     /**
      * テーブルセルを追加します。<br />

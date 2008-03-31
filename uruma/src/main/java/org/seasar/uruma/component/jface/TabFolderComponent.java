@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.TabFolder;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
@@ -25,28 +27,11 @@ import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class TabFolderComponent extends CompositeComponent {
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("現在位置")
-    private String selection;
-
-    /**
-     * 現在位置を取得します。<br />
-     * 
-     * @return 現在位置
-     */
-    public String getSelection() {
-        return this.selection;
-    }
-
-    /**
-     * 現在位置を設定します。<br />
-     * 
-     * @param selection
-     *            現在位置
-     */
-    public void setSelection(final String selection) {
-        this.selection = selection;
-    }
+    public String selection;
 }

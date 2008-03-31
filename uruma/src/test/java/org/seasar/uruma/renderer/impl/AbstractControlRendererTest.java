@@ -52,26 +52,26 @@ public class AbstractControlRendererTest extends TestCase {
         GridLayoutInfo gridLayoutInfo = new GridLayoutInfo();
         parentComponent.setLayoutInfo(gridLayoutInfo);
         GridDataInfo parentGridData = new GridDataInfo();
-        parentGridData.setHeightHint("200");
-        parentGridData.setWidthHint("400");
-        parentGridData.setMinimumHeight("150");
+        parentGridData.heightHint = "200";
+        parentGridData.widthHint = "400";
+        parentGridData.minimumHeight = "150";
         gridLayoutInfo.setCommonLayoutDataInfo(parentGridData);
 
         UIControlComponent component = new ButtonComponent();
         parentComponent.addChild(component);
         GridDataInfo gridDataInfo = new GridDataInfo();
-        gridDataInfo.setMinimumHeight("50");
-        gridDataInfo.setMinimumWidth("100");
-        gridDataInfo.setHorizontalSpan("3");
+        gridDataInfo.minimumHeight = "50";
+        gridDataInfo.minimumWidth = "100";
+        gridDataInfo.horizontalSpan = "3";
         component.setLayoutDataInfo(gridDataInfo);
 
         controlRenderer.inheritLayoutData(component);
 
-        assertEquals("1", "200", gridDataInfo.getHeightHint());
-        assertEquals("2", "400", gridDataInfo.getWidthHint());
-        assertEquals("3", "50", gridDataInfo.getMinimumHeight());
-        assertEquals("4", "100", gridDataInfo.getMinimumWidth());
-        assertEquals("5", "3", gridDataInfo.getHorizontalSpan());
+        assertEquals("1", "200", gridDataInfo.heightHint);
+        assertEquals("2", "400", gridDataInfo.widthHint);
+        assertEquals("3", "50", gridDataInfo.minimumHeight);
+        assertEquals("4", "100", gridDataInfo.minimumWidth);
+        assertEquals("5", "3", gridDataInfo.horizontalSpan);
     }
 
     /**
@@ -87,12 +87,12 @@ public class AbstractControlRendererTest extends TestCase {
 
         ButtonComponent component = new ButtonComponent();
         parentComponent.addChild(component);
-        component.setFontHeight("15");
+        component.fontHeight = "15";
 
         controlRenderer.setCommonAttributes(component);
 
-        assertEquals("1", "WHITE", component.getBackground());
-        assertEquals("2", "15", component.getFontHeight());
+        assertEquals("1", "WHITE", component.background);
+        assertEquals("2", "15", component.fontHeight);
     }
 
     /**

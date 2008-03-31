@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.component.jface;
 
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -28,99 +30,28 @@ import org.seasar.uruma.component.base.AbstractUIElement;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class FillLayoutInfo extends AbstractUIElement implements
         LayoutInfo<LayoutDataInfo> {
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("縦方向マージン")
-    private String marginHeight;
+    public String marginHeight;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("横方向マージン")
-    private String marginWidth;
+    public String marginWidth;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("スペーシング")
-    private String spacing;
+    public String spacing;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.SWT_CONST)
+    @ComponentAttribute
     @FieldDescription("種別")
-    private String conversionType;
-
-    /**
-     * 縦方向マージンを取得します。<br />
-     * 
-     * @return 縦方向マージン
-     */
-    public String getMarginHeight() {
-        return this.marginHeight;
-    }
-
-    /**
-     * 縦方向マージンを設定します。<br />
-     * 
-     * @param marginHeight
-     *            縦方向マージン
-     */
-    public void setMarginHeight(final String marginHeight) {
-        this.marginHeight = marginHeight;
-    }
-
-    /**
-     * 横方向マージンを取得します。<br />
-     * 
-     * @return 横方向マージン
-     */
-    public String getMarginWidth() {
-        return this.marginWidth;
-    }
-
-    /**
-     * 横方向マージンを設定します。<br />
-     * 
-     * @param marginWidth
-     *            横方向マージン
-     */
-    public void setMarginWidth(final String marginWidth) {
-        this.marginWidth = marginWidth;
-    }
-
-    /**
-     * スペーシングを取得します。<br />
-     * 
-     * @return スペーシング
-     */
-    public String getSpacing() {
-        return this.spacing;
-    }
-
-    /**
-     * スペーシングを設定します。<br />
-     * 
-     * @param spacing
-     *            スペーシング
-     */
-    public void setSpacing(final String spacing) {
-        this.spacing = spacing;
-    }
-
-    /**
-     * 種別を取得します。<br />
-     * 
-     * @return 種別
-     */
-    public String getType() {
-        return this.conversionType;
-    }
-
-    /**
-     * 種別を設定します。<br />
-     * 
-     * @param type
-     *            種別
-     */
-    public void setType(final String type) {
-        this.conversionType = type;
-    }
+    public String type;
 
     /*
      * @see org.seasar.uruma.component.LayoutInfo#getCommonLayoutDataInfo()

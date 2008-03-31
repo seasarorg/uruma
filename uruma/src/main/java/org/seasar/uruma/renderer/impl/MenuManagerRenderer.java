@@ -46,7 +46,7 @@ public class MenuManagerRenderer extends AbstractRenderer {
         } else if (parent.getUiComponent() instanceof MenuComponent) {
             MenuComponent menuComponent = (MenuComponent) uiComponent;
 
-            MenuManager menuManager = new MenuManager(menuComponent.getText());
+            MenuManager menuManager = new MenuManager(menuComponent.text);
             setVisivle(menuComponent, menuManager);
 
             MenuManager parentManager = parent.<MenuManager> getCastWidget();

@@ -16,6 +16,7 @@
 package org.seasar.uruma.component.base;
 
 import org.eclipse.swt.widgets.Item;
+import org.seasar.uruma.annotation.ComponentAttribute;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -28,48 +29,12 @@ import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 public abstract class AbstractItemComponent extends AbstractUIComponent {
 
     @RenderingPolicy(conversionType = ConversionType.IMAGE)
+    @ComponentAttribute
     @FieldDescription("イメージパス")
-    private String image;
+    public String image;
 
     @RenderingPolicy(conversionType = ConversionType.TEXT)
+    @ComponentAttribute
     @FieldDescription("テキスト")
-    private String text;
-
-    /**
-     * イメージパスを取得します。<br />
-     * 
-     * @return イメージパス
-     */
-    public String getImage() {
-        return this.image;
-    }
-
-    /**
-     * イメージパスを設定します。<br />
-     * 
-     * @param image
-     *            イメージパス
-     */
-    public void setImage(final String image) {
-        this.image = image;
-    }
-
-    /**
-     * テキストを取得します。<br />
-     * 
-     * @return テキスト
-     */
-    public String getText() {
-        return this.text;
-    }
-
-    /**
-     * テキストを設定します。<br />
-     * 
-     * @param text
-     *            テキスト
-     */
-    public void setText(final String text) {
-        this.text = text;
-    }
+    public String text;
 }

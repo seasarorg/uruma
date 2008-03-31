@@ -16,6 +16,7 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.Control;
+import org.seasar.uruma.annotation.ComponentAttribute;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -35,334 +36,84 @@ public abstract class ControlComponent extends AbstractUIComponent implements
     private LayoutDataInfo layoutDataInfo;
 
     @RenderingPolicy(conversionType = ConversionType.COLOR)
+    @ComponentAttribute
     @FieldDescription("背景色")
-    private String background;
+    public String background;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("背景イメージパス")
-    private String backgroundImage;
+    public String backgroundImage;
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("イネーブル状態")
-    private String enabled;
+    public String enabled;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("フォント高さ")
-    private String fontHeight;
+    public String fontHeight;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("フォント名称")
-    private String fontName;
+    public String fontName;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("フォントスタイル")
-    private String fontStyle;
+    public String fontStyle;
 
     @RenderingPolicy(conversionType = ConversionType.COLOR)
+    @ComponentAttribute
     @FieldDescription("前景色")
-    private String foreground;
+    public String foreground;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("高さ")
-    private String height;
+    public String height;
 
     @RenderingPolicy(conversionType = ConversionType.TEXT)
+    @ComponentAttribute
     @FieldDescription("ツールチップテキスト")
-    private String toolTipText;
+    public String toolTipText;
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("可視状態")
-    private String visible;
+    public String visible;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("幅")
-    private String width;
+    public String width;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("X座標")
-    private String x;
+    public String x;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("Y座標")
-    private String y;
+    public String y;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("メニューのID")
-    private String menu;
+    public String menu;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("依存先コンポーネントのID")
-    private String enablesDependingId;
+    public String enablesDependingId;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("依存方法")
-    private String enablesFor;
-
-    /**
-     * 背景色を取得します。<br />
-     * 
-     * @return 背景色
-     */
-    public String getBackground() {
-        return this.background;
-    }
-
-    /**
-     * 背景イメージパスを取得します。<br />
-     * 
-     * @return 背景イメージパス
-     */
-    public String getBackgroundImage() {
-        return this.backgroundImage;
-    }
-
-    /**
-     * イネーブル状態を取得します。<br />
-     * 
-     * @return イネーブル状態
-     */
-    public String getEnabled() {
-        return this.enabled;
-    }
-
-    /**
-     * フォント高さを取得します。<br />
-     * 
-     * @return フォント高さ
-     */
-    public String getFontHeight() {
-        return this.fontHeight;
-    }
-
-    /**
-     * フォント名称を取得します。<br />
-     * 
-     * @return フォント名称
-     */
-    public String getFontName() {
-        return this.fontName;
-    }
-
-    /**
-     * フォントスタイルを取得します。<br />
-     * 
-     * @return フォントスタイル
-     */
-    public String getFontStyle() {
-        return this.fontStyle;
-    }
-
-    /**
-     * 前景色を取得します。<br />
-     * 
-     * @return 前景色
-     */
-    public String getForeground() {
-        return this.foreground;
-    }
-
-    /**
-     * 高さを取得します。<br />
-     * 
-     * @return 高さ
-     */
-    public String getHeight() {
-        return this.height;
-    }
-
-    /**
-     * ツールチップテキストを取得します。<br />
-     * 
-     * @return ツールチップテキスト
-     */
-    public String getToolTipText() {
-        return this.toolTipText;
-    }
-
-    /**
-     * 可視状態を取得します。<br />
-     * 
-     * @return 可視状態
-     */
-    public String getVisible() {
-        return this.visible;
-    }
-
-    /**
-     * 幅を取得します。<br />
-     * 
-     * @return 幅
-     */
-    public String getWidth() {
-        return this.width;
-    }
-
-    /**
-     * X 座標を取得します。<br />
-     * 
-     * @return X 座標
-     */
-    public String getX() {
-        return this.x;
-    }
-
-    /**
-     * Y 座標を取得します。<br />
-     * 
-     * @return Y 座標
-     */
-    public String getY() {
-        return this.y;
-    }
-
-    /**
-     * 背景色を設定します。<br />
-     * 
-     * @param background
-     *            背景色
-     */
-    public void setBackground(final String background) {
-        this.background = background;
-    }
-
-    /**
-     * 背景イメージパスを設定します。<br />
-     * 
-     * @param backgroundImage
-     *            背景イメージパス
-     */
-    public void setBackgroundImage(final String backgroundImage) {
-        this.backgroundImage = backgroundImage;
-    }
-
-    /**
-     * イネーブル状態を設定します。<br />
-     * 
-     * @param enabled
-     *            イネーブル状態
-     */
-    public void setEnabled(final String enabled) {
-        this.enabled = enabled;
-    }
-
-    /**
-     * フォント高さを設定します。<br />
-     * 
-     * @param fontHeight
-     *            フォント高さ
-     */
-    public void setFontHeight(final String fontHeight) {
-        this.fontHeight = fontHeight;
-    }
-
-    /**
-     * フォント名称を設定します。<br />
-     * 
-     * @param fontName
-     *            フォント名称
-     */
-    public void setFontName(final String fontName) {
-        this.fontName = fontName;
-    }
-
-    /**
-     * フォントスタイルを設定します。<br />
-     * 
-     * @param fontStyle
-     *            フォントスタイル
-     */
-    public void setFontStyle(final String fontStyle) {
-        this.fontStyle = fontStyle;
-    }
-
-    /**
-     * 前景色を設定します。<br />
-     * 
-     * @param foreground
-     *            前景色
-     */
-    public void setForeground(final String foreground) {
-        this.foreground = foreground;
-    }
-
-    /**
-     * 高さを設定します。<br />
-     * 
-     * @param height
-     *            高さ
-     */
-    public void setHeight(final String height) {
-        this.height = height;
-    }
-
-    /**
-     * ツールチップテキストを設定します。<br />
-     * 
-     * @param toolTipText
-     *            ツールチップテキスト
-     */
-    public void setToolTipText(final String toolTipText) {
-        this.toolTipText = toolTipText;
-    }
-
-    /**
-     * 可視状態を設定します。<br />
-     * 
-     * @param visible
-     *            可視状態
-     */
-    public void setVisible(final String visible) {
-        this.visible = visible;
-    }
-
-    /**
-     * 幅を設定します。<br />
-     * 
-     * @param width
-     *            幅
-     */
-    public void setWidth(final String width) {
-        this.width = width;
-    }
-
-    /**
-     * X 座標を設定します。<br />
-     * 
-     * @param x
-     *            X 座標
-     */
-    public void setX(final String x) {
-        this.x = x;
-    }
-
-    /**
-     * Y 座標を設定します。<br />
-     * 
-     * @param y
-     *            Y座標
-     */
-    public void setY(final String y) {
-        this.y = y;
-    }
-
-    /**
-     * メニューのIDを取得します。<br />
-     * 
-     * @return メニューのID
-     */
-    public String getMenu() {
-        return this.menu;
-    }
-
-    /**
-     * メニューのIDを設定します。
-     * 
-     * @param menu
-     *            メニューのID
-     */
-    public void setMenu(final String menu) {
-        this.menu = menu;
-    }
+    public String enablesFor;
 
     /*
      * @see org.seasar.uruma.component.EnablesDependable#getEnablesDependingId()

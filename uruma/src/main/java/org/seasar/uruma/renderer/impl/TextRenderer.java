@@ -38,20 +38,20 @@ public class TextRenderer extends AbstractControlRenderer<TextComponent, Text> {
 
     private void setSelection(final TextComponent controlComponent,
             final Text control) {
-        if (controlComponent.getSelectionStart() == null
-                && controlComponent.getSelectionEnd() == null) {
+        if (controlComponent.selectionStart == null
+                && controlComponent.selectionEnd == null) {
             return;
         }
 
         int start = 0;
-        if (controlComponent.getSelectionStart() != null) {
-            start = Integer.parseInt(controlComponent.getSelectionStart());
+        if (controlComponent.selectionStart != null) {
+            start = Integer.parseInt(controlComponent.selectionStart);
         }
 
-        if (controlComponent.getSelectionEnd() == null) {
+        if (controlComponent.selectionEnd == null) {
             control.setSelection(start);
         } else {
-            int end = Integer.parseInt(controlComponent.getSelectionEnd());
+            int end = Integer.parseInt(controlComponent.selectionEnd);
             control.setSelection(start, end);
         }
     }

@@ -16,12 +16,14 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.ToolBar;
+import org.seasar.uruma.annotation.ComponentElement;
 
 /**
  * {@link ToolBar} を表すコンポーネントです。<br />
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class ToolBarComponent extends CompositeComponent {
 
 }

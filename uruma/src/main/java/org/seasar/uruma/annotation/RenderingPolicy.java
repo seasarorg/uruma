@@ -99,6 +99,14 @@ public @interface RenderingPolicy {
     }
 
     /**
+     * 対象プロパティ名を表します。<br />
+     * 省略時はコンポーネント側プロパティと同じ名前のプロパティへ設定します。<br />
+     * 
+     * @return プロパティ名
+     */
+    public String name() default "";
+
+    /**
      * 対象への設定方式を表します。<br />
      * 
      * @return 対象への設定方式

@@ -18,6 +18,8 @@ package org.seasar.uruma.component.jface;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.component.base.AbstractUIElement;
 
@@ -26,53 +28,17 @@ import org.seasar.uruma.component.base.AbstractUIElement;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class GradientInfo extends AbstractUIElement {
-
+    @ComponentAttribute
     @FieldDescription("グラデーション方向")
-    private String vertical;
+    public String vertical;
 
+    @ComponentAttribute
     @FieldDescription("開始色")
-    private String startColor;
+    public String startColor;
 
     private List<GradientItem> items = new ArrayList<GradientItem>();
-
-    /**
-     * 開始色を取得します。<br />
-     * 
-     * @return 開始色
-     */
-    public String getStartColor() {
-        return this.startColor;
-    }
-
-    /**
-     * 開始色を設定します。<br />
-     * 
-     * @param startColor
-     *            開始色
-     */
-    public void setStartColor(final String startColor) {
-        this.startColor = startColor;
-    }
-
-    /**
-     * グラデーション方向を取得します。<br />
-     * 
-     * @return グラデーション方向
-     */
-    public String getVertical() {
-        return this.vertical;
-    }
-
-    /**
-     * グラデーション方向を設定します。<br />
-     * 
-     * @param vertical
-     *            グラデーション方向
-     */
-    public void setVertical(final String vertical) {
-        this.vertical = vertical;
-    }
 
     /**
      * {@link GradientItem} を追加します。<br />

@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.custom.SashForm;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -27,75 +29,21 @@ import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class SashFormComponent extends CompositeComponent {
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("最大化されているコントロール")
-    private String maximizedControlId;
+    public String maximizedControlId;
 
     @RenderingPolicy(conversionType = ConversionType.SWT_CONST)
+    @ComponentAttribute
     @FieldDescription("分割方向")
-    private String orientation;
+    public String orientation;
 
     @RenderingPolicy(conversionType = ConversionType.INT_ARRAY, setTiming = SetTiming.RENDER_AFTER)
+    @ComponentAttribute
     @FieldDescription("内部に保持するウィジット")
-    private String weights;
-
-    /**
-     * 最大化されているコントロールを取得します。<br />
-     * 
-     * @return 最大化されているコントロール
-     */
-    public String getMaximizedControlId() {
-        return this.maximizedControlId;
-    }
-
-    /**
-     * 最大化されているコントロールを設定します。<br />
-     * 
-     * @param maximizedControlId
-     *            最大化されているコントロール
-     */
-    public void setMaximizedControlId(final String maximizedControlId) {
-        this.maximizedControlId = maximizedControlId;
-    }
-
-    /**
-     * 分割方向を取得します。<br />
-     * 
-     * @return 分割方向
-     */
-    public String getOrientation() {
-        return this.orientation;
-    }
-
-    /**
-     * 分割方向を設定します。<br />
-     * 
-     * @param orientation
-     *            分割方向
-     */
-    public void setOrientation(final String orientation) {
-        this.orientation = orientation;
-    }
-
-    /**
-     * 内部に保持するウィジットを取得します。<br />
-     * 
-     * @return 内部に保持するウィジット
-     */
-    public String getWeights() {
-        return this.weights;
-    }
-
-    /**
-     * 内部に保持するウィジットを設定します。<br />
-     * 
-     * @param weights
-     *            内部に保持するウィジット
-     */
-    public void setWeights(final String weights) {
-        this.weights = weights;
-    }
-
+    public String weights;
 }

@@ -15,6 +15,9 @@
  */
 package org.seasar.uruma.component.jface;
 
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
+import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.EnablesDependable;
@@ -26,6 +29,7 @@ import org.seasar.uruma.component.base.AbstractItemComponent;
  * @author bskuroneko
  * @author y-komori
  */
+@ComponentElement
 public class MenuItemComponent extends AbstractItemComponent implements
         EnablesDependable {
 
@@ -45,68 +49,68 @@ public class MenuItemComponent extends AbstractItemComponent implements
     public static final String CHECK = "CHECK";
 
     /**
-     * アクセラレータです。
+     * アクセラレータです。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("アクセラレータ")
     public String accelerator;
 
     /**
-     * イネーブル状態です。
+     * イネーブル状態です。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("イネーブル状態")
     public String enabled;
 
     /**
-     * 選択状態です。
+     * 選択状態です。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("選択状態")
     public String selection;
 
     /**
-     * 選択不可時のイメージパスです。
+     * 選択不可時のイメージパスです。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("選択不可時のイメージパス")
     public String disabledImage;
 
     /**
-     * 選択時のイメージパスです。
+     * 選択時のイメージパスです。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("選択時のイメージパス")
     public String hoverImage;
 
     /**
      * 説明テキストです。
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("説明テキスト")
     public String description;
 
     /**
      * 依存先コンポーネントの ID です。
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("依存先コンポーネントID")
     public String enablesDependingId;
 
     /**
      * 依存方法です。
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("依存方法")
     public String enablesFor;
-
-    /*
-     * @see org.seasar.uruma.component.base.AbstractItemComponent#setText(java.lang.String)
-     */
-    @Override
-    public void setText(final String text) {
-        super.setText(text);
-    }
-
-    /*
-     * @see org.seasar.uruma.component.base.AbstractItemComponent#setImage(java.lang.String)
-     */
-    @Override
-    public void setImage(final String image) {
-        super.setImage(image);
-    }
 
     /*
      * @see org.seasar.uruma.component.EnablesDependable#getEnablesDependingId()

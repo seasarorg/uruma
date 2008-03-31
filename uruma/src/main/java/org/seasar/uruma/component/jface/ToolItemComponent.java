@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.ToolItem;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -28,154 +30,49 @@ import org.seasar.uruma.component.base.AbstractItemComponent;
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class ToolItemComponent extends AbstractItemComponent implements
         EnablesDependable {
 
     @RenderingPolicy(conversionType = ConversionType.IMAGE)
+    @ComponentAttribute
     @FieldDescription("選択不可時イメージパス")
-    private String disabledImage;
+    public String disabledImage;
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("選択可能状態")
-    private String enabled;
+    public String enabled;
 
     @RenderingPolicy(conversionType = ConversionType.IMAGE)
+    @ComponentAttribute
     @FieldDescription("選択時イメージパス")
-    private String hotImage;
+    public String hotImage;
 
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("選択状態")
-    private String selection;
+    public String selection;
 
     @RenderingPolicy(conversionType = ConversionType.TEXT)
+    @ComponentAttribute
     @FieldDescription("ツールチップテキスト")
-    private String toolTipText;
+    public String toolTipText;
 
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("幅")
-    private String width;
+    public String width;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("依存先コンポーネントのID")
-    private String enablesDependingId;
+    public String enablesDependingId;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("依存方法")
-    private String enablesFor;
-
-    /**
-     * 選択不可時イメージパスを取得します。<br />
-     * 
-     * @return 選択不可時イメージパス
-     */
-    public String getDisabledImage() {
-        return this.disabledImage;
-    }
-
-    /**
-     * 選択不可時イメージパスを設定します。<br />
-     * 
-     * @param disabledImage
-     *            選択不可時イメージパス
-     */
-    public void setDisabledImage(final String disabledImage) {
-        this.disabledImage = disabledImage;
-    }
-
-    /**
-     * 選択可能状態を取得します。<br />
-     * 
-     * @return 選択可能状態
-     */
-    public String getEnabled() {
-        return this.enabled;
-    }
-
-    /**
-     * 選択可能状態を設定します。<br />
-     * 
-     * @param enabled
-     *            選択可能状態
-     */
-    public void setEnabled(final String enabled) {
-        this.enabled = enabled;
-    }
-
-    /**
-     * 選択時イメージパスを取得します。<br />
-     * 
-     * @return 選択時イメージパス
-     */
-    public String getHotImage() {
-        return this.hotImage;
-    }
-
-    /**
-     * 選択時イメージパスを設定します。<br />
-     * 
-     * @param hotImage
-     *            選択時イメージパス
-     */
-    public void setHotImage(final String hotImage) {
-        this.hotImage = hotImage;
-    }
-
-    /**
-     * 選択状態を取得します。<br />
-     * 
-     * @return 選択状態
-     */
-    public String getSelection() {
-        return this.selection;
-    }
-
-    /**
-     * 選択状態を設定します。<br />
-     * 
-     * @param selection
-     *            選択状態
-     */
-    public void setSelection(final String selection) {
-        this.selection = selection;
-    }
-
-    /**
-     * ツールチップテキストを取得します。<br />
-     * 
-     * @return ツールチップテキスト
-     */
-    public String getToolTipText() {
-        return this.toolTipText;
-    }
-
-    /**
-     * ツールチップテキストを設定します。<br />
-     * 
-     * @param toolTipText
-     *            ツールチップテキスト
-     */
-    public void setToolTipText(final String toolTipText) {
-        this.toolTipText = toolTipText;
-    }
-
-    /**
-     * 幅を取得します。<br />
-     * 
-     * @return 幅
-     */
-    public String getWidth() {
-        return this.width;
-    }
-
-    /**
-     * 幅を設定します。<br />
-     * 
-     * @param width
-     *            幅
-     */
-    public void setWidth(final String width) {
-        this.width = width;
-    }
+    public String enablesFor;
 
     /*
      * @see org.seasar.uruma.component.EnablesDependable#getEnablesDependingId()

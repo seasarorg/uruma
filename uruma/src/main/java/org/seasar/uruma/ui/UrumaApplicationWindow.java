@@ -159,7 +159,7 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
     }
 
     protected void setupMenuBar() {
-        if (StringUtil.isNotBlank(windowComponent.getMenu())) {
+        if (StringUtil.isNotBlank(windowComponent.menu)) {
             addMenuBar();
         }
     }
@@ -169,7 +169,7 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
      */
     @Override
     protected MenuManager createMenuManager() {
-        String menuId = windowComponent.getMenu();
+        String menuId = windowComponent.menu;
 
         WidgetHandle handle = partContext.getWindowContext().getWidgetHandle(
                 menuId);
@@ -186,7 +186,7 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
     }
 
     protected void setupStatusLine() {
-        String statusLine = windowComponent.getStatusLine();
+        String statusLine = windowComponent.statusLine;
         if ("true".equals(statusLine)) {
             addStatusLine();
             WidgetHandle handle = ContextFactory

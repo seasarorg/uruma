@@ -48,8 +48,8 @@ public class TableColumnTagHandler extends GenericTagHandler {
         TableColumnComponent column = (TableColumnComponent) context.peek();
         TableComponent table = (TableComponent) context.peek(1);
 
-        int columnNo = table.getColumnCount();
-        column.setColumnNo(columnNo);
-        table.setColumnCount(++columnNo);
+        int columnNo = table.columnCount;
+        column.columnNo = columnNo;
+        table.columnCount = ++columnNo;
     }
 }

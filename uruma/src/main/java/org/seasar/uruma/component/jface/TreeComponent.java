@@ -20,6 +20,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Tree;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
+import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
@@ -29,17 +32,22 @@ import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class TreeComponent extends CompositeComponent {
     /**
      * ヘッダの表示状態です。<br />
      */
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
+    @FieldDescription("ヘッダの表示状態")
     public String headerVisible;
 
     /**
      * ラインの表示状態です。<br />
      */
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
+    @FieldDescription("ラインの表示状態")
     public String linesVisible;
 
     /**
@@ -47,6 +55,8 @@ public class TreeComponent extends CompositeComponent {
      * 【例】2を指定した場合、常に2階層目まで展開されます。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("デフォルトでツリー展開する階層")
     public String autoExpandLevel = "1";
 
     private List<TreeItemComponent> children = new ArrayList<TreeItemComponent>();

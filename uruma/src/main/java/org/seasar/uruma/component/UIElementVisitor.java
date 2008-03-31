@@ -15,7 +15,6 @@
  */
 package org.seasar.uruma.component;
 
-
 /**
  * {@link UIElement} のためのビジターインターフェースです。<br />
  * 
@@ -37,4 +36,12 @@ public interface UIElementVisitor {
      *            {@link UIElementContainer} オブジェクト
      */
     public void visit(UIElementContainer container);
+
+    /**
+     * {@link Template} を訪問します。<br />
+     * 
+     * @param template
+     *            {@link Template} オブジェクト
+     */
+    public void visit(Template template);
 }

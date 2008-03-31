@@ -36,6 +36,7 @@ import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIElement;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
@@ -46,7 +47,7 @@ import org.seasar.uruma.util.PathUtil;
  * 
  * @author y-komori
  */
-public class RendererSupportUtil {
+public class RendererSupportUtil implements UrumaConstants {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(RendererSupportUtil.class);
 
@@ -104,7 +105,14 @@ public class RendererSupportUtil {
             final PropertyDesc srcPd, final RenderingPolicy policy,
             final String value) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(dest.getClass());
-        String propertyName = srcPd.getPropertyName();
+
+        // RenderingPolicy#name が設定されていない場合は
+        // 転送元のプロパティ名をそのまま利用する
+        String propertyName = policy.name();
+        if (NULL_STRING.equals(propertyName)) {
+            propertyName = srcPd.getPropertyName();
+        }
+
         try {
             if (desc.hasPropertyDesc(propertyName)) {
                 PropertyDesc destPd = desc.getPropertyDesc(propertyName);

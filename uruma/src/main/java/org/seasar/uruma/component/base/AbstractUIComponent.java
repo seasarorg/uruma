@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.component.base;
 
+import org.seasar.uruma.annotation.ComponentAttribute;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.context.PartContext;
@@ -37,8 +38,10 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     private UIComponentContainer parent;
 
+    @ComponentAttribute
     private String id;
 
+    @ComponentAttribute
     private String style;
 
     private Renderer renderer;

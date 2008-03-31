@@ -53,7 +53,7 @@ public class TabFolderRenderer extends
 
     private void setSelection(final TabFolderComponent controlComponent,
             final TabFolder control) {
-        String value = controlComponent.getSelection();
+        String value = controlComponent.selection;
         if (value == null) {
             return;
         }

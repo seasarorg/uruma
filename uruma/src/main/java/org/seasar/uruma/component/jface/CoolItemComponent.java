@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.CoolItem;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
@@ -27,13 +29,16 @@ import org.seasar.uruma.component.base.AbstractUIContainerItemComponent;
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class CoolItemComponent extends AbstractUIContainerItemComponent
         implements EnablesDependable {
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("依存先コンポーネントのID")
     private String enablesDependingId;
 
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("依存方法")
     private String enablesForType;
 

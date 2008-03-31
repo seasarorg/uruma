@@ -106,7 +106,7 @@ public class MenuItemRenderer extends AbstractRenderer {
 
     protected void setText(final IAction action,
             final MenuItemComponent menuItemComponent) {
-        String text = menuItemComponent.getText();
+        String text = menuItemComponent.text;
         if (!StringUtil.isEmpty(text)) {
             action.setText(RendererSupportUtil.convertText(text));
         }
@@ -147,7 +147,7 @@ public class MenuItemRenderer extends AbstractRenderer {
 
     protected void setImageDescriptor(final IAction action,
             final MenuItemComponent menuItemComponent) {
-        String path = menuItemComponent.getImage();
+        String path = menuItemComponent.image;
         if (!StringUtil.isEmpty(path)) {
             ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(
                     path, menuItemComponent.getBasePath());

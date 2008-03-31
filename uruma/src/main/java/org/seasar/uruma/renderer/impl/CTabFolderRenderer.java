@@ -68,24 +68,22 @@ public class CTabFolderRenderer extends
             Color[] colors = new Color[gradientItems.size() + 1];
             int[] percents = new int[gradientItems.size()];
             colors[0] = ((Color) RendererSupportUtil.convertValue(
-                    controlComponent, gradientInfo.getStartColor(),
+                    controlComponent, gradientInfo.startColor,
                     ConversionType.COLOR));
             int i = 0;
             for (GradientItem item : gradientItems) {
-                colors[i + 1] = ((Color) RendererSupportUtil
-                        .convertValue(controlComponent, item.getColor(),
-                                ConversionType.COLOR));
-                percents[i] = ((Integer) RendererSupportUtil
-                        .convertValue(controlComponent, item.getPercent(),
-                                ConversionType.INT));
+                colors[i + 1] = ((Color) RendererSupportUtil.convertValue(
+                        controlComponent, item.color, ConversionType.COLOR));
+                percents[i] = ((Integer) RendererSupportUtil.convertValue(
+                        controlComponent, item.percent, ConversionType.INT));
                 i++;
             }
             Boolean vertical = (Boolean) RendererSupportUtil.convertValue(
-                    controlComponent, gradientInfo.getVertical(),
+                    controlComponent, gradientInfo.vertical,
                     ConversionType.BOOLEAN);
             control.setSelectionBackground(colors, percents, vertical);
         } else {
-            String value = controlComponent.getSelectionBackground();
+            String value = controlComponent.selectionBackground;
             if (value == null) {
                 return;
             }
@@ -97,7 +95,7 @@ public class CTabFolderRenderer extends
 
     private void setSelection(final CTabFolderComponent controlComponent,
             final CTabFolder control) {
-        String value = controlComponent.getSelection();
+        String value = controlComponent.selection;
         if (value == null) {
             return;
         }

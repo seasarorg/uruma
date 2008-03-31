@@ -20,6 +20,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.swt.widgets.TreeItem;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
+import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
@@ -32,11 +35,14 @@ import org.seasar.uruma.context.WidgetHandle;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class TreeItemComponent extends AbstractUIComponent {
     /**
      * テキストです。
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("テキスト")
     // TreeItem には複数の setText() メソッドが存在するため、
     // 独自にレンダリングを行う
     public String text;
@@ -45,6 +51,8 @@ public class TreeItemComponent extends AbstractUIComponent {
      * イメージパスです。
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("イメージ")
     // TreeItem には複数の setImage() メソッドが存在するため、
     // 独自にレンダリングを行う
     public String image;
@@ -53,48 +61,64 @@ public class TreeItemComponent extends AbstractUIComponent {
      * 背景色です。
      */
     @RenderingPolicy(conversionType = ConversionType.COLOR)
+    @ComponentAttribute
+    @FieldDescription("背景色")
     public String background;
 
     /**
      * チェック状態です。
      */
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
+    @FieldDescription("チェック状態")
     public String checked;
 
     /**
      * 展開状態です。
      */
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
+    @FieldDescription("展開状態")
     public String expanded;
 
     /**
      * フォント高さです。
      */
     @RenderingPolicy(conversionType = ConversionType.INT)
+    @ComponentAttribute
+    @FieldDescription("フォント高さ")
     public String fontHeight;
 
     /**
      * フォント名称です。
      */
     @RenderingPolicy(conversionType = ConversionType.STRING)
+    @ComponentAttribute
+    @FieldDescription("フォント名称")
     public String fontName;
 
     /**
      * フォントスタイルです。
      */
     @RenderingPolicy(conversionType = ConversionType.STRING)
+    @ComponentAttribute
+    @FieldDescription("フォントスタイル")
     public String fontStyle;
 
     /**
      * 前景色です。
      */
     @RenderingPolicy(conversionType = ConversionType.COLOR)
+    @ComponentAttribute
+    @FieldDescription("前景色")
     public String foreground;
 
     /**
      * グレーアウト状態です。
      */
     @RenderingPolicy(conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
+    @FieldDescription("グレーアウト状態")
     public String grayed;
 
     private TreeItemComponent parent;

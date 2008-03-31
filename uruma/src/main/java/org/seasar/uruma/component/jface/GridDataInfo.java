@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.layout.GridData;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -28,304 +30,70 @@ import org.seasar.uruma.component.base.AbstractUIElement;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class GridDataInfo extends AbstractUIElement implements LayoutDataInfo {
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("exclude 属性")
-    private String exclude;
+    public String exclude;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("grabExcessHorizontalSpace 属性")
-    private String grabExcessHorizontalSpace;
+    public String grabExcessHorizontalSpace;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("grabExcessVerticalSpace 属性")
-    private String grabExcessVerticalSpace;
+    public String grabExcessVerticalSpace;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("heightHint 属性")
-    private String heightHint;
+    public String heightHint;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.SWT_CONST)
+    @ComponentAttribute
     @FieldDescription("horizontalAlignment 属性")
-    private String horizontalAlignment;
+    public String horizontalAlignment;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("horizontalIndent 属性")
-    private String horizontalIndent;
+    public String horizontalIndent;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("horizontalSpan 属性")
-    private String horizontalSpan;
+    public String horizontalSpan;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("minimumHeight 属性")
-    private String minimumHeight;
+    public String minimumHeight;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("minimumWidth 属性")
-    private String minimumWidth;
+    public String minimumWidth;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.SWT_CONST)
+    @ComponentAttribute
     @FieldDescription("verticalAlignment 属性")
-    private String verticalAlignment;
+    public String verticalAlignment;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("verticalIndent 属性")
-    private String verticalIndent;
+    public String verticalIndent;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("verticalSpan 属性")
-    private String verticalSpan;
+    public String verticalSpan;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("widthHint 属性")
-    private String widthHint;
-
-    /**
-     * exclude 属性を取得します。<br />
-     * 
-     * @return exclude 属性
-     */
-    public String getExclude() {
-        return this.exclude;
-    }
-
-    /**
-     * exclude 属性を設定します。<br />
-     * 
-     * @param exclude
-     *            exclude 属性
-     */
-    public void setExclude(final String exclude) {
-        this.exclude = exclude;
-    }
-
-    /**
-     * grabExcessHorizontalSpace 属性を取得します。<br />
-     * 
-     * @return grabExcessHorizontalSpace 属性
-     */
-    public String getGrabExcessHorizontalSpace() {
-        return this.grabExcessHorizontalSpace;
-    }
-
-    /**
-     * grabExcessHorizontalSpace 属性を設定します。<br />
-     * 
-     * @param grabExcessHorizontalSpace
-     *            grabExcessHorizontalSpace 属性
-     */
-    public void setGrabExcessHorizontalSpace(
-            final String grabExcessHorizontalSpace) {
-        this.grabExcessHorizontalSpace = grabExcessHorizontalSpace;
-    }
-
-    /**
-     * grabExcessVerticalSpace 属性を取得します。<br />
-     * 
-     * @return grabExcessVerticalSpace 属性
-     */
-    public String getGrabExcessVerticalSpace() {
-        return this.grabExcessVerticalSpace;
-    }
-
-    /**
-     * grabExcessVerticalSpace 属性を設定します。<br />
-     * 
-     * @param grabExcessVerticalSpace
-     *            grabExcessVerticalSpace 属性
-     */
-    public void setGrabExcessVerticalSpace(final String grabExcessVerticalSpace) {
-        this.grabExcessVerticalSpace = grabExcessVerticalSpace;
-    }
-
-    /**
-     * heightHint 属性を取得します。<br />
-     * 
-     * @return heightHint 属性
-     */
-    public String getHeightHint() {
-        return this.heightHint;
-    }
-
-    /**
-     * heightHint 属性を設定します。<br />
-     * 
-     * @param heightHint
-     *            heightHint 属性
-     */
-    public void setHeightHint(final String heightHint) {
-        this.heightHint = heightHint;
-    }
-
-    /**
-     * horizontalAlignment 属性を取得します。<br />
-     * 
-     * @return horizontalAlignment 属性
-     */
-    public String getHorizontalAlignment() {
-        return this.horizontalAlignment;
-    }
-
-    /**
-     * horizontalAlignment 属性を設定します。<br />
-     * 
-     * @param horizontalAlignment
-     *            horizontalAlignment 属性
-     */
-    public void setHorizontalAlignment(final String horizontalAlignment) {
-        this.horizontalAlignment = horizontalAlignment;
-    }
-
-    /**
-     * horizontalIndent 属性を取得します。<br />
-     * 
-     * @return horizontalIndent 属性
-     */
-    public String getHorizontalIndent() {
-        return this.horizontalIndent;
-    }
-
-    /**
-     * horizontalIndent 属性を設定します。<br />
-     * 
-     * @param horizontalIndent
-     *            horizontalIndent 属性
-     */
-    public void setHorizontalIndent(final String horizontalIndent) {
-        this.horizontalIndent = horizontalIndent;
-    }
-
-    /**
-     * horizontalSpan 属性を取得します。<br />
-     * 
-     * @return horizontalSpan 属性
-     */
-    public String getHorizontalSpan() {
-        return this.horizontalSpan;
-    }
-
-    /**
-     * horizontalSpan 属性を設定します。<br />
-     * 
-     * @param horizontalSpan
-     *            horizontalSpan 属性
-     */
-    public void setHorizontalSpan(final String horizontalSpan) {
-        this.horizontalSpan = horizontalSpan;
-    }
-
-    /**
-     * minimumHeight 属性を取得します。<br />
-     * 
-     * @return minimumHeight 属性
-     */
-    public String getMinimumHeight() {
-        return this.minimumHeight;
-    }
-
-    /**
-     * minimumHeight 属性を設定します。<br />
-     * 
-     * @param minimumHeight
-     *            minimumHeight 属性
-     */
-    public void setMinimumHeight(final String minimumHeight) {
-        this.minimumHeight = minimumHeight;
-    }
-
-    /**
-     * minimumWidth 属性を取得します。<br />
-     * 
-     * @return minimumWidth 属性
-     */
-    public String getMinimumWidth() {
-        return this.minimumWidth;
-    }
-
-    /**
-     * minimumWidth 属性を設定します。<br />
-     * 
-     * @param minimumWidth
-     *            minimumWidth 属性
-     */
-    public void setMinimumWidth(final String minimumWidth) {
-        this.minimumWidth = minimumWidth;
-    }
-
-    /**
-     * verticalAlignment 属性を取得します。<br />
-     * 
-     * @return verticalAlignment 属性
-     */
-    public String getVerticalAlignment() {
-        return this.verticalAlignment;
-    }
-
-    /**
-     * verticalAlignment 属性を設定します。<br />
-     * 
-     * @param verticalAlignment
-     *            verticalAlignment 属性
-     */
-    public void setVerticalAlignment(final String verticalAlignment) {
-        this.verticalAlignment = verticalAlignment;
-    }
-
-    /**
-     * verticalIndent 属性を取得します。<br />
-     * 
-     * @return verticalIndent 属性
-     */
-    public String getVerticalIndent() {
-        return this.verticalIndent;
-    }
-
-    /**
-     * verticalIndent 属性を設定します。<br />
-     * 
-     * @param verticalIndent
-     *            verticalIndent 属性
-     */
-    public void setVerticalIndent(final String verticalIndent) {
-        this.verticalIndent = verticalIndent;
-    }
-
-    /**
-     * verticalSpan 属性を取得します。<br />
-     * 
-     * @return verticalSpan 属性
-     */
-    public String getVerticalSpan() {
-        return this.verticalSpan;
-    }
-
-    /**
-     * verticalSpan 属性を設定します。<br />
-     * 
-     * @param verticalSpan
-     *            verticalSpan 属性
-     */
-    public void setVerticalSpan(final String verticalSpan) {
-        this.verticalSpan = verticalSpan;
-    }
-
-    /**
-     * widthHint 属性を取得します。<br />
-     * 
-     * @return widthHint 属性
-     */
-    public String getWidthHint() {
-        return this.widthHint;
-    }
-
-    /**
-     * widthHint 属性を設定します。<br />
-     * 
-     * @param widthHint
-     *            widthHint 属性
-     */
-    public void setWidthHint(final String widthHint) {
-        this.widthHint = widthHint;
-    }
+    public String widthHint;
 }

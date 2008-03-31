@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.TabItem;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -27,28 +29,11 @@ import org.seasar.uruma.component.base.AbstractUIContainerItemComponent;
  * @author bskuroneko
  * 
  */
+@ComponentElement
 public class TabItemComponent extends AbstractUIContainerItemComponent {
 
     @RenderingPolicy(conversionType = ConversionType.TEXT)
+    @ComponentAttribute
     @FieldDescription("ツールチップテキスト")
-    private String toolTipText;
-
-    /**
-     * ツールチップテキストを取得します。<br />
-     * 
-     * @return ツールチップテキスト
-     */
-    public String getToolTipText() {
-        return this.toolTipText;
-    }
-
-    /**
-     * ツールチップテキストを設定します。<br />
-     * 
-     * @param toolTipText
-     *            ツールチップテキスト
-     */
-    public void setToolTipText(final String toolTipText) {
-        this.toolTipText = toolTipText;
-    }
+    public String toolTipText;
 }

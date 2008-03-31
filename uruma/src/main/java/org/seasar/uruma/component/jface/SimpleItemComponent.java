@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.component.jface;
 
+import org.seasar.uruma.annotation.ComponentAttribute;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
@@ -27,27 +28,9 @@ import org.seasar.uruma.component.base.AbstractUIElement;
  */
 public class SimpleItemComponent extends AbstractUIElement {
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
     @FieldDescription("テキスト")
-    private String text;
-
-    /**
-     * テキストを取得します。<br />
-     * 
-     * @return テキスト
-     */
-    public String getText() {
-        return this.text;
-    }
-
-    /**
-     * テキストを設定します。<br />
-     * 
-     * @param text
-     *            テキスト
-     */
-    public void setText(final String text) {
-        this.text = text;
-    }
+    public String text;
 
     /*
      * @see java.lang.Object#toString()

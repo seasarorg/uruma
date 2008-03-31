@@ -38,8 +38,8 @@ public class ActionElement extends AbstractConfigurationElement {
     public ActionElement(final MenuItemComponent menuItem) {
         super();
         id = menuItem.getId();
-        label = menuItem.getText();
-        icon = menuItem.getImage();
+        label = menuItem.text;
+        icon = menuItem.image;
         disabledIcon = menuItem.disabledImage;
         hoverIcon = menuItem.hoverImage;
         tooltip = menuItem.description;

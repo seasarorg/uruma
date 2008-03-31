@@ -54,7 +54,7 @@ public class SashFormRenderer extends
 
     private void setMaximizedControl(final SashForm widget,
             final SashFormComponent uiComponent) {
-        String id = uiComponent.getMaximizedControlId();
+        String id = uiComponent.maximizedControlId;
         if (id == null) {
             return;
         }

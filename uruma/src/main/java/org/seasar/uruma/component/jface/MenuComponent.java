@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
+import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIComponent;
@@ -35,30 +38,39 @@ import org.seasar.uruma.util.AssertionUtil;
  * @author bskuroneko
  * @author y-komori
  */
+@ComponentElement
 public class MenuComponent extends MenuItemComponent implements
         UIComponentContainer {
     /**
      * デフォルトアイテムIDです。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("デフォルトアイテムID")
     public String defaultItemId;
 
     /**
      * 可視状態です。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("可視状態")
     public String visible;
 
     /**
-     * メニューの X 表示座標です。<br />
+     * メニューの表示 X座標です。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("メニューの表示 X 座標")
     public String x;
 
     /**
-     * メニューの Y 表示座標です。<br />
+     * メニューの表示 Y 座標です。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("メニューの表示 Y 座標")
     public String y;
 
     private List<UIElement> children = new ArrayList<UIElement>();
@@ -91,8 +103,8 @@ public class MenuComponent extends MenuItemComponent implements
 
         if (parentComponent instanceof WindowComponent) {
             WindowComponent windowComponent = (WindowComponent) parentComponent;
-            if (StringUtil.isEmpty(windowComponent.getMenu())) {
-                windowComponent.setMenu(getId());
+            if (StringUtil.isEmpty(windowComponent.menu)) {
+                windowComponent.menu = getId();
             }
         }
 

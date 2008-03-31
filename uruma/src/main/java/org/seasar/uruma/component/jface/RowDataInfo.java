@@ -16,6 +16,8 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.layout.RowData;
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
@@ -28,75 +30,20 @@ import org.seasar.uruma.component.base.AbstractUIElement;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class RowDataInfo extends AbstractUIElement implements LayoutDataInfo {
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.BOOLEAN)
+    @ComponentAttribute
     @FieldDescription("exclude 属性")
-    private String exclude;
+    public String exclude;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("高さ")
-    private String height;
+    public String height;
 
     @RenderingPolicy(targetType = TargetType.FIELD, conversionType = ConversionType.INT)
+    @ComponentAttribute
     @FieldDescription("幅")
-    private String width;
-
-    /**
-     * <code>exclude</code> 属性を取得します。<br />
-     * 
-     * @return <code>exclude</code> 属性
-     * @see RowData#exclude
-     */
-    public String getExclude() {
-        return this.exclude;
-    }
-
-    /**
-     * <code>exclude</code> 属性を設定します。<br />
-     * 
-     * @param exclude
-     *            <code>exclude</code> 属性
-     * @see RowData#exclude
-     */
-    public void setExclude(final String exclude) {
-        this.exclude = exclude;
-    }
-
-    /**
-     * 高さを取得します。<br />
-     * 
-     * @return 高さ
-     */
-    public String getHeight() {
-        return this.height;
-    }
-
-    /**
-     * 高さを設定します。<br />
-     * 
-     * @param height
-     *            高さ
-     */
-    public void setHeight(final String height) {
-        this.height = height;
-    }
-
-    /**
-     * 幅を取得します。<br />
-     * 
-     * @return 幅
-     */
-    public String getWidth() {
-        return this.width;
-    }
-
-    /**
-     * 幅を設定します。<br />
-     * 
-     * @param width
-     *            幅
-     */
-    public void setWidth(final String width) {
-        this.width = width;
-    }
+    public String width;
 }

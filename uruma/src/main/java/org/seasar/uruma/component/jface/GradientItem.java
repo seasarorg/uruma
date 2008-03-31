@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.component.jface;
 
+import org.seasar.uruma.annotation.ComponentAttribute;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.component.base.AbstractUIElement;
 
@@ -23,50 +25,13 @@ import org.seasar.uruma.component.base.AbstractUIElement;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class GradientItem extends AbstractUIElement {
-
+    @ComponentAttribute
     @FieldDescription("色")
-    private String color;
+    public String color;
 
+    @ComponentAttribute
     @FieldDescription("割合")
-    private String percent;
-
-    /**
-     * 色を取得します。<br />
-     * 
-     * @return 色
-     */
-    public String getColor() {
-        return this.color;
-    }
-
-    /**
-     * 色を設定します。<br />
-     * 
-     * @param color
-     *            色
-     */
-    public void setColor(final String color) {
-        this.color = color;
-    }
-
-    /**
-     * 割合を取得します。<br />
-     * 
-     * @return 割合
-     */
-    public String getPercent() {
-        return this.percent;
-    }
-
-    /**
-     * 割合を設定します。<br />
-     * 
-     * @param percent
-     *            割合
-     */
-    public void setPercent(final String percent) {
-        this.percent = percent;
-    }
-
+    public String percent;
 }

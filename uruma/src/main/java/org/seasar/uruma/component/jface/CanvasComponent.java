@@ -16,11 +16,13 @@
 package org.seasar.uruma.component.jface;
 
 import org.eclipse.swt.widgets.Canvas;
+import org.seasar.uruma.annotation.ComponentElement;
 
 /**
  * {@link Canvas} に対応するコンポーネントです。<br />
  * 
  * @author bskuroneko
  */
+@ComponentElement
 public class CanvasComponent extends CompositeComponent {
 }

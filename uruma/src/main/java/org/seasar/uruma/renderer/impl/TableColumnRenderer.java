@@ -53,7 +53,7 @@ public class TableColumnRenderer extends
 
     private void setupColumnMap(final TableColumnComponent uiComponent,
             final TableColumn widget) {
-        int columnNo = uiComponent.getColumnNo();
+        int columnNo = uiComponent.columnNo;
         String id = uiComponent.getId();
         String parentId = uiComponent.getParent().getId();
 

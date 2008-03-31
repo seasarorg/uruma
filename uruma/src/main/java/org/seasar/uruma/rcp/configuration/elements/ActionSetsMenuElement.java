@@ -43,7 +43,7 @@ public class ActionSetsMenuElement extends AbstractConfigurationElement {
     public ActionSetsMenuElement(final MenuComponent menu) {
         super();
         this.id = menu.getId();
-        this.label = menu.getText();
+        this.label = menu.text;
     }
 
     /**

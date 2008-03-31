@@ -19,12 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
+import org.seasar.uruma.annotation.ComponentElement;
 import org.seasar.uruma.component.CommonAttributes;
 import org.seasar.uruma.component.LayoutDataInfo;
 import org.seasar.uruma.component.LayoutInfo;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.UIElement;
+import org.seasar.uruma.component.UIElementVisitor;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
@@ -34,6 +36,7 @@ import org.seasar.uruma.context.WindowContext;
  * 
  * @author y-komori
  */
+@ComponentElement
 public class CompositeComponent extends ControlComponent implements
         UICompositeComponent {
     private LayoutInfo<?> layoutInfo;
@@ -126,6 +129,14 @@ public class CompositeComponent extends ControlComponent implements
     @Override
     protected void doRender(final WidgetHandle parent, final PartContext context) {
         renderChild(context.getWidgetHandle(getId()), context);
+    }
+
+    /*
+     * @see org.seasar.uruma.component.base.AbstractUIElement#accept(org.seasar.uruma.component.UIElementVisitor)
+     */
+    @Override
+    public void accept(final UIElementVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**

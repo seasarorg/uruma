@@ -60,15 +60,14 @@ public class CTabItemRenderer extends
 
     private void setFont(final CTabItemComponent controlComponent,
             final CTabItem control) {
-        if (controlComponent.getFontName() == null
-                && controlComponent.getFontStyle() == null
-                && controlComponent.getFontHeight() == null) {
+        if (controlComponent.fontName == null
+                && controlComponent.fontStyle == null
+                && controlComponent.fontHeight == null) {
             return;
         }
         Font font = RendererSupportUtil.getFont(control.getFont(),
-                controlComponent.getFontName(),
-                controlComponent.getFontStyle(), controlComponent
-                        .getFontHeight());
+                controlComponent.fontName, controlComponent.fontStyle,
+                controlComponent.fontHeight);
         control.setFont(font);
     }
 

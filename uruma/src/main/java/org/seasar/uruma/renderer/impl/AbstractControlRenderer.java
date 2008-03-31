@@ -99,40 +99,39 @@ public abstract class AbstractControlRenderer<COMPONENT_TYPE extends ControlComp
 
     protected void setLocation(final ControlComponent controlComponent,
             final Control control) {
-        String xStr = controlComponent.getX();
-        String yStr = controlComponent.getY();
-        if ((xStr != null) && (yStr != null)) {
-            control.setLocation(Integer.parseInt(xStr), Integer.parseInt(yStr));
+        if ((controlComponent.x != null) && (controlComponent.y != null)) {
+            int x = Integer.parseInt(controlComponent.x);
+            int y = Integer.parseInt(controlComponent.y);
+            control.setLocation(x, y);
         }
     }
 
     protected void setSize(final ControlComponent controlComponent,
             final Control control) {
-        String widthStr = controlComponent.getWidth();
-        String heightStr = controlComponent.getHeight();
-        if ((widthStr != null) && (heightStr != null)) {
-            control.setSize(Integer.parseInt(widthStr), Integer
-                    .parseInt(heightStr));
+        if ((controlComponent.width != null)
+                && (controlComponent.height != null)) {
+            int width = Integer.parseInt(controlComponent.width);
+            int height = Integer.parseInt(controlComponent.height);
+            control.setSize(width, height);
         }
     }
 
     protected void setFont(final ControlComponent controlComponent,
             final Control control) {
-        if (controlComponent.getFontName() == null
-                && controlComponent.getFontStyle() == null
-                && controlComponent.getFontHeight() == null) {
+        if (controlComponent.fontName == null
+                && controlComponent.fontStyle == null
+                && controlComponent.fontHeight == null) {
             return;
         }
         Font font = RendererSupportUtil.getFont(control.getFont(),
-                controlComponent.getFontName(),
-                controlComponent.getFontStyle(), controlComponent
-                        .getFontHeight());
+                controlComponent.fontName, controlComponent.fontStyle,
+                controlComponent.fontHeight);
         control.setFont(font);
     }
 
     protected void setMenu(final ControlComponent controlComponent,
             final Control control) {
-        String menuId = controlComponent.getMenu();
+        String menuId = controlComponent.menu;
         if (!StringUtil.isEmpty(menuId)) {
             WidgetHandle handle = getWindowContext().getWidgetHandle(menuId);
             if (handle != null) {
