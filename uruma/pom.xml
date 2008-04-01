@@ -20,6 +20,7 @@
       <email>komo _at_ littleforest.jp</email>
       <url>http://d.hatena.ne.jp/y-komori/</url>
       <organization>SMG Co.,Ltd.</organization>
+      <organizationUrl>http://www.smg.co.jp/</organizationUrl>
       <timezone>+9</timezone>
     </developer>
     <developer>
@@ -48,6 +49,8 @@
       <name></name>
       <email></email>
       <url>http://d.hatena.ne.jp/cero-t/</url>
+      <organization>SMG Co.,Ltd.</organization>
+      <organizationUrl>http://www.smg.co.jp/</organizationUrl>
       <timezone>+9</timezone>
     </developer>
     <developer>
@@ -55,6 +58,8 @@
       <name></name>
       <email></email>
       <url>http://d.hatena.ne.jp/snuffkin/</url>
+      <organization>SMG Co.,Ltd.</organization>
+      <organizationUrl>http://www.smg.co.jp/</organizationUrl>
       <timezone>+9</timezone>
     </developer>
     <developer>
@@ -66,6 +71,13 @@
     </developer>
     <developer>
       <id>yazaki</id>
+      <name></name>
+      <email></email>
+      <url></url>
+      <timezone>+9</timezone>
+    </developer>
+    <developer>
+      <id>shhirose</id>
       <name></name>
       <email></email>
       <url></url>
