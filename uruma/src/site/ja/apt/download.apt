@@ -1,0 +1,50 @@
+ -----
+ダウンロード
+ ------
+ ------
+ ------
+
+ダウンロード
+
+* Uruma 本体
+
+ * <<Uruma>>
+ 
+   {{{../download/2008-03-03/uruma-0.3.0.zip}uruma-0.3.0.zip}}
+
+* サンプルアプリケーション
+
+ * <<Uruma-Example-FileManager>> (Urumaを利用して作成したRCPサンプルアプリケーション)
+   
+   {{{../download/2008-03-03/org.seasar.uruma.example.filemanager_0.3.0.zip}org.seasar.uruma.example.filemanager_0.3.0.zip}}
+
+ * <<Uruma-Example-Employee>> (Urumaを利用して作成したサンプルアプリケーション)
+   
+   {{{../download/2008-03-03/uruma-example-employee-0.3.0.zip}uruma-example-employee-0.3.0.zip}}
+
+ * <<Uruma-Example-Janken>> (Urumaを利用して作成したもっとも簡単なサンプルアプリケーション)
+   
+   {{{../download/2008-03-03/uruma-example-janken-0.3.0.zip}uruma-example-janken-0.3.0.zip}}
+
+* ブランクプロジェクト
+
+ * <<Uruma-Example-Blank>> (RCP版Urumaアプリケーションを開発するためのブランクプロジェクト)
+   
+   {{{../download/2008-03-03/org.seasar.uruma.example.blank_0.3.0.zip}org.seasar.uruma.example.blank_0.3.0.zip}}
+
+ * <<Uruma-StandAlone-Blank>> (スタンドアローン版Urumaアプリケーションを開発するためのブランクプロジェクト)
+   
+   {{{../download/2008-03-03/uruma-std-blank_0.3.0.zip}uruma-std-blank_0.3.0.zip}}
+
+* セッション資料
+
+ * <<Seasar Conference 2007 Autumn セッション資料>>
+   
+   {{{http://event.seasarfoundation.org/sc2007autumn/viewAttachment.do?_pageName_=Session&_fileName_=sc2007a-c2-uruma.pdf}sc2007a-c2-uruma.pdf}}
+   
+ * <<Seasar Conference 2006 Autumn セッション資料>>
+   
+   資料内の仕様は2006年11月現在のものです。現在の仕様とはことなる部分がありますので、ご了承ください。
+   
+   {{{http://event.seasar.org/sc2006autumn/viewAttachment.do?_pageName_=Session&_fileName_=SC2006Autumn_Ab4_S2JFace.pdf}SC2006Autumn_Ab4_S2JFace.pdf}}
+

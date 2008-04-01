@@ -49,6 +49,8 @@
       <item name="バリュー・バインディング" href="valueBinding.html" />
       <item name="セレクション・バインディング" href="selectionBinding.html" />
       <item name="GUIコンポーネント一覧" href="components.html" />
+      <item name="ダウンロ&#x30FC;ド" href="download.html" />
+      <item name="変更履歴" href="changelog.html" />
     </menu>
     <menu name="APIリファレンス">
       <item name="Uruma" href="../ja/apidocs/index.html" />
