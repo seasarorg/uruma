@@ -73,6 +73,8 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
 
     private List<WindowCloseListener> closeListeners;
 
+    private boolean block;
+
     /**
      * {@link UrumaApplicationWindow} を構築します。<br />
      */
@@ -269,21 +271,23 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
         ComponentUtil.invokePostOpenMethodOnAction(partActionComponent,
                 partContext);
 
-        Shell shell = getShell();
-        Display display;
-        if (shell == null) {
-            display = Display.getCurrent();
-        } else {
-            display = shell.getDisplay();
-        }
-
-        while (shell != null && !shell.isDisposed()) {
-            if (!display.readAndDispatch()) {
-                display.sleep();
+        if (block) {
+            Shell shell = getShell();
+            Display display;
+            if (shell == null) {
+                display = Display.getCurrent();
+            } else {
+                display = shell.getDisplay();
             }
-            // TODO ExceptionHandlerによる例外処理を行う
+
+            while (shell != null && !shell.isDisposed()) {
+                if (!display.readAndDispatch()) {
+                    display.sleep();
+                }
+                // TODO ExceptionHandlerによる例外処理を行う
+            }
+            display.update();
         }
-        display.update();
 
         return getReturnCode();
     }
@@ -320,5 +324,13 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
         } else {
             return false;
         }
+    }
+
+    /*
+     * @see org.eclipse.jface.window.Window#setBlockOnOpen(boolean)
+     */
+    @Override
+    public void setBlockOnOpen(final boolean shouldBlock) {
+        this.block = shouldBlock;
     }
 }
