@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document
+	PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+	"http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+	<properties>
+		<title>GUIコンポーネント一覧</title>
+	</properties>
+	<body>
+	
+	<section name="Label">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/label.png" width="714" height="431" alt="Labelコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/LabelRendererGUITest.xml" width="100%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	</body>
+</document>
