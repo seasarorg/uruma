@@ -1,0 +1,35 @@
+/*
+ * Copyright 2004-2008 the Seasar Foundation and the Others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+package org.seasar.uruma.annotation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * ウィンドウ表示後に実行するメソッドを指定するためのアノテーションです。<br />
+ * <p>
+ * パートアクションクラスのメソッドのうち、本アノテーションが付加されたメソッドがウィンドウ表示直後に呼び出されます。<br />
+ * アノテーションが指定できるメソッドは1つのみです。<br />
+ * </p>
+ * 
+ * @author y-komori
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target( { ElementType.METHOD })
+public @interface PostOpenMethod {
+}

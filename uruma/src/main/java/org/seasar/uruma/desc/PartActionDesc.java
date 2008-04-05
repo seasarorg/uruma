@@ -19,6 +19,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.seasar.uruma.annotation.InitializeMethod;
+import org.seasar.uruma.annotation.PostOpenMethod;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
 
@@ -43,6 +44,21 @@ public interface PartActionDesc {
      *            ターゲットオブジェクト
      */
     public void invokeInitializeMethod(Object target);
+
+    /**
+     * {@link PostOpenMethod} アノテーションが付加されたメソッドを取得します。<br />
+     * 
+     * @return {@link PostOpenMethod} アノテーションが付加されたメソッド
+     */
+    public Method getPostOpenMethod();
+
+    /**
+     * {@link PostOpenMethod} アノテーションが付加されたメソッドを実行します。<br />
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     */
+    public void invokePostOpenMethod(Object target);
 
     /**
      * {@link EventListenerDef} のリストを取得します。<br />

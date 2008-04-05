@@ -412,4 +412,28 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
             desc.invokeInitializeMethod(partAction);
         }
     }
+
+    /**
+     * パートアクションクラスのPostOpenメソッドを呼び出します。<br />
+     * 
+     * @param partAction
+     *            パートアクションオブジェクト
+     * @param context
+     *            {@link PartContext}
+     */
+    public static void invokePostOpenMethodOnAction(final Object partAction,
+            final PartContext context) {
+        if (partAction != null) {
+            WidgetBinder.bindWidgets(partAction, context);
+
+            // ApplicationContext からのインポート処理
+            PartActionDesc desc = PartActionDescFactory
+                    .getPartActionDesc(partAction.getClass());
+            ApplicationContextBinder.importObjects(partAction, desc
+                    .getApplicationContextDefList(), context.getWindowContext()
+                    .getApplicationContext());
+
+            desc.invokePostOpenMethod(partAction);
+        }
+    }
 }

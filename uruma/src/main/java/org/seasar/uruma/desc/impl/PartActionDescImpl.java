@@ -32,11 +32,14 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.ApplicationContext;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
+import org.seasar.uruma.annotation.PostOpenMethod;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.desc.PartActionDesc;
+import org.seasar.uruma.exception.IllegalMethodException;
 import org.seasar.uruma.exception.InitializeMethodException;
+import org.seasar.uruma.exception.MethodInvocationException;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -44,13 +47,15 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y-komori
  */
-public class PartActionDescImpl implements PartActionDesc {
+public class PartActionDescImpl implements PartActionDesc, UrumaMessageCodes {
 
     private Class<?> partActionClass;
 
     private BeanDesc beanDesc;
 
     private Method initializeMethod;
+
+    private Method postOpenMethod;
 
     private Map<String, List<Method>> methodsCache = new HashMap<String, List<Method>>();
 
@@ -101,6 +106,27 @@ public class PartActionDescImpl implements PartActionDesc {
     }
 
     /*
+     * @see org.seasar.uruma.desc.PartActionDesc#getPostOpenMethod()
+     */
+    public Method getPostOpenMethod() {
+        return this.postOpenMethod;
+    }
+
+    /*
+     * @see org.seasar.uruma.desc.PartActionDesc#invokePostOpenMethod(java.lang.Object)
+     */
+    public void invokePostOpenMethod(final Object target) {
+        if (postOpenMethod != null) {
+            AssertionUtil.assertNotNull("target", target);
+            try {
+                postOpenMethod.invoke(target, (Object[]) null);
+            } catch (Throwable ex) {
+                throw new MethodInvocationException(ex);
+            }
+        }
+    }
+
+    /*
      * @see org.seasar.uruma.desc.PartActionDesc#getEventListenerDefList()
      */
     public List<EventListenerDef> getEventListenerDefList() {
@@ -126,6 +152,7 @@ public class PartActionDescImpl implements PartActionDesc {
             methodList.add(methods[i]);
 
             setupInitializeMethod(methods[i]);
+            setupPostOpenMethod(methods[i]);
             setupEventListenerMethod(methods[i]);
         }
 
@@ -143,13 +170,28 @@ public class PartActionDescImpl implements PartActionDesc {
                 if (initializeMethod == null) {
                     initializeMethod = method;
                 } else {
-                    throw new InitializeMethodException(
-                            UrumaMessageCodes.DUPLICATE_INITIALIZE_METHOD,
-                            partActionClass, method);
+                    throw new IllegalMethodException(
+                            DUPLICATE_ANNOTATED_METHOD, partActionClass, method);
                 }
             } else {
-                throw new InitializeMethodException(
-                        UrumaMessageCodes.INVALID_INITIALIZE_METHOD,
+                throw new IllegalMethodException(ILLEGAL_METHOD_SIGNATURE,
+                        partActionClass, method);
+            }
+        }
+    }
+
+    protected void setupPostOpenMethod(final Method method) {
+        if (method.isAnnotationPresent(PostOpenMethod.class)) {
+            if ((method.getReturnType() == Void.TYPE)
+                    && (method.getParameterTypes().length == 0)) {
+                if (postOpenMethod == null) {
+                    postOpenMethod = method;
+                } else {
+                    throw new InitializeMethodException(
+                            DUPLICATE_ANNOTATED_METHOD, partActionClass, method);
+                }
+            } else {
+                throw new InitializeMethodException(ILLEGAL_METHOD_SIGNATURE,
                         partActionClass, method);
             }
         }

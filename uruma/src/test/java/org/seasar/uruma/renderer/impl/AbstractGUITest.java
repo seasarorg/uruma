@@ -23,6 +23,7 @@ import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.unit.S2FrameworkTestCase;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.PostOpenMethod;
 import org.seasar.uruma.core.StandAloneUrumaStarter;
 
 /**
@@ -79,6 +80,10 @@ public abstract class AbstractGUITest extends S2FrameworkTestCase {
         String path = convertPath(getClass().getSimpleName() + ".xml");
         uruma.openWindow(path);
         assertTrue(path, result);
+    }
+
+    @PostOpenMethod
+    public void postOpen() {
     }
 
     /**

@@ -23,6 +23,8 @@ import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.seasar.framework.container.annotation.tiger.AutoBindingType;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.util.StringUtil;
@@ -255,6 +257,35 @@ public class UrumaApplicationWindow extends ApplicationWindow implements
             closeListeners = new ArrayList<WindowCloseListener>();
         }
         closeListeners.add(listener);
+    }
+
+    /*
+     * @see org.eclipse.jface.window.Window#open()
+     */
+    @Override
+    public int open() {
+        super.open();
+
+        ComponentUtil.invokePostOpenMethodOnAction(partActionComponent,
+                partContext);
+
+        Shell shell = getShell();
+        Display display;
+        if (shell == null) {
+            display = Display.getCurrent();
+        } else {
+            display = shell.getDisplay();
+        }
+
+        while (shell != null && !shell.isDisposed()) {
+            if (!display.readAndDispatch()) {
+                display.sleep();
+            }
+            // TODO ExceptionHandlerによる例外処理を行う
+        }
+        display.update();
+
+        return getReturnCode();
     }
 
     /*

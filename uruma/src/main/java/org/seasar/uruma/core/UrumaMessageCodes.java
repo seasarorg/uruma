@@ -16,7 +16,6 @@
 package org.seasar.uruma.core;
 
 import org.seasar.framework.exception.SIOException;
-import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.context.ApplicationContext;
@@ -238,22 +237,22 @@ public interface UrumaMessageCodes {
     // バインディング関連メッセージコード (02xx)
     // -------------------------------------------------------------------------
     /**
-     * {@link InitializeMethod} アノテートされたメソッドが複数存在する場合のエラーコードです。
+     * アノテートされたメソッドが複数存在する場合のエラーコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String DUPLICATE_INITIALIZE_METHOD = "EURM0200";
+    public static final String DUPLICATE_ANNOTATED_METHOD = "EURM0200";
 
     /**
-     * イニシャライズメソッドが引数・戻り値なしのメソッドでない場合のエラーコードです。
+     * メソッドが引数・戻り値なしのメソッドでない場合のエラーコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String INVALID_INITIALIZE_METHOD = "EURM0201";
+    public static final String ILLEGAL_METHOD_SIGNATURE = "EURM0201";
 
     /**
      * イニシャライズメソッド実行中に例外が発生した場合のエラーコードです。
