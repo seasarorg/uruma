@@ -19,6 +19,7 @@ import junit.framework.TestCase;
 
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.desc.PartActionDesc;
+import org.seasar.uruma.exception.IllegalMethodException;
 import org.seasar.uruma.exception.InitializeMethodException;
 
 /**
@@ -36,14 +37,14 @@ public class PartActionDescImplTest extends TestCase {
         try {
             new PartActionDescImpl(Target02.class);
             fail("2");
-        } catch (InitializeMethodException ex) {
+        } catch (IllegalMethodException ex) {
             assertTrue(true);
         }
 
         try {
             new PartActionDescImpl(Target03.class);
             fail("3");
-        } catch (InitializeMethodException ex) {
+        } catch (IllegalMethodException ex) {
             assertTrue(true);
         }
     }

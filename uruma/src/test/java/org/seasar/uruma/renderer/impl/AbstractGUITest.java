@@ -15,7 +15,9 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
+import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
@@ -82,8 +84,13 @@ public abstract class AbstractGUITest extends S2FrameworkTestCase {
         assertTrue(path, result);
     }
 
+    /**
+     * テスト画面オープン後に画面キャプチャを行います。<br />
+     */
     @PostOpenMethod
     public void postOpen() {
+        String path = "log/" + getClass().getSimpleName() + ".png";
+        SWTUtil.saveWindowImage(shell, path, SWT.IMAGE_PNG);
     }
 
     /**
