@@ -23,10 +23,14 @@ import org.eclipse.jface.viewers.TreeNodeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
+import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.jface.TreeComponent;
 import org.seasar.uruma.component.jface.TreeItemComponent;
+import org.seasar.uruma.context.PartContext;
+import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.viewer.GenericLabelProvider;
 import org.seasar.uruma.viewer.UrumaTreeViewer;
 
@@ -56,6 +60,42 @@ public class TreeViewerRenderer extends
             }
         }
         return true;
+    }
+
+    /*
+     * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#renderAfter(org.seasar.uruma.context.WidgetHandle,
+     *      org.seasar.uruma.component.UIComponent,
+     *      org.seasar.uruma.context.WidgetHandle,
+     *      org.seasar.uruma.context.PartContext)
+     */
+    @Override
+    public void renderAfter(final WidgetHandle handle,
+            final UIComponent uiComponent, final WidgetHandle parent,
+            final PartContext context) {
+        if (handle.instanceOf(Tree.class)) {
+            TreeComponent component = (TreeComponent) uiComponent;
+            Tree tree = handle.<Tree> getCastWidget();
+            int autoExpandLevel = Integer.parseInt(component.autoExpandLevel);
+            if (autoExpandLevel >= 1) {
+                expandTree(tree.getItems(), 1, autoExpandLevel);
+            }
+        }
+        super.renderAfter(handle, uiComponent, parent, context);
+    }
+
+    protected void expandTree(final TreeItem[] items, final int currentLevel,
+            final int maxLevel) {
+        if (currentLevel >= maxLevel) {
+            return;
+        }
+
+        for (TreeItem treeItem : items) {
+            treeItem.setExpanded(true);
+        }
+
+        for (TreeItem treeItem : items) {
+            expandTree(treeItem.getItems(), currentLevel + 1, maxLevel);
+        }
     }
 
     /*
