@@ -49,7 +49,7 @@ public class DateTimeRendererGUITest extends AbstractGUITest {
         calendar.set(Calendar.YEAR, 1977);
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DATE, 12);
-        calendar.set(Calendar.HOUR, 20);
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
         calendar.set(Calendar.MINUTE, 30);
         calendar.set(Calendar.SECOND, 15);
 
@@ -72,7 +72,8 @@ public class DateTimeRendererGUITest extends AbstractGUITest {
             assertEquals("3", date.getDay(), calendar.get(Calendar.DATE));
 
             calendar.setTime(timeValue);
-            assertEquals("4", time.getHours(), calendar.get(Calendar.HOUR));
+            assertEquals("4", time.getHours(), calendar
+                    .get(Calendar.HOUR_OF_DAY));
             assertEquals("5", time.getMinutes(), calendar.get(Calendar.MINUTE));
             assertEquals("6", time.getSeconds(), calendar.get(Calendar.SECOND));
 
