@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <window defaultButtonId="okButton" menu="menuBar">
+  <window defaultButtonId="okButton" menu="menuBar" width="640" height="480">
     <gridLayout numColumns="1">
       <gridData horizontalAlignment="FILL" />
     </gridLayout>

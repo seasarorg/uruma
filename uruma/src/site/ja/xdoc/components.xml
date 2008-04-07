@@ -8,16 +8,282 @@
 	</properties>
 	<body>
 	
-	<section name="Label">
+	<section name="Uruma GUIコンポーネント一覧">
+		<p>ここでは、Uruma で表示できる GUI コンポーネントのサンプルを画面定義 XML とともに紹介します。</p>
+		<p>Uruma の GUI コンポーネントは、SWT のウィジットに合わせて作成されているので、SWT のウィジットが持っている属性は、たいていそのまま指定することができます。</p>
+		
+		<ul>
+			<li><a href="#Button">Button</a></li>
+			<li><a href="#Canvas">Canvas</a></li>
+			<li><a href="#CTabFolder">CTabFolder</a></li>
+			<li><a href="#Combo">Combo</a></li>
+			<li><a href="#CoolBar">CoolBar</a></li>
+			<li><a href="#DateTime">DateTime</a></li>
+			<li><a href="#Group">Group</a></li>
+			<li><a href="#Label">Label</a></li>
+			<li><a href="#Link">Link</a></li>
+			<li><a href="#Menu">Menu</a></li>
+			<li><a href="#ProgressBar">ProgressBar</a></li>
+			<li><a href="#SashForm">SashForm</a></li>
+			<li><a href="#Scale">Scale</a></li>
+			<li><a href="#Slider">Slider</a></li>
+			<li><a href="#Spinner">Spinner</a></li>
+			<li><a href="#TabFolder">TabFolder</a></li>
+			<li><a href="#Table">Table</a></li>
+			<li><a href="#Text">Text</a></li>
+			<li><a href="#ToolBar">ToolBar</a></li>
+			<li><a href="#Tree">Tree</a></li>
+		</ul>
+		
+		<subsection name="テスト画面の表示方法">
+			<p>これらのサンプル画面はテストコードとして Uruma に付属しているものです。お手元で実行してみたい方は、以下の手順に従ってください。 </p>
+			<p>また、テスト用の画面定義XML は、配布アーカイブ内の /uruma-x.y.z/src/test/resources/org/seasar/uruma/renderer/impl (x.y.z はバージョンです)ディレクトリにあります。</p>
+			<ol>
+				<li>Subversionリポジトリ(https://www.seasar.org/svn/sandbox/uruma/)から uruma プロジェクトを取得し、Eclipse へインポートする。</li>
+				<li>パッケージ・エクスプローラーから uruma プロジェクトを選択して右クリックメニューを開き、[実行]-[JUnitテスト]を選択する。</li>
+			</ol>
+		</subsection>
+	</section>
+	
+	<section name="Button">
 		<subsection name="画面サンプル">
 			<div align="center">
-				<img src="../images/components/label.png" width="714" height="431" alt="Labelコンポーネントのサンプル" />
+				<img src="../images/components/ButtonRendererGUITest.png" alt="Buttonコンポーネントのサンプル" />
 			</div>
 		</subsection>
 		
 		<subsection name="画面定義XML">
-		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/LabelRendererGUITest.xml" width="100%" scrolling="AUTO" />
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/ButtonRendererGUITest.xml" width="95%" scrolling="AUTO" />
 		</subsection>
 	</section>
+	
+	<section name="Canvas">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/CanvasRendererGUITest.png" alt="Canvasコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/CanvasRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="CTabFolder">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/CTabFolderRendererGUITest.png" alt="CTabFolderコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/CTabFolderRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Combo">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/ComboViewerRendererGUITest.png" alt="Comboコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/ComboViewerRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="CoolBar">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/CoolBarRendererGUITest.png" alt="CoolBarコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/CoolBarRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="DateTime">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/DateTimeRendererGUITest.png" alt="DateTimeコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/DateTimeRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Group">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/GroupRendererGUITest.png" alt="Groupコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/GroupRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Label">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/LabelRendererGUITest.png" alt="Labelコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/LabelRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Link">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/LinkRendererGUITest.png" alt="Linkコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/LinkRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Menu">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/MenuManagerRendererGUITest.png" alt="Menuコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/MenuManagerRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="ProgressBar">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/ProgressBarRendererGUITest.png" alt="ProgressBarコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/ProgressBarRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="SashForm">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/SashFormRendererGUITest.png" alt="SashFormコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/SashFormRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Scale">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/ScaleRendererGUITest.png" alt="Scaleコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/ScaleRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Slider">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/SliderRendererGUITest.png" alt="Sliderコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/SliderRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Spinner">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/SpinnerRendererGUITest.png" alt="Spinnerコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/SpinnerRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="TabFolder">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/TabFolderRendererGUITest.png" alt="TabFolderコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/TabFolderRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Table">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/TableViewerRendererGUITest.png" alt="Tableコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/TableViewerRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Text">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/TextRendererGUITest.png" alt="Textコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/TextRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="ToolBar">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/ToolBarRendererGUITest.png" alt="ToolBarコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/ToolBarRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
+	<section name="Tree">
+		<subsection name="画面サンプル">
+			<div align="center">
+				<img src="../images/components/TreeViewerRendererGUITest.png" alt="Treeコンポーネントのサンプル" />
+			</div>
+		</subsection>
+		
+		<subsection name="画面定義XML">
+		<iframe src="https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/src/test/resources/org/seasar/uruma/renderer/impl/TreeViewerRendererGUITest.xml" width="95%" scrolling="AUTO" />
+		</subsection>
+	</section>
+	
 	</body>
 </document>
