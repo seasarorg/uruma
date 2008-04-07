@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.value.binder;
 import org.eclipse.swt.widgets.Table;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
 
 /**
  * {@link Table} に対する {@link ValueBinder} です。<br />
@@ -34,7 +35,7 @@ public class TableValueBinder implements ValueBinder {
     }
 
     public void exportValue(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDesc, final UIComponent uiComp) {
         // Do nothing.
     }
 

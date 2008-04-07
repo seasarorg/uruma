@@ -21,6 +21,7 @@ import java.util.Date;
 import org.eclipse.swt.widgets.DateTime;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
 
 /**
  * {@link DateTime} のための {@link ValueBinder} です。<br />
@@ -59,7 +60,7 @@ public class DateTimeValueBinder extends AbstractValueBinder<DateTime> {
      */
     @Override
     protected void doExportValue(final DateTime widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDesc, final UIComponent uiComp) {
         Object value = propDesc.getValue(formObj);
         if (value == null || !(value instanceof Date)) {
             value = new Date();

@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.value.binder;
 import org.eclipse.swt.browser.Browser;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
 
 /**
  * {@link Browser} のための {@link ValueBinder} です。<br />
@@ -59,7 +60,7 @@ public class BrowserValueBinder extends AbstractValueBinder<Browser> {
      */
     @Override
     protected void doExportValue(final Browser widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDesc, final UIComponent uiComp) {
 
         Object value = propDesc.getValue(formObj);
 

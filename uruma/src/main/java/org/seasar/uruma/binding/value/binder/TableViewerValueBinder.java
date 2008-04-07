@@ -20,6 +20,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.jface.TableColumnComponent;
+import org.seasar.uruma.component.jface.TableComponent;
 
 /**
  * {@link TableViewer} のための {@link ValueBinder} です。<br />
@@ -42,16 +45,19 @@ public class TableViewerValueBinder extends AbstractValueBinder<TableViewer> {
      */
     @Override
     protected void doExportValue(final TableViewer widget,
-            final Object formObj, final PropertyDesc propDesc) {
-        super.doExportValue(widget, formObj, propDesc);
+            final Object formObj, final PropertyDesc propDesc,
+            final UIComponent uiComp) {
+        super.doExportValue(widget, formObj, propDesc, uiComp);
 
         Table table = widget.getTable();
         table.setRedraw(false);
         TableColumn[] columns = table.getColumns();
+        TableComponent tableComp = (TableComponent) uiComp;
         for (int i = 0; i < columns.length; i++) {
-            columns[i].pack();
+            if (((TableColumnComponent) tableComp.getChildren().get(i)).width == null) {
+                columns[i].pack();
+            }
         }
         table.setRedraw(true);
     }
-
 }

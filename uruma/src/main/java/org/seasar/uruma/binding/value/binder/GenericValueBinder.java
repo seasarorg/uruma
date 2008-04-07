@@ -19,6 +19,7 @@ import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -74,7 +75,7 @@ public class GenericValueBinder<WIDGET_TYPE> extends
      */
     @Override
     public void doExportValue(final WIDGET_TYPE widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDesc, final UIComponent uiComp) {
         Object value = propDesc.getValue(formObj);
 
         if (value == null) {

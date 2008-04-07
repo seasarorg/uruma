@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.BindingException;
@@ -80,8 +81,8 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
      */
     public void exportValue(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
-        doExportValue(getWidgetType().cast(widget), formObj, propDesc);
+            final PropertyDesc propDesc, final UIComponent uiComp) {
+        doExportValue(getWidgetType().cast(widget), formObj, propDesc, uiComp);
     }
 
     /*
@@ -139,9 +140,12 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @param uiComp
+     *            コンポーネント
      */
     protected void doExportValue(final WIDGET_TYPE widget,
-            final Object formObj, final PropertyDesc propDesc) {
+            final Object formObj, final PropertyDesc propDesc,
+            final UIComponent uiComp) {
         if (widget instanceof StructuredViewer) {
             StructuredViewer viewer = StructuredViewer.class.cast(widget);
 
