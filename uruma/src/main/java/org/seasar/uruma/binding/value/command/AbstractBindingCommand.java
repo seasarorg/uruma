@@ -23,6 +23,7 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.value.BindingCommand;
 import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.binding.value.ValueBinderFactory;
+import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 
@@ -40,8 +41,8 @@ public abstract class AbstractBindingCommand<ANNOTATION_CLASS extends Annotation
      *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
      */
     public void doBind(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
-        doBind(getValueBinder(widget), widget, formObj, propDesc);
+            final PropertyDesc propDesc, final UIComponent uiComp) {
+        doBind(getValueBinder(widget), widget, formObj, propDesc, uiComp);
     }
 
     /*
@@ -80,7 +81,7 @@ public abstract class AbstractBindingCommand<ANNOTATION_CLASS extends Annotation
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
      */
     protected abstract void doBind(ValueBinder binder, Object widget,
-            Object formObj, PropertyDesc propDesc);
+            Object formObj, PropertyDesc propDesc, UIComponent uiComp);
 
     /**
      * アノテーションから id を取り出します。<br />

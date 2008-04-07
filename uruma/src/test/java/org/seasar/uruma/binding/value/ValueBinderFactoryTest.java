@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.value;
 import junit.framework.TestCase;
 
 import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.uruma.component.UIComponent;
 
 /**
  * {@link ValueBinderFactory} のためのテストクラスです。<br />
@@ -49,7 +50,7 @@ public class ValueBinderFactoryTest extends TestCase {
         }
 
         public void exportValue(final Object widget, final Object formObj,
-                final PropertyDesc propDesc) {
+                final PropertyDesc propDesc, final UIComponent uiComp) {
             // Do nothing.
         }
 

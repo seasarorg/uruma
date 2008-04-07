@@ -24,6 +24,7 @@ import org.seasar.uruma.annotation.ImportExportValue;
 import org.seasar.uruma.annotation.ImportValue;
 import org.seasar.uruma.binding.value.BindingCommand;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.desc.FormDesc;
 
 /**
@@ -47,7 +48,8 @@ public class ImportValueCommand extends AbstractBindingCommand<ImportValue> {
      */
     @Override
     protected void doBind(final ValueBinder binder, final Object widget,
-            final Object formObj, final PropertyDesc propDesc) {
+            final Object formObj, final PropertyDesc propDesc,
+            final UIComponent uiComp) {
         binder.importValue(widget, formObj, propDesc);
     }
 

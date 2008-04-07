@@ -22,6 +22,7 @@ import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.annotation.ExportSelection;
 import org.seasar.uruma.binding.value.BindingCommand;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.desc.FormDesc;
 
 /**
@@ -46,7 +47,8 @@ public class ExportSelectionCommand extends
      */
     @Override
     protected void doBind(final ValueBinder binder, final Object widget,
-            final Object formObj, final PropertyDesc propDesc) {
+            final Object formObj, final PropertyDesc propDesc,
+            final UIComponent uiComp) {
         binder.exportSelection(widget, formObj, propDesc);
     }
 
