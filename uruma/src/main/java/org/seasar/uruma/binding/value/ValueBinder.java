@@ -16,6 +16,7 @@
 package org.seasar.uruma.binding.value;
 
 import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.uruma.component.UIComponent;
 
 /**
  * ウィジットクラス毎のバインディングを行うためのインターフェースです。<br />
@@ -44,8 +45,11 @@ public interface ValueBinder {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @param uiComp
+     *            コンポーネント
      */
-    public void exportValue(Object widget, Object formObj, PropertyDesc propDesc);
+    public void exportValue(Object widget, Object formObj,
+            PropertyDesc propDesc, UIComponent uiComp);
 
     /**
      * ウィジットで選択されているオブジェクトをフォームへ設定します。<br />

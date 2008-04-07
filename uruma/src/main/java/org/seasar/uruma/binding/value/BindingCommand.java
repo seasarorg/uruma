@@ -19,6 +19,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.desc.FormDesc;
 
 /**
@@ -38,8 +39,11 @@ public interface BindingCommand {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @param uiComp
+     *            コンポーネント
      */
-    public void doBind(Object widget, Object formObj, PropertyDesc propDesc);
+    public void doBind(Object widget, Object formObj, PropertyDesc propDesc,
+            UIComponent uiComp);
 
     /**
      * <code>field</code> に対応する id を取得します。<br />

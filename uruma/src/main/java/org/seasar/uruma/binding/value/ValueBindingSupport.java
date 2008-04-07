@@ -99,7 +99,7 @@ public class ValueBindingSupport {
             WidgetHandle handle = context.getWidgetHandle(id);
             if (handle != null) {
                 Object widget = handle.getWidget();
-                command.doBind(widget, form, pd);
+                command.doBind(widget, form, pd, handle.getUiComponent());
             } else {
                 throw new BindingException(UrumaMessageCodes.WIDGET_NOT_FOUND,
                         id, form.getClass(), pd.getField());
