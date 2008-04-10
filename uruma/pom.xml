@@ -99,6 +99,16 @@
   </organization>
 
   <!-- Environment Settings -->
+  <scm>
+    <connection>
+      scm:svn:https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/
+    </connection>
+    <developerConnection>
+      scm:svn:https://www.seasar.org/svn/sandbox/uruma/trunk/uruma/
+    </developerConnection>
+    <url>http://svn.seasar.org/browse/?root=sandbox.uruma</url>
+  </scm>
+
   <issueManagement>
     <system>JIRA</system>
     <url>https://www.seasar.org/issues/browse/URUMA</url>
@@ -117,6 +127,10 @@
       <name>The Seasar Foundation Maven2 Snapshot Repository</name>
       <url>dav:https://www.seasar.org/maven/maven2-snapshot</url>
     </snapshotRepository>
+    <site>
+      <id>www.seasar.org</id>
+      <url>dav:https://www.seasar.org/site/sandbox/uruma</url>
+    </site>
   </distributionManagement>
 
   <repositories>
@@ -192,6 +206,19 @@
         </configuration>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>report-only</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
@@ -325,6 +352,100 @@
       </extension>
     </extensions>
   </build>
+
+  <!-- Reporting Settings -->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <charset>UTF-8</charset>
+          <doctitle>
+            ${project.name} ${project.version} API Specifications
+          </doctitle>
+          <windowtitle>Uruma API Specifications</windowtitle>
+          <finalName>org.seasar.uruma_${project.version}</finalName>
+          <links>
+            <link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
+            <link>http://java.sun.com/javaee/5/docs/api/</link>
+            <link>http://aopalliance.sourceforge.net/doc/</link>
+            <link>
+              http://s2container.seasar.org/2.4/s2-framework/ja/apidocs/
+            </link>
+            <link>
+              http://s2container.seasar.org/2.4/s2-extension/ja/apidocs/
+            </link>
+            <link>
+              http://s2container.seasar.org/2.4/s2-tiger/ja/apidocs/
+            </link>
+            <link>
+              http://help.eclipse.org/help33/nftopic/org.eclipse.platform.doc.isv/reference/api/
+            </link>
+            <link>http://www2.osgi.org/javadoc/r4/</link>
+          </links>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <configuration>
+          <inputEncoding>UTF-8</inputEncoding>
+          <outputEncoding>UTF-8</outputEncoding>
+          <linkJavadoc>true</linkJavadoc>
+          <javadocDir>../apidocs</javadocDir>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+      
+      <!-- 
+        <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>changelog-maven-plugin</artifactId>
+        </plugin>
+        <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <configuration>
+        <tags>
+        <tag>FIXME</tag>
+        <tag>TODO</tag>
+        </tags>
+        </configuration>
+        </plugin>
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
+      <!-- 
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changelog-plugin</artifactId>
+        <reportSets>
+        <reportSet>
+        <id>dual-report</id>
+        <configuration>
+        <type>range</type>
+        <range>30</range>
+        </configuration>
+        <reports>
+        <report>changelog</report>
+        <report>file-activity</report>
+        </reports>
+        </reportSet>
+        </reportSets>
+        </plugin>
+      -->
+    </plugins>
+  </reporting>
 
   <!-- Dependency Settings -->
   <properties>
