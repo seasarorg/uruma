@@ -57,7 +57,7 @@ public class DateTimeValueBinder extends AbstractValueBinder<DateTime> {
                     + dFormat.format(widget.getDay())
                     + dFormat.format(widget.getHours())
                     + dFormat.format(widget.getMinutes())
-                    + dFormat.format(widget.getDay()));
+                    + dFormat.format(widget.getSeconds()));
         } catch (ParseException ex) {
             date = new Date();
         }
