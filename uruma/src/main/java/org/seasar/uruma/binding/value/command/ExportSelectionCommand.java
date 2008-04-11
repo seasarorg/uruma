@@ -49,7 +49,7 @@ public class ExportSelectionCommand extends
     protected void doBind(final ValueBinder binder, final Object widget,
             final Object formObj, final PropertyDesc propDesc,
             final UIComponent uiComp) {
-        binder.exportSelection(widget, formObj, propDesc);
+        binder.exportSelection(widget, formObj, propDesc, uiComp);
     }
 
     /*

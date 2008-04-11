@@ -19,6 +19,7 @@ import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
 
 /**
  * {@link IStatusLineManager} のための {@link ValueBinder} です。<br />
@@ -41,7 +42,8 @@ public class StatusLineManagerValueBinder extends
      */
     @Override
     public void doImportValue(final StatusLineManager widget,
-            final Object formObj, final PropertyDesc propDesc) {
+            final Object formObj, final PropertyDesc propDesc,
+            final UIComponent uiComp) {
         // Do nothing.
     }
 }

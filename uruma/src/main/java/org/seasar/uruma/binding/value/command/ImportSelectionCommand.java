@@ -49,7 +49,7 @@ public class ImportSelectionCommand extends
     protected void doBind(final ValueBinder binder, final Object widget,
             final Object formObj, final PropertyDesc propDesc,
             final UIComponent uiComp) {
-        binder.importSelection(widget, formObj, propDesc);
+        binder.importSelection(widget, formObj, propDesc, uiComp);
     }
 
     /*

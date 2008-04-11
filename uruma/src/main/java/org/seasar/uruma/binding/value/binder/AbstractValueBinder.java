@@ -72,8 +72,8 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
      */
     public void importValue(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
-        doImportValue(getWidgetType().cast(widget), formObj, propDesc);
+            final PropertyDesc propDesc, final UIComponent uiComp) {
+        doImportValue(getWidgetType().cast(widget), formObj, propDesc, uiComp);
     }
 
     /*
@@ -90,8 +90,9 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
      */
     public void importSelection(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
-        doImportSelection(getWidgetType().cast(widget), formObj, propDesc);
+            final PropertyDesc propDesc, final UIComponent uiComp) {
+        doImportSelection(getWidgetType().cast(widget), formObj, propDesc,
+                uiComp);
     }
 
     /*
@@ -99,8 +100,9 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      *      java.lang.Object, org.seasar.framework.beans.PropertyDesc)
      */
     public void exportSelection(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
-        doExportSelection(getWidgetType().cast(widget), formObj, propDesc);
+            final PropertyDesc propDesc, final UIComponent uiComp) {
+        doExportSelection(getWidgetType().cast(widget), formObj, propDesc,
+                uiComp);
     }
 
     /*
@@ -121,9 +123,12 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @param uiComp
+     *            コンポーネント
      */
     protected void doImportValue(final WIDGET_TYPE widget,
-            final Object formObj, final PropertyDesc propDesc) {
+            final Object formObj, final PropertyDesc propDesc,
+            final UIComponent uiComp) {
 
     }
 
@@ -207,11 +212,14 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @param uiComp
+     *            コンポーネント
      * @throws BindingException
      *             ビューアで選択させれているオブジェクトの型とプロパティの型が一致しなかった場合
      */
     protected void doImportSelection(final WIDGET_TYPE widget,
-            final Object formObj, final PropertyDesc propDesc) {
+            final Object formObj, final PropertyDesc propDesc,
+            final UIComponent uiComp) {
         if (widget instanceof Viewer) {
             Viewer viewer = Viewer.class.cast(widget);
 
@@ -264,9 +272,12 @@ public abstract class AbstractValueBinder<WIDGET_TYPE> implements ValueBinder {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @param uiComp
+     *            コンポーネント
      */
     protected void doExportSelection(final WIDGET_TYPE widget,
-            final Object formObj, final PropertyDesc propDesc) {
+            final Object formObj, final PropertyDesc propDesc,
+            final UIComponent uiComp) {
         if (widget instanceof Viewer) {
             Viewer viewer = Viewer.class.cast(widget);
             Object selection = propDesc.getValue(formObj);

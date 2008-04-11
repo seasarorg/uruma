@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.value.ValueBinder;
+import org.seasar.uruma.component.UIComponent;
 
 /**
  * {@link ComboViewer} のための {@link ValueBinder} です。<br />
@@ -42,7 +43,7 @@ public class ComboViewerValueBinder extends AbstractValueBinder<ComboViewer> {
      */
     @Override
     public void doImportValue(final ComboViewer widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDesc, final UIComponent uiComp) {
         Combo combo = widget.getCombo();
         String text = combo.getText();
         text = StringUtil.isEmpty(text) ? null : text;

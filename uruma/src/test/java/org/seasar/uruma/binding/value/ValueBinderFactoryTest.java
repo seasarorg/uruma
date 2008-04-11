@@ -45,7 +45,7 @@ public class ValueBinderFactoryTest extends TestCase {
 
     class TestValueBinder implements ValueBinder {
         public void exportSelection(final Object widget, final Object formObj,
-                final PropertyDesc propDesc) {
+                final PropertyDesc propDesc, final UIComponent uiComp) {
             // Do nothing.
         }
 
@@ -59,12 +59,12 @@ public class ValueBinderFactoryTest extends TestCase {
         }
 
         public void importSelection(final Object widget, final Object formObj,
-                final PropertyDesc propDesc) {
+                final PropertyDesc propDesc, final UIComponent uiComp) {
             // Do nothing.
         }
 
         public void importValue(final Object widget, final Object formObj,
-                final PropertyDesc propDesc) {
+                final PropertyDesc propDesc, final UIComponent uiComp) {
             // Do nothing.
         }
     }

@@ -46,7 +46,7 @@ public class DateTimeValueBinder extends AbstractValueBinder<DateTime> {
      */
     @Override
     protected void doImportValue(final DateTime widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDesc, final UIComponent uiComp) {
 
         Date date = null;
         SimpleDateFormat sdFormat = new SimpleDateFormat("yyyyMMddHHmmss");

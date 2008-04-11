@@ -50,7 +50,7 @@ public class ImportValueCommand extends AbstractBindingCommand<ImportValue> {
     protected void doBind(final ValueBinder binder, final Object widget,
             final Object formObj, final PropertyDesc propDesc,
             final UIComponent uiComp) {
-        binder.importValue(widget, formObj, propDesc);
+        binder.importValue(widget, formObj, propDesc, uiComp);
     }
 
     /*

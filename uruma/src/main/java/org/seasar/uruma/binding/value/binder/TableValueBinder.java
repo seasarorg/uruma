@@ -30,7 +30,7 @@ import org.seasar.uruma.component.UIComponent;
 public class TableValueBinder implements ValueBinder {
 
     public void exportSelection(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDesc, final UIComponent uiComp) {
         // Do nothing.
     }
 
@@ -44,12 +44,12 @@ public class TableValueBinder implements ValueBinder {
     }
 
     public void importSelection(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDesc, final UIComponent uiComp) {
         // Do nothing.
     }
 
     public void importValue(final Object widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDes, final UIComponent uiCompc) {
         // Do nothing.
     }
 }

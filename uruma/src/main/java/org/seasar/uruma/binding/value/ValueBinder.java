@@ -33,8 +33,11 @@ public interface ValueBinder {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @param uiComp
+     *            コンポーネント
      */
-    public void importValue(Object widget, Object formObj, PropertyDesc propDesc);
+    public void importValue(Object widget, Object formObj,
+            PropertyDesc propDesc, UIComponent uiComp);
 
     /**
      * フォームの値をウィジットへ設定します。<br />
@@ -60,9 +63,11 @@ public interface ValueBinder {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @param uiComp
+     *            コンポーネント
      */
     public void importSelection(Object widget, Object formObj,
-            PropertyDesc propDesc);
+            PropertyDesc propDesc, UIComponent uiComp);
 
     /**
      * フォームの持つオブジェクトをウィジットの選択状態として設定します。<br />
@@ -73,9 +78,11 @@ public interface ValueBinder {
      *            フォーム側オブジェクト
      * @param propDesc
      *            フォーム側のプロパティを表す {@link PropertyDesc} オブジェクト
+     * @param uiComp
+     *            コンポーネント
      */
     public void exportSelection(Object widget, Object formObj,
-            PropertyDesc propDesc);
+            PropertyDesc propDesc, UIComponent uiComp);
 
     /**
      * 対応するウィジットの {@link Class} オブジェクトを返します。<br />

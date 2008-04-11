@@ -41,7 +41,7 @@ public class BrowserValueBinder extends AbstractValueBinder<Browser> {
      */
     @Override
     public void doImportValue(final Browser widget, final Object formObj,
-            final PropertyDesc propDesc) {
+            final PropertyDesc propDesc, final UIComponent uiComp) {
         Object value = propDesc.getValue(widget);
 
         // 空文字列の入力は null として扱う
