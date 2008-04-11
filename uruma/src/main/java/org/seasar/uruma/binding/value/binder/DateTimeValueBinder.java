@@ -15,6 +15,9 @@
  */
 package org.seasar.uruma.binding.value.binder;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -44,13 +47,22 @@ public class DateTimeValueBinder extends AbstractValueBinder<DateTime> {
     @Override
     protected void doImportValue(final DateTime widget, final Object formObj,
             final PropertyDesc propDesc) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(widget.getYear(), widget.getMonth(), widget.getDay(), widget
-                .getHours(), widget.getMinutes(), widget.getSeconds());
 
-        Date date = cal.getTime();
+        Date date = null;
+        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        DecimalFormat dFormat = new DecimalFormat("00");
+        try {
+            date = sdFormat.parse(widget.getYear()
+                    + dFormat.format(widget.getMonth() + 1)
+                    + dFormat.format(widget.getDay())
+                    + dFormat.format(widget.getHours())
+                    + dFormat.format(widget.getMinutes())
+                    + dFormat.format(widget.getDay()));
+        } catch (ParseException ex) {
+            date = new Date();
+        }
+
         logBinding(IMPORT_VALUE, formObj, propDesc, widget, propDesc, date);
-
         propDesc.setValue(formObj, date);
     }
 
