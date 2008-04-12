@@ -1,4 +1,4 @@
-package org.seasar.uruma.example.blank;
+package org.seasar.uruma.rcp.blank;
 
 /**
  * Uruma アプリケーションのためのダミークラスです。<br />
