@@ -33,27 +33,21 @@
       <item name="Maven 2" href="http://maven.apache.org/maven2/" />
     </links>
     <menu name="Urumaについて">
-      <item name="Urumaとは" href="summary.html" />
-      <!-- 
       <item name="ホーム" href="index.html" />
       <item name="ライセンス" href="license.html" />
-      <item name="ダウンロード" href="downloads.html" />
-      <item name="更新履歴" href="changes.html" />
-      -->
+      <item name="ダウンロード" href="download.html" />
+      <item name="更新履歴" href="changelog.html" />
     </menu>
     <menu name="ドキュメント">
       <item name="セットアップ" href="setup.html" />
       <item name="Urumaの提供する機能" href="functions.html" />
       <item name="画面表示機能" href="viewXml.html" />
       <item name="メソッド・バインディング" href="methodBinding.html" />
+      <item name="ウィジット・インジェクション" href="widgetInjection.html" />
       <item name="バリュー・バインディング" href="valueBinding.html" />
       <item name="セレクション・バインディング" href="selectionBinding.html" />
       <item name="GUIコンポーネント一覧" href="components.html" />
-      <item name="ダウンロ&#x30FC;ド" href="download.html" />
-      <item name="変更履歴" href="changelog.html" />
-    </menu>
-    <menu name="APIリファレンス">
-      <item name="Uruma" href="../ja/apidocs/index.html" />
+      <item name="APIリファレンス" href="../ja/apidocs/index.html" />
     </menu>
     ${reports}
   </body>

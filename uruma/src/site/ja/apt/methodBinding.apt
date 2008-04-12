@@ -123,3 +123,34 @@ public void label() {
 * {イニシャライズ・メソッド}
 
  アクション・クラスに {{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/InitializeMethod.html}<<<@InitializeMethod>>>}} アノテーションが記述されたメソッドがある場合、画面を表示する直前にそのメソッドが呼び出されます。
+
+---
+  @InitializedMethod
+  public void initialize() {
+     ...
+  }
+---
+
+ なお、<<<@InitializeMethod>>> アノテートできるメソッド(以下、「イニシャライズ・メソッド」と呼びます)には以下のような制約があります。
+ 
+  * ひとつのアクション・クラスにひとつのメソッドしかアノテートできません。(複数のメソッドに <<<@InitializeMethod>>> アノテーションを記述することはできません)
+  
+  * イニシャライズ・メソッドは、引数無し、戻り値なしのメソッドでなくてはなりません。
+
+* {ポストオープン・メソッド}
+
+ アクション・クラスに {{{http://uruma.sandbox.seasar.org/ja/apidocs/org/seasar/uruma/annotation/PostOpenMethod.html}<<<@PostOpenMethod>>>}} アノテーションが記述されたメソッドがある場合、画面を表示直後にそのメソッドが呼び出されます。
+
+---
+  @PostOpenMethod
+  public void postOpen() {
+     ...
+  }
+---
+
+ なお、<<<@PostOpenMethod>>> アノテートできるメソッド(以下、「ポストオープン・メソッド」と呼びます)には以下のような制約があります。
+ 
+  * ひとつのアクション・クラスにひとつのメソッドしかアノテートできません。(複数のメソッドに <<<@PostOpenMethod>>> アノテーションを記述することはできません)
+  
+  * ポストオープン・メソッドは、引数無し、戻り値なしのメソッドでなくてはなりません。
+
