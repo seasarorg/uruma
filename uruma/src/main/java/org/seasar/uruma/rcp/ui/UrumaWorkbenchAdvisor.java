@@ -17,6 +17,8 @@ package org.seasar.uruma.rcp.ui;
 
 import java.util.MissingResourceException;
 
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
@@ -30,6 +32,7 @@ import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
+import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 
 /**
  * Uruma における {@link WorkbenchAdvisor} です。<br />
@@ -99,5 +102,34 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
     public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
             final IWorkbenchWindowConfigurer configurer) {
         return new UrumaWorkbenchWindowAdvisor(configurer);
+    }
+
+    /*
+     * @see org.eclipse.ui.application.WorkbenchAdvisor#eventLoopException(java.lang.Throwable)
+     */
+    @Override
+    public void eventLoopException(final Throwable throwable) {
+        logger.log(EXCEPTION_OCCURED_WITH_REASON, throwable, throwable
+                .getMessage());
+
+        Display display = getWorkbenchConfigurer().getWorkbench().getDisplay();
+        boolean displayCreated = false;
+        if (display == null) {
+            display = Display.getCurrent();
+
+            if (display == null) {
+                display = new Display();
+                displayCreated = true;
+            }
+        }
+        Shell shell = new Shell(display);
+        UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
+                "Uruma 実行中にキャッチされない例外が発生しました.", throwable);
+        dialog.open();
+        shell.dispose();
+
+        if (displayCreated) {
+            display.dispose();
+        }
     }
 }
