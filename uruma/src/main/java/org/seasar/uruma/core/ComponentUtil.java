@@ -97,8 +97,7 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
             return workbenchActionComponent;
         } else {
             logger.log(WORKBENCH_ACTION_CLASS_NOT_FOUND, id,
-                    actionComponentName, workbenchActionComponent.getClass()
-                            .getName());
+                    actionComponentName);
             return null;
         }
     }
@@ -133,8 +132,7 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
 
             return partActionComponent;
         } else {
-            logger.log(PART_ACTION_CLASS_NOT_FOUND, id, actionComponentName,
-                    partActionComponent.getClass().getName());
+            logger.log(PART_ACTION_CLASS_NOT_FOUND, id, actionComponentName);
             return null;
         }
     }
