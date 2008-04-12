@@ -359,6 +359,7 @@
   <!-- Reporting Settings -->
   <reporting>
     <plugins>
+  <!-- 
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
@@ -416,7 +417,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
       </plugin>
-
+-->
       <!-- 
         <plugin>
         <groupId>org.codehaus.mojo</groupId>
