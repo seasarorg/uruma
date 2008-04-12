@@ -365,7 +365,11 @@ public class UrumaErrorDialog extends IconAndMessageDialog implements
             if (parentElement instanceof String) {
                 return new Object[] { rootThrowable };
             } else if (parentElement == rootThrowable) {
-                return causes.toArray();
+                if (causes.size() > 0) {
+                    return causes.toArray();
+                } else {
+                    return rootThrowable.getStackTrace();
+                }
             } else if (parentElement instanceof Throwable) {
                 return ((Throwable) parentElement).getStackTrace();
             } else {
