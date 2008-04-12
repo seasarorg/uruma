@@ -806,6 +806,15 @@ public interface UrumaMessageCodes {
      */
     public static final String COMPONENT_REGISTERED = "DURM0519";
 
+    /**
+     * Uruma アプリケーションが見つからない場合のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APP_NOT_FOUND = "EURM0520";
+
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)
     // -------------------------------------------------------------------------

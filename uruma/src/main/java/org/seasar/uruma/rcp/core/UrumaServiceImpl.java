@@ -119,7 +119,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         logger.log(URUMA_SERVICE_INIT_START, targetBundle.getSymbolicName());
 
         ClassLoader loader = activateUrumaApplication(targetBundle);
-        ;
+
         if (loader != null) {
             this.appClassLoader = loader;
         }

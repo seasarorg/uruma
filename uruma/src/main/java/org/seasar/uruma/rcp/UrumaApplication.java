@@ -42,10 +42,11 @@ public class UrumaApplication implements IApplication, UrumaMessageCodes {
     public Object start(final IApplicationContext context) throws Exception {
         logger.log(URUMA_APPLICATION_STARTING);
 
-        UrumaServiceUtil.getService().switchToAppClassLoader();
-
-        Display display = PlatformUI.createDisplay();
+        Display display = null;
         try {
+            UrumaServiceUtil.getService().switchToAppClassLoader();
+
+            display = PlatformUI.createDisplay();
             int returnCode = PlatformUI.createAndRunWorkbench(display,
                     new UrumaWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART) {
@@ -54,13 +55,16 @@ public class UrumaApplication implements IApplication, UrumaMessageCodes {
                 return IApplication.EXIT_OK;
             }
         } catch (Throwable ex) {
+            if (display == null) {
+                display = new Display();
+            }
             Shell shell = new Shell(display);
             UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
                     "Uruma 実行中に例外が発生しました.", ex);
             dialog.open();
             shell.dispose();
         } finally {
-            if (!display.isDisposed()) {
+            if ((display != null) && !display.isDisposed()) {
                 display.dispose();
             }
         }
