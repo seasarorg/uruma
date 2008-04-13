@@ -25,6 +25,7 @@ import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.renderer.Renderer;
+import org.seasar.uruma.renderer.RendererExtender;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -129,6 +130,8 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
         }
 
         doRender(parent, context);
+
+        RendererExtender.doExtRender(this, handle, context);
 
         getRenderer().renderAfter(handle, this, parent, context);
 
