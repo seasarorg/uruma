@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry exported="true" kind="lib" path="target/main-classes" sourcepath="target/main-classes"/>
 	<classpathentry exported="true" kind="lib" path="lib/rome-0.9.jar" sourcepath="org.seasar.uruma.exampl.rsssrc.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/rome-fetcher-0.9.jar" sourcepath="org.seasar.uruma.exampl.rsssrc.zip"/>
