@@ -10,3 +10,4 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ClassPath: bin/
 Bundle-Activator: org.seasar.uruma.rcp.UrumaAppActivator
 Bundle-Vendor: Seasarファウンデーション
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

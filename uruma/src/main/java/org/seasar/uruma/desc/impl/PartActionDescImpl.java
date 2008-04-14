@@ -140,6 +140,20 @@ public class PartActionDescImpl implements PartActionDesc, UrumaMessageCodes {
         return Collections.unmodifiableList(appContextDefs);
     }
 
+    /*
+     * @see org.seasar.uruma.desc.PartActionDesc#getBeanDesc()
+     */
+    public BeanDesc getBeanDesc() {
+        return this.beanDesc;
+    }
+
+    /*
+     * @see org.seasar.uruma.desc.PartActionDesc#getPartActionClass()
+     */
+    public Class<?> getPartActionClass() {
+        return this.partActionClass;
+    }
+
     protected void setupMethods() {
         Map<String, List<Method>> methodListMap = new HashMap<String, List<Method>>();
         Method[] methods = partActionClass.getMethods();

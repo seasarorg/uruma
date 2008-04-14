@@ -124,6 +124,13 @@ public interface UrumaService {
     public ClassLoader getAppClassLoader();
 
     /**
+     * Urumaバンドルのクラスローダを返します。<br />
+     * 
+     * @return Urumaバンドルのクラスローダ
+     */
+    public ClassLoader getUrumaClassLoader();
+
+    /**
      * コンテクストクラスローダを Uruma アプリケーションのクラスローダに切り替えます。<br />
      */
     public void switchToAppClassLoader();

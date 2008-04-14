@@ -4,6 +4,9 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/test/resources"/>
+	<classpathentry exported="true" kind="lib" path="lib/s2-extension-2.4.25-20080401.092235-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/s2-framework-2.4.25-20080406.021756-5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/s2-tiger-2.4.25-20080401.093027-1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/aopalliance-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/eclipse-equinox-registry-nl1-3.2.1.jar">
@@ -127,8 +130,5 @@
 	<classpathentry exported="true" kind="lib" path="lib/nlink-20080126.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit-addons-1.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/core-expressions-3.3.1.1.jar" sourcepath="lib/core-expressions-source-3.3.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/s2-extension-2.4.23.jar" sourcepath="lib/s2-extension-2.4.23-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/s2-framework-2.4.23.jar" sourcepath="lib/s2-framework-2.4.23-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/s2-tiger-2.4.23.jar" sourcepath="lib/s2-tiger-2.4.23-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -129,6 +129,13 @@ public class FormDescImpl implements FormDesc {
     }
 
     /*
+     * @see org.seasar.uruma.desc.FormDesc#getFormClass()
+     */
+    public Class<?> getFormClass() {
+        return this.formClass;
+    }
+
+    /*
      * @see org.seasar.uruma.desc.FormDesc#getExportSelectionProperties()
      */
     public List<PropertyDesc> getExportSelectionProperties() {

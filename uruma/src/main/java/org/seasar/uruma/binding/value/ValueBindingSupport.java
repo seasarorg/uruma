@@ -26,7 +26,6 @@ import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.desc.FormDesc;
-import org.seasar.uruma.desc.FormDescFactory;
 import org.seasar.uruma.exception.BindingException;
 
 /**
@@ -86,13 +85,13 @@ public class ValueBindingSupport {
     private static void dealFields(final PartContext context,
             final BindingCommand command) {
         Object form = context.getFormObject();
-        if (form == null) {
+        FormDesc formDesc = context.getFormDesc();
+        if (form == null || formDesc == null) {
             return;
         }
 
-        FormDesc desc = FormDescFactory.getFormDesc(form.getClass());
         List<PropertyDesc> targetProperties = command
-                .getTargetPropertyDescs(desc);
+                .getTargetPropertyDescs(formDesc);
         for (PropertyDesc pd : targetProperties) {
             String id = command.getId(pd.getField());
 

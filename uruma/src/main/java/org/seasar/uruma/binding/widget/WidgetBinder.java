@@ -19,7 +19,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Control;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
-import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 
@@ -54,7 +53,7 @@ public class WidgetBinder {
      */
     public static void bindWidgets(final Object target,
             final PartContext context) {
-        BeanDesc beanDesc = BeanDescFactory.getBeanDesc(target.getClass());
+        BeanDesc beanDesc = context.getPartActionDesc().getBeanDesc();
 
         int pdSize = beanDesc.getPropertyDescSize();
         for (int i = 0; i < pdSize; i++) {

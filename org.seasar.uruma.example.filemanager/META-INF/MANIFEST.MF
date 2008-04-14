@@ -8,5 +8,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.seasar.uruma
 Eclipse-LazyStart: true
-Bundle-ClassPath: bin/
+Bundle-ClassPath: bin/,
+ .
 Bundle-Vendor: Seasarファウンデーション

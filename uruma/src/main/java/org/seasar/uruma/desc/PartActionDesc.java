@@ -18,6 +18,7 @@ package org.seasar.uruma.desc;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.seasar.framework.beans.BeanDesc;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.annotation.PostOpenMethod;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
@@ -73,4 +74,18 @@ public interface PartActionDesc {
      * @return {@link ApplicationContextDef} のリスト
      */
     public List<ApplicationContextDef> getApplicationContextDefList();
+
+    /**
+     * {@link Class} オブジェクトを取得します<br />
+     * 
+     * @return {@link Class}
+     */
+    public Class<?> getPartActionClass();
+
+    /**
+     * {@link BeanDesc}を取得します<br />
+     * 
+     * @return {@link BeanDesc}
+     */
+    public BeanDesc getBeanDesc();
 }

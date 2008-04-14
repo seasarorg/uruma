@@ -70,6 +70,27 @@ public class RcpResourceUtil {
     }
 
     /**
+     * 指定されたパスにおけるリソースのローカルシステム上の {@link URL} を返します。<br />
+     * 
+     * @param path
+     *            リソースのパス
+     * @return ローカルシステム上の {@link URL} <br />
+     *         リソースが存在しない場合は、NULLを返却。
+     * @throws IOException
+     *             パスの変換に失敗した場合
+     * @see FileLocator#resolve(URL)
+     */
+    public static URL getLocalResourceUrlNoException(final String path) {
+        URL url = ResourceUtil.getClassLoader().getResource(path);
+        URL fileLocatorUrl = null;
+        try {
+            fileLocatorUrl = FileLocator.resolve(url);
+        } catch (Exception ignore) {
+        }
+        return fileLocatorUrl;
+    }
+
+    /**
      * 指定されたパスを起点として、ファイルシステムからリソースを再帰的に検索して返します。<br />
      * 
      * @param baseDir

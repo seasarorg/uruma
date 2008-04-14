@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <viewPart title="デバッグ コントリビュート">
+  
+	<composite>
+	    <gridLayout numColumns="1" />
+        
+        <text id="debugContributionText" style="MULTI, H_SCROLL, V_SCROLL">    
+	    	<gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+	   		     grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
+	    </text>
+    </composite>
+  </viewPart>
+</template>

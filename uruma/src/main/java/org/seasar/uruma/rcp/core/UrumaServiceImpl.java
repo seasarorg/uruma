@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.rcp.core;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,13 +27,14 @@ import org.eclipse.core.runtime.IContributor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
-import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.env.Env;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.util.ResourceUtil;
 import org.seasar.framework.util.StringUtil;
+import org.seasar.framework.util.URLUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.jface.TemplateImpl;
@@ -49,10 +51,10 @@ import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.UrumaAppInitException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
-import org.seasar.uruma.rcp.autoregister.UrumaAppAutoRegisterBuilder;
 import org.seasar.uruma.rcp.binding.CommandRegistry;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
+import org.seasar.uruma.rcp.util.RcpResourceUtil;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -221,13 +223,31 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      */
     protected void initS2Container() throws ClassNotFoundException {
         switchToUrumaClassLoader();
+
+        // S2ContainerFactoryのConfiguretionを初期化。
+        S2ContainerFactory.destroy();
+
+        // UrumaPluginのS2Containerを作成。
         S2Container urumaContainer = S2ContainerFactory
                 .create(UrumaConstants.URUMA_RCP_DICON_PATH);
+
         switchToAppClassLoader();
 
         String configPath = SingletonS2ContainerFactory.getConfigPath();
 
+        // UrumaAppPluginのenv.txt読み込み
+        URL url = RcpResourceUtil
+                .getLocalResourceUrlNoException(Env.DEFAULT_FILE_PATH);
+        if (url != null) {
+            try {
+                Env.setFile(URLUtil.toFile(url));
+            } catch (FileNotFoundException ignore) {
+            }
+        }
+
+        // UrumaAppPluginのS2Containerを作成。
         try {
+            S2ContainerFactory.configure();
             ResourceUtil.getResource(configPath);
             container = S2ContainerFactory.create(configPath);
         } catch (ResourceNotFoundRuntimeException ex) {
@@ -236,9 +256,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         }
 
         container.include(urumaContainer);
-        registAutoRegister(container);
-
         container.init();
+
         SingletonS2ContainerFactory.setContainer(container);
 
         ComponentUtil.setS2Container(container);
@@ -253,16 +272,6 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
                 .getComponent(ApplicationContext.class);
 
         container.register(this, UrumaConstants.URUMA_SERVICE_S2NAME);
-    }
-
-    protected void registAutoRegister(final S2Container container)
-            throws ClassNotFoundException {
-        String refClassName = findFirstClassName(targetBundle);
-        if (refClassName != null) {
-            ComponentDef def = UrumaAppAutoRegisterBuilder.build(refClassName,
-                    getPluginId());
-            container.register(def);
-        }
     }
 
     protected void switchClassLoader(final ClassLoader loader) {
@@ -405,6 +414,13 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      */
     public ClassLoader getAppClassLoader() {
         return this.appClassLoader;
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#getUrumaClassLoader()
+     */
+    public ClassLoader getUrumaClassLoader() {
+        return this.urumaClassLoader;
     }
 
     /*

@@ -23,7 +23,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
-import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.Form;
@@ -31,6 +31,8 @@ import org.seasar.uruma.binding.context.ApplicationContextBinder;
 import org.seasar.uruma.binding.widget.WidgetBinder;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.desc.FormDesc;
+import org.seasar.uruma.desc.FormDescFactory;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.exception.RenderException;
@@ -80,6 +82,9 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
         String actionComponentName = StringUtil.decapitalize(id)
                 + PART_ACTION_SUFFIX;
 
+        ComponentDef cd = S2ContainerUtil
+                .getComponentDefNoException(actionComponentName);
+
         Object workbenchActionComponent = S2ContainerUtil
                 .getComponentNoException(actionComponentName, defaultContainer);
         if (workbenchActionComponent != null) {
@@ -87,8 +92,8 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
                     defaultContainer);
 
             context.setWorkbenchActionObject(workbenchActionComponent);
-            PartActionDesc desc = PartActionDescFactory
-                    .getPartActionDesc(workbenchActionComponent.getClass());
+            PartActionDesc desc = PartActionDescFactory.getPartActionDesc(cd
+                    .getComponentClass());
             context.setPartActionDesc(desc);
 
             logger.log(WORKBENCH_ACTION_CLASS_FOUND, id, actionComponentName,
@@ -117,14 +122,17 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
         String actionComponentName = StringUtil.decapitalize(id)
                 + PART_ACTION_SUFFIX;
 
+        ComponentDef cd = S2ContainerUtil
+                .getComponentDefNoException(actionComponentName);
+
         Object partActionComponent = S2ContainerUtil.getComponentNoException(
                 actionComponentName, defaultContainer);
         S2ContainerUtil.injectDependency(partActionComponent, defaultContainer);
 
         if (partActionComponent != null) {
             context.setPartActionObject(partActionComponent);
-            PartActionDesc desc = PartActionDescFactory
-                    .getPartActionDesc(partActionComponent.getClass());
+            PartActionDesc desc = PartActionDescFactory.getPartActionDesc(cd
+                    .getComponentClass());
             context.setPartActionDesc(desc);
 
             logger.log(PART_ACTION_CLASS_FOUND, id, actionComponentName,
@@ -151,18 +159,21 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
     public static Object setupFormComponent(final PartContext context,
             final String id) {
         Object formObject = null;
+        FormDesc formDesc = null;
         Object actionObject = context.getPartActionObject();
         if (actionObject != null) {
-            Form formAnnotation = actionObject.getClass().getAnnotation(
-                    Form.class);
+            Form formAnnotation = context.getPartActionDesc()
+                    .getPartActionClass().getAnnotation(Form.class);
             if (formAnnotation != null) {
                 Class<?> formClass = formAnnotation.value();
-                if (formClass == actionObject.getClass()) {
+                if (formClass == context.getPartActionDesc()
+                        .getPartActionClass()) {
                     formObject = actionObject;
                 } else {
                     formObject = S2ContainerUtil.getComponent(formClass,
                             defaultContainer);
                 }
+                formDesc = FormDescFactory.getFormDesc(formClass);
             }
         }
 
@@ -171,11 +182,18 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
                     + FORM_SUFFIX;
             formObject = S2ContainerUtil.getComponentNoException(
                     formComponentName, defaultContainer);
+
+            if (formObject != null) {
+                ComponentDef cd = S2ContainerUtil
+                        .getComponentDef(formComponentName);
+                formDesc = FormDescFactory.getFormDesc(cd.getComponentClass());
+            }
         }
 
-        if (formObject != null) {
+        if (formObject != null && formDesc != null) {
             logger.log(FORM_CLASS_FOUND, id, formObject.getClass().getName());
 
+            context.setFormDesc(formDesc);
             context.setFormObject(formObject);
             injectFormToAction(context);
             return formObject;
@@ -194,8 +212,7 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
         Object formObject = context.getFormObject();
 
         String formObjectName = formObject.getClass().getSimpleName();
-        BeanDesc beanDesc = BeanDescFactory.getBeanDesc(partActionObject
-                .getClass());
+        BeanDesc beanDesc = context.getPartActionDesc().getBeanDesc();
         if (beanDesc.hasPropertyDesc(formObjectName)) {
             PropertyDesc pd = beanDesc.getPropertyDesc(formObjectName);
             pd.setValue(partActionObject, formObject);
@@ -374,11 +391,8 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
     public static void invokeInitMethodOnAction(final WindowContext context) {
         Object workbenchActionObject = context.getWorkbenchActionObject();
         if (workbenchActionObject != null) {
-            // WidgetBinder.bindWidgets(workbenchActionObject, context);
-
             // ApplicationContext からのインポート処理
-            PartActionDesc desc = PartActionDescFactory
-                    .getPartActionDesc(workbenchActionObject.getClass());
+            PartActionDesc desc = context.getPartActionDesc();
             ApplicationContextBinder.importObjects(workbenchActionObject, desc
                     .getApplicationContextDefList(), context
                     .getApplicationContext());
@@ -401,8 +415,7 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
             WidgetBinder.bindWidgets(partAction, context);
 
             // ApplicationContext からのインポート処理
-            PartActionDesc desc = PartActionDescFactory
-                    .getPartActionDesc(partAction.getClass());
+            PartActionDesc desc = context.getPartActionDesc();
             ApplicationContextBinder.importObjects(partAction, desc
                     .getApplicationContextDefList(), context.getWindowContext()
                     .getApplicationContext());
@@ -425,8 +438,7 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
             WidgetBinder.bindWidgets(partAction, context);
 
             // ApplicationContext からのインポート処理
-            PartActionDesc desc = PartActionDescFactory
-                    .getPartActionDesc(partAction.getClass());
+            PartActionDesc desc = context.getPartActionDesc();
             ApplicationContextBinder.importObjects(partAction, desc
                     .getApplicationContextDefList(), context.getWindowContext()
                     .getApplicationContext());

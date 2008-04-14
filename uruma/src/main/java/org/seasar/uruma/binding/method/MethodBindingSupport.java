@@ -24,7 +24,6 @@ import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.desc.PartActionDesc;
-import org.seasar.uruma.desc.PartActionDescFactory;
 import org.seasar.uruma.exception.UnsupportedClassException;
 import org.seasar.uruma.exception.WidgetNotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
@@ -72,8 +71,7 @@ public class MethodBindingSupport implements UrumaMessageCodes {
     public static void createListeners(final PartContext context) {
         Object actionObj = context.getPartActionObject();
         if (actionObj != null) {
-            PartActionDesc actionDesc = PartActionDescFactory
-                    .getPartActionDesc(actionObj.getClass());
+            PartActionDesc actionDesc = context.getPartActionDesc();
 
             List<EventListenerDef> eDefList = actionDesc
                     .getEventListenerDefList();

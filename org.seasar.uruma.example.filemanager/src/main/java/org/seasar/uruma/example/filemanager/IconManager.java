@@ -60,11 +60,16 @@ public class IconManager {
 	}
 
 	public static Image getFolderIcon() {
-		return getIconImage(
-				"winFolder",
-				RegistryUtil.HKEY_LOCAL_MACHINE,
-				"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons",
-				"3");
+		Image img = null;
+		try {
+			img = getIconImage(
+					"winFolder",
+					RegistryUtil.HKEY_LOCAL_MACHINE,
+					"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons",
+					"3");
+		} catch (Exception e) {
+		}
+		return img;
 	}
 
 	private static Image getIconImage(final String iconKey, final int hKey,

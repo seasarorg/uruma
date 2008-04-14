@@ -57,4 +57,11 @@ public interface FormDesc {
      * @return {@link PropertyDesc} のリスト
      */
     public List<PropertyDesc> getExportSelectionProperties();
+
+    /**
+     * {@link Class} オブジェクトを取得します<br />
+     * 
+     * @return {@link Class}
+     */
+    public Class<?> getFormClass();
 }

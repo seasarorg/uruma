@@ -102,6 +102,42 @@ public class S2ContainerUtil {
 
     /**
      * 指定された名前に対応するコンポーネントを {@link S2Container} から取得して返します。<br />
+     * コンポーネントが存在しない場合は例外をスローせず、 <code>null</code> を返します。
+     * 
+     * @param componentName
+     *            コンポーネント名称
+     * @return コンポーネントオブジェクト
+     */
+    public static ComponentDef getComponentDefNoException(
+            final String componentName) {
+        S2Container container = SingletonS2ContainerFactory.getContainer();
+        if (container.hasComponentDef(componentName)) {
+            return container.getComponentDef(componentName);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 指定されたクラスに対応するコンポーネントを {@link S2Container} から取得して返します。<br />
+     * コンポーネントが存在しない場合は例外をスローせず、 <code>null</code> を返します。
+     * 
+     * @param componentClass
+     *            コンポーネントクラス
+     * @return コンポーネントオブジェクト
+     */
+    public static ComponentDef getComponentNoExceptionDef(
+            final Class<?> componentClass) {
+        S2Container container = SingletonS2ContainerFactory.getContainer();
+        if (container.hasComponentDef(componentClass)) {
+            return container.getComponentDef(componentClass);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 指定された名前に対応するコンポーネントを {@link S2Container} から取得して返します。<br />
      * 
      * @param componentName
      *            コンポーネント名称

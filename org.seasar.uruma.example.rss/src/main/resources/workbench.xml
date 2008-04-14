@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <workbench title="Uruma - RSS Reader" initWidth="1024"
+  <workbench title="Uruma - RSS Reader" initWidth="1024" initialPerspectiveId="defaultPerspective"
     initHeight="800" image="uruma" statusLine="true">
     
-    <perspective>
+    <perspective id="defaultPerspective" name="RSS" fixed="false" icon="uruma">
       <part ref="feedTreeView" ratio="30" position="LEFT"/>
       <part ref="feedListView" ratio="70"  position="TOP"/>
       <part ref="feedBrowserView" ratio="50"  position="BOTTOM"/>
     </perspective>
     
+    <perspective id="debugPerspective" name="Debug" fixed="false" icon="uruma">
+      <part ref="debugTreeView" ratio="20" position="LEFT"/>
+      <part ref="debugContributionView" ratio="20" position="TOP"/>
+      <part ref="debugBrowserView" ratio="20" position="RIGHT"/>
+    </perspective>
   </workbench>
 </template>
