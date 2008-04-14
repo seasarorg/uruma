@@ -21,6 +21,7 @@ import java.util.Date;
 import org.eclipse.swt.graphics.Image;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.example.filemanager.IconManager;
+import org.seasar.uruma.util.MessageUtil;
 import org.seasar.uruma.util.win32.Win32API;
 
 /**
@@ -30,36 +31,36 @@ import org.seasar.uruma.util.win32.Win32API;
  */
 public class FileDetailTableLabelProvider {
 
-	public String getFileNameText(final File file) {
-		return file.getName();
-	}
+    public String getFileNameText(final File file) {
+        return file.getName();
+    }
 
-	public String getFileSizeText(final File file) {
-		if (file.isFile()) {
-			return String.format("%,d", file.length());
-		} else {
-			return UrumaConstants.NULL_STRING;
-		}
-	}
+    public String getFileSizeText(final File file) {
+        if (file.isFile()) {
+            return String.format("%,d", file.length());
+        } else {
+            return UrumaConstants.NULL_STRING;
+        }
+    }
 
-	public String getFileTypeText(final File file) {
-		if (file.isFile()) {
-			return Win32API.getFileTypeName(file.getAbsolutePath());
-		} else {
-			return "ファイル フォルダ";
-		}
-	}
+    public String getFileTypeText(final File file) {
+        if (file.isFile()) {
+            return Win32API.getFileTypeName(file.getAbsolutePath());
+        } else {
+            return MessageUtil.getMessage("FILE_FOLDER");
+        }
+    }
 
-	public String getFileUpdateTimeText(final File file) {
-		return String.format("%tY/%<tm/%<td(%<ta) %<tk:%<tM:%<tS", new Date(
-				file.lastModified()));
-	}
+    public String getFileUpdateTimeText(final File file) {
+        return String.format("%tY/%<tm/%<td(%<ta) %<tk:%<tM:%<tS", new Date(
+                file.lastModified()));
+    }
 
-	public Image getFileNameImage(final File file) {
-		if (file.isDirectory()) {
-			return IconManager.getFolderIcon();
-		} else {
-			return IconManager.getExtIcon(file.getAbsolutePath());
-		}
-	}
+    public Image getFileNameImage(final File file) {
+        if (file.isDirectory()) {
+            return IconManager.getFolderIcon();
+        } else {
+            return IconManager.getExtIcon(file.getAbsolutePath());
+        }
+    }
 }

@@ -31,23 +31,23 @@ import org.seasar.uruma.example.filemanager.Constants;
  */
 @Form(FolderViewAction.class)
 public class FolderViewAction implements Constants {
-	@ExportValue(id = "folderTree")
-	public File root = new File(ROOT_PATH);
+    @ExportValue(id = "folderTree")
+    public File root = new File(ROOT_PATH);
 
-	@ExportSelection(id = "folderTree")
-	public File selection = root;
+    @ExportSelection(id = "folderTree")
+    public File selection = root;
 
-	/**
-	 * ファイルビューでファイルが選択されたときに呼び出されるメソッドです。<br />
-	 * 
-	 * @param selectedFile
-	 *            選択されている {@link File} オブジェクト
-	 */
-	@EventListener(id = "fileDetailTable", type = EventListenerType.MOUSE_DOUBLE_CLICK)
-	public void fileSelected(final File selectedFile) {
-		if (selectedFile.isDirectory()) {
-			// フォルダが選択されたらツリー側も対応するフォルダを選択状態にする
-			this.selection = selectedFile;
-		}
-	}
+    /**
+     * ファイルビューでファイルが選択されたときに呼び出されるメソッドです。<br />
+     * 
+     * @param selectedFile
+     *            選択されている {@link File} オブジェクト
+     */
+    @EventListener(id = "fileDetailTable", type = EventListenerType.MOUSE_DOUBLE_CLICK)
+    public void fileSelected(final File selectedFile) {
+        if (selectedFile.isDirectory()) {
+            // フォルダが選択されたらツリー側も対応するフォルダを選択状態にする
+            this.selection = selectedFile;
+        }
+    }
 }

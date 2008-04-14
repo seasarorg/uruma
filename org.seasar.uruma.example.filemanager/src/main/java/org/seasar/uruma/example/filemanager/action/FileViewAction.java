@@ -38,122 +38,122 @@ import org.seasar.uruma.util.PathUtil;
  */
 @Form(FileViewAction.class)
 public class FileViewAction implements Constants {
-	@ExportValue(id = "fileDetailTable")
-	public List<File> fileList = new ArrayList<File>();
+    @ExportValue(id = "fileDetailTable")
+    public List<File> fileList = new ArrayList<File>();
 
-	@ImportSelection(id = "fileDetailTable")
-	public List<File> selectedFile;
+    @ImportSelection(id = "fileDetailTable")
+    public List<File> selectedFile;
 
-	private File selectedFolder;
+    private File selectedFolder;
 
-	@ImportExportValue
-	public String statusLineManager;
+    @ImportExportValue
+    public String statusLineManager;
 
-	/**
-	 * フォルダツリーのノードが選択されたときに呼び出されるメソッドです。<br />
-	 * 
-	 * @param selectedFolder
-	 *            選択されたノードに対応する {@link File} オブジェクト
-	 */
-	@EventListener(id = "folderTree")
-	public void onFolderSelected(final File selectedFolder) {
-		this.selectedFolder = selectedFolder;
-		if (selectedFolder != null) {
-			listFiles(selectedFolder);
-		}
-	}
+    /**
+     * フォルダツリーのノードが選択されたときに呼び出されるメソッドです。<br />
+     * 
+     * @param selectedFolder
+     *            選択されたノードに対応する {@link File} オブジェクト
+     */
+    @EventListener(id = "folderTree")
+    public void onFolderSelected(final File selectedFolder) {
+        this.selectedFolder = selectedFolder;
+        if (selectedFolder != null) {
+            listFiles(selectedFolder);
+        }
+    }
 
-	/**
-	 * ファイルビューでファイルをダブルクリックしたときに呼び出されるメソッドです。<br />
-	 */
-	@EventListener(id = "fileDetailTable", type = EventListenerType.MOUSE_DOUBLE_CLICK)
-	public void onDoubleClick() {
-		if (selectedFile.size() == 1) {
-			File file = selectedFile.get(0);
+    /**
+     * ファイルビューでファイルをダブルクリックしたときに呼び出されるメソッドです。<br />
+     */
+    @EventListener(id = "fileDetailTable", type = EventListenerType.MOUSE_DOUBLE_CLICK)
+    public void onDoubleClick() {
+        if (selectedFile.size() == 1) {
+            File file = selectedFile.get(0);
 
-			if (file.isDirectory()) {
-				// フォルダがダブルクリックされた時はフォルダを開く
-				listFiles(file);
-			} else {
-				// ファイルの場合はファイルを開く
-				openFile();
-			}
-		}
-	}
+            if (file.isDirectory()) {
+                // フォルダがダブルクリックされた時はフォルダを開く
+                listFiles(file);
+            } else {
+                // ファイルの場合はファイルを開く
+                openFile();
+            }
+        }
+    }
 
-	/**
-	 * ファイルビューでファイルが選択されたときに呼び出されるメソッドです。<br />
-	 */
-	@EventListener(id = "fileDetailTable")
-	public void onSelected() {
-		// ステータスラインに選択しているファイルの数を表示
-		if (selectedFile.size() > 0) {
-			statusLineManager = MessageUtil.getMessage("SELECTED", selectedFile
-					.size());
-		}
-	}
+    /**
+     * ファイルビューでファイルが選択されたときに呼び出されるメソッドです。<br />
+     */
+    @EventListener(id = "fileDetailTable")
+    public void onSelected() {
+        // ステータスラインに選択しているファイルの数を表示
+        if (selectedFile.size() > 0) {
+            statusLineManager = MessageUtil.getMessage("SELECTED", selectedFile
+                    .size());
+        }
+    }
 
-	private void refresh() {
-		if (selectedFolder != null) {
-			listFiles(selectedFolder);
-		}
-	}
+    private void refresh() {
+        if (selectedFolder != null) {
+            listFiles(selectedFolder);
+        }
+    }
 
-	private void listFiles(final File parent) {
-		fileList.clear();
-		if (!parent.getPath().equals(MY_COMPUTER_PATH)) {
-			File[] children = parent.listFiles();
-			if (children != null) {
-				for (File file : children) {
-					fileList.add(file);
-				}
-			}
-		}
-	}
+    private void listFiles(final File parent) {
+        fileList.clear();
+        if (!parent.getPath().equals(MY_COMPUTER_PATH)) {
+            File[] children = parent.listFiles();
+            if (children != null) {
+                for (File file : children) {
+                    fileList.add(file);
+                }
+            }
+        }
+    }
 
-	/**
-	 * 選択されているファイルを開きます。<br />
-	 */
-	@EventListener(id = "fileOpen")
-	public void openFile() {
-		File file = selectedFile.get(0);
-		if (file.isFile()) {
-			Program program = Program.findProgram(PathUtil.getExt(file
-					.getName()));
-			if (program != null) {
-				Program.launch(file.getAbsolutePath());
-			}
-		}
-	}
+    /**
+     * 選択されているファイルを開きます。<br />
+     */
+    @EventListener(id = "fileOpen")
+    public void openFile() {
+        File file = selectedFile.get(0);
+        if (file.isFile()) {
+            Program program = Program.findProgram(PathUtil.getExt(file
+                    .getName()));
+            if (program != null) {
+                Program.launch(file.getAbsolutePath());
+            }
+        }
+    }
 
-	/**
-	 * 選択されているファイルの名前を変更します。<br />
-	 */
-	@EventListener(id = "fileRename")
-	public void renameFile() {
-		File oldFile = selectedFile.get(0);
-		String newName = UrumaMessageDialog.openInput("RENAME", oldFile
-				.getName());
-		if (newName != null) {
-			File newFile = new File(oldFile.getParent() + File.separator
-					+ newName);
+    /**
+     * 選択されているファイルの名前を変更します。<br />
+     */
+    @EventListener(id = "fileRename")
+    public void renameFile() {
+        File oldFile = selectedFile.get(0);
+        String newName = UrumaMessageDialog.openInput("RENAME", oldFile
+                .getName());
+        if (newName != null) {
+            File newFile = new File(oldFile.getParent() + File.separator
+                    + newName);
 
-			oldFile.renameTo(newFile);
+            oldFile.renameTo(newFile);
 
-			refresh();
-		}
-	}
+            refresh();
+        }
+    }
 
-	/**
-	 * 選択されているファイルを削除します。<br />
-	 */
-	@EventListener(id = "fileDelete")
-	public void deleteFile() {
-		if (UrumaMessageDialog.openConfirm("DELETE")) {
-			for (File file : selectedFile) {
-				file.delete();
-				fileList.remove(file);
-			}
-		}
-	}
+    /**
+     * 選択されているファイルを削除します。<br />
+     */
+    @EventListener(id = "fileDelete")
+    public void deleteFile() {
+        if (UrumaMessageDialog.openConfirm("DELETE")) {
+            for (File file : selectedFile) {
+                file.delete();
+                fileList.remove(file);
+            }
+        }
+    }
 }

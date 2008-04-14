@@ -29,44 +29,44 @@ import org.seasar.uruma.viewer.GenericTableViewerComparator;
  */
 public class FileDetailTableSorterProvider extends GenericTableViewerComparator {
 
-	@Override
-	public int category(final Object element) {
-		if (((File) element).isDirectory()) {
-			return 0;
-		} else {
-			return 1;
-		}
-	}
+    @Override
+    public int category(final Object element) {
+        if (((File) element).isDirectory()) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 
-	@Override
-	protected int doCompare(final TableViewer viewer, final Object e1,
-			final Object e2, final int sortColumn) {
-		File f1 = (File) e1;
-		File f2 = (File) e2;
+    @Override
+    protected int doCompare(final TableViewer viewer, final Object e1,
+            final Object e2, final int sortColumn) {
+        File f1 = (File) e1;
+        File f2 = (File) e2;
 
-		switch (sortColumn) {
-		case 0:
-			return f1.getName().compareToIgnoreCase(f2.getName());
+        switch (sortColumn) {
+        case 0:
+            return f1.getName().compareToIgnoreCase(f2.getName());
 
-		case 1:
-			return (int) (f1.length() - f2.length());
+        case 1:
+            return (int) (f1.length() - f2.length());
 
-		case 2:
-			String type1 = Win32API.getFileTypeName(f1.getAbsolutePath());
-			String type2 = Win32API.getFileTypeName(f2.getAbsolutePath());
-			if ((type1 != null) && (type2 != null)) {
-				return type1.compareTo(type2);
-			} else {
-				return 0;
-			}
+        case 2:
+            String type1 = Win32API.getFileTypeName(f1.getAbsolutePath());
+            String type2 = Win32API.getFileTypeName(f2.getAbsolutePath());
+            if ((type1 != null) && (type2 != null)) {
+                return type1.compareTo(type2);
+            } else {
+                return 0;
+            }
 
-		case 3:
-			Date d1 = new Date(f1.lastModified());
-			Date d2 = new Date(f2.lastModified());
-			return d1.compareTo(d2);
+        case 3:
+            Date d1 = new Date(f1.lastModified());
+            Date d2 = new Date(f2.lastModified());
+            return d1.compareTo(d2);
 
-		default:
-			return 0;
-		}
-	}
+        default:
+            return 0;
+        }
+    }
 }

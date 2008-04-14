@@ -30,34 +30,34 @@ import org.seasar.uruma.util.win32.Win32API;
  * @author y-komori
  */
 public class FolderTreeLabelProvider extends LabelProvider implements Constants {
-	@Override
-	public Image getImage(final Object element) {
-		File folder = (File) element;
-		String path = folder.getPath();
-		if (path.equals(MY_COMPUTER_PATH)) {
-			return IconManager.getMyComputerIcon();
-		} else if (path.endsWith(DRIVE_SUFFIX)) {
-			return IconManager.getDriveIcon(path);
-		} else {
-			return IconManager.getFolderIcon();
-		}
-	}
+    @Override
+    public Image getImage(final Object element) {
+        File folder = (File) element;
+        String path = folder.getPath();
+        if (path.equals(MY_COMPUTER_PATH)) {
+            return IconManager.getMyComputerIcon();
+        } else if (path.endsWith(DRIVE_SUFFIX)) {
+            return IconManager.getDriveIcon(path);
+        } else {
+            return IconManager.getFolderIcon();
+        }
+    }
 
-	@Override
-	public String getText(final Object element) {
-		File folder = (File) element;
-		if (folder.getPath().equals(MY_COMPUTER_PATH)) {
-			return getMyComputerName();
-		} else if (folder.getAbsolutePath().endsWith(DRIVE_SUFFIX)) {
-			return Win32API.getFileDisplayName(folder.getAbsolutePath());
-		} else {
-			return folder.getName();
-		}
-	}
+    @Override
+    public String getText(final Object element) {
+        File folder = (File) element;
+        if (folder.getPath().equals(MY_COMPUTER_PATH)) {
+            return getMyComputerName();
+        } else if (folder.getAbsolutePath().endsWith(DRIVE_SUFFIX)) {
+            return Win32API.getFileDisplayName(folder.getAbsolutePath());
+        } else {
+            return folder.getName();
+        }
+    }
 
-	protected String getMyComputerName() {
-		return RegistryUtil.getRegistryValue(RegistryUtil.HKEY_CURRENT_USER,
-				"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\"
-						+ "CLSID\\{20D04FE0-3AEA-1069-A2D8-08002B30309D}");
-	}
+    protected String getMyComputerName() {
+        return RegistryUtil.getRegistryValue(RegistryUtil.HKEY_CURRENT_USER,
+                "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\"
+                        + "CLSID\\{20D04FE0-3AEA-1069-A2D8-08002B30309D}");
+    }
 }

@@ -28,72 +28,72 @@ import org.seasar.uruma.util.win32.Win32API;
  * @author y-komori
  */
 public class IconManager {
-	private IconManager() {
+    private IconManager() {
 
-	}
+    }
 
-	public static Image getExtIcon(final String path) {
-		String ext = PathUtil.getExt(path);
-		Image icon = ImageManager.getImage(ext);
-		if (icon != null) {
-			return icon;
-		} else {
-			ImageData imageData = Win32API.getFileIcon(path);
-			return ImageManager.putImage(ext, imageData);
-		}
-	}
+    public static Image getExtIcon(final String path) {
+        String ext = PathUtil.getExt(path);
+        Image icon = ImageManager.getImage(ext);
+        if (icon != null) {
+            return icon;
+        } else {
+            ImageData imageData = Win32API.getFileIcon(path);
+            return ImageManager.putImage(ext, imageData);
+        }
+    }
 
-	public static Image getDriveIcon(final String rootPath) {
-		Image icon = ImageManager.getImage(rootPath);
-		if (icon != null) {
-			return icon;
-		} else {
-			ImageData imageData = Win32API.getFileIcon(rootPath);
-			return ImageManager.putImage(rootPath, imageData);
-		}
-	}
+    public static Image getDriveIcon(final String rootPath) {
+        Image icon = ImageManager.getImage(rootPath);
+        if (icon != null) {
+            return icon;
+        } else {
+            ImageData imageData = Win32API.getFileIcon(rootPath);
+            return ImageManager.putImage(rootPath, imageData);
+        }
+    }
 
-	public static Image getMyComputerIcon() {
-		return getIconImage("myComputer", RegistryUtil.HKEY_CLASSES_ROOT,
-				"CLSID\\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\\DefaultIcon",
-				"");
-	}
+    public static Image getMyComputerIcon() {
+        return getIconImage("myComputer", RegistryUtil.HKEY_CLASSES_ROOT,
+                "CLSID\\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\\DefaultIcon",
+                "");
+    }
 
-	public static Image getFolderIcon() {
-		Image img = null;
-		try {
-			img = getIconImage(
-					"winFolder",
-					RegistryUtil.HKEY_LOCAL_MACHINE,
-					"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons",
-					"3");
-		} catch (Exception e) {
-		}
-		return img;
-	}
+    public static Image getFolderIcon() {
+        Image img = null;
+        try {
+            img = getIconImage(
+                    "winFolder",
+                    RegistryUtil.HKEY_LOCAL_MACHINE,
+                    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons",
+                    "3");
+        } catch (Exception e) {
+        }
+        return img;
+    }
 
-	private static Image getIconImage(final String iconKey, final int hKey,
-			final String entry, final String key) {
-		Image icon = ImageManager.getImage(iconKey);
-		if (icon != null) {
-			return icon;
-		} else {
-			ImageData imageData = getIconFromRegistry(hKey, entry, key);
-			return ImageManager.putImage(iconKey, imageData);
-		}
-	}
+    private static Image getIconImage(final String iconKey, final int hKey,
+            final String entry, final String key) {
+        Image icon = ImageManager.getImage(iconKey);
+        if (icon != null) {
+            return icon;
+        } else {
+            ImageData imageData = getIconFromRegistry(hKey, entry, key);
+            return ImageManager.putImage(iconKey, imageData);
+        }
+    }
 
-	private static ImageData getIconFromRegistry(final int hKey,
-			final String entry, final String key) {
-		String iconPath = RegistryUtil.getRegistryValue(hKey, entry, key);
-		int pos = iconPath.indexOf(",");
-		int index = -1;
-		if (pos > -1) {
-			index = Integer.parseInt(iconPath.substring(pos + 1));
-			iconPath = iconPath.substring(0, pos);
-		}
-		iconPath = Win32API.expandEnvironmentStrings(iconPath);
-		return Win32API.extractIcon(iconPath, index);
-	}
+    private static ImageData getIconFromRegistry(final int hKey,
+            final String entry, final String key) {
+        String iconPath = RegistryUtil.getRegistryValue(hKey, entry, key);
+        int pos = iconPath.indexOf(",");
+        int index = -1;
+        if (pos > -1) {
+            index = Integer.parseInt(iconPath.substring(pos + 1));
+            iconPath = iconPath.substring(0, pos);
+        }
+        iconPath = Win32API.expandEnvironmentStrings(iconPath);
+        return Win32API.extractIcon(iconPath, index);
+    }
 
 }
