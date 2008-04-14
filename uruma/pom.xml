@@ -139,6 +139,11 @@
       <name>The Seasar Foundation Maven2 Repository</name>
       <url>http://maven.seasar.org/maven2</url>
     </repository>
+    <repository>
+      <id>maven-snapshot.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Snapshot Repository</name>
+      <url>http://maven.seasar.org/maven2-snapshot</url>
+    </repository>    
   </repositories>
 
   <mailingLists>
@@ -456,7 +461,7 @@
 
   <!-- Dependency Settings -->
   <properties>
-    <seasarVer>2.4.23</seasarVer>
+    <seasarVer>2.4.25-SNAPSHOT</seasarVer>
     <eclipseVer>3.3.1.1</eclipseVer>
   </properties>
 
