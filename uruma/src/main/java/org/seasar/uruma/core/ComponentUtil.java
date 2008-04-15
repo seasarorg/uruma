@@ -127,9 +127,11 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
 
         Object partActionComponent = S2ContainerUtil.getComponentNoException(
                 actionComponentName, defaultContainer);
-        S2ContainerUtil.injectDependency(partActionComponent, defaultContainer);
 
         if (partActionComponent != null) {
+            S2ContainerUtil.injectDependency(partActionComponent,
+                    defaultContainer);
+
             context.setPartActionObject(partActionComponent);
             PartActionDesc desc = PartActionDescFactory.getPartActionDesc(cd
                     .getComponentClass());
