@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.value;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
@@ -49,6 +50,7 @@ public class ValueBinderFactory implements UrumaMessageCodes {
         addValueBinder(new GenericValueBinder<Text>(Text.class, "text"));
         addValueBinder(new GenericValueBinder<Spinner>(Spinner.class,
                 "selection"));
+        addValueBinder(new GenericValueBinder<Button>(Button.class, "selection"));
         addValueBinder(new ComboViewerValueBinder());
         addValueBinder(new TableViewerValueBinder());
         addValueBinder(new TableValueBinder());
