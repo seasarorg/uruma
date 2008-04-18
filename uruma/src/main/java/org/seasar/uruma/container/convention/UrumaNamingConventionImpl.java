@@ -54,16 +54,17 @@ public class UrumaNamingConventionImpl extends NamingConventionImpl implements
      * @return 存在チェッカの配列
      */
     @Override
+    @SuppressWarnings("unchecked")
     protected ExistChecker[] createExistCheckerArray(
             final String rootPackageName) {
         if (StringUtil.isEmpty(rootPackageName)) {
             return new ExistChecker[0];
         }
         final String s = rootPackageName.replace('.', '/');
-        final List list = new ArrayList();
-        for (final Iterator it = ClassLoaderUtil.getResources(this.getClass(),
-                s); it.hasNext();) {
-            final URL url = (URL) it.next();
+        final List<ExistChecker> list = new ArrayList<ExistChecker>();
+        for (final Iterator<URL> it = ClassLoaderUtil.getResources(this
+                .getClass(), s); it.hasNext();) {
+            final URL url = it.next();
             final String protocol = URLUtil.toCanonicalProtocol(url
                     .getProtocol());
             if ("file".equals(protocol)) {
@@ -78,7 +79,7 @@ public class UrumaNamingConventionImpl extends NamingConventionImpl implements
                 list.add(new BundleExistChecker(url));
             }
         }
-        return (ExistChecker[]) list.toArray(new ExistChecker[list.size()]);
+        return list.toArray(new ExistChecker[list.size()]);
     }
 
     /**
