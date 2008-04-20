@@ -7,7 +7,7 @@
 	<available file="${URUMA_STD_BLANK_DIR}" type="dir" property="uruma-std-blank.present" />
 	<available file="${RCP_DIR}" type="dir" property="rcp.present" />
 
-	<target name="deployPlugin" if="plugins.dir">
+	<target name="deployPlugin" if="plugins.present">
 		<copy file="target/uruma-${ver}-plugin-jar.zip" tofile="${PLUGINS_DIR}/org.seasar.uruma_${ver}.jar" />
 	</target>
 
