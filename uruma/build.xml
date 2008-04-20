@@ -1,8 +1,24 @@
-<project name="uruma" default="deployPlugin" basedir=".">
+<project name="uruma" default="deploy" basedir=".">
 	<property name="PLUGINS_DIR" value="C:/eclipse/plugins" />
+	<property name="URUMA_STD_BLANK_DIR" value="${basedir}/../uruma-std-blank" />
+	<property name="RCP_DIR" value="D:/Develop/RCP-3.3.1.1/eclipse/plugins" />
 
-	<target name="deployPlugin">
-		<copy file="target/uruma-${ver}-plugin-jar.zip"
-			tofile="${PLUGINS_DIR}/org.seasar.uruma_${ver}.jar" />
+	<available file="${PLUGINS_DIR}" type="dir" property="plugins.present" />
+	<available file="${URUMA_STD_BLANK_DIR}" type="dir" property="uruma-std-blank.present" />
+	<available file="${RCP_DIR}" type="dir" property="rcp.present" />
+
+	<target name="deployPlugin" if="plugins.dir">
+		<copy file="target/uruma-${ver}-plugin-jar.zip" tofile="${PLUGINS_DIR}/org.seasar.uruma_${ver}.jar" />
+	</target>
+
+	<target name="deployUrumaStdBlank" if="uruma-std-blank.present">
+		<copy file="target/uruma-${ver}.jar" todir="${URUMA_STD_BLANK_DIR}/lib" />
+	</target>
+
+	<target name="deployRcp" if="rcp.present">
+		<copy file="target/uruma-${ver}-plugin-jar.zip" tofile="${RCP_DIR}/org.seasar.uruma_${ver}.jar" />
+	</target>
+
+	<target name="deploy" depends="deployPlugin, deployUrumaStdBlank, deployRcp">
 	</target>
 </project>

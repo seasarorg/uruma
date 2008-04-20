@@ -339,7 +339,8 @@
             <phase>install</phase>
             <configuration>
               <tasks>
-                <ant antfile="build.xml" target="deployPlugin">
+                <ant antfile="build.xml">
+                  <property name="basedir" value="${basedir}" />
                   <property name="ver" value="${pom.version}" />
                 </ant>
               </tasks>
