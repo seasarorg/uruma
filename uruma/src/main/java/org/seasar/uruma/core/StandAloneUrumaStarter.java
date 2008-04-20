@@ -126,7 +126,9 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
         } catch (Throwable ex) {
             logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
 
-            Display display = new Display();
+            if (display == null) {
+                display = new Display();
+            }
             Shell shell = new Shell(display);
             String msg = MessageUtil.getMessageWithBundleName(
                     URUMA_MESSAGE_BASE, "STANDALONE_EXCEPTION_OCCURED");
