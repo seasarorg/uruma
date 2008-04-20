@@ -4,6 +4,8 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/test/resources"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/seasar2"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/s2-tiger"/>
 	<classpathentry exported="true" kind="lib" path="lib/s2-extension-2.4.25.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/s2-framework-2.4.25.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/s2-tiger-2.4.25.jar"/>
@@ -19,7 +21,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/junit-3.8.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.13.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/ognl-2.6.9-patch-20070908.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="lib/core-commands-3.3.1.1.jar" sourcepath="lib/core-commands-source-3.3.1.1.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://help.eclipse.org/help33/nftopic/org.eclipse.platform.doc.isv/reference/api/"/>
@@ -128,7 +129,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/nlink-20080126.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit-addons-1.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/core-expressions-3.3.1.1.jar" sourcepath="lib/core-expressions-source-3.3.1.1.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/s2-tiger"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/seasar2"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
