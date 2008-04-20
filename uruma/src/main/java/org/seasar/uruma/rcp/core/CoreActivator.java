@@ -33,6 +33,7 @@ import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.exception.UrumaAppInitException;
 import org.seasar.uruma.exception.UrumaAppNotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
@@ -98,7 +99,11 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
                     .getServiceReference(UrumaService.class.getName());
             UrumaServiceImpl service = (UrumaServiceImpl) appContext
                     .getService(ref);
-            service.registerExtensions();
+            if (service != null) {
+                service.registerExtensions();
+            } else {
+                throw new UrumaAppInitException(bundle);
+            }
         }
     }
 
@@ -170,5 +175,4 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
         context.registerService(IProductPreferencesService.class.getName(),
                 service, prop);
     }
-
 }

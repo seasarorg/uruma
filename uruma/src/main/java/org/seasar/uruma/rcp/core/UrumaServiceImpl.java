@@ -65,9 +65,14 @@ import org.seasar.uruma.util.AssertionUtil;
  */
 public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         UrumaMessageCodes {
-
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaService.class);
+
+    protected static final String URUMA_CLASSLOADER_NAME = "UrumaClassLoader";
+
+    protected static final String APP_CLASSLOADER_PREFIX = "AppClassLoader-";
+
+    protected String appClassLoaderName;
 
     protected Bundle targetBundle;
 
@@ -110,7 +115,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         this.appClassLoader = getClass().getClassLoader();
         this.pluginId = targetBundle.getSymbolicName();
         this.defaultContextId = pluginId + ".context";
-
+        this.appClassLoaderName = APP_CLASSLOADER_PREFIX + this.pluginId;
         initialize();
     }
 
@@ -133,6 +138,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
             logger.log(URUMA_SERVICE_INIT_END, targetBundle.getSymbolicName());
         } catch (Exception ex) {
+            logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
             throw new UrumaAppInitException(targetBundle, ex, ex.getMessage());
         } finally {
             restoreClassLoader();
@@ -155,6 +161,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
             ContributionBuilder.build(contributor, extensions);
         } catch (Exception ex) {
+            logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
             throw new UrumaAppInitException(targetBundle, ex, ex.getMessage());
         } finally {
             restoreClassLoader();
@@ -274,10 +281,14 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         container.register(this, UrumaConstants.URUMA_SERVICE_S2NAME);
     }
 
-    protected void switchClassLoader(final ClassLoader loader) {
+    protected void switchClassLoader(final ClassLoader loader,
+            final String loaderName) {
         Thread currentThread = Thread.currentThread();
         this.oldClassLoader = currentThread.getContextClassLoader();
-        logger.log(SWITCH_CONTEXT_CLASS_LOADER, loader);
+        if (logger.isDebugEnabled()) {
+            logger.log(SWITCH_CONTEXT_CLASS_LOADER, loaderName + "("
+                    + loader.toString() + ")");
+        }
         currentThread.setContextClassLoader(loader);
     }
 
@@ -427,21 +438,30 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * @see org.seasar.uruma.rcp.UrumaService#switchToAppClassLoader()
      */
     public void switchToAppClassLoader() {
-        switchClassLoader(appClassLoader);
+        switchClassLoader(appClassLoader, appClassLoaderName);
     }
 
     /*
      * @see org.seasar.uruma.rcp.UrumaService#switchToUrumaClassLoader()
      */
     public void switchToUrumaClassLoader() {
-        switchClassLoader(urumaClassLoader);
+        switchClassLoader(urumaClassLoader, URUMA_CLASSLOADER_NAME);
     }
 
     /*
      * @see org.seasar.uruma.rcp.UrumaService#restoreClassLoader()
      */
     public void restoreClassLoader() {
-        logger.log(SWITCH_CONTEXT_CLASS_LOADER, oldClassLoader);
+        if (logger.isDebugEnabled()) {
+            String name = "";
+            if (oldClassLoader == urumaClassLoader) {
+                name = URUMA_CLASSLOADER_NAME;
+            } else if (oldClassLoader == appClassLoader) {
+                name = appClassLoaderName;
+            }
+            logger.log(SWITCH_CONTEXT_CLASS_LOADER, name + "("
+                    + oldClassLoader.toString() + ")");
+        }
         Thread.currentThread().setContextClassLoader(oldClassLoader);
     }
 

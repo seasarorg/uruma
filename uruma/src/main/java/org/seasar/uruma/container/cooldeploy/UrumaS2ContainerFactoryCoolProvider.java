@@ -15,28 +15,62 @@
  */
 package org.seasar.uruma.container.cooldeploy;
 
+import java.net.URL;
+
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory.DefaultProvider;
 
 /**
  * Uruma COOL deploy用の
- * {@link org.seasar.framework.container.factory.S2ContainerFactory.Provider}です。
+ * {@link org.seasar.framework.container.factory.S2ContainerFactory.Provider}です。<br />
+ * クラスパス上に customizer.dicon、creator.dicon が存在する場合はそれらを優先してインクルードし、存在しない場合、
+ * org/seasar/uruma/dicon/ 配下の uruma-customizer.dicon、uruma-creator.dicon
+ * をそれぞれインクルードします。
  * 
  * @author y.sugigami
- * 
+ * @author y-komori
  */
 public class UrumaS2ContainerFactoryCoolProvider extends DefaultProvider {
+    protected static final String URUMA_DICON_PATH = "org/seasar/uruma/dicon/";
 
-    /**
-     * COOL deploy用のdiconファイルのパスです。
-     */
-    protected static final String DICON_PATH = "urumacooldeploy-autoregister.dicon";
+    /** COOL deploy用のdiconファイルのパスです。 */
+    protected static final String COOLDEPLOY_AUTOREGISTER = URUMA_DICON_PATH
+            + "uruma-cooldeploy-autoregister.dicon";
+
+    /** Uruma 標準のカスタマイザ dicon ファイルのパスです。 */
+    protected static final String URUMA_CUSTOMIZER = URUMA_DICON_PATH
+            + "uruma-customizer.dicon";
+
+    /** Uruma 標準のクリエータ dicon ファイルのパスです。 */
+    protected static final String URUMA_CREATOR = URUMA_DICON_PATH
+            + "uruma-creator.dicon";
+
+    /** S2Container 標準のカスタマイザ dicon ファイルのパスです。 */
+    protected static final String CUSTOMIZER = "customizer.dicon";
+
+    /** S2Container 標準のクリエータ dicon ファイルのパスです。 */
+    protected static final String CREATOR = "creator.dicon";
 
     @Override
     public S2Container create(final String path) {
         final S2Container container = super.create(path);
-        include(container, DICON_PATH);
+        final S2Container child = include(container, COOLDEPLOY_AUTOREGISTER);
+
+        includeS2Container(child, CUSTOMIZER, URUMA_CUSTOMIZER);
+        includeS2Container(child, CREATOR, URUMA_CREATOR);
         return container;
     }
 
+    protected S2Container includeS2Container(final S2Container parent,
+            final String appDicon, final String urumaDicon) {
+        // RCP モードでは、コンテクストクラスローダがApp側の前提
+        String path = appDicon;
+        ClassLoader contextLoader = Thread.currentThread()
+                .getContextClassLoader();
+        URL resource = contextLoader.getResource(path);
+        if (resource == null) {
+            path = urumaDicon;
+        }
+        return include(parent, path);
+    }
 }

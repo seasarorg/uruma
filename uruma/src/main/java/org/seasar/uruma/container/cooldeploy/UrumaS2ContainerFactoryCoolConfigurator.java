@@ -24,7 +24,8 @@ import org.seasar.framework.container.factory.S2ContainerFactory.Provider;
 
 /**
  * Uruma COOL deploy用の
- * {@link org.seasar.framework.container.factory.S2ContainerFactory.Configurator}です。
+ * {@link org.seasar.framework.container.factory.S2ContainerFactory.Configurator}
+ * です。<br />
  * 
  * @author y.sugigami
  * @see org.seasar.framework.container.factory.S2ContainerFactory.DefaultConfigurator
@@ -32,7 +33,9 @@ import org.seasar.framework.container.factory.S2ContainerFactory.Provider;
  */
 public class UrumaS2ContainerFactoryCoolConfigurator extends
         DefaultConfigurator {
-
+    /*
+     * @see org.seasar.framework.container.factory.S2ContainerFactory$DefaultConfigurator#createProvider(org.seasar.framework.container.S2Container)
+     */
     @Override
     protected Provider createProvider(final S2Container configurationContainer) {
         UrumaS2ContainerFactoryCoolProvider provider = new UrumaS2ContainerFactoryCoolProvider();

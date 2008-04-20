@@ -523,6 +523,7 @@ Export-Package: javassist;
  org.seasar.uruma.core.io;uses:="junit.framework",
  org.seasar.uruma.desc;uses:="org.seasar.framework.beans",
  org.seasar.uruma.desc.impl;uses:="junit.framework",
+ org.seasar.uruma.dicon,
  org.seasar.uruma.exception;
   uses:="org.seasar.uruma.core,
    org.seasar.uruma.binding.enables,
