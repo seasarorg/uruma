@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IconAndMessageDialog;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -47,6 +46,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.util.MessageUtil;
 
 /**
  * 例外スタックトレースを表示するためのダイアログです。<br />
@@ -220,7 +220,8 @@ public class UrumaErrorDialog extends IconAndMessageDialog implements
                 widgetSelected(e);
             }
         });
-        allCopyItem.setText(JFaceResources.getString("すべてコピー"));
+        allCopyItem.setText(MessageUtil.getMessageWithBundleName(
+                URUMA_MESSAGE_BASE, "COPY_ALL"));
 
         MenuItem copyItem = new MenuItem(copyMenu, SWT.NONE);
         copyItem.addSelectionListener(new SelectionListener() {
@@ -237,7 +238,8 @@ public class UrumaErrorDialog extends IconAndMessageDialog implements
                 widgetSelected(e);
             }
         });
-        copyItem.setText(JFaceResources.getString("選択部分をコピー"));
+        copyItem.setText(MessageUtil.getMessageWithBundleName(
+                URUMA_MESSAGE_BASE, "COPY_SELECTION"));
 
         tree.setMenu(copyMenu);
     }

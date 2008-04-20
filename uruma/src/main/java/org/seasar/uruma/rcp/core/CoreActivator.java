@@ -39,6 +39,7 @@ import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.util.BundleInfoUtil;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
+import org.seasar.uruma.util.MessageUtil;
 
 /**
  * Uruma のための {@link BundleActivator} です。<br />
@@ -62,8 +63,10 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
         } catch (Throwable ex) {
             Display display = new Display();
             Shell shell = new Shell(display);
-            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
-                    "Uruma の起動に失敗しました.", ex);
+            String msg = MessageUtil.getMessageWithBundleName(
+                    URUMA_MESSAGE_BASE, "RCP_START_FAILED");
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg,
+                    ex);
             dialog.open();
             shell.dispose();
             display.dispose();

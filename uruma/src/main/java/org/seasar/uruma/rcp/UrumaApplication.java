@@ -21,18 +21,21 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.ui.UrumaWorkbenchAdvisor;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
+import org.seasar.uruma.util.MessageUtil;
 
 /**
  * RCP 環境での Uruma ブートストラップクラスです。<br />
  * 
  * @author y-komori
  */
-public class UrumaApplication implements IApplication, UrumaMessageCodes {
+public class UrumaApplication implements IApplication, UrumaMessageCodes,
+        UrumaConstants {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaApplication.class);
 
@@ -59,8 +62,10 @@ public class UrumaApplication implements IApplication, UrumaMessageCodes {
                 display = new Display();
             }
             Shell shell = new Shell(display);
-            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
-                    "Uruma 実行中に例外が発生しました.", ex);
+            String msg = MessageUtil.getMessageWithBundleName(
+                    URUMA_MESSAGE_BASE, "RCP_EXCEPTION_OCCURED");
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg,
+                    ex);
             dialog.open();
             shell.dispose();
         } finally {

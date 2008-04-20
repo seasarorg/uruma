@@ -151,6 +151,15 @@ public interface UrumaConstants {
     public static final String USER_MESSAGE_BASE = "urumaMessages";
 
     /**
+     * Uruma が使用するメッセージリソースバンドル名称です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_MESSAGE_BASE = "urumaCoreMessages";
+
+    /**
      * 画面定義XMLのスキーマファイルパスです。
      * <dl>
      * <dt><b>値 :</b></dt>

@@ -33,6 +33,7 @@ import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
+import org.seasar.uruma.util.MessageUtil;
 
 /**
  * Uruma における {@link WorkbenchAdvisor} です。<br />
@@ -40,7 +41,7 @@ import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
  * @author y-komori
  */
 public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
-        UrumaMessageCodes {
+        UrumaMessageCodes, UrumaConstants {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaWorkbenchAdvisor.class);
 
@@ -123,8 +124,10 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
             }
         }
         Shell shell = new Shell(display);
-        UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
-                "Uruma 実行中にキャッチされない例外が発生しました.", throwable);
+        String msg = MessageUtil.getMessageWithBundleName(URUMA_MESSAGE_BASE,
+                "RCP_EXCEPTION_OCCURED");
+        UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg,
+                throwable);
         dialog.open();
         shell.dispose();
 

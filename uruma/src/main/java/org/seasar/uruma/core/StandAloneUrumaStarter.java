@@ -26,6 +26,7 @@ import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
+import org.seasar.uruma.util.MessageUtil;
 
 /**
  * RCP を利用せずに単独でウィンドウを開くアプリケーションのためのスタートアップクラスです。<br />
@@ -58,7 +59,9 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
                     .getInstance();
             starter.openWindow(templatePath);
         } else {
-            System.err.println("[Error] 第1引数に初期画面のテンプレートパスを指定してください.");
+            String msg = MessageUtil.getMessageWithBundleName(
+                    URUMA_MESSAGE_BASE, "STANDALONE_USAGE");
+            System.err.println(msg);
         }
     }
 
@@ -81,8 +84,10 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
         } catch (Throwable ex) {
             Display display = new Display();
             Shell shell = new Shell(display);
-            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
-                    "Uruma の起動に失敗しました.", ex);
+            String msg = MessageUtil.getMessageWithBundleName(
+                    URUMA_MESSAGE_BASE, "STANDALONE_START_FAILED");
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg,
+                    ex);
             dialog.open();
             shell.dispose();
         }
@@ -123,8 +128,10 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
 
             Display display = new Display();
             Shell shell = new Shell(display);
-            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma",
-                    "Uruma 実行中に例外が発生しました.", ex);
+            String msg = MessageUtil.getMessageWithBundleName(
+                    URUMA_MESSAGE_BASE, "STANDALONE_EXCEPTION_OCCURED");
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg,
+                    ex);
             dialog.open();
             shell.dispose();
         } finally {
