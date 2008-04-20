@@ -9,6 +9,7 @@
     <component class="org.seasar.uruma.container.creator.UrumaFormCreator"/>
     <component class="org.seasar.uruma.container.creator.UrumaLogicCreator"/>
 	<component class="org.seasar.uruma.container.creator.UrumaProviderCreator"/>
+    <component class="org.seasar.uruma.container.creator.UrumaSorterCreator"/>
     <component class="org.seasar.uruma.container.creator.UrumaDtoCreator"/>
 
     <component class="org.seasar.framework.container.creator.InterceptorCreator"/>	

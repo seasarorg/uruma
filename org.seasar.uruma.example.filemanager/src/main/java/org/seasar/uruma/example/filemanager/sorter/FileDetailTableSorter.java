@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.example.filemanager.provider;
+package org.seasar.uruma.example.filemanager.sorter;
 
 import java.io.File;
 import java.util.Date;
@@ -27,7 +27,7 @@ import org.seasar.uruma.viewer.GenericTableViewerComparator;
  * 
  * @author y-komori
  */
-public class FileDetailTableSorterProvider extends GenericTableViewerComparator {
+public class FileDetailTableSorter extends GenericTableViewerComparator {
 
     @Override
     public int category(final Object element) {

@@ -28,6 +28,8 @@ import org.seasar.uruma.util.win32.Win32API;
  * @author y-komori
  */
 public class IconManager {
+    private static final String DEFAULT_FOLDER_ICON = "DEFAULT_FOLDER_ICON";
+
     private IconManager() {
 
     }
@@ -54,9 +56,13 @@ public class IconManager {
     }
 
     public static Image getMyComputerIcon() {
-        return getIconImage("myComputer", RegistryUtil.HKEY_CLASSES_ROOT,
+        Image img = getIconImage("myComputer", RegistryUtil.HKEY_CLASSES_ROOT,
                 "CLSID\\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\\DefaultIcon",
                 "");
+        if (img == null) {
+            img = ImageManager.getImage(DEFAULT_FOLDER_ICON);
+        }
+        return img;
     }
 
     public static Image getFolderIcon() {
@@ -67,6 +73,9 @@ public class IconManager {
                     RegistryUtil.HKEY_LOCAL_MACHINE,
                     "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Icons",
                     "3");
+            if (img == null) {
+                img = ImageManager.getImage(DEFAULT_FOLDER_ICON);
+            }
         } catch (Exception e) {
         }
         return img;
@@ -79,13 +88,21 @@ public class IconManager {
             return icon;
         } else {
             ImageData imageData = getIconFromRegistry(hKey, entry, key);
-            return ImageManager.putImage(iconKey, imageData);
+            if (imageData != null) {
+                return ImageManager.putImage(iconKey, imageData);
+            } else {
+                return null;
+            }
         }
     }
 
     private static ImageData getIconFromRegistry(final int hKey,
             final String entry, final String key) {
         String iconPath = RegistryUtil.getRegistryValue(hKey, entry, key);
+        if (iconPath == null) {
+            return null;
+        }
+
         int pos = iconPath.indexOf(",");
         int index = -1;
         if (pos > -1) {

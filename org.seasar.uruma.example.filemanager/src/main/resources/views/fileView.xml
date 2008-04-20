@@ -2,12 +2,10 @@
 <template xmlns="http://uruma.sandbox.seasar.org">
   <viewPart title="ファイル・ビュー">
     <table id="fileDetailTable" linesVisible="false">
-
-      <tableColumn id="fileName" width="70" text="名前" />
-      <tableColumn id="fileSize" width="70" text="サイズ"
-        alignment="RIGHT" />
+      <tableColumn id="fileName" text="名前" />
+      <tableColumn id="fileSize" text="サイズ" alignment="RIGHT" />
       <tableColumn id="fileType" text="種類" />
-      <tableColumn id="fileUpdateTime" width="80" text="更新日時" />
+      <tableColumn id="fileUpdateTime" text="更新日時" />
     </table>
   </viewPart>
 </template>

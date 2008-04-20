@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
   <workbench title="Uruma Example - FileManager" initWidth="50%"
-    initHeight="50%" image="windowIcon" statusLine="true">
+    initHeight="50%" image="WINDOW_ICON" statusLine="true">
     <menu>
       <menu text="ファイル(&amp;F)">
-        <menuItem id="fileOpen" text="開く(&amp;O)" image="folder"
+        <menuItem id="fileOpen" text="開く(&amp;O)" image="OPEN_ICON"
           accelerator="Ctrl+O" enablesDependingId="fileDetailTable"
           enablesFor="SINGLE" />
         <menuItem id="fileRename" text="名前の変更(&amp;M)\tF2"
-          image="rename" accelerator="F2"
+          image="RENAME_ICON" accelerator="F2"
           enablesDependingId="fileDetailTable" enablesFor="SINGLE" />
       </menu>
       <menu text="編集(&amp;E)">
         <menuItem id="fileDelete" text="削除(&amp;D)\tDELETE"
-          image="cross" accelerator="DELETE"
+          image="DELETE_ICON" accelerator="DELETE"
           enablesDependingId="fileDetailTable" enablesFor="SELECTION" />
       </menu>
     </menu>

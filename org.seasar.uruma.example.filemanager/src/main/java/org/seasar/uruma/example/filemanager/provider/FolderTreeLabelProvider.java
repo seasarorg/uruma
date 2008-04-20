@@ -21,6 +21,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.seasar.uruma.example.filemanager.Constants;
 import org.seasar.uruma.example.filemanager.IconManager;
+import org.seasar.uruma.util.MessageUtil;
 import org.seasar.uruma.util.win32.RegistryUtil;
 import org.seasar.uruma.util.win32.Win32API;
 
@@ -56,8 +57,13 @@ public class FolderTreeLabelProvider extends LabelProvider implements Constants 
     }
 
     protected String getMyComputerName() {
-        return RegistryUtil.getRegistryValue(RegistryUtil.HKEY_CURRENT_USER,
+        String name = RegistryUtil.getRegistryValue(
+                RegistryUtil.HKEY_CURRENT_USER,
                 "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\"
                         + "CLSID\\{20D04FE0-3AEA-1069-A2D8-08002B30309D}");
+        if (name == null) {
+            name = MessageUtil.getMessage("MY_COMPUTER");
+        }
+        return name;
     }
 }
