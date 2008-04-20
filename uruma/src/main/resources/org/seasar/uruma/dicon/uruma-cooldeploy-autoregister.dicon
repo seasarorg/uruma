@@ -4,5 +4,18 @@
 <components>
     <!-- @see org.seasar.uruma.container.UrumaS2ContainerFactoryCoolProvider -->
     <include path="convention.dicon" />
+
+    <include path="customizer.dicon"
+        condition="@org.seasar.framework.util.ResourceUtil@isExist('customizer.dicon')"/>
+        
+    <include path="org/seasar/uruma/dicon/uruma-customizer.dicon"
+        condition="not @org.seasar.framework.util.ResourceUtil@isExist('customizer.dicon')"/>
+
+    <include path="creator.dicon"
+        condition="@org.seasar.framework.util.ResourceUtil@isExist('creator.dicon')"/>
+
+    <include path="org/seasar/uruma/dicon/uruma-creator.dicon"
+        condition="not @org.seasar.framework.util.ResourceUtil@isExist('creator.dicon')"/>
+
     <component class="org.seasar.uruma.container.cooldeploy.UrumaCoolComponentAutoRegister"/>
 </components>
