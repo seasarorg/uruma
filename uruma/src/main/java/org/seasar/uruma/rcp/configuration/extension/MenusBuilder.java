@@ -236,6 +236,10 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
             command.mnemonic = MnemonicUtil.getMnemonic(menuItem.text);
         }
 
+        command.icon = getRcpImagePath(menuItem.image);
+        command.disabledIcon = getRcpImagePath(menuItem.disabledImage);
+        command.hoverIcon = getRcpImagePath(menuItem.hoverImage);
+
         parentMenuElement.addElement(command);
     }
 }

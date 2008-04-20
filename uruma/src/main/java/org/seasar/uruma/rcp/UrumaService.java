@@ -16,8 +16,10 @@
 package org.seasar.uruma.rcp;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.eclipse.ui.IWorkbench;
+import org.osgi.framework.Bundle;
 import org.seasar.framework.container.S2Container;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
@@ -31,6 +33,13 @@ import org.seasar.uruma.rcp.configuration.Extension;
  * @author y-komori
  */
 public interface UrumaService {
+    /**
+     * Uruma アプリケーションのバンドルを返します。<br />
+     * 
+     * @return {@link Bundle} オブジェクト
+     */
+    public Bundle getBundle();
+
     /**
      * 現在のプラグイン ID を返します。<br />
      * 
@@ -139,6 +148,14 @@ public interface UrumaService {
      * コンテクストクラスローダを Uruma バンドルのクラスローダに切り替えます。<br />
      */
     public void switchToUrumaClassLoader();
+
+    /**
+     * イメージ定義を保持する {@link ResourceBundle} を返します。<br />
+     * デフォルトは <code>urumaImages.properties</code> の内容となります。
+     * 
+     * @return {@link ResourceBundle} オブジェクト
+     */
+    public ResourceBundle getImageBundle();
 
     /**
      * 直前に使用していたクラスローダに切り替えます。<br />

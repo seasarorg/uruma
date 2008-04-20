@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.ContributorFactoryOSGi;
 import org.eclipse.core.runtime.IContributor;
@@ -101,6 +103,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     protected List<Extension> extensions = new ArrayList<Extension>();
 
     protected String defaultContextId;
+
+    protected ResourceBundle imageBundle;
 
     /**
      * {@link UrumaServiceImpl} を構築します。<br />
@@ -331,6 +335,13 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     }
 
     /*
+     * @see org.seasar.uruma.rcp.UrumaService#getBundle()
+     */
+    public Bundle getBundle() {
+        return this.targetBundle;
+    }
+
+    /*
      * @see org.seasar.uruma.rcp.UrumaService#getPluginId()
      */
     public String getPluginId() {
@@ -477,6 +488,17 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      */
     public String getDefaultContextId() {
         return this.defaultContextId;
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#getImageBundle()
+     */
+    public ResourceBundle getImageBundle() {
+        if (imageBundle == null) {
+            imageBundle = ResourceBundle.getBundle(DEFAULT_IMAGE_BUNDLE_PATH,
+                    Locale.getDefault(), appClassLoader);
+        }
+        return imageBundle;
     }
 
     /**

@@ -24,7 +24,10 @@ import java.util.List;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Plugin;
+import org.osgi.framework.Bundle;
+import org.seasar.framework.util.AssertionUtil;
 import org.seasar.framework.util.ResourceUtil;
+import org.seasar.uruma.util.PathUtil;
 
 /**
  * Eclipse / RCP 環境でのリソースを扱うためのユーティリティクラスです。<br />
@@ -76,8 +79,6 @@ public class RcpResourceUtil {
      *            リソースのパス
      * @return ローカルシステム上の {@link URL} <br />
      *         リソースが存在しない場合は、NULLを返却。
-     * @throws IOException
-     *             パスの変換に失敗した場合
      * @see FileLocator#resolve(URL)
      */
     public static URL getLocalResourceUrlNoException(final String path) {
@@ -88,6 +89,30 @@ public class RcpResourceUtil {
         } catch (Exception ignore) {
         }
         return fileLocatorUrl;
+    }
+
+    /**
+     * 指定されたパスのバンドルルートパスからの相対パスを返します。<br />
+     * 
+     * @param bundle
+     *            バンドル
+     * @param path
+     *            パス
+     * @return 相対パス。相対パスが得られなかった場合、 <code>null</code>。
+     */
+    public static String getBundleRelativePath(final Bundle bundle,
+            final String path) {
+        AssertionUtil.assertNotNull("bundle", bundle);
+        AssertionUtil.assertNotNull("path", path);
+        try {
+            URL url = getLocalResourceUrl(path);
+            URL bundlePath = FileLocator.resolve(bundle.getEntry(SLASH));
+            return PathUtil
+                    .getRelativePath(bundlePath.getPath(), url.getPath());
+        } catch (IOException ignore) {
+            return null;
+        }
+
     }
 
     /**
