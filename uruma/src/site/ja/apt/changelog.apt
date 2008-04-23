@@ -6,6 +6,74 @@
 
 更新履歴
 
+* 2008/4/24 - Uruma Version 0.4.0 リリース
+
+** New Feature
+
+  * URUMA-160 ウィンドウオープン直後にアクションクラスが呼び出されるようにする
+  
+  * URUMA-154 GenericViewPartで発生したエラーをログ出力する
+  
+  * URUMA-153 ContributionBuilderが出力したXMLを変数に保持する
+  
+  * URUMA-149 DateTimeコンポーネントのバリューバインディング対応
+  
+  * URUMA-148 S2規約とColddeployの対応
+  
+  * URUMA-143 スタンドアローン版のブランクプロジェクトを提供する
+  
+  * URUMA-141 Workbench に対応する初期化を行えるようにする
+  
+  * URUMA-140 IWorkbench をアクションへ DI できるようにする
+  
+  * URUMA-134 ブランクプロジェクトの提供
+
+  * URUMA-69 Browser対応
+
+  * URUMA-67 DateTime対応
+
+** Improvement
+
+  * URUMA-165 Urumaアプリケーションが見つからない場合にダイアログを表示するようにする
+
+  * URUMA-164 RCP版Uruma起動中に発生した例外の捕捉を強化する
+
+  * URUMA-162 レンダラに外部からの独自レンダリングを行えるようにインターフェースを設ける
+
+  * URUMA-161 TreeコンポーネントでTreeViewer未使用時にもautoExpandLevelが使えるようにする
+
+  * URUMA-159 Form使用時のTableColumnのwidthを有効化
+
+  * URUMA-156 ValueBinderが見つからなかった場合にWarnログを出力する
+
+  * URUMA-155 SpinnerコンポーネントのValueBindingに対応する
+
+  * URUMA-152 ComponentUtil でコンポーネントが見つからなかったときにログ出力する
+
+** Bug
+
+  * URUMA-167 RCP環境でメニューにアイコンが表示されない
+
+  * URUMA-158 Urumaプロジェクトのテスト用app.diconがWebStart環境で誤動作を招く
+
+  * URUMA-146 Actionの@InitializeMethodメソツド時のでWidgetバインディングオブジェクトがnull
+
+  * URUMA-145 HogeView.xmlに定義したviewPartのallowMultipleアトリビュートが反映されない
+
+  * URUMA-144 スタンドアローンブランクプロジェクトでウィンドウクローズ時にNPEが発生する
+
+
+** Task
+
+  * URUMA-166 依存ライブラリをSeasar2 2.4.25 に更新する
+
+  * URUMA-151 一度クローズしたビューを再度オープンできるようにする
+
+  * URUMA-147 Example RSS Reader PJを作る
+
+  * URUMA-42 mavenテンプレートの適用
+
+
 * 2008/3/3 - Uruma Version 0.3.0 リリース
 
 ** New Feature
