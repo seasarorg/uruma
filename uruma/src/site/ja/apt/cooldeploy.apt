@@ -1,0 +1,93 @@
+ -----
+COOL Deploy
+ ------
+ ------
+ ------
+
+COOL Deploy
+
+* Uruma COOL Deploy について
+
+ Uruma 0.4.0 から、S2Container が提供する {{{http://s2container.seasar.org/2.4/ja/DIContainer.html#SMARTdeploy}COOL Deploy}} をサポートするようになりました。これによって、規約にそってJavaコンポーネントを配置するだけで面倒な dicon ファイルの記述を行わなくてもアプリケーションが動かせるようになります。
+ 
+ COOL Deploy では、規約通りのパッケージにJavaクラスを配置するだけで、自動的に S2Container への登録や AOP の設定が行われます。
+
+* Uruma COOL Deploy の使い方
+
+** Uruma COOL Deploy が利用できる動作モード
+
+ Uruma COOL Deploy は、現在のところ、RCP モードの Uruma のみで対応しています。スタンドアローンモードの Uruma をご利用の方は、申し訳ありませんが、従来の {{{http://s2container.seasar.org/2.4/ja/DIContainer.html#ComponentAutoRegister}AutoRegister}} をご利用ください。
+
+** Uruma COOL Deploy の設定に必要なファイル
+
+ Uruma COOL Deploy を利用するには、以下の２つの dicon ファイルが必要となります。これらの dicon ファイルを Uruma アプリケーションプロジェクトのクラスパス直下(Mavenを利用している場合は src/main/resources 直下)に置いてください。
+
+ それぞれの説明については、リンク先の S2Container ドキュメントを参照してください。
+ 
+ - {{{http://s2container.seasar.org/2.4/ja/stdDicon.html#s2container.dicon}s2container.dicon}}
+
+ - {{{http://s2container.seasar.org/2.4/ja/stdDicon.html#convention.dicon}convention.dicon}}
+
+ また、これら2つのファイルは、{{{download.html}ダウンロードページ}}からダウンロードできる RCP モード用のブランクプロジェクト(org.seasar.uruma.rcp.blank_x.y.z.zip、x.y.z の部分はバージョン)に含まれています。
+
+*** s2container.dicon
+
+ s2container.dicon は、S2Container の設定を切り替えるための dicon ファイルです。ここでは、Uruma の提供する COOL Deploy 機能を利用するために、以下のように記述してください。
+
++---
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+  "http://www.seasar.org/dtd/components24.dtd">
+<components>
+  <include path="org/seasar/uruma/dicon/uruma-cooldeploy.dicon"/>
+</components>
++---
+
+*** convention.dicon
+
+ convention.dicon は COOL Deploy におけるネーミング規約の設定をおこなうための dicon ファイルです。以下の例のように、Uruma アプリケーションのルートパッケージ名を指定します。(以下のブランクプロジェクトの例です)
+
++---
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+  "http://www.seasar.org/dtd/components21.dtd">
+<components>
+  <component class="org.seasar.uruma.container.convention.UrumaNamingConventionImpl">
+    <initMethod name="addRootPackageName">
+      <arg>"org.seasar.uruma.rcp.blank"</arg>
+    </initMethod>
+  </component>
+</components>
++---
+
+** Uruma COOL Deploy におけるパッケージ規約
+
+ Uruma COOL Deploy におけるパッケージ規約 は、以下のようになっています。
+
+*----------------------------+----------------------------------------------------------------------------+
+||パッケージ                 ||説明                                                                       |
+*----------------------------+----------------------------------------------------------------------------+
+|examples.aaa                |Uruma アプリケーションのルートパッケージです。                              |
+|examples.aaa.action         |アクションクラスを配置するパッケージです。                                  |
+|examples.aaa.form           |フォームクラスを配置するパッケージです。                                    |
+|examples.aaa.logic          |ロジッククラスを配置するパッケージです。                                    |
+|examples.aaa.provider       |ビューア系コンポーネントのためのプロバイダを配置するためのパッケージです。  |
+|examples.aaa.sorter         |ビューア系コンポーネントのためのソータを配置するためのパッケージです。      |
+|examples.aaa.dto            |DTOを配置するためのパッケージです。                                         |
+|examples.aaa.interceptor    |AOPで使用するインターセプタを配置するためのパッケージです。                 |
+*----------------------------+----------------------------------------------------------------------------+
+
+ この規約にそって Java クラスを各パッケージ配置するだけで、Uruma アプリケーション実行時に各コンポーネントが S2Container へ登録されます。
+
+
+** パッケージ規約({{{http://s2container.seasar.org/2.4/ja/stdDicon.html#creator.dicon}creator.dicon}})のカスタマイズ
+
+ また、これはあくまで推奨の規約ですので、自由に変更することもできます。パッケージ規約は、uruma 本体の jar ファイルに含まれている、org/seasar/uruma/dicon/uruma-creator.dicon の内容によって決まっています。この dicon は 同じパッケージにある uruma-cooldeploy-autoregister.dicon から条件インクルードされています。
+
+ Uruma アプリケーション側に creator.dicon が存在する場合は、そちらを読み込み、標準の uruma-creator.dicon は無視するようになっていますので、クリエータを変更したい場合は creator.dicon を作成してください。
+
+** カスタマイザ({{{http://s2container.seasar.org/2.4/ja/stdDicon.html#customizer.dicon}customizer.dicon}})のカスタマイズ
+
+ 同様にカスタマイザについてもカスタマイズが可能です。Uruma 標準のカスタマイザは、uruma 本体の jar の中で、org/seasar/uruma/dicon/uruma-cusomizer.dicon です。このファイルも uruma-cooldeploy-autoregister.dicon から条件インクルードされています。
+
+ Uruma アプリケーション側に customizer.dicon が存在する場合は、そちらを読み込み、標準の uruma-customizer.dicon は無視するようになっていますので、カスタマイザを変更したい場合は customizer.dicon を作成してください。

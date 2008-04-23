@@ -46,6 +46,7 @@
       <item name="ウィジット・インジェクション" href="widgetInjection.html" />
       <item name="バリュー・バインディング" href="valueBinding.html" />
       <item name="セレクション・バインディング" href="selectionBinding.html" />
+      <item name="COOL Deploy" href="coolDeploy.html" />
       <item name="GUIコンポーネント一覧" href="components.html" />
       <item name="APIリファレンス" href="../ja/apidocs/index.html" />
     </menu>
