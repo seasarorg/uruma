@@ -205,9 +205,11 @@
         <configuration>
           <forkMode>once</forkMode>
           <workingDirectory>lib</workingDirectory>
+          <!-- 
           <excludes>
             <exclude>**/*GUITest.java</exclude>
           </excludes>
+          -->
         </configuration>
       </plugin>
 

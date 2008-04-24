@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document
+	PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+	"http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+  <properties>
+    <title>はじめに</title>
+  </properties>
+  <body>
+
+    <section name="はじめに">
+      <div align="center">
+        <img src="../images/uruma-logo.png" alt="Uruma Logo" />
+      </div>
+      <p>
+        Uruma
+        は、XML定義によるGUIの表示(SWT/JFaceを使用)と、GUIとSeasar2上のコンポーネントとの連携を実現するリッチクライアントアプリケーションフレームワークです。Uruma
+        を利用することで、リッチクライアントアプリケーションが効率的に開発できるようになります。
+      </p>
+      <p>
+        まずは、Uruma を利用した
+        <a
+          href="../download/2008-04-24/uruma-example-employee-0.4.0.zip"
+          target="_blank">
+          サンプルアプリケーション
+        </a>
+        をダウンロードして、実行してみてください。実行方法は簡単！ダウンロードしたファイルを展開し、run.bat
+        をダブルクリックするだけです。
+      </p>
+      <p>以下のような画面が表示されたましたか？</p>
+
+      <div align="center">
+        <img src="../images/employeeMain.png" alt="従業員管理アプリケーションのメイン画面" />
+      </div>
+
+      <p>
+        これはWebアプリケーションフレームワーク・
+        <a href="http://s2jsf.seasar.org/ja/">S2JSF</a>
+        のサンプルアプリケーションとして収録されている Employee-Management を Uruma の機能を使って GUI
+        アプリケーションとして作成したものです。
+      </p>
+
+      <p>
+        Uruma では、このようなGUIアプリケーションを簡単に作成することができます。Uruma では、Seasar2 による
+        Web アプリケーションのアーキテクチャ(Goya)をできるかぎり踏襲しているため、Seasar2 による Web
+        アプリケーション開発に慣れた方ならば、より簡単に GUI アプリケーションを作成することができます。
+        (事実、ここで紹介しているサンプルアプリケーションも、Logic層、Dao層は
+        Employee-Managementとほとんど同じ作りになっています。)
+      </p>
+
+      <p>
+        もちろん、
+        <a href="http://s2dao.seasar.org/ja/">S2Dao</a>
+        も今まで通り利用できるため、データベースを利用するアプリケーションも簡単に作成できます！
+      </p>
+
+      <p>
+        また、Uruma で表現できる GUI コンポーネントは、
+        <a href="components.html">こちら</a>
+        から見ることができます。現段階で、数多くのコンポーネント表示に対応しています。
+      </p>
+
+      さらに、Uruma 0.2.0 からは、RCP アプリケーションの開発をサポートするようになりました。こちらの
+      <a
+        href="../download/2008-04-24/org.seasar.uruma.example.filemanager_0.4.0.zip">
+        サンプルアプリケーション
+      </a>
+      では、つぎのような簡単なファイル管理アプリケーションをたった
+      <strong>370行</strong>
+      で実現しています。
+
+      <div align="center">
+        <img src="../images/fileManager.png" alt="ファイル管理アプリケーション" />
+      </div>
+    </section>
+  </body>
+</document>
