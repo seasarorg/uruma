@@ -8,7 +8,7 @@
   <!-- More Project Information -->
   <groupId>org.seasar.uruma</groupId>
   <artifactId>uruma-example-janken</artifactId>
-  <version>0.4.0</version>
+  <version>0.5.0</version>
   <url>http://uruma.sandbox.seasar.org/</url>
   <inceptionYear>2006</inceptionYear>
 
@@ -199,7 +199,7 @@
     <dependency>
       <groupId>org.seasar.uruma</groupId>
       <artifactId>uruma</artifactId>
-      <version>0.4.0</version>
+      <version>0.5.0</version>
     </dependency>
   </dependencies>
 </project>
