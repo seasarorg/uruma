@@ -28,6 +28,7 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.renderer.RendererSupportUtil;
+import org.seasar.uruma.util.AssertionUtil;
 import org.seasar.uruma.util.ClassUtil;
 
 /**
@@ -122,6 +123,29 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
                 (COMPONENT_TYPE) uiComponent, parent, context);
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.Renderer#reRender(org.seasar.uruma.context.WidgetHandle)
+     */
+    @SuppressWarnings("unchecked")
+    public void reRender(final WidgetHandle handle) {
+        AssertionUtil.assertNotNull("handle", handle);
+        UIComponent uiComponent = handle.getUiComponent();
+        Object widget = handle.getWidget();
+        AssertionUtil.assertNotNull("uiComponent", uiComponent);
+        AssertionUtil.assertNotNull("widget", widget);
+
+        try {
+            RendererSupportUtil.setAttributes(uiComponent, widget,
+                    SetTiming.RENDER);
+
+            doRender((COMPONENT_TYPE) uiComponent, getWidgetType().cast(widget));
+        } catch (Exception ex) {
+            throw new RenderException(
+                    UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, ex, ex
+                            .getMessage());
+        }
+    }
+
     /**
      * 親コンポーネントから属性を引き継ぎます。<br />
      * 親コンポーネントから属性を引き継ぎたい場合、本メソッドをオーバーライドして処理を行ってください。<br />
@@ -201,7 +225,7 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
     protected void pushRenderingContext(final Object object) {
         renderingContext.push(object);
     }
-    
+
     protected Object popRenderingContext() {
         return renderingContext.pop();
     }

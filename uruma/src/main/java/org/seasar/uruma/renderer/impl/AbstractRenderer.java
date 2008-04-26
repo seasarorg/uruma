@@ -51,6 +51,13 @@ public abstract class AbstractRenderer implements Renderer {
         return null;
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.Renderer#reRender(org.seasar.uruma.context.WidgetHandle)
+     */
+    public void reRender(final WidgetHandle widget) {
+        // Do nothing.
+    }
+
     /**
      * {@link WindowContext} を取得します。<br />
      * 

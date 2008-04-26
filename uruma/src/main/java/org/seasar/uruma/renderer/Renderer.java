@@ -74,4 +74,16 @@ public interface Renderer {
      */
     public void renderAfter(WidgetHandle widget, UIComponent uiComponent,
             WidgetHandle parent, PartContext context);
+
+    /**
+     * 一度レンダリングしたウィジットに対する再レンダリングを行います。<br />
+     * 再レンダリングとは、 {@link UIComponent} が保持する情報をウィジットに対して再度反映させる処理のことです。<br />
+     * 再レンダリングを行うには、変更したい属性に対応する {@link UIComponent} の属性を変更し、変更対象のウィジットと
+     * {@link UIComponent} を保持する {@link WidgetHandle} を本メソッドの引数として渡してください。
+     * 
+     * @param widget
+     *            再レンダリング対象のウィジットと {@link UIComponent} を保持する
+     *            {@link WidgetHandle} オブジェクト
+     */
+    public void reRender(WidgetHandle widget);
 }

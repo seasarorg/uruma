@@ -62,4 +62,10 @@ public class NullRenderer implements Renderer {
         // Do nothing.
     }
 
+    /*
+     * @see org.seasar.uruma.renderer.Renderer#reRender(org.seasar.uruma.context.WidgetHandle)
+     */
+    public void reRender(final WidgetHandle widget) {
+        // Do nothing.
+    }
 }
