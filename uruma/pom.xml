@@ -9,7 +9,7 @@
   <groupId>org.seasar.uruma</groupId>
   <artifactId>uruma</artifactId>
   <name>Uruma</name>
-  <version>0.4.0</version>
+  <version>0.5.0-SNAPSHOT</version>
   <url>http://uruma.sandbox.seasar.org/</url>
   <inceptionYear>2006</inceptionYear>
 
@@ -205,11 +205,9 @@
         <configuration>
           <forkMode>once</forkMode>
           <workingDirectory>lib</workingDirectory>
-          <!-- 
           <excludes>
             <exclude>**/*GUITest.java</exclude>
           </excludes>
-          -->
         </configuration>
       </plugin>
 
