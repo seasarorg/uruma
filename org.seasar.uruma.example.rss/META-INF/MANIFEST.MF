@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Uruma Example - RSS Reader
 Bundle-SymbolicName: org.seasar.uruma.example.rss;singleton:=true
-Bundle-Version: 0.4.0
+Bundle-Version: 0.5.0
 Bundle-Activator: org.seasar.uruma.rcp.UrumaAppActivator
 Bundle-Vendor: Seasarファウンデーション
 Bundle-ActivationPolicy: lazy
