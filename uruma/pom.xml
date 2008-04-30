@@ -461,7 +461,7 @@
   <!-- Dependency Settings -->
   <properties>
     <seasarVer>2.4.25</seasarVer>
-    <eclipseVer>3.3.1.1</eclipseVer>
+    <eclipseVer>3.3.2</eclipseVer>
   </properties>
 
   <dependencies>
