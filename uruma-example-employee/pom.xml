@@ -200,7 +200,7 @@
   <!-- Dependency Settings -->
   <properties>
     <seasarVer>2.4.25</seasarVer>
-    <eclipseVer>3.3.1.1</eclipseVer>
+    <eclipseVer>3.3.2</eclipseVer>
     <urumaVer>0.5.0</urumaVer>
   </properties>
 
