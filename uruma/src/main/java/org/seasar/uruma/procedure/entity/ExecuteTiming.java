@@ -37,5 +37,10 @@ public enum ExecuteTiming {
     /**
      * {@link PostOpenMethod} のタイミングで実行します。<br />
      */
-    POST_OPEN;
+    POST_OPEN,
+
+    /**
+     * {@link PreCloseMethod} のタイミングで実行します。<br />
+     */
+    PRE_CLOSE;
 }
