@@ -8,6 +8,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.seasar.uruma
 Eclipse-LazyStart: true
-Bundle-ClassPath: bin/,
+Bundle-ClassPath: lib/org.eclipse.swt.win32.extension_1.0.4.v20080422.jar,
+ bin/,
  .
 Bundle-Vendor: Seasarファウンデーション
