@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<include path="convention.dicon"/>
+
+    <include path="customizer.dicon"
+        condition="@org.seasar.framework.util.ResourceUtil@isExist('customizer.dicon')"/>
+        
+    <include path="org/seasar/uruma/dicon/uruma-customizer.dicon"
+        condition="not @org.seasar.framework.util.ResourceUtil@isExist('customizer.dicon')"/>
+
+    <include path="creator.dicon"
+        condition="@org.seasar.framework.util.ResourceUtil@isExist('creator.dicon')"/>
+
+    <include path="org/seasar/uruma/dicon/uruma-creator.dicon"
+        condition="not @org.seasar.framework.util.ResourceUtil@isExist('creator.dicon')"/>
+
+	<component class="org.seasar.uruma.container.warmdeploy.UrumaWarmdeployBehavior"/>
+	
+	<component name="defaultBuilder" class="org.seasar.framework.container.factory.XmlS2ContainerBuilder">
+		<property name="rule">
+			<component class="org.seasar.framework.container.factory.S2ContainerTagHandlerRule">
+				<initMethod name="addTagHandler">
+					<arg>"/components"</arg>
+					<arg>
+						<component class="org.seasar.framework.container.factory.ComponentsTagHandler">
+							<property name="containerImplClass">
+								@org.seasar.framework.container.impl.ThreadSafeS2ContainerImpl@class
+							</property>
+						</component>
+					</arg>
+				</initMethod>
+			</component>
+		</property>
+	</component>
+</components>
