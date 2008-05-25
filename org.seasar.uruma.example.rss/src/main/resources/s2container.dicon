@@ -2,5 +2,12 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
+	<!-- Cool Deploy -->
+	<!--
     <include path="org/seasar/uruma/dicon/uruma-cooldeploy.dicon"/>
+	-->
+	
+	<!-- Warm Deploy -->
+    <include path="org/seasar/uruma/dicon/uruma-warmdeploy.dicon"/>
+
 </components>
