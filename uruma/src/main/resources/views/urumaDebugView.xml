@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://uruma.sandbox.seasar.org">
+  <viewPart title="デバッグ・ビュー" allowMultiple="true">
+  	<composite>
+  		<gridLayout numColumns="1" marginHeight="5" marginWidth="5"/>
+
+		<composite style="BORDER">
+	   		<gridLayout numColumns="6" marginHeight="5" marginWidth="5" />	
+
+		    <gridData horizontalAlignment="FILL" 
+	   			grabExcessHorizontalSpace="true" grabExcessVerticalSpace="false" />
+	   			
+	   		<button id="s2container" text="s2container" />
+	   		
+	   		<button id="component" text="component" />
+	   			   		
+	   		<button id="context" text="context" />
+	   		
+	   		<button id="template" text="template" />
+	   		
+	   		<button id="bundle" text="bundle" />
+	   		
+	   		<button id="plugin" text="plugin.xml" />
+    	</composite>
+    	
+	    <browser id="debugBrowser">
+	    	<gridData horizontalAlignment="FILL" verticalAlignment="FILL"
+	   		     grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" />
+	    </browser>
+    
+    </composite>
+  </viewPart>
+</template>

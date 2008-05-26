@@ -108,28 +108,12 @@ public class UrumaDebugViewAction {
         html = HtmlTagUtil.createHeader();
         html += HtmlTagUtil.createH1("Workspace Path");
 
-        /*
-         * // My Plugin Path html += HtmlTagUtil.createH1("My Plugin Path");
-         * html += HtmlTagUtil.createTable(); for (String key :
-         * PathUtil.getPluginDirPathMap().keySet()) { String value =
-         * PathUtil.getPluginDirPath(key); html += HtmlTagUtil.createTr(key,
-         * value); } html += HtmlTagUtil.closeTable();
-         * 
-         * // My Bundle html += HtmlTagUtil.createH1("My Bundle"); html +=
-         * HtmlTagUtil.createTable(); Map<String, Bundle> bundleContextMap =
-         * PathUtil.getBundleContextMap(); for (String key :
-         * bundleContextMap.keySet()) { Bundle bundle =
-         * bundleContextMap.get(key); html += HtmlTagUtil.createTrSub1("[" +
-         * convertStatus(bundle.getState()) + "][" + bundle.getBundleId() +
-         * "] ", bundle.getSymbolicName()); Date date = new
-         * Date(bundle.getLastModified()); html +=
-         * HtmlTagUtil.createTr("LastModified", date.toString()); html +=
-         * HtmlTagUtil.createTr("Location", bundle.getLocation()); } html +=
-         * HtmlTagUtil.closeTable();
-         */
+        // TODO 要実装
 
         // bundles
-        Bundle[] bundles = BundleContextUtil.getBundles();
+        String symbolicName = UrumaServiceUtil.getService().getPluginId();
+        Bundle urumaBundle = BundleContextUtil.getBundle(symbolicName);
+        Bundle[] bundles = urumaBundle.getBundleContext().getBundles();
         for (Bundle bundle : bundles) {
             html += HtmlTagUtil.createH1("[" + convertStatus(bundle.getState())
                     + "][" + bundle.getBundleId() + "] "
@@ -498,16 +482,16 @@ public class UrumaDebugViewAction {
                     .getSorter()));
 
         } else if (GenericAction.class.isAssignableFrom(wh.getWidgetClass())) {
-
+            // TODO 要実装
         } else if (UrumaApplicationWindow.class.isAssignableFrom(wh
                 .getWidgetClass())) {
-
+            // TODO 要実装
         } else if (Widget.class.isAssignableFrom(wh.getWidgetClass())) {
-
+            // TODO 要実装
         } else if (MenuManager.class.isAssignableFrom(wh.getWidgetClass())) {
-
+            // TODO 要実装
         } else if (Control.class.isAssignableFrom(wh.getWidgetClass())) {
-
+            // TODO 要実装
         }
 
         UIComponent uc = wh.getUiComponent();
