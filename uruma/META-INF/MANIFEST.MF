@@ -508,6 +508,7 @@ Export-Package: javassist;
    org.seasar.framework.container.factory,
    org.seasar.framework.util",
  org.seasar.uruma.container.creator;uses:="org.seasar.framework.container.creator,org.seasar.framework.container,org.seasar.framework.convention",
+ org.seasar.uruma.container.warmdeploy,
  org.seasar.uruma.context;uses:="org.seasar.uruma.desc,org.seasar.uruma.component,org.seasar.uruma.binding.enables",
  org.seasar.uruma.context.impl;
   uses:="org.seasar.uruma.desc,
