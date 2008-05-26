@@ -51,11 +51,6 @@ public class WorkbenchWindowAction {
 		createPerspectiveMenu();
 	}
 	
-    @EventListener(id = "fileOpen")
-    public void doMenu() {
-    	System.out.println("fileOpen");
-    }
-	
 	/**
 	 * コンフィグ設定。 <br />
 	 */
