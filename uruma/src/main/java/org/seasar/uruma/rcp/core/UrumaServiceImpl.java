@@ -260,7 +260,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         try {
             S2ContainerFactory.configure();
             ResourceUtil.getResource(configPath);
-            container = S2ContainerFactory.create(configPath);
+            container = S2ContainerFactory.create(configPath,
+                    getAppClassLoader());
         } catch (ResourceNotFoundRuntimeException ex) {
             // app.dicon が存在しない場合は、空の S2Container を生成する
             container = S2ContainerFactory.create();
