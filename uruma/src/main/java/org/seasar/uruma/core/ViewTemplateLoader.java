@@ -16,6 +16,7 @@
 package org.seasar.uruma.core;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * ビューテンプレートの一括登録を行うためのインターフェースです。<br />
@@ -26,8 +27,10 @@ public interface ViewTemplateLoader {
     /**
      * ビューを定義したテンプレートの一括登録を実行します。<br />
      * 
+     * @param resourceUrl
+     *             テンプレートを読み込む起点パス
      * @throws IOException
      *             テンプレートの読み込みに失敗した場合
      */
-    public void loadViewTemplates() throws IOException;
+    public void loadViewTemplates(URL resourceUrl) throws IOException;
 }

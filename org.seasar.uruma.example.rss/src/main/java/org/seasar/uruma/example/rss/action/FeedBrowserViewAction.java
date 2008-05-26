@@ -21,7 +21,6 @@ import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.example.rss.constants.WidgetConstants;
 import org.seasar.uruma.example.rss.dto.FeedEntryDto;
-import org.seasar.uruma.example.rss.util.S2ContainerListtoHtmlUtil;
 
 /**
  * フィードエントリのブラウザ表示です。<br />
@@ -42,7 +41,7 @@ public class FeedBrowserViewAction  {
 	 */
 	@InitializeMethod
 	public void initialize() {
-		html = S2ContainerListtoHtmlUtil.list("");
+		html = "";
 	}
 	
 	/**

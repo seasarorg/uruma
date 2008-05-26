@@ -55,13 +55,11 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader,
     /*
      * @see org.seasar.uruma.core.ViewTemplateLoader#loadViewTemplates()
      */
-    public void loadViewTemplates() throws IOException {
-        URL localUrl = RcpResourceUtil
-                .getLocalResourceUrl(DEFAULT_WORKBENCH_XML);
+    public void loadViewTemplates(final URL resourceUrl) throws IOException {
 
         // TODO プロトコル毎にクラスを分けて整理する
-        if (UrumaConstants.PROTCOL_FILE.equals(localUrl.getProtocol())) {
-            File localFile = new File(localUrl.getPath());
+        if (UrumaConstants.PROTCOL_FILE.equals(resourceUrl.getProtocol())) {
+            File localFile = new File(resourceUrl.getPath());
             File baseDir = new File(localFile.getParent() + SLASH
                     + DEFAULT_VIEWS_PATH);
 
@@ -81,11 +79,11 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader,
             }
 
             templateManager.loadTemplates(viewFilePaths);
-        } else if (PROTCOL_JAR.equals(localUrl.getProtocol())) {
-            String jarFilePath = StringUtil.substringFromLast(localUrl
+        } else if (PROTCOL_JAR.equals(resourceUrl.getProtocol())) {
+            String jarFilePath = StringUtil.substringFromLast(resourceUrl
                     .getPath(), EXCLAMATION_MARK);
             String jarLocalPath = StringUtil.substringToLast(
-                    localUrl.getPath(), EXCLAMATION_MARK).substring(1);
+                    resourceUrl.getPath(), EXCLAMATION_MARK).substring(1);
             // workebnch.xml の親ディレクトリをクラスパスルートとみなす
             String classPathRoot = PathUtil.getParent(jarLocalPath) + SLASH;
             JarFile jarFile = JarFileUtil.create((new URL(jarFilePath))
@@ -94,17 +92,18 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader,
             logger.log(FINDING_XML_START, jarFilePath + EXCLAMATION_MARK
                     + classPathRoot);
 
+            // TODO SUSIE
+            String basePath = DEFAULT_VIEWS_PATH + SLASH;
+
             List<String> viewFilePaths = new ArrayList<String>();
             Enumeration<JarEntry> entries = jarFile.entries();
             while (entries.hasMoreElements()) {
                 JarEntry entry = entries.nextElement();
 
-                String basePath = classPathRoot + DEFAULT_VIEWS_PATH + SLASH;
                 String entryPath = entry.getName();
                 if (entryPath.startsWith(basePath)
                         && entryPath.endsWith(".xml")) {
-                    viewFilePaths.add(PathUtil.replaceSeparator(entryPath)
-                            .substring(classPathRoot.length()));
+                    viewFilePaths.add(PathUtil.replaceSeparator(entryPath));
                 }
             }
 
@@ -116,7 +115,7 @@ public class ViewTemplateLoaderImpl implements ViewTemplateLoader,
      * {@link TemplateManager} を設定します。<br />
      * 
      * @param templateManager
-     *            {@link TemplateManager}
+     *      {@link TemplateManager}
      */
     @Binding(bindingType = BindingType.MUST)
     public void setTemplateManager(final TemplateManager templateManager) {

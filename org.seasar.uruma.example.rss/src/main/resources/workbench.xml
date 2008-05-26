@@ -4,6 +4,15 @@
     initialPerspectiveId="defaultPerspective" initHeight="800"
     image="uruma" statusLine="true">
 
+    <menu>
+      <menu text="ファイル(&amp;F)">
+        <menuItem id="fileOpen" text="開く(&amp;O)" image="rss"
+          accelerator="Ctrl+O" />
+        <menuItem id="fileRename" text="名前の変更(&amp;M)\tF2"
+          image="rss" accelerator="F2" />
+      </menu>
+    </menu>
+
     <perspective id="defaultPerspective" name="RSS" fixed="false"
       icon="uruma">
       <part ref="feedTreeView" ratio="30" position="LEFT" />

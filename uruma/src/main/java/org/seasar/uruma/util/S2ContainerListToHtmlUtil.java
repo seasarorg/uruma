@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.example.rss.util;
+package org.seasar.uruma.util;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -35,9 +35,11 @@ import org.seasar.framework.env.Env;
 import org.seasar.framework.util.StringUtil;
 
 /**
+ * S2ContainerにレジストされているオブジェクトをHTMLに出力するユーティリティです。<br />
+
  * @author y.sugigami
  */
-public class S2ContainerListtoHtmlUtil {
+public class S2ContainerListToHtmlUtil {
 
     /**
      * 初期化パラメータの設定パスのキーです。

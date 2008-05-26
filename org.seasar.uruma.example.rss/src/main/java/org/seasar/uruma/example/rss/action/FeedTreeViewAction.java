@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.example.rss.action;
 
+import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.InitializeMethod;
@@ -36,6 +37,12 @@ public class FeedTreeViewAction {
 	 */
 	public FeedLogic feedLogic;
 	
+	
+    @EventListener(id = "fileOpen")
+    public void doMenu() {
+    	System.out.println("fileOpen hoge");
+    }
+    
 	/**
 	 * ツリーウィジェットに表示するフィードのデータです。<br />
 	 */

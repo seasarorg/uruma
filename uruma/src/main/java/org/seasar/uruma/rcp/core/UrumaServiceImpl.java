@@ -40,6 +40,7 @@ import org.seasar.framework.util.URLUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.jface.TemplateImpl;
+import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.ContextFactory;
@@ -49,6 +50,7 @@ import org.seasar.uruma.core.TemplateManager;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.core.ViewTemplateLoader;
+import org.seasar.uruma.debug.action.UrumaDebugViewAction;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.exception.UrumaAppInitException;
 import org.seasar.uruma.log.UrumaLogger;
@@ -60,8 +62,8 @@ import org.seasar.uruma.rcp.util.RcpResourceUtil;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
- * {@link UrumaService} の実装クラスです。<br />
- * 本クラスは、 {@link UrumaServiceFactory} によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。<br />
+ * {@link UrumaService} の実装クラスです。<br /> 本クラスは、 {@link UrumaServiceFactory}
+ * によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。<br />
  * 
  * @author y-komori
  */
@@ -110,7 +112,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * {@link UrumaServiceImpl} を構築します。<br />
      * 
      * @param targetBundle
-     *            ターゲットバンドル
+     *      ターゲットバンドル
      */
     public UrumaServiceImpl(final Bundle targetBundle) {
         AssertionUtil.assertNotNull("targetBundle", targetBundle);
@@ -141,7 +143,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
             prepareS2Components();
 
             logger.log(URUMA_SERVICE_INIT_END, targetBundle.getSymbolicName());
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
             throw new UrumaAppInitException(targetBundle, ex, ex.getMessage());
         } finally {
@@ -153,16 +155,37 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * 拡張ポイントの設定を行います。<br />
      */
     protected void registerExtensions() {
+
+        // Uruma Debug View XMLの読み込み
+        if (Env.UT.equals(Env.getValue())) {
+            try {
+                URL resourceUrl = RcpResourceUtil
+                        .getLocalResourceUrl(DEFAULT_WORKBENCH_XML);
+                templateLoader.loadViewTemplates(resourceUrl);
+
+                // テンプレートファイルを遅延ロードすると
+                // UrumaClassLoaderではないため
+                // テンプレートファイルをロードできないので
+                // ここで事前にテンプレートファイルを読み込む
+                templateManager.getTemplates(ViewPartComponent.class);
+            } catch (Exception ex) {
+                logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
+                throw new UrumaAppInitException(targetBundle, ex, ex
+                        .getMessage());
+            }
+        }
+
         switchToAppClassLoader();
         try {
             setupContributor();
 
             setupContexts();
             if (!DUMMY_WORKBENCH_PATH.equals(workbenchComponent.getPath())) {
-                // ビューテンプレートの読み込み
-                templateLoader.loadViewTemplates();
+                // アプリケーションのビューテンプレートの読み込み
+                URL resourceUrl = RcpResourceUtil
+                        .getLocalResourceUrl(DEFAULT_WORKBENCH_XML);
+                templateLoader.loadViewTemplates(resourceUrl);
             }
-
             ContributionBuilder.build(contributor, extensions);
         } catch (Exception ex) {
             logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
@@ -176,7 +199,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * 指定したバンドルをアクティベートします。
      * 
      * @param bundle
-     *            Urumaアプリケーションを含むバンドル
+     *      Urumaアプリケーションを含むバンドル
      * 
      * @return バンドルのクラスローダ
      */
@@ -205,7 +228,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * クラスはバンドルのシンボリックネームが表すパッケージ配下を検索します。
      * 
      * @param bundle
-     *            {@link Bundle} オブジェクト
+     *      {@link Bundle} オブジェクト
      * @return 見つかったクラス名。見つからなかった場合は <code>null</code>。
      */
     @SuppressWarnings("unchecked")
@@ -284,6 +307,14 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
                 .getComponent(ApplicationContext.class);
 
         container.register(this, UrumaConstants.URUMA_SERVICE_S2NAME);
+
+        // Debug用 アクションをロード
+        if (Env.UT.equals(Env.getValue())) {
+            UrumaDebugViewAction urumaDebugViewAction = new UrumaDebugViewAction();
+            String name = StringUtil.decapitalize(UrumaDebugViewAction.class
+                    .getSimpleName());
+            container.register(urumaDebugViewAction, name);
+        }
     }
 
     protected void switchClassLoader(final ClassLoader loader,

@@ -24,6 +24,7 @@ import org.eclipse.ui.actions.ContributionItemFactory;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
 
 /**
@@ -49,6 +50,11 @@ public class WorkbenchWindowAction {
 		createViewMenu();
 		createPerspectiveMenu();
 	}
+	
+    @EventListener(id = "fileOpen")
+    public void doMenu() {
+    	System.out.println("fileOpen");
+    }
 	
 	/**
 	 * コンフィグ設定。 <br />
