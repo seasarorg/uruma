@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="uruma" default="org.seasar.uruma.example.rss" basedir="..">
+	<property name="VER" value="0.4.1" />
+	<property name="TARGET" value="target" />
+	<property name="RELEASE" value="${TARGET}/release" />
+
+	<target name="clean">
+		<delete dir="${RELEASE}" />
+		<mkdir dir="${RELEASE}" />
+	</target>
+
+	<!-- uruma 本体のビルド -->
+	<target name="uruma" depends="clean">
+		<exec executable="cmd">
+			<arg value="/c" />
+			<arg value="mvn" />
+			<arg value="clean" />
+			<arg value="install" />
+		</exec>
+
+		<copy file="${TARGET}/uruma-${VER}.zip" todir="${RELEASE}" />
+	</target>
+
+	<!-- uruma-example-janken のビルド -->
+	<target name="uruma-example-janken" depends="uruma">
+		<exec executable="cmd" dir="../uruma-example-janken">
+			<arg value="/c" />
+			<arg value="mvn" />
+			<arg value="clean" />
+			<arg value="install" />
+		</exec>
+
+		<copy file="../uruma-example-janken/target/uruma-example-janken-${VER}.zip" todir="${RELEASE}" />
+	</target>
+
+	<!-- uruma-example-employee のビルド -->
+	<target name="uruma-example-employee" depends="uruma-example-janken">
+		<exec executable="cmd" dir="../uruma-example-employee">
+			<arg value="/c" />
+			<arg value="mvn" />
+			<arg value="clean" />
+			<arg value="install" />
+		</exec>
+
+		<copy file="../uruma-example-employee/target/uruma-example-employee-${VER}.zip" todir="${RELEASE}" />
+	</target>
+
+	<!-- スタンドアローン版ブランクプロジェクトのビルド -->
+	<target name="uruma-std-blank" depends="uruma-example-employee">
+		<ant antfile="../uruma-std-blank/export.xml" />
+	</target>
+
+	<!-- RCP版ブランクプロジェクトのビルド -->
+	<target name="org.seasar.uruma.rcp.blank" depends="uruma-std-blank">
+		<ant antfile="../org.seasar.uruma.rcp.blank/export.xml" />
+	</target>
+
+	<!-- org.seasar.uruma.example.filemanager のビルド -->
+	<target name="org.seasar.uruma.example.filemanager" depends="org.seasar.uruma.rcp.blank">
+		<ant antfile="../org.seasar.uruma.example.filemanager/build.xml" dir="../org.seasar.uruma.example.filemanager" />
+		<copy file="../org.seasar.uruma.example.filemanager/target/org.seasar.uruma.example.filemanager-${VER}.zip" todir="${RELEASE}" />
+	</target>
+
+	<!-- org.seasar.uruma.example.rss のビルド -->
+	<target name="org.seasar.uruma.example.rss" depends="org.seasar.uruma.example.filemanager">
+		<ant antfile="../org.seasar.uruma.example.rss/build.xml" dir="../org.seasar.uruma.example.rss" />
+		<copy file="../org.seasar.uruma.example.rss/target/org.seasar.uruma.example.rss-${VER}.zip" todir="${RELEASE}" />
+	</target>
+
+</project>
