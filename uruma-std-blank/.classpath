@@ -38,6 +38,6 @@
 	<classpathentry kind="lib" path="lib/s2-extension-2.4.25.jar"/>
 	<classpathentry kind="lib" path="lib/s2-framework-2.4.25.jar"/>
 	<classpathentry kind="lib" path="lib/s2-tiger-2.4.25.jar"/>
-	<classpathentry kind="lib" path="lib/uruma-0.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/uruma-0.4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
