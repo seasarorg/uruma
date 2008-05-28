@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="uruma-std-blank" default="makeArchive" basedir=".">
+	<property name="PRJ_NAME" value="org.seasar.uruma.rcp.blank" />
+
+	<target name="makeArchive">
+		<zip destfile="${RELEASE}/${PRJ_NAME}-${VER}.zip">
+			<zipfileset dir="../${PRJ_NAME}">
+				<exclude name="**/.svn/**" />
+				<exclude name="build.xml" />
+				<exclude name="log/**" />
+			</zipfileset>
+		</zip>
+	</target>
+</project>
