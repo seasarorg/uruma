@@ -2,7 +2,10 @@
 <template xmlns="http://uruma.sandbox.seasar.org">
   <workbench title="Uruma Example - RSS Reader" initWidth="1024"
     initialPerspectiveId="defaultPerspective" initHeight="800"
-    image="uruma" statusLine="true">
+    image="uruma" statusLine="true"
+    saveAndRestore="true" menuBar="true" 
+    coolBar="true" fastViewBars="true"
+    perspectiveBar="true" progressIndicator="true" >
 
     <perspective id="defaultPerspective" name="RSS" fixed="false"
       icon="uruma">
