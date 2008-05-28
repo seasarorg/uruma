@@ -9,10 +9,10 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.seasar.uruma
-Bundle-ClassPath: target/main-classes/,
- lib/rome-0.9.jar,
+Bundle-ClassPath: lib/rome-0.9.jar,
  lib/rome-fetcher-0.9.jar,
  lib/jdom.jar,
+ bin/,
  .
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Eclipse-LazyStart: true

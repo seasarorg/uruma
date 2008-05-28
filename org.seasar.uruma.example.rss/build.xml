@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="org.seasar.uruma.example.rss" default="makercp" basedir=".">
+	<!-- バージョン -->
+	<property name="ver" value="0.4.1" />
+
+	<!-- Jarファイル名 -->
+	<property name="jarname" value="${ant.project.name}_${ver}.jar" />
+
+	<!-- 成果物出力先ディレクトリ -->
+	<property name="target" value="target" />
+
+	<!-- ソースファイルディレクトリ -->
+	<property name="src" value="src/main/java" />
+
+	<!-- リソースファイルディレクトリ -->
+	<property name="resources" value="src/main/resources" />
+
+	<!-- ライブラリディレクトリ -->
+	<property name="lib" value="lib" />
+
+	<!-- クラスファイル出力先ディレクトリ -->
+	<property name="classes" value="${target}/classes" />
+
+	<!-- Jar ファイル用ディレクトリ -->
+	<property name="jartemp" value="${target}/jartemp" />
+
+	<!-- Eclipse ホーム -->
+	<property name="ECLIPSE_HOME" value="C:/eclipse" />
+
+	<!-- RCP ランタイム -->
+	<property name="RCP_RUNTIME" value="../RCP/eclipse-RCP-3.3.1.1-win32.zip" />
+
+	<!-- クラスパス -->
+	<path id="classpath">
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ui_3.3.1.M20071128-0800.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.swt_3.3.2.v3349d.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.swt.win32.win32.x86_3.3.3.v3349.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.jface_3.3.2.M20080207-0800.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.commands_3.3.0.I20070605-0010.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ui.workbench_3.3.2.M20080207-0800.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.runtime_3.3.100.v20070530.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi_3.3.2.R33x_v20080105.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.common_3.3.0.v20070426.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.jobs_3.3.1.R33x_v20070709.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.runtime.compatibility.registry_3.2.100.v20070316/runtime_registry_compatibility.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.registry_3.3.1.R33x_v20070802.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.preferences_3.2.101.R33x_v20080117.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.contenttype_3.2.100.v20070319.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.app_1.0.1.R33x_v20070828.jar" />
+		<pathelement location="${lib}/jdom.jar" />
+		<pathelement location="${lib}/rome-0.9.jar" />
+		<pathelement location="${lib}/rome-fetcher-0.9.jar" />
+		<pathelement location="../uruma/lib/s2-framework-2.4.25.jar" />
+		<pathelement location="../uruma/lib/s2-extension-2.4.25.jar" />
+        <pathelement location="../uruma/lib/s2-tiger-2.4.25.jar" />
+		<pathelement location="../uruma/target/classes" />
+	</path>
+
+	<!-- ============== -->
+	<!--   ターゲット   -->
+	<!-- ============== -->
+	<!-- 出力先ディレクトリの消去 -->
+	<target name="clean">
+		<delete dir="${target}" />
+		<mkdir dir="${classes}" />
+	</target>
+
+	<!-- コンパイル -->
+	<target name="compile" depends="clean">
+		<!-- リソースのコピー -->
+		<copy todir="${classes}">
+			<fileset dir="${resources}">
+				<exclude name="**/.svn/**" />
+			</fileset>
+		</copy>
+		<javac srcdir="${src}" destdir="${classes}" debug="on" optimize="off" source="1.5" encoding="UTF-8">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<!-- Jarアーカイブを生成する -->
+	<target name="makejar" depends="compile">
+		<mkdir dir="${jartemp}" />
+		<copy todir="${jartemp}">
+			<fileset dir="${classes}" />
+		</copy>
+		<copy todir="${jartemp}/bin">
+			<fileset dir="${classes}" />
+		</copy>
+        <copy todir="${jartemp}/lib">
+            <fileset dir="lib" />
+        </copy>
+		<copy todir="${jartemp}/src">
+			<fileset dir="src" />
+		</copy>
+
+		<jar jarfile="${target}/${jarname}" manifest="META-INF/MANIFEST.MF" manifestencoding="UTF-8">
+			<fileset dir="${jartemp}" />
+		</jar>
+		<delete dir="${jartemp}" />
+	</target>
+
+	<!-- 配布用 RCP 環境を生成する -->
+	<target name="makercp" depends="makejar">
+		<mkdir dir="${jartemp}" />
+		<unzip src="${RCP_RUNTIME}" dest="${jartemp}" />
+		<unzip src="../uruma/target/uruma-${ver}.zip" dest="${jartemp}" />
+		<copy todir="${jartemp}">
+			<fileset dir="${jartemp}/uruma-${ver}/rcp" />
+		</copy>
+		<copy file="${target}/${jarname}" todir="${jartemp}/eclipse/plugins" />
+		<delete dir="${jartemp}/uruma-${ver}" />
+		<copy todir="${jartemp}/${ant.project.name}">
+			<fileset dir="../${ant.project.name}">
+				<exclude name="target" />
+				<exclude name="**/.svn/**" />
+			</fileset>
+		</copy>
+		<zip destfile="${target}/${ant.project.name}-${ver}.zip" basedir="${jartemp}" />
+		<delete dir="${jartemp}" />
+	</target>
+
+</project>
