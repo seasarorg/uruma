@@ -47,26 +47,32 @@
 
   <xs:element name="workbench">
     <xs:complexType>
-      <xs:sequence>
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element ref="tns:perspective" minOccurs="0"
-            maxOccurs="unbounded" />
-          <xs:element ref="tns:menu" minOccurs="0"
-            maxOccurs="unbounded" />
-          <xs:group ref="tns:compositeElems" minOccurs="0"
-            maxOccurs="unbounded" />
-        </xs:choice>
-        <xs:element ref="tns:compositeChild" minOccurs="0"
-          maxOccurs="unbounded" />
-      </xs:sequence>
-      <xs:attribute name="title" type="xs:string" />
-      <xs:attribute name="image" type="xs:string" />
-      <xs:attribute name="style" type="tns:SWTConst" />
-      <xs:attribute name="initWidth" type="xs:string" />
-      <xs:attribute name="initHeight" type="xs:string" />
-      <xs:attribute name="menu" type="xs:string" />
-      <xs:attribute name="statusLine" type="xs:boolean" />
-      <xs:attribute name="initialPerspectiveId" type="xs:string" />
+    	<xs:sequence>
+    		<xs:choice minOccurs="0" maxOccurs="unbounded">
+    			<xs:element ref="tns:perspective" minOccurs="0"
+    				maxOccurs="unbounded" />
+    			<xs:element ref="tns:menu" minOccurs="0"
+    				maxOccurs="unbounded" />
+    			<xs:group ref="tns:compositeElems" minOccurs="0"
+    				maxOccurs="unbounded" />
+    		</xs:choice>
+    		<xs:element ref="tns:compositeChild" minOccurs="0"
+    			maxOccurs="unbounded" />
+    	</xs:sequence>
+    	<xs:attribute name="title" type="xs:string" />
+    	<xs:attribute name="image" type="xs:string" />
+    	<xs:attribute name="style" type="tns:SWTConst" />
+    	<xs:attribute name="initWidth" type="xs:string" />
+    	<xs:attribute name="initHeight" type="xs:string" />
+    	<xs:attribute name="menu" type="xs:string" />
+    	<xs:attribute name="statusLine" type="xs:boolean" />
+    	<xs:attribute name="initialPerspectiveId" type="xs:string" />
+    	<xs:attribute name="saveAndRestore" type="xs:boolean" />
+    	<xs:attribute name="menuBar" type="xs:boolean" />
+    	<xs:attribute name="coolBar" type="xs:boolean" />
+    	<xs:attribute name="fastViewBars" type="xs:boolean" />
+    	<xs:attribute name="perspectiveBar" type="xs:boolean" />
+    	<xs:attribute name="progressIndicator" type="xs:boolean" />
     </xs:complexType>
   </xs:element>
 

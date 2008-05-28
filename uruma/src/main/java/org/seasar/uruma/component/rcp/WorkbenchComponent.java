@@ -67,7 +67,7 @@ public class WorkbenchComponent extends AbstractUIContainer {
     public String menu;
 
     /**
-     * ステータスラインを表示/非表示を指定します。
+     * ステータスラインの表示/非表示を指定します。
      */
     public String statusLine;
 
@@ -75,6 +75,36 @@ public class WorkbenchComponent extends AbstractUIContainer {
      * 最初に表示するパースペクティブの ID です。
      */
     public String initialPerspectiveId;
+
+    /**
+     * ウィンドウの位置・サイズの保存可否を指定します。
+     */
+    public String saveAndRestore;
+
+    /**
+     * ウィンドウの位置・サイズの保存可否を指定します。
+     */
+    public String menuBar;
+
+    /**
+     * クールバーの表示/非表示を指定します。
+     */
+    public String coolBar;
+
+    /**
+     * ファーストビューバーの表示/非表示を指定します。
+     */
+    public String fastViewBars;
+
+    /**
+     * パースぺクティブバーの表示/非表示を指定します。
+     */
+    public String perspectiveBar;
+
+    /**
+     * プログレスバーの表示/非表示を指定します。
+     */
+    public String progressIndicator;
 
     /**
      * 指定された ID を持つ {@link PerspectiveComponent} を検索して返します。<br />

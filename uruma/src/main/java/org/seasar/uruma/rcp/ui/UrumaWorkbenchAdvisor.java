@@ -55,6 +55,11 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
 
         service.getContainer().register(configurer);
 
+        // ウィンドウの位置・サイズの保存可否を指定します。
+        WorkbenchComponent workbench = service.getWorkbenchComponent();
+        boolean flg = Boolean.parseBoolean(workbench.statusLine);
+        configurer.setSaveAndRestore(flg);
+
         ResourceBundle imageBundle = service.getImageBundle();
         try {
             logger.log(UrumaMessageCodes.LOADING_IMAGE_BUNDLE, imageBundle);

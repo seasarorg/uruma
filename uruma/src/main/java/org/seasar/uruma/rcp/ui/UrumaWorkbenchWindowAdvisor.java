@@ -110,9 +110,16 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         setupCommandHandler(configurer, windowContext);
         setupEnablesDependable(windowContext);
 
-        // TODO ここで XML から情報を読み込んでワークベンチの情報を設定する
-        configurer.setShowMenuBar(true);
-        configurer.setShowCoolBar(false);
+        // XML から情報を読み込んでワークベンチの情報を設定する
+        configurer.setShowMenuBar(workbench.menuBar == null ? true : Boolean
+                .parseBoolean(workbench.menuBar));
+        configurer.setShowCoolBar(Boolean.parseBoolean(workbench.coolBar));
+        configurer.setShowFastViewBars(Boolean
+                .parseBoolean(workbench.fastViewBars));
+        configurer.setShowPerspectiveBar(Boolean
+                .parseBoolean(workbench.perspectiveBar));
+        configurer.setShowProgressIndicator(Boolean
+                .parseBoolean(workbench.progressIndicator));
     }
 
     protected Point calcInitialSize(final String width, final String height) {
