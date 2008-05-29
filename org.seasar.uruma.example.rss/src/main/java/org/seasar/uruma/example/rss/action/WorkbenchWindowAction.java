@@ -17,6 +17,7 @@ package org.seasar.uruma.example.rss.action;
 
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -25,7 +26,9 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.InitializeMethod;
+import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 
 /**
  *  アプリの初期化処理です。 <br />
@@ -49,6 +52,8 @@ public class WorkbenchWindowAction {
 		config();
 		createViewMenu();
 		createPerspectiveMenu();
+		
+		System.out.println(ContributionBuilder.getContent());
 	}
 	
 	/**
@@ -81,5 +86,21 @@ public class WorkbenchWindowAction {
 	    MenuManager layoutMenu = new MenuManager("パースペクティブの表示(&P)", "layoutId");
 	    actionBarConfigurer.getMenuManager().add(layoutMenu);
 	    layoutMenu.add(perspectivesMenu);
+	}
+	
+	
+	@EventListener(id = "menu1", type = EventListenerType.SELECTION)
+	public void doMenu1(final Object obj) {
+		MessageDialog.openInformation(null, "メニュー１", "メニュー１クリック！！");
+	}
+
+	@EventListener(id = "menu2", type = EventListenerType.SELECTION)
+	public void doMenu2(final Object obj) {
+		MessageDialog.openInformation(null, "メニュー２", "メニュー２クリック！！");
+	}
+
+	@EventListener(id = "menu3", type = EventListenerType.SELECTION)
+	public void doMenu3(final Object obj) {
+		MessageDialog.openInformation(null, "メニュー３", "メニュー３クリック！！");
 	}
 }

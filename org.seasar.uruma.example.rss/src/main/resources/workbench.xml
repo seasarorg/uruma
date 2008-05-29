@@ -7,6 +7,21 @@
     coolBar="true" fastViewBars="true"
     perspectiveBar="true" progressIndicator="true" >
 
+    <menu>
+      <menu text="メニューグループ１(&amp;F)">
+        <menuItem id="menu1" text="メニュー１(&amp;O)" image="uruma"
+          accelerator="Ctrl+O" />
+
+        <menuItem id="menu2" text="メニュー２(&amp;D)\tDELETE" image="rss" 
+          accelerator="DELETE" />
+      </menu>
+       
+      <menu text="メニューグループ２(&amp;E)">
+        <menuItem id="menu3" text="メニュー３(&amp;A)" image="rss" 
+          accelerator="Ctrl+A" />
+      </menu>
+    </menu>
+
     <perspective id="defaultPerspective" name="RSS" fixed="false"
       icon="uruma">
       <part ref="feedTreeView" ratio="30" position="LEFT" />

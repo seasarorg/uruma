@@ -15,13 +15,18 @@
  */
 package org.seasar.uruma.example.rss.action;
 
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.seasar.uruma.annotation.EventListener;
+import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.ExportValue;
 import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.example.rss.constants.WidgetConstants;
 import org.seasar.uruma.example.rss.dto.FeedDto;
+import org.seasar.uruma.example.rss.dto.FeedEntryDto;
 import org.seasar.uruma.example.rss.dto.NodeDto;
 import org.seasar.uruma.example.rss.logic.FeedLogic;
+import org.seasar.uruma.ui.dialogs.UrumaMessageDialog;
 
 /**
  * フィードのツリー表示です。<br />
@@ -67,6 +72,5 @@ public class FeedTreeViewAction {
 			child.setTarget(feedDto);
 			root.addChild(child);
 		}
-			
 	}
 }
