@@ -138,7 +138,7 @@ public class TemplateManagerImpl implements TemplateManager {
      * @see org.seasar.uruma.core.TemplateManager#clear()
      */
     public void clear() {
-        logger.debug("画面定義XMLのキャッシュをすべて削除します.");
+        logger.log(UrumaMessageCodes.DELETE_ALL_TEMPLATE_FROM_CACHE);
         templateCache.clear();
     }
 
@@ -148,7 +148,7 @@ public class TemplateManagerImpl implements TemplateManager {
     public void remove(final String id) {
         String path = idToPathMap.get(id);
         if (path != null) {
-            logger.debug("画面定義XML(" + path + ")のキャッシュを削除します.");
+            logger.log(UrumaMessageCodes.DELETE_TEMPLATE_FROM_CACHE);
             templateCache.remove(path);
         }
     }

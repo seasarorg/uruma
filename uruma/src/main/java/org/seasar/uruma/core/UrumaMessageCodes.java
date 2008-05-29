@@ -233,6 +233,24 @@ public interface UrumaMessageCodes {
      */
     public static final String PROPERY_NOT_FOUND = "EURM0115";
 
+    /**
+     * 指定された ID を持つすべての画面定義テンプレートをキャッシュから削除する際のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String DELETE_ALL_TEMPLATE_FROM_CACHE = "DURM0116";
+
+    /**
+     * 指定された ID を持つ画面定義テンプレートをキャッシュから削除する際のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String DELETE_TEMPLATE_FROM_CACHE = "DURM0117";
+
     // -------------------------------------------------------------------------
     // バインディング関連メッセージコード (02xx)
     // -------------------------------------------------------------------------
@@ -502,8 +520,8 @@ public interface UrumaMessageCodes {
     public static final String REQUIRED_VIEWPART_ERROR = "EURM0303";
 
     /**
-     * {@link UIComponent#preRender(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.WindowContext)}
-     * メソッド開始時のメッセージコードです。
+     * {@link UIComponent#preRender(org.seasar.uruma.context.WidgetHandle,
+     * org.seasar.uruma.context.WindowContext)} メソッド開始時のメッセージコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
@@ -512,8 +530,8 @@ public interface UrumaMessageCodes {
     public static final String PRE_RENDER_START = "TURM0304";
 
     /**
-     * {@link UIComponent#preRender(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.WindowContext)}
-     * メソッド終了時のメッセージコードです。
+     * {@link UIComponent#preRender(org.seasar.uruma.context.WidgetHandle,
+     * org.seasar.uruma.context.WindowContext)} メソッド終了時のメッセージコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
@@ -522,8 +540,8 @@ public interface UrumaMessageCodes {
     public static final String PRE_RENDER_END = "TURM0305";
 
     /**
-     * {@link UIComponent#render(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)}
-     * メソッド開始時のメッセージコードです。
+     * {@link UIComponent#render(org.seasar.uruma.context.WidgetHandle,
+     * org.seasar.uruma.context.PartContext)} メソッド開始時のメッセージコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
@@ -532,8 +550,8 @@ public interface UrumaMessageCodes {
     public static final String RENDER_START = "TURM0306";
 
     /**
-     * {@link UIComponent#render(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)}
-     * メソッド終了時のメッセージコードです。
+     * {@link UIComponent#render(org.seasar.uruma.context.WidgetHandle,
+     * org.seasar.uruma.context.PartContext)} メソッド終了時のメッセージコードです。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
