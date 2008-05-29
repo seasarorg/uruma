@@ -32,10 +32,17 @@ public class CommandRegistryImpl implements CommandRegistry {
     private List<CommandDesc> commandDescList = new ArrayList<CommandDesc>();
 
     /*
-     * @see org.seasar.uruma.rcp.binding.CommandRegistry#registerCommandDesc(org.seasar.uruma.rcp.binding.CommandDesc)
+     * @see
+     * org.seasar.uruma.rcp.binding.CommandRegistry#registerCommandDesc(org.
+     * seasar.uruma.rcp.binding.CommandDesc)
      */
     public void registerCommandDesc(final CommandDesc desc) {
         AssertionUtil.assertNotNull("desc", desc);
+        for (CommandDesc existDesc : commandDescList) {
+            if (existDesc.getCommandId().equals(desc.getCommandId())) {
+                return;
+            }
+        }
         commandDescList.add(desc);
     }
 
@@ -47,7 +54,9 @@ public class CommandRegistryImpl implements CommandRegistry {
     }
 
     /*
-     * @see org.seasar.uruma.rcp.binding.CommandRegistry#getCommandDesc(java.lang.String)
+     * @see
+     * org.seasar.uruma.rcp.binding.CommandRegistry#getCommandDesc(java.lang
+     * .String)
      */
     public CommandDesc getCommandDesc(final String commandId) {
         for (CommandDesc desc : commandDescList) {

@@ -25,6 +25,7 @@ import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.rcp.binding.CommandDesc;
 import org.seasar.uruma.rcp.binding.CommandRegistry;
+import org.seasar.uruma.rcp.configuration.ConfigurationElement;
 import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.configuration.ExtensionBuilder;
 import org.seasar.uruma.rcp.configuration.ExtensionFactory;
@@ -37,6 +38,7 @@ import org.seasar.uruma.rcp.configuration.elements.MenuCommandElement;
 import org.seasar.uruma.rcp.configuration.elements.MenuContributionElement;
 import org.seasar.uruma.rcp.configuration.elements.MenuElement;
 import org.seasar.uruma.rcp.configuration.elements.SchemeElement;
+import org.seasar.uruma.rcp.configuration.elements.ToolbarElement;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.util.MnemonicUtil;
 
@@ -82,6 +84,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected MenuContributionElement menuContribution;
 
+    protected MenuContributionElement toolbarContribution;
+
     protected CommandRegistry commandRegistry;
 
     protected String localContextId;
@@ -102,6 +106,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         WorkbenchComponent workbenchComponent = service.getWorkbenchComponent();
         for (MenuComponent menu : workbenchComponent.getMenus()) {
             traverseMenu(category, menu, null);
+            traverseToolbar(category, menu, null);
         }
 
         return new Extension[] { contexts, commands, handlers, bindings, menus };
@@ -133,6 +138,10 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         this.menuContribution = new MenuContributionElement();
         this.menuContribution.locationURI = "menu:org.eclipse.ui.main.menu?after=additions";
         menus.addElement(this.menuContribution);
+
+        this.toolbarContribution = new MenuContributionElement();
+        this.toolbarContribution.locationURI = "toolbar:org.eclipse.ui.main.toolbar?after=additions";
+        menus.addElement(this.toolbarContribution);
     }
 
     protected void traverseMenu(final CategoryElement category,
@@ -151,6 +160,26 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
                 setupCommand(category, commandId, menuItem);
                 setupKey(commandId, menuItem);
                 setupMenuCommand(commandId, menuItem, parentMenuElement);
+            }
+        }
+    }
+
+    protected void traverseToolbar(final CategoryElement category,
+            final MenuComponent menuComponent,
+            final ToolbarElement parentToolbarElement) {
+        List<UIElement> children = menuComponent.getChildren();
+        for (UIElement child : children) {
+            if (child instanceof MenuComponent) {
+                ToolbarElement toolbarElement = setupToolbar(
+                        (MenuComponent) child, parentToolbarElement);
+                traverseToolbar(category, (MenuComponent) child, toolbarElement);
+            } else if (child instanceof MenuItemComponent) {
+                MenuItemComponent menuItem = (MenuItemComponent) child;
+                String commandId = createCommandId(menuItem);
+
+                setupCommand(category, commandId, menuItem);
+                setupKey(commandId, menuItem);
+                setupToolbarCommand(commandId, menuItem, parentToolbarElement);
             }
         }
     }
@@ -181,6 +210,18 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
             }
 
             return menu;
+        } else {
+            return null;
+        }
+    }
+
+    protected ToolbarElement setupToolbar(final MenuComponent component,
+            final ToolbarElement parentElement) {
+        if (!(component.getParent() instanceof WorkbenchComponent)) {
+            String id = service.getPluginId() + ".toolbar." + component.text;
+            ToolbarElement toolbar = new ToolbarElement(id);
+            toolbarContribution.addElement(toolbar);
+            return toolbar;
         } else {
             return null;
         }
@@ -219,6 +260,15 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
     protected void setupKey(final String commandId,
             final MenuItemComponent menuItem) {
         if (!StringUtil.isEmpty(menuItem.accelerator)) {
+            for (ConfigurationElement ce : bindings.getElements()) {
+                if (ce instanceof KeyElement) {
+                    KeyElement existKeyElement = (KeyElement) ce;
+                    if (existKeyElement.commandId.equals(commandId)) {
+                        return;
+                    }
+                }
+            }
+
             String sequence = menuItem.accelerator;
             KeyElement key = new KeyElement(sequence, URUMA_APP_SCHEME_ID);
             key.commandId = commandId;
@@ -242,4 +292,22 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
         parentMenuElement.addElement(command);
     }
+
+    protected void setupToolbarCommand(final String commandId,
+            final MenuItemComponent menuItem,
+            final ToolbarElement parentToolbarElement) {
+        MenuCommandElement command = new MenuCommandElement(commandId);
+        if (!StringUtil.isEmpty(menuItem.text)) {
+            command.mnemonic = MnemonicUtil.getMnemonic(menuItem.text);
+        }
+
+        command.icon = getRcpImagePath(menuItem.image);
+        command.disabledIcon = getRcpImagePath(menuItem.disabledImage);
+        command.hoverIcon = getRcpImagePath(menuItem.hoverImage);
+        command.style = menuItem.getStyle() == null ? MenuCommandElement.STYLE_PUSH
+                : menuItem.getStyle();
+
+        parentToolbarElement.addElement(command);
+    }
+
 }

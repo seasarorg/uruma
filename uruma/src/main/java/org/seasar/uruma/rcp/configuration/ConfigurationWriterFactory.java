@@ -38,6 +38,7 @@ import org.seasar.uruma.rcp.configuration.elements.ParameterElement;
 import org.seasar.uruma.rcp.configuration.elements.PerspectiveElement;
 import org.seasar.uruma.rcp.configuration.elements.RunElement;
 import org.seasar.uruma.rcp.configuration.elements.SchemeElement;
+import org.seasar.uruma.rcp.configuration.elements.ToolbarElement;
 import org.seasar.uruma.rcp.configuration.elements.ViewElement;
 import org.seasar.uruma.rcp.configuration.writer.GenericConfigurationWriter;
 import org.seasar.uruma.util.AssertionUtil;
@@ -67,6 +68,7 @@ public class ConfigurationWriterFactory {
         addWriter(new GenericConfigurationWriter(MenuCommandElement.class));
         addWriter(new GenericConfigurationWriter(MenuContributionElement.class));
         addWriter(new GenericConfigurationWriter(MenuElement.class));
+        addWriter(new GenericConfigurationWriter(ToolbarElement.class));
         addWriter(new GenericConfigurationWriter(ParameterElement.class));
         addWriter(new GenericConfigurationWriter(PerspectiveElement.class));
         addWriter(new GenericConfigurationWriter(RunElement.class));
@@ -78,7 +80,7 @@ public class ConfigurationWriterFactory {
      * {@link ConfigurationWriter} を追加します。<br />
      * 
      * @param writer
-     *            {@link ConfigurationWriter} オブジェクト
+     *      {@link ConfigurationWriter} オブジェクト
      */
     public static final void addWriter(final ConfigurationWriter writer) {
         AssertionUtil.assertNotNull("writer", writer);
@@ -91,10 +93,10 @@ public class ConfigurationWriterFactory {
      * クラスを指定して {@link ConfigurationWriter} を取得します。<br />
      * 
      * @param clazz
-     *            {@link ConfigurationElement} のクラスオブジェクト
+     *      {@link ConfigurationElement} のクラスオブジェクト
      * @return {@link ConfigurationWriter} オブジェクト
      * @throws NotFoundException
-     *             {@link ConfigurationWriter} が見つからない場合
+     *      {@link ConfigurationWriter} が見つからない場合
      */
     public static final ConfigurationWriter getConfigurationWriter(
             final Class<? extends ConfigurationElement> clazz) {
@@ -113,10 +115,10 @@ public class ConfigurationWriterFactory {
      * を取得します。<br />
      * 
      * @param element
-     *            {@link ConfigurationElement} オブジェクト
+     *      {@link ConfigurationElement} オブジェクト
      * @return {@link ConfigurationWriter} オブジェクト
      * @throws NotFoundException
-     *             {@link ConfigurationWriter} が見つからない場合
+     *      {@link ConfigurationWriter} が見つからない場合
      */
     public static final ConfigurationWriter getConfigurationWriter(
             final ConfigurationElement element) {
