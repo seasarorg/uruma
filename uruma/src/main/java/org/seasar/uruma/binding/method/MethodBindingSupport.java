@@ -38,13 +38,14 @@ public class MethodBindingSupport implements UrumaMessageCodes {
             .getLogger(MethodBindingSupport.class);
 
     /**
-     * 指定された {@link WindowContext} 配下のすべての {@link PartContext} に対して、
-     * {@link #createListeners(PartContext)} メソッドを実行します。<br />
+     * 指定された {@link WindowContext} 配下のすべての {@link PartContext} に対して、 {@link
+     * #createListeners(PartContext)} メソッドを実行します。<br />
      * 
      * @param context
-     *            {@link WindowContext} オブジェクト
+     *      {@link WindowContext} オブジェクト
      */
     public static void createListeners(final WindowContext context) {
+        createListeners((PartContext) context);
         for (PartContext partContext : context.getPartContextList()) {
             createListeners(partContext);
         }
@@ -59,14 +60,14 @@ public class MethodBindingSupport implements UrumaMessageCodes {
      * という名前のコンポーネント)をコンテナから検索します。
      * <li>コンポーネントが見つかった場合、 そのコンポーネントで {@link EventListener}
      * アノテーションを持つメソッドを探します。
-     * <li> 見つかった各メソッドに対して、メソッド名と同じ id を持つウィジットを {@link PartContext} から探します。
+     * <li>見つかった各メソッドに対して、メソッド名と同じ id を持つウィジットを {@link PartContext} から探します。
      * <li>ウィジットが見つかれば、リスナを生成してウィジット上でアクションが発生した際に、
      * アノテーションが付加されたメソッドを呼び出すように設定します。
      * </ol>
      * </p>
      * 
      * @param context
-     *            {@link PartContext} オブジェクト
+     *      {@link PartContext} オブジェクト
      */
     public static void createListeners(final PartContext context) {
         Object actionObj = context.getPartActionObject();

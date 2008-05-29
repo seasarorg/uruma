@@ -342,7 +342,7 @@ public class UrumaDebugViewAction {
         html += HtmlTagUtil.createTable("Name", wc.getName());
         html += HtmlTagUtil.createTr("ClassName", wc.getClass().getName());
         html += HtmlTagUtil.createTr("WorkbenchActionObject", wc
-                .getWorkbenchActionObject().getClass().getName());
+                .getPartActionObject().getClass().getName());
 
         // PartContext
         for (PartContext pc : wc.getPartContextList()) {

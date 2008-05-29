@@ -24,6 +24,7 @@ import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
+import org.seasar.uruma.desc.FormDesc;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.exception.DuplicateComponentIdException;
 import org.seasar.uruma.util.AssertionUtil;
@@ -44,7 +45,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
 
     private List<EnablesDependingDef> enablesDependingDefList = new ArrayList<EnablesDependingDef>();
 
-    private Object workbenchActionObj;
+    private Object partActionObj;
 
     private PartActionDesc partActionDesc;
 
@@ -52,9 +53,9 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * {@link WindowContextImpl} を構築します。<br />
      * 
      * @param windowName
-     *            ウィンドウ名称
+     *      ウィンドウ名称
      * @param parent
-     *            親 {@link ApplicationContext}
+     *      親 {@link ApplicationContext}
      */
     public WindowContextImpl(final String windowName,
             final ApplicationContext parent) {
@@ -83,7 +84,8 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see org.seasar.uruma.context.WindowContext#getPartContext(java.lang.String)
+     * @see
+     * org.seasar.uruma.context.WindowContext#getPartContext(java.lang.String)
      */
     public PartContext getPartContext(final String partName) {
         for (PartContext context : partContextList) {
@@ -112,9 +114,9 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * {@link PartContext} オブジェクトを追加します。<br />
      * 
      * @param context
-     *            {@link PartContext} オブジェクト
+     *      {@link PartContext} オブジェクト
      * @throws DuplicateComponentIdException
-     *             パート名称が既に登録されている場合
+     *      パート名称が既に登録されている場合
      */
     public void addPartContext(final PartContext context) {
         if (getPartContext(context.getName()) == null) {
@@ -128,7 +130,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * {@link PartContext} オブジェクトを削除します。<br />
      * 
      * @param partName
-     *            パート名称
+     *      パート名称
      */
     public void disposePartContext(final String partName) {
         PartContext partContext = getPartContext(partName);
@@ -149,7 +151,9 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see org.seasar.uruma.context.WindowContext#findWidgetHandles(java.lang.String)
+     * @see
+     * org.seasar.uruma.context.WindowContext#findWidgetHandles(java.lang.String
+     * )
      */
     public List<WidgetHandle> findWidgetHandles(final String handleId) {
         List<WidgetHandle> results = new ArrayList<WidgetHandle>();
@@ -169,7 +173,9 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see org.seasar.uruma.context.WindowContext#getAllWidgetHandles(java.lang.Class)
+     * @see
+     * org.seasar.uruma.context.WindowContext#getAllWidgetHandles(java.lang.
+     * Class)
      */
     public List<WidgetHandle> getAllWidgetHandles(final Class<?> clazz) {
         List<WidgetHandle> handles = new ArrayList<WidgetHandle>();
@@ -183,7 +189,9 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see org.seasar.uruma.context.WindowContext#addEnablesDependingDef(org.seasar.uruma.binding.enables.EnablesDependingDef)
+     * @see
+     * org.seasar.uruma.context.WindowContext#addEnablesDependingDef(org.seasar
+     * .uruma.binding.enables.EnablesDependingDef)
      */
     public void addEnablesDependingDef(
             final EnablesDependingDef enablesDependingDef) {
@@ -199,17 +207,25 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see org.seasar.uruma.context.WindowContext#getWorkbenchActionObject()
+     * @see org.seasar.uruma.context.PartContext#getPartActionObject()
      */
-    public Object getWorkbenchActionObject() {
-        return this.workbenchActionObj;
+    public Object getPartActionObject() {
+        return this.partActionObj;
     }
 
     /*
-     * @see org.seasar.uruma.context.WindowContext#setWorkbenchActionObject(java.lang.Object)
+     * @see org.seasar.uruma.context.PartContext#getPartActionObject()
      */
-    public void setWorkbenchActionObject(final Object workbenchActionObj) {
-        this.workbenchActionObj = workbenchActionObj;
+    public void setPartActionDesc(final PartActionDesc desc) {
+        this.partActionDesc = desc;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.PartContext#setPartActionObject(java.
+     * lang.Object)
+     */
+    public void setPartActionObject(final Object partActionObj) {
+        this.partActionObj = partActionObj;
     }
 
     /*
@@ -220,9 +236,40 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see org.seasar.uruma.context.PartContext#setPartActionDesc(org.seasar.uruma.desc.PartActionDesc)
+     * @see org.seasar.uruma.context.PartContext#getPartActionDesc()
      */
-    public void setPartActionDesc(final PartActionDesc desc) {
-        this.partActionDesc = desc;
+    public WindowContext getWindowContext() {
+        return this;
     }
+
+    /*
+     * @see org.seasar.uruma.context.PartContext#getFormDesc()
+     */
+    public FormDesc getFormDesc() {
+        // Do noting
+        return null;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.PartContext#getFormObject()
+     */
+    public Object getFormObject() {
+        // Do noting
+        return null;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.PartContext#setFormDesc()
+     */
+    public void setFormDesc(final FormDesc desc) {
+        // Do noting
+    }
+
+    /*
+     * @see org.seasar.uruma.context.PartContext#setFormObject()
+     */
+    public void setFormObject(final Object object) {
+        // Do noting
+    }
+
 }

@@ -61,7 +61,7 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      * 本クラスの他のメソッドを使用する前に呼び出してください。<br />
      * 
      * @param container
-     *            {@link S2Container} オブジェクト
+     *      {@link S2Container} オブジェクト
      */
     public static void setS2Container(final S2Container container) {
         AssertionUtil.assertNotNull("container", container);
@@ -73,9 +73,9 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      * ワークベンチアクションクラスを準備します。<br />
      * 
      * @param context
-     *            {@link WindowContext} オブジェクト
-     * @return ワークベンチアクションクラスが見つかった場合、そのオブジェクト。<br />
-     *         見つからなかった場合は <code>null</code>
+     *      {@link WindowContext} オブジェクト
+     * @return ワークベンチアクションクラスが見つかった場合、そのオブジェクト。<br /> 見つからなかった場合は
+     *  <code>null</code>
      */
     public static Object setupWorkbenchAction(final WindowContext context,
             final String id) {
@@ -91,7 +91,7 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
             S2ContainerUtil.injectDependency(workbenchActionComponent,
                     defaultContainer);
 
-            context.setWorkbenchActionObject(workbenchActionComponent);
+            context.setPartActionObject(workbenchActionComponent);
             PartActionDesc desc = PartActionDescFactory.getPartActionDesc(cd
                     .getComponentClass());
             context.setPartActionDesc(desc);
@@ -111,11 +111,10 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      * パートアクションクラスを準備します。<br />
      * 
      * @param context
-     *            {@link PartContext} オブジェクト
+     *      {@link PartContext} オブジェクト
      * @param id
-     *            対応するパートの ID
-     * @return パートアクションクラスが見つかった場合、そのオブジェクト。<br />
-     *         見つからなかった場合は <code>null</code>
+     *      対応するパートの ID
+     * @return パートアクションクラスが見つかった場合、そのオブジェクト。<br /> 見つからなかった場合は <code>null</code>
      */
     public static Object setupPartAction(final PartContext context,
             final String id) {
@@ -148,15 +147,14 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
     }
 
     /**
-     * フォームクラスを準備します。<br />
-     * また、パートアクションクラスにフォームクラスのプロパティが存在する場合、 そのプロパティにフォームオブジェクトをインジェクションします。<br />
+     * フォームクラスを準備します。<br /> また、パートアクションクラスにフォームクラスのプロパティが存在する場合、
+     * そのプロパティにフォームオブジェクトをインジェクションします。<br />
      * 
      * @param context
-     *            {@link PartContext} オブジェクト
+     *      {@link PartContext} オブジェクト
      * @param id
-     *            対応するパートの ID
-     * @return フォームクラスが見つかった場合、そのオブジェクト。<br />
-     *         見つからなかった場合は <code>null</code>
+     *      対応するパートの ID
+     * @return フォームクラスが見つかった場合、そのオブジェクト。<br /> 見つからなかった場合は <code>null</code>
      */
     public static Object setupFormComponent(final PartContext context,
             final String id) {
@@ -236,13 +234,13 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      * </p>
      * 
      * @param viewer
-     *            設定対象のビューア
+     *      設定対象のビューア
      * @param id
-     *            ビューアのコンポーネントID
+     *      ビューアのコンポーネントID
      * @param defaultProvider
-     *            デフォルトで指定するコンテントプロバイダ
+     *      デフォルトで指定するコンテントプロバイダ
      * @throws RenderException
-     *             該当する名称の S2 コンポーネントが {@link IContentProvider} の実装クラスでない場合
+     *      該当する名称の S2 コンポーネントが {@link IContentProvider} の実装クラスでない場合
      * @see ContentViewer#setContentProvider(IContentProvider)
      */
     public static void setupContentProvider(final ContentViewer viewer,
@@ -290,16 +288,16 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      * </p>
      * 
      * @param viewer
-     *            設定対象のビューア
+     *      設定対象のビューア
      * @param id
-     *            ビューアのコンポーネントID
+     *      ビューアのコンポーネントID
      * @param defaultProvider
-     *            デフォルトのラベルプロバイダ
+     *      デフォルトのラベルプロバイダ
      * @param providerClass
-     *            S2コンポーネントをラベルプロバイダとして認識するためのクラス
+     *      S2コンポーネントをラベルプロバイダとして認識するためのクラス
      * @param pojoProviderClass
-     *            S2コンポーネントが <code>providerClass</code> ではなかった場合に使用する
-     *            {@link PojoLabelProvider} のクラス
+     *      S2コンポーネントが <code>providerClass</code> ではなかった場合に使用する {@link
+     *      PojoLabelProvider} のクラス
      * @see StructuredViewer#setLabelProvider(IBaseLabelProvider)
      */
     public static void setupLabelProvider(final StructuredViewer viewer,
@@ -350,11 +348,11 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      * </p>
      * 
      * @param viewer
-     *            設定対象のビューア
+     *      設定対象のビューア
      * @param id
-     *            ビューアのコンポーネントID
+     *      ビューアのコンポーネントID
      * @throws RenderException
-     *             該当する名称の S2 コンポーネントが {@link ViewerComparator} のサブクラスでない場合
+     *      該当する名称の S2 コンポーネントが {@link ViewerComparator} のサブクラスでない場合
      * @see StructuredViewer#setComparator(ViewerComparator)
      */
     public static void setupComparator(final StructuredViewer viewer,
@@ -388,10 +386,10 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      * ワークベンチアクションクラスの初期化メソッドを呼び出します。<br />
      * 
      * @param context
-     *            {@link WindowContext}
+     *      {@link WindowContext}
      */
     public static void invokeInitMethodOnAction(final WindowContext context) {
-        Object workbenchActionObject = context.getWorkbenchActionObject();
+        Object workbenchActionObject = context.getPartActionObject();
         if (workbenchActionObject != null) {
             // ApplicationContext からのインポート処理
             PartActionDesc desc = context.getPartActionDesc();
@@ -407,9 +405,9 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      * パートアクションクラスの初期化メソッドを呼び出します。<br />
      * 
      * @param partAction
-     *            パートアクションオブジェクト
+     *      パートアクションオブジェクト
      * @param context
-     *            {@link PartContext}
+     *      {@link PartContext}
      */
     public static void invokeInitMethodOnAction(final Object partAction,
             final PartContext context) {
@@ -430,9 +428,9 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      * パートアクションクラスのPostOpenメソッドを呼び出します。<br />
      * 
      * @param partAction
-     *            パートアクションオブジェクト
+     *      パートアクションオブジェクト
      * @param context
-     *            {@link PartContext}
+     *      {@link PartContext}
      */
     public static void invokePostOpenMethodOnAction(final Object partAction,
             final PartContext context) {
