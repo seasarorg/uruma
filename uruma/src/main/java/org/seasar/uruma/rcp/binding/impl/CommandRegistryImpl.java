@@ -38,11 +38,6 @@ public class CommandRegistryImpl implements CommandRegistry {
      */
     public void registerCommandDesc(final CommandDesc desc) {
         AssertionUtil.assertNotNull("desc", desc);
-        for (CommandDesc existDesc : commandDescList) {
-            if (existDesc.getCommandId().equals(desc.getCommandId())) {
-                return;
-            }
-        }
         commandDescList.add(desc);
     }
 

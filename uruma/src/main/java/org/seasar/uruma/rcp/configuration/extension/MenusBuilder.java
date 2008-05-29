@@ -239,6 +239,15 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected void setupCommand(final CategoryElement category,
             final String commandId, final MenuItemComponent component) {
+        for (ConfigurationElement ce : commands.getElements()) {
+            if (ce instanceof CommandElement) {
+                CommandElement existCommandElement = (CommandElement) ce;
+                if (existCommandElement.id.equals(commandId)) {
+                    return;
+                }
+            }
+        }
+
         String name = MnemonicUtil.chopMnemonicAndAccelerator(component.text);
 
         CommandElement command = new CommandElement(commandId, name);
