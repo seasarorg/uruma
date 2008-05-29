@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
   <viewPart title="フィードツリー・ビュー">
+  
+    <menu>
+      <menu text="メニューグループ３(&amp;F)">
+        <menuItem id="menu4" text="メニュー４(&amp;S)" image="uruma"
+          accelerator="Ctrl+S" />
+
+        <menuItem id="menu5" text="メニュー５(&amp;F)" image="rss" 
+          accelerator="Ctrl+F" />
+      </menu>
+       
+    </menu>
+    
     <tree id="feedTree" autoExpandLevel="2"/>
   </viewPart>
 </template>

@@ -23,10 +23,8 @@ import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.example.rss.constants.WidgetConstants;
 import org.seasar.uruma.example.rss.dto.FeedDto;
-import org.seasar.uruma.example.rss.dto.FeedEntryDto;
 import org.seasar.uruma.example.rss.dto.NodeDto;
 import org.seasar.uruma.example.rss.logic.FeedLogic;
-import org.seasar.uruma.ui.dialogs.UrumaMessageDialog;
 
 /**
  * フィードのツリー表示です。<br />
@@ -73,4 +71,15 @@ public class FeedTreeViewAction {
 			root.addChild(child);
 		}
 	}
+	
+	@EventListener(id = "menu4", type = EventListenerType.SELECTION)
+	public void doMenu4(final Object obj) {
+		MessageDialog.openInformation(null, "メニュー４", "メニュー４クリック！！");
+	}
+	
+	@EventListener(id = "menu5", type = EventListenerType.SELECTION)
+	public void doMenu5(final Object obj) {
+		MessageDialog.openInformation(null, "メニュー５", "メニュー５クリック！！");
+	}
+
 }

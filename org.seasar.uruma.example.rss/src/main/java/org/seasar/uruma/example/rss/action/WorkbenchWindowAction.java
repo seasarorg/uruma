@@ -103,4 +103,5 @@ public class WorkbenchWindowAction {
 	public void doMenu3(final Object obj) {
 		MessageDialog.openInformation(null, "メニュー３", "メニュー３クリック！！");
 	}
+	
 }
