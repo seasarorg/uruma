@@ -30,17 +30,17 @@ public interface TemplateManager {
      * 指定されたパスの画面定義 XML を読み込み、{@link Template} オブジェクトを返します。<br />
      * 
      * @param path
-     *            画面定義 XML のパス
+     *      画面定義 XML のパス
      * @return {@link Template} オブジェクト
      */
     public Template getTemplate(final String path);
 
     /**
-     * 指定された id を持つ {@link Template} オブジェクトを返します。<br />
-     * 事前に {@link #loadTemplates(List)} メソッドでロードしたテンプレートが対象です。<br />
+     * 指定された id を持つ {@link Template} オブジェクトを返します。<br /> 事前に {@link
+     * #loadTemplates(List)} メソッドでロードしたテンプレートが対象です。<br />
      * 
      * @param id
-     *            テンプレート ID
+     *      テンプレート ID
      * @return {@link Template} オブジェクト
      */
     public Template getTemplateById(String id);
@@ -49,7 +49,7 @@ public interface TemplateManager {
      * 指定されたパスの画面定義 XML を一括読み込みします。<br />
      * 
      * @param pathList
-     *            画面定義 XML のパスリスト
+     *      画面定義 XML のパスリスト
      */
     public void loadTemplates(List<String> pathList);
 
@@ -57,9 +57,22 @@ public interface TemplateManager {
      * 指定されたタイプのルートコンポーネントを持つ {@link Template} のリストを返します。<br />
      * 
      * @param componentClass
-     *            ルートコンポーネントクラス
+     *      ルートコンポーネントクラス
      * @return {@link Template} のリスト
      */
     public List<Template> getTemplates(
             Class<? extends UIComponentContainer> componentClass);
+
+    /**
+     * キャッシュしている内容をクリアします。
+     */
+    public void clear();
+
+    /**
+     * 指定された idのテンプレートキャッシュの内容をクリアします。<br />
+     * 
+     * @param id
+     *      テンプレート ID
+     */
+    public void remove(final String id);
 }

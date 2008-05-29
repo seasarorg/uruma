@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.seasar.framework.util.Disposable;
+import org.seasar.framework.util.DisposableUtil;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
@@ -45,46 +47,61 @@ public class TemplateManagerImpl implements TemplateManager {
 
     private ComponentTreeBuilder builder = new ComponentTreeBuilder();
 
+    private static boolean initialized = false;
+
     /*
      * @see org.seasar.uruma.core.TemplateManager#getTemplate(java.lang.String)
      */
     public Template getTemplate(final String path) {
-        Template template = templateCache.get(path);
-        if (template == null) {
-            logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_FILE, path);
+        synchronized (templateCache) {
+            if (!initialized) {
+                DisposableUtil.add(new Disposable() {
+                    public void dispose() {
+                        clear();
+                        initialized = false;
+                    }
+                });
+                initialized = true;
+            }
 
-            template = builder.build(path);
-            if (template != null) {
-                templateCache.put(path, template);
-                String id = template.getRootComponent().getId();
-                if (StringUtil.isNotBlank(id)) {
-                    if (!idToPathMap.containsKey(id)) {
-                        idToPathMap.put(id, path);
+            Template template = templateCache.get(path);
+            if (template == null) {
+                logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_FILE, path);
 
-                        String type = template.getRootComponent().getClass()
-                                .getSimpleName();
-                        logger.log(UrumaMessageCodes.TEMPLATE_REGISTERED, id,
-                                type, path);
-                    } else {
-                        throw new DuplicateIdTemplateException(id, path);
+                template = builder.build(path);
+                if (template != null) {
+                    templateCache.put(path, template);
+                    String id = template.getRootComponent().getId();
+                    if (StringUtil.isNotBlank(id)) {
+                        if (!idToPathMap.containsKey(id)) {
+                            idToPathMap.put(id, path);
+
+                            String type = template.getRootComponent()
+                                    .getClass().getSimpleName();
+                            logger.log(UrumaMessageCodes.TEMPLATE_REGISTERED,
+                                    id, type, path);
+                        } else {
+                            if (!idToPathMap.get(id).equals(path)) {
+                                throw new DuplicateIdTemplateException(id, path);
+                            }
+                        }
                     }
                 }
+            } else {
+                logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_CACHE, path);
             }
-        } else {
-            logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_CACHE, path);
+            return template;
         }
-
-        return template;
     }
 
     /*
-     * @see org.seasar.uruma.core.TemplateManager#getTemplateById(java.lang.String)
+     * @see
+     * org.seasar.uruma.core.TemplateManager#getTemplateById(java.lang.String)
      */
     public Template getTemplateById(final String id) {
         String path = idToPathMap.get(id);
         if (path != null) {
-            logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_CACHE, path);
-            return templateCache.get(path);
+            return getTemplate(path);
         } else {
             throw new NotFoundException(UrumaMessageCodes.TEMPLATE_NOT_FOUND,
                     id);
@@ -98,7 +115,8 @@ public class TemplateManagerImpl implements TemplateManager {
             final Class<? extends UIComponentContainer> componentClass) {
         List<Template> templates = new ArrayList<Template>();
 
-        for (Template template : templateCache.values()) {
+        for (String path : idToPathMap.values()) {
+            Template template = getTemplate(path);
             UIComponentContainer root = template.getRootComponent();
             if ((root != null) && componentClass.equals(root.getClass())) {
                 templates.add(template);
@@ -115,4 +133,24 @@ public class TemplateManagerImpl implements TemplateManager {
             getTemplate(path);
         }
     }
+
+    /*
+     * @see org.seasar.uruma.core.TemplateManager#clear()
+     */
+    public void clear() {
+        logger.debug("画面定義XMLのキャッシュをすべて削除します.");
+        templateCache.clear();
+    }
+
+    /*
+     * @see org.seasar.uruma.core.TemplateManager#remove(java.lang.String)
+     */
+    public void remove(final String id) {
+        String path = idToPathMap.get(id);
+        if (path != null) {
+            logger.debug("画面定義XML(" + path + ")のキャッシュを削除します.");
+            templateCache.remove(path);
+        }
+    }
+
 }
