@@ -304,6 +304,44 @@ public class UrumaDebugViewAction {
             html += HtmlTagUtil.createTr("ratio", c.ratio);
             html += HtmlTagUtil.closeTable();
 
+        } else if (ViewPartComponent.class.isAssignableFrom(element.getClass())) {
+            ViewPartComponent c = (ViewPartComponent) element;
+
+            html += HtmlTagUtil.createH3("ViewPartComponent");
+            html += HtmlTagUtil.createTable();
+            html += HtmlTagUtil.createTr("id", c.getId());
+            html += HtmlTagUtil.createTr("ClassName", c.getClass().getName());
+            html += HtmlTagUtil.createTr("BasePath", c.getBasePath());
+            html += HtmlTagUtil.createTr("Location", c.getLocation());
+            html += HtmlTagUtil.createTr("Path", c.getPath());
+            html += HtmlTagUtil.createTr("Renderer", c.getRenderer().getClass()
+                    .getName());
+
+            html += HtmlTagUtil.createTr("position", c.allowMultiple);
+            html += HtmlTagUtil.createTr("background", c.background);
+            html += HtmlTagUtil.createTr("backgroundImage", c.backgroundImage);
+            html += HtmlTagUtil.createTr("category", c.category);
+            html += HtmlTagUtil.createTr("enabled", c.enabled);
+            html += HtmlTagUtil.createTr("enablesDependingId",
+                    c.enablesDependingId);
+            html += HtmlTagUtil.createTr("enablesFor", c.enablesFor);
+            html += HtmlTagUtil.createTr("fontHeight", c.fontHeight);
+            html += HtmlTagUtil.createTr("fontName", c.fontName);
+            html += HtmlTagUtil.createTr("fontStyle", c.fontStyle);
+            html += HtmlTagUtil.createTr("foreground", c.foreground);
+            html += HtmlTagUtil.createTr("height", c.height);
+            html += HtmlTagUtil.createTr("image", c.image);
+            html += HtmlTagUtil.createTr("menu", c.menu);
+            html += HtmlTagUtil.createTr("title", c.title);
+            html += HtmlTagUtil.createTr("toolTipText", c.toolTipText);
+            html += HtmlTagUtil.createTr("visible", c.visible);
+            html += HtmlTagUtil.createTr("width", c.width);
+            html += HtmlTagUtil.createTr("x", c.x);
+            html += HtmlTagUtil.createTr("y", c.y);
+            html += HtmlTagUtil.closeTable();
+            for (UIElement elementChild : c.getChildren()) {
+                createUIElement(elementChild);
+            }
         } else {
             html += element.getClass().getName() + "<br />";
         }

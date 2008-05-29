@@ -21,6 +21,7 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.jface.MenuComponent;
 import org.seasar.uruma.component.jface.MenuItemComponent;
+import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.rcp.binding.CommandDesc;
@@ -46,6 +47,7 @@ import org.seasar.uruma.util.MnemonicUtil;
  * <code>menus</code> 拡張ポイントを生成するための {@link ExtensionBuilder} です。<br />
  * 
  * @author y-komori
+ * @author y.sugigami
  */
 public class MenusBuilder extends AbstractExtensionBuilder implements
         UrumaConstants {
@@ -70,6 +72,10 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
      */
     public static String DEFAULT_CATEGORY_ID_SUFFIX = ".command.category";
 
+    protected static final String menuURI = "menu:org.eclipse.ui.main.menu?after=additions";
+
+    protected static final String toolbarURI = "toolbar:org.eclipse.ui.main.toolbar?after=additions";
+
     protected int actionCount;
 
     protected Extension contexts;
@@ -81,10 +87,6 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
     protected Extension bindings;
 
     protected Extension menus;
-
-    protected MenuContributionElement menuContribution;
-
-    protected MenuContributionElement toolbarContribution;
 
     protected CommandRegistry commandRegistry;
 
@@ -100,15 +102,26 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
         setupScheme();
         setupContexts();
-        setupMenuContribution();
+
+        MenuContributionElement menuContribution = setupMenuContribution();
+        MenuContributionElement toolbarContribution = setupToolbarContribution();
 
         CategoryElement category = setupCategory();
+
         WorkbenchComponent workbenchComponent = service.getWorkbenchComponent();
         for (MenuComponent menu : workbenchComponent.getMenus()) {
-            traverseMenu(category, menu, null);
-            traverseToolbar(category, menu, null);
+            traverseMenu(category, menu, null, menuContribution);
+            traverseToolbar(category, menu, null, toolbarContribution);
         }
 
+        for (ViewPartComponent view : service.getViewPartComponent()) {
+            MenuContributionElement viewMenuContribution = setupViewMenuContribution(view);
+            MenuContributionElement viewToolbarContribution = setupViewToolbarContribution(view);
+            for (MenuComponent menu : view.getMenus()) {
+                traverseMenu(category, menu, null, viewMenuContribution);
+                traverseToolbar(category, menu, null, viewToolbarContribution);
+            }
+        }
         return new Extension[] { contexts, commands, handlers, bindings, menus };
     }
 
@@ -134,25 +147,49 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         return category;
     }
 
-    protected void setupMenuContribution() {
-        this.menuContribution = new MenuContributionElement();
-        this.menuContribution.locationURI = "menu:org.eclipse.ui.main.menu?after=additions";
-        menus.addElement(this.menuContribution);
+    protected MenuContributionElement setupMenuContribution() {
+        MenuContributionElement menuContribution = new MenuContributionElement();
+        menuContribution.locationURI = menuURI;
+        this.menus.addElement(menuContribution);
+        return menuContribution;
+    }
 
-        this.toolbarContribution = new MenuContributionElement();
-        this.toolbarContribution.locationURI = "toolbar:org.eclipse.ui.main.toolbar?after=additions";
-        menus.addElement(this.toolbarContribution);
+    protected MenuContributionElement setupToolbarContribution() {
+        MenuContributionElement menuContribution = new MenuContributionElement();
+        menuContribution.locationURI = toolbarURI;
+        this.menus.addElement(menuContribution);
+        return menuContribution;
+    }
+
+    protected MenuContributionElement setupViewToolbarContribution(
+            final ViewPartComponent view) {
+        MenuContributionElement menuContribution = new MenuContributionElement();
+        menuContribution.locationURI = "toolbar:"
+                + service.createRcpId(view.getId()) + "?after=additions";
+        this.menus.addElement(menuContribution);
+        return menuContribution;
+    }
+
+    protected MenuContributionElement setupViewMenuContribution(
+            final ViewPartComponent view) {
+        MenuContributionElement menuContribution = new MenuContributionElement();
+        menuContribution.locationURI = "menu:"
+                + service.createRcpId(view.getId()) + "?after=additions";
+        this.menus.addElement(menuContribution);
+        return menuContribution;
     }
 
     protected void traverseMenu(final CategoryElement category,
             final MenuComponent menuComponent,
-            final MenuElement parentMenuElement) {
+            final MenuElement parentMenuElement,
+            final MenuContributionElement menuContribution) {
         List<UIElement> children = menuComponent.getChildren();
         for (UIElement child : children) {
             if (child instanceof MenuComponent) {
                 MenuElement menuElement = setupMenu((MenuComponent) child,
-                        parentMenuElement);
-                traverseMenu(category, (MenuComponent) child, menuElement);
+                        parentMenuElement, menuContribution);
+                traverseMenu(category, (MenuComponent) child, menuElement,
+                        menuContribution);
             } else if (child instanceof MenuItemComponent) {
                 MenuItemComponent menuItem = (MenuItemComponent) child;
                 String commandId = createCommandId(menuItem);
@@ -166,26 +203,37 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected void traverseToolbar(final CategoryElement category,
             final MenuComponent menuComponent,
-            final ToolbarElement parentToolbarElement) {
+            final ToolbarElement parentToolbarElement,
+            final MenuContributionElement menuContribution) {
         List<UIElement> children = menuComponent.getChildren();
         for (UIElement child : children) {
             if (child instanceof MenuComponent) {
-                ToolbarElement toolbarElement = setupToolbar(
-                        (MenuComponent) child, parentToolbarElement);
-                traverseToolbar(category, (MenuComponent) child, toolbarElement);
+                ToolbarElement toolbarElement;
+                if (toolbarURI.equals(menuContribution.locationURI)) {
+                    // Workbench Toolbar
+                    toolbarElement = setupToolbar((MenuComponent) child,
+                            parentToolbarElement, menuContribution);
+                } else {
+                    // View Toolbar
+                    toolbarElement = parentToolbarElement;
+                }
+                traverseToolbar(category, (MenuComponent) child,
+                        toolbarElement, menuContribution);
             } else if (child instanceof MenuItemComponent) {
                 MenuItemComponent menuItem = (MenuItemComponent) child;
                 String commandId = createCommandId(menuItem);
 
                 setupCommand(category, commandId, menuItem);
                 setupKey(commandId, menuItem);
-                setupToolbarCommand(commandId, menuItem, parentToolbarElement);
+                setupToolbarCommand(commandId, menuItem, parentToolbarElement,
+                        menuContribution);
             }
         }
     }
 
     protected MenuElement setupMenu(final MenuComponent component,
-            final MenuElement parentElement) {
+            final MenuElement parentElement,
+            final MenuContributionElement menuContribution) {
         if (!(component.getParent() instanceof WorkbenchComponent)) {
             String text = component.text;
             if (text == null) {
@@ -216,11 +264,19 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
     }
 
     protected ToolbarElement setupToolbar(final MenuComponent component,
-            final ToolbarElement parentElement) {
+            final ToolbarElement parentElement,
+            final MenuContributionElement menuContribution) {
         if (!(component.getParent() instanceof WorkbenchComponent)) {
             String id = service.getPluginId() + ".toolbar." + component.text;
             ToolbarElement toolbar = new ToolbarElement(id);
-            toolbarContribution.addElement(toolbar);
+
+            if (parentElement == null) {
+                // トップレベルメニューの場合
+                menuContribution.addElement(toolbar);
+            } else {
+                // サブメニューの場合
+                parentElement.addElement(toolbar);
+            }
             return toolbar;
         } else {
             return null;
@@ -304,7 +360,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected void setupToolbarCommand(final String commandId,
             final MenuItemComponent menuItem,
-            final ToolbarElement parentToolbarElement) {
+            final ToolbarElement parentToolbarElement,
+            final MenuContributionElement menuContribution) {
         MenuCommandElement command = new MenuCommandElement(commandId);
         if (!StringUtil.isEmpty(menuItem.text)) {
             command.mnemonic = MnemonicUtil.getMnemonic(menuItem.text);
@@ -316,7 +373,12 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         command.style = menuItem.getStyle() == null ? MenuCommandElement.STYLE_PUSH
                 : menuItem.getStyle();
 
-        parentToolbarElement.addElement(command);
+        if (parentToolbarElement == null) {
+            menuContribution.addElement(command);
+        } else {
+            parentToolbarElement.addElement(command);
+        }
+
     }
 
 }

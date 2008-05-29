@@ -22,6 +22,7 @@ import org.eclipse.ui.IWorkbench;
 import org.osgi.framework.Bundle;
 import org.seasar.framework.container.S2Container;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.rcp.binding.CommandRegistry;
@@ -52,12 +53,12 @@ public interface UrumaService {
      * RCP上のIDは、画面コンポーネントのIDにサフィックスとしてプラグインIDを追加したものになります。<br />
      * <p>
      * 【例】プラグインID: <code>org.seasar.uruma.example</code>、コンポーネントID:
-     * <code>button</code> の場合、本メソッドの戻り値は、<code>org.seasar.uruma.example.button</code>
-     * となります。
+     * <code>button</code> の場合、本メソッドの戻り値は、
+     * <code>org.seasar.uruma.example.button</code> となります。
      * </p>
      * 
      * @param id
-     *            画面コンポーネントのID
+     *      画面コンポーネントのID
      * @return RCP上のID
      */
     public String createRcpId(String id);
@@ -66,7 +67,7 @@ public interface UrumaService {
      * RCP上のIDから画面コンポーネントのIDを取得します。<br />
      * 
      * @param rcpId
-     *            RCP上のID
+     *      RCP上のID
      * @return 画面コンポーネントのID
      * @see #createRcpId(String)
      */
@@ -76,7 +77,7 @@ public interface UrumaService {
      * 指定されたパスの画面定義XMLを読み込み、{@link Template} オブジェクトを生成します。<br />
      * 
      * @param path
-     *            画面定義XMLのパス
+     *      画面定義XMLのパス
      * @return {@link Template} オブジェクト
      */
     public Template getTemplate(String path);
@@ -96,6 +97,13 @@ public interface UrumaService {
     public WorkbenchComponent getWorkbenchComponent();
 
     /**
+     * {@link ViewPartComponent} のリストを返します。<br />
+     * 
+     * @return {@link ViewPartComponent} オブジェクト
+     */
+    public List<ViewPartComponent> getViewPartComponent();
+
+    /**
      * 現在登録されている拡張ポイントのリストを返します。<br />
      * 
      * @return 拡張ポイントのリスト
@@ -106,7 +114,7 @@ public interface UrumaService {
      * 指定した名前の拡張ポイントを返します。<br />
      * 
      * @param point
-     *            拡張ポイントの名称
+     *      拡張ポイントの名称
      * @return 拡張ポイント。見つからなかった場合は <code>null</code>。
      */
     public Extension getExtension(String point);
@@ -150,17 +158,16 @@ public interface UrumaService {
     public void switchToUrumaClassLoader();
 
     /**
-     * イメージ定義を保持する {@link ResourceBundle} を返します。<br />
-     * デフォルトは <code>urumaImages.properties</code> の内容となります。
+     * イメージ定義を保持する {@link ResourceBundle} を返します。<br /> デフォルトは
+     * <code>urumaImages.properties</code> の内容となります。
      * 
      * @return {@link ResourceBundle} オブジェクト
      */
     public ResourceBundle getImageBundle();
 
     /**
-     * 直前に使用していたクラスローダに切り替えます。<br />
-     * 直前に実行された {@link #switchToUrumaClassLoader()} メソッドまたは、
-     * {@link #switchToAppClassLoader()} メソッド実行前のクラスローダに切り替えます。
+     * 直前に使用していたクラスローダに切り替えます。<br /> 直前に実行された {@link #switchToUrumaClassLoader()
+     * } メソッドまたは、 {@link #switchToAppClassLoader()} メソッド実行前のクラスローダに切り替えます。
      */
     public void restoreClassLoader();
 
@@ -170,8 +177,8 @@ public interface UrumaService {
     public CommandRegistry getCommandRegistry();
 
     /**
-     * Uruma アプリケーションのためのデフォルトコンテクスト ID を返します。<br />
-     * デフォルト値は <code>&lt;プラグインID&gt;.context</code> となります。<br />
+     * Uruma アプリケーションのためのデフォルトコンテクスト ID を返します。<br /> デフォルト値は
+     * <code>&lt;プラグインID&gt;.context</code> となります。<br />
      * 
      * @return デフォルトコンテクスト ID
      */

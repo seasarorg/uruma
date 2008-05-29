@@ -540,4 +540,19 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         logger.log(URUMA_SERVICE_DESTROY, targetBundle.getSymbolicName());
         container.destroy();
     }
+
+    /*
+     * @see org.seasar.uruma.rcp.UrumaService#getViewPartComponent()
+     */
+    public List<ViewPartComponent> getViewPartComponent() {
+        List<ViewPartComponent> resultList = new ArrayList<ViewPartComponent>();
+        List<Template> templates = templateManager
+                .getTemplates(ViewPartComponent.class);
+        for (Template template : templates) {
+            ViewPartComponent viewPart = (ViewPartComponent) template
+                    .getRootComponent();
+            resultList.add(viewPart);
+        }
+        return resultList;
+    }
 }

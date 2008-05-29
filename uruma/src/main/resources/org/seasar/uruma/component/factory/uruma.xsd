@@ -106,8 +106,8 @@
         <xs:extension base="tns:IdItem">
           <xs:sequence>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-              <xs:group ref="tns:compositeElems" minOccurs="0"
-                maxOccurs="unbounded" />
+              <xs:group ref="tns:compositeElems" minOccurs="0" maxOccurs="unbounded" />
+              <xs:element ref="tns:menu" minOccurs="0" maxOccurs="unbounded" />
             </xs:choice>
             <xs:element ref="tns:compositeChild" minOccurs="0"
               maxOccurs="unbounded" />
