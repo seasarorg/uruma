@@ -26,6 +26,7 @@ import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
+import org.seasar.uruma.component.base.AbstractUIHasMenuCompositeComponent;
 
 /**
  * {@link Tree} を表すコンポーネントです。<br />
@@ -33,7 +34,7 @@ import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
  * @author y-komori
  */
 @ComponentElement
-public class TreeComponent extends CompositeComponent {
+public class TreeComponent extends AbstractUIHasMenuCompositeComponent {
     /**
      * ヘッダの表示状態です。<br />
      */
@@ -51,8 +52,7 @@ public class TreeComponent extends CompositeComponent {
     public String linesVisible;
 
     /**
-     * デフォルトでツリーを展開する階層です。<br />
-     * 【例】2を指定した場合、常に2階層目まで展開されます。<br />
+     * デフォルトでツリーを展開する階層です。<br /> 【例】2を指定した場合、常に2階層目まで展開されます。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
     @ComponentAttribute
@@ -65,7 +65,7 @@ public class TreeComponent extends CompositeComponent {
      * ツリー項目を追加します。<br />
      * 
      * @param child
-     *            ツリー項目
+     *      ツリー項目
      */
     public void addTreeItem(final TreeItemComponent child) {
         children.add(child);

@@ -38,6 +38,7 @@ import org.seasar.uruma.rcp.configuration.elements.ParameterElement;
 import org.seasar.uruma.rcp.configuration.elements.PerspectiveElement;
 import org.seasar.uruma.rcp.configuration.elements.RunElement;
 import org.seasar.uruma.rcp.configuration.elements.SchemeElement;
+import org.seasar.uruma.rcp.configuration.elements.SeparatorElement;
 import org.seasar.uruma.rcp.configuration.elements.ToolbarElement;
 import org.seasar.uruma.rcp.configuration.elements.ViewElement;
 import org.seasar.uruma.rcp.configuration.writer.GenericConfigurationWriter;
@@ -68,6 +69,7 @@ public class ConfigurationWriterFactory {
         addWriter(new GenericConfigurationWriter(MenuCommandElement.class));
         addWriter(new GenericConfigurationWriter(MenuContributionElement.class));
         addWriter(new GenericConfigurationWriter(MenuElement.class));
+        addWriter(new GenericConfigurationWriter(SeparatorElement.class));
         addWriter(new GenericConfigurationWriter(ToolbarElement.class));
         addWriter(new GenericConfigurationWriter(ParameterElement.class));
         addWriter(new GenericConfigurationWriter(PerspectiveElement.class));

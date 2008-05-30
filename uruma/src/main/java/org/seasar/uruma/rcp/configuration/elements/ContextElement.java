@@ -22,8 +22,10 @@ import org.seasar.uruma.util.AssertionUtil;
 /**
  * <code>context</code> 要素を表す {@link ConfigurationElement} です。<br />
  * 
- * @author y-komori <a
- *         href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_contexts.html#e.context">context</a>
+ * @author y-komori
+ * @see <a
+ *  href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_contexts.html#e.context"
+ *  >context</a>
  */
 public class ContextElement extends AbstractConfigurationElement {
     /**
@@ -52,22 +54,26 @@ public class ContextElement extends AbstractConfigurationElement {
     /**
      * 親コンテクスト ID です。<br />
      */
-    @ConfigurationAttribute
+    @ConfigurationAttribute(required = true)
     public String parentId;
 
     /**
      * {@link ContextElement} を構築します。<br />
      * 
      * @param id
-     *            コンテクスト ID
+     *      コンテクスト ID
      * @param name
-     *            コンテクスト名称
+     *      コンテクスト名称
+     * @param parentId
+     *      親コンテクストID
      */
-    public ContextElement(final String id, final String name) {
+    public ContextElement(final String id, final String name,
+            final String parentId) {
         super();
         AssertionUtil.assertNotNull("id", id);
         AssertionUtil.assertNotNull("name", name);
         this.id = id;
         this.name = name;
+        this.parentId = parentId;
     }
 }

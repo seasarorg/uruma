@@ -18,9 +18,11 @@ package org.seasar.uruma.rcp.configuration.extension;
 import java.util.List;
 
 import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.jface.MenuComponent;
 import org.seasar.uruma.component.jface.MenuItemComponent;
+import org.seasar.uruma.component.jface.SeparatorComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
 import org.seasar.uruma.core.UrumaConstants;
@@ -39,6 +41,7 @@ import org.seasar.uruma.rcp.configuration.elements.MenuCommandElement;
 import org.seasar.uruma.rcp.configuration.elements.MenuContributionElement;
 import org.seasar.uruma.rcp.configuration.elements.MenuElement;
 import org.seasar.uruma.rcp.configuration.elements.SchemeElement;
+import org.seasar.uruma.rcp.configuration.elements.SeparatorElement;
 import org.seasar.uruma.rcp.configuration.elements.ToolbarElement;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.util.MnemonicUtil;
@@ -72,9 +75,25 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
      */
     public static String DEFAULT_CATEGORY_ID_SUFFIX = ".command.category";
 
-    protected static final String menuURI = "menu:org.eclipse.ui.main.menu?after=additions";
+    /**
+     * デフォルトの親コンテクストIDです。<br />
+     */
+    public static String DEFAULT_CONTEXT_PARENT_ID = "org.eclipse.ui.contexts.window";
 
-    protected static final String toolbarURI = "toolbar:org.eclipse.ui.main.toolbar?after=additions";
+    /**
+     * デフォルトのメニューURIです。<br />
+     */
+    protected static final String DEFAULT_MENU_URI = "menu:org.eclipse.ui.main.menu?after=additions";
+
+    /**
+     * デフォルトのツールバーURIです。<br />
+     */
+    protected static final String DEFAULT_TOOLBAR_URI = "toolbar:org.eclipse.ui.main.toolbar?after=additions";
+
+    /**
+     * デフォルトのポップアップURIです。<br />
+     */
+    protected static final String DEFAULT_POPUP_URI = "popup:org.eclipse.ui.popup.any?after=additions";
 
     protected int actionCount;
 
@@ -87,6 +106,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
     protected Extension bindings;
 
     protected Extension menus;
+
+    protected Extension definitions;
 
     protected CommandRegistry commandRegistry;
 
@@ -104,6 +125,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         setupContexts();
 
         MenuContributionElement menuContribution = setupMenuContribution();
+        MenuContributionElement popupContribution = setupPopupContribution();
         MenuContributionElement toolbarContribution = setupToolbarContribution();
 
         CategoryElement category = setupCategory();
@@ -115,14 +137,43 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         }
 
         for (ViewPartComponent view : service.getViewPartComponent()) {
+
+            // For View Menu And Toolbar
             MenuContributionElement viewMenuContribution = setupViewMenuContribution(view);
             MenuContributionElement viewToolbarContribution = setupViewToolbarContribution(view);
             for (MenuComponent menu : view.getMenus()) {
                 traverseMenu(category, menu, null, viewMenuContribution);
                 traverseToolbar(category, menu, null, viewToolbarContribution);
             }
+
+            // For Composite Popup Menu
+            for (UIElement element : view.getChildren()) {
+                // ViewのMenuComponentは無視
+                if (!(element instanceof MenuComponent)) {
+                    visitForMenuSearch(element, category, popupContribution);
+                }
+            }
         }
-        return new Extension[] { contexts, commands, handlers, bindings, menus };
+        return new Extension[] { contexts, commands, handlers, bindings, menus,
+                definitions };
+
+    }
+
+    private void visitForMenuSearch(final UIElement element,
+            final CategoryElement category,
+            final MenuContributionElement popupContribution) {
+        if (element instanceof UIComponentContainer) {
+            UIComponentContainer uiCC = (UIComponentContainer) element;
+
+            if (element instanceof MenuComponent) {
+                traverseMenu(category, (MenuComponent) element, null,
+                        popupContribution);
+            } else {
+                for (UIElement child : uiCC.getChildren()) {
+                    visitForMenuSearch(child, category, popupContribution);
+                }
+            }
+        }
     }
 
     protected void createExtensions() {
@@ -131,6 +182,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         handlers = ExtensionFactory.createExtension(ExtensionPoints.HANDLERS);
         bindings = ExtensionFactory.createExtension(ExtensionPoints.BINDINGS);
         menus = ExtensionFactory.createExtension(ExtensionPoints.MENUS);
+        definitions = ExtensionFactory
+                .createExtension(ExtensionPoints.DEFINITIONS);
     }
 
     protected void setupScheme() {
@@ -149,14 +202,21 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected MenuContributionElement setupMenuContribution() {
         MenuContributionElement menuContribution = new MenuContributionElement();
-        menuContribution.locationURI = menuURI;
+        menuContribution.locationURI = DEFAULT_MENU_URI;
+        this.menus.addElement(menuContribution);
+        return menuContribution;
+    }
+
+    protected MenuContributionElement setupPopupContribution() {
+        MenuContributionElement menuContribution = new MenuContributionElement();
+        menuContribution.locationURI = DEFAULT_POPUP_URI;
         this.menus.addElement(menuContribution);
         return menuContribution;
     }
 
     protected MenuContributionElement setupToolbarContribution() {
         MenuContributionElement menuContribution = new MenuContributionElement();
-        menuContribution.locationURI = toolbarURI;
+        menuContribution.locationURI = DEFAULT_TOOLBAR_URI;
         this.menus.addElement(menuContribution);
         return menuContribution;
     }
@@ -186,17 +246,30 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         List<UIElement> children = menuComponent.getChildren();
         for (UIElement child : children) {
             if (child instanceof MenuComponent) {
-                MenuElement menuElement = setupMenu((MenuComponent) child,
-                        parentMenuElement, menuContribution);
+                MenuElement menuElement;
+                if (DEFAULT_MENU_URI.equals(menuContribution.locationURI)
+                        || DEFAULT_POPUP_URI
+                                .equals(menuContribution.locationURI)) {
+                    menuElement = setupMenu((MenuComponent) child,
+                            parentMenuElement, menuContribution);
+                } else {
+                    menuElement = parentMenuElement;
+                }
                 traverseMenu(category, (MenuComponent) child, menuElement,
                         menuContribution);
+
+            } else if (child instanceof SeparatorComponent) {
+                SeparatorComponent separator = (SeparatorComponent) child;
+                setupSeparator(separator, parentMenuElement, menuContribution);
+
             } else if (child instanceof MenuItemComponent) {
                 MenuItemComponent menuItem = (MenuItemComponent) child;
                 String commandId = createCommandId(menuItem);
 
                 setupCommand(category, commandId, menuItem);
                 setupKey(commandId, menuItem);
-                setupMenuCommand(commandId, menuItem, parentMenuElement);
+                setupMenuCommand(commandId, menuItem, parentMenuElement,
+                        menuContribution);
             }
         }
     }
@@ -209,7 +282,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         for (UIElement child : children) {
             if (child instanceof MenuComponent) {
                 ToolbarElement toolbarElement;
-                if (toolbarURI.equals(menuContribution.locationURI)) {
+                if (DEFAULT_TOOLBAR_URI.equals(menuContribution.locationURI)) {
                     // Workbench Toolbar
                     toolbarElement = setupToolbar((MenuComponent) child,
                             parentToolbarElement, menuContribution);
@@ -219,6 +292,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
                 }
                 traverseToolbar(category, (MenuComponent) child,
                         toolbarElement, menuContribution);
+
             } else if (child instanceof MenuItemComponent) {
                 MenuItemComponent menuItem = (MenuItemComponent) child;
                 String commandId = createCommandId(menuItem);
@@ -247,6 +321,10 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
             if (!StringUtil.isEmpty(text)) {
                 menu.mnemonic = MnemonicUtil.getMnemonic(text);
+            }
+
+            if (!StringUtil.isEmpty(component.image)) {
+                menu.icon = getRcpImagePath(component.image);
             }
 
             if (parentElement == null) {
@@ -295,6 +373,10 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected void setupCommand(final CategoryElement category,
             final String commandId, final MenuItemComponent component) {
+        if (component instanceof SeparatorComponent) {
+            return;
+        }
+
         for (ConfigurationElement ce : commands.getElements()) {
             if (ce instanceof CommandElement) {
                 CommandElement existCommandElement = (CommandElement) ce;
@@ -318,7 +400,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         this.localContextId = UrumaServiceUtil.getService().getPluginId()
                 + CONTEXT_SUFFIX;
         ContextElement context = new ContextElement(localContextId,
-                "Uruma allication local context");
+                "Uruma allication local context", DEFAULT_CONTEXT_PARENT_ID);
         contexts.addElement(context);
     }
 
@@ -335,7 +417,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
             }
 
             String sequence = menuItem.accelerator;
-            KeyElement key = new KeyElement(sequence, URUMA_APP_SCHEME_ID);
+            KeyElement key = new KeyElement(sequence, URUMA_APP_SCHEME_ID,
+                    DEFAULT_CONTEXT_PARENT_ID);
             key.commandId = commandId;
             // key.contextId = localContextId;
 
@@ -345,7 +428,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     protected void setupMenuCommand(final String commandId,
             final MenuItemComponent menuItem,
-            final MenuElement parentMenuElement) {
+            final MenuElement parentMenuElement,
+            final MenuContributionElement menuContribution) {
         MenuCommandElement command = new MenuCommandElement(commandId);
         if (!StringUtil.isEmpty(menuItem.text)) {
             command.mnemonic = MnemonicUtil.getMnemonic(menuItem.text);
@@ -355,7 +439,12 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         command.disabledIcon = getRcpImagePath(menuItem.disabledImage);
         command.hoverIcon = getRcpImagePath(menuItem.hoverImage);
 
-        parentMenuElement.addElement(command);
+        if (parentMenuElement == null) {
+            menuContribution.addElement(command);
+        } else {
+            parentMenuElement.addElement(command);
+        }
+
     }
 
     protected void setupToolbarCommand(final String commandId,
@@ -378,7 +467,16 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         } else {
             parentToolbarElement.addElement(command);
         }
-
     }
 
+    protected void setupSeparator(final SeparatorComponent separatorComponent,
+            final MenuElement parentMenuElement,
+            final MenuContributionElement menuContribution) {
+        SeparatorElement element = new SeparatorElement("none", true);
+        if (parentMenuElement == null) {
+            menuContribution.addElement(element);
+        } else {
+            parentMenuElement.addElement(element);
+        }
+    }
 }

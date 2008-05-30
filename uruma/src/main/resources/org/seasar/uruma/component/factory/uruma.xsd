@@ -316,13 +316,12 @@
   <xs:element name="menu">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="tns:Widget">
+        <xs:extension base="tns:Item">
           <xs:choice minOccurs="1" maxOccurs="unbounded">
             <xs:element ref="tns:menu" />
             <xs:element ref="tns:menuItem" />
             <xs:element ref="tns:separator" />
           </xs:choice>
-          <xs:attribute name="text" type="xs:string" />
           <xs:attribute name="visible" type="xs:boolean" default="true" />
           <xs:attribute name="x" type="xs:int" />
           <xs:attribute name="y" type="xs:int" />
@@ -663,6 +662,7 @@
               maxOccurs="unbounded" />
             <xs:element ref="tns:treeItem" minOccurs="0"
               maxOccurs="unbounded" />
+            <xs:element ref="tns:menu" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="headerVisible" type="xs:boolean" />
           <xs:attribute name="linesVisible" type="xs:boolean" />

@@ -23,8 +23,9 @@ import org.seasar.uruma.util.AssertionUtil;
  * <code>key</code> 要素のための {@link ConfigurationElement} です。<br />
  * 
  * @author y-komori
- * @see <a
- *      href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_bindings.html#e.key">key</a>
+ * @see <a 
+ *  href="http://help.eclipse.org/help33/topic/org.eclipse.platform.doc.isv/reference/extension-points/org_eclipse_ui_bindings.html#e.key"
+ *  >key</a>
  */
 public class KeyElement extends AbstractConfigurationElement {
     /**
@@ -47,7 +48,7 @@ public class KeyElement extends AbstractConfigurationElement {
     /**
      * コンテクスト ID です。<br />
      */
-    @ConfigurationAttribute
+    @ConfigurationAttribute(required = true)
     public String contextId;
 
     /**
@@ -72,15 +73,18 @@ public class KeyElement extends AbstractConfigurationElement {
      * {@link KeyElement} を構築します。<br />
      * 
      * @param sequence
-     *            キーシーケンス
+     *      キーシーケンス
      * @param schemeId
-     *            スキームID
+     *      スキームID
+     * @param contextId
+     *      コンテクスト ID     
      */
-    public KeyElement(final String sequence, final String schemeId) {
+    public KeyElement(final String sequence, final String schemeId, final String contextId) {
         super();
         AssertionUtil.assertNotNull("sequence", sequence);
         AssertionUtil.assertNotNull("schemeId", schemeId);
         this.sequence = sequence;
         this.schemeId = schemeId;
+        this.contextId = contextId;
     }
 }

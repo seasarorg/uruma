@@ -70,4 +70,10 @@ public interface ExtensionPoints {
      * エクステンションポイント：{@value} を表す定数です。<br />
      */
     public static final String CONTEXTS = "org.eclipse.ui.contexts";
+
+    /**
+     * エクステンションポイント：{@value} を表す定数です。<br />
+     */
+    public static final String DEFINITIONS = "org.eclipse.core.expressions.definitions";
+
 }

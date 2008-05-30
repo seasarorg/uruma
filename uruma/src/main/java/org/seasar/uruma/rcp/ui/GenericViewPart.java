@@ -20,13 +20,19 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
@@ -39,7 +45,9 @@ import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIComponentContainer;
+import org.seasar.uruma.component.UIHasMenuCompositeComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.ContextFactory;
@@ -65,10 +73,9 @@ import org.seasar.uruma.util.S2ContainerUtil;
  * 本クラスのインタンスは、画面定義テンプレートで指定された ID をキーとして {@link S2Container} へ登録されます。
  * </p>
  * <p>
- * また、当該 {@link IViewPart} の中で使用されている {@link Viewer} が一つしか存在しない場合、その
- * {@link Viewer} を自動的に {@link ISelectionProvider} として
- * {@link IWorkbenchPartSite} へ登録します。<br />
- * {@link Viewer} が複数存在する場合、自動登録は行いません。<br />
+ * また、当該 {@link IViewPart} の中で使用されている {@link Viewer} が一つしか存在しない場合、その {@link
+ * Viewer} を自動的に {@link ISelectionProvider} として {@link IWorkbenchPartSite}
+ * へ登録します。<br /> {@link Viewer} が複数存在する場合、自動登録は行いません。<br />
  * </p>
  * 
  * @author y-komori
@@ -101,7 +108,7 @@ public class GenericViewPart extends ViewPart {
 
     /*
      * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
-     *      org.eclipse.ui.IMemento)
+     * org.eclipse.ui.IMemento)
      */
     @Override
     public void init(final IViewSite site, final IMemento memento)
@@ -154,9 +161,31 @@ public class GenericViewPart extends ViewPart {
     public void createPartControl(final Composite parent) {
         try {
             createPartControlInternal(parent);
+            registerContextMenu();
         } catch (RuntimeException e) {
             logger.log(e);
             throw e;
+        }
+    }
+
+    protected void registerContextMenu() {
+        List<WidgetHandle> handles = partContext
+                .getWidgetHandles(TreeViewer.class);
+        for (WidgetHandle handle : handles) {
+            UIComponent uiComponent = handle.getUiComponent();
+            if (uiComponent instanceof UIHasMenuCompositeComponent) {
+                TreeViewer treeViewer = handle.<TreeViewer> getCastWidget();
+
+                MenuManager menuMgr = new MenuManager();
+                GroupMarker groupMarker = new GroupMarker(
+                        IWorkbenchActionConstants.MB_ADDITIONS);
+                menuMgr.add(groupMarker);
+                getSite().registerContextMenu(menuMgr, treeViewer);
+
+                Control control = treeViewer.getControl();
+                Menu menu = menuMgr.createContextMenu(control);
+                control.setMenu(menu);
+            }
         }
     }
 
