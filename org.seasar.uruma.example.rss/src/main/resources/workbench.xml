@@ -11,6 +11,8 @@
       <menu text="メニューグループ１(&amp;F)">
         <menuItem id="menu1" text="メニュー１(&amp;O)" image="uruma"
           accelerator="Ctrl+O" />
+          
+         <separator />
 
         <menuItem id="menu2" text="メニュー２(&amp;D)\tDELETE" image="rss" 
           accelerator="DELETE" />

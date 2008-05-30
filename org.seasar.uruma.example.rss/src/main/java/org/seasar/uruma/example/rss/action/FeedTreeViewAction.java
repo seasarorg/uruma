@@ -16,6 +16,7 @@
 package org.seasar.uruma.example.rss.action;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.ExportValue;
@@ -44,6 +45,11 @@ public class FeedTreeViewAction {
 	 */
 	@ExportValue(id = WidgetConstants.FEED_TREE)
 	public NodeDto<FeedDto> root;
+	
+	/**
+	 * 
+	 */
+	public TreeViewer feedTree; 
 
 	/**
 	 * フィードのURLです。<br />
@@ -82,4 +88,18 @@ public class FeedTreeViewAction {
 		MessageDialog.openInformation(null, "メニュー５", "メニュー５クリック！！");
 	}
 
+	@EventListener(id = "menu6", type = EventListenerType.SELECTION)
+	public void doMenu6(final Object obj) {
+		MessageDialog.openInformation(null, "メニュー６", "メニュー６クリック！！"+obj.getClass().getSimpleName());
+	}
+	
+	@EventListener(id = "menu7", type = EventListenerType.SELECTION)
+	public void doMenu7(final Object obj) {
+		MessageDialog.openInformation(null, "メニュー７", "メニュー７クリック！！"+obj.getClass().getSimpleName());
+	}
+	@EventListener(id = "menu8", type = EventListenerType.SELECTION)
+	public void doMenu8(final Object obj) {
+		MessageDialog.openInformation(null, "メニュー８", "メニュー８クリック！！"+obj.getClass().getSimpleName());
+	}
+	
 }
