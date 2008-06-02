@@ -137,20 +137,17 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         }
 
         for (ViewPartComponent view : service.getViewPartComponent()) {
-
-            // For View Menu And Toolbar
             MenuContributionElement viewMenuContribution = setupViewMenuContribution(view);
             MenuContributionElement viewToolbarContribution = setupViewToolbarContribution(view);
             for (MenuComponent menu : view.getMenus()) {
-                traverseMenu(category, menu, null, viewMenuContribution);
-                traverseToolbar(category, menu, null, viewToolbarContribution);
-            }
-
-            // For Composite Popup Menu
-            for (UIElement element : view.getChildren()) {
-                // ViewのMenuComponentは無視
-                if (!(element instanceof MenuComponent)) {
-                    visitForMenuSearch(element, category, popupContribution);
+                if ("view".equals(menu.getId())) {
+                    // For View Menu And Toolbar
+                    traverseMenu(category, menu, null, viewMenuContribution);
+                    traverseToolbar(category, menu, null,
+                            viewToolbarContribution);
+                } else {
+                    // For Control Popup Menu
+                    visitForMenuSearch(category, menu, popupContribution);
                 }
             }
         }
@@ -159,8 +156,8 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
 
     }
 
-    private void visitForMenuSearch(final UIElement element,
-            final CategoryElement category,
+    private void visitForMenuSearch(final CategoryElement category,
+            final UIElement element,
             final MenuContributionElement popupContribution) {
         if (element instanceof UIComponentContainer) {
             UIComponentContainer uiCC = (UIComponentContainer) element;
@@ -170,7 +167,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
                         popupContribution);
             } else {
                 for (UIElement child : uiCC.getChildren()) {
-                    visitForMenuSearch(child, category, popupContribution);
+                    visitForMenuSearch(category, child, popupContribution);
                 }
             }
         }

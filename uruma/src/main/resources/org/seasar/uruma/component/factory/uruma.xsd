@@ -662,7 +662,6 @@
               maxOccurs="unbounded" />
             <xs:element ref="tns:treeItem" minOccurs="0"
               maxOccurs="unbounded" />
-            <xs:element ref="tns:menu" minOccurs="0" maxOccurs="unbounded" />
           </xs:sequence>
           <xs:attribute name="headerVisible" type="xs:boolean" />
           <xs:attribute name="linesVisible" type="xs:boolean" />

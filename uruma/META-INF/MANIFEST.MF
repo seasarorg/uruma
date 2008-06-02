@@ -101,6 +101,7 @@ Export-Package: javassist;
    org.apache.log4j,
    org.apache.avalon.framework.logger",
  org.apache.geronimo.mail.handlers;uses:="javax.activation",
+ org.eclipse.swt.graphics,
  org.omg.BiDirPolicy;uses:="org.omg.CORBA,org.omg.CORBA.portable",
  org.omg.CONV_FRAME;uses:="org.omg.CORBA,org.omg.CORBA.portable",
  org.omg.CORBA;
