@@ -88,6 +88,7 @@ public class FeedTreeViewAction {
 		MessageDialog.openInformation(null, "メニュー５", "メニュー５クリック！！");
 	}
 
+	/*
 	@EventListener(id = "menu6", type = EventListenerType.SELECTION)
 	public void doMenu6(final Object obj) {
 		MessageDialog.openInformation(null, "メニュー６", "メニュー６クリック！！"+obj.getClass().getSimpleName());
@@ -101,5 +102,19 @@ public class FeedTreeViewAction {
 	public void doMenu8(final Object obj) {
 		MessageDialog.openInformation(null, "メニュー８", "メニュー８クリック！！"+obj.getClass().getSimpleName());
 	}
-	
+
+	@IsShowMenu(id ="menu8")
+	public boolean isShowMenu8(final Object obj) {
+		System.out.println("Call isShowMenu8 method. arg = " + obj);
+		if (obj != null) {
+			if (obj instanceof NodeDto) {
+				NodeDto<?> nodeDto = (NodeDto<?>) obj;
+				FeedDto feedDto = (FeedDto) nodeDto.getTarget();
+				System.out.println(feedDto.getTitle());
+				return true;
+			}
+		}
+		return false;
+	}
+	*/
 }
