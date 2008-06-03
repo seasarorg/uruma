@@ -21,6 +21,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.BundleRuntimeException;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -28,7 +29,10 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y.sugigami
  */
-public class BundleContextUtil {
+public class BundleUtil {
+
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(BundleUtil.class);
 
     /**
      * {@link Bundle}を取得します。<br />
@@ -55,11 +59,14 @@ public class BundleContextUtil {
         AssertionUtil.assertNotNull("Bundle", targetBundle);
         if (!BundleUtility.isActive(targetBundle)) {
             try {
+                logger.log(UrumaMessageCodes.BUNDLE_START, symbolicName);
                 targetBundle.start();
             } catch (BundleException e) {
                 throw new BundleRuntimeException(
                         UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, e);
             }
+        } else {
+            logger.log(UrumaMessageCodes.BUNDLE_STARTED, symbolicName);
         }
     }
 
@@ -74,6 +81,7 @@ public class BundleContextUtil {
         AssertionUtil.assertNotNull("Bundle", targetBundle);
         if (BundleUtility.isActive(targetBundle)) {
             try {
+                logger.log(UrumaMessageCodes.BUNDLE_STOP, symbolicName);
                 targetBundle.stop();
             } catch (BundleException e) {
                 throw new BundleRuntimeException(
@@ -93,6 +101,7 @@ public class BundleContextUtil {
         Bundle targetBundle = getBundle(symbolicName);
         AssertionUtil.assertNotNull("Bundle", targetBundle);
         try {
+            logger.log(UrumaMessageCodes.BUNDLE_UPDATE, symbolicName);
             targetBundle.update();
         } catch (BundleException e) {
             throw new BundleRuntimeException(

@@ -833,6 +833,42 @@ public interface UrumaMessageCodes {
      */
     public static final String URUMA_APP_NOT_FOUND = "EURM0520";
 
+    /**
+     * バンドルを開始する場合のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String BUNDLE_START = "DURM0521";
+
+    /**
+     * バンドルが開始済みの場合のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String BUNDLE_STARTED = "DURM0522";
+
+    /**
+     * バンドルを停止する場合のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String BUNDLE_STOP = "DURM0523";
+
+    /**
+     * バンドルを更新する場合のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String BUNDLE_UPDATE = "DURM0524";
+
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)
     // -------------------------------------------------------------------------
