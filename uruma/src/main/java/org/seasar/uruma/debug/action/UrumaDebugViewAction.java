@@ -64,7 +64,7 @@ import org.seasar.uruma.desc.FormDesc;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.exception.BindingException;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
-import org.seasar.uruma.rcp.util.BundleContextUtil;
+import org.seasar.uruma.rcp.util.BundleUtil;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.ui.UrumaApplicationWindow;
 import org.seasar.uruma.util.HtmlTagUtil;
@@ -112,7 +112,7 @@ public class UrumaDebugViewAction {
 
         // bundles
         String symbolicName = UrumaServiceUtil.getService().getPluginId();
-        Bundle urumaBundle = BundleContextUtil.getBundle(symbolicName);
+        Bundle urumaBundle = BundleUtil.getBundle(symbolicName);
         Bundle[] bundles = urumaBundle.getBundleContext().getBundles();
         for (Bundle bundle : bundles) {
             html += HtmlTagUtil.createH1("[" + convertStatus(bundle.getState())
