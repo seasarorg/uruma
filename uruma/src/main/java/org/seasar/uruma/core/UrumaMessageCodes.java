@@ -610,6 +610,24 @@ public interface UrumaMessageCodes {
      */
     public static final String PROPERTY_IS_NOT_WRITABLE = "EURM0314";
 
+    /**
+     * ウィジェット 登録時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String WIDGET_REGISTERED = "DURM0315";
+
+    /**
+     * ウィジェット ID が重複して定義されている際のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String DUPLICATE_WIDGET_ID = "EURM0316";
+
     // -------------------------------------------------------------------------
     // ウィンドウ管理関連メッセージコード (04xx)
     // -------------------------------------------------------------------------

@@ -24,6 +24,9 @@ import java.util.Map;
 
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WidgetHolder;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.exception.DuplicateWidgetIdException;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -32,10 +35,14 @@ import org.seasar.uruma.util.AssertionUtil;
  * @author y-komori
  */
 public abstract class AbstractWidgetHolder implements WidgetHolder {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(AbstractWidgetHolder.class);
+
     private Map<String, WidgetHandle> handleMap = new HashMap<String, WidgetHandle>();
 
     /*
-     * @see org.seasar.uruma.context.WidgetHolder#getWidgetHandle(java.lang.String)
+     * @see
+     * org.seasar.uruma.context.WidgetHolder#getWidgetHandle(java.lang.String)
      */
     public WidgetHandle getWidgetHandle(final String handleId) {
         return handleMap.get(handleId);
@@ -49,23 +56,33 @@ public abstract class AbstractWidgetHolder implements WidgetHolder {
     }
 
     /*
-     * @see org.seasar.uruma.context.WidgetHolder#hasWidgetHandle(java.lang.String)
+     * @see
+     * org.seasar.uruma.context.WidgetHolder#hasWidgetHandle(java.lang.String)
      */
     public boolean hasWidgetHandle(final String handleId) {
         return handleMap.containsKey(handleId);
     }
 
     /*
-     * @see org.seasar.uruma.context.WidgetHolder#putWidgetHandle(org.seasar.uruma.context.WidgetHandle)
+     * @see
+     * org.seasar.uruma.context.WidgetHolder#putWidgetHandle(org.seasar.uruma
+     * .context.WidgetHandle)
      */
     public void putWidgetHandle(final WidgetHandle handle) {
         AssertionUtil.assertNotNull("handle", handle);
 
+        if (hasWidgetHandle(handle.getId())) {
+            throw new DuplicateWidgetIdException(handle.getId(), handle
+                    .getWidgetClass().getName());
+        }
+        logger.log(UrumaMessageCodes.WIDGET_REGISTERED, handle.getId(), handle
+                .getWidgetClass().getName());
         handleMap.put(handle.getId(), handle);
     }
 
     /*
-     * @see org.seasar.uruma.context.WidgetHolder#getWidgetHandles(java.lang.Class)
+     * @see
+     * org.seasar.uruma.context.WidgetHolder#getWidgetHandles(java.lang.Class)
      */
     public List<WidgetHandle> getWidgetHandles(final Class<?> clazz) {
         List<WidgetHandle> handles = new ArrayList<WidgetHandle>();
