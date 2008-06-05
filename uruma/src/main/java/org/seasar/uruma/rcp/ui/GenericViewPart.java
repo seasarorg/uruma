@@ -40,8 +40,6 @@ import org.eclipse.ui.part.ViewPart;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.SelectionListener;
-import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
-import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.component.Template;
@@ -168,31 +166,11 @@ public class GenericViewPart extends ViewPart {
         }
     }
 
-    protected void registerContextMenu() {
-        List<WidgetHandle> handles = partContext
-                .getWidgetHandles(TreeViewer.class);
-        for (WidgetHandle handle : handles) {
-            UIComponent uiComponent = handle.getUiComponent();
-            if (uiComponent instanceof UIHasMenuCompositeComponent) {
-                TreeViewer treeViewer = handle.<TreeViewer> getCastWidget();
-
-                MenuManager menuMgr = new MenuManager();
-                GroupMarker groupMarker = new GroupMarker(
-                        IWorkbenchActionConstants.MB_ADDITIONS);
-                menuMgr.add(groupMarker);
-                getSite().registerContextMenu(menuMgr, treeViewer);
-
-                Control control = treeViewer.getControl();
-                Menu menu = menuMgr.createContextMenu(control);
-                control.setMenu(menu);
-            }
-        }
-    }
-
     protected void createPartControlInternal(final Composite parent) {
         WidgetHandle parentHandle = ContextFactory.createWidgetHandle(parent);
         parentHandle.setUiComponent(service.getWorkbenchComponent());
 
+        viewPart.preRender(parentHandle, partContext.getWindowContext());
         viewPart.render(parentHandle, partContext);
 
         prepareSelectionProvider(partContext);
@@ -206,13 +184,14 @@ public class GenericViewPart extends ViewPart {
         ValueBindingSupport.exportValue(partContext);
         ValueBindingSupport.exportSelection(partContext);
 
-        // Enable Depending の準備
-        WindowContext context = UrumaServiceUtil.getService()
-                .getWorkbenchWindowContext();
-        EnablesDependingListenerSupport.setupEnableDependingListeners(context);
-
-        // Method Binding の準備
-        MethodBindingSupport.createListeners(partContext);
+        // // Enable Depending の準備
+        // WindowContext context = UrumaServiceUtil.getService()
+        // .getWorkbenchWindowContext();
+        // EnablesDependingListenerSupport.setupEnableDependingListeners(context
+        // );
+        //
+        // // Method Binding の準備
+        // MethodBindingSupport.createListeners(partContext);
     }
 
     /*
@@ -295,6 +274,27 @@ public class GenericViewPart extends ViewPart {
                             getViewSite().getId(), methodBinding, partId);
                     listeners.add(listener);
                 }
+            }
+        }
+    }
+
+    protected void registerContextMenu() {
+        List<WidgetHandle> handles = partContext
+                .getWidgetHandles(TreeViewer.class);
+        for (WidgetHandle handle : handles) {
+            UIComponent uiComponent = handle.getUiComponent();
+            if (uiComponent instanceof UIHasMenuCompositeComponent) {
+                TreeViewer treeViewer = handle.<TreeViewer> getCastWidget();
+
+                MenuManager menuMgr = new MenuManager();
+                GroupMarker groupMarker = new GroupMarker(
+                        IWorkbenchActionConstants.MB_ADDITIONS);
+                menuMgr.add(groupMarker);
+                getSite().registerContextMenu(menuMgr, treeViewer);
+
+                Control control = treeViewer.getControl();
+                Menu menu = menuMgr.createContextMenu(control);
+                control.setMenu(menu);
             }
         }
     }

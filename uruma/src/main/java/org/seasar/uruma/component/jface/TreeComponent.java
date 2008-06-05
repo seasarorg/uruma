@@ -26,7 +26,6 @@ import org.seasar.uruma.annotation.FieldDescription;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
-import org.seasar.uruma.component.base.AbstractUIHasMenuCompositeComponent;
 
 /**
  * {@link Tree} を表すコンポーネントです。<br />
@@ -34,7 +33,7 @@ import org.seasar.uruma.component.base.AbstractUIHasMenuCompositeComponent;
  * @author y-komori
  */
 @ComponentElement
-public class TreeComponent extends AbstractUIHasMenuCompositeComponent {
+public class TreeComponent extends CompositeComponent {
     /**
      * ヘッダの表示状態です。<br />
      */
