@@ -8,6 +8,7 @@
     perspectiveBar="true" progressIndicator="true" >
 
     <menu>
+
       <menu text="メニューグループ１(&amp;F)">
         <menuItem id="menu1" text="メニュー１(&amp;O)" image="uruma"
           accelerator="Ctrl+O" />
@@ -22,6 +23,40 @@
         <menuItem id="menu3" text="メニュー３(&amp;A)" image="rss" 
           accelerator="Ctrl+A" />
       </menu>
+
+<!-- 
+      <menu text="Menu1(&amp;M)">
+        <menuItem text="Menu1-1(&amp;1)" />
+        <menuItem text="Menu1-2(&amp;2)" />
+        <separator />
+        <menu text="Menu1-3(&amp;3)">
+          <menuItem id="accelerator1" text="Accelerator1\tF2"
+            accelerator="F2" />
+          <menuItem id="accelerator2" text="Accelerator2\tCtrl+M"
+            accelerator="Ctrl+M" />
+        </menu>
+      </menu>
+
+      <menu text="Menu2">
+        <menuItem text="チェック(select)" style="CHECK" selection="true" />
+        <menuItem text="チェック" style="CHECK" />
+        <separator />
+        <menuItem text="ラジオ1" style="RADIO" />
+        <menuItem text="ラジオ2(select)" style="RADIO" selection="true" />
+        <menuItem text="ラジオ3" style="RADIO" />
+        <separator />
+        <menuItem text="disable" enabled="false" />
+        <menuItem image="CONTAINER_IMG" text="イメージ" />
+        <menuItem disabledImage="CROSS_IMG" text="ディスエーブルイメージ"
+          enabled="false" />
+      </menu>
+
+      <menu text="UnvisivleMenu(&amp;D)" visible="false">
+        <menuItem text="disable1" style="CHECK" selection="true" />
+        <menuItem text="disable2" style="CHECK" />
+      </menu>
+-->
+
     </menu>
 
     <perspective id="defaultPerspective" name="RSS" fixed="false"

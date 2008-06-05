@@ -28,7 +28,6 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.InitializeMethod;
-import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 
 /**
  *  アプリの初期化処理です。 <br />
@@ -53,7 +52,6 @@ public class WorkbenchWindowAction {
 		createViewMenu();
 		createPerspectiveMenu();
 		
-		System.out.println(ContributionBuilder.getContent());
 	}
 	
 	/**
@@ -103,5 +101,5 @@ public class WorkbenchWindowAction {
 	public void doMenu3(final Object obj) {
 		MessageDialog.openInformation(null, "メニュー３", "メニュー３クリック！！");
 	}
-	
+
 }

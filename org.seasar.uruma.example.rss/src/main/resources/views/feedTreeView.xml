@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
-  <viewPart title="フィードツリー・ビュー">
+  <viewPart title="フィードツリー・ビュー" menu="view1" >
   
-    <menu id="view">
+    <menu id="view1">
       <menu text="メニューグループ３(&amp;F)">
         <menuItem id="menu4" text="メニュー４(&amp;S)" image="uruma"
           accelerator="Ctrl+S" />
@@ -10,9 +10,9 @@
         <menuItem id="menu5" text="メニュー５(&amp;F)" image="rss" 
           accelerator="Ctrl+F" />
       </menu>
-       
     </menu>
 
+	<!-- 
     <menu id="popup1">
       <menu text="メニューグループpopup(&amp;F)" image="uruma">
         <menuItem id="menu6" text="メニュー６(&amp;G)" image="uruma"
@@ -24,8 +24,9 @@
 	  <menuItem id="menu8" text="メニュー８(&amp;J)" image="rss" 
           accelerator="Ctrl+J" />
     </menu>
-    
-    <tree id="feedTree" autoExpandLevel="2">
+	-->
+	
+    <tree id="feedTree" autoExpandLevel="2"  >
     </tree>
   </viewPart>
 </template>

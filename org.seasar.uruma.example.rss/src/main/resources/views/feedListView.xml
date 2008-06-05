@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
   <viewPart title="フィード・ビュー">
-     <table id="feedListTable" linesVisible="true">
+
+	<!--  
+     <menu id="popup2">
+	   <menuItem id="menu9" text="メニュー９(&amp;K)" image="rss" 
+          accelerator="Ctrl+K" />
+     </menu>
+     -->
+
+     <table id="feedListTable" linesVisible="true" >
       <tableColumn id="name" text="名前" />
       <tableColumn id="updateTime" text="更新日時" />
     </table>
+
   </viewPart>
 </template>

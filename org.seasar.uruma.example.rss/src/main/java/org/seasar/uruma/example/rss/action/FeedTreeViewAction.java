@@ -56,7 +56,7 @@ public class FeedTreeViewAction {
 	 */
 	private String[] feedUrls = new String[] {
 			"http://www.amazon.co.jp/rss/bestsellers/electronics/3371341/ref=pd_ts_rss_link",
-			"http://b.hatena.ne.jp/hotentry?mode=rss", 
+//			"http://b.hatena.ne.jp/hotentry?mode=rss", 
 			"http://www.pheedo.jp/f/slashdot_japan"
 			};
 	
@@ -77,7 +77,7 @@ public class FeedTreeViewAction {
 			root.addChild(child);
 		}
 	}
-	
+
 	@EventListener(id = "menu4", type = EventListenerType.SELECTION)
 	public void doMenu4(final Object obj) {
 		MessageDialog.openInformation(null, "メニュー４", "メニュー４クリック！！");
@@ -88,33 +88,31 @@ public class FeedTreeViewAction {
 		MessageDialog.openInformation(null, "メニュー５", "メニュー５クリック！！");
 	}
 
-	/*
-	@EventListener(id = "menu6", type = EventListenerType.SELECTION)
-	public void doMenu6(final Object obj) {
-		MessageDialog.openInformation(null, "メニュー６", "メニュー６クリック！！"+obj.getClass().getSimpleName());
-	}
-	
-	@EventListener(id = "menu7", type = EventListenerType.SELECTION)
-	public void doMenu7(final Object obj) {
-		MessageDialog.openInformation(null, "メニュー７", "メニュー７クリック！！"+obj.getClass().getSimpleName());
-	}
-	@EventListener(id = "menu8", type = EventListenerType.SELECTION)
-	public void doMenu8(final Object obj) {
-		MessageDialog.openInformation(null, "メニュー８", "メニュー８クリック！！"+obj.getClass().getSimpleName());
-	}
+//	@EventListener(id = "menu6", type = EventListenerType.SELECTION)
+//	public void doMenu6(final Object obj) {
+//		MessageDialog.openInformation(null, "メニュー６", "メニュー６クリック！！"+obj.getClass().getSimpleName());
+//	}
+//	
+//	@EventListener(id = "menu7", type = EventListenerType.SELECTION)
+//	public void doMenu7(final Object obj) {
+//		MessageDialog.openInformation(null, "メニュー７", "メニュー７クリック！！"+obj.getClass().getSimpleName());
+//	}
+//	@EventListener(id = "menu8", type = EventListenerType.SELECTION)
+//	public void doMenu8(final Object obj) {
+//		MessageDialog.openInformation(null, "メニュー８", "メニュー８クリック！！"+obj.getClass().getSimpleName());
+//	}
 
-	@IsShowMenu(id ="menu8")
-	public boolean isShowMenu8(final Object obj) {
-		System.out.println("Call isShowMenu8 method. arg = " + obj);
-		if (obj != null) {
-			if (obj instanceof NodeDto) {
-				NodeDto<?> nodeDto = (NodeDto<?>) obj;
-				FeedDto feedDto = (FeedDto) nodeDto.getTarget();
-				System.out.println(feedDto.getTitle());
-				return true;
-			}
-		}
-		return false;
-	}
-	*/
+//	@IsShowMenu(id ="menu8")
+//	public boolean isShowMenu8(final Object obj) {
+//		System.out.println("Call isShowMenu8 method. arg = " + obj);
+//		if (obj != null) {
+//			if (obj instanceof NodeDto) {
+//				NodeDto<?> nodeDto = (NodeDto<?>) obj;
+//				FeedDto feedDto = (FeedDto) nodeDto.getTarget();
+//				System.out.println(feedDto.getTitle());
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 }
