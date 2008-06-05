@@ -28,6 +28,7 @@ import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.UIElementVisitor;
+import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.util.AssertionUtil;
@@ -76,7 +77,9 @@ public class MenuComponent extends MenuItemComponent implements
     private List<UIElement> children = new ArrayList<UIElement>();
 
     /*
-     * @see org.seasar.uruma.component.UIElementContainer#addChild(org.seasar.uruma.component.UIElement)
+     * @see
+     * org.seasar.uruma.component.UIElementContainer#addChild(org.seasar.uruma
+     * .component.UIElement)
      */
     public void addChild(final UIElement child) {
         AssertionUtil.assertNotNull("child", child);
@@ -93,8 +96,10 @@ public class MenuComponent extends MenuItemComponent implements
     }
 
     /*
-     * @see org.seasar.uruma.component.jface.AbstractUIComponent#doPreRender(org.seasar.uruma.context.WidgetHandle,
-     *      org.seasar.uruma.context.WindowContext)
+     * @see
+     * org.seasar.uruma.component.jface.AbstractUIComponent#doPreRender(org.
+     * seasar.uruma.context.WidgetHandle,
+     * org.seasar.uruma.context.WindowContext)
      */
     @Override
     protected void doPreRender(final WidgetHandle parent,
@@ -106,6 +111,9 @@ public class MenuComponent extends MenuItemComponent implements
             if (StringUtil.isEmpty(windowComponent.menu)) {
                 windowComponent.menu = getId();
             }
+        } else if (parentComponent instanceof ViewPartComponent) {
+            // RCP版の場合は、メニューをレンダリングしない
+            return;
         }
 
         for (UIElement child : children) {
@@ -117,7 +125,9 @@ public class MenuComponent extends MenuItemComponent implements
     }
 
     /*
-     * @see org.seasar.uruma.component.base.AbstractUIElement#accept(org.seasar.uruma.component.UIElementVisitor)
+     * @see
+     * org.seasar.uruma.component.base.AbstractUIElement#accept(org.seasar.uruma
+     * .component.UIElementVisitor)
      */
     @Override
     public void accept(final UIElementVisitor visitor) {

@@ -137,18 +137,22 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         }
 
         for (ViewPartComponent view : service.getViewPartComponent()) {
+            // For View Menu And Toolbar
             MenuContributionElement viewMenuContribution = setupViewMenuContribution(view);
             MenuContributionElement viewToolbarContribution = setupViewToolbarContribution(view);
-            for (MenuComponent menu : view.getMenus()) {
-                if ("view".equals(menu.getId())) {
-                    // For View Menu And Toolbar
-                    traverseMenu(category, menu, null, viewMenuContribution);
-                    traverseToolbar(category, menu, null,
-                            viewToolbarContribution);
-                } else {
-                    // For Control Popup Menu
-                    visitForMenuSearch(category, menu, popupContribution);
+            if (!StringUtil.isEmpty(view.menu)) {
+                for (MenuComponent menu : view.getMenus()) {
+                    if (view.menu.equals(menu.getId())) {
+                        traverseMenu(category, menu, null, viewMenuContribution);
+                        traverseToolbar(category, menu, null,
+                                viewToolbarContribution);
+                    }
                 }
+            }
+
+            for (MenuComponent menu : view.getMenus()) {
+                // For Control Popup Menu
+                // visitForMenuSearch(category, menu, popupContribution);
             }
         }
         return new Extension[] { contexts, commands, handlers, bindings, menus,
@@ -254,6 +258,9 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
                 }
                 traverseMenu(category, (MenuComponent) child, menuElement,
                         menuContribution);
+            } else if (child instanceof SeparatorComponent) {
+                SeparatorComponent separator = (SeparatorComponent) child;
+                setupSeparator(separator, parentMenuElement, menuContribution);
 
             } else if (child instanceof SeparatorComponent) {
                 SeparatorComponent separator = (SeparatorComponent) child;
@@ -289,6 +296,9 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
                 }
                 traverseToolbar(category, (MenuComponent) child,
                         toolbarElement, menuContribution);
+
+            } else if (child instanceof SeparatorComponent) {
+                // Do noting
 
             } else if (child instanceof MenuItemComponent) {
                 MenuItemComponent menuItem = (MenuItemComponent) child;
@@ -435,6 +445,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         command.icon = getRcpImagePath(menuItem.image);
         command.disabledIcon = getRcpImagePath(menuItem.disabledImage);
         command.hoverIcon = getRcpImagePath(menuItem.hoverImage);
+        command.style = parseStyle(menuItem.getStyle());
 
         if (parentMenuElement == null) {
             menuContribution.addElement(command);
@@ -456,8 +467,7 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
         command.icon = getRcpImagePath(menuItem.image);
         command.disabledIcon = getRcpImagePath(menuItem.disabledImage);
         command.hoverIcon = getRcpImagePath(menuItem.hoverImage);
-        command.style = menuItem.getStyle() == null ? MenuCommandElement.STYLE_PUSH
-                : menuItem.getStyle();
+        command.style = parseStyle(menuItem.getStyle());
 
         if (parentToolbarElement == null) {
             menuContribution.addElement(command);
@@ -476,4 +486,17 @@ public class MenusBuilder extends AbstractExtensionBuilder implements
             parentMenuElement.addElement(element);
         }
     }
+
+    protected String parseStyle(final String style) {
+        if (StringUtil.isEmpty(style)) {
+            return MenuCommandElement.STYLE_PUSH;
+        } else {
+            String result = style.toLowerCase();
+            if ("check".equals(result)) {
+                return MenuCommandElement.STYLE_TOGGLE;
+            }
+            return result;
+        }
+    }
+
 }
