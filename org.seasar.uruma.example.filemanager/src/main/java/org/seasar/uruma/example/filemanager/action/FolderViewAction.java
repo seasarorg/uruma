@@ -21,7 +21,6 @@ import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.ExportSelection;
 import org.seasar.uruma.annotation.ExportValue;
-import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.example.filemanager.Constants;
 
 /**
@@ -29,7 +28,6 @@ import org.seasar.uruma.example.filemanager.Constants;
  * 
  * @author y-komori
  */
-@Form(FolderViewAction.class)
 public class FolderViewAction implements Constants {
     @ExportValue(id = "folderTree")
     public File root = new File(ROOT_PATH);

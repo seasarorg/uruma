@@ -23,7 +23,6 @@ import org.eclipse.swt.program.Program;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.ExportValue;
-import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.ImportExportValue;
 import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.example.filemanager.Constants;
@@ -36,7 +35,6 @@ import org.seasar.uruma.util.PathUtil;
  * 
  * @author y-komori
  */
-@Form(FileViewAction.class)
 public class FileViewAction implements Constants {
     @ExportValue(id = "fileDetailTable")
     public List<File> fileList = new ArrayList<File>();
