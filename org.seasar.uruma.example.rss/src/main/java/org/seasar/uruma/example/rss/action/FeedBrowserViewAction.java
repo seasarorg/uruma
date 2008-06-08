@@ -17,7 +17,6 @@ package org.seasar.uruma.example.rss.action;
 
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.ExportValue;
-import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.example.rss.constants.WidgetConstants;
 import org.seasar.uruma.example.rss.dto.FeedEntryDto;
@@ -27,31 +26,30 @@ import org.seasar.uruma.example.rss.dto.FeedEntryDto;
  * 
  * @author y.sugigami
  */
-@Form(FeedBrowserViewAction.class)
-public class FeedBrowserViewAction  {
-	
-	/**
-	 * Browserウィジェットに表示するフィードのHTMLです。<br />
-	 */
-	@ExportValue(id = WidgetConstants.FEED_BROWSER)
-	public String html;
-	
-	/**
-	 * 初期化処理です。<br />
-	 */
-	@InitializeMethod
-	public void initialize() {
-		html = "";
-	}
-	
-	/**
-	 * フィードエントリが選択されたときに呼び出されるメソッドです。<br />
-	 * 
-	 * @param selected
-	 *            選択されている {@link FeedEntryDto} オブジェクト
-	 */
-	@EventListener(id = "feedListTable")
-	public void feedSelected(final FeedEntryDto selected) {
-		html = selected.getDescription();
-	}
+public class FeedBrowserViewAction {
+
+    /**
+     * Browserウィジェットに表示するフィードのHTMLです。<br />
+     */
+    @ExportValue(id = WidgetConstants.FEED_BROWSER)
+    public String html;
+
+    /**
+     * 初期化処理です。<br />
+     */
+    @InitializeMethod
+    public void initialize() {
+        html = "";
+    }
+
+    /**
+     * フィードエントリが選択されたときに呼び出されるメソッドです。<br />
+     * 
+     * @param selected
+     *            選択されている {@link FeedEntryDto} オブジェクト
+     */
+    @EventListener(id = "feedListTable")
+    public void feedSelected(final FeedEntryDto selected) {
+        html = selected.getDescription();
+    }
 }

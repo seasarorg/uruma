@@ -21,7 +21,6 @@ import java.util.List;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.ExportValue;
-import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.example.rss.constants.WidgetConstants;
 import org.seasar.uruma.example.rss.dto.FeedDto;
@@ -34,41 +33,40 @@ import org.seasar.uruma.example.rss.logic.FeedLogic;
  * 
  * @author y.sugigami
  */
-@Form(FeedListViewAction.class)
-public class FeedListViewAction  {
-	
-	/**
-	 * フィードのロジックです。<br />
-	 */
-	public FeedLogic feedLogic;
-	
-	/**
-	 * フィードエントリのリストです。<br />
-	 */
-	@ExportValue(id = WidgetConstants.FEED_LIST_TABLE)
-	public List<FeedEntryDto> list = new ArrayList<FeedEntryDto>();
+public class FeedListViewAction {
 
-	/**
-	 * フィードが選択されたときに呼び出されるメソッドです。<br />
-	 * 
-	 * @param selected
-	 *            選択されている {@link NodeDto} オブジェクト
-	 */
-	@EventListener(id = WidgetConstants.FEED_TREE, type = EventListenerType.SELECTION)
-	public void feedSelectedSingle(final Object obj) {
-		list.clear();
-		FeedDto feedDto = ((NodeDto<FeedDto>) obj).getTarget();
-		for (FeedEntryDto feedEntryDto : feedDto.getFeedEntryDtoList()) {
-			list.add(feedEntryDto);
-		}
-	}
+    /**
+     * フィードのロジックです。<br />
+     */
+    public FeedLogic feedLogic;
 
-	/**
-	 * 初期化処理です。<br />
-	 */
-	@InitializeMethod
-	public void initialize() {
-		// Do Nothing
-	}
+    /**
+     * フィードエントリのリストです。<br />
+     */
+    @ExportValue(id = WidgetConstants.FEED_LIST_TABLE)
+    public List<FeedEntryDto> list = new ArrayList<FeedEntryDto>();
+
+    /**
+     * フィードが選択されたときに呼び出されるメソッドです。<br />
+     * 
+     * @param selected
+     *            選択されている {@link NodeDto} オブジェクト
+     */
+    @EventListener(id = WidgetConstants.FEED_TREE, type = EventListenerType.SELECTION)
+    public void feedSelectedSingle(final Object obj) {
+        list.clear();
+        FeedDto feedDto = ((NodeDto<FeedDto>) obj).getTarget();
+        for (FeedEntryDto feedEntryDto : feedDto.getFeedEntryDtoList()) {
+            list.add(feedEntryDto);
+        }
+    }
+
+    /**
+     * 初期化処理です。<br />
+     */
+    @InitializeMethod
+    public void initialize() {
+        // Do Nothing
+    }
 
 }
