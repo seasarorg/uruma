@@ -85,12 +85,33 @@ public abstract class AbstractGUITest extends S2FrameworkTestCase {
     }
 
     /**
-     * テスト画面オープン後に画面キャプチャを行います。<br />
+     * テスト画面オープン後に実行される処理です。<br />
      */
     @PostOpenMethod
     public void postOpen() {
+        captureScreen();
+
+        if (isAutoTestMode()) {
+            try {
+                autoOK();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                fail(ex.getMessage());
+            }
+        }
+    }
+
+    protected void captureScreen() {
         String path = "log/" + getClass().getSimpleName() + ".png";
         SWTUtil.saveWindowImage(shell, path, SWT.IMAGE_PNG);
+    }
+
+    protected boolean isAutoTestMode() {
+        return Boolean.getBoolean("autoTest");
+    }
+
+    protected void autoOK() throws Exception {
+        okButtonAction();
     }
 
     /**

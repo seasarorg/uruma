@@ -29,8 +29,12 @@ public class WindowCloseListenerGUITest extends AbstractGUITest {
 
     @EventListener(id = "window", type = EventListenerType.WINDOW_CLOSING)
     public boolean handleClose() {
-        return MessageDialog.openConfirm(ShellUtil.getShell(), "Confirm",
-                "Are you okay?");
+        if (!isAutoTestMode()) {
+            return MessageDialog.openConfirm(ShellUtil.getShell(), "Confirm",
+                    "Are you okay?");
+        } else {
+            return true;
+        }
     }
 
     @EventListener(id = "shell", type = EventListenerType.CLOSE)
