@@ -22,7 +22,6 @@ import junit.framework.AssertionFailedError;
 
 import org.eclipse.swt.widgets.DateTime;
 import org.seasar.uruma.annotation.EventListener;
-import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.ImportExportValue;
 import org.seasar.uruma.annotation.InitializeMethod;
 
@@ -31,7 +30,6 @@ import org.seasar.uruma.annotation.InitializeMethod;
  * 
  * @author y-komori
  */
-@Form(DateTimeRendererGUITest.class)
 public class DateTimeRendererGUITest extends AbstractGUITest {
     @ImportExportValue(id = "time")
     public Date timeValue;

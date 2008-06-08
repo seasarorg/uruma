@@ -29,7 +29,6 @@ import org.seasar.uruma.renderer.impl.AbstractGUITest;
  * 
  * @author bskuroneko
  */
-@Form(ViewerEnablesDependingListenerGUITest.class)
 public class ViewerEnablesDependingListenerGUITest extends AbstractGUITest {
 
     private int nextIndex = 0;

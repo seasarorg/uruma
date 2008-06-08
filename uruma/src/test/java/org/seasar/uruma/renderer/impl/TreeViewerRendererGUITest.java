@@ -15,13 +15,11 @@
  */
 package org.seasar.uruma.renderer.impl;
 
-import org.seasar.uruma.annotation.Form;
 
 /**
  * {@link TreeViewerRenderer} のためのテストクラスです。<br />
  * 
  * @author y-komori
  */
-@Form(TreeViewerRendererGUITest.class)
 public class TreeViewerRendererGUITest extends AbstractGUITest {
 }

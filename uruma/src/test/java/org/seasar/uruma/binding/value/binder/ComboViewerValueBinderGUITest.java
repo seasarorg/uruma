@@ -33,7 +33,6 @@ import org.seasar.uruma.renderer.impl.AbstractGUITest;
  * 
  * @author y-komori
  */
-@Form(ComboViewerValueBinderGUITest.class)
 public class ComboViewerValueBinderGUITest extends AbstractGUITest {
     @ExportValue
     public List<String> combo1 = new ArrayList<String>();

@@ -24,7 +24,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Text;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.ExportValue;
-import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.renderer.impl.AbstractGUITest;
 
@@ -33,7 +32,6 @@ import org.seasar.uruma.renderer.impl.AbstractGUITest;
  * 
  * @author y-komori
  */
-@Form(TreeViewerValueBinderGUITest.class)
 public class TreeViewerValueBinderGUITest extends AbstractGUITest {
     @ExportValue(id = "tree1")
     public TreeNode[] tparent;

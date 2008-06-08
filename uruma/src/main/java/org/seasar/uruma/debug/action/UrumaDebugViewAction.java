@@ -33,7 +33,6 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.annotation.ExportValue;
-import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.binding.enables.EnablesDependingDef;
@@ -75,7 +74,6 @@ import org.seasar.uruma.util.S2ContainerListToHtmlUtil;
  * 
  * @author y.sugigami
  */
-@Form(UrumaDebugViewAction.class)
 public class UrumaDebugViewAction {
 
     /* IMPORT EXPORT */

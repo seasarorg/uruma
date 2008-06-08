@@ -34,7 +34,6 @@ import org.seasar.uruma.renderer.impl.AbstractGUITest;
  * 
  * @author y-komori
  */
-@Form(TableViewerValueBinderGUITest.class)
 public class TableViewerValueBinderGUITest extends AbstractGUITest {
     @ExportValue(id = "table")
     public List<Contents> contents;
