@@ -34,26 +34,26 @@ import org.seasar.uruma.example.employee.logic.EmployeeLogic;
  * @author y-komori
  */
 public class InquireAction {
-	public Shell shell;
+    public Shell shell;
 
-	public InquireForm inquireForm;
+    public InquireForm inquireForm;
 
-	public InquireFormDxo inquireFormDxo;
+    public InquireFormDxo inquireFormDxo;
 
-	public EmployeeLogic employeeLogic;
+    public EmployeeLogic employeeLogic;
 
-	@ApplicationContext
-	public List<EmployeeDto> selectedEmployees;
+    @ApplicationContext
+    public List<EmployeeDto> selectedEmployees;
 
-	@InitializeMethod
-	public void initialize() {
-		Employee employee = employeeLogic
-				.getEmployee(selectedEmployees.get(0).empno);
-		inquireFormDxo.convert(employee, inquireForm);
-	}
+    @InitializeMethod
+    public void initialize() {
+        Employee employee = employeeLogic
+                .getEmployee(selectedEmployees.get(0).empno);
+        inquireFormDxo.convert(employee, inquireForm);
+    }
 
-	@EventListener(id = "ok")
-	public void onOk() {
-		shell.close();
-	}
+    @EventListener(id = "ok")
+    public void onOk() {
+        shell.close();
+    }
 }
