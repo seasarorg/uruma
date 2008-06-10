@@ -73,6 +73,10 @@ public abstract class AbstractGenericListener {
      * @return メソッドの戻り値。メソッドの呼び出し中に例外が発生した場合は <code>null</code>。
      */
     protected Object invokeMethod(final Object event) {
+        if (checkLoop()) {
+            return null;
+        }
+
         try {
             WidgetBinder.bindWidgets(methodBinding.getTarget(), context);
 
@@ -99,6 +103,23 @@ public abstract class AbstractGenericListener {
                 return ((Event) event).widget.isDisposed();
             } else if (event instanceof TypedEvent) {
                 return ((TypedEvent) event).widget.isDisposed();
+            }
+        }
+        return false;
+    }
+
+    protected boolean checkLoop() {
+        StackTraceElement elements[] = Thread.currentThread().getStackTrace();
+        if (elements != null) {
+            int count = 0;
+            String myClassName = getClass().getName();
+            for (StackTraceElement element : elements) {
+                if (myClassName.equals(element.getClassName())) {
+                    count++;
+                    if (count > 1) {
+                        return true;
+                    }
+                }
             }
         }
         return false;
