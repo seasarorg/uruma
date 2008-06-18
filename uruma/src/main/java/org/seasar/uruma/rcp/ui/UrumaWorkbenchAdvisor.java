@@ -15,7 +15,6 @@
  */
 package org.seasar.uruma.rcp.ui;
 
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.swt.widgets.Display;
@@ -61,11 +60,9 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
         configurer.setSaveAndRestore(flg);
 
         ResourceBundle imageBundle = service.getImageBundle();
-        try {
+        if (imageBundle != null) {
             logger.log(UrumaMessageCodes.LOADING_IMAGE_BUNDLE, imageBundle);
             ImageManager.loadImages(imageBundle);
-        } catch (MissingResourceException ex) {
-            logger.log(IMAGE_DEF_BUNDLE_NOT_FOUND, imageBundle);
         }
     }
 

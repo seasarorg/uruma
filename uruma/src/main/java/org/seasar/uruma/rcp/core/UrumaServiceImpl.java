@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.ContributorFactoryOSGi;
@@ -62,8 +63,8 @@ import org.seasar.uruma.rcp.util.RcpResourceUtil;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
- * {@link UrumaService} の実装クラスです。<br /> 本クラスは、 {@link UrumaServiceFactory}
- * によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。<br />
+ * {@link UrumaService} の実装クラスです。<br />
+ * 本クラスは、 {@link UrumaServiceFactory} によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。<br />
  * 
  * @author y-komori
  */
@@ -112,7 +113,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * {@link UrumaServiceImpl} を構築します。<br />
      * 
      * @param targetBundle
-     *      ターゲットバンドル
+     *            ターゲットバンドル
      */
     public UrumaServiceImpl(final Bundle targetBundle) {
         AssertionUtil.assertNotNull("targetBundle", targetBundle);
@@ -199,7 +200,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * 指定したバンドルをアクティベートします。
      * 
      * @param bundle
-     *      Urumaアプリケーションを含むバンドル
+     *            Urumaアプリケーションを含むバンドル
      * 
      * @return バンドルのクラスローダ
      */
@@ -228,7 +229,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * クラスはバンドルのシンボリックネームが表すパッケージ配下を検索します。
      * 
      * @param bundle
-     *      {@link Bundle} オブジェクト
+     *            {@link Bundle} オブジェクト
      * @return 見つかったクラス名。見つからなかった場合は <code>null</code>。
      */
     @SuppressWarnings("unchecked")
@@ -527,8 +528,14 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      */
     public ResourceBundle getImageBundle() {
         if (imageBundle == null) {
-            imageBundle = ResourceBundle.getBundle(DEFAULT_IMAGE_BUNDLE_PATH,
-                    Locale.getDefault(), appClassLoader);
+            try {
+                imageBundle = ResourceBundle.getBundle(
+                        DEFAULT_IMAGE_BUNDLE_PATH, Locale.getDefault(),
+                        appClassLoader);
+            } catch (MissingResourceException ex) {
+                logger.log(IMAGE_DEF_BUNDLE_NOT_FOUND,
+                        DEFAULT_IMAGE_BUNDLE_PATH);
+            }
         }
         return imageBundle;
     }
