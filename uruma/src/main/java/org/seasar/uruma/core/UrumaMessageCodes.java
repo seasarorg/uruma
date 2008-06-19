@@ -95,6 +95,15 @@ public interface UrumaMessageCodes {
      */
     public static final String IO_EXCEPTION_OCCURED = "EURM0006";
 
+    /**
+     * CoolDeploy 対象パッケージが見つからなかった場合のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String COOLDEPLOY_PACKAGE_NOT_FOUND = "WURM0007";
+
     // -------------------------------------------------------------------------
     // XMLパース関連メッセージコード (01xx)
     // -------------------------------------------------------------------------

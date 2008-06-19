@@ -164,15 +164,20 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         // Uruma Debug View XMLの読み込み
         if (Env.UT.equals(Env.getValue())) {
             try {
+                String workbenchPath = DEFAULT_WORKBENCH_XML;
                 URL resourceUrl = RcpResourceUtil
-                        .getLocalResourceUrl(DEFAULT_WORKBENCH_XML);
-                templateLoader.loadViewTemplates(resourceUrl);
+                        .getLocalResourceUrl(workbenchPath);
+                if (resourceUrl != null) {
+                    templateLoader.loadViewTemplates(resourceUrl);
 
-                // テンプレートファイルを遅延ロードすると
-                // UrumaClassLoaderではないため
-                // テンプレートファイルをロードできないので
-                // ここで事前にテンプレートファイルを読み込む
-                templateManager.getTemplates(ViewPartComponent.class);
+                    // テンプレートファイルを遅延ロードすると
+                    // UrumaClassLoaderではないため
+                    // テンプレートファイルをロードできないので
+                    // ここで事前にテンプレートファイルを読み込む
+                    templateManager.getTemplates(ViewPartComponent.class);
+                } else {
+                    throw new ResourceNotFoundRuntimeException(workbenchPath);
+                }
             } catch (Exception ex) {
                 logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
                 throw new UrumaAppInitException(targetBundle, ex, ex

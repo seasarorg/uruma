@@ -48,10 +48,10 @@ public class RcpResourceUtil {
      * 指定されたプラグインの実行時パスを返します。<br />
      * 
      * @param uiPlugin
-     *      実行時パスを調べる {@link Plugin}
+     *            実行時パスを調べる {@link Plugin}
      * @return 実行時パスを表す {@link URL} オブジェクト
      * @throws IOException
-     *      パスの変換に失敗した場合
+     *             パスの変換に失敗した場合
      * @see FileLocator#resolve(URL)
      */
     public static URL getNativePluginPath(final Plugin uiPlugin)
@@ -64,7 +64,7 @@ public class RcpResourceUtil {
      * {@link Bundle}の絶対パスを返します。<br />
      * 
      * @param bundle
-     *      {@link Bundle}
+     *            {@link Bundle}
      * @return {@link Bundle}の絶対パス
      */
     public static String getBunldePath(final Bundle bundle) {
@@ -82,23 +82,28 @@ public class RcpResourceUtil {
      * 指定されたパスにおけるリソースのローカルシステム上の {@link URL} を返します。<br />
      * 
      * @param path
-     *      リソースのパス
-     * @return ローカルシステム上の {@link URL}
+     *            リソースのパス
+     * @return ローカルシステム上の {@link URL}。パスが存在しない場合は <code>null</code>。
      * @throws IOException
-     *      パスの変換に失敗した場合
+     *             パスの変換に失敗した場合
      * @see FileLocator#resolve(URL)
      */
     public static URL getLocalResourceUrl(final String path) throws IOException {
         URL url = ResourceUtil.getClassLoader().getResource(path);
-        return FileLocator.resolve(url);
+        if (url != null) {
+            return FileLocator.resolve(url);
+        } else {
+            return null;
+        }
     }
 
     /**
      * 指定されたパスにおけるリソースのローカルシステム上の {@link URL} を返します。<br />
      * 
      * @param path
-     *      リソースのパス
-     * @return ローカルシステム上の {@link URL} <br /> リソースが存在しない場合は、NULLを返却。
+     *            リソースのパス
+     * @return ローカルシステム上の {@link URL} <br />
+     *         リソースが存在しない場合は、NULLを返却。
      * @see FileLocator#resolve(URL)
      */
     public static URL getLocalResourceUrlNoException(final String path) {
@@ -115,9 +120,9 @@ public class RcpResourceUtil {
      * 指定されたパスのバンドルルートパスからの相対パスを返します。<br />
      * 
      * @param bundle
-     *      バンドル
+     *            バンドル
      * @param path
-     *      パス
+     *            パス
      * @return 相対パス。相対パスが得られなかった場合、 <code>null</code>。
      */
     public static String getBundleRelativePath(final Bundle bundle,
@@ -126,9 +131,13 @@ public class RcpResourceUtil {
         AssertionUtil.assertNotNull("path", path);
         try {
             URL url = getLocalResourceUrl(path);
-            URL bundlePath = FileLocator.resolve(bundle.getEntry(SLASH));
-            return PathUtil
-                    .getRelativePath(bundlePath.getPath(), url.getPath());
+            if (url != null) {
+                URL bundlePath = FileLocator.resolve(bundle.getEntry(SLASH));
+                return PathUtil.getRelativePath(bundlePath.getPath(), url
+                        .getPath());
+            } else {
+                return null;
+            }
         } catch (IOException ignore) {
             return null;
         }
@@ -139,9 +148,9 @@ public class RcpResourceUtil {
      * 指定されたパスを起点として、ファイルシステムからリソースを再帰的に検索して返します。<br />
      * 
      * @param baseDir
-     *      起点となるパス
+     *            起点となるパス
      * @param filter
-     *      条件を指定する {@link FileFilter}
+     *            条件を指定する {@link FileFilter}
      * @return 検索結果
      */
     public static List<File> findFileResources(final File baseDir,

@@ -20,9 +20,10 @@ import java.net.URL;
 
 import org.seasar.framework.container.cooldeploy.CoolComponentAutoRegister;
 import org.seasar.framework.convention.NamingConvention;
-import org.seasar.framework.exception.IORuntimeException;
 import org.seasar.framework.util.URLUtil;
 import org.seasar.framework.util.ClassTraversal.ClassHandler;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.util.RcpResourceUtil;
 
 /**
@@ -32,31 +33,34 @@ import org.seasar.uruma.rcp.util.RcpResourceUtil;
  * 
  */
 public class UrumaCoolComponentAutoRegister extends CoolComponentAutoRegister
-        implements ClassHandler {
+        implements ClassHandler, UrumaMessageCodes {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(UrumaCoolComponentAutoRegister.class);
 
     /**
      * 自動登録を行います。
      */
     @Override
     public void registerAll() {
-        try {
-            final String[] rootPackageNames = getNamingConvention()
-                    .getRootPackageNames();
-            if (rootPackageNames != null) {
-                for (int i = 0; i < rootPackageNames.length; ++i) {
-                    final String rootDir = rootPackageNames[i]
-                            .replace('.', '/');
-                    //
+        final String[] rootPackageNames = getNamingConvention()
+                .getRootPackageNames();
+        if (rootPackageNames != null) {
+            for (int i = 0; i < rootPackageNames.length; ++i) {
+                final String rootDir = rootPackageNames[i].replace('.', '/');
+                try {
                     URL localUrl = RcpResourceUtil.getLocalResourceUrl(rootDir);
-                    final Strategy strategy = getStrategy(URLUtil
-                            .toCanonicalProtocol(localUrl.getProtocol()));
-                    strategy.registerAll(rootDir, localUrl);
+                    if (localUrl != null) {
+                        final Strategy strategy = getStrategy(URLUtil
+                                .toCanonicalProtocol(localUrl.getProtocol()));
+                        strategy.registerAll(rootDir, localUrl);
+                    } else {
+                        logger.log(COOLDEPLOY_PACKAGE_NOT_FOUND, rootDir);
+                    }
+                } catch (IOException ex) {
+                    logger.log(COOLDEPLOY_PACKAGE_NOT_FOUND, rootDir);
                 }
             }
-        } catch (IOException e) {
-            throw new IORuntimeException(e);
-        } finally {
-            registerdClasses.clear();
         }
+        registerdClasses.clear();
     }
 }
