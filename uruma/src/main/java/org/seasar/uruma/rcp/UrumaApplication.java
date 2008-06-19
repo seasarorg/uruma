@@ -24,6 +24,8 @@ import org.eclipse.ui.PlatformUI;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.rcp.core.UrumaBundleState;
+import org.seasar.uruma.rcp.core.UrumaBundleState.BundleState;
 import org.seasar.uruma.rcp.ui.UrumaWorkbenchAdvisor;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
@@ -43,6 +45,10 @@ public class UrumaApplication implements IApplication, UrumaMessageCodes,
      * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
      */
     public Object start(final IApplicationContext context) throws Exception {
+        if (UrumaBundleState.getInstance().getUrumaBundleState() == BundleState.NOT_AVAILABLE) {
+            return IApplication.EXIT_OK;
+        }
+
         logger.log(URUMA_APPLICATION_STARTING);
 
         Display display = null;

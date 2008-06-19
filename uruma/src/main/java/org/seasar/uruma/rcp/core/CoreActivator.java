@@ -37,6 +37,7 @@ import org.seasar.uruma.exception.UrumaAppInitException;
 import org.seasar.uruma.exception.UrumaAppNotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
+import org.seasar.uruma.rcp.core.UrumaBundleState.BundleState;
 import org.seasar.uruma.rcp.util.BundleInfoUtil;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 import org.seasar.uruma.util.MessageUtil;
@@ -60,6 +61,9 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
             prepareUrumaService(context);
 
             registerProductPreferenceService(context);
+
+            UrumaBundleState.getInstance().setUrumaBundleState(
+                    BundleState.AVAILABLE);
         } catch (Throwable ex) {
             Display display = new Display();
             Shell shell = new Shell(display);
@@ -74,6 +78,8 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
     }
 
     public void stop(final BundleContext context) throws Exception {
+        UrumaBundleState.getInstance().setUrumaBundleState(
+                BundleState.NOT_AVAILABLE);
         logger.log(URUMA_BUNDLE_STOP);
     }
 
@@ -102,10 +108,13 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
                     .getServiceReference(UrumaService.class.getName());
             UrumaServiceImpl service = (UrumaServiceImpl) appContext
                     .getService(ref);
-            if (service != null) {
+            if (service != null
+                    && UrumaBundleState.getInstance().getAppBundleState() == BundleState.AVAILABLE) {
                 service.registerExtensions();
             } else {
-                throw new UrumaAppInitException(bundle);
+                Throwable ex = UrumaBundleState.getInstance()
+                        .getUrumaAppInitializingException();
+                throw new UrumaAppInitException(bundle, ex, ex.getMessage());
             }
         }
     }

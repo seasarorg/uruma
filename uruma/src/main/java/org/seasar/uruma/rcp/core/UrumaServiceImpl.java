@@ -59,6 +59,7 @@ import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.binding.CommandRegistry;
 import org.seasar.uruma.rcp.configuration.ContributionBuilder;
 import org.seasar.uruma.rcp.configuration.Extension;
+import org.seasar.uruma.rcp.core.UrumaBundleState.BundleState;
 import org.seasar.uruma.rcp.util.RcpResourceUtil;
 import org.seasar.uruma.util.AssertionUtil;
 
@@ -132,20 +133,23 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     protected void initialize() {
         logger.log(URUMA_SERVICE_INIT_START, targetBundle.getSymbolicName());
 
-        ClassLoader loader = activateUrumaApplication(targetBundle);
-
-        if (loader != null) {
-            this.appClassLoader = loader;
-        }
-        switchToAppClassLoader();
-
         try {
+            ClassLoader loader = activateUrumaApplication(targetBundle);
+
+            if (loader != null) {
+                this.appClassLoader = loader;
+            }
+            switchToAppClassLoader();
+
             initS2Container();
             prepareS2Components();
 
+            UrumaBundleState.getInstance().setAppBundleState(
+                    BundleState.AVAILABLE);
             logger.log(URUMA_SERVICE_INIT_END, targetBundle.getSymbolicName());
         } catch (Throwable ex) {
             logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
+            UrumaBundleState.getInstance().setUrumaAppInitializingException(ex);
             throw new UrumaAppInitException(targetBundle, ex, ex.getMessage());
         } finally {
             restoreClassLoader();
@@ -218,6 +222,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
             } catch (ClassNotFoundException ex) {
                 throw new UrumaAppInitException(bundle, ex, ex.getMessage());
             }
+        } else {
+            throw new NotFoundException(URUMA_APP_CLASS_LOADER_NOT_FOUND);
         }
 
         logger.log(URUMA_APP_STARTED, symbolicName);
@@ -226,7 +232,6 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
     /**
      * {@link Bundle} に含まれるクラスファイルのうち、最初に見つかった一つのクラス名を返します。
-     * クラスはバンドルのシンボリックネームが表すパッケージ配下を検索します。
      * 
      * @param bundle
      *            {@link Bundle} オブジェクト
@@ -234,20 +239,33 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      */
     @SuppressWarnings("unchecked")
     protected String findFirstClassName(final Bundle bundle) {
-        String prefix = StringUtil.replace(bundle.getSymbolicName(), PERIOD,
-                SLASH);
         Enumeration entries = bundle.findEntries("", "*.class", true);
         if (entries != null) {
             while (entries.hasMoreElements()) {
-                URL url = (URL) entries.nextElement();
-                String path = url.getPath();
+                // 最初に見つかったエントリのURLを取得
+                String path = ((URL) entries.nextElement()).getPath();
+                // パスから拡張子を取り除く
+                path = path.substring(0, path.length() - ".class".length());
+                // スラッシュをピリオドに変換
+                path = StringUtil.replace(path, SLASH, PERIOD);
 
-                int pos = path.indexOf(prefix);
-                if (pos > 0) {
-                    String className = StringUtil.replace(path.substring(pos,
-                            path.length() - 6), SLASH, PERIOD);
-                    return className;
+                // クラスパスルートからの相対位置を調べるため、
+                // 先頭から要素を取り去りながら、実際にロードできるパスを調べる
+                while (true) {
+                    int pos = path.indexOf(PERIOD);
+                    if (pos >= 0) {
+                        path = path.substring(pos + 1);
+                        try {
+                            bundle.loadClass(path);
+                            return path;
+                        } catch (ClassNotFoundException ex) {
+                            continue;
+                        }
+                    } else {
+                        break;
+                    }
                 }
+                return path;
             }
         }
         return null;

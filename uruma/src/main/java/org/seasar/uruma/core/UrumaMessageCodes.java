@@ -887,6 +887,15 @@ public interface UrumaMessageCodes {
      */
     public static final String BUNDLE_UPDATE = "DURM0524";
 
+    /**
+     * Urumaアプリケーション側のクラスローダが見つからなかった場合のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String URUMA_APP_CLASS_LOADER_NOT_FOUND = "EURM0525";
+
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)
     // -------------------------------------------------------------------------

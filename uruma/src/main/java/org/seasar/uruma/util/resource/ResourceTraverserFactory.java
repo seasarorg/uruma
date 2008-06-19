@@ -49,7 +49,7 @@ public class ResourceTraverserFactory {
         if (known != null) {
             traversers.remove(known);
         }
-        addResourceTraverser(traverser);
+        traversers.add(traverser);
     }
 
     /**
