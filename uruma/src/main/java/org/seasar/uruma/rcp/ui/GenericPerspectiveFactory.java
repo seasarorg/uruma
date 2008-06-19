@@ -124,7 +124,9 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory,
                     .getEditorArea());
             return true;
         } else {
-            return false;
+            layout.addStandaloneView(part.ref, true, pos, ratio, layout
+                    .getEditorArea());
+            return true;
         }
 
     }

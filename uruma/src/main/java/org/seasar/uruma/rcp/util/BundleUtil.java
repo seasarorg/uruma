@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.internal.util.BundleUtility;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.BundleRuntimeException;
 import org.seasar.uruma.log.UrumaLogger;
@@ -29,16 +30,28 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y.sugigami
  */
-public class BundleUtil {
+public class BundleUtil implements UrumaConstants {
 
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(BundleUtil.class);
+
+    private static final String UNINSTALLED = "UNINSTALLED";
+
+    private static final String INSTALLED = "INSTALLED";
+
+    private static final String RESOLVED = "RESOLVED";
+
+    private static final String STARTING = "STARTING";
+
+    private static final String STOPPING = "STOPPING";
+
+    private static final String ACTIVE = "ACTIVE";
 
     /**
      * {@link Bundle}を取得します。<br />
      * 
      * @param symbolicName
-     *      pluginID
+     *            pluginID
      * @return {@link Bundle} オブジェクト
      */
     public static Bundle getBundle(final String symbolicName) {
@@ -51,7 +64,7 @@ public class BundleUtil {
      * {@link Bundle}を開始します。<br />
      * 
      * @param symbolicName
-     *      pluginID
+     *            pluginID
      */
     public static void start(final String symbolicName) {
         AssertionUtil.assertNotEmpty("SymbolicName", symbolicName);
@@ -94,7 +107,7 @@ public class BundleUtil {
      * {@link Bundle}を更新します。<br />
      * 
      * @param symbolicName
-     *      pluginID
+     *            pluginID
      */
     public static void update(final String symbolicName) {
         AssertionUtil.assertNotEmpty("SymbolicName", symbolicName);
@@ -107,5 +120,37 @@ public class BundleUtil {
             throw new BundleRuntimeException(
                     UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, e);
         }
+    }
+
+    /**
+     * バンドルの状態を表す文字列を返します。<br />
+     * 
+     * @param bundle
+     *            {@link Bundle} オブジェクト
+     * @return バンドルの状態を表す文字列。<code>bundle</code> が <code>null</code>
+     *         の場合は空文字列。
+     */
+    public static String getBundleState(final Bundle bundle) {
+        if (bundle == null) {
+            return NULL_STRING;
+        }
+
+        switch (bundle.getState()) {
+        case Bundle.ACTIVE:
+            return ACTIVE;
+        case Bundle.INSTALLED:
+            return INSTALLED;
+        case Bundle.RESOLVED:
+            return RESOLVED;
+        case Bundle.STARTING:
+            return STARTING;
+        case Bundle.STOPPING:
+            return STOPPING;
+        case Bundle.UNINSTALLED:
+            return UNINSTALLED;
+        default:
+            return NULL_STRING;
+        }
+
     }
 }

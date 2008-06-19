@@ -39,6 +39,7 @@ import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.core.UrumaBundleState.BundleState;
 import org.seasar.uruma.rcp.util.BundleInfoUtil;
+import org.seasar.uruma.rcp.util.BundleUtil;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 import org.seasar.uruma.util.MessageUtil;
 
@@ -58,7 +59,10 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
         try {
             context.addBundleListener(new UrumaBundleListener());
 
-            prepareUrumaService(context);
+            List<Bundle> activated = prepareUrumaService(context);
+            if (activated.size() == 0) {
+                throw new UrumaAppNotFoundException();
+            }
 
             registerProductPreferenceService(context);
 
@@ -83,8 +87,16 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
         logger.log(URUMA_BUNDLE_STOP);
     }
 
+    /**
+     * Uruma アプリケーションを検索し、アクティベートします。<br />
+     * 
+     * @param context
+     *            Uruma の {@link BundleContext}
+     * @return アクティベートに成功した Uruma アプリケーションバンドルのリスト
+     */
     @SuppressWarnings("unchecked")
-    protected void prepareUrumaService(final BundleContext context) {
+    protected List<Bundle> prepareUrumaService(final BundleContext context) {
+        List<Bundle> successedBundleList = new ArrayList<Bundle>();
         String serviceName = UrumaService.class.getName();
         List<Bundle> appBundles = findUrumaApplications(context);
         if (appBundles.size() == 0) {
@@ -104,6 +116,11 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
         for (Bundle bundle : appBundles) {
             setupLog4jConfig(bundle);
             BundleContext appContext = bundle.getBundleContext();
+            if (appContext == null) {
+                logger.log(INVALID_URUMA_APP_BUNDLE, bundle.getSymbolicName(),
+                        BundleUtil.getBundleState(bundle));
+                continue;
+            }
             ServiceReference ref = appContext
                     .getServiceReference(UrumaService.class.getName());
             UrumaServiceImpl service = (UrumaServiceImpl) appContext
@@ -111,12 +128,14 @@ public class CoreActivator implements BundleActivator, UrumaConstants,
             if (service != null
                     && UrumaBundleState.getInstance().getAppBundleState() == BundleState.AVAILABLE) {
                 service.registerExtensions();
+                successedBundleList.add(bundle);
             } else {
                 Throwable ex = UrumaBundleState.getInstance()
                         .getUrumaAppInitializingException();
                 throw new UrumaAppInitException(bundle, ex, ex.getMessage());
             }
         }
+        return successedBundleList;
     }
 
     /**
