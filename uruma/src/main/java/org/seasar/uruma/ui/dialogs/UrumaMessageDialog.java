@@ -42,12 +42,36 @@ public class UrumaMessageDialog {
     /**
      * インフォメーションダイアログを表示します。<br />
      * 
+     * @param title
+     *            タイトル
+     * @param msg
+     *            メッセージ
+     */
+    public static final void openInformation(final String title,
+            final String msg) {
+        MessageDialog.openInformation(ShellUtil.getShell(), title, msg);
+    }
+
+    /**
+     * インフォメーションダイアログを表示します。<br />
+     * 
      * @param key
      *            リソースキー
      */
     public static final void openInformation(final String key) {
-        MessageDialog.openInformation(ShellUtil.getShell(), getTitle(key),
-                getMessage(key));
+        openInformation(getTitle(key), getMessage(key));
+    }
+
+    /**
+     * エラーダイアログを表示します。<br />
+     * 
+     * @param title
+     *            タイトル
+     * @param msg
+     *            メッセージ
+     */
+    public static final void openError(final String title, final String msg) {
+        MessageDialog.openError(ShellUtil.getShell(), title, msg);
     }
 
     /**
@@ -57,8 +81,20 @@ public class UrumaMessageDialog {
      *            リソースキー
      */
     public static final void openError(final String key) {
-        MessageDialog.openError(ShellUtil.getShell(), getTitle(key),
-                getMessage(key));
+        openError(getTitle(key), getMessage(key));
+    }
+
+    /**
+     * 確認ダイアログを表示します。<br />
+     * 
+     * @param title
+     *            タイトル
+     * @param msg
+     *            メッセージ
+     * @return OKボタンが押された場合、<code>true</code>。キャンセルボタンが押された場合、<code>false</code>
+     */
+    public static final boolean openConfirm(final String title, final String msg) {
+        return MessageDialog.openConfirm(ShellUtil.getShell(), title, msg);
     }
 
     /**
@@ -69,22 +105,24 @@ public class UrumaMessageDialog {
      * @return OKボタンが押された場合、<code>true</code>。キャンセルボタンが押された場合、<code>false</code>
      */
     public static final boolean openConfirm(final String key) {
-        return MessageDialog.openConfirm(ShellUtil.getShell(), getTitle(key),
-                getMessage(key));
+        return openConfirm(getTitle(key), getMessage(key));
     }
 
     /**
      * 入力ダイアログを表示します。<br />
      * 
-     * @param key
-     *            リソースキー
+     * @param title
+     *            タイトル
+     * @param msg
+     *            メッセージ
      * @param initialText
      *            初期表示文字列
      * @return 入力結果。キャンセルされた場合は <code>null</code>
      */
-    public static String openInput(final String key, final String initialText) {
-        InputDialog dialog = new InputDialog(ShellUtil.getShell(),
-                getTitle(key), getMessage(key), initialText, null);
+    public static String openInput(final String title, final String msg,
+            final String initialText) {
+        InputDialog dialog = new InputDialog(ShellUtil.getShell(), title, msg,
+                initialText, null);
         if (dialog.open() == Window.OK) {
             return dialog.getValue();
         } else {
@@ -97,10 +135,24 @@ public class UrumaMessageDialog {
      * 
      * @param key
      *            リソースキー
+     * @param initialText
+     *            初期表示文字列
+     * @return 入力結果。キャンセルされた場合は <code>null</code>
+     */
+    public static String openInput(final String key, final String initialText) {
+        return openInput(getTitle(key), getMessage(key), initialText);
+    }
+
+    /**
+     * 入力ダイアログを表示します。<br />
+     * 
+     * @param key
+     *            リソースキー
      * @return 入力結果。キャンセルされた場合は <code>null</code>
      */
     public static String openInput(final String key) {
-        return openInput(key, UrumaConstants.NULL_STRING);
+        return openInput(getTitle(key), getMessage(key),
+                UrumaConstants.NULL_STRING);
     }
 
     protected static String getTitle(final String bundleKey) {
