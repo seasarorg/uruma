@@ -28,6 +28,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.seasar.eclipse.common.util.GeometryUtil;
 import org.seasar.eclipse.common.util.ImageManager;
+import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
 import org.seasar.uruma.binding.method.MethodBindingSupport;
@@ -63,7 +64,7 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             final IWorkbenchWindowConfigurer configurer) {
         super(configurer);
 
-        UrumaServiceUtil.getService().getContainer().register(configurer);
+        registComponents(configurer);
     }
 
     /*
@@ -96,7 +97,6 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         workbench = UrumaServiceUtil.getService().getWorkbenchComponent();
 
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-
         configurer.setTitle(workbench.title);
 
         configurer.setInitialSize(calcInitialSize(workbench.initWidth,
@@ -204,5 +204,12 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         for (MenuComponent menu : workbench.getMenus()) {
             menu.accept(visitor);
         }
+    }
+
+    protected void registComponents(final IWorkbenchWindowConfigurer configurer) {
+        S2Container container = UrumaServiceUtil.getService().getContainer();
+        container.register(configurer);
+        container.register(configurer.getWindow());
+        container.register(configurer.getWindow().getWorkbench());
     }
 }
