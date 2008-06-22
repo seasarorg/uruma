@@ -31,6 +31,8 @@ public class EventListenerDef {
 
     private EventListener eventListener;
 
+    private boolean isAsync = false;
+
     /**
      * {@link EventListenerDef} を構築します。<br />
      * 
@@ -38,13 +40,16 @@ public class EventListenerDef {
      *            ターゲットメソッド
      * @param eventListener
      *            {@link EventListener}
+     * @param isAsync
+     *            <code>true</code> の場合、非同期実行するメソッドを示します
      */
     public EventListenerDef(final Method target,
-            final EventListener eventListener) {
+            final EventListener eventListener, final boolean isAsync) {
         AssertionUtil.assertNotNull("target", target);
         AssertionUtil.assertNotNull("eventListener", eventListener);
         this.targetMethod = target;
         this.eventListener = eventListener;
+        this.isAsync = isAsync;
     }
 
     /**
@@ -72,5 +77,14 @@ public class EventListenerDef {
      */
     public EventListenerType getType() {
         return this.eventListener.type();
+    }
+
+    /**
+     * 非同期実行するメソッドであるかどうかを返します。<br />
+     * 
+     * @return <code>true</code> の場合、非同期実行を行う。<code>false</code> の場合、行わない。
+     */
+    public boolean isAsync() {
+        return this.isAsync;
     }
 }

@@ -103,9 +103,7 @@ public class MethodBinding {
                     .getObjectDescription(target), method.getName(), result);
         }
 
-        callback(args);
-
-        return result;
+        return callback(args, result);
     }
 
     /**
@@ -148,11 +146,11 @@ public class MethodBinding {
         this.callback = callback;
     }
 
-    protected Object callback(final Object[] args) {
+    protected Object callback(final Object[] args, final Object returnValue) {
         if (callback != null) {
-            return callback.callback(this, args);
+            return callback.callback(this, args, returnValue);
         } else {
-            return null;
+            return returnValue;
         }
     }
 

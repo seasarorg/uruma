@@ -28,7 +28,10 @@ public interface MethodCallback {
      *            呼び出された {@link MethodBinding}
      * @param args
      *            呼び出されたメソッドに渡された引数
-     * @return 通知先からの戻り値
+     * @param returnValue
+     *            呼び出されたメソッドの戻り値
+     * @return 通知先からの戻り値。通常は <code>returnValue</code> をそのまま返してください。
      */
-    public Object callback(MethodBinding binding, Object[] args);
+    public Object callback(MethodBinding binding, Object[] args,
+            Object returnValue);
 }

@@ -489,6 +489,42 @@ public interface UrumaMessageCodes {
      */
     public static final String VALUE_BINDER_NOT_FOUND = "WURM0224";
 
+    /**
+     * 非同期メソッドバインディングスケジューリング時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String ASYNC_METHOD_SCHEDULED = "IURM0225";
+
+    /**
+     * 非同期メソッドバインディング開始時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String ASYNC_METHOD_START = "IURM0226";
+
+    /**
+     * 非同期メソッドバインディング終了時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String ASYNC_METHOD_END = "IURM0227";
+
+    /**
+     * 非同期メソッドバインディングキャンセル時のメッセージコードです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String ASYNC_METHOD_CANCELED = "IURM0228";
+
     // -------------------------------------------------------------------------
     // レンダリング関連メッセージコード (03xx)
     // -------------------------------------------------------------------------

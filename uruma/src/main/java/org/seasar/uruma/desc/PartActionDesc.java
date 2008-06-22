@@ -23,6 +23,7 @@ import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.annotation.PostOpenMethod;
 import org.seasar.uruma.binding.context.ApplicationContextDef;
 import org.seasar.uruma.binding.method.EventListenerDef;
+import org.seasar.uruma.jobs.ProgressMonitor;
 
 /**
  * パートアクションクラスのメタデータを扱うためのインターフェースです。<br />
@@ -88,4 +89,17 @@ public interface PartActionDesc {
      * @return {@link BeanDesc}
      */
     public BeanDesc getBeanDesc();
+
+    /**
+     * パートアクションオブジェクトに {@link ProgressMonitor} をセットします。<br />
+     * セット対象は、パートアクションオブジェクトのプロパティのうち、 {@link ProgressMonitor}
+     * がセット可能なものの最初プロパティです。<br />
+     * セット対象のプロパティが存在しない場合は、なにも行いません。
+     * 
+     * @param target
+     *            パートアクションオブジェクト
+     * @param monitor
+     *            {@link ProgressMonitor} オブジェクト
+     */
+    public void injectProgressMonitor(Object target, ProgressMonitor monitor);
 }

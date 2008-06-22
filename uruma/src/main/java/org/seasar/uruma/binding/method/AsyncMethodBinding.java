@@ -19,17 +19,29 @@ import java.lang.reflect.Method;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.swt.widgets.Display;
 import org.seasar.framework.util.MethodUtil;
 import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.desc.PartActionDesc;
+import org.seasar.uruma.desc.PartActionDescFactory;
+import org.seasar.uruma.jobs.ProgressMonitor;
+import org.seasar.uruma.jobs.impl.RcpProgressMonitor;
 import org.seasar.uruma.log.UrumaLogger;
 
 /**
  * メソッドを非同期に実行するための {@link MethodBinding} です。<br />
+ * 本メソッドでは、実行対象オブジェクトに {@link ProgressMonitor} 型のプロパティが存在する場合、
+ * {@link ProgressMonitor} オブジェクトをインジェクションします。<br />
+ * また、{@link Display#getCurrent()} によって {@link Display} オブジェクトが取得できる場合には、
+ * {@link MethodCallback#callback(MethodBinding, Object[], Object)} メソッドの呼び出しを
+ * UI スレッド側で実行します。
  * 
  * @author y-komori
  */
-public class AsyncMethodBinding extends MethodBinding {
+public class AsyncMethodBinding extends MethodBinding implements
+        UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(AsyncMethodBinding.class);
 
@@ -53,39 +65,98 @@ public class AsyncMethodBinding extends MethodBinding {
      */
     @Override
     public Object invoke(final Object[] args) {
-        if (logger.isInfoEnabled()) {
-            logger.log(UrumaMessageCodes.START_METHOD_CALL, UrumaLogger
-                    .getObjectDescription(target), method.getName(), args);
-        }
-
         Object[] filteredArgs = args;
         for (ArgumentsFilter filter : argumentsFilterList) {
             filteredArgs = filter.filter(filteredArgs);
         }
 
-        Object result = MethodUtil.invoke(method, target, filteredArgs);
+        AsyncJob job = new AsyncJob(this, filteredArgs, Display.getCurrent());
+        job.setUser(true);
+        job.schedule();
 
         if (logger.isInfoEnabled()) {
-            logger.log(UrumaMessageCodes.END_METHOD_CALL, UrumaLogger
-                    .getObjectDescription(target), method.getName(), result);
+            logger.log(ASYNC_METHOD_SCHEDULED, UrumaLogger
+                    .getObjectDescription(target), method.getName(), args);
         }
 
-        return result;
+        return null;
+    }
+
+    protected void injectProgressMonitor(final Object target,
+            final IProgressMonitor monitor) {
+        PartActionDesc desc = PartActionDescFactory.getPartActionDesc(target
+                .getClass());
+
+        ProgressMonitor uMonitor = new RcpProgressMonitor(monitor);
+        desc.injectProgressMonitor(target, uMonitor);
     }
 
     class AsyncJob extends Job {
-        public AsyncJob() {
+        private MethodBinding binding;
+
+        private Object[] args;
+
+        private Object returnValue;
+
+        private Display display;
+
+        AsyncJob(final MethodBinding binding, final Object[] args,
+                final Display display) {
             super("");
+            this.binding = binding;
+            this.args = args;
+            this.display = display;
         }
 
-        public AsyncJob(final String name) {
-            super(name);
-        }
-
+        /*
+         * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
+         */
         @Override
         protected IStatus run(final IProgressMonitor monitor) {
-            // TODO 自動生成されたメソッド・スタブ
-            return null;
+            if (logger.isInfoEnabled()) {
+                logger.log(ASYNC_METHOD_START, UrumaLogger
+                        .getObjectDescription(target), method.getName(), args);
+            }
+
+            try {
+                injectProgressMonitor(target, monitor);
+                returnValue = MethodUtil.invoke(binding.getMethod(), binding
+                        .getTarget(), args);
+
+                if (callback != null) {
+                    if (display != null) {
+                        display.asyncExec(new Runnable() {
+                            public void run() {
+                                returnValue = callback.callback(binding, args,
+                                        returnValue);
+                            }
+                        });
+                    } else {
+                        returnValue = callback.callback(binding, args,
+                                returnValue);
+                    }
+                }
+            } catch (Throwable ex) {
+                logger.log(EXCEPTION_OCCURED_INVOKING_METHOD, ex, binding
+                        .toString());
+            } finally {
+                if (logger.isInfoEnabled()) {
+                    String desc = UrumaLogger.getObjectDescription(target);
+                    if (!monitor.isCanceled()) {
+                        logger.log(ASYNC_METHOD_END, desc, method.getName(),
+                                returnValue);
+                    } else {
+                        logger.log(ASYNC_METHOD_CANCELED, desc, method
+                                .getName(), returnValue);
+                    }
+                }
+            }
+
+            if (!monitor.isCanceled()) {
+                return Status.OK_STATUS;
+            } else {
+                return Status.CANCEL_STATUS;
+            }
         }
     }
 }

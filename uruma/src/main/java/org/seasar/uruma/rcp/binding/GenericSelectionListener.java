@@ -125,11 +125,12 @@ public class GenericSelectionListener implements ISelectionListener,
 
     /*
      * @see org.seasar.uruma.binding.method.MethodCallback#callback(org.seasar.uruma.binding.method.MethodBinding,
-     *      java.lang.Object[])
+     *      java.lang.Object[], java.lang.Object)
      */
-    public Object callback(final MethodBinding binding, final Object[] args) {
+    public Object callback(final MethodBinding binding, final Object[] args,
+            final Object returnValue) {
         ValueBindingSupport.exportValue(context);
         ValueBindingSupport.exportSelection(context);
-        return null;
+        return returnValue;
     }
 }

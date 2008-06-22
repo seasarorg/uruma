@@ -22,6 +22,8 @@ import org.seasar.uruma.binding.method.impl.OmissionArgumentsFilter;
 import org.seasar.uruma.binding.method.impl.StructuredSelectionArgumentsFilter;
 import org.seasar.uruma.binding.method.impl.TypedEventArgumentsFilter;
 import org.seasar.uruma.context.WidgetHandle;
+import org.seasar.uruma.rcp.core.UrumaBundleState;
+import org.seasar.uruma.rcp.core.UrumaBundleState.BundleState;
 
 /**
  * {@link MethodBinding} を生成するためのファクトリクラスです。<br />
@@ -42,11 +44,20 @@ public class MethodBindingFactory {
      *            ターゲットメソッド
      * @param handle
      *            呼び出し元となるウィジットを保持する {@link WidgetHandle} オブジェクト
+     * @param isAsync
+     *            非同期実行を行う場合は <code>true</code>
      * @return {@link MethodBinding} オブジェクト
      */
     public static MethodBinding createMethodBinding(final Object target,
-            final Method method, final WidgetHandle handle) {
-        MethodBinding binding = new MethodBinding(target, method, null);
+            final Method method, final WidgetHandle handle,
+            final boolean isAsync) {
+        MethodBinding binding;
+        if (!isAsync
+                || UrumaBundleState.getInstance().getUrumaBundleState() == BundleState.NOT_AVAILABLE) {
+            binding = new MethodBinding(target, method, null);
+        } else {
+            binding = new AsyncMethodBinding(target, method, null);
+        }
 
         Class<?> widgetClass = handle.getWidgetClass();
         if (StructuredViewer.class.isAssignableFrom(widgetClass)) {

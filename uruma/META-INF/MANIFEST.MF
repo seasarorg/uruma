@@ -466,7 +466,6 @@ Export-Package: javassist;
  org.seasar.uruma.annotation,
  org.seasar.uruma.binding.context;uses:="org.seasar.uruma.context,org.seasar.framework.beans",
  org.seasar.uruma.binding.enables;uses:="org.seasar.uruma.context,org.seasar.framework.beans",
- org.seasar.uruma.binding.enables.impl,
  org.seasar.uruma.binding.method;
   uses:="org.eclipse.jface.window,
    org.eclipse.jface.action,
@@ -476,7 +475,6 @@ Export-Package: javassist;
    org.eclipse.jface.viewers,
    org.seasar.uruma.context,
    org.eclipse.swt.widgets",
- org.seasar.uruma.binding.method.impl;uses:="org.seasar.eclipse.common.util,org.eclipse.swt.events,org.seasar.framework.beans",
  org.seasar.uruma.binding.value;uses:="junit.framework,org.seasar.uruma.component,org.seasar.framework.beans",
  org.seasar.uruma.binding.value.binder,
  org.seasar.uruma.binding.value.command;
@@ -494,6 +492,7 @@ Export-Package: javassist;
    org.seasar.uruma.renderer,
    org.seasar.uruma.component.jface",
  org.seasar.uruma.component.factory,
+ org.seasar.uruma.component.factory.desc,
  org.seasar.uruma.component.factory.handler;
   uses:="org.seasar.framework.xml,
    org.seasar.uruma.component,
@@ -501,6 +500,7 @@ Export-Package: javassist;
    org.xml.sax",
  org.seasar.uruma.component.jface;uses:="org.seasar.uruma.component,org.seasar.uruma.context,org.seasar.uruma.component.base",
  org.seasar.uruma.component.rcp;uses:="org.seasar.uruma.component.base,org.seasar.uruma.component.jface",
+ org.seasar.uruma.component.spec,
  org.seasar.uruma.component.writer;uses:="org.seasar.uruma.core,org.seasar.uruma.component",
  org.seasar.uruma.container.convention;uses:="org.seasar.framework.convention.impl,org.seasar.framework.util,org.seasar.framework.convention",
  org.seasar.uruma.container.cooldeploy;
@@ -511,27 +511,20 @@ Export-Package: javassist;
  org.seasar.uruma.container.creator;uses:="org.seasar.framework.container.creator,org.seasar.framework.container,org.seasar.framework.convention",
  org.seasar.uruma.container.warmdeploy,
  org.seasar.uruma.context;uses:="org.seasar.uruma.desc,org.seasar.uruma.component,org.seasar.uruma.binding.enables",
- org.seasar.uruma.context.impl;
-  uses:="org.seasar.uruma.desc,
-   org.seasar.uruma.binding.enables,
-   org.seasar.uruma.component,
-   org.seasar.uruma.context",
  org.seasar.uruma.core;uses:="junit.framework",
- org.seasar.uruma.core.impl;
-  uses:="org.seasar.uruma.core,
-   org.seasar.uruma.ui,
-   org.seasar.uruma.component,
-   org.seasar.uruma.context",
  org.seasar.uruma.core.io;uses:="junit.framework",
+ org.seasar.uruma.debug.action,
  org.seasar.uruma.desc;uses:="org.seasar.framework.beans",
- org.seasar.uruma.desc.impl;uses:="junit.framework",
  org.seasar.uruma.dicon,
  org.seasar.uruma.exception;
   uses:="org.seasar.uruma.core,
    org.seasar.uruma.binding.enables,
    org.osgi.framework,
    org.seasar.framework.exception",
+ org.seasar.uruma.jobs,
  org.seasar.uruma.log,
+ org.seasar.uruma.procedure,
+ org.seasar.uruma.procedure.entity,
  org.seasar.uruma.rcp;
   uses:="org.eclipse.ui,
    org.seasar.framework.container,
@@ -553,7 +546,6 @@ Export-Package: javassist;
    org.seasar.uruma.log,
    org.eclipse.swt.widgets,
    org.seasar.uruma.binding.method",
- org.seasar.uruma.rcp.binding.impl;uses:="org.seasar.uruma.rcp.binding",
  org.seasar.uruma.rcp.configuration;uses:="org.eclipse.core.runtime,org.seasar.uruma.rcp.configuration.elements",
  org.seasar.uruma.rcp.configuration.elements;
   uses:="org.seasar.uruma.core,
@@ -599,9 +591,7 @@ Export-Package: javassist;
    org.osgi.framework,
    org.eclipse.osgi.baseadaptor",
  org.seasar.uruma.renderer;uses:="junit.framework,org.eclipse.swt.graphics,org.seasar.uruma.component.base",
- org.seasar.uruma.renderer.impl,
  org.seasar.uruma.renderer.layout;uses:="org.seasar.uruma.component,org.eclipse.swt.widgets",
- org.seasar.uruma.renderer.layout.impl;uses:="org.seasar.uruma.component,org.eclipse.swt.widgets,org.seasar.uruma.renderer.layout",
  org.seasar.uruma.ui,
  org.seasar.uruma.ui.dialogs;
   uses:="org.seasar.uruma.core,
@@ -611,6 +601,7 @@ Export-Package: javassist;
    org.eclipse.swt.widgets,
    org.eclipse.jface.dialogs",
  org.seasar.uruma.util;uses:="junit.framework",
+ org.seasar.uruma.util.resource,
  org.seasar.uruma.util.win32;uses:="junit.framework",
  org.seasar.uruma.viewer;uses:="org.eclipse.jface.viewers,org.eclipse.swt.graphics,org.eclipse.swt.widgets"
 Bundle-ClassPath: lib/aopalliance-1.0.jar,

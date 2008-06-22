@@ -95,7 +95,6 @@ public class SingleParamTypeMethodBinding extends MethodBinding implements
         }
 
         Object result = MethodUtil.invoke(method, target, trueArgs);
-        callback(trueArgs);
-        return result;
+        return callback(trueArgs, result);
     }
 }

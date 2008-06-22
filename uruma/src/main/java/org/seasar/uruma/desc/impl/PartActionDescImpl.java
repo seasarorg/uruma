@@ -30,6 +30,7 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.ApplicationContext;
+import org.seasar.uruma.annotation.AsyncAction;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.annotation.PostOpenMethod;
@@ -40,6 +41,7 @@ import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.exception.IllegalMethodException;
 import org.seasar.uruma.exception.InitializeMethodException;
 import org.seasar.uruma.exception.MethodInvocationException;
+import org.seasar.uruma.jobs.ProgressMonitor;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -65,6 +67,10 @@ public class PartActionDescImpl implements PartActionDesc, UrumaMessageCodes {
 
     private List<ApplicationContextDef> appContextDefs = new ArrayList<ApplicationContextDef>();
 
+    private boolean isAsyncAction;
+
+    private PropertyDesc progressMonitorProperty;
+
     /**
      * {@link PartActionDescImpl} を構築します。<br />
      * 
@@ -79,8 +85,10 @@ public class PartActionDescImpl implements PartActionDesc, UrumaMessageCodes {
         this.partActionClass = partActionClass;
         this.beanDesc = BeanDescFactory.getBeanDesc(partActionClass);
 
+        setupIsAsyncMethod();
         setupMethods();
         setupFields();
+        setupProgressMonitorProperty();
     }
 
     /*
@@ -154,6 +162,17 @@ public class PartActionDescImpl implements PartActionDesc, UrumaMessageCodes {
         return this.partActionClass;
     }
 
+    /*
+     * @see org.seasar.uruma.desc.PartActionDesc#injectProgressMonitor(java.lang.Object,
+     *      org.seasar.uruma.jobs.ProgressMonitor)
+     */
+    public void injectProgressMonitor(final Object target,
+            final ProgressMonitor monitor) {
+        if (progressMonitorProperty != null) {
+            progressMonitorProperty.setValue(target, monitor);
+        }
+    }
+
     protected void setupMethods() {
         Map<String, List<Method>> methodListMap = new HashMap<String, List<Method>>();
         Method[] methods = partActionClass.getMethods();
@@ -214,7 +233,8 @@ public class PartActionDescImpl implements PartActionDesc, UrumaMessageCodes {
     protected void setupEventListenerMethod(final Method method) {
         EventListener anno = method.getAnnotation(EventListener.class);
         if (anno != null) {
-            EventListenerDef def = new EventListenerDef(method, anno);
+            EventListenerDef def = new EventListenerDef(method, anno,
+                    isAsyncAction);
             eventListenerDefs.add(def);
         }
     }
@@ -252,6 +272,27 @@ public class PartActionDescImpl implements PartActionDesc, UrumaMessageCodes {
                 fieldsCache.put(fieldName, field);
 
                 setupApplicationContext(field);
+            }
+        }
+    }
+
+    protected void setupIsAsyncMethod() {
+        if (partActionClass.isAnnotationPresent(AsyncAction.class)) {
+            this.isAsyncAction = true;
+        } else {
+            this.isAsyncAction = false;
+        }
+    }
+
+    protected void setupProgressMonitorProperty() {
+        BeanDesc desc = BeanDescFactory.getBeanDesc(partActionClass);
+        int size = desc.getPropertyDescSize();
+        for (int i = 0; i < size; i++) {
+            PropertyDesc pd = desc.getPropertyDesc(i);
+            Class<?> type = pd.getPropertyType();
+            if (type.isAssignableFrom(ProgressMonitor.class) && pd.isWritable()) {
+                this.progressMonitorProperty = pd;
+                break;
             }
         }
     }

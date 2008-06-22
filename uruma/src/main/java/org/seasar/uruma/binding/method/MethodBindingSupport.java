@@ -42,7 +42,7 @@ public class MethodBindingSupport implements UrumaMessageCodes {
      * #createListeners(PartContext)} メソッドを実行します。<br />
      * 
      * @param context
-     *      {@link WindowContext} オブジェクト
+     *            {@link WindowContext} オブジェクト
      */
     public static void createListeners(final WindowContext context) {
         createListeners((PartContext) context);
@@ -67,7 +67,7 @@ public class MethodBindingSupport implements UrumaMessageCodes {
      * </p>
      * 
      * @param context
-     *      {@link PartContext} オブジェクト
+     *            {@link PartContext} オブジェクト
      */
     public static void createListeners(final PartContext context) {
         Object actionObj = context.getPartActionObject();
@@ -113,7 +113,7 @@ public class MethodBindingSupport implements UrumaMessageCodes {
         if (binder != null) {
             MethodBinding binding = MethodBindingFactory.createMethodBinding(
                     context.getPartActionObject(), def.getTargetMethod(),
-                    handle);
+                    handle, def.isAsync());
             Class<?> listenerClass = binder.bindListener(handle, context,
                     binding, def);
 
@@ -124,7 +124,5 @@ public class MethodBindingSupport implements UrumaMessageCodes {
         } else {
             throw new UnsupportedClassException(handle.getWidgetClass());
         }
-
     }
-
 }

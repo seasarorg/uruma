@@ -95,15 +95,19 @@ public abstract class AbstractGenericListener implements MethodCallback {
 
     /*
      * @see org.seasar.uruma.binding.method.MethodCallback#callback(org.seasar.uruma.binding.method.MethodBinding,
-     *      java.lang.Object[])
+     *      java.lang.Object[], java.lang.Object)
      */
-    public Object callback(final MethodBinding binding, final Object[] args) {
-        Object event = args[0];
+    public Object callback(final MethodBinding binding, final Object[] args,
+            final Object returnValue) {
+        Object event = null;
+        if (args != null && args.length > 0) {
+            event = args[0];
+        }
         if (!isDisposed(event)) {
             ValueBindingSupport.exportValue(context);
             ValueBindingSupport.exportSelection(context);
         }
-        return null;
+        return returnValue;
     }
 
     protected boolean isDisposed(final Object event) {
