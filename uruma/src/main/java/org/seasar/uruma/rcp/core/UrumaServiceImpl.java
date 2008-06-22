@@ -265,6 +265,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
                             return path;
                         } catch (ClassNotFoundException ex) {
                             continue;
+                        } catch (NoClassDefFoundError ex) {
+                            continue;
                         }
                     } else {
                         break;
