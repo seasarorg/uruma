@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.seasar.uruma.binding.method.MethodBinding;
+import org.seasar.uruma.binding.method.MethodCallback;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.binding.widget.WidgetBinder;
@@ -53,7 +54,8 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y-komori
  */
-public class GenericSelectionListener implements ISelectionListener {
+public class GenericSelectionListener implements ISelectionListener,
+        MethodCallback {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(GenericSelectionListener.class);
 
@@ -76,6 +78,7 @@ public class GenericSelectionListener implements ISelectionListener {
 
         this.context = context;
         this.methodBinding = methodBinding;
+        this.methodBinding.setCallback(this);
     }
 
     /**
@@ -111,9 +114,6 @@ public class GenericSelectionListener implements ISelectionListener {
                     ValueBindingSupport.importValue(context);
 
                     methodBinding.invoke(selectedModels);
-
-                    ValueBindingSupport.exportValue(context);
-                    ValueBindingSupport.exportSelection(context);
                 }
             }
         } catch (Throwable ex) {
@@ -121,5 +121,15 @@ public class GenericSelectionListener implements ISelectionListener {
                     methodBinding.toString());
             logger.log(ex);
         }
+    }
+
+    /*
+     * @see org.seasar.uruma.binding.method.MethodCallback#callback(org.seasar.uruma.binding.method.MethodBinding,
+     *      java.lang.Object[])
+     */
+    public Object callback(final MethodBinding binding, final Object[] args) {
+        ValueBindingSupport.exportValue(context);
+        ValueBindingSupport.exportSelection(context);
+        return null;
     }
 }

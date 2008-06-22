@@ -46,7 +46,7 @@ public class MethodBindingFactory {
      */
     public static MethodBinding createMethodBinding(final Object target,
             final Method method, final WidgetHandle handle) {
-        MethodBinding binding = new MethodBinding(target, method);
+        MethodBinding binding = new MethodBinding(target, method, null);
 
         Class<?> widgetClass = handle.getWidgetClass();
         if (StructuredViewer.class.isAssignableFrom(widgetClass)) {

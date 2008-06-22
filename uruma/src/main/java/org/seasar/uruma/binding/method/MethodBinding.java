@@ -40,6 +40,8 @@ public class MethodBinding {
 
     protected List<ArgumentsFilter> argumentsFilterList = new ArrayList<ArgumentsFilter>();
 
+    protected MethodCallback callback;
+
     private String description;
 
     /**
@@ -50,7 +52,8 @@ public class MethodBinding {
      * @param method
      *            ターゲットメソッド
      */
-    MethodBinding(final Object target, final Method method) {
+    MethodBinding(final Object target, final Method method,
+            final MethodCallback callback) {
         AssertionUtil.assertNotNull("target", target);
         AssertionUtil.assertNotNull("method", method);
 
@@ -58,6 +61,7 @@ public class MethodBinding {
         this.method = method;
         this.description = UrumaLogger.getObjectDescription(target)
                 + UrumaConstants.HASH_MARK + method.getName();
+        this.callback = callback;
     }
 
     /**
@@ -99,6 +103,8 @@ public class MethodBinding {
                     .getObjectDescription(target), method.getName(), result);
         }
 
+        callback(args);
+
         return result;
     }
 
@@ -130,6 +136,24 @@ public class MethodBinding {
      */
     public Object getTarget() {
         return this.target;
+    }
+
+    /**
+     * コールバックオブジェクトを設定します。<br />
+     * 
+     * @param callback
+     *            コールバックオブジェクト
+     */
+    public void setCallback(final MethodCallback callback) {
+        this.callback = callback;
+    }
+
+    protected Object callback(final Object[] args) {
+        if (callback != null) {
+            return callback.callback(this, args);
+        } else {
+            return null;
+        }
     }
 
     /*

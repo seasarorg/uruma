@@ -42,7 +42,25 @@ public class SingleParamTypeMethodBinding extends MethodBinding implements
      *             ターゲットメソッドの引数が2個以上存在する場合
      */
     public SingleParamTypeMethodBinding(final Object target, final Method method) {
-        super(target, method);
+        super(target, method, null);
+        setup();
+    }
+
+    /**
+     * {@link SingleParamTypeMethodBinding} を構築します。<br />
+     * 
+     * @param target
+     *            ターゲットオブジェクト
+     * @param method
+     *            ターゲットメソッド
+     * @param callback
+     *            コールバックオブジェクト
+     * @throws IllegalArgumentException
+     *             ターゲットメソッドの引数が2個以上存在する場合
+     */
+    public SingleParamTypeMethodBinding(final Object target,
+            final Method method, final MethodCallback callback) {
+        super(target, method, callback);
         setup();
     }
 
@@ -63,20 +81,21 @@ public class SingleParamTypeMethodBinding extends MethodBinding implements
      */
     @Override
     public Object invoke(final Object[] args) {
-        if (paramType == null || args == null) {
-            return MethodUtil.invoke(method, target, null);
-        } else {
+        Object[] trueArgs = null;
+        if (paramType != null && args != null) {
             if (paramType.isArray()) {
                 Class<?> componentType = paramType.getComponentType();
                 Object[] params = (Object[]) Array.newInstance(componentType,
                         args.length);
                 System.arraycopy(args, 0, params, 0, args.length);
-                return MethodUtil.invoke(method, target,
-                        new Object[] { params });
+                trueArgs = new Object[] { params };
             } else {
-                return MethodUtil.invoke(method, target,
-                        new Object[] { paramType.cast(args[0]) });
+                trueArgs = new Object[] { paramType.cast(args[0]) };
             }
         }
+
+        Object result = MethodUtil.invoke(method, target, trueArgs);
+        callback(trueArgs);
+        return result;
     }
 }

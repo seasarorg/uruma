@@ -261,7 +261,7 @@
           <finalName>uruma-${project.version}</finalName>
         </configuration>
       </plugin>
-
+<!-- 
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
@@ -305,7 +305,7 @@
           </execution>
         </executions>
       </plugin>
-
+-->
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>

@@ -28,7 +28,7 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y-komori
  */
-public abstract class AbstractGenericListener {
+public abstract class AbstractGenericListener implements MethodCallback {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(AbstractGenericListener.class);
 
@@ -42,6 +42,7 @@ public abstract class AbstractGenericListener {
         AssertionUtil.assertNotNull("methodBinding", methodBinding);
         this.methodBinding = methodBinding;
         this.context = context;
+        this.methodBinding.setCallback(this);
     }
 
     /**
@@ -85,16 +86,24 @@ public abstract class AbstractGenericListener {
 
             Object result = methodBinding.invoke(new Object[] { event });
 
-            if (!isDisposed(event)) {
-                ValueBindingSupport.exportValue(context);
-                ValueBindingSupport.exportSelection(context);
-            }
-
             return result;
         } catch (Throwable ex) {
             logger.log(ex);
             return null;
         }
+    }
+
+    /*
+     * @see org.seasar.uruma.binding.method.MethodCallback#callback(org.seasar.uruma.binding.method.MethodBinding,
+     *      java.lang.Object[])
+     */
+    public Object callback(final MethodBinding binding, final Object[] args) {
+        Object event = args[0];
+        if (!isDisposed(event)) {
+            ValueBindingSupport.exportValue(context);
+            ValueBindingSupport.exportSelection(context);
+        }
+        return null;
     }
 
     protected boolean isDisposed(final Object event) {
@@ -124,4 +133,5 @@ public abstract class AbstractGenericListener {
         }
         return false;
     }
+
 }
