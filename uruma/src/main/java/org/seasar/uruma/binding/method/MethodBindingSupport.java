@@ -113,7 +113,7 @@ public class MethodBindingSupport implements UrumaMessageCodes {
         if (binder != null) {
             MethodBinding binding = MethodBindingFactory.createMethodBinding(
                     context.getPartActionObject(), def.getTargetMethod(),
-                    handle, def.isAsync());
+                    handle, def.getAsyncMethod());
             Class<?> listenerClass = binder.bindListener(handle, context,
                     binding, def);
 

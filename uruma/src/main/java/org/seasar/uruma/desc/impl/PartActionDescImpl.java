@@ -30,7 +30,7 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.exception.EmptyRuntimeException;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.ApplicationContext;
-import org.seasar.uruma.annotation.AsyncAction;
+import org.seasar.uruma.annotation.AsyncMethod;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.annotation.PostOpenMethod;
@@ -233,8 +233,9 @@ public class PartActionDescImpl implements PartActionDesc, UrumaMessageCodes {
     protected void setupEventListenerMethod(final Method method) {
         EventListener anno = method.getAnnotation(EventListener.class);
         if (anno != null) {
+            AsyncMethod asyncMethod = method.getAnnotation(AsyncMethod.class);
             EventListenerDef def = new EventListenerDef(method, anno,
-                    isAsyncAction);
+                    asyncMethod);
             eventListenerDefs.add(def);
         }
     }
@@ -277,7 +278,7 @@ public class PartActionDescImpl implements PartActionDesc, UrumaMessageCodes {
     }
 
     protected void setupIsAsyncMethod() {
-        if (partActionClass.isAnnotationPresent(AsyncAction.class)) {
+        if (partActionClass.isAnnotationPresent(AsyncMethod.class)) {
             this.isAsyncAction = true;
         } else {
             this.isAsyncAction = false;

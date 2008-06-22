@@ -22,7 +22,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.widgets.Display;
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.util.MethodUtil;
+import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.desc.PartActionDesc;
 import org.seasar.uruma.desc.PartActionDescFactory;
@@ -44,6 +48,10 @@ public class AsyncMethodBinding extends MethodBinding implements
         UrumaMessageCodes {
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(AsyncMethodBinding.class);
+
+    private String taskNameProperty;
+
+    private boolean cancelable;
 
     /**
      * {@link AsyncMethodBinding} を構築します。<br />
@@ -70,8 +78,12 @@ public class AsyncMethodBinding extends MethodBinding implements
             filteredArgs = filter.filter(filteredArgs);
         }
 
-        AsyncJob job = new AsyncJob(this, filteredArgs, Display.getCurrent());
-        job.setUser(true);
+        String taskName = getTaskName(taskNameProperty, target);
+        AsyncJob job = new AsyncJob(taskName, this, filteredArgs, Display
+                .getCurrent());
+        if (cancelable) {
+            job.setUser(true);
+        }
         job.schedule();
 
         if (logger.isInfoEnabled()) {
@@ -80,6 +92,42 @@ public class AsyncMethodBinding extends MethodBinding implements
         }
 
         return null;
+    }
+
+    /**
+     * タスク名称を保持するプロパティ名を設定します。<br />
+     * 
+     * @param taskNameProperty
+     *            プロパティ名
+     */
+    public void setTaskNameProperty(final String taskNameProperty) {
+        this.taskNameProperty = taskNameProperty;
+    }
+
+    /**
+     * キャンセル可能かどうかを設定します。<br />
+     * 
+     * @param cancelable
+     *            キャンセル可能な場合は <code>true</code>。
+     */
+    public void setCancelable(final boolean cancelable) {
+        this.cancelable = cancelable;
+    }
+
+    protected String getTaskName(final String propName, final Object target) {
+        if (propName == null) {
+            return UrumaConstants.NULL_STRING;
+        }
+
+        BeanDesc desc = BeanDescFactory.getBeanDesc(target.getClass());
+        if (desc.hasPropertyDesc(propName)) {
+            PropertyDesc pd = desc.getPropertyDesc(propName);
+            if (pd.isReadable()
+                    && String.class.isAssignableFrom(pd.getPropertyType())) {
+                return (String) pd.getValue(target);
+            }
+        }
+        return UrumaConstants.NULL_STRING;
     }
 
     protected void injectProgressMonitor(final Object target,
@@ -91,6 +139,11 @@ public class AsyncMethodBinding extends MethodBinding implements
         desc.injectProgressMonitor(target, uMonitor);
     }
 
+    /**
+     * アクションを非同期実行するための {@link Job} です。<br />
+     * 
+     * @author y-komori
+     */
     class AsyncJob extends Job {
         private MethodBinding binding;
 
@@ -100,9 +153,12 @@ public class AsyncMethodBinding extends MethodBinding implements
 
         private Display display;
 
-        AsyncJob(final MethodBinding binding, final Object[] args,
-                final Display display) {
-            super("");
+        /**
+         * {@link AsyncJob} を構築します。<br />
+         */
+        AsyncJob(final String name, final MethodBinding binding,
+                final Object[] args, final Display display) {
+            super(name);
             this.binding = binding;
             this.args = args;
             this.display = display;

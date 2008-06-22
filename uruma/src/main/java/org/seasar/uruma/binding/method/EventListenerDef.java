@@ -17,6 +17,7 @@ package org.seasar.uruma.binding.method;
 
 import java.lang.reflect.Method;
 
+import org.seasar.uruma.annotation.AsyncMethod;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.EventListenerType;
 import org.seasar.uruma.util.AssertionUtil;
@@ -31,7 +32,7 @@ public class EventListenerDef {
 
     private EventListener eventListener;
 
-    private boolean isAsync = false;
+    private AsyncMethod asyncMethod;
 
     /**
      * {@link EventListenerDef} を構築します。<br />
@@ -40,16 +41,16 @@ public class EventListenerDef {
      *            ターゲットメソッド
      * @param eventListener
      *            {@link EventListener}
-     * @param isAsync
-     *            <code>true</code> の場合、非同期実行するメソッドを示します
+     * @param asyncMethod
+     *            {@link AsyncMethod} アノテーション
      */
     public EventListenerDef(final Method target,
-            final EventListener eventListener, final boolean isAsync) {
+            final EventListener eventListener, final AsyncMethod asyncMethod) {
         AssertionUtil.assertNotNull("target", target);
         AssertionUtil.assertNotNull("eventListener", eventListener);
         this.targetMethod = target;
         this.eventListener = eventListener;
-        this.isAsync = isAsync;
+        this.asyncMethod = asyncMethod;
     }
 
     /**
@@ -80,11 +81,11 @@ public class EventListenerDef {
     }
 
     /**
-     * 非同期実行するメソッドであるかどうかを返します。<br />
+     * {@link AsyncMethod} アノテーションを返します。<br />
      * 
-     * @return <code>true</code> の場合、非同期実行を行う。<code>false</code> の場合、行わない。
+     * @return {@link AsyncMethod} アノテーション。アノテーションが存在しない場合は <code>null</code>。
      */
-    public boolean isAsync() {
-        return this.isAsync;
+    public AsyncMethod getAsyncMethod() {
+        return this.asyncMethod;
     }
 }

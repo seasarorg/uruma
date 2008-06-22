@@ -18,6 +18,7 @@ package org.seasar.uruma.binding.method;
 import java.lang.reflect.Method;
 
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.seasar.uruma.annotation.AsyncMethod;
 import org.seasar.uruma.binding.method.impl.OmissionArgumentsFilter;
 import org.seasar.uruma.binding.method.impl.StructuredSelectionArgumentsFilter;
 import org.seasar.uruma.binding.method.impl.TypedEventArgumentsFilter;
@@ -44,19 +45,23 @@ public class MethodBindingFactory {
      *            ターゲットメソッド
      * @param handle
      *            呼び出し元となるウィジットを保持する {@link WidgetHandle} オブジェクト
-     * @param isAsync
-     *            非同期実行を行う場合は <code>true</code>
+     * @param asyncMethod
+     *            非同期実行を行う場合はそのアノテーション
      * @return {@link MethodBinding} オブジェクト
      */
     public static MethodBinding createMethodBinding(final Object target,
             final Method method, final WidgetHandle handle,
-            final boolean isAsync) {
+            final AsyncMethod asyncMethod) {
         MethodBinding binding;
-        if (!isAsync
+        if (asyncMethod == null
                 || UrumaBundleState.getInstance().getUrumaBundleState() == BundleState.NOT_AVAILABLE) {
             binding = new MethodBinding(target, method, null);
         } else {
             binding = new AsyncMethodBinding(target, method, null);
+            ((AsyncMethodBinding) binding).setTaskNameProperty(asyncMethod
+                    .nameProperty());
+            ((AsyncMethodBinding) binding).setCancelable(asyncMethod
+                    .cancelable());
         }
 
         Class<?> widgetClass = handle.getWidgetClass();
