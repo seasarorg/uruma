@@ -62,6 +62,7 @@ import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.binding.GenericSelectionListener;
 import org.seasar.uruma.rcp.binding.NullGenericSelectionListener;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
+import org.seasar.uruma.rcp.util.ViewPartUtil;
 import org.seasar.uruma.util.AnnotationUtil;
 import org.seasar.uruma.util.S2ContainerUtil;
 
@@ -71,9 +72,14 @@ import org.seasar.uruma.util.S2ContainerUtil;
  * 本クラスのインタンスは、画面定義テンプレートで指定された ID をキーとして {@link S2Container} へ登録されます。
  * </p>
  * <p>
+ * ビューがセカンダリ ID を持つ(複数のビューが定義されている)場合は、「<i>ビューID</i>:<i>セカンダリID</i>」をキーとして
+ * {@link S2Container} へ登録されます。
+ * </p>
+ * <p>
  * また、当該 {@link IViewPart} の中で使用されている {@link Viewer} が一つしか存在しない場合、その {@link
  * Viewer} を自動的に {@link ISelectionProvider} として {@link IWorkbenchPartSite}
- * へ登録します。<br /> {@link Viewer} が複数存在する場合、自動登録は行いません。<br />
+ * へ登録します。<br />
+ * {@link Viewer} が複数存在する場合、自動登録は行いません。<br />
  * </p>
  * 
  * @author y-komori
@@ -100,13 +106,17 @@ public class GenericViewPart extends ViewPart {
 
     private String componentId;
 
+    private String secondaryId;
+
+    private String fullComponentId;
+
     private Object partAction;
 
     private List<ISelectionListener> listeners = new ArrayList<ISelectionListener>();
 
     /*
      * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
-     * org.eclipse.ui.IMemento)
+     *      org.eclipse.ui.IMemento)
      */
     @Override
     public void init(final IViewSite site, final IMemento memento)
@@ -124,9 +134,12 @@ public class GenericViewPart extends ViewPart {
         S2ContainerUtil.injectDependency(this, service.getContainer());
 
         this.componentId = service.getLocalId(getSite().getId());
+        this.secondaryId = site.getSecondaryId();
+        this.fullComponentId = ViewPartUtil.createFullId(componentId,
+                secondaryId);
 
-        if (StringUtil.isNotBlank(componentId)) {
-            service.getContainer().register(this, componentId);
+        if (StringUtil.isNotBlank(fullComponentId)) {
+            service.getContainer().register(this, fullComponentId);
         }
 
         Template template = templateManager.getTemplateById(componentId);
@@ -134,7 +147,7 @@ public class GenericViewPart extends ViewPart {
         if (root instanceof ViewPartComponent) {
             this.viewPart = (ViewPartComponent) root;
 
-            this.partContext = createPartContext(componentId);
+            this.partContext = createPartContext(fullComponentId);
 
             this.partAction = ComponentUtil.setupPartAction(partContext,
                     componentId);

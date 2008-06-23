@@ -29,6 +29,7 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
+import org.seasar.uruma.rcp.util.ViewPartUtil;
 
 /**
  * <code>workbench.xml</code> に記述された <code>perspective</code>
@@ -134,7 +135,8 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory,
     protected boolean findViewPart(final String viewId) {
         List<Template> templates = templateManager
                 .getTemplates(ViewPartComponent.class);
-        String localViewId = service.getLocalId(viewId);
+        String localViewId = ViewPartUtil.getPrimaryId(service
+                .getLocalId(viewId));
 
         for (Template template : templates) {
             ViewPartComponent viewPart = (ViewPartComponent) template

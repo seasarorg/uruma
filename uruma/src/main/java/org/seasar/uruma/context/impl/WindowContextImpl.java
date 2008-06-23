@@ -17,7 +17,9 @@ package org.seasar.uruma.context.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.seasar.uruma.binding.enables.EnablesDependingDef;
 import org.seasar.uruma.context.ApplicationContext;
@@ -53,9 +55,9 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * {@link WindowContextImpl} を構築します。<br />
      * 
      * @param windowName
-     *      ウィンドウ名称
+     *            ウィンドウ名称
      * @param parent
-     *      親 {@link ApplicationContext}
+     *            親 {@link ApplicationContext}
      */
     public WindowContextImpl(final String windowName,
             final ApplicationContext parent) {
@@ -84,8 +86,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see
-     * org.seasar.uruma.context.WindowContext#getPartContext(java.lang.String)
+     * @see org.seasar.uruma.context.WindowContext#getPartContext(java.lang.String)
      */
     public PartContext getPartContext(final String partName) {
         for (PartContext context : partContextList) {
@@ -114,9 +115,9 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * {@link PartContext} オブジェクトを追加します。<br />
      * 
      * @param context
-     *      {@link PartContext} オブジェクト
+     *            {@link PartContext} オブジェクト
      * @throws DuplicateComponentIdException
-     *      パート名称が既に登録されている場合
+     *             パート名称が既に登録されている場合
      */
     public void addPartContext(final PartContext context) {
         if (getPartContext(context.getName()) == null) {
@@ -130,7 +131,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * {@link PartContext} オブジェクトを削除します。<br />
      * 
      * @param partName
-     *      パート名称
+     *            パート名称
      */
     public void disposePartContext(final String partName) {
         PartContext partContext = getPartContext(partName);
@@ -151,12 +152,10 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see
-     * org.seasar.uruma.context.WindowContext#findWidgetHandles(java.lang.String
-     * )
+     * @see org.seasar.uruma.context.WindowContext#findWidgetHandles(java.lang.String)
      */
-    public List<WidgetHandle> findWidgetHandles(final String handleId) {
-        List<WidgetHandle> results = new ArrayList<WidgetHandle>();
+    public Set<WidgetHandle> findWidgetHandles(final String handleId) {
+        Set<WidgetHandle> results = new HashSet<WidgetHandle>();
 
         WidgetHandle handle = getWidgetHandle(handleId);
         if (handle != null) {
@@ -173,12 +172,10 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see
-     * org.seasar.uruma.context.WindowContext#getAllWidgetHandles(java.lang.
-     * Class)
+     * @see org.seasar.uruma.context.WindowContext#getAllWidgetHandles(java.lang.Class)
      */
-    public List<WidgetHandle> getAllWidgetHandles(final Class<?> clazz) {
-        List<WidgetHandle> handles = new ArrayList<WidgetHandle>();
+    public Set<WidgetHandle> getAllWidgetHandles(final Class<?> clazz) {
+        Set<WidgetHandle> handles = new HashSet<WidgetHandle>();
         handles.addAll(getWidgetHandles(clazz));
 
         for (PartContext part : getPartContextList()) {
@@ -189,9 +186,8 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
     }
 
     /*
-     * @see
-     * org.seasar.uruma.context.WindowContext#addEnablesDependingDef(org.seasar
-     * .uruma.binding.enables.EnablesDependingDef)
+     * @see org.seasar.uruma.context.WindowContext#addEnablesDependingDef(org.seasar
+     *      .uruma.binding.enables.EnablesDependingDef)
      */
     public void addEnablesDependingDef(
             final EnablesDependingDef enablesDependingDef) {
@@ -222,7 +218,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
 
     /*
      * @see org.seasar.uruma.context.PartContext#setPartActionObject(java.
-     * lang.Object)
+     *      lang.Object)
      */
     public void setPartActionObject(final Object partActionObj) {
         this.partActionObj = partActionObj;

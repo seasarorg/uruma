@@ -17,6 +17,7 @@ package org.seasar.uruma.binding.method;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Set;
 
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.context.PartContext;
@@ -89,7 +90,7 @@ public class MethodBindingSupport implements UrumaMessageCodes {
         String[] ids = def.getId();
         for (String id : ids) {
             // すべてのコンテクストから id にマッチする WidgetHandle を検索
-            List<WidgetHandle> handles = context.getWindowContext()
+            Set<WidgetHandle> handles = context.getWindowContext()
                     .findWidgetHandles(id);
 
             if (handles.size() > 0) {

@@ -15,8 +15,8 @@
  */
 package org.seasar.uruma.context.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.PartContext;
@@ -69,8 +69,8 @@ public class PartContextImpl extends AbstractWidgetHolder implements
      *            ハンドル ID
      * @return 見つかった {@link WidgetHandle} のリスト。
      */
-    public List<WidgetHandle> findWidgetHandle(final String handleId) {
-        List<WidgetHandle> result = new ArrayList<WidgetHandle>();
+    public Set<WidgetHandle> findWidgetHandle(final String handleId) {
+        Set<WidgetHandle> result = new HashSet<WidgetHandle>();
         WidgetHandle handle = super.getWidgetHandle(handleId);
         if (handle != null) {
             result.add(handle);

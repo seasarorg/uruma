@@ -15,6 +15,9 @@
  */
 package org.seasar.uruma.rcp.binding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -23,6 +26,7 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.util.AssertionUtil;
 
 /**
  * 任意のメソッドを呼び出すことができる、汎用的な {@link IHandler} の実装クラスです。<br />
@@ -33,7 +37,7 @@ public class GenericHandler extends AbstractHandler {
     protected static final UrumaLogger logger = UrumaLogger
             .getLogger(GenericHandler.class);
 
-    protected Listener listener;
+    protected List<Listener> listeners = new ArrayList<Listener>();
 
     protected boolean enabled = true;
 
@@ -42,26 +46,31 @@ public class GenericHandler extends AbstractHandler {
      */
     @Override
     public Object execute(final ExecutionEvent event) throws ExecutionException {
-        try {
-            if (listener != null) {
-                listener.handleEvent((Event) event.getTrigger());
+        int size = listeners.size();
+        for (int i = 0; i < size; i++) {
+            try {
+                listeners.get(i).handleEvent((Event) event.getTrigger());
+            } catch (Throwable ex) {
+                logger.log(ex);
             }
-        } catch (Throwable ex) {
-            logger.log(ex);
         }
         return null;
     }
 
     /**
-     * {@link Listener} を設定します。<br />
+     * {@link Listener} を追加します。<br />
      * 
      * @param listener
      *            {@link Listener} オブジェクト
      */
-    public void setListener(final Listener listener) {
-        this.listener = listener;
+    public void addListener(final Listener listener) {
+        AssertionUtil.assertNotNull("listener", listener);
+        this.listeners.add(listener);
     }
 
+    /*
+     * @see org.eclipse.core.commands.AbstractHandler#isEnabled()
+     */
     @Override
     public boolean isEnabled() {
         return enabled;

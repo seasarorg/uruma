@@ -16,6 +16,7 @@
 package org.seasar.uruma.context;
 
 import java.util.List;
+import java.util.Set;
 
 import org.seasar.uruma.binding.enables.EnablesDependingDef;
 
@@ -33,17 +34,17 @@ public interface WindowContext extends PartContext {
     public String getName();
 
     /**
-     * {@link WindowContext} が保持する {@link PartContext} のリストを返します。<br /> {@link
-     * PartContext} を1つも保持しない場合、空のリストを返します。
+     * {@link WindowContext} が保持する {@link PartContext} のリストを返します。<br />
+     * {@link PartContext} を1つも保持しない場合、空のリストを返します。
      * 
      * @return {@link PartContext} のリスト
      */
     public List<PartContext> getPartContextList();
 
     /**
-     * {@link PartContext} を返します。<br /> {@link PartContext}
-     * が複数登録されている場合、最初に登録された {@link PartContext} を返します。<br /> {@link PartContext
-     * } が登録されていない場合、<code>null</code> を返します。
+     * {@link PartContext} を返します。<br />
+     * {@link PartContext} が複数登録されている場合、最初に登録された {@link PartContext} を返します。<br />
+     * {@link PartContext } が登録されていない場合、<code>null</code> を返します。
      * 
      * @return {@link PartContext} オブジェクト
      */
@@ -53,7 +54,7 @@ public interface WindowContext extends PartContext {
      * <code>partName</code> で指定された名称を持つ {@link PartContext} を取得します。<br />
      * 
      * @param partName
-     *      パート名称
+     *            パート名称
      * @return {@link PartContext} オブジェクト。見つからない場合は、<code>null</code>。
      */
     public PartContext getPartContext(String partName);
@@ -68,29 +69,31 @@ public interface WindowContext extends PartContext {
     /**
      * {@link WindowContext} 本体および配下のすべての {@link PartContext} から、
      * <code>handleId</code> にマッチする {@link WidgetHandle} を検索して返します。<br />
+     * 同じ <code>id</code> を持つ {@link WidgetHandle} が複数マッチしても、結果は一つとなります。<br />
      * 
      * @param handleId
-     *      ハンドルID
+     *            ハンドルID
      * @return 見つかった {@link WidgetHandle} のリスト
      */
-    public List<WidgetHandle> findWidgetHandles(String handleId);
+    public Set<WidgetHandle> findWidgetHandles(String handleId);
 
     /**
      * {@link WindowContext} 本体および配下のすべての {@link PartContext}
      * から、指定されたクラスのオブジェクトを持つ {@link WidgetHandle} をすべて検索して返します。<br />
+     * 同じ <code>id</code> を持つ {@link WidgetHandle} が複数マッチしても、結果は一つとなります。<br />
      * 
      * @param clazz
-     *      クラス
+     *            クラス
      * @return 見つかった {@link WidgetHandle} のリスト
      * @see WidgetHolder#getWidgetHandles(Class)
      */
-    public List<WidgetHandle> getAllWidgetHandles(Class<?> clazz);
+    public Set<WidgetHandle> getAllWidgetHandles(Class<?> clazz);
 
     /**
      * {@link EnablesDependingDef} を追加します。<br />
      * 
      * @param enablesDependingDef
-     *      {@link EnablesDependingDef} オブジェクト
+     *            {@link EnablesDependingDef} オブジェクト
      */
     public void addEnablesDependingDef(EnablesDependingDef enablesDependingDef);
 
@@ -105,7 +108,7 @@ public interface WindowContext extends PartContext {
      * {@link PartContext} オブジェクトを削除します。<br />
      * 
      * @param partName
-     *      パート名称
+     *            パート名称
      */
     public void disposePartContext(final String partName);
 

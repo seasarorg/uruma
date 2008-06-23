@@ -42,7 +42,7 @@ public class GenericHandlerListenerBinder extends AbstractListenerBinder {
             final EventListenerDef def) {
         GenericHandler handler = handle.<GenericHandler> getCastWidget();
         Listener listener = new GenericListener(context, binding);
-        handler.setListener(listener);
+        handler.addListener(listener);
         return GenericHandler.class;
     }
 

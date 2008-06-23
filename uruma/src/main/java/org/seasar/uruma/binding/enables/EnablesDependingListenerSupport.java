@@ -15,7 +15,7 @@
  */
 package org.seasar.uruma.binding.enables;
 
-import java.util.List;
+import java.util.Set;
 
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
@@ -41,7 +41,7 @@ public class EnablesDependingListenerSupport {
     public static void setupEnableDependingListeners(final WindowContext context) {
         for (EnablesDependingDef def : context.getEnablesDependingDefList()) {
             String targetId = def.getTargetId();
-            List<WidgetHandle> handles = context.findWidgetHandles(targetId);
+            Set<WidgetHandle> handles = context.findWidgetHandles(targetId);
             if (handles.size() > 0) {
                 for (WidgetHandle handle : handles) {
                     EnablesDependingListener listener = EnablesDependingListenerFactory

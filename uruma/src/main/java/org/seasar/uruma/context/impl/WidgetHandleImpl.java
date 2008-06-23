@@ -32,29 +32,6 @@ public class WidgetHandleImpl implements WidgetHandle {
 
     private UIComponent uiComponent;
 
-    // /**
-    // * {@link WidgetHandleImpl} を構築します。<br />
-    // * 本クラスのインスタンスを生成するには、{@link ContextFactory#createWidgetHandle(Object,
-    // UIComponent)}
-    // * メソッドを利用してください。<br />
-    // *
-    // * @param widget
-    // * ウィジットオブジェクト
-    // * @param uiComponent
-    // * {@link UIComponent} オブジェクト
-    // */
-    // public WidgetHandleImpl(final Object widget, final UIComponent
-    // uiComponent) {
-    // AssertionUtil.assertNotNull("widget", widget);
-    // AssertionUtil.assertNotNull("uiComponent", uiComponent);
-    // String id = uiComponent.getId();
-    // AssertionUtil.assertNotEmpty("id", id);
-    //
-    // this.id = id;
-    // this.widget = widget;
-    // this.uiComponent = uiComponent;
-    // }
-
     /**
      * {@link WidgetHandleImpl} を構築します。<br />
      * 本クラスのインスタンスを生成するには、{@link ContextFactory#createWidgetHandle(Object)}
@@ -130,5 +107,36 @@ public class WidgetHandleImpl implements WidgetHandle {
     public void setUiComponent(final UIComponent uiComponent) {
         AssertionUtil.assertNotNull("uiComponent", uiComponent);
         this.uiComponent = uiComponent;
+    }
+
+    /*
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        return result;
+    }
+
+    /*
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final WidgetHandleImpl other = (WidgetHandleImpl) obj;
+        if (this.id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!this.id.equals(other.id))
+            return false;
+        return true;
     }
 }

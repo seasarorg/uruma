@@ -18,7 +18,8 @@ package org.seasar.uruma.context;
 import org.seasar.uruma.component.UIComponent;
 
 /**
- * ウィジットを保持するためのインターフェースです。<br />
+ * ウィジットを保持するためのインタフェースです。<br />
+ * {@link WidgetHandle} は id プロパティによってユニークとなります。<br />
  * 
  * @author y-komori
  */
