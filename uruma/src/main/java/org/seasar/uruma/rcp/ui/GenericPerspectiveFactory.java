@@ -17,11 +17,15 @@ package org.seasar.uruma.rcp.ui;
 
 import java.util.List;
 
+import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIElement;
+import org.seasar.uruma.component.UIElementContainer;
 import org.seasar.uruma.component.rcp.PartComponent;
+import org.seasar.uruma.component.rcp.PartFolderComponent;
 import org.seasar.uruma.component.rcp.PerspectiveComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.core.TemplateManager;
@@ -52,6 +56,8 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory,
 
     protected TemplateManager templateManager;
 
+    protected int folderNum = 1;
+
     /**
      * {@link GenericPerspectiveFactory} を構築します。<br />
      */
@@ -77,18 +83,97 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory,
         PerspectiveComponent perspective = findPerspective(perspectives,
                 perspectiveId);
 
-        if (perspective != null) {
-            List<UIElement> parts = perspective.getChildren();
-            for (UIElement part : parts) {
-                if (part instanceof PartComponent) {
-                    if (!setupLayout(layout, (PartComponent) part)) {
-                        throw new NotFoundException(
-                                PART_IN_PERSPECTIVE_NOT_FOUND, service
-                                        .getLocalId(perspectiveId),
-                                ((PartComponent) part).ref);
-                    }
+        if (perspective == null) {
+            return;
+        }
+
+        setupChildren(perspective, layout, perspectiveId);
+    }
+
+    protected void setupChildren(final UIElementContainer container,
+            final Object layout, final String perspectiveId) {
+        List<UIElement> children = container.getChildren();
+        for (UIElement child : children) {
+            if (child instanceof PartComponent) {
+                PartComponent part = (PartComponent) child;
+                if (!setupLayout(layout, part, container)) {
+                    throw new NotFoundException(PART_IN_PERSPECTIVE_NOT_FOUND,
+                            service.getLocalId(perspectiveId), (part).ref);
                 }
+            } else if (child instanceof PartFolderComponent) {
+                PartFolderComponent component = (PartFolderComponent) child;
+                IFolderLayout folder = createFolder((IPageLayout) layout,
+                        component);
+                setupChildren(component, folder, perspectiveId);
             }
+        }
+
+    }
+
+    protected IFolderLayout createFolder(final IPageLayout layout,
+            final PartFolderComponent folder) {
+        int pos = getPosition(folder.position);
+        float ratio = getRatio(folder.ratio);
+        String id = getFolderId(folder);
+        return layout.createFolder(id, pos, ratio, layout.getEditorArea());
+    }
+
+    protected boolean setupLayout(final Object layout,
+            final PartComponent part, final UIElementContainer parent) {
+        int pos = getPosition(part.position);
+        float ratio = getRatio(part.ratio);
+        String refViewId = UrumaServiceUtil.getService().createRcpId(part.ref);
+
+        if (findViewPart(refViewId)) {
+            addView(layout, refViewId, pos, ratio);
+            return true;
+        } else {
+            // あらかじめ定義されたビューがあれば、表示する
+            // TODO ビューが見つからない場合はエラーとする
+            addView(layout, part.ref, pos, ratio);
+            return true;
+        }
+    }
+
+    protected void addView(final Object parent, final String viewId,
+            final int pos, final float ratio) {
+        if (parent instanceof IPageLayout) {
+            IPageLayout layout = (IPageLayout) parent;
+            layout.addStandaloneView(viewId, true, pos, ratio, layout
+                    .getEditorArea());
+        } else if (parent instanceof IFolderLayout) {
+            IFolderLayout layout = (IFolderLayout) parent;
+            layout.addView(viewId);
+        }
+    }
+
+    protected int getPosition(final String str) {
+        int pos = IPageLayout.LEFT;
+        if (PART_LEFT.equals(str)) {
+            pos = IPageLayout.LEFT;
+        } else if (PART_RIGHT.equals(str)) {
+            pos = IPageLayout.RIGHT;
+        } else if (PART_TOP.equals(str)) {
+            pos = IPageLayout.TOP;
+        } else if (PART_BOTTOM.equals(str)) {
+            pos = IPageLayout.BOTTOM;
+        }
+        return pos;
+    }
+
+    protected float getRatio(final String str) {
+        if (!StringUtil.isEmpty(str)) {
+            return Integer.parseInt(str) / (float) 100;
+        } else {
+            return 0.95f;
+        }
+    }
+
+    protected String getFolderId(final PartFolderComponent folder) {
+        if (!StringUtil.isEmpty(folder.id)) {
+            return folder.id;
+        } else {
+            return "folder" + folderNum++;
         }
     }
 
@@ -102,34 +187,6 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory,
             }
         }
         return null;
-    }
-
-    protected boolean setupLayout(final IPageLayout layout,
-            final PartComponent part) {
-        int pos = IPageLayout.LEFT;
-        if (PART_LEFT.equals(part.position)) {
-            pos = IPageLayout.LEFT;
-        } else if (PART_RIGHT.equals(part.position)) {
-            pos = IPageLayout.RIGHT;
-        } else if (PART_TOP.equals(part.position)) {
-            pos = IPageLayout.TOP;
-        } else if (PART_BOTTOM.equals(part.position)) {
-            pos = IPageLayout.BOTTOM;
-        }
-
-        float ratio = Integer.parseInt(part.ratio) / (float) 100;
-        String refViewId = UrumaServiceUtil.getService().createRcpId(part.ref);
-
-        if (findViewPart(refViewId)) {
-            layout.addStandaloneView(refViewId, true, pos, ratio, layout
-                    .getEditorArea());
-            return true;
-        } else {
-            layout.addStandaloneView(part.ref, true, pos, ratio, layout
-                    .getEditorArea());
-            return true;
-        }
-
     }
 
     protected boolean findViewPart(final String viewId) {

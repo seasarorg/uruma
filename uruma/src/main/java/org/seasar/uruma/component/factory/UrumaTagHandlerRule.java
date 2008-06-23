@@ -64,6 +64,7 @@ import org.seasar.uruma.component.jface.ToolItemComponent;
 import org.seasar.uruma.component.jface.TreeComponent;
 import org.seasar.uruma.component.jface.WindowComponent;
 import org.seasar.uruma.component.rcp.PartComponent;
+import org.seasar.uruma.component.rcp.PartFolderComponent;
 import org.seasar.uruma.component.rcp.PerspectiveComponent;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
@@ -159,6 +160,8 @@ public class UrumaTagHandlerRule extends TagHandlerRule {
         // RCP
         addTagHandler("perspective", new GenericTagHandler(
                 PerspectiveComponent.class));
+        addTagHandler("partFolder", new GenericTagHandler(
+                PartFolderComponent.class));
         addTagHandler("part", new GenericTagHandler(PartComponent.class));
     }
 
