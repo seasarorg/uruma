@@ -114,23 +114,27 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
      *            {@link PartContext} オブジェクト
      * @param id
      *            対応するパートの ID
+     * @param container
+     *            各種コンポーネントを検索する {@link S2Container}
      * @return パートアクションクラスが見つかった場合、そのオブジェクト。<br />
      *         見つからなかった場合は <code>null</code>
      */
     public static Object setupPartAction(final PartContext context,
-            final String id) {
+            final String id, final S2Container container) {
         String actionComponentName = StringUtil.decapitalize(id)
                 + PART_ACTION_SUFFIX;
 
         ComponentDef cd = S2ContainerUtil
                 .getComponentDefNoException(actionComponentName);
 
-        Object partActionComponent = S2ContainerUtil.getComponentNoException(
-                actionComponentName, defaultContainer);
+        Object partActionComponent = null;
+        if (cd != null) {
+            // ComponentDef が持つコンテナは生成時のものなので、
+            // その範囲でしかDIできない。そんため、コンテナをセットし直す。
+            cd.setContainer(container);
+            partActionComponent = cd.getComponent();
 
-        if (partActionComponent != null) {
-            S2ContainerUtil.injectDependency(partActionComponent,
-                    defaultContainer);
+            S2ContainerUtil.injectDependency(partActionComponent, container);
 
             context.setPartActionObject(partActionComponent);
             PartActionDesc desc = PartActionDescFactory.getPartActionDesc(cd
@@ -145,6 +149,21 @@ public class ComponentUtil implements UrumaConstants, UrumaMessageCodes {
             logger.log(PART_ACTION_CLASS_NOT_FOUND, id, actionComponentName);
             return null;
         }
+    }
+
+    /**
+     * パートアクションクラスを準備します。<br />
+     * 
+     * @param context
+     *            {@link PartContext} オブジェクト
+     * @param id
+     *            対応するパートの ID
+     * @return パートアクションクラスが見つかった場合、そのオブジェクト。<br />
+     *         見つからなかった場合は <code>null</code>
+     */
+    public static Object setupPartAction(final PartContext context,
+            final String id) {
+        return setupPartAction(context, id, defaultContainer);
     }
 
     /**

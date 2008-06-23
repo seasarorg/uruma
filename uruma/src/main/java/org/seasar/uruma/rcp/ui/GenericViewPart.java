@@ -38,6 +38,7 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.SelectionListener;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
@@ -69,12 +70,18 @@ import org.seasar.uruma.util.S2ContainerUtil;
 /**
  * 汎用的な {@link IViewPart} クラスです。<br />
  * <p>
- * 本クラスのインタンスは、画面定義テンプレートで指定された ID をキーとして {@link S2Container} へ登録されます。
+ * 本クラスのインタンスは、Uruma アプリケーションの {@link S2Container} の子コンテナとして、独自の
+ * {@link S2Container} (ローカルコンテナと呼びます)を生成します。<br />
+ * ローカルコンテナh、Uruma アプリケーションの {@link S2Container} をインクルードします。<br />
+ * ローカルコンテナ へは、デフォルトで以下のコンポーネントが登録されており、パートアクション・オブジェクトに対しては、ローカルコンテナから DI
+ * が行われます。
  * </p>
- * <p>
- * ビューがセカンダリ ID を持つ(複数のビューが定義されている)場合は、「<i>ビューID</i>:<i>セカンダリID</i>」をキーとして
- * {@link S2Container} へ登録されます。
- * </p>
+ * <dl>
+ * <dt> {@link IViewPart}</dt>
+ * <dd>このパートに対応する {@link GenericViewPart} のインスタンス</dd>
+ * <dt> {@link PartContext}</dt>
+ * <dd>このパートに対応する {@link PartContext} インスタンス</dd>
+ * </dt>
  * <p>
  * また、当該 {@link IViewPart} の中で使用されている {@link Viewer} が一つしか存在しない場合、その {@link
  * Viewer} を自動的に {@link ISelectionProvider} として {@link IWorkbenchPartSite}
@@ -114,6 +121,8 @@ public class GenericViewPart extends ViewPart {
 
     private List<ISelectionListener> listeners = new ArrayList<ISelectionListener>();
 
+    private S2Container localContainer;
+
     /*
      * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
      *      org.eclipse.ui.IMemento)
@@ -138,10 +147,6 @@ public class GenericViewPart extends ViewPart {
         this.fullComponentId = ViewPartUtil.createFullId(componentId,
                 secondaryId);
 
-        if (StringUtil.isNotBlank(fullComponentId)) {
-            service.getContainer().register(this, fullComponentId);
-        }
-
         Template template = templateManager.getTemplateById(componentId);
         UIComponentContainer root = template.getRootComponent();
         if (root instanceof ViewPartComponent) {
@@ -149,8 +154,11 @@ public class GenericViewPart extends ViewPart {
 
             this.partContext = createPartContext(fullComponentId);
 
+            createLocalContainer();
+            setupLocalContainer();
+
             this.partAction = ComponentUtil.setupPartAction(partContext,
-                    componentId);
+                    componentId, localContainer);
 
             if (partAction != null) {
                 ComponentUtil.setupFormComponent(partContext, componentId);
@@ -227,7 +235,22 @@ public class GenericViewPart extends ViewPart {
         WindowContext windowContext = applicationContext
                 .getWindowContext(UrumaConstants.WORKBENCH_WINDOW_CONTEXT_ID);
         windowContext.disposePartContext(partContext.getName());
+
         super.dispose();
+    }
+
+    /**
+     * 本 ViewPart 専用のローカル {@link S2Container} を生成します。<br />
+     */
+    protected void createLocalContainer() {
+        S2Container container = S2ContainerFactory.create();
+        container.include(service.getContainer());
+        this.localContainer = container;
+    }
+
+    protected void setupLocalContainer() {
+        localContainer.register(this);
+        localContainer.register(partContext);
     }
 
     protected PartContext createPartContext(final String id) {
