@@ -41,6 +41,7 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.annotation.SelectionListener;
+import org.seasar.uruma.binding.method.MethodBindingSupport;
 import org.seasar.uruma.binding.method.SingleParamTypeMethodBinding;
 import org.seasar.uruma.binding.value.ValueBindingSupport;
 import org.seasar.uruma.component.Template;
@@ -91,7 +92,8 @@ import org.seasar.uruma.util.S2ContainerUtil;
  * 
  * @author y-komori
  */
-public class GenericViewPart extends ViewPart {
+public class GenericViewPart extends ViewPart implements UrumaViewPart,
+        UrumaMessageCodes {
     private UrumaService service = UrumaServiceUtil.getService();
 
     private static final UrumaLogger logger = UrumaLogger
@@ -133,8 +135,10 @@ public class GenericViewPart extends ViewPart {
         super.init(site, memento);
         try {
             initInternal(site, memento);
+
+            logger.log(VIEW_INIT_END, fullComponentId);
         } catch (RuntimeException e) {
-            logger.log(e);
+            logger.log(VIEW_INIT_FAILED, e, fullComponentId, e.getMessage());
             throw e;
         }
     }
@@ -146,6 +150,8 @@ public class GenericViewPart extends ViewPart {
         this.secondaryId = site.getSecondaryId();
         this.fullComponentId = ViewPartUtil.createFullId(componentId,
                 secondaryId);
+
+        logger.log(VIEW_INIT_START, fullComponentId);
 
         Template template = templateManager.getTemplateById(componentId);
         UIComponentContainer root = template.getRootComponent();
@@ -210,9 +216,9 @@ public class GenericViewPart extends ViewPart {
         // .getWorkbenchWindowContext();
         // EnablesDependingListenerSupport.setupEnableDependingListeners(context
         // );
-        //
-        // // Method Binding の準備
-        // MethodBindingSupport.createListeners(partContext);
+
+        // Method Binding の準備
+        MethodBindingSupport.createListeners(partContext);
     }
 
     /*
@@ -333,5 +339,34 @@ public class GenericViewPart extends ViewPart {
                 control.setMenu(menu);
             }
         }
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.ui.UrumaViewPart#getId()
+     */
+    public String getId() {
+        return this.componentId;
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.ui.UrumaViewPart#getRcpId()
+     */
+    public String getRcpId() {
+        return getSite().getId();
+    }
+
+    /*
+     * @see org.seasar.uruma.rcp.ui.UrumaViewPart#getSecondaryId()
+     */
+    public String getSecondaryId() {
+        return this.secondaryId;
+    }
+
+    /*
+     * @see org.eclipse.ui.part.ViewPart#setPartName(java.lang.String)
+     */
+    @Override
+    public void setPartName(final String name) {
+        super.setPartName(name);
     }
 }

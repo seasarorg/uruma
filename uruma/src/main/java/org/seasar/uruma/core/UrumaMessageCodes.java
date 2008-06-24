@@ -950,6 +950,34 @@ public interface UrumaMessageCodes {
      */
     public static final String INVALID_URUMA_APP_BUNDLE = "WURM0526";
 
+    /**
+     * ビューの初期化開始時のメッセージコードです。<br />
+     * 
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String VIEW_INIT_START = "IURM0527";
+
+    /**
+     * ビューの初期化完了時のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String VIEW_INIT_END = "IURM0528";
+
+    /**
+     * ビューの初期化失敗時のメッセージコードです。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String VIEW_INIT_FAILED = "EURM0529";
+
     // -------------------------------------------------------------------------
     // リソース関連メッセージコード (06xx)
     // -------------------------------------------------------------------------

@@ -44,6 +44,7 @@ import org.seasar.uruma.rcp.binding.CommandDesc;
 import org.seasar.uruma.rcp.binding.CommandRegistry;
 import org.seasar.uruma.rcp.binding.GenericHandler;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
+import org.seasar.uruma.rcp.util.ViewPartUtil;
 import org.seasar.uruma.util.PathUtil;
 
 /**
@@ -109,8 +110,29 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         setupCommandHandler(configurer, windowContext);
         setupEnablesDependable(windowContext);
+        setupWorkbench(configurer);
+    }
 
-        // XML から情報を読み込んでワークベンチの情報を設定する
+    /*
+     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowCreate()
+     */
+    @Override
+    public void postWindowCreate() {
+        // Enable Depending の準備
+        // TODO 後から開いたビューに対しては EnableDepending が効かない
+        WindowContext context = UrumaServiceUtil.getService()
+                .getWorkbenchWindowContext();
+        EnablesDependingListenerSupport.setupEnableDependingListeners(context);
+
+        // Method Binding の準備
+        // 各 ViewPart 固有の MethodBinding
+        // は、GenericViewPart#createPartControlInternal() の中で行われる
+        MethodBindingSupport.createListeners(context);
+
+        ViewPartUtil.findUrumaAppViewRefs();
+    }
+
+    protected void setupWorkbench(final IWorkbenchWindowConfigurer configurer) {
         configurer.setShowMenuBar(workbench.menuBar == null ? true : Boolean
                 .parseBoolean(workbench.menuBar));
         configurer.setShowCoolBar(Boolean.parseBoolean(workbench.coolBar));
@@ -133,22 +155,6 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         int ySize = GeometryUtil.calcSize(heightStr, Display.getCurrent()
                 .getClientArea().height);
         return new Point(xSize, ySize);
-    }
-
-    /*
-     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowCreate()
-     */
-    @Override
-    public void postWindowCreate() {
-        setupImage(workbench);
-
-        // Enable Depending の準備
-        WindowContext context = UrumaServiceUtil.getService()
-                .getWorkbenchWindowContext();
-        EnablesDependingListenerSupport.setupEnableDependingListeners(context);
-
-        // Method Binding の準備
-        MethodBindingSupport.createListeners(context);
     }
 
     protected void setupImage(final WorkbenchComponent workbench) {

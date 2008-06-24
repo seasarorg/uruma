@@ -128,10 +128,12 @@ public class GenericPerspectiveFactory implements IPerspectiveFactory,
             addView(layout, refViewId, pos, ratio);
             return true;
         } else {
-            // あらかじめ定義されたビューがあれば、表示する
-            // TODO ビューが見つからない場合はエラーとする
-            addView(layout, part.ref, pos, ratio);
-            return true;
+            if (ViewPartUtil.findViewDescriptor(part.ref) != null) {
+                addView(layout, part.ref, pos, ratio);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

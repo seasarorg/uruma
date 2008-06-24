@@ -45,7 +45,7 @@ public class MethodBindingSupport implements UrumaMessageCodes {
      * @param context
      *            {@link WindowContext} オブジェクト
      */
-    public static void createListeners(final WindowContext context) {
+    public static void createAllListeners(final WindowContext context) {
         createListeners((PartContext) context);
         for (PartContext partContext : context.getPartContextList()) {
             createListeners(partContext);
