@@ -168,6 +168,15 @@ public interface UrumaConstants {
      */
     public static final String SCHEMA_PATH = "org/seasar/uruma/component/factory/uruma.xsd";
 
+    /**
+     * Uruma コンポーネントディスクリプタのスキーマファイルパスです。
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String COMPONENT_DESC_SCHEMA_PATH = "org/seasar/uruma/component/factory/urumaComponent.xsd";
+
     // -------------------------------------------------------------------------
     // プロトコル名称
     // -------------------------------------------------------------------------
@@ -281,9 +290,8 @@ public interface UrumaConstants {
     // RCP関連機能
     // -------------------------------------------------------------------------
     /**
-     * Uruma Core バンドルのデバッグオプションを表すプロパティです。<br />
-     * 本プロパティを <code>true</code> に設定すると、OSGi Framework Extension
-     * として動作する部分のデバッグメッセージを表示します。
+     * Uruma Core バンドルのデバッグオプションを表すプロパティです。<br /> 本プロパティを <code>true</code>
+     * に設定すると、OSGi Framework Extension として動作する部分のデバッグメッセージを表示します。
      * 
      * <dl>
      * <dt><b>値 :</b></dt>
@@ -349,8 +357,7 @@ public interface UrumaConstants {
     public static final String DEFAULT_WORKBENCH_XML = "workbench.xml";
 
     /**
-     * RCP 環境における画面定義 XML のデフォルト格納先パス({@link #DEFAULT_WORKBENCH_XML}
-     * からの相対パス)です。
+     * RCP 環境における画面定義 XML のデフォルト格納先パス({@link #DEFAULT_WORKBENCH_XML} からの相対パス)です。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>
@@ -386,8 +393,7 @@ public interface UrumaConstants {
     public static final String DEFAULT_WORKBENCH_WIDTH = "30%";
 
     /**
-     * <code>workbench</code> 要素で <code>initHeight</code>
-     * 属性が未指定の場合のデフォルト値です。
+     * <code>workbench</code> 要素で <code>initHeight</code> 属性が未指定の場合のデフォルト値です。
      * <dl>
      * <dt><b>値 :</b></dt>
      * <dd>{@value}</dd>

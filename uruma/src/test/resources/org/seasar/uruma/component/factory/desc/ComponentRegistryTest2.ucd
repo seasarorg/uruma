@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>testTag</tagName>
+  <tagHandler class="org.seasar.uruma.dummy.TagHandler">
+    <arg>arg1</arg>
+    <arg>arg2</arg>
+  </tagHandler>
+  <renderer class="org.seasar.uruma.dummy.Renderer">
+    <arg>arg1</arg>
+    <arg>arg2</arg>
+    <arg>arg3</arg>
+  </renderer>
+  <arg>NG</arg>
+</urumaComponent>
