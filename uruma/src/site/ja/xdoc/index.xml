@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE document
-	PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
-	"http://maven.apache.org/dtd/xdoc_1_0.dtd">
+  PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+  "http://maven.apache.org/dtd/xdoc_1_0.dtd">
 <document>
   <properties>
     <title>はじめに</title>
   </properties>
   <body>
-
+    
+    <section name="更新情報">
+      <dl>
+        <dt>2008/07/09</dt>
+        <dd><a href="setup.html">セットアップ</a> にRCP版ブランクプロジェクトのプロジェクト名変更方法を追記しました。</dd>
+      </dl>
+    </section>
+    
     <section name="はじめに">
       <div align="center">
         <img src="../images/uruma-logo.png" alt="Uruma Logo" />
