@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>viewPart</tagName>
+  <component class="org.seasar.uruma.component.rcp.ViewPartComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.RootComponentTagHandler">
+    <arg>@org.seasar.uruma.component.rcp.ViewPartComponent@class</arg>
+  </tagHandler>
+  <renderer class="org.seasar.uruma.renderer.impl.ViewPartRenderer">
+  </renderer>
+</urumaComponent>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>coolBar</tagName>
+  <component class="org.seasar.uruma.component.jface.CoolBarComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.GenericTagHandler">
+    <arg>@org.seasar.uruma.component.jface.CoolBarComponent@class</arg>
+  </tagHandler>
+  <renderer class="org.seasar.uruma.renderer.impl.CoolBarRenderer" />
+</urumaComponent>

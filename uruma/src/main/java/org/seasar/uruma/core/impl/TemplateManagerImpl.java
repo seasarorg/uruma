@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.seasar.framework.container.annotation.tiger.Binding;
+import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.util.Disposable;
 import org.seasar.framework.util.DisposableUtil;
 import org.seasar.framework.util.StringUtil;
@@ -45,7 +47,7 @@ public class TemplateManagerImpl implements TemplateManager {
 
     private Map<String, String> idToPathMap = new HashMap<String, String>();
 
-    private ComponentTreeBuilder builder = new ComponentTreeBuilder();
+    private ComponentTreeBuilder componentTreeBuilder;
 
     private static boolean initialized = false;
 
@@ -68,7 +70,7 @@ public class TemplateManagerImpl implements TemplateManager {
             if (template == null) {
                 logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_FILE, path);
 
-                template = builder.build(path);
+                template = componentTreeBuilder.build(path);
                 if (template != null) {
                     templateCache.put(path, template);
                     String id = template.getRootComponent().getId();
@@ -153,4 +155,15 @@ public class TemplateManagerImpl implements TemplateManager {
         }
     }
 
+    /**
+     * {@link ComponentTreeBuilder} を設定します。<br />
+     * 
+     * @param componentTreeBuilder
+     *            {@link ComponentTreeBuilder} オブジェクト
+     */
+    @Binding(bindingType = BindingType.MUST)
+    public void setComponentTreeBuilder(
+            final ComponentTreeBuilder componentTreeBuilder) {
+        this.componentTreeBuilder = componentTreeBuilder;
+    }
 }

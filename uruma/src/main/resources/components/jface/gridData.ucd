@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>gridData</tagName>
+  <component class="org.seasar.uruma.component.jface.GridDataInfo"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.LayoutDataTagHandler">
+    <arg>@org.seasar.uruma.component.jface.GridDataInfo@class</arg>
+  </tagHandler>
+  <renderer class="org.seasar.uruma.renderer.impl.NullRenderer" />
+</urumaComponent>

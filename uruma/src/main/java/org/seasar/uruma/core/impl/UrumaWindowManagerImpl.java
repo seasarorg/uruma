@@ -59,7 +59,7 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
 
     private List<UrumaApplicationWindow> windowList = new ArrayList<UrumaApplicationWindow>();
 
-    private TemplateManager templateManager = new TemplateManagerImpl();
+    private TemplateManager templateManager;
 
     /**
      * 画面間のパラメータ共有に使用する {@link ApplicationContext} オブジェクトです。
@@ -88,8 +88,9 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
     }
 
     /*
-     * @see org.seasar.uruma.core.UrumaWindowManager#openWindow(java.lang.String,
-     *      boolean)
+     * @see
+     * org.seasar.uruma.core.UrumaWindowManager#openWindow(java.lang.String,
+     * boolean)
      */
     public UrumaApplicationWindow openWindow(final String templatePath,
             final boolean modal) {
@@ -123,8 +124,9 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
     }
 
     /*
-     * @see org.seasar.uruma.core.UrumaWindowManager#openDialog(java.lang.String,
-     *      java.lang.Object)
+     * @see
+     * org.seasar.uruma.core.UrumaWindowManager#openDialog(java.lang.String,
+     * java.lang.Object)
      */
     public int openDialog(final String templatePath, final Object parentAction) {
         // TODO 仮実装
@@ -167,5 +169,16 @@ public class UrumaWindowManagerImpl implements UrumaWindowManager {
             }
         }
         return null;
+    }
+
+    /**
+     * {@link TemplateManager} を設定します。<br />
+     * 
+     * @param templateManager
+     *            {@link TemplateManager} オブジェクト
+     */
+    @Binding(bindingType = BindingType.MUST)
+    public void setTemplateManager(final TemplateManager templateManager) {
+        this.templateManager = templateManager;
     }
 }

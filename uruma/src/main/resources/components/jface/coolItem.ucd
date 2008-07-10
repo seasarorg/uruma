@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>coolItem</tagName>
+  <component class="org.seasar.uruma.component.jface.CoolItemComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.GenericTagHandler">
+    <arg>@org.seasar.uruma.component.jface.CoolItemComponent@class</arg>
+  </tagHandler>
+  <renderer class="org.seasar.uruma.renderer.impl.CoolItemRenderer" />
+</urumaComponent>

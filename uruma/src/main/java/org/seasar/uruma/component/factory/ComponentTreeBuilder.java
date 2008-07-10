@@ -15,37 +15,14 @@
  */
 package org.seasar.uruma.component.factory;
 
-import java.io.File;
-import java.io.InputStream;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-
-import org.seasar.framework.container.factory.ClassPathResourceResolver;
-import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
-import org.seasar.framework.exception.SAXRuntimeException;
-import org.seasar.framework.util.InputStreamUtil;
-import org.seasar.framework.util.SAXParserFactoryUtil;
-import org.seasar.framework.xml.SaxHandler;
-import org.seasar.framework.xml.SaxHandlerParser;
-import org.seasar.framework.xml.TagHandlerContext;
 import org.seasar.uruma.component.Template;
-import org.seasar.uruma.core.UrumaConstants;
-import org.xml.sax.SAXException;
 
 /**
- * 画面定義 XML ファイルを読み込み、コンポーネントツリーを生成するためのクラスです。<br />
+ * 画面定義 XML ファイルを読み込み、コンポーネントツリーを生成するためのインタフェースです。<br />
  * 
  * @author y-komori
  */
-public class ComponentTreeBuilder {
-
-    protected ClassPathResourceResolver resolver = new ClassPathResourceResolver();
-
+public interface ComponentTreeBuilder {
     /**
      * 指定されたパスの画面定義XMLを読み込み、コンポーネントツリーを生成します。<br />
      * 
@@ -53,61 +30,5 @@ public class ComponentTreeBuilder {
      *            画面定義XMLのパス
      * @return {@link Template} オブジェクト
      */
-    public Template build(final String path) {
-        final SaxHandlerParser parser = createSaxHandlerParser(path);
-        final InputStream is = getInputStream(path);
-        try {
-            Template template = (Template) parser.parse(is, path);
-            return template;
-        } finally {
-            InputStreamUtil.close(is);
-        }
-    }
-
-    protected InputStream getInputStream(final String path) {
-        final InputStream is = resolver.getInputStream(path);
-
-        if (is == null) {
-            throw new ResourceNotFoundRuntimeException(path);
-        }
-        return is;
-    }
-
-    protected SaxHandlerParser createSaxHandlerParser(final String path) {
-        System.setProperty("javax.xml.parsers.SAXParserFactory",
-                "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
-        final SAXParserFactory factory = SAXParserFactoryUtil.newInstance();
-        factory.setNamespaceAware(true);
-
-        final SchemaFactory schemaFactory = SchemaFactory
-                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        InputStream is = getInputStream(UrumaConstants.SCHEMA_PATH);
-        try {
-            final Schema schema = schemaFactory.newSchema(new StreamSource(is));
-            factory.setSchema(schema);
-        } catch (SAXException ex) {
-            throw new SAXRuntimeException(ex);
-        } finally {
-            InputStreamUtil.close(is);
-        }
-
-        final SAXParser saxParser = SAXParserFactoryUtil.newSAXParser(factory);
-        final SaxHandler handler = createSaxHandler();
-
-        createContext(handler, path);
-
-        return new SaxHandlerParser(handler, saxParser);
-    }
-
-    protected SaxHandler createSaxHandler() {
-        SaxHandler handler = new SaxHandler(new UrumaTagHandlerRule());
-        return handler;
-    }
-
-    protected void createContext(final SaxHandler handler, final String path) {
-        final TagHandlerContext context = handler.getTagHandlerContext();
-        context.addParameter(UrumaTagHandler.PARAM_PATH, path);
-        context.addParameter(UrumaTagHandler.PARAM_BASE_PATH, (new File(path))
-                .getParent());
-    }
+    public Template build(final String path);
 }

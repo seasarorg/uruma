@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>datetime</tagName>
+  <component class="org.seasar.uruma.component.jface.DateTimeComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.GenericTagHandler">
+    <arg>@org.seasar.uruma.component.jface.DateTimeComponent@class</arg>
+  </tagHandler>
+  <renderer class="org.seasar.uruma.renderer.impl.DateTimeRenderer" />
+</urumaComponent>

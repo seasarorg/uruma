@@ -24,6 +24,8 @@ import org.seasar.framework.xml.TagHandlerContext;
  * @author y-komori
  */
 public abstract class UrumaTagHandler extends TagHandler {
+    private static final long serialVersionUID = -3260173885181997297L;
+
     /**
      * 画面定義テンプレートファイルのパスを表す {@link TagHandlerContext} のパラメータ名です。<br />
      */

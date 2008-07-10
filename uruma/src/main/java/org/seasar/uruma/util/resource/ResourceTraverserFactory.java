@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.seasar.uruma.util.resource.impl.BundleResourceTraverser;
 import org.seasar.uruma.util.resource.impl.FileResourceTraverser;
 
 /**
@@ -31,6 +32,7 @@ public class ResourceTraverserFactory {
 
     static {
         addResourceTraverser(new FileResourceTraverser());
+        addResourceTraverser(new BundleResourceTraverser());
     }
 
     private ResourceTraverserFactory() {
@@ -38,8 +40,8 @@ public class ResourceTraverserFactory {
     }
 
     /**
-     * {@link ResourceTraverser} を登録します。<br />
-     * 同じプロトコルの {@link ResourceTraverser} が既に登録されている場合、上書きします。<br />
+     * {@link ResourceTraverser} を登録します。<br /> 同じプロトコルの
+     * {@link ResourceTraverser} が既に登録されている場合、上書きします。<br />
      * 
      * @param traverser
      *            {@link ResourceTraverser}

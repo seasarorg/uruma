@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>workbench</tagName>
+  <component class="org.seasar.uruma.component.rcp.WorkbenchComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.RootComponentTagHandler">
+    <arg>@org.seasar.uruma.component.rcp.WorkbenchComponent@class</arg>
+  </tagHandler>
+  <renderer class="org.seasar.uruma.renderer.impl.NullRenderer">
+  </renderer>
+</urumaComponent>

@@ -40,10 +40,6 @@ import org.seasar.uruma.util.PathUtil;
 public class RcpResourceUtil {
     private static final String SLASH = "/";
 
-    private static final String PROTCOL_JAR = "jar";
-
-    private static final String PROTCOL_FILE = "file";
-
     /**
      * 指定されたプラグインの実行時パスを返します。<br />
      * 
@@ -102,8 +98,7 @@ public class RcpResourceUtil {
      * 
      * @param path
      *            リソースのパス
-     * @return ローカルシステム上の {@link URL} <br />
-     *         リソースが存在しない場合は、NULLを返却。
+     * @return ローカルシステム上の {@link URL} <br /> リソースが存在しない場合は、NULLを返却。
      * @see FileLocator#resolve(URL)
      */
     public static URL getLocalResourceUrlNoException(final String path) {

@@ -2,9 +2,28 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
 	"http://www.seasar.org/dtd/components23.dtd">
 <components>
-	<component class="org.seasar.uruma.core.impl.TemplateManagerImpl" instance="singleton" />
+    <!-- GUI コンポーネントを管理するためのコンポーネント -->
+    <component class="org.seasar.uruma.component.factory.desc.impl.ComponentRegistryImpl" instance="singleton" />
+    
+    <!-- 画面定義ファイルを読み込むためのタグハンドラルール -->
+    <component class="org.seasar.uruma.component.factory.impl.UrumaTagHandlerRuleImpl" instance="singleton" />
+    
+    <!-- 画面定義ファイルをロードするためのコンポーネント -->
+    <component class="org.seasar.uruma.component.factory.impl.ComponentTreeBuilderImpl" instance="singleton" />
+    
+    <!-- ロードした画面定義ファイルを管理するためのコンポーネント -->
+    <component class="org.seasar.uruma.core.impl.TemplateManagerImpl" instance="singleton" />
+    
+    <!-- 表示中のウィンドウを管理するためのコンポーネント -->
+    <component class="org.seasar.uruma.core.impl.UrumaWindowManagerImpl" instance="singleton" />
+    
+    <!-- アプリケーションコンテクスト -->
+    <component class="org.seasar.uruma.context.ApplicationContext">@org.seasar.uruma.context.ContextFactory@createApplicationContext()</component>
+    
+    <!-- == RCP環境固有コンポーネント -->
+	<!-- ビューテンプレートを読み込むためのコンポーネント -->
 	<component class="org.seasar.uruma.core.impl.ViewTemplateLoaderImpl" instance="singleton" />
-	<component class="org.seasar.uruma.core.impl.UrumaWindowManagerImpl" instance="singleton" />
+    
+    <!-- ワークベンチコマンドを管理するためのコンポーネント -->
 	<component class="org.seasar.uruma.rcp.binding.impl.CommandRegistryImpl" instance="singleton" />
-	<component class="org.seasar.uruma.context.ApplicationContext">@org.seasar.uruma.context.ContextFactory@createApplicationContext()</component>
 </components>

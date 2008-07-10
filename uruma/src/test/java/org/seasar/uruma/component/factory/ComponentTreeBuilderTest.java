@@ -15,8 +15,11 @@
  */
 package org.seasar.uruma.component.factory;
 
+import org.seasar.framework.container.annotation.tiger.Binding;
+import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.unit.S2FrameworkTestCase;
 import org.seasar.uruma.component.Template;
+import org.seasar.uruma.core.UrumaConstants;
 
 /**
  * {@link ComponentTreeBuilder} のためのテストクラスです。<br />
@@ -24,23 +27,29 @@ import org.seasar.uruma.component.Template;
  * @author y-komori
  */
 public class ComponentTreeBuilderTest extends S2FrameworkTestCase {
-    private ComponentTreeBuilder builder;
+    private ComponentTreeBuilder componentTreeBuilder;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        builder = new ComponentTreeBuilder();
+        include(UrumaConstants.URUMA_DICON_PATH);
     }
 
     /**
      * 画面定義XMLのビルドに関するテストです。</br>
      */
     public void testBuild() {
-        Template template1 = builder
+        Template template1 = componentTreeBuilder
                 .build(convertPath("org/seasar/uruma/component/factory/ComponentTreeBuilderTest.xml"));
 
         assertNotNull("1", template1);
 
         assertNotNull("2", template1.getRootComponent());
+    }
+
+    @Binding(bindingType = BindingType.MUST)
+    public void setComponentTreeBuilder(
+            final ComponentTreeBuilder componentTreeBuilder) {
+        this.componentTreeBuilder = componentTreeBuilder;
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>item</tagName>
+  <component class="org.seasar.uruma.component.jface.SimpleItemComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.SimpleItemTagHandler" />
+  <renderer class="org.seasar.uruma.renderer.impl.NullRenderer" />
+</urumaComponent>

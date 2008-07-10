@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>treeItem</tagName>
+  <component class="org.seasar.uruma.component.jface.TreeItemComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.TreeItemTagHandler" />
+  <renderer class="org.seasar.uruma.renderer.impl.TreeItemRenderer" />
+</urumaComponent>

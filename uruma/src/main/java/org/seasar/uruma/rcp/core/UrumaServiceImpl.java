@@ -40,6 +40,7 @@ import org.seasar.framework.util.StringUtil;
 import org.seasar.framework.util.URLUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
+import org.seasar.uruma.component.factory.desc.ComponentRegistry;
 import org.seasar.uruma.component.jface.TemplateImpl;
 import org.seasar.uruma.component.rcp.ViewPartComponent;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
@@ -64,8 +65,8 @@ import org.seasar.uruma.rcp.util.RcpResourceUtil;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
- * {@link UrumaService} の実装クラスです。<br />
- * 本クラスは、 {@link UrumaServiceFactory} によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。<br />
+ * {@link UrumaService} の実装クラスです。<br /> 本クラスは、 {@link UrumaServiceFactory}
+ * によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。<br />
  * 
  * @author y-komori
  */
@@ -143,6 +144,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
 
             initS2Container();
             prepareS2Components();
+            registComponents();
 
             UrumaBundleState.getInstance().setAppBundleState(
                     BundleState.AVAILABLE);
@@ -341,6 +343,12 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
                     .getSimpleName());
             container.register(urumaDebugViewAction, name);
         }
+    }
+
+    protected void registComponents() {
+        ComponentRegistry registry = (ComponentRegistry) container
+                .getComponent(ComponentRegistry.class);
+        registry.registComponents(urumaClassLoader);
     }
 
     protected void switchClassLoader(final ClassLoader loader,

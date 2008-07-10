@@ -23,6 +23,8 @@ import org.seasar.framework.util.FileInputStreamUtil;
 import org.seasar.framework.util.FileUtil;
 import org.seasar.framework.util.InputStreamUtil;
 import org.seasar.framework.util.StringUtil;
+import org.seasar.uruma.core.UrumaMessageCodes;
+import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.util.AssertionUtil;
 import org.seasar.uruma.util.resource.ResourceFilter;
 import org.seasar.uruma.util.resource.ResourceHandler;
@@ -33,8 +35,12 @@ import org.seasar.uruma.util.resource.ResourceTraverser;
  * 
  * @author y-komori
  */
-public class FileResourceTraverser implements ResourceTraverser {
-    protected static final String PROTOCOL = "file";
+public class FileResourceTraverser implements ResourceTraverser,
+        UrumaMessageCodes {
+    private static final UrumaLogger logger = UrumaLogger
+            .getLogger(FileResourceTraverser.class);
+
+    private static final String PROTOCOL = "file";
 
     /*
      * @see org.seasar.uruma.util.resource.ResourceTraverser#getProtocol()
@@ -44,9 +50,10 @@ public class FileResourceTraverser implements ResourceTraverser {
     }
 
     /*
-     * @see org.seasar.uruma.util.resource.ResourceTraverser#traverse(java.net.URL,
-     *      java.net.URL, org.seasar.uruma.util.resource.ResourceHandler,
-     *      org.seasar.uruma.util.resource.ResourceFilter)
+     * @see
+     * org.seasar.uruma.util.resource.ResourceTraverser#traverse(java.net.URL,
+     * java.net.URL, org.seasar.uruma.util.resource.ResourceHandler,
+     * org.seasar.uruma.util.resource.ResourceFilter)
      */
     public void traverse(final URL root, final URL origin,
             final ResourceHandler handler, final ResourceFilter filter) {
@@ -67,8 +74,9 @@ public class FileResourceTraverser implements ResourceTraverser {
     }
 
     /*
-     * @see org.seasar.uruma.util.resource.ResourceTraverser#traverse(java.net.URL,
-     *      java.net.URL, org.seasar.uruma.util.resource.ResourceHandler)
+     * @see
+     * org.seasar.uruma.util.resource.ResourceTraverser#traverse(java.net.URL,
+     * java.net.URL, org.seasar.uruma.util.resource.ResourceHandler)
      */
     public void traverse(final URL root, final URL origin,
             final ResourceHandler handler) {
@@ -100,6 +108,8 @@ public class FileResourceTraverser implements ResourceTraverser {
                 InputStream is = FileInputStreamUtil.create(file);
                 try {
                     handler.handle(basePath, resourcePath, is);
+                } catch (Throwable ex) {
+                    logger.log(EXCEPTION_OCCURED, ex);
                 } finally {
                     InputStreamUtil.close(is);
                 }

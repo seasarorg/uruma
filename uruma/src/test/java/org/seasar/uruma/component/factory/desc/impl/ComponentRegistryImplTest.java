@@ -13,35 +13,44 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.component.factory.desc;
-
-import junit.framework.TestCase;
+package org.seasar.uruma.component.factory.desc.impl;
 
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.exception.SAXRuntimeException;
-import org.seasar.framework.util.ResourceUtil;
+import org.seasar.framework.unit.S2FrameworkTestCase;
+import org.seasar.uruma.component.factory.desc.ComponentRegistry;
+import org.seasar.uruma.component.factory.desc.UrumaComponentDesc;
 
 /**
- * {@link ComponentRegistry} のためのテストクラスです。<br />
+ * {@link ComponentRegistryImpl} のためのテストクラスです。<br />
  * 
  * @author y-komori
  */
-public class ComponentRegistryTest extends TestCase {
-    /**
-     * 
+public class ComponentRegistryImplTest extends S2FrameworkTestCase {
+    private ComponentRegistry registry;
+
+    /*
+     * @see junit.framework.TestCase#setUp()
      */
-    public void testRegistComponents() {
-        ComponentRegistry registry = new ComponentRegistry();
-        // registry.registComponents();
+    @Override
+    protected void setUp() throws Exception {
+        String path = convertPath(getClass().getSimpleName() + ".dicon");
+        include(path);
     }
 
     /**
-     * {@link ComponentRegistry#load(String)} メソッドのテストです。<br />
+     * {@link ComponentRegistryImpl#registComponents()} メソッドのテストです。<br />
+     */
+    public void testRegistComponents() {
+        registry.registComponents();
+    }
+
+    /**
+     * {@link ComponentRegistryImpl#load(String)} メソッドのテストです。<br />
      */
     public void testLoad1() {
         String path = createPath("1");
-        ComponentRegistry registry = new ComponentRegistry();
-        UrumaComponentDesc desc = registry.load(path);
+        UrumaComponentDesc desc = ((ComponentRegistryImpl) registry).load(path);
         assertNotNull("1", desc);
         assertEquals("2", "tagName:testTag "
                 + "tagHandler:org.seasar.uruma.dummy.TagHandler(arg1, arg2) "
@@ -50,13 +59,12 @@ public class ComponentRegistryTest extends TestCase {
     }
 
     /**
-     * {@link ComponentRegistry#load(String)} メソッドのテストです。<br />
+     * {@link ComponentRegistryImpl#load(String)} メソッドのテストです。<br />
      */
     public void testLoad2() {
         String path = createPath("2");
-        ComponentRegistry registry = new ComponentRegistry();
         try {
-            registry.load(path);
+            ((ComponentRegistryImpl) registry).load(path);
             fail();
         } catch (SAXRuntimeException ex) {
             assertTrue(true);
@@ -64,13 +72,12 @@ public class ComponentRegistryTest extends TestCase {
     }
 
     /**
-     * {@link ComponentRegistry#load(String)} メソッドのテストです。<br />
+     * {@link ComponentRegistryImpl#load(String)} メソッドのテストです。<br />
      */
     public void testLoad3() {
         String path = createPath("NG");
-        ComponentRegistry registry = new ComponentRegistry();
         try {
-            registry.load(path);
+            ((ComponentRegistryImpl) registry).load(path);
             fail();
         } catch (ResourceNotFoundRuntimeException ex) {
             assertTrue(true);
@@ -78,7 +85,6 @@ public class ComponentRegistryTest extends TestCase {
     }
 
     private String createPath(final String suffix) {
-        return ResourceUtil.convertPath(getClass().getSimpleName() + suffix
-                + ".ucd", getClass());
+        return convertPath(getClass().getSimpleName() + suffix + ".ucd");
     }
 }

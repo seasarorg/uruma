@@ -32,6 +32,7 @@ public class UcdTagHandlerRule extends TagHandlerRule {
     public UcdTagHandlerRule() {
         addTagHandler("urumaComponent", new UrumaComponentTagHandler());
         addTagHandler("tagName", new TagNameTagHandler());
+        addTagHandler("component", new ComponentTagHandler());
         addTagHandler("tagHandler", new TagHandlerTagHandler());
         addTagHandler("/urumaComponent/tagHandler/arg",
                 new TagHandlerArgTagHandler());

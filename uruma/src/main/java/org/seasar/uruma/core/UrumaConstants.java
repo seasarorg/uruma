@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.core;
 
+import javax.xml.parsers.SAXParserFactory;
+
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.viewers.IContentProvider;
@@ -158,6 +160,27 @@ public interface UrumaConstants {
      * </dl>
      */
     public static final String URUMA_MESSAGE_BASE = "urumaCoreMessages";
+
+    // -------------------------------------------------------------------------
+    // XML 関連
+    // -------------------------------------------------------------------------
+    /**
+     * {@link SAXParserFactory} を指定するためのプロパティ名です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String PROP_SAX_PARSER_FACTORY = "javax.xml.parsers.SAXParserFactory";
+
+    /**
+     * {@link SAXParserFactory} の実装クラス名です。<br />
+     * <dl>
+     * <dt><b>値 :</b></dt>
+     * <dd>{@value}</dd>
+     * </dl>
+     */
+    public static final String SAX_PARSER_FACTORY_CLASS = "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl";
 
     /**
      * 画面定義XMLのスキーマファイルパスです。

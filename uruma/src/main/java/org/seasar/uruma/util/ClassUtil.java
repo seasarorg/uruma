@@ -23,6 +23,7 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.exception.IllegalAccessRuntimeException;
 import org.seasar.framework.exception.InstantiationRuntimeException;
 import org.seasar.framework.exception.InvocationTargetRuntimeException;
+import org.seasar.uruma.exception.UnsupportedClassException;
 
 /**
  * Tiger に対応したクラス用ユーティリティクラスです。<br />
@@ -74,5 +75,36 @@ public class ClassUtil {
      */
     public static <T> T newInstance(final Class<? extends T> clazz) {
         return ClassUtil.<T> newInstance(clazz, (Object[]) null);
+    }
+
+    /**
+     * <code>clazz</code> が <code>superClass</code> のサブクラスであるかどうかをチェックします。<br />
+     * サブクラスでない場合、{@link UnsupportedClassException} をスローします。
+     * 
+     * @param clazz
+     *            チェック対象クラス
+     * @param superClass
+     *            スーパークラス
+     * @throws UnsupportedClassException
+     */
+    public static void checkSubclass(final Class<?> clazz,
+            final Class<?> superClass) {
+        if (!superClass.isAssignableFrom(clazz)) {
+            throw new UnsupportedClassException(clazz, superClass);
+        }
+    }
+
+    /**
+     * 指定された型へのキャストを行います。<br />
+     * 
+     * @param <T>
+     *            キャスト先の型
+     * @param obj
+     *            キャスト対象オブジェクト
+     * @return キャスト結果
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T cast(final Object obj) {
+        return (T) obj;
     }
 }

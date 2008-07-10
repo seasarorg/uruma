@@ -2,6 +2,23 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
 	"http://www.seasar.org/dtd/components23.dtd">
 <components>
-	<component name="windowManager" class="org.seasar.uruma.core.impl.UrumaWindowManagerImpl" instance="singleton" />
+    <!-- GUI コンポーネントを管理するためのコンポーネント -->
+    <component class="org.seasar.uruma.component.factory.desc.impl.ComponentRegistryImpl" instance="singleton" >
+        <initMethod name="registComponents" />
+    </component>
+    
+    <!-- 画面定義ファイルを読み込むためのタグハンドラルール -->
+    <component class="org.seasar.uruma.component.factory.impl.UrumaTagHandlerRuleImpl" instance="singleton" />
+    
+    <!-- 画面定義ファイルをロードするためのコンポーネント -->
+    <component class="org.seasar.uruma.component.factory.impl.ComponentTreeBuilderImpl" instance="singleton" />
+    
+    <!-- ロードした画面定義ファイルを管理するためのコンポーネント -->
+    <component class="org.seasar.uruma.core.impl.TemplateManagerImpl" instance="singleton" />
+    
+    <!-- 表示中のウィンドウを管理するためのコンポーネント -->
+    <component class="org.seasar.uruma.core.impl.UrumaWindowManagerImpl" instance="singleton" />
+    
+    <!-- アプリケーションコンテクスト -->
 	<component class="org.seasar.uruma.context.ApplicationContext">@org.seasar.uruma.context.ContextFactory@createApplicationContext()</component>
 </components>

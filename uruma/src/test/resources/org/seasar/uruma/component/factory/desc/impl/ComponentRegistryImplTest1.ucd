@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
   <tagName>testTag</tagName>
+  <component class="org.seasar.uruma.dummy.Component" />
   <tagHandler class="org.seasar.uruma.dummy.TagHandler">
     <arg>arg1</arg>
     <arg>arg2</arg>

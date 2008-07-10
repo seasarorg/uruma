@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>tableColumn</tagName>
+  <component class="org.seasar.uruma.component.jface.TableColumnComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.TableColumnTagHandler" />
+  <renderer class="org.seasar.uruma.renderer.impl.TableColumnRenderer" />
+</urumaComponent>

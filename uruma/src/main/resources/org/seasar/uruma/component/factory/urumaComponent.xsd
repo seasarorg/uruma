@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema"
-  xmlns:u="http://uruma.sandbox.seasar.org/component"
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:u="http://uruma.sandbox.seasar.org/component"
   targetNamespace="http://uruma.sandbox.seasar.org/component"
   elementFormDefault="qualified">
-
   <element name="urumaComponent">
     <complexType>
       <sequence>
         <element ref="u:tagName" />
+        <element ref="u:component" />
         <element ref="u:tagHandler" />
         <element ref="u:renderer" />
       </sequence>
     </complexType>
   </element>
-
+  <element name="component">
+    <complexType>
+      <attribute name="class" type="string" />
+    </complexType>
+  </element>
   <element name="tagHandler">
     <complexType>
       <sequence minOccurs="0" maxOccurs="unbounded">
@@ -22,7 +25,6 @@
       <attribute name="class" type="string" />
     </complexType>
   </element>
-
   <element name="renderer">
     <complexType>
       <sequence minOccurs="0" maxOccurs="unbounded">
@@ -31,8 +33,6 @@
       <attribute name="class" type="string" />
     </complexType>
   </element>
-
   <element name="tagName" type="string" />
-  
   <element name="arg" type="string" />
 </schema>

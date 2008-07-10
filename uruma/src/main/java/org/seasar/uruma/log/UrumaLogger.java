@@ -80,8 +80,7 @@ public final class UrumaLogger {
     }
 
     /**
-     * XML ファイル形式のコンフィグレーションを追加します。<br />
-     * コンフィグレーションファイルの書式は log4j に準じます。
+     * XML ファイル形式のコンフィグレーションを追加します。<br /> コンフィグレーションファイルの書式は log4j に準じます。
      * 
      * @param config
      *            コンフィグレーションファイルの {@link URL}
@@ -92,8 +91,7 @@ public final class UrumaLogger {
     }
 
     /**
-     * properties ファイル形式のコンフィグレーションを追加します。<br />
-     * コンフィグレーションファイルの書式は log4j に準じます。
+     * properties ファイル形式のコンフィグレーションを追加します。<br /> コンフィグレーションファイルの書式は log4j に準じます。
      * 
      * @param config
      *            コンフィグレーションファイルの {@link URL}
@@ -281,7 +279,8 @@ public final class UrumaLogger {
      *            {@link Throwable} オブジェクト
      */
     public final void log(final Throwable throwable) {
-        error(throwable.getMessage(), throwable);
+        error(throwable.getClass().getName() + " : " + throwable.getMessage(),
+                throwable);
     }
 
     /**

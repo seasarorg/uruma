@@ -27,6 +27,8 @@ import java.util.List;
 public class UrumaComponentDesc {
     private String tagName;
 
+    private String componentClass;
+
     private String tagHandlerClass;
 
     private String rendererClass;
@@ -52,6 +54,25 @@ public class UrumaComponentDesc {
      */
     public void setTagName(final String tagName) {
         this.tagName = tagName;
+    }
+
+    /**
+     * コンポーネントのクラス名を返します。<br />
+     * 
+     * @return コンポーネントのクラス名
+     */
+    public String getComponentClass() {
+        return this.componentClass;
+    }
+
+    /**
+     * コンポーネントのクラス名を設定します。<br />
+     * 
+     * @param componentClass
+     *            コンポーネントのクラス名
+     */
+    public void setComponentClass(final String componentClass) {
+        this.componentClass = componentClass;
     }
 
     /**

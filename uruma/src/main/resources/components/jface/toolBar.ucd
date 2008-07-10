@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>toolBar</tagName>
+  <component class="org.seasar.uruma.component.jface.ToolBarComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.GenericTagHandler">
+    <arg>@org.seasar.uruma.component.jface.ToolBarComponent@class</arg>
+  </tagHandler>
+  <renderer class="org.seasar.uruma.renderer.impl.ToolBarRenderer" />
+</urumaComponent>
