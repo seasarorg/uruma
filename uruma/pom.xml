@@ -261,7 +261,7 @@
           <finalName>uruma-${project.version}</finalName>
         </configuration>
       </plugin>
-<!-- 
+
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
@@ -275,7 +275,7 @@
             ${project.name} ${project.version} API Specifications
           </doctitle>
           <windowtitle>Uruma API Specifications</windowtitle>
-          <finalName>org.seasar.uruma_${project.version}</finalName>
+          <finalName>uruma-${project.version}</finalName>
           <links>
             <link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
             <link>http://java.sun.com/javaee/5/docs/api/</link>
@@ -305,7 +305,7 @@
           </execution>
         </executions>
       </plugin>
--->
+
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
@@ -317,22 +317,9 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>
-                  src\main\assembly\plugin-jar.xml
-                </descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>make-assembly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attached</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>src\main\assembly\release.xml</descriptor>
+                <descriptor>src\main\assembly\plugin-jar.xml</descriptor>
+                <descriptor>src\main\assembly\runtime.xml</descriptor>
+                <descriptor>src\main\assembly\project.xml</descriptor>
               </descriptors>
             </configuration>
           </execution>

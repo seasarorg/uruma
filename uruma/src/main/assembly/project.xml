@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Assembly file for packaging Uruma project -->
+<assembly>
+  <id>project</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <directory>.</directory>
+      <outputDirectory></outputDirectory>
+      <useDefaultExcludes>true</useDefaultExcludes>
+      <excludes>
+        <exclude>target/**</exclude>
+        <exclude>bin/**</exclude>
+        <exclude>log/**</exclude>
+        <exclude>scripts/**</exclude>
+      </excludes>
+    </fileSet>
+  </fileSets>
+</assembly>

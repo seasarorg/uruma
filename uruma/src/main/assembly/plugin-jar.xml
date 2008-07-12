@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Assembly file for packaging Uruma plugin-jar -->
 <assembly>
   <id>plugin-jar</id>
   <formats>
@@ -26,17 +27,21 @@
     <dependencySet>
       <outputDirectory>/lib</outputDirectory>
       <includes>
-        <include>org.seasar.container:s2-framework</include>
-        <include>org.seasar.container:s2-extension</include>
-        <include>org.seasar.container:s2-tiger</include>
+        <include>org.seasar.container:s2-framework
+        </include>
+        <include>org.seasar.container:s2-extension
+        </include>
+        <include>org.seasar.container:s2-tiger
+        </include>
         <include>ognl:ognl</include>
-        <include>aopalliance:aopalliance</include>
+        <include>aopalliance:aopalliance
+        </include>
         <include>jboss:javassist</include>
-        <include>commons-logging:commons-logging</include>
+        <include>commons-logging:commons-logging
+        </include>
         <include>log4j:log4j</include>
         <include>nlink:nlink</include>
-        <include>
-          org.apache.geronimo.specs:geronimo-j2ee_1.4_spec
+        <include> org.apache.geronimo.specs:geronimo-j2ee_1.4_spec
         </include>
       </includes>
     </dependencySet>

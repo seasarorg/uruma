@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Assembly file for packaging Uruma runtime -->
 <assembly>
   <id></id>
   <formats>
@@ -23,9 +24,9 @@
         <exclude>main/assembly</exclude>
       </excludes>
     </fileSet>
-
+    
     <fileSet>
-      <directory>target/apidocs</directory>
+      <directory>target/site/apidocs</directory>
       <outputDirectory>/apidocs</outputDirectory>
     </fileSet>
 
