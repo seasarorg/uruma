@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Uruma Plugin
+Bundle-Name: %plugin.name
 Bundle-SymbolicName: org.seasar.uruma;singleton:=true
 Bundle-Version: 0.5.0.SNAPSHOT
 Require-Bundle: org.eclipse.core.runtime,
@@ -617,4 +617,4 @@ Bundle-ClassPath: lib/aopalliance-1.0.jar,
  .
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: org.seasar.uruma.rcp.core.CoreActivator
-Bundle-Vendor: Seasarファウンデーション
+Bundle-Vendor: %author

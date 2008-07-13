@@ -10,9 +10,9 @@
       <directory>target</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>uruma-${propject.version}.jar</include>
-        <include>uruma-${propject.version}-sources.jar</include>
-        <include>uruma-${propject.version}-javadoc.jar</include>
+        <include>uruma-${project.version}.jar</include>
+        <include>uruma-${project.version}-sources.jar</include>
+        <include>uruma-${project.version}-javadoc.jar</include>
       </includes>
     </fileSet>
 
@@ -46,9 +46,9 @@
 
   <files>
     <file>
-      <source>target/uruma-${propject.version}-plugin-jar.zip</source>
+      <source>target/uruma-${project.version}-plugin-jar.zip</source>
       <outputDirectory>/rcp/eclipse/plugins</outputDirectory>
-      <destName>org.seasar.uruma_${propject.version}.jar</destName>
+      <destName>org.seasar.uruma_${project.version}.jar</destName>
     </file>
     <file>
       <source>configuration/config.ini</source>

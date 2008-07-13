@@ -17,6 +17,8 @@
     </fileSet>
     <fileSet>
       <includes>
+        <include>plugin.properties</include>
+        <include>plugin_ja.properties</include>
         <include>plugin.xml</include>
         <include>splash.bmp</include>
       </includes>
