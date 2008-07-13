@@ -36,6 +36,7 @@
       <item name="ホーム" href="index.html" />
       <item name="ライセンス" href="license.html" />
       <item name="ダウンロード" href="download.html" />
+      <item name="サンプルアプリケーションについて" href="examples.html" />
       <item name="更新履歴" href="changelog.html" />
     </menu>
     <menu name="ドキュメント">

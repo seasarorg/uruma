@@ -1,0 +1,131 @@
+ -----
+サンプルアプリケーションについて
+ ------
+ ------
+ ------
+
+サンプルアプリケーションについて
+
+ ここでは、現在ダウンロードできる Uruma を利用したサンプルアプリケーションについて説明します。
+
+* RCP モードの Uruam を利用したサンプルアプリケーション
+
+** RSS リーダ
+
+ ** <<概要>>
+ 
+   簡単なRSSリーダです。
+
+[../images/example/example-rssreader.png] RSSリーダの画面イメージ
+
+ ** <<実行方法>>
+
+   ダウンロードした zip ファイルを展開し、eclipse/exclipse.exe をダブルクリックしてください。
+
+ ** <<ダウンロード>>
+ 
+   {{{../download/2008-05-28/org.seasar.uruma.example.rss-0.4.1.zip}org.seasar.uruma.example.rss-0.4.1.zip}}
+
+
+** 簡易エクスプローラ
+
+ ** <<概要>>
+ 
+   Windows のエクスプローラを模したアプリケーションです。(本アプリケーションは Windows 環境でしか動作しません)
+
+[../images/example/example-filemanager.png] 簡易エクスプローラの画面イメージ
+
+ ** <<実行方法>>
+
+   ダウンロードした zip ファイルを展開し、eclipse/exclipse.exe をダブルクリックしてください。
+
+ ** <<ダウンロード>>
+ 
+   {{{../download/2008-05-28/org.seasar.uruma.example.filemanager-0.4.1.zip}org.seasar.uruma.example.filemanager-0.4.1.zip}}
+
+
+* スタンドアロンモードの Uruam を利用したサンプルアプリケーション
+
+** 従業員管理
+
+ ** <<概要>>
+
+   ローカルデータベース(HSQLDBを使用)して、{{{http://s2jsf.seasar.org/ja/}S2DAO}} と組み合わせて実現した、従業員管理アプリケーションです。本サンプルは、{{{http://s2jsf.seasar.org/ja/}S2JSF}} のサンプルアプリケーションとして公開されていたものを、Uruma アプリケーションへ移植したものです。
+
+[../images/example/example-employee.png] 従業員管理の画面イメージ
+
+ ** <<実行方法>>
+
+   ダウンロードした zip ファイルを展開し、run.bat をダブルクリックすると実行できます。jar ファイルに javaw.exe コマンドが関連付けられていれば、uruma-example-employee-x.y.z.jar を直接ダブルクリックしても実行できます。
+
+ ** <<ダウンロード>>
+ 
+   {{{../download/2008-05-28/uruma-example-employee-0.4.1.zip}uruma-example-employee-0.4.1.zip}}
+
+
+** ジャンケン
+
+ ** <<概要>>
+ 
+   簡単なジャンケンプログラムです。
+
+[../images/example/example-janken.png] ジャンケンの画面イメージ
+
+ ** <<実行方法>>
+
+   ダウンロードした zip ファイルを展開し、run.bat をダブルクリックすると実行できます。jar ファイルに javaw.exe コマンドが関連付けられていれば、uruma-example-janken-x.y.z.jar を直接ダブルクリックしても実行できます。
+
+ ** <<ダウンロード>>
+ 
+   {{{../download/2008-05-28/uruma-example-janken-0.4.1.zip}uruma-example-janken-0.4.1.zip}}
+
+
+サンプルアプリケーションの Eclipse へのインポートについて
+
+ RSS リーダと簡易エクスプローラについては、Eclipse のプロジェクトも同梱していますので、ダウンロードした zip ファイルをそのまま Eclipse をインポートできます。
+
+ ただし、これらのアプリケーションは Eclipse のワークスペース上に Uruma が必要ですので、単体でインポートした場合、コンパイルエラーが発生してしまします。これを回避するには、以下のどちらかの手段をとってください。
+
+* 1. SVN リポジトリから Uruma プロジェクトをチェックアウトする
+
+ Subclipse や Subversive 等の SVN クライアントを Eclipse へインストールし、https://www.seasar.org/svn/sandbox/uruma/trunk/uruma からチェックアウトしてください。
+ 
+ リリースされた特定バージョンのソースコードは、https://www.seasar.org/svn/sandbox/uruma/tags/ 配下にあります。
+
+ また、uruma プロジェクトは seasar2、s2-tiger プロジェクトに依存していますので、それぞれ https://www.seasar.org/svn/s2container/trunk/seasar2、https://www.seasar.org/svn/s2container/trunk/s2-tiger からチェックアウトする必要があります。
+
+
+* 2. 依存する Jar ファイルを手作業でコピーする
+
+ なんらかの問題で SVN リポジトリにアクセスできない場合は、以下の手順でコンパイルエラーを解決することができます。
+
+ [[1]] サンプルプロジェクト内に lib ディレクトリを作成します。
+
+ [[2]] Uruma 本体の配布アーカイブ(uruma-x.y.z.zip)から、org.seasar.uruma_x.y.z.jar を取り出します。
+
+ [[3]] さらに org.seasar.uruma_x.y.z.jar を展開し、lib ディレクトリ配下から以下のファイル(すべて)を取り出します。
+
+      ** aopalliance-1.0.jar
+      
+      ** commons-logging-1.1.jar
+      
+      ** geronimo-j2ee_1.4_spec-1.0.jar
+      
+      ** javassist-3.4.ga.jar
+      
+      ** log4j-1.2.13.jar
+      
+      ** nlink-20080126.jar
+      
+      ** ognl-2.6.9-patch-20070908.jar
+      
+      ** s2-extension-2.4.25.jar
+      
+      ** s2-framework-2.4.25.jar
+      
+      ** s2-tiger-2.4.25.jar
+
+ [[4]] これらを 1 で作成した lib ディレクトリにコピーします。
+ 
+ [[5]] サンプルプロジェクトのビルドパスに、コピーした jar ファイルを追加します。
+
