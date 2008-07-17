@@ -3,7 +3,13 @@
     "http://www.seasar.org/dtd/components24.dtd">
 <components>
     <include path="convention.dicon"/>
-
+    
+    <include path="customizer.dicon"
+        condition="@org.seasar.framework.util.ResourceUtil@isExist('customizer.dicon')"/>
+        
+    <include path="org/seasar/uruma/dicon/uruma-default-customizer.dicon"
+        condition="not @org.seasar.framework.util.ResourceUtil@isExist('customizer.dicon')"/>
+    
     <component class="org.seasar.uruma.container.creator.UrumaActionCreator"/>
     <component class="org.seasar.uruma.container.creator.UrumaFormCreator"/>
     <component class="org.seasar.uruma.container.creator.UrumaLogicCreator"/>

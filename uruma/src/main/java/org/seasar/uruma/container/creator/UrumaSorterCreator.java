@@ -78,7 +78,7 @@ public class UrumaSorterCreator extends ComponentCreatorImpl {
      * 
      * @return コンポーネントカスタマイザ
      */
-    public ComponentCustomizer getProviderCustomizer() {
+    public ComponentCustomizer getSorterCustomizer() {
         return getCustomizer();
     }
 
@@ -88,7 +88,7 @@ public class UrumaSorterCreator extends ComponentCreatorImpl {
      * @param customizer
      *            コンポーネントカスタマイザ
      */
-    public void setProviderCustomizer(final ComponentCustomizer customizer) {
+    public void setSorterCustomizer(final ComponentCustomizer customizer) {
         setCustomizer(customizer);
     }
 }
