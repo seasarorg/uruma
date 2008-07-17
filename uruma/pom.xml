@@ -263,50 +263,6 @@
       </plugin>
 
       <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <outputDirectory>
-            ${project.build.directory}/site/apidocs
-          </outputDirectory>
-          <encoding>UTF-8</encoding>
-          <docencoding>UTF-8</docencoding>
-          <charset>UTF-8</charset>
-          <doctitle>
-            ${project.name} ${project.version} API Specifications
-          </doctitle>
-          <windowtitle>Uruma API Specifications</windowtitle>
-          <finalName>uruma-${project.version}</finalName>
-          <links>
-            <link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
-            <link>http://java.sun.com/javaee/5/docs/api/</link>
-            <link>http://aopalliance.sourceforge.net/doc/</link>
-            <link>
-              http://s2container.seasar.org/2.4/s2-framework/ja/apidocs/
-            </link>
-            <link>
-              http://s2container.seasar.org/2.4/s2-extension/ja/apidocs/
-            </link>
-            <link>
-              http://s2container.seasar.org/2.4/s2-tiger/ja/apidocs/
-            </link>
-            <link>
-              http://help.eclipse.org/help33/nftopic/org.eclipse.platform.doc.isv/reference/api/
-            </link>
-            <link>http://www2.osgi.org/javadoc/r4/</link>
-          </links>
-        </configuration>
-        <executions>
-          <execution>
-            <id>javadoc-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
           <execution>
@@ -356,7 +312,59 @@
       </extension>
     </extensions>
   </build>
-
+  
+  <profiles>
+    <profile>
+      <id>javadoc</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <outputDirectory>
+                ${project.build.directory}/site/apidocs
+              </outputDirectory>
+              <encoding>UTF-8</encoding>
+              <docencoding>UTF-8</docencoding>
+              <charset>UTF-8</charset>
+              <doctitle>
+                ${project.name} ${project.version} API Specifications
+              </doctitle>
+              <windowtitle>Uruma API Specifications</windowtitle>
+              <finalName>uruma-${project.version}</finalName>
+              <links>
+                <link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
+                <link>http://java.sun.com/javaee/5/docs/api/</link>
+                <link>http://aopalliance.sourceforge.net/doc/</link>
+                <link>
+                  http://s2container.seasar.org/2.4/s2-framework/ja/apidocs/
+                </link>
+                <link>
+                  http://s2container.seasar.org/2.4/s2-extension/ja/apidocs/
+                </link>
+                <link>
+                  http://s2container.seasar.org/2.4/s2-tiger/ja/apidocs/
+                </link>
+                <link>
+                  http://help.eclipse.org/help33/nftopic/org.eclipse.platform.doc.isv/reference/api/
+                </link>
+                <link>http://www2.osgi.org/javadoc/r4/</link>
+              </links>
+            </configuration>
+            <executions>
+              <execution>
+                <id>javadoc-jar</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <!-- Reporting Settings -->
   <reporting>
     <plugins>
