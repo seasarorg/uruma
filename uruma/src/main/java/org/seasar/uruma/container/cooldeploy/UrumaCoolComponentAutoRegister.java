@@ -15,16 +15,11 @@
  */
 package org.seasar.uruma.container.cooldeploy;
 
-import java.io.IOException;
-import java.net.URL;
-
 import org.seasar.framework.container.cooldeploy.CoolComponentAutoRegister;
 import org.seasar.framework.convention.NamingConvention;
-import org.seasar.framework.util.URLUtil;
 import org.seasar.framework.util.ClassTraversal.ClassHandler;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.rcp.util.RcpResourceUtil;
 
 /**
  * Uruma COOL deploy用の {@link NamingConvention}に一致するコンポーネントを自動登録するクラスです。
@@ -37,30 +32,31 @@ public class UrumaCoolComponentAutoRegister extends CoolComponentAutoRegister
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(UrumaCoolComponentAutoRegister.class);
 
+    // TODO S2Container の更新に伴い、コンパイルが通らなくなったため暫定コメントアウト
     /**
      * 自動登録を行います。
      */
-    @Override
-    public void registerAll() {
-        final String[] rootPackageNames = getNamingConvention()
-                .getRootPackageNames();
-        if (rootPackageNames != null) {
-            for (int i = 0; i < rootPackageNames.length; ++i) {
-                final String rootDir = rootPackageNames[i].replace('.', '/');
-                try {
-                    URL localUrl = RcpResourceUtil.getLocalResourceUrl(rootDir);
-                    if (localUrl != null) {
-                        final Strategy strategy = getStrategy(URLUtil
-                                .toCanonicalProtocol(localUrl.getProtocol()));
-                        strategy.registerAll(rootDir, localUrl);
-                    } else {
-                        logger.log(COOLDEPLOY_PACKAGE_NOT_FOUND, rootDir);
-                    }
-                } catch (IOException ex) {
-                    logger.log(COOLDEPLOY_PACKAGE_NOT_FOUND, rootDir);
-                }
-            }
-        }
-        registerdClasses.clear();
-    }
+    // @Override
+    // public void registerAll() {
+    // final String[] rootPackageNames = getNamingConvention()
+    // .getRootPackageNames();
+    // if (rootPackageNames != null) {
+    // for (int i = 0; i < rootPackageNames.length; ++i) {
+    // final String rootDir = rootPackageNames[i].replace('.', '/');
+    // try {
+    // URL localUrl = RcpResourceUtil.getLocalResourceUrl(rootDir);
+    // if (localUrl != null) {
+    // final Strategy strategy = getStrategy(URLUtil
+    // .toCanonicalProtocol(localUrl.getProtocol()));
+    // strategy.registerAll(rootDir, localUrl);
+    // } else {
+    // logger.log(COOLDEPLOY_PACKAGE_NOT_FOUND, rootDir);
+    // }
+    // } catch (IOException ex) {
+    // logger.log(COOLDEPLOY_PACKAGE_NOT_FOUND, rootDir);
+    // }
+    // }
+    // }
+    // registerdClasses.clear();
+    // }
 }
