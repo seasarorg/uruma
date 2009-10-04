@@ -3,6 +3,7 @@
   <!--======================================================================-->
   <!--=== グローバルプロパティ ===-->
   <!--======================================================================-->
+  <property name="plugin.name" value="org.seasar.uruma" />
   <property name="project.version" value="0.5.0" />
 
   <property name="src.main.dir" location="src/main/java" />
@@ -10,7 +11,7 @@
   <property name="resources.main.dir" location="src/main/resources" />
   <property name="resources.test.dir" location="src/test/resources" />
 
-  <property name="classes.dir" location="classes2" />
+  <property name="classes.dir" location="classes" />
   <property name="classes.main.dir" location="${classes.dir}/main" />
   <property name="classes.test.dir" location="${classes.dir}/test" />
   <property name="classes.instrumented.dir" location="${classes.dir}/instrumented" />
@@ -22,7 +23,7 @@
   <property name="lib.ant.dir" location="${lib.dir}/ant" />
   <property name="lib.cobertura.dir" location="${lib.ant.dir}/cobertura" />
 
-  <property name="target.dir" location="target2" />
+  <property name="target.dir" location="target" />
   <property name="report.dir" location="${target.dir}/report" />
   <property name="report.cobertura.datafile" location="${report.dir}/cobertura.ser" />
   <property name="report.test-result.dir" location="${report.dir}/test-result" />
@@ -30,6 +31,13 @@
   <property name="report.coverage.dir" location="${report.dir}/coverage" />
   <property name="docs.dir" location="${target.dir}/docs" />
   <property name="docs.api.dir" location="${docs.dir}/apidocs" />
+
+  <property name="jar.lib.name" value="uruma-${project.version}.jar" />
+  <property name="jar.source.name" value="uruma-${project.version}-sources.jar" />
+  <property name="jar.plugin.name" value="${plugin.name}_${project.version}.jar" />
+  <property name="zip.name" value="uruma-${project.version}.zip" />
+  <property name="zip.root.path" value="uruma-${project.version}" />
+  <property name="licences.dir" value="licenses" />
 
   <property name="log4j.filename" value="log4j-1.2.15.jar" />
   <property name="log4j.url" value="http://www.ibiblio.org/maven/log4j/jars/${log4j.filename}" />
@@ -228,6 +236,52 @@
     </javadoc>
   </target>
 
+  <!-- jar生成 -->
+  <target name="make-jar" depends="compile-main" description="jar生成">
+    <jar destfile="${target.dir}/${jar.lib.name}">
+      <fileset dir="${classes.main.dir}" />
+      <manifest>
+        <attribute name="Uruma-Version" value="${project.version}" />
+        <attribute name="Build-Time" value="${build.time}" />
+      </manifest>
+    </jar>
+  </target>
+
+  <!-- source-jar生成 -->
+  <target name="make-source-jar" description="source-jar生成">
+    <jar destfile="${target.dir}/${jar.source.name}">
+      <fileset dir="${src.main.dir}">
+        <exclude name="**/.svn/**" />
+      </fileset>
+      <fileset dir="${resources.main.dir}">
+        <exclude name="**/.svn/**" />
+      </fileset>
+      <manifest>
+        <attribute name="Uruma-Version" value="${project.version}" />
+        <attribute name="Build-Time" value="${build.time}" />
+      </manifest>
+    </jar>
+  </target>
+  
+  <!-- 配布パッケージ生成 -->
+  <target name="package" depends="make-jar, make-source-jar">
+    <zip destfile="${target.dir}/${zip.name}">
+      <zipfileset prefix="${zip.root.path}/lib/compile" dir="${lib.compile.dir}">
+        <include name="*.jar" />
+      </zipfileset>
+      <zipfileset prefix="${zip.root.path}/lib/runtime" dir="${lib.runtime.dir}">
+        <include name="*.jar" />
+      </zipfileset>
+      <zipfileset prefix="${zip.root.path}/${licences.dir}" dir="${licences.dir}">
+        <include name="*.*" />
+        <include name="*" />
+      </zipfileset>
+      <zipfileset prefix="${zip.root.path}" dir="${target.dir}">
+        <include name="*.jar" />
+      </zipfileset>
+    </zip>
+  </target>
+  
   <!-- ant libディレクトリに log4j をダウンロード -->
   <target name="get-log4j" depends="check-ant-log4j-available" unless="ant.log4j.available">
     <echo message="ant ライブラリに log4j が存在しません。" />
@@ -242,7 +296,9 @@
 
   <!-- ビルド準備 -->
   <target name="init" depends="clean, get-log4j" description="ビルド準備">
-    <tstamp />
+    <tstamp>
+      <format property="build.time" pattern="yyyy/MM/dd HH:mm:dd" />
+    </tstamp>
     <mkdir dir="${classes.dir}" />
     <mkdir dir="${classes.main.dir}" />
     <mkdir dir="${classes.test.dir}" />
