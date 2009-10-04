@@ -7,7 +7,7 @@
     <include path="customizer.dicon"
         condition="@org.seasar.framework.util.ResourceUtil@isExist('customizer.dicon')"/>
         
-    <include path="org/seasar/uruma/dicon/uruma-customizer.dicon"
+    <include path="org/seasar/uruma/dicon/uruma-std-customizer.dicon"
         condition="not @org.seasar.framework.util.ResourceUtil@isExist('customizer.dicon')"/>
 
     <include path="creator.dicon"
