@@ -290,7 +290,7 @@
             <phase>install</phase>
             <configuration>
               <tasks>
-                <ant antfile="build.xml">
+                <ant antfile="build-maven.xml">
                   <property name="basedir" value="${basedir}" />
                   <property name="ver" value="${pom.version}" />
                 </ant>
