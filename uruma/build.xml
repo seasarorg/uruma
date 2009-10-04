@@ -4,7 +4,8 @@
   <!--=== グローバルプロパティ ===-->
   <!--======================================================================-->
   <property name="plugin.name" value="org.seasar.uruma" />
-  <property name="project.version" value="0.5.0" />
+  <property name="project.version" value="0.5.0-SNAPSHOT" />
+  <property name="bundle.version" value="0.5.0.SNAPSHOT" />
 
   <property name="src.main.dir" location="src/main/java" />
   <property name="src.test.dir" location="src/test/java" />
@@ -17,9 +18,9 @@
   <property name="classes.instrumented.dir" location="${classes.dir}/instrumented" />
 
   <property name="lib.dir" location="lib" />
-  <property name="lib.compile.dir" location="${lib.dir}/compile/jar" />
-  <property name="lib.runtime.dir" location="${lib.dir}/runtime/jar" />
-  <property name="lib.test.dir" location="${lib.dir}/test/jar" />
+  <property name="lib.compile.dir" location="${lib.dir}/compile/jars" />
+  <property name="lib.runtime.dir" location="${lib.dir}/runtime/jars" />
+  <property name="lib.test.dir" location="${lib.dir}/test/jars" />
   <property name="lib.ant.dir" location="${lib.dir}/ant" />
   <property name="lib.cobertura.dir" location="${lib.ant.dir}/cobertura" />
 
@@ -247,6 +248,24 @@
     </jar>
   </target>
 
+  <!-- plugin生成 -->
+  <target name="make-plugin-jar" depends="compile-main" description="plugin生成">
+    <jar destfile="${target.dir}/${jar.plugin.name}" manifest="META-INF/MANIFEST.MF">
+      <fileset dir="${classes.main.dir}" />
+      <zipfileset prefix="lib" dir="${lib.runtime.dir}" >
+        <include name="*.jar" />
+      </zipfileset>
+      <fileset file="plugin.properties" />
+      <fileset file="plugin_ja.properties" />
+      <fileset file="plugin.xml" />
+      <fileset file="splash.bmp" />
+      <manifest>
+        <attribute name="Uruma-Version" value="${project.version}" />
+        <attribute name="Build-Time" value="${build.time}" />
+      </manifest>
+    </jar>
+  </target>
+
   <!-- source-jar生成 -->
   <target name="make-source-jar" description="source-jar生成">
     <jar destfile="${target.dir}/${jar.source.name}">
@@ -262,9 +281,9 @@
       </manifest>
     </jar>
   </target>
-  
+
   <!-- 配布パッケージ生成 -->
-  <target name="package" depends="make-jar, make-source-jar">
+  <target name="package" depends="make-jar, make-plugin-jar, make-source-jar">
     <zip destfile="${target.dir}/${zip.name}">
       <zipfileset prefix="${zip.root.path}/lib/compile" dir="${lib.compile.dir}">
         <include name="*.jar" />
@@ -281,7 +300,7 @@
       </zipfileset>
     </zip>
   </target>
-  
+
   <!-- ant libディレクトリに log4j をダウンロード -->
   <target name="get-log4j" depends="check-ant-log4j-available" unless="ant.log4j.available">
     <echo message="ant ライブラリに log4j が存在しません。" />
@@ -299,6 +318,7 @@
     <tstamp>
       <format property="build.time" pattern="yyyy/MM/dd HH:mm:dd" />
     </tstamp>
+    <replaceregexp file="META-INF/MANIFEST.MF" match="^Bundle-Version: .+" replace="Bundle-Version: ${bundle.version}" byline="true" />
     <mkdir dir="${classes.dir}" />
     <mkdir dir="${classes.main.dir}" />
     <mkdir dir="${classes.test.dir}" />
@@ -311,5 +331,4 @@
     <delete dir="${classes.dir}" />
     <delete dir="${target.dir}" />
   </target>
-
 </project>
