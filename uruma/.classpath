@@ -4,41 +4,41 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/test/resources"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/seasar2"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/s2-tiger"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/seasar2"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/s2-tiger"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/aopalliance-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/geronimo-j2ee_1.4_spec-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/javassist-3.4.ga.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/log4j-1.2.13.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/nlink-20080126.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/ognl-2.6.9-patch-20070908.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/s2-extension-2.4.25.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/s2-framework-2.4.25.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/jars/s2-tiger-2.4.25.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/core-commands-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/core-contenttype-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/core-expressions-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/core-filebuffers-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/core-jobs-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/core-resources-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/core-runtime-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/core-runtime-compatibility-registry-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/debug-core-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/equinox-app-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/equinox-common-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/equinox-preferences-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/equinox-registry-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/jdt-core-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/jdt-launching-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/jface-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/junit-4.7.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/osgi-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/swt-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/swt-win32-win32-x86-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/ui-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/ui-texteditor-3.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/compile/jars/ui-workbench-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/aopalliance-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/commons-logging-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/geronimo-j2ee_1.4_spec-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/javassist-3.4.ga.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/log4j-1.2.13.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/nlink-20080126.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/ognl-2.6.9-patch-20070908.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/s2-extension-2.4.25.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/s2-framework-2.4.25.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/runtime/jars/s2-tiger-2.4.25.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/core-commands-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/core-contenttype-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/core-expressions-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/core-filebuffers-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/core-jobs-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/core-resources-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/core-runtime-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/core-runtime-compatibility-registry-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/debug-core-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/equinox-app-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/equinox-common-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/equinox-preferences-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/equinox-registry-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/jdt-core-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/jdt-launching-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/jface-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/junit-4.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/osgi-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/swt-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/swt-win32-win32-x86-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/ui-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/ui-texteditor-3.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/compile/jars/ui-workbench-3.3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
