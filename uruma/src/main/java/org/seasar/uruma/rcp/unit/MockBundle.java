@@ -22,12 +22,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.Properties;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.Version;
 
 /**
  * テスト用の {@link Bundle} オブジェクトです。<br />
@@ -150,5 +152,15 @@ public class MockBundle implements Bundle {
     @SuppressWarnings("unchecked")
     protected Enumeration<?> getEmptyEnumeration() {
         return Collections.enumeration(Collections.EMPTY_LIST);
+    }
+
+    public Map getSignerCertificates(final int signersType) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
+
+    public Version getVersion() {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
     }
 }

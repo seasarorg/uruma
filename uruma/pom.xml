@@ -412,8 +412,8 @@
 
 	<!-- Dependency Settings -->
 	<properties>
-		<seasarVer>2.4.25</seasarVer>
-		<eclipseVer>3.3.2</eclipseVer>
+		<seasarVer>2.4.42</seasarVer>
+		<eclipseVer>3.5.2</eclipseVer>
 	</properties>
 
 	<dependencies>
@@ -433,29 +433,14 @@
 			<version>${seasarVer}</version>
 		</dependency>
 		<dependency>
-			<groupId>ognl</groupId>
-			<artifactId>ognl</artifactId>
-			<version>2.6.9-patch-20070908</version>
-		</dependency>
-		<dependency>
-			<groupId>aopalliance</groupId>
-			<artifactId>aopalliance</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>jboss</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.4.ga</version>
-		</dependency>
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.13</version>
+			<version>1.2.16</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.1</version>
+			<version>1.1.1</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>avalon-framework</artifactId>
@@ -471,12 +456,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-j2ee_1.4_spec</artifactId>
 			<version>1.0</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>nlink</groupId>
 			<artifactId>nlink</artifactId>
@@ -486,10 +472,10 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.2</version>
+			<version>4.8.1</version>
 			<type>jar</type>
-		</dependency>
-
+			</dependency>
+	
 		<dependency>
 			<groupId>junit-addons</groupId>
 			<artifactId>junit-addons</artifactId>
@@ -500,6 +486,10 @@
 				<exclusion>
 					<groupId>junit-addons</groupId>
 					<artifactId>junit-addons-runner</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>xerces</groupId>
+					<artifactId>xmlParserAPIs</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -606,7 +596,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse</groupId>
-			<artifactId>ui-texteditor</artifactId>
+			<artifactId>ui-workbench-texteditor</artifactId>
 			<version>${eclipseVer}</version>
 		</dependency>
 		<dependency>
@@ -614,130 +604,5 @@
 			<artifactId>ui-workbench</artifactId>
 			<version>${eclipseVer}</version>
 		</dependency>
-
-		<!-- Source dependency -->
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>ui-workbench-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>ui-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>ui-texteditor-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>core-commands-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>core-contenttype-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>core-filebuffers-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>core-jobs-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>core-resources-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>core-runtime-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>debug-core-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>equinox-app-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>equinox-common-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>equinox-preferences-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>equinox-registry-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>jdt-core-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>jdt-launching-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>jface-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>osgi-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>swt-win32-win32-x86-source</artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>
-        core-runtime-compatibility-registry-source
-      </artifactId>
-			<version>${eclipseVer}</version>
-			<scope>provided</scope>
-		</dependency>
-
 	</dependencies>
 </project>

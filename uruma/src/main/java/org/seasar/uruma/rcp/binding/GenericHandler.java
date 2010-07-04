@@ -42,9 +42,10 @@ public class GenericHandler extends AbstractHandler {
     protected boolean enabled = true;
 
     /*
-     * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
+     * @see
+     * org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands
+     * .ExecutionEvent)
      */
-    @Override
     public Object execute(final ExecutionEvent event) throws ExecutionException {
         int size = listeners.size();
         for (int i = 0; i < size; i++) {
@@ -80,8 +81,7 @@ public class GenericHandler extends AbstractHandler {
      * ハンドラのイネーブル状態を変更します。<br />
      * 
      * @param enabled
-     *            <code>true</code> の場合、イネーブル。<code>false</code>
-     *            の場合、ディスエーブル。
+     *            <code>true</code> の場合、イネーブル。<code>false</code> の場合、ディスエーブル。
      */
     public void setEnabled(final boolean enabled) {
         if (this.enabled != enabled) {
