@@ -33,7 +33,11 @@
   <classpathentry kind="var" path="M2_REPO/org/eclipse/jdt-core/3.5.2/jdt-core-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/jdt-core/3.5.2/jdt-core-3.5.2-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/eclipse/jdt-launching/3.5.2/jdt-launching-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/jdt-launching/3.5.2/jdt-launching-3.5.2-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/eclipse/jface/3.5.2/jface-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/jface/3.5.2/jface-3.5.2-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar" sourcepath="M2_REPO/junit/junit/4.8.1/junit-4.8.1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/4.4/junit-4.4.jar" sourcepath="M2_REPO/junit/junit/4.4/junit-4.4-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/y-komori/.m2/repository/junit/junit/4.4/junit-4.4-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
   <classpathentry kind="var" path="M2_REPO/junit-addons/junit-addons/1.4/junit-addons-1.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16.jar" sourcepath="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16-sources.jar">
     <attributes>

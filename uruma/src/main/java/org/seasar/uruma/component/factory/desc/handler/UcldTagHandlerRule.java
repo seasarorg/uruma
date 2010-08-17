@@ -22,14 +22,14 @@ import org.seasar.framework.xml.TagHandlerRule;
  * 
  * @author y-komori
  */
-public class UcdTagHandlerRule extends TagHandlerRule {
+public class UcldTagHandlerRule extends TagHandlerRule {
 
     private static final long serialVersionUID = -8601482965667832088L;
 
     /**
-     * {@link UcdTagHandlerRule} を構築します。<br />
+     * {@link UcldTagHandlerRule} を構築します。<br />
      */
-    public UcdTagHandlerRule() {
+    public UcldTagHandlerRule() {
         addTagHandler("urumaComponent", new UrumaComponentTagHandler());
         addTagHandler("tagName", new TagNameTagHandler());
         addTagHandler("component", new ComponentTagHandler());

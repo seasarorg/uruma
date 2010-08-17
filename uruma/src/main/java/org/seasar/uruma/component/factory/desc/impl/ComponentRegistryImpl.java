@@ -43,7 +43,7 @@ import org.seasar.uruma.component.factory.UrumaTagHandler;
 import org.seasar.uruma.component.factory.UrumaTagHandlerRule;
 import org.seasar.uruma.component.factory.desc.ComponentRegistry;
 import org.seasar.uruma.component.factory.desc.UrumaComponentDesc;
-import org.seasar.uruma.component.factory.desc.handler.UcdTagHandlerRule;
+import org.seasar.uruma.component.factory.desc.handler.UcldTagHandlerRule;
 import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.log.UrumaLogger;
@@ -64,8 +64,6 @@ import org.xml.sax.SAXException;
 public class ComponentRegistryImpl implements ComponentRegistry,
         ResourceHandler, UrumaMessageCodes, UrumaConstants {
     private static final String SEARCH_ROOT_PATH = "components";
-
-    private static final String DESC_EXT = "ucd";
 
     private static final UrumaLogger logger = UrumaLogger
             .getLogger(ComponentRegistryImpl.class);
@@ -125,11 +123,11 @@ public class ComponentRegistryImpl implements ComponentRegistry,
      * {@link UrumaTagHandler} を生成して登録します。<br />
      * 
      * @param desc
-     *            {@link UrumaComponentDesc}
+     *        {@link UrumaComponentDesc}
      * @param loader
-     *            読み込み先クラスローダ
+     *        読み込み先クラスローダ
      * @throws ClassNotFoundException
-     *             クラスが見つからない場合
+     *         クラスが見つからない場合
      */
     protected void setupTagHandler(final UrumaComponentDesc desc,
             final ClassLoader loader) throws ClassNotFoundException {
@@ -147,11 +145,11 @@ public class ComponentRegistryImpl implements ComponentRegistry,
      * {@link Renderer} を生成して登録します。<br />
      * 
      * @param desc
-     *            {@link UrumaComponentDesc}
+     *        {@link UrumaComponentDesc}
      * @param loader
-     *            読み込み先クラスローダ
+     *        読み込み先クラスローダ
      * @throws ClassNotFoundException
-     *             クラスが見つからない場合
+     *         クラスが見つからない場合
      */
     protected void setupRenderer(final UrumaComponentDesc desc,
             final ClassLoader loader) throws ClassNotFoundException {
@@ -220,7 +218,7 @@ public class ComponentRegistryImpl implements ComponentRegistry,
     }
 
     protected SaxHandler createSaxHandler() {
-        SaxHandler handler = new SaxHandler(new UcdTagHandlerRule());
+        SaxHandler handler = new SaxHandler(new UcldTagHandlerRule());
         return handler;
     }
 
@@ -228,7 +226,7 @@ public class ComponentRegistryImpl implements ComponentRegistry,
      * OGNL 式を評価し、その結果をオブジェクトに変換します。<br />
      * 
      * @param argExprs
-     *            OGNL 式のリスト
+     *        OGNL 式のリスト
      * @return 評価結果のオブジェクト配列
      */
     protected Object[] evaluateArgs(final List<String> argExprs) {
@@ -245,7 +243,7 @@ public class ComponentRegistryImpl implements ComponentRegistry,
      * {@link UrumaTagHandlerRule} を設定します。<br />
      * 
      * @param rule
-     *            {@link UrumaTagHandlerRule} オブジェクト
+     *        {@link UrumaTagHandlerRule} オブジェクト
      */
     @Binding(bindingType = BindingType.MUST)
     public void setRule(final UrumaTagHandlerRule rule) {

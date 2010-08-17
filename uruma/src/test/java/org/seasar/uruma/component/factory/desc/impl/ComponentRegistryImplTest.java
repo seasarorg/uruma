@@ -85,6 +85,7 @@ public class ComponentRegistryImplTest extends S2FrameworkTestCase {
     }
 
     private String createPath(final String suffix) {
-        return convertPath(getClass().getSimpleName() + suffix + ".ucd");
+        return convertPath(getClass().getSimpleName() + suffix + "."
+                + ComponentRegistry.DESC_EXT);
     }
 }

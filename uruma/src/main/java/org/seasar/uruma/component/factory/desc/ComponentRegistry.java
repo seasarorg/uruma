@@ -22,16 +22,22 @@ package org.seasar.uruma.component.factory.desc;
  */
 public interface ComponentRegistry {
     /**
-     * コンテクストクラスローダからコンポーネント定義ファイル(UCDファイル)を読み込み、登録します。<br />
+     * コンポーネント定義ファイルの拡張子( {@value} )です。<br />
+     * 拡張子は Uruma Component Library Descriptor の略です。
+     */
+    public static final String DESC_EXT = "ucld";
+
+    /**
+     * コンテクストクラスローダからコンポーネント定義ファイル(UCLDファイル)を読み込み、登録します。<br />
      */
     public void registComponents();
 
     /**
-     * 指定されたクラスローダからコンポーネント定義ファイル(UCDファイル)を読み込み、登録します。<br /> /components
-     * ディレクトリ配下を再帰的に検索し、見つかった拡張子 ucd のファイルを読み込みます。
+     * 指定されたクラスローダからコンポーネント定義ファイル(UCLDファイル)を読み込み、登録します。<br />
+     * /components ディレクトリ配下を再帰的に検索し、見つかった拡張子 ucld のファイルを読み込みます。
      * 
      * @param loader
-     *            クラスローダ
+     *        クラスローダ
      */
     public void registComponents(final ClassLoader loader);
 }
