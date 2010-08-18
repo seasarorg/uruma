@@ -1,1 +1,2 @@
 mvn eclipse:eclipse -DdownloadSources=true -DdownloadJavadocs=true
+pause

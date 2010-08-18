@@ -15,9 +15,15 @@
  */
 package org.seasar.uruma.component.factory.desc.impl;
 
+import static junit.framework.Assert.*;
+
+import javax.annotation.Resource;
+
+import org.junit.runner.RunWith;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.exception.SAXRuntimeException;
-import org.seasar.framework.unit.S2FrameworkTestCase;
+import org.seasar.framework.unit.Seasar2;
+import org.seasar.framework.unit.TestContext;
 import org.seasar.uruma.component.factory.desc.ComponentRegistry;
 import org.seasar.uruma.component.factory.desc.UrumaComponentDesc;
 
@@ -26,17 +32,22 @@ import org.seasar.uruma.component.factory.desc.UrumaComponentDesc;
  * 
  * @author y-komori
  */
-public class ComponentRegistryImplTest extends S2FrameworkTestCase {
+@RunWith(Seasar2.class)
+public class ComponentRegistryImplTest {
+    @Resource
+    private TestContext ctx;
+
+    @Resource
     private ComponentRegistry registry;
 
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        String path = convertPath(getClass().getSimpleName() + ".dicon");
-        include(path);
-    }
+    // /*
+    // * @see junit.framework.TestCase#setUp()
+    // */
+    // @Override
+    // protected void setUp() throws Exception {
+    // String path = convertPath(getClass().getSimpleName() + ".dicon");
+    // include(path);
+    // }
 
     /**
      * {@link ComponentRegistryImpl#registComponents()} メソッドのテストです。<br />
@@ -85,7 +96,8 @@ public class ComponentRegistryImplTest extends S2FrameworkTestCase {
     }
 
     private String createPath(final String suffix) {
-        return convertPath(getClass().getSimpleName() + suffix + "."
-                + ComponentRegistry.DESC_EXT);
+        return ctx.getTestClassPackagePath() + "/"
+                + ctx.getTestClassShortName() + suffix + "."
+                + ComponentRegistry.DESC_EXT;
     }
 }
