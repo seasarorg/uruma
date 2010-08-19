@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urumaComponent xmlns="http://uruma.sandbox.seasar.org/component">
+  <tagName>treeColumn</tagName>
+  <component class="org.seasar.uruma.component.jface.TreeColumnComponent"/>
+  <tagHandler class="org.seasar.uruma.component.factory.handler.TreeColumnTagHandler" />
+  <renderer class="org.seasar.uruma.renderer.impl.TreeColumnRenderer" />
+</urumaComponent>

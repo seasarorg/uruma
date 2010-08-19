@@ -16,9 +16,13 @@
 package org.seasar.uruma.binding.value.binder;
 
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.uruma.binding.value.ValueBinder;
 import org.seasar.uruma.component.UIComponent;
+import org.seasar.uruma.component.jface.TreeColumnComponent;
+import org.seasar.uruma.component.jface.TreeComponent;
 import org.seasar.uruma.viewer.UrumaTreeViewer;
 
 /**
@@ -54,5 +58,16 @@ public class TreeViewerValueBinder extends AbstractValueBinder<UrumaTreeViewer> 
                 }
             }
         }
+
+        Tree tree = widget.getTree();
+        tree.setRedraw(false);
+        TreeColumn[] columns = tree.getColumns();
+        TreeComponent treeComponent = (TreeComponent) uiComp;
+        for (int i = 0; i < columns.length; i++) {
+            if (((TreeColumnComponent) treeComponent.getChildren().get(i)).width == null) {
+                columns[i].pack();
+            }
+        }
+        tree.setRedraw(true);
     }
 }

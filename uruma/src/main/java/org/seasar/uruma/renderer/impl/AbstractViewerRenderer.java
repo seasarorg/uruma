@@ -40,11 +40,11 @@ import org.seasar.uruma.viewer.PojoLabelProvider;
  * {@link Viewer} のレンダリングを行うための基底クラスです。<br />
  * 
  * @param <COMPONENT_TYPE>
- *            レンダラに対応するコンポーネントの実際の型
+ *        レンダラに対応するコンポーネントの実際の型
  * @param <VIEWER_TYPE>
- *            レンダラが生成するビューアの実際の型
+ *        レンダラが生成するビューアの実際の型
  * @param <CONTROL_TYPE>
- *            ビューアが内包する {@link Control} オブジェクトの実際の型
+ *        ビューアが内包する {@link Control} オブジェクトの実際の型
  * @author y-komori
  */
 public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeComponent, VIEWER_TYPE extends Viewer, CONTROL_TYPE extends Control>
@@ -58,8 +58,8 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      */
     @Override
     @SuppressWarnings("unchecked")
-    public WidgetHandle render(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
+    public WidgetHandle render(final UIComponent uiComponent, final WidgetHandle parent,
+            final PartContext context) {
         if (!canCreateViewer(UICompositeComponent.class.cast(uiComponent))) {
             // ビューアを生成しない場合の処理
             return super.render(uiComponent, parent, context);
@@ -69,27 +69,14 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
 
         inherit((COMPONENT_TYPE) uiComponent);
 
-        VIEWER_TYPE viewer = createViewer(parent.<Composite> getCastWidget(),
-                getStyle(uiComponent));
+        VIEWER_TYPE viewer = createViewer(parent.<Composite> getCastWidget(), getStyle(uiComponent));
 
         // ビューアに内包されるウィジットのレンダリングを行う
-        renderWidget((COMPONENT_TYPE) uiComponent, (CONTROL_TYPE) viewer
-                .getControl());
-
-        String id = uiComponent.getId();
-        if (viewer instanceof ContentViewer) {
-            ComponentUtil.setupContentProvider((ContentViewer) viewer, id,
-                    getDefaultContentProvider());
-        }
-
-        if (viewer instanceof StructuredViewer) {
-            ComponentUtil.setupLabelProvider((StructuredViewer) viewer, id,
-                    getDefaultLabelProvider(), getLabelProviderClass(),
-                    getPojoLabelProviderClass());
-        }
+        renderWidget((COMPONENT_TYPE) uiComponent, (CONTROL_TYPE) viewer.getControl());
 
         doRenderViewer((COMPONENT_TYPE) uiComponent, viewer);
 
+        String id = uiComponent.getId();
         WidgetHandle viewerHandle = createWidgetHandle(uiComponent, viewer);
         if (!StringUtil.isEmpty(id)) {
             viewerHandle.setId(id);
@@ -106,22 +93,35 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      */
     @Override
     @SuppressWarnings("unchecked")
-    public void renderAfter(final WidgetHandle handle,
-            final UIComponent uiComponent, final WidgetHandle parent,
-            final PartContext context) {
+    public void renderAfter(final WidgetHandle handle, final UIComponent uiComponent,
+            final WidgetHandle parent, final PartContext context) {
 
         if (handle.instanceOf(Viewer.class)) {
             VIEWER_TYPE viewer = getViewerType().cast(handle.getWidget());
-            WidgetHandle controlHandle = createWidgetHandle(uiComponent, viewer
-                    .getControl());
+            WidgetHandle controlHandle = createWidgetHandle(uiComponent, viewer.getControl());
 
             super.renderAfter(controlHandle, uiComponent, parent, context);
 
             doRenderAfter(viewer, (COMPONENT_TYPE) uiComponent, parent, context);
 
+            String id = uiComponent.getId();
+            // コンテントプロバイダのセットアップ
+            if (viewer instanceof ContentViewer) {
+                ComponentUtil.setupContentProvider((ContentViewer) viewer, id,
+                        getDefaultContentProvider());
+            }
+
+            // ラベルプロバイダのセットアップ
             if (viewer instanceof StructuredViewer) {
-                ComponentUtil.setupComparator((StructuredViewer) viewer,
-                        uiComponent.getId(), getDefaultComparator());
+                ComponentUtil.setupLabelProvider((StructuredViewer) viewer, id,
+                        getDefaultLabelProvider(), getLabelProviderClass(),
+                        getPojoLabelProviderClass());
+            }
+
+            // コンパレータのセットアップ
+            if (viewer instanceof StructuredViewer) {
+                ComponentUtil
+                        .setupComparator((StructuredViewer) viewer, id, getDefaultComparator());
             }
         } else {
             super.renderAfter(handle, uiComponent, parent, context);
@@ -133,8 +133,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      *      org.eclipse.swt.widgets.Control)
      */
     @Override
-    protected void doRenderControl(final COMPONENT_TYPE controlComponent,
-            final CONTROL_TYPE control) {
+    protected void doRenderControl(final COMPONENT_TYPE controlComponent, final CONTROL_TYPE control) {
         // Do nothing.
     }
 
@@ -143,18 +142,16 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * ビューアの生成を独自に行いたい場合、サブクラスで本メソッドをオーバーライドしてください。<br />
      * 
      * @param parent
-     *            親 {@link Composite}
+     *        親 {@link Composite}
      * @param style
-     *            スタイル
+     *        スタイル
      * @return 生成したビューアのインタンス
      */
     protected VIEWER_TYPE createViewer(final Composite parent, final int style) {
-        VIEWER_TYPE viewer = ClassUtil.<VIEWER_TYPE> newInstance(
-                getViewerType(), parent, style);
+        VIEWER_TYPE viewer = ClassUtil.<VIEWER_TYPE> newInstance(getViewerType(), parent, style);
 
         if (logger.isTraceEnabled()) {
-            logger.log(UrumaMessageCodes.WIDGET_CREATED, UrumaLogger
-                    .getObjectDescription(viewer));
+            logger.log(UrumaMessageCodes.WIDGET_CREATED, UrumaLogger.getObjectDescription(viewer));
         }
 
         return viewer;
@@ -216,7 +213,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * デフォルトのコンパレータを変更したい場合、本メソッドをオーバーライドしてください。<br />
      * デフォルトでは <code>null</code> (ソートしない) を返します。<br />
      * 
-     * @return デフォルトの {@link ViewerComparator}}
+     * @return デフォルトの {@link ViewerComparator}
      */
     protected ViewerComparator getDefaultComparator() {
         return null;
@@ -236,7 +233,7 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * デフォルトでは <code>true</code> を返します。<br />
      * 
      * @param component
-     *            対応する {@link UICompositeComponent}
+     *        対応する {@link UICompositeComponent}
      * @return 生成する場合は <code>true</code>。しない場合は <code>false</code>
      */
     protected boolean canCreateViewer(final UICompositeComponent component) {
@@ -250,12 +247,11 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * デフォルトの実装では何も行いません。<br />
      * 
      * @param uiComponent
-     *            {@link UIComponent} オブジェクト
+     *        {@link UIComponent} オブジェクト
      * @param viewer
-     *            生成されたビューア
+     *        生成されたビューア
      */
-    protected void doRenderViewer(final COMPONENT_TYPE uiComponent,
-            final VIEWER_TYPE viewer) {
+    protected void doRenderViewer(final COMPONENT_TYPE uiComponent, final VIEWER_TYPE viewer) {
         // Do nothing.
     }
 
@@ -265,17 +261,16 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
      * デフォルトでは何も行いません。<br />
      * 
      * @param viewer
-     *            レンダリング対象ビューア
+     *        レンダリング対象ビューア
      * @param uiComponent
-     *            レンダリング対象の {@link UIComponent} オブジェクト
+     *        レンダリング対象の {@link UIComponent} オブジェクト
      * @param parent
-     *            親のウィジットハンドル
+     *        親のウィジットハンドル
      * @param context
-     *            {@link PartContext} オブジェクト
+     *        {@link PartContext} オブジェクト
      */
-    protected void doRenderAfter(final VIEWER_TYPE viewer,
-            final COMPONENT_TYPE uiComponent, final WidgetHandle parent,
-            final PartContext context) {
+    protected void doRenderAfter(final VIEWER_TYPE viewer, final COMPONENT_TYPE uiComponent,
+            final WidgetHandle parent, final PartContext context) {
         // do nothing.
     }
 }

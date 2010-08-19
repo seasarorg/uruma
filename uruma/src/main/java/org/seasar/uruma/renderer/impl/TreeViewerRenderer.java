@@ -23,6 +23,7 @@ import org.eclipse.jface.viewers.TreeNodeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.UICompositeComponent;
@@ -78,6 +79,12 @@ public class TreeViewerRenderer extends
             int autoExpandLevel = Integer.parseInt(component.autoExpandLevel);
             if (autoExpandLevel >= 1) {
                 expandTree(tree.getItems(), 1, autoExpandLevel);
+            }
+
+            int columnCount = tree.getColumnCount();
+            for (int i = 0; i < columnCount; i++) {
+                TreeColumn column = tree.getColumn(i);
+                column.pack();
             }
         }
         super.renderAfter(handle, uiComponent, parent, context);

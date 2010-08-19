@@ -51,12 +51,21 @@ public class TreeComponent extends CompositeComponent {
     public String linesVisible;
 
     /**
-     * デフォルトでツリーを展開する階層です。<br /> 【例】2を指定した場合、常に2階層目まで展開されます。<br />
+     * デフォルトでツリーを展開する階層です。<br />
+     * 【例】2を指定した場合、常に2階層目まで展開されます。<br />
      */
     @RenderingPolicy(targetType = TargetType.NONE)
     @ComponentAttribute
     @FieldDescription("デフォルトでツリー展開する階層")
     public String autoExpandLevel = "1";
+
+    /**
+     * ツリーのカラム数です。<br />
+     */
+    @RenderingPolicy(targetType = TargetType.NONE)
+    @ComponentAttribute
+    @FieldDescription("カラム数")
+    public int columnCount;
 
     private List<TreeItemComponent> children = new ArrayList<TreeItemComponent>();
 
@@ -64,7 +73,7 @@ public class TreeComponent extends CompositeComponent {
      * ツリー項目を追加します。<br />
      * 
      * @param child
-     *      ツリー項目
+     *        ツリー項目
      */
     public void addTreeItem(final TreeItemComponent child) {
         children.add(child);
