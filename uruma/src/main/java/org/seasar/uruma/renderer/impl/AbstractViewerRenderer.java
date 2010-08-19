@@ -74,9 +74,15 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
         // ビューアに内包されるウィジットのレンダリングを行う
         renderWidget((COMPONENT_TYPE) uiComponent, (CONTROL_TYPE) viewer.getControl());
 
+        String id = uiComponent.getId();
+        // コンテントプロバイダのセットアップ
+        if (viewer instanceof ContentViewer) {
+            ComponentUtil.setupContentProvider((ContentViewer) viewer, id,
+                    getDefaultContentProvider());
+        }
+
         doRenderViewer((COMPONENT_TYPE) uiComponent, viewer);
 
-        String id = uiComponent.getId();
         WidgetHandle viewerHandle = createWidgetHandle(uiComponent, viewer);
         if (!StringUtil.isEmpty(id)) {
             viewerHandle.setId(id);
@@ -105,12 +111,6 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
             doRenderAfter(viewer, (COMPONENT_TYPE) uiComponent, parent, context);
 
             String id = uiComponent.getId();
-            // コンテントプロバイダのセットアップ
-            if (viewer instanceof ContentViewer) {
-                ComponentUtil.setupContentProvider((ContentViewer) viewer, id,
-                        getDefaultContentProvider());
-            }
-
             // ラベルプロバイダのセットアップ
             if (viewer instanceof StructuredViewer) {
                 ComponentUtil.setupLabelProvider((StructuredViewer) viewer, id,

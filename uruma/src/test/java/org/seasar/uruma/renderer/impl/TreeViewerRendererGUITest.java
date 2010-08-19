@@ -18,8 +18,8 @@ package org.seasar.uruma.renderer.impl;
 import java.util.List;
 
 import org.seasar.uruma.annotation.ExportValue;
-import org.seasar.uruma.renderer.impl.testmodel.TestTreeNode;
-import org.seasar.uruma.renderer.impl.testmodel.TestTreeNodeFactory;
+import org.seasar.uruma.renderer.impl.testmodel.DummyTreeNode;
+import org.seasar.uruma.renderer.impl.testmodel.DummyTreeNodeFactory;
 import org.seasar.uruma.userviewer.TableLabelProvider;
 import org.seasar.uruma.userviewer.TreeContentProvider;
 
@@ -31,20 +31,20 @@ import org.seasar.uruma.userviewer.TreeContentProvider;
 public class TreeViewerRendererGUITest extends AbstractGUITest {
 
     @ExportValue(id = "tree1")
-    public TestTreeNode root = TestTreeNodeFactory.generate(3);
+    public DummyTreeNode root = DummyTreeNodeFactory.generate(3);
 
     /**
      * テスト用コンテントプロバイダです。<br />
      * 
      * @author y-komori
      */
-    public static class Tree1ContentProvider extends TreeContentProvider<TestTreeNode> {
+    public static class Tree1ContentProvider extends TreeContentProvider<DummyTreeNode> {
 
         /*
          * @see org.seasar.uruma.userviewer.TreeContentProvider#doGetChildren(java.lang.Object)
          */
         @Override
-        protected List<TestTreeNode> doGetChildren(final TestTreeNode parentElement) {
+        protected List<DummyTreeNode> doGetChildren(final DummyTreeNode parentElement) {
             return parentElement.getChildren();
         }
 
@@ -52,7 +52,7 @@ public class TreeViewerRendererGUITest extends AbstractGUITest {
          * @see org.seasar.uruma.userviewer.TreeContentProvider#doGetParent(java.lang.Object)
          */
         @Override
-        protected TestTreeNode doGetParent(final TestTreeNode element) {
+        protected DummyTreeNode doGetParent(final DummyTreeNode element) {
             return element.getParent();
         }
 
@@ -60,7 +60,7 @@ public class TreeViewerRendererGUITest extends AbstractGUITest {
          * @see org.seasar.uruma.userviewer.TreeContentProvider#doHasChildren(java.lang.Object)
          */
         @Override
-        protected boolean doHasChildren(final TestTreeNode element) {
+        protected boolean doHasChildren(final DummyTreeNode element) {
             return (element.getChildren().size() > 0);
         }
 
@@ -69,13 +69,13 @@ public class TreeViewerRendererGUITest extends AbstractGUITest {
     /**
      * テスト用ラベルプロバイダです。<br />
      */
-    public static class Tree1LabelProvider extends TableLabelProvider<TestTreeNode> {
+    public static class Tree1LabelProvider extends TableLabelProvider<DummyTreeNode> {
 
         /*
          * @see org.seasar.uruma.userviewer.TableLabelProvider#doGetColumnImageKey(java.lang.Object, int)
          */
         @Override
-        protected String doGetColumnImageKey(final TestTreeNode element, final int columnIndex) {
+        protected String doGetColumnImageKey(final DummyTreeNode element, final int columnIndex) {
             return null;
         }
 
@@ -83,7 +83,7 @@ public class TreeViewerRendererGUITest extends AbstractGUITest {
          * @see org.seasar.uruma.userviewer.TableLabelProvider#doGetColumnText(java.lang.Object, int)
          */
         @Override
-        protected String doGetColumnText(final TestTreeNode element, final int columnIndex) {
+        protected String doGetColumnText(final DummyTreeNode element, final int columnIndex) {
             return element.getLabel(columnIndex);
         }
     }

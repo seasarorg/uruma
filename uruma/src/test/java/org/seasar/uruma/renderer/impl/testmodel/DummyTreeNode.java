@@ -26,24 +26,24 @@ import java.util.List;
  * @author $Author$
  * @version $Revision$ $Date$
  */
-public class TestTreeNode {
-    private TestTreeNode parent;
+public class DummyTreeNode {
+    private DummyTreeNode parent;
 
-    private List<TestTreeNode> children = new ArrayList<TestTreeNode>();
+    private List<DummyTreeNode> children = new ArrayList<DummyTreeNode>();
 
     private List<String> labels = new ArrayList<String>();
 
     /**
-     * {@link TestTreeNode} を構築します。<br />
+     * {@link DummyTreeNode} を構築します。<br />
      */
-    public TestTreeNode() {
+    public DummyTreeNode() {
         super();
     }
 
     /**
-     * {@link TestTreeNode} を構築します。<br />
+     * {@link DummyTreeNode} を構築します。<br />
      */
-    public TestTreeNode(final TestTreeNode parent) {
+    public DummyTreeNode(final DummyTreeNode parent) {
         this();
         parent.addChild(this);
     }
@@ -52,9 +52,9 @@ public class TestTreeNode {
      * 親を設定します。<br />
      * 
      * @param parent
-     *        親 {@link TestTreeNode}
+     *        親 {@link DummyTreeNode}
      */
-    public void setParent(final TestTreeNode parent) {
+    public void setParent(final DummyTreeNode parent) {
         if (parent != null) {
             this.parent = parent;
         } else {
@@ -65,9 +65,9 @@ public class TestTreeNode {
     /**
      * 親を返します。<br />
      * 
-     * @return 親 {@link TestTreeNode}、存在しない場合は {@code <code>null</code>}
+     * @return 親 {@link DummyTreeNode}、存在しない場合は {@code <code>null</code>}
      */
-    public TestTreeNode getParent() {
+    public DummyTreeNode getParent() {
         return this.parent;
     }
 
@@ -85,7 +85,7 @@ public class TestTreeNode {
      * 
      * @return すべての子ノード
      */
-    public List<TestTreeNode> getChildren() {
+    public List<DummyTreeNode> getChildren() {
         return Collections.unmodifiableList(children);
     }
 
@@ -95,7 +95,7 @@ public class TestTreeNode {
      * @param child
      *        子ノード
      */
-    public void addChild(final TestTreeNode child) {
+    public void addChild(final DummyTreeNode child) {
         if (child != null) {
             children.add(child);
         } else {
