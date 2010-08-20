@@ -611,17 +611,22 @@ Export-Package: javassist;
  org.seasar.uruma.util.resource,
  org.seasar.uruma.util.win32;uses:="junit.framework",
  org.seasar.uruma.viewer;uses:="org.eclipse.jface.viewers,org.eclipse.swt.graphics,org.eclipse.swt.widgets"
-Bundle-ClassPath: lib/aopalliance-1.0.jar,
- lib/commons-logging-1.1.jar,
+Bundle-ClassPath: .,
+ lib/aopalliance-1.0.jar,
+ lib/commons-logging-1.1.1.jar,
+ lib/geronimo-annotation_1.0_spec-1.0.jar,
+ lib/geronimo-ejb_3.0_spec-1.0.jar,
+ lib/geronimo-interceptor_3.0_spec-1.0.jar,
  lib/geronimo-j2ee_1.4_spec-1.0.jar,
+ lib/geronimo-jpa_3.0_spec-1.0.jar,
+ lib/geronimo-jta_1.1_spec-1.0.jar,
  lib/javassist-3.4.ga.jar,
- lib/ognl-2.6.9-patch-20070908.jar,
- lib/log4j-1.2.13.jar,
+ lib/log4j-1.2.16.jar,
  lib/nlink-20080126.jar,
- lib/s2-framework-2.4.25.jar,
- lib/s2-extension-2.4.25.jar,
- lib/s2-tiger-2.4.25.jar,
- .
+ lib/ognl-2.6.9-patch-20090427.jar,
+ lib/s2-extension-2.4.42.jar,
+ lib/s2-framework-2.4.42.jar,
+ lib/s2-tiger-2.4.42.jar
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: org.seasar.uruma.rcp.core.CoreActivator
 Bundle-Vendor: %author

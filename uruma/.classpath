@@ -82,6 +82,21 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/ui-workbench/3.5.2/ui-workbench-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/ui-workbench/3.5.2/ui-workbench-3.5.2-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/eclipse/ui-workbench-texteditor/3.5.2/ui-workbench-texteditor-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/ui-workbench-texteditor/3.5.2/ui-workbench-texteditor-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar" sourcepath="M2_REPO/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/aopalliance-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/geronimo-annotation_1.0_spec-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/geronimo-ejb_3.0_spec-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/geronimo-interceptor_3.0_spec-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/geronimo-j2ee_1.4_spec-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/geronimo-jpa_3.0_spec-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/geronimo-jta_1.1_spec-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/javassist-3.4.ga.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nlink-20080126.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ognl-2.6.9-patch-20090427.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/s2-extension-2.4.42.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/s2-framework-2.4.42.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/s2-tiger-2.4.42.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
