@@ -27,34 +27,30 @@ public class PathUtilTest extends TestCase {
      * {@link PathUtil#createPath(String, String)} メソッドのテストです。<br />
      */
     public void testCreatePath() {
-        assertEquals("1", "org/seasar/uruma/util/PathUtil.java", PathUtil
-                .createPath("org/seasar/uruma/util", "PathUtil.java"));
+        assertEquals("1", "org/seasar/uruma/util/PathUtil.java", PathUtil.createPath(
+                "org/seasar/uruma/util", "PathUtil.java"));
 
-        assertEquals("2", "org/seasar/uruma/util/PathUtil.java", PathUtil
-                .createPath("org/seasar/uruma/util/", "PathUtil.java"));
+        assertEquals("2", "org/seasar/uruma/util/PathUtil.java", PathUtil.createPath(
+                "org/seasar/uruma/util/", "PathUtil.java"));
 
-        assertEquals("3", "org/seasar/uruma/util/PathUtil.java", PathUtil
-                .createPath("", "org/seasar/uruma/util/PathUtil.java"));
+        assertEquals("3", "org/seasar/uruma/util/PathUtil.java", PathUtil.createPath("",
+                "org/seasar/uruma/util/PathUtil.java"));
 
-        assertEquals("4", "org/seasar/uruma/util/PathUtil.java", PathUtil
-                .createPath("org/seasar/uruma/util",
-                        "org/seasar/uruma/util/PathUtil.java"));
+        assertEquals("4", "org/seasar/uruma/util/PathUtil.java", PathUtil.createPath(
+                "org/seasar/uruma/util", "org/seasar/uruma/util/PathUtil.java"));
 
-        assertEquals("5", "/org/seasar/uruma/abc/PathUtil.java", PathUtil
-                .createPath("org/seasar/uruma/util",
-                        "/org/seasar/uruma/abc/PathUtil.java"));
+        assertEquals("5", "/org/seasar/uruma/abc/PathUtil.java", PathUtil.createPath(
+                "org/seasar/uruma/util", "/org/seasar/uruma/abc/PathUtil.java"));
 
-        assertEquals("6", "org/seasar/uruma/util/../template/PathUtil.java",
-                PathUtil.createPath("org/seasar/uruma/util",
-                        "../template/PathUtil.java"));
+        assertEquals("6", "org/seasar/uruma/util/../template/PathUtil.java", PathUtil.createPath(
+                "org/seasar/uruma/util", "../template/PathUtil.java"));
     }
 
     /**
      * {@link PathUtil#replaceSeparator(String)} メソッドのテストです。<br />
      */
     public void testReplaceSeparator() {
-        assertEquals("1", "abc/def/ghi", PathUtil
-                .replaceSeparator("abc\\def\\ghi"));
+        assertEquals("1", "abc/def/ghi", PathUtil.replaceSeparator("abc\\def\\ghi"));
 
         assertEquals("2", "", PathUtil.replaceSeparator(null));
     }
@@ -63,11 +59,10 @@ public class PathUtilTest extends TestCase {
      * {@link PathUtil#getRelativePath(String, String)} メソッドのテストです。<br />
      */
     public void testGetRelativePath() {
-        assertEquals("1", "seasar", PathUtil.getRelativePath("c:/org/",
-                "c:/org/seasar"));
+        assertEquals("1", "seasar", PathUtil.getRelativePath("c:/org/", "c:/org/seasar"));
 
-        assertEquals("2", "seasar/uruma", PathUtil.getRelativePath("c:/org/",
-                "c:/org/seasar/uruma"));
+        assertEquals("2", "seasar/uruma", PathUtil
+                .getRelativePath("c:/org/", "c:/org/seasar/uruma"));
 
         assertEquals("3", "c:/org/seasar/uruma", PathUtil.getRelativePath(
                 "c:/org/seasar/framework", "c:/org/seasar/uruma"));
@@ -96,14 +91,12 @@ public class PathUtilTest extends TestCase {
         assertEquals("2", "c:/org/seasar/uruma", PathUtil
                 .getParent("c:/org/seasar/uruma/test.java"));
 
-        assertEquals("3", "c:/org/seasar/uruma", PathUtil
-                .getParent("c:/org/seasar/uruma/"));
+        assertEquals("3", "c:/org/seasar/uruma", PathUtil.getParent("c:/org/seasar/uruma/"));
 
         assertEquals("4", "c:\\org\\seasar\\uruma", PathUtil
                 .getParent("c:\\org\\seasar\\uruma\\test.java"));
 
-        assertEquals("5", "c:\\org\\seasar\\uruma", PathUtil
-                .getParent("c:\\org\\seasar\\uruma\\"));
+        assertEquals("5", "c:\\org\\seasar\\uruma", PathUtil.getParent("c:\\org\\seasar\\uruma\\"));
 
         assertEquals("6", "c:/org\\seasar/uruma", PathUtil
                 .getParent("c:/org\\seasar/uruma\\test.java"));
@@ -120,21 +113,17 @@ public class PathUtilTest extends TestCase {
     public void testGetFileName() {
         assertEquals("1", null, PathUtil.getFileName(null));
 
-        assertEquals("2", "test.java", PathUtil
-                .getFileName("c:/org/seasar/uruma/test.java"));
+        assertEquals("2", "test.java", PathUtil.getFileName("c:/org/seasar/uruma/test.java"));
 
         assertEquals("3", "", PathUtil.getFileName("c:/org/seasar/uruma/"));
 
-        assertEquals("4", "test.java", PathUtil
-                .getFileName("c:\\org\\seasar\\uruma\\test.java"));
+        assertEquals("4", "test.java", PathUtil.getFileName("c:\\org\\seasar\\uruma\\test.java"));
 
         assertEquals("5", "", PathUtil.getFileName("c:\\org\\seasar\\uruma\\"));
 
-        assertEquals("6", "test.java", PathUtil
-                .getFileName("c:/org\\seasar/uruma\\test.java"));
+        assertEquals("6", "test.java", PathUtil.getFileName("c:/org\\seasar/uruma\\test.java"));
 
-        assertEquals("7", "test.java", PathUtil
-                .getFileName("c:\\org/seasar\\uruma/test.java"));
+        assertEquals("7", "test.java", PathUtil.getFileName("c:\\org/seasar\\uruma/test.java"));
 
         assertEquals("8", "test", PathUtil.getFileName("test"));
     }
@@ -163,5 +152,13 @@ public class PathUtilTest extends TestCase {
         assertEquals("3", "txt", PathUtil.getExt("test.abc.txt"));
         assertEquals("4", "", PathUtil.getExt("test"));
         assertEquals("5", "", PathUtil.getExt(""));
+    }
+
+    /**
+     * {@link PathUtil#getPackagePath(Class)} メソッドのテストです。<br />
+     */
+    public void testGetPackagePath() {
+        assertEquals("1", "", PathUtil.getPackagePath(null));
+        assertEquals("2", "org/seasar/uruma/util", PathUtil.getPackagePath(getClass()));
     }
 }

@@ -40,21 +40,19 @@ public class PathUtil {
     /**
      * 与えられた基準パスと相対パスから絶対パスを生成します。</br>
      * <ul>
-     * <li>パス中の <code>\</code> はすべて <code>/</code> に変換します。
-     * <li>基本動作として <code>basePath</code> と <code>relPath</code>
-     * を連結した文字列を返します。
-     * <li>この際、<code>basePath</code> が <code>/</code> で終了していない場合、<code>/</code>
-     * を付加します。
-     * <li><code>relPath</code> が <code>/</code> から始まる場合、<code>relPath</code>
-     * が絶対パスを表していると見なして、<code>basePath</code> は無視されます。
-     * <li><code>basePath</code> が <code>relPath</code> の先頭に含まれる場合、<code>basePath</code>
+     * <li>パス中の {@code \} はすべて {@code /} に変換します。
+     * <li>基本動作として {@code basePath} と {@code relPath} を連結した文字列を返します。
+     * <li>この際、{@code basePath} が {@code /} で終了していない場合、{@code /} を付加します。
+     * <li>{@code relPath} が {@code /} から始まる場合、{@code relPath} が絶対パスを表していると見なして、
+     * {@code basePath} は無視されます。
+     * <li>{@code basePath} が {@code relPath} の先頭に含まれる場合、 {@code basePath}
      * は無視されます。
      * </ul>
      * 
      * @param basePath
-     *            基準パス
+     *        基準パス
      * @param relPath
-     *            相対パス
+     *        相対パス
      * @return 生成したパス
      */
     public static String createPath(String basePath, String relPath) {
@@ -80,7 +78,7 @@ public class PathUtil {
      * セパレータを「\」から「/」へ変換します。<br />
      * 
      * @param path
-     *            パス
+     *        パス
      * @return 変換後のパス
      */
     public static String replaceSeparator(final String path) {
@@ -95,12 +93,11 @@ public class PathUtil {
      * 与えられたパスのベースパスを基準とした相対パスを返します。<br />
      * 
      * @param basePath
-     *            ベースパス
+     *        ベースパス
      * @param path
-     *            パス
+     *        パス
      */
-    public static String getRelativePath(final String basePath,
-            final String path) {
+    public static String getRelativePath(final String basePath, final String path) {
         AssertionUtil.assertNotNull("basePath", basePath);
         AssertionUtil.assertNotNull("path", path);
 
@@ -117,7 +114,7 @@ public class PathUtil {
      * 混在している場合は、より後ろの方を区切りとします。<br />
      * 
      * @param path
-     *            パス
+     *        パス
      * @return 親ディレクトリ部分
      */
     public static String getParent(final String path) {
@@ -141,7 +138,7 @@ public class PathUtil {
      * 混在している場合は、より後ろの方を区切りとします。<br />
      * 
      * @param path
-     *            パス
+     *        パス
      * @return ファイル名部分
      */
     public static String getFileName(final String path) {
@@ -159,7 +156,7 @@ public class PathUtil {
      * ファイル名から拡張子を除いた部分を返します。<br />
      * 
      * @param fileName
-     *            フィル名
+     *        フィル名
      * @return 拡張子を除いた部分
      */
     public static String getBaseName(final String fileName) {
@@ -174,7 +171,7 @@ public class PathUtil {
      * パスの拡張子の部分(最後に登場するピリオド以降)を返します。<br />
      * 
      * @param path
-     *            パス
+     *        パス
      * @return 拡張子
      */
     public static String getExt(final String path) {
@@ -187,5 +184,19 @@ public class PathUtil {
         } else {
             return null;
         }
+    }
+
+    /**
+     * 与えられたクラスオブジェクトのパッケージに対応するパスを生成します。<br />
+     * 
+     * @param clazz
+     *        パッケージからパスを生成するクラスオブジェクト
+     * @return 生成したパス。{@code clazz} が {@code null} の場合は空文字列
+     */
+    public static String getPackagePath(final Class<?> clazz) {
+        if (clazz == null) {
+            return "";
+        }
+        return clazz.getPackage().getName().replace('.', '/');
     }
 }
