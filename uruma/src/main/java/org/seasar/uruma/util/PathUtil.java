@@ -189,14 +189,35 @@ public class PathUtil {
     /**
      * 与えられたクラスオブジェクトのパッケージに対応するパスを生成します。<br />
      * 
-     * @param clazz
-     *        パッケージからパスを生成するクラスオブジェクト
+     * @param refClass
+     *        パッケージからパスを生成するための参照用クラスオブジェクト
      * @return 生成したパス。{@code clazz} が {@code null} の場合は空文字列
      */
-    public static String getPackagePath(final Class<?> clazz) {
-        if (clazz == null) {
+    public static String getPackagePath(final Class<?> refClass) {
+        if (refClass == null) {
             return "";
         }
-        return clazz.getPackage().getName().replace('.', '/');
+        return refClass.getPackage().getName().replace('.', '/');
+    }
+
+    /**
+     * 与えられたクラスオブジェクトのパッケージを親ディレクトリとするファイル名のパスを生成します。<br />
+     * 
+     * @param refClass
+     *        親ディレクトリを生成するための参照用クラスオブジェクト
+     * @param fileName
+     *        ファイル名
+     * @return 生成したパス
+     */
+    public static String getPath(final Class<?> refClass, final String fileName) {
+        String path = getPackagePath(refClass);
+        if (!("".equals(path))) {
+            path += "/";
+        }
+
+        if (fileName != null) {
+            path += fileName;
+        }
+        return path;
     }
 }

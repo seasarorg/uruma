@@ -161,4 +161,15 @@ public class PathUtilTest extends TestCase {
         assertEquals("1", "", PathUtil.getPackagePath(null));
         assertEquals("2", "org/seasar/uruma/util", PathUtil.getPackagePath(getClass()));
     }
+
+    /**
+     * {@link PathUtil#getPath(Class, String)} メソッドのテストです。<br />
+     */
+    public void testGetPath() {
+        assertEquals("1", "org/seasar/uruma/util/filename.txt", PathUtil.getPath(getClass(),
+                "filename.txt"));
+        assertEquals("2", "filename.txt", PathUtil.getPath(null, "filename.txt"));
+        assertEquals("3", "org/seasar/uruma/util/", PathUtil.getPath(getClass(), null));
+        assertEquals("4", "", PathUtil.getPath(null, null));
+    }
 }
