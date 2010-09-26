@@ -33,8 +33,7 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y-komori
  */
-public abstract class AbstractUIComponent extends AbstractUIElement implements
-        UIComponent {
+public abstract class AbstractUIComponent extends AbstractUIElement implements UIComponent {
     private UrumaLogger logger = UrumaLogger.getLogger(getClass());
 
     private UIComponentContainer parent;
@@ -60,32 +59,30 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
      * </p>
      * 
      * @param parent
-     *            親 {@link WidgetHandle} オブジェクト
+     *        親 {@link WidgetHandle} オブジェクト
      * @param context
-     *            {@link WindowContext} オブジェクト
+     *        {@link WindowContext} オブジェクト
      */
-    protected void doPreRender(final WidgetHandle parent,
-            final WindowContext context) {
+    protected void doPreRender(final WidgetHandle parent, final WindowContext context) {
     }
 
     /**
      * レンダラ呼び出し中に独自のレンダリング処理を追加するためのメソッドです。<br />
      * <p>
      * 本メソッドは {@link AbstractUIComponent#renderer} メソッドの中で、{@link Renderer レンダラ}
-     * の
-     * {@link Renderer#render(UIComponent, WidgetHandle, PartContext) render()}
-     * メソッドと
-     * {@link Renderer#renderAfter(WidgetHandle, UIComponent, WidgetHandle, PartContext) renderAfter()}
-     * メソッドを呼び出す間に呼び出されます。<br />
+     * の {@link Renderer#render(UIComponent, WidgetHandle, PartContext)
+     * render()} メソッドと
+     * {@link Renderer#renderAfter(WidgetHandle, UIComponent, WidgetHandle, PartContext)
+     * renderAfter()} メソッドを呼び出す間に呼び出されます。<br />
      * </p>
      * <p>
      * このタイミングでサブクラスで独自のレンダリング処理を行う場合、本メソッドをオーバーライドしてください。<br />
      * </p>
      * 
      * @param parent
-     *            親 {@link WidgetHandle} オブジェクト
+     *        親 {@link WidgetHandle} オブジェクト
      * @param context
-     *            {@link PartContext} オブジェクト
+     *        {@link PartContext} オブジェクト
      */
     protected void doRender(final WidgetHandle parent, final PartContext context) {
     }
@@ -199,8 +196,7 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
 
     private void setupId() {
         if (this.id == null) {
-            setId(getClass().getName() + UrumaConstants.AT_MARK
-                    + Integer.toHexString(hashCode()));
+            setId(getClass().getName() + UrumaConstants.AT_MARK + Integer.toHexString(hashCode()));
         }
     }
 
@@ -209,6 +205,6 @@ public abstract class AbstractUIComponent extends AbstractUIElement implements
      */
     @Override
     public String toString() {
-        return getPath() + " id:" + getId();
+        return getURL().toString() + " id:" + getId();
     }
 }

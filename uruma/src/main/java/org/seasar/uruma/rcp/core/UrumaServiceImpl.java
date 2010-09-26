@@ -63,17 +63,16 @@ import org.seasar.uruma.rcp.configuration.Extension;
 import org.seasar.uruma.rcp.core.UrumaBundleState.BundleState;
 import org.seasar.uruma.rcp.util.RcpResourceUtil;
 import org.seasar.uruma.util.AssertionUtil;
+import org.seasar.uruma.util.PathUtil;
 
 /**
- * {@link UrumaService} の実装クラスです。<br /> 本クラスは、 {@link UrumaServiceFactory}
- * によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。<br />
+ * {@link UrumaService} の実装クラスです。<br />
+ * 本クラスは、 {@link UrumaServiceFactory} によって、Uruma アプリケーション毎に固有のインスタンスが生成されます。<br />
  * 
  * @author y-komori
  */
-public class UrumaServiceImpl implements UrumaService, UrumaConstants,
-        UrumaMessageCodes {
-    private static final UrumaLogger logger = UrumaLogger
-            .getLogger(UrumaService.class);
+public class UrumaServiceImpl implements UrumaService, UrumaConstants, UrumaMessageCodes {
+    private static final UrumaLogger logger = UrumaLogger.getLogger(UrumaService.class);
 
     protected static final String URUMA_CLASSLOADER_NAME = "UrumaClassLoader";
 
@@ -115,7 +114,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * {@link UrumaServiceImpl} を構築します。<br />
      * 
      * @param targetBundle
-     *            ターゲットバンドル
+     *        ターゲットバンドル
      */
     public UrumaServiceImpl(final Bundle targetBundle) {
         AssertionUtil.assertNotNull("targetBundle", targetBundle);
@@ -146,8 +145,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
             prepareS2Components();
             registComponents();
 
-            UrumaBundleState.getInstance().setAppBundleState(
-                    BundleState.AVAILABLE);
+            UrumaBundleState.getInstance().setAppBundleState(BundleState.AVAILABLE);
             logger.log(URUMA_SERVICE_INIT_END, targetBundle.getSymbolicName());
         } catch (Throwable ex) {
             logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
@@ -167,8 +165,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         if (Env.UT.equals(Env.getValue())) {
             try {
                 String workbenchPath = DEFAULT_WORKBENCH_XML;
-                URL resourceUrl = RcpResourceUtil
-                        .getLocalResourceUrl(workbenchPath);
+                URL resourceUrl = RcpResourceUtil.getLocalResourceUrl(workbenchPath);
                 if (resourceUrl != null) {
                     templateLoader.loadViewTemplates(resourceUrl);
 
@@ -182,8 +179,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
                 }
             } catch (Exception ex) {
                 logger.log(EXCEPTION_OCCURED_WITH_REASON, ex, ex.getMessage());
-                throw new UrumaAppInitException(targetBundle, ex, ex
-                        .getMessage());
+                throw new UrumaAppInitException(targetBundle, ex, ex.getMessage());
             }
         }
 
@@ -192,10 +188,10 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
             setupContributor();
 
             setupContexts();
-            if (!DUMMY_WORKBENCH_PATH.equals(workbenchComponent.getPath())) {
+            if (!DUMMY_WORKBENCH_PATH.equals(PathUtil.getFileName(workbenchComponent.getURL()
+                    .getPath()))) {
                 // アプリケーションのビューテンプレートの読み込み
-                URL resourceUrl = RcpResourceUtil
-                        .getLocalResourceUrl(DEFAULT_WORKBENCH_XML);
+                URL resourceUrl = RcpResourceUtil.getLocalResourceUrl(DEFAULT_WORKBENCH_XML);
                 templateLoader.loadViewTemplates(resourceUrl);
             }
             ContributionBuilder.build(contributor, extensions);
@@ -211,7 +207,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * 指定したバンドルをアクティベートします。
      * 
      * @param bundle
-     *            Urumaアプリケーションを含むバンドル
+     *        Urumaアプリケーションを含むバンドル
      * 
      * @return バンドルのクラスローダ
      */
@@ -241,7 +237,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      * {@link Bundle} に含まれるクラスファイルのうち、最初に見つかった一つのクラス名を返します。
      * 
      * @param bundle
-     *            {@link Bundle} オブジェクト
+     *        {@link Bundle} オブジェクト
      * @return 見つかったクラス名。見つからなかった場合は <code>null</code>。
      */
     @SuppressWarnings("unchecked")
@@ -290,16 +286,14 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         S2ContainerFactory.destroy();
 
         // UrumaPluginのS2Containerを作成。
-        S2Container urumaContainer = S2ContainerFactory
-                .create(UrumaConstants.URUMA_RCP_DICON_PATH);
+        S2Container urumaContainer = S2ContainerFactory.create(UrumaConstants.URUMA_RCP_DICON_PATH);
 
         switchToAppClassLoader();
 
         String configPath = SingletonS2ContainerFactory.getConfigPath();
 
         // UrumaAppPluginのenv.txt読み込み
-        URL url = RcpResourceUtil
-                .getLocalResourceUrlNoException(Env.DEFAULT_FILE_PATH);
+        URL url = RcpResourceUtil.getLocalResourceUrlNoException(Env.DEFAULT_FILE_PATH);
         if (url != null) {
             try {
                 Env.setFile(URLUtil.toFile(url));
@@ -311,8 +305,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         try {
             S2ContainerFactory.configure();
             ResourceUtil.getResource(configPath);
-            container = S2ContainerFactory.create(configPath,
-                    getAppClassLoader());
+            container = S2ContainerFactory.create(configPath, getAppClassLoader());
         } catch (ResourceNotFoundRuntimeException ex) {
             // app.dicon が存在しない場合は、空の S2Container を生成する
             container = S2ContainerFactory.create();
@@ -327,10 +320,8 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     }
 
     protected void prepareS2Components() {
-        this.templateManager = (TemplateManager) container
-                .getComponent(TemplateManager.class);
-        this.templateLoader = (ViewTemplateLoader) container
-                .getComponent(ViewTemplateLoader.class);
+        this.templateManager = (TemplateManager) container.getComponent(TemplateManager.class);
+        this.templateLoader = (ViewTemplateLoader) container.getComponent(ViewTemplateLoader.class);
         this.applicationContext = (ApplicationContext) container
                 .getComponent(ApplicationContext.class);
 
@@ -339,8 +330,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         // Debug用 アクションをロード
         if (Env.UT.equals(Env.getValue())) {
             UrumaDebugViewAction urumaDebugViewAction = new UrumaDebugViewAction();
-            String name = StringUtil.decapitalize(UrumaDebugViewAction.class
-                    .getSimpleName());
+            String name = StringUtil.decapitalize(UrumaDebugViewAction.class.getSimpleName());
             container.register(urumaDebugViewAction, name);
         }
     }
@@ -351,20 +341,17 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         registry.registComponents(urumaClassLoader);
     }
 
-    protected void switchClassLoader(final ClassLoader loader,
-            final String loaderName) {
+    protected void switchClassLoader(final ClassLoader loader, final String loaderName) {
         Thread currentThread = Thread.currentThread();
         this.oldClassLoader = currentThread.getContextClassLoader();
         if (logger.isDebugEnabled()) {
-            logger.log(SWITCH_CONTEXT_CLASS_LOADER, loaderName + "("
-                    + loader.toString() + ")");
+            logger.log(SWITCH_CONTEXT_CLASS_LOADER, loaderName + "(" + loader.toString() + ")");
         }
         currentThread.setContextClassLoader(loader);
     }
 
     protected void setupContributor() {
-        this.contributor = ContributorFactoryOSGi
-                .createContributor(targetBundle);
+        this.contributor = ContributorFactoryOSGi.createContributor(targetBundle);
     }
 
     protected void setupContexts() {
@@ -379,20 +366,21 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
         if (root instanceof WorkbenchComponent) {
             this.workbenchComponent = (WorkbenchComponent) root;
         } else {
-            throw new NotFoundException(WORKBENCH_ELEMENT_NOT_FOUND,
-                    workbenchTemplate.getPath());
+            throw new NotFoundException(WORKBENCH_ELEMENT_NOT_FOUND, workbenchTemplate.getURL()
+                    .toExternalForm());
         }
 
-        this.applicationContext.setValue(WORKBENCH_TEMPLATE_NAME,
-                workbenchTemplate);
-        this.windowContext = ContextFactory.createWindowContext(
-                applicationContext, WORKBENCH_WINDOW_CONTEXT_ID);
+        this.applicationContext.setValue(WORKBENCH_TEMPLATE_NAME, workbenchTemplate);
+        this.windowContext = ContextFactory.createWindowContext(applicationContext,
+                WORKBENCH_WINDOW_CONTEXT_ID);
     }
 
     protected Template createDummyWorkbenchTemplate() {
         Template template = new TemplateImpl();
         WorkbenchComponent workbench = new WorkbenchComponent();
-        workbench.setPath(DUMMY_WORKBENCH_PATH);
+        URL dummyUrl = ResourceUtil.getResource(getClass().getPackage().getName().replace('.', '/')
+                + '/' + DUMMY_WORKBENCH_PATH);
+        workbench.setURL(dummyUrl);
         workbench.title = "Uruma";
         workbench.initWidth = "50%";
         workbench.initHeight = "50%";
@@ -536,8 +524,7 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
             } else if (oldClassLoader == appClassLoader) {
                 name = appClassLoaderName;
             }
-            logger.log(SWITCH_CONTEXT_CLASS_LOADER, name + "("
-                    + oldClassLoader.toString() + ")");
+            logger.log(SWITCH_CONTEXT_CLASS_LOADER, name + "(" + oldClassLoader.toString() + ")");
         }
         Thread.currentThread().setContextClassLoader(oldClassLoader);
     }
@@ -562,12 +549,10 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
     public ResourceBundle getImageBundle() {
         if (imageBundle == null) {
             try {
-                imageBundle = ResourceBundle.getBundle(
-                        DEFAULT_IMAGE_BUNDLE_PATH, Locale.getDefault(),
-                        appClassLoader);
+                imageBundle = ResourceBundle.getBundle(DEFAULT_IMAGE_BUNDLE_PATH, Locale
+                        .getDefault(), appClassLoader);
             } catch (MissingResourceException ex) {
-                logger.log(IMAGE_DEF_BUNDLE_NOT_FOUND,
-                        DEFAULT_IMAGE_BUNDLE_PATH);
+                logger.log(IMAGE_DEF_BUNDLE_NOT_FOUND, DEFAULT_IMAGE_BUNDLE_PATH);
             }
         }
         return imageBundle;
@@ -586,11 +571,9 @@ public class UrumaServiceImpl implements UrumaService, UrumaConstants,
      */
     public List<ViewPartComponent> getViewPartComponent() {
         List<ViewPartComponent> resultList = new ArrayList<ViewPartComponent>();
-        List<Template> templates = templateManager
-                .getTemplates(ViewPartComponent.class);
+        List<Template> templates = templateManager.getTemplates(ViewPartComponent.class);
         for (Template template : templates) {
-            ViewPartComponent viewPart = (ViewPartComponent) template
-                    .getRootComponent();
+            ViewPartComponent viewPart = (ViewPartComponent) template.getRootComponent();
             resultList.add(viewPart);
         }
         return resultList;

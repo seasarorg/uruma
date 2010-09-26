@@ -16,6 +16,7 @@
 package org.seasar.uruma.renderer;
 
 import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.StringTokenizer;
 
 import org.eclipse.jface.action.LegacyActionTools;
@@ -31,6 +32,7 @@ import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.framework.util.ResourceUtil;
 import org.seasar.uruma.annotation.RenderingPolicy;
 import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
@@ -46,26 +48,27 @@ import org.seasar.uruma.util.PathUtil;
  * レンダリングのサポートを行うユーティリティクラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$
  */
 public class RendererSupportUtil implements UrumaConstants {
-    private static final UrumaLogger logger = UrumaLogger
-            .getLogger(RendererSupportUtil.class);
+    private static final UrumaLogger logger = UrumaLogger.getLogger(RendererSupportUtil.class);
 
     /**
-     * <code>src</code> でアノテートされたフィールドを <code>dest</code> へコピーします。<br />
+     * {@code src} でアノテートされたフィールドを {@code dest} へコピーします。<br />
      * <p>
      * src オブジェクトの持つフィールドのうち、 {@link RenderingPolicy}
      * アノテーションが指定されたフィールドで、現在のタイミングと同じタイミングが指定されたフィールドを、 アノテーションの示す方法で変換して
-     * <code>dest</code> の同名フィールドへコピーします。<br />
+     * {@code dest} の同名フィールドへコピーします。<br />
      * コピー方法の詳細は、 {@link RenderingPolicy} のドキュメントを参照してください。<br />
      * </p>
      * 
      * @param src
-     *            転送元オブジェクト
+     *        転送元オブジェクト
      * @param dest
-     *            転送先オブジェクト
+     *        転送先オブジェクト
      * @param nowTiming
-     *            現在のタイミング
+     *        現在のタイミング
      */
     public static void setAttributes(final UIElement src, final Object dest,
             final SetTiming nowTiming) {
@@ -77,8 +80,7 @@ public class RendererSupportUtil implements UrumaConstants {
             Field field = pd.getField();
 
             if (field != null) {
-                RenderingPolicy policy = field
-                        .getAnnotation(RenderingPolicy.class);
+                RenderingPolicy policy = field.getAnnotation(RenderingPolicy.class);
                 if ((policy != null) && (policy.setTiming() == nowTiming)
                         && (policy.targetType() != TargetType.NONE)) {
                     String value = getSrcValue(src, pd);
@@ -94,16 +96,14 @@ public class RendererSupportUtil implements UrumaConstants {
         if (String.class.isAssignableFrom(pd.getPropertyType())) {
             return (String) pd.getValue(src);
         } else {
-            logger.log(UrumaMessageCodes.COMPONENT_PROPERTY_IS_NOT_STRING, pd
-                    .getBeanDesc().getBeanClass().getName(), pd
-                    .getPropertyName());
+            logger.log(UrumaMessageCodes.COMPONENT_PROPERTY_IS_NOT_STRING, pd.getBeanDesc()
+                    .getBeanClass().getName(), pd.getPropertyName());
             return null;
         }
     }
 
-    private static void setValue(final UIElement src, final Object dest,
-            final PropertyDesc srcPd, final RenderingPolicy policy,
-            final String value) {
+    private static void setValue(final UIElement src, final Object dest, final PropertyDesc srcPd,
+            final RenderingPolicy policy, final String value) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(dest.getClass());
 
         // RenderingPolicy#name が設定されていない場合は
@@ -117,19 +117,18 @@ public class RendererSupportUtil implements UrumaConstants {
             if (desc.hasPropertyDesc(propertyName)) {
                 PropertyDesc destPd = desc.getPropertyDesc(propertyName);
                 if (destPd.isWritable()) {
-                    destPd.setValue(dest, convertValue(src, value, policy
-                            .conversionType()));
+                    destPd.setValue(dest, convertValue(src, value, policy.conversionType()));
                 } else {
-                    logger.log(UrumaMessageCodes.PROPERTY_IS_NOT_WRITABLE, dest
-                            .getClass().getName(), destPd.getPropertyName());
+                    logger.log(UrumaMessageCodes.PROPERTY_IS_NOT_WRITABLE, dest.getClass()
+                            .getName(), destPd.getPropertyName());
                 }
             } else {
-                logger.log(UrumaMessageCodes.WIDGET_PROPERTY_NOT_FOUND, dest
-                        .getClass().getName(), propertyName);
+                logger.log(UrumaMessageCodes.WIDGET_PROPERTY_NOT_FOUND, dest.getClass().getName(),
+                        propertyName);
             }
         } catch (Exception ex) {
-            throw new RenderException(UrumaMessageCodes.RENDER_MAPPING_FAILED,
-                    ex, propertyName, dest.getClass().getName(), value);
+            throw new RenderException(UrumaMessageCodes.RENDER_MAPPING_FAILED, ex, propertyName,
+                    dest.getClass().getName(), value);
         }
     }
 
@@ -137,11 +136,11 @@ public class RendererSupportUtil implements UrumaConstants {
      * {@link ConversionType} にしたがって値を変換します。<br />
      * 
      * @param src
-     *            変換元の値を保持する {@link UIElement} オブジェクト
+     *        変換元の値を保持する {@link UIElement} オブジェクト
      * @param value
-     *            変換元の値
+     *        変換元の値
      * @param conversionType
-     *            変換方式を指定する {@link ConversionType} オブジェクト
+     *        変換方式を指定する {@link ConversionType} オブジェクト
      * @return 変換結果オブジェクト
      */
     public static Object convertValue(final UIElement src, final String value,
@@ -164,7 +163,7 @@ public class RendererSupportUtil implements UrumaConstants {
         } else if (conversionType == ConversionType.COLOR) {
             return convertColor(value);
         } else if (conversionType == ConversionType.IMAGE) {
-            return convertImage(value, src.getBasePath());
+            return convertImage(value, src.getParentURL());
         } else if (conversionType == ConversionType.ACCELERATOR) {
             return convertAccelerator(value);
         }
@@ -175,7 +174,7 @@ public class RendererSupportUtil implements UrumaConstants {
      * テキストの変換を行います。<br />
      * 
      * @param value
-     *            変換対象
+     *        変換対象
      * @return 変換結果
      */
     public static String convertText(final String value) {
@@ -188,10 +187,10 @@ public class RendererSupportUtil implements UrumaConstants {
     }
 
     /**
-     * <code>boolean</code> 型への変換を行います。<br />
+     * {@code boolean} 型への変換を行います。<br />
      * 
      * @param value
-     *            変換対象
+     *        変換対象
      * @return 変換結果
      */
     public static boolean convertBoolean(final String value) {
@@ -199,10 +198,10 @@ public class RendererSupportUtil implements UrumaConstants {
     }
 
     /**
-     * <code>int</code> 型への変換を行います。<br />
+     * {@code int} 型への変換を行います。<br />
      * 
      * @param value
-     *            変換対象
+     *        変換対象
      * @return 変換結果
      */
     public static int convertInt(final String value) {
@@ -210,10 +209,10 @@ public class RendererSupportUtil implements UrumaConstants {
     }
 
     /**
-     * カンマ区切りの数値を <code>int</code> 型配列へ変換します。<br />
+     * カンマ区切りの数値を {@code int} 型配列へ変換します。<br />
      * 
      * @param value
-     *            変換対象
+     *        変換対象
      * @return 変換結果
      */
     public static int[] convertIntArray(final String value) {
@@ -230,7 +229,7 @@ public class RendererSupportUtil implements UrumaConstants {
      * {@link Character} 型への変換を行います。<br />
      * 
      * @param value
-     *            変換対象
+     *        変換対象
      * @return 変換結果
      */
     public static Character convertCharacter(final String value) {
@@ -245,7 +244,7 @@ public class RendererSupportUtil implements UrumaConstants {
      * {@link SWT} 定数への変換を行います。<br />
      * 
      * @param value
-     *            変換対象
+     *        変換対象
      * @return 変換結果
      * @see SWTUtil#getStyle(String)
      */
@@ -257,7 +256,7 @@ public class RendererSupportUtil implements UrumaConstants {
      * {@link Color} オブジェクトへの変換を行います。<br />
      * 
      * @param value
-     *            変換対象
+     *        変換対象
      * @return 変換結果
      * @see SWTUtil#getColor(String)
      */
@@ -266,48 +265,47 @@ public class RendererSupportUtil implements UrumaConstants {
     }
 
     /**
-     * <code>value</code> の示すパスからイメージを読み込みます。<br />
+     * {@code value} の示すパスからイメージを読み込みます。<br />
      * 
      * @param value
-     *            パス
-     * @param basePath
-     *            ベースパス
+     *        パス
+     * @param parentUrl
+     *        親 URL
      * @return 変換結果
      * @see ImageManager
      */
-    public static Image convertImage(final String value, final String basePath) {
+    public static Image convertImage(final String value, final URL parentUrl) {
         Image image = ImageManager.getImage(value);
         if (image == null) {
-            String path = PathUtil.createPath(basePath, value);
-            image = ImageManager.loadImage(path);
+            URL url = PathUtil.createURL(parentUrl, value);
+            image = ImageManager.loadImage(value, url);
         }
         return image;
     }
 
     /**
-     * <code>value</code> の示すパスからイメージを読み込みます。<br />
+     * {@code value} の示すパスからイメージを読み込みます。<br />
      * 
      * @param value
-     *            パス
+     *        パス
      * @return 変換結果
      * @see ImageManager
      */
     public static Image convertImage(final String value) {
-        return convertImage(value, "");
+        return convertImage(value, ResourceUtil.getResource(""));
     }
 
     /**
-     * <code>value</code> のパスの指すイメージを表す {@link ImageDescriptor} を返します。<br />
+     * {@code value} のパスの指すイメージを表す {@link ImageDescriptor} を返します。<br />
      * 
      * @param value
-     *            パス
+     *        パス
      * @param basePath
-     *            ベースパス
+     *        ベースパス
      * @return 変換結果
      * @see ImageManager
      */
-    public static ImageDescriptor convertImageDescriptor(final String value,
-            final String basePath) {
+    public static ImageDescriptor convertImageDescriptor(final String value, final String basePath) {
         ImageDescriptor image = ImageManager.getImageDescriptor(value);
         if (image == null) {
             String path = PathUtil.createPath(basePath, value);
@@ -316,11 +314,16 @@ public class RendererSupportUtil implements UrumaConstants {
         return image;
     }
 
+    public static ImageDescriptor convertImageDescriptor(final String value, final URL parentUrl) {
+        // TODO 要実装
+        return null;
+    }
+
     /**
-     * <code>value</code> のパスの指すイメージを表す {@link ImageDescriptor} を返します。<br />
+     * {@code value} のパスの指すイメージを表す {@link ImageDescriptor} を返します。<br />
      * 
      * @param value
-     *            パス
+     *        パス
      * @return 変換結果
      * @see ImageManager
      */
@@ -329,10 +332,11 @@ public class RendererSupportUtil implements UrumaConstants {
     }
 
     /**
-     * キーアクセラレータの <code>int</code> 値への変換を行います<br />。
+     * キーアクセラレータの {@code int} 値への変換を行います<br />
+     * 。
      * 
      * @param value
-     *            変換対象
+     *        変換対象
      * @return 変換結果
      */
     public static int convertAccelerator(final String value) {
@@ -343,17 +347,17 @@ public class RendererSupportUtil implements UrumaConstants {
      * {@link Font} オブジェクトを取得します。<br />
      * 
      * @param defaultFont
-     *            見つからなかった場合のデフォルト {@link Font} オブジェクト
+     *        見つからなかった場合のデフォルト {@link Font} オブジェクト
      * @param fontName
-     *            フォント名称
+     *        フォント名称
      * @param fontStyle
-     *            フォントスタイル
+     *        フォントスタイル
      * @param fontHeight
-     *            フォント高さ
+     *        フォント高さ
      * @return {@link Font} オブジェクト
      */
-    public static Font getFont(final Font defaultFont, String fontName,
-            final String fontStyle, final String fontHeight) {
+    public static Font getFont(final Font defaultFont, String fontName, final String fontStyle,
+            final String fontHeight) {
         FontData fontData = defaultFont.getFontData()[0];
 
         if (fontName == null) {

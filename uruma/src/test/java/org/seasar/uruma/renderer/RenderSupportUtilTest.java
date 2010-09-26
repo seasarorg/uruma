@@ -15,19 +15,25 @@
  */
 package org.seasar.uruma.renderer;
 
+import java.net.URL;
+
 import junit.framework.TestCase;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.seasar.eclipse.common.util.ImageManager;
+import org.seasar.framework.util.ResourceUtil;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 import org.seasar.uruma.exception.RenderException;
+import org.seasar.uruma.util.PathUtil;
 
 /**
  * {@link RendererSupportUtil} のためのテストクラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$
  */
 public class RenderSupportUtilTest extends TestCase {
     private Display display;
@@ -51,7 +57,8 @@ public class RenderSupportUtilTest extends TestCase {
 
     public void testSetAttributes1() {
         SrcObject src = new SrcObject();
-        src.setBasePath("org/seasar/uruma/renderer");
+        URL url = ResourceUtil.getResource(getClass().getName().replace('.', '/') + ".class");
+        src.setParentURL(PathUtil.getParentURL(url));
         DestObject dest = new DestObject();
 
         RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER);
@@ -62,8 +69,7 @@ public class RenderSupportUtilTest extends TestCase {
         assertTrue("4", dest.booleanField);
         assertEquals("5", new RGB(255, 255, 255), dest.colorField.getRGB());
         assertEquals("6", SWT.YES, dest.swtConstField);
-        assertEquals("7", ImageManager.getImage("/images/container.gif"),
-                dest.imageField);
+        assertEquals("7", ImageManager.getImage("/images/container.gif"), dest.imageField);
         assertEquals("8", SWT.CTRL | SWT.ALT | 'A', dest.acceleratorField);
         assertEquals("9", 'A', dest.charField);
         assertEquals("10", 3, dest.intArrayField.length);
@@ -72,17 +78,14 @@ public class RenderSupportUtilTest extends TestCase {
         assertEquals("13", 3, dest.intArrayField[2]);
 
         assertEquals("14", "StringField2", dest.getStringProperty());
-        assertEquals("15", "Text\tField2\nText\tField2\n", dest
-                .getTextProperty());
+        assertEquals("15", "Text\tField2\nText\tField2\n", dest.getTextProperty());
         assertEquals("16", 456, dest.getIntProperty());
         assertFalse("17", dest.getBooleanProperty());
         assertEquals("18", new RGB(0, 0, 0), dest.getColorProperty().getRGB());
         assertEquals("19", SWT.NO, dest.getSwtConstProperty());
-        assertEquals(
-                "20",
-                ImageManager
-                        .getImage("org/seasar/uruma/renderer/../../../../images/container.gif"),
-                dest.getImageProperty());
+        assertEquals("20", ImageManager
+                .getImage("org/seasar/uruma/renderer/../../../../images/container.gif"), dest
+                .getImageProperty());
         assertEquals("21", SWT.F2, dest.getAcceleratorProperty());
         assertEquals("22", 'x', dest.getCharProperty());
         assertEquals("23", 1, dest.getIntArrayProperty().length);

@@ -15,20 +15,33 @@
  */
 package org.seasar.uruma.component.factory;
 
+import java.net.URL;
+
 import org.seasar.uruma.component.Template;
 
 /**
  * 画面定義 XML ファイルを読み込み、コンポーネントツリーを生成するためのインタフェースです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$ $Date$
  */
 public interface ComponentTreeBuilder {
     /**
      * 指定されたパスの画面定義XMLを読み込み、コンポーネントツリーを生成します。<br />
      * 
      * @param path
-     *            画面定義XMLのパス
+     *        画面定義 XML のパス
      * @return {@link Template} オブジェクト
      */
-    public Template build(final String path);
+    public Template build(String path);
+
+    /**
+     * 指定された URL の画面定義XMLを読み込み、コンポーネントツリーを生成します。<br />
+     * 
+     * @param url
+     *        画面定義 XML の URL
+     * @return {@link Template} オブジェクト
+     */
+    public Template build(URL url);
 }

@@ -15,44 +15,49 @@
  */
 package org.seasar.uruma.component;
 
+import java.net.URL;
+
 import org.seasar.uruma.component.factory.UrumaTagHandler;
 
 /**
  * 画面定義テンプレートの要素を表すインターフェースです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$ $Date$
  */
 public interface UIElement extends UIElementVisitorAcceptor {
     /**
-     * 画面定義テンプレートファイルのパスを設定します。<br />
+     * 画面定義テンプレートファイルの URL を設定します。<br />
      * 
-     * @param path
-     *            パス
+     * @param url
+     *        画面定義テンプレートファイルの URL
      */
-    public void setPath(String path);
+    public void setURL(URL url);
 
     /**
-     * 画面定義テンプレートファイルのパスを取得します。<br />
+     * 画面定義テンプレートファイルの URL を取得します。<br />
      * 
-     * @return パス
+     * @return 画面定義テンプレートファイルの URL
      */
-    public String getPath();
+    public URL getURL();
 
     /**
-     * 画面定義テンプレートファイルのベースパスを設定します。<br />
-     * <code>basePath</code> は {@link UrumaTagHandler} によって設定されます。
+     * 画面定義テンプレートファイルの親 URL を設定します。<br /> {@code parentUrl} は {@link UrumaTagHandler}
+     * によって設定されます。<br />
+     * この URL は画面定義テンプレート内で相対パスを使用する際の基点となります。<br />
      * 
-     * @param basePath
-     *            画面定義データファイルのベースパス
+     * @param parentUrl
+     *        画面定義データファイルの親 URL
      */
-    public void setBasePath(String basePath);
+    public void setParentURL(URL parentUrl);
 
     /**
-     * 画面定義テンプレートファイルのベースパスを取得します。<br />
+     * 画面定義テンプレートファイルの親 URL を取得します。<br />
      * 
-     * @return 画面定義データファイルのベースパス
+     * @return 画面定義データファイルの親 URL
      */
-    public String getBasePath();
+    public URL getParentURL();
 
     /**
      * 画面定義テンプレートファイル中の要素の位置を設定します。<br />
@@ -60,7 +65,7 @@ public interface UIElement extends UIElementVisitorAcceptor {
      * によって設定され、主にエラーが発生時の参照のために利用されます。<br/>
      * 
      * @param location
-     *            画面定義テンプレートファイル中の要素の位置
+     *        画面定義テンプレートファイル中の要素の位置
      */
     public void setLocation(String location);
 

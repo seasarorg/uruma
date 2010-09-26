@@ -33,6 +33,8 @@ import org.seasar.uruma.renderer.RendererSupportUtil;
  * {@link MenuItem} のレンダリングを行うクラスです。<br />
  * 
  * @author bskuroneko
+ * @author $Author$
+ * @version $Revision$
  */
 public class MenuItemRenderer extends AbstractRenderer {
 
@@ -42,8 +44,8 @@ public class MenuItemRenderer extends AbstractRenderer {
      *      org.seasar.uruma.context.WindowContext)
      */
     @Override
-    public WidgetHandle preRender(final UIComponent uiComponent,
-            final WidgetHandle parent, final WindowContext context) {
+    public WidgetHandle preRender(final UIComponent uiComponent, final WidgetHandle parent,
+            final WindowContext context) {
         setWindowContext(context);
 
         MenuItemComponent menuItemComponent = (MenuItemComponent) uiComponent;
@@ -73,8 +75,8 @@ public class MenuItemRenderer extends AbstractRenderer {
      *      org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.PartContext)
      */
-    public WidgetHandle render(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
+    public WidgetHandle render(final UIComponent uiComponent, final WidgetHandle parent,
+            final PartContext context) {
         // Do nothing.
         return null;
     }
@@ -85,9 +87,8 @@ public class MenuItemRenderer extends AbstractRenderer {
      *      org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.PartContext)
      */
-    public void renderAfter(final WidgetHandle widget,
-            final UIComponent uiComponent, final WidgetHandle parent,
-            final PartContext context) {
+    public void renderAfter(final WidgetHandle widget, final UIComponent uiComponent,
+            final WidgetHandle parent, final PartContext context) {
         // Do nothing.
     }
 
@@ -104,41 +105,34 @@ public class MenuItemRenderer extends AbstractRenderer {
         }
     }
 
-    protected void setText(final IAction action,
-            final MenuItemComponent menuItemComponent) {
+    protected void setText(final IAction action, final MenuItemComponent menuItemComponent) {
         String text = menuItemComponent.text;
         if (!StringUtil.isEmpty(text)) {
             action.setText(RendererSupportUtil.convertText(text));
         }
     }
 
-    protected void setAccelerator(final IAction action,
-            final MenuItemComponent menuItemComponent) {
+    protected void setAccelerator(final IAction action, final MenuItemComponent menuItemComponent) {
         String accelStr = menuItemComponent.accelerator;
         if (accelStr != null) {
-            action.setAccelerator(RendererSupportUtil
-                    .convertAccelerator(accelStr));
+            action.setAccelerator(RendererSupportUtil.convertAccelerator(accelStr));
         }
     }
 
-    protected void setChecked(final IAction action,
-            final MenuItemComponent menuItemComponent) {
+    protected void setChecked(final IAction action, final MenuItemComponent menuItemComponent) {
         String selection = menuItemComponent.selection;
         if (selection != null) {
             action.setChecked(RendererSupportUtil.convertBoolean(selection));
         }
     }
 
-    protected void setDescription(final IAction action,
-            final MenuItemComponent menuItemComponent) {
+    protected void setDescription(final IAction action, final MenuItemComponent menuItemComponent) {
         if (menuItemComponent.description != null) {
-            action.setDescription(RendererSupportUtil
-                    .convertText(menuItemComponent.description));
+            action.setDescription(RendererSupportUtil.convertText(menuItemComponent.description));
         }
     }
 
-    protected void setEnabled(final IAction action,
-            final MenuItemComponent menuItemComponent) {
+    protected void setEnabled(final IAction action, final MenuItemComponent menuItemComponent) {
         String checked = menuItemComponent.enabled;
         if (checked != null) {
             action.setEnabled(RendererSupportUtil.convertBoolean(checked));
@@ -149,8 +143,8 @@ public class MenuItemRenderer extends AbstractRenderer {
             final MenuItemComponent menuItemComponent) {
         String path = menuItemComponent.image;
         if (!StringUtil.isEmpty(path)) {
-            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(
-                    path, menuItemComponent.getBasePath());
+            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(path,
+                    menuItemComponent.getParentURL());
             action.setImageDescriptor(desc);
         }
     }
@@ -159,8 +153,8 @@ public class MenuItemRenderer extends AbstractRenderer {
             final MenuItemComponent menuItemComponent) {
         String path = menuItemComponent.disabledImage;
         if (!StringUtil.isEmpty(path)) {
-            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(
-                    path, menuItemComponent.getBasePath());
+            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(path,
+                    menuItemComponent.getParentURL());
             action.setDisabledImageDescriptor(desc);
         }
     }
@@ -169,8 +163,8 @@ public class MenuItemRenderer extends AbstractRenderer {
             final MenuItemComponent menuItemComponent) {
         String path = menuItemComponent.disabledImage;
         if (!StringUtil.isEmpty(path)) {
-            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(
-                    path, menuItemComponent.getBasePath());
+            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(path,
+                    menuItemComponent.getParentURL());
             action.setHoverImageDescriptor(desc);
         }
     }

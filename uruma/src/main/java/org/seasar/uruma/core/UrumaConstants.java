@@ -313,8 +313,9 @@ public interface UrumaConstants {
     // RCP関連機能
     // -------------------------------------------------------------------------
     /**
-     * Uruma Core バンドルのデバッグオプションを表すプロパティです。<br /> 本プロパティを <code>true</code>
-     * に設定すると、OSGi Framework Extension として動作する部分のデバッグメッセージを表示します。
+     * Uruma Core バンドルのデバッグオプションを表すプロパティです。<br />
+     * 本プロパティを <code>true</code> に設定すると、OSGi Framework Extension
+     * として動作する部分のデバッグメッセージを表示します。
      * 
      * <dl>
      * <dt><b>値 :</b></dt>

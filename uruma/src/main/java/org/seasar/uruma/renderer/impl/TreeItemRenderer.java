@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import java.net.URL;
+
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TreeItem;
 import org.seasar.eclipse.common.util.ImageManager;
@@ -25,17 +27,17 @@ import org.seasar.uruma.util.PathUtil;
  * {@link TreeItem} のレンダリングを行うクラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$
  */
-public class TreeItemRenderer extends
-        AbstractWidgetRenderer<TreeItemComponent, TreeItem> {
+public class TreeItemRenderer extends AbstractWidgetRenderer<TreeItemComponent, TreeItem> {
 
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractWidgetRenderer#doRender(org.seasar.uruma.component.UIComponent,
      *      org.eclipse.swt.widgets.Widget)
      */
     @Override
-    protected void doRender(final TreeItemComponent uiComponent,
-            final TreeItem widget) {
+    protected void doRender(final TreeItemComponent uiComponent, final TreeItem widget) {
         renderText(uiComponent, widget);
         renderImage(uiComponent, widget);
     }
@@ -48,24 +50,21 @@ public class TreeItemRenderer extends
         return TreeItem.class;
     }
 
-    protected void renderText(final TreeItemComponent component,
-            final TreeItem widget) {
+    protected void renderText(final TreeItemComponent component, final TreeItem widget) {
         String text = component.text;
         if (text != null) {
             widget.setText(text);
         }
     }
 
-    protected void renderImage(final TreeItemComponent component,
-            final TreeItem widget) {
+    protected void renderImage(final TreeItemComponent component, final TreeItem widget) {
         String value = component.image;
 
         if (value != null) {
             Image image = ImageManager.getImage(value);
             if (image == null) {
-                String path = PathUtil.createPath(component.getBasePath(),
-                        value);
-                image = ImageManager.loadImage(path);
+                URL url = PathUtil.createURL(component.getParentURL(), value);
+                image = ImageManager.loadImage(value, url);
             }
             widget.setImage(image);
         }

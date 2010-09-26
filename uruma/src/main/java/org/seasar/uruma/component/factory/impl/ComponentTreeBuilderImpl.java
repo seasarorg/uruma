@@ -15,8 +15,10 @@
  */
 package org.seasar.uruma.component.factory.impl;
 
-import java.io.File;
+import static org.seasar.uruma.core.UrumaConstants.*;
+
 import java.io.InputStream;
+import java.net.URL;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParser;
@@ -28,10 +30,13 @@ import javax.xml.validation.SchemaFactory;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.container.factory.ClassPathResourceResolver;
+import org.seasar.framework.exception.IORuntimeException;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.exception.SAXRuntimeException;
 import org.seasar.framework.util.InputStreamUtil;
+import org.seasar.framework.util.ResourceUtil;
 import org.seasar.framework.util.SAXParserFactoryUtil;
+import org.seasar.framework.util.URLUtil;
 import org.seasar.framework.xml.SaxHandler;
 import org.seasar.framework.xml.SaxHandlerParser;
 import org.seasar.framework.xml.TagHandlerContext;
@@ -40,33 +45,53 @@ import org.seasar.uruma.component.factory.ComponentTreeBuilder;
 import org.seasar.uruma.component.factory.UrumaTagHandler;
 import org.seasar.uruma.component.factory.UrumaTagHandlerRule;
 import org.seasar.uruma.core.UrumaConstants;
+import org.seasar.uruma.util.PathUtil;
 import org.xml.sax.SAXException;
 
 /**
  * {@link ComponentTreeBuilder} の実装クラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$ $Date$
  */
-public class ComponentTreeBuilderImpl implements ComponentTreeBuilder,
-        UrumaConstants {
+public class ComponentTreeBuilderImpl implements ComponentTreeBuilder {
 
     protected ClassPathResourceResolver resolver = new ClassPathResourceResolver();
 
     private UrumaTagHandlerRule rule;
 
     /*
-     * @see
-     * org.seasar.uruma.component.factory.ComponentTreeBuilder#build(java.lang
-     * .String)
+     * @see org.seasar.uruma.component.factory.ComponentTreeBuilder#build(java.lang.String)
      */
     public Template build(final String path) {
-        final SaxHandlerParser parser = createSaxHandlerParser(path);
-        final InputStream is = getInputStream(path);
+        URL url = ResourceUtil.getResourceNoException(path);
+        if (url != null) {
+            return build(url);
+        } else {
+            throw new ResourceNotFoundRuntimeException(path);
+        }
+    }
+
+    /*
+     * @see org.seasar.uruma.component.factory.ComponentTreeBuilder#build(java.net.URL)
+     */
+    public Template build(final URL url) {
+        final SaxHandlerParser parser = createSaxHandlerParser(url);
+        final InputStream is = getInputStream(url);
         try {
-            Template template = (Template) parser.parse(is, path);
+            Template template = (Template) parser.parse(is, url.getPath());
             return template;
         } finally {
             InputStreamUtil.close(is);
+        }
+    }
+
+    protected InputStream getInputStream(final URL url) {
+        try {
+            return URLUtil.openStream(url);
+        } catch (IORuntimeException ex) {
+            throw new ResourceNotFoundRuntimeException(url.getPath());
         }
     }
 
@@ -79,7 +104,7 @@ public class ComponentTreeBuilderImpl implements ComponentTreeBuilder,
         return is;
     }
 
-    protected SaxHandlerParser createSaxHandlerParser(final String path) {
+    protected SaxHandlerParser createSaxHandlerParser(final URL url) {
         System.setProperty(PROP_SAX_PARSER_FACTORY, SAX_PARSER_FACTORY_CLASS);
         final SAXParserFactory factory = SAXParserFactoryUtil.newInstance();
         factory.setNamespaceAware(true);
@@ -99,7 +124,7 @@ public class ComponentTreeBuilderImpl implements ComponentTreeBuilder,
         final SAXParser saxParser = SAXParserFactoryUtil.newSAXParser(factory);
         final SaxHandler handler = createSaxHandler();
 
-        createContext(handler, path);
+        createContext(handler, url);
 
         return new SaxHandlerParser(handler, saxParser);
     }
@@ -109,22 +134,21 @@ public class ComponentTreeBuilderImpl implements ComponentTreeBuilder,
         return handler;
     }
 
-    protected void createContext(final SaxHandler handler, final String path) {
+    protected void createContext(final SaxHandler handler, final URL url) {
         final TagHandlerContext context = handler.getTagHandlerContext();
-        context.addParameter(UrumaTagHandler.PARAM_PATH, path);
-        context.addParameter(UrumaTagHandler.PARAM_BASE_PATH, (new File(path))
-                .getParent());
+        URL parentUrl = URLUtil.create(PathUtil.getParent(url.toString()));
+        context.addParameter(UrumaTagHandler.PARAM_URL, url);
+        context.addParameter(UrumaTagHandler.PARAM_PARENT_URL, parentUrl);
     }
 
     /**
      * {@link UrumaTagHandlerRule} を設定します。<br />
      * 
      * @param rule
-     *            {@link UrumaTagHandlerRule} オブジェクト
+     *        {@link UrumaTagHandlerRule} オブジェクト
      */
     @Binding(bindingType = BindingType.MUST)
     public void setRule(final UrumaTagHandlerRule rule) {
         this.rule = rule;
     }
-
 }

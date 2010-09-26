@@ -26,11 +26,14 @@ import org.seasar.uruma.rcp.configuration.elements.PerspectiveElement;
 import org.seasar.uruma.rcp.ui.AutoPerspectiveFactory;
 import org.seasar.uruma.rcp.ui.BlankPerspectiveFactory;
 import org.seasar.uruma.rcp.ui.GenericPerspectiveFactory;
+import org.seasar.uruma.util.PathUtil;
 
 /**
  * <code>perspectives</code> 拡張ポイントのための {@link ExtensionBuilder} です。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$
  */
 public class PerspectivesBuilder extends AbstractExtensionBuilder {
 
@@ -38,18 +41,18 @@ public class PerspectivesBuilder extends AbstractExtensionBuilder {
      * @see org.seasar.uruma.rcp.configuration.ExtensionBuilder#buildExtension()
      */
     public Extension[] buildExtension() {
-        Extension extension = ExtensionFactory
-                .createExtension(ExtensionPoints.PERSPECTIVES);
+        Extension extension = ExtensionFactory.createExtension(ExtensionPoints.PERSPECTIVES);
 
         WorkbenchComponent workbenchComponent = service.getWorkbenchComponent();
-        if (DUMMY_WORKBENCH_PATH.equals(workbenchComponent.getPath())) {
+
+        if (DUMMY_WORKBENCH_PATH
+                .equals(PathUtil.getFileName(workbenchComponent.getURL().getPath()))) {
             return new Extension[] { createBlankPerspective() };
         }
 
         boolean defaultIdUsed = false;
 
-        for (PerspectiveComponent perspective : workbenchComponent
-                .getPerspectives()) {
+        for (PerspectiveComponent perspective : workbenchComponent.getPerspectives()) {
 
             // ID のついていない最初のパースペクティブにはデフォルトIDをつける
             if (StringUtil.isBlank(perspective.id) && !defaultIdUsed) {
@@ -79,8 +82,7 @@ public class PerspectivesBuilder extends AbstractExtensionBuilder {
         } else if (StringUtil.isBlank(workbenchComponent.initialPerspectiveId)) {
             // initialPerspectiveId が定義されていない場合は
             // 最初に記述されている perspective を表示する
-            PerspectiveComponent perspective = workbenchComponent
-                    .getPerspectives().get(0);
+            PerspectiveComponent perspective = workbenchComponent.getPerspectives().get(0);
             workbenchComponent.initialPerspectiveId = perspective.id;
         }
 
@@ -88,8 +90,7 @@ public class PerspectivesBuilder extends AbstractExtensionBuilder {
     }
 
     protected Extension createBlankPerspective() {
-        Extension extension = ExtensionFactory
-                .createExtension(ExtensionPoints.PERSPECTIVES);
+        Extension extension = ExtensionFactory.createExtension(ExtensionPoints.PERSPECTIVES);
 
         PerspectiveElement blank = new PerspectiveElement();
         blank.clazz = BlankPerspectiveFactory.class.getName();

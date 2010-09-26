@@ -15,12 +15,18 @@
  */
 package org.seasar.uruma.util;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.seasar.framework.exception.IORuntimeException;
 import org.seasar.framework.util.StringUtil;
 
 /**
  * パスに関するユーティリティメソッドを提供するクラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$
  */
 public class PathUtil {
     private PathUtil() {
@@ -72,6 +78,19 @@ public class PathUtil {
         }
         path += relPath;
         return path;
+    }
+
+    public static URL createURL(final URL parentUrl, final String relPath) {
+        String path = parentUrl.toExternalForm();
+        if (!path.endsWith("/")) {
+            path += "/";
+        }
+        path += relPath;
+        try {
+            return new URL(path);
+        } catch (MalformedURLException ex) {
+            throw new IORuntimeException(ex);
+        }
     }
 
     /**
@@ -129,6 +148,26 @@ public class PathUtil {
             }
         } else {
             return null;
+        }
+    }
+
+    /**
+     * 指定された URL の親を表す URL を返します。<br />
+     * 
+     * @param url
+     *        URL
+     * @return 親を表す URL。引数が {@code null} の場合は {@code null}
+     */
+    public static URL getParentURL(final URL url) {
+        if (url == null) {
+            return null;
+        }
+
+        String externalForm = url.toExternalForm();
+        try {
+            return new URL(getParent(externalForm));
+        } catch (MalformedURLException ex) {
+            throw new IORuntimeException(ex);
         }
     }
 

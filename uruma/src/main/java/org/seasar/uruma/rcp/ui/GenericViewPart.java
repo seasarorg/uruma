@@ -84,20 +84,18 @@ import org.seasar.uruma.util.S2ContainerUtil;
  * <dd>このパートに対応する {@link PartContext} インスタンス</dd>
  * </dt>
  * <p>
- * また、当該 {@link IViewPart} の中で使用されている {@link Viewer} が一つしか存在しない場合、その {@link
- * Viewer} を自動的に {@link ISelectionProvider} として {@link IWorkbenchPartSite}
- * へ登録します。<br />
+ * また、当該 {@link IViewPart} の中で使用されている {@link Viewer} が一つしか存在しない場合、その
+ * {@link Viewer} を自動的に {@link ISelectionProvider} として
+ * {@link IWorkbenchPartSite} へ登録します。<br />
  * {@link Viewer} が複数存在する場合、自動登録は行いません。<br />
  * </p>
  * 
  * @author y-komori
  */
-public class GenericViewPart extends ViewPart implements UrumaViewPart,
-        UrumaMessageCodes {
+public class GenericViewPart extends ViewPart implements UrumaViewPart, UrumaMessageCodes {
     private UrumaService service = UrumaServiceUtil.getService();
 
-    private static final UrumaLogger logger = UrumaLogger
-            .getLogger(GenericViewPart.class);
+    private static final UrumaLogger logger = UrumaLogger.getLogger(GenericViewPart.class);
 
     /**
      * {@link TemplateManager} オブジェクト
@@ -130,8 +128,7 @@ public class GenericViewPart extends ViewPart implements UrumaViewPart,
      *      org.eclipse.ui.IMemento)
      */
     @Override
-    public void init(final IViewSite site, final IMemento memento)
-            throws PartInitException {
+    public void init(final IViewSite site, final IMemento memento) throws PartInitException {
         super.init(site, memento);
         try {
             initInternal(site, memento);
@@ -148,8 +145,7 @@ public class GenericViewPart extends ViewPart implements UrumaViewPart,
 
         this.componentId = service.getLocalId(getSite().getId());
         this.secondaryId = site.getSecondaryId();
-        this.fullComponentId = ViewPartUtil.createFullId(componentId,
-                secondaryId);
+        this.fullComponentId = ViewPartUtil.createFullId(componentId, secondaryId);
 
         logger.log(VIEW_INIT_START, fullComponentId);
 
@@ -163,16 +159,15 @@ public class GenericViewPart extends ViewPart implements UrumaViewPart,
             createLocalContainer();
             setupLocalContainer();
 
-            this.partAction = ComponentUtil.setupPartAction(partContext,
-                    componentId, localContainer);
+            this.partAction = ComponentUtil.setupPartAction(partContext, componentId,
+                    localContainer);
 
             if (partAction != null) {
                 ComponentUtil.setupFormComponent(partContext, componentId);
             }
         } else {
-            throw new RenderException(
-                    UrumaMessageCodes.REQUIRED_VIEWPART_ERROR, template
-                            .getPath());
+            throw new RenderException(UrumaMessageCodes.REQUIRED_VIEWPART_ERROR, template.getURL()
+                    .toExternalForm());
         }
     }
 
@@ -278,13 +273,12 @@ public class GenericViewPart extends ViewPart implements UrumaViewPart,
             return;
         }
 
-        List<Method> listenerMethods = AnnotationUtil.getAnnotatedMethods(
-                partAction.getClass(), SelectionListener.class);
+        List<Method> listenerMethods = AnnotationUtil.getAnnotatedMethods(partAction.getClass(),
+                SelectionListener.class);
 
         for (Method method : listenerMethods) {
             if (Modifier.isPublic(method.getModifiers())) {
-                SelectionListener anno = method
-                        .getAnnotation(SelectionListener.class);
+                SelectionListener anno = method.getAnnotation(SelectionListener.class);
                 boolean nullSelection = anno.nullSelection();
                 Class<?>[] paramTypes = method.getParameterTypes();
                 if (paramTypes.length <= 1) {
@@ -293,11 +287,9 @@ public class GenericViewPart extends ViewPart implements UrumaViewPart,
 
                     GenericSelectionListener listener;
                     if (nullSelection) {
-                        listener = new NullGenericSelectionListener(
-                                partContext, methodBinding);
+                        listener = new NullGenericSelectionListener(partContext, methodBinding);
                     } else {
-                        listener = new GenericSelectionListener(partContext,
-                                methodBinding);
+                        listener = new GenericSelectionListener(partContext, methodBinding);
                     }
 
                     String partId = anno.partId();
@@ -305,15 +297,12 @@ public class GenericViewPart extends ViewPart implements UrumaViewPart,
                     if (StringUtil.isEmpty(partId)) {
                         getSite().getPage().addSelectionListener(listener);
                     } else {
-                        partId = UrumaServiceUtil.getService().createRcpId(
-                                partId);
-                        getSite().getPage().addSelectionListener(partId,
-                                listener);
+                        partId = UrumaServiceUtil.getService().createRcpId(partId);
+                        getSite().getPage().addSelectionListener(partId, listener);
                     }
 
-                    logger.log(
-                            UrumaMessageCodes.ISELECTION_LISTENER_REGISTERED,
-                            getViewSite().getId(), methodBinding, partId);
+                    logger.log(UrumaMessageCodes.ISELECTION_LISTENER_REGISTERED, getViewSite()
+                            .getId(), methodBinding, partId);
                     listeners.add(listener);
                 }
             }
@@ -321,16 +310,14 @@ public class GenericViewPart extends ViewPart implements UrumaViewPart,
     }
 
     protected void registerContextMenu() {
-        List<WidgetHandle> handles = partContext
-                .getWidgetHandles(TreeViewer.class);
+        List<WidgetHandle> handles = partContext.getWidgetHandles(TreeViewer.class);
         for (WidgetHandle handle : handles) {
             UIComponent uiComponent = handle.getUiComponent();
             if (uiComponent instanceof UIHasMenuCompositeComponent) {
                 TreeViewer treeViewer = handle.<TreeViewer> getCastWidget();
 
                 MenuManager menuMgr = new MenuManager();
-                GroupMarker groupMarker = new GroupMarker(
-                        IWorkbenchActionConstants.MB_ADDITIONS);
+                GroupMarker groupMarker = new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS);
                 menuMgr.add(groupMarker);
                 getSite().registerContextMenu(menuMgr, treeViewer);
 

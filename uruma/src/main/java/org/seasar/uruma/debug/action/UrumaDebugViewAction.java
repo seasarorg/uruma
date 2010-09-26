@@ -73,6 +73,8 @@ import org.seasar.uruma.util.S2ContainerListToHtmlUtil;
  * デバッグビュー用のアクションクラスです。<br />
  * 
  * @author y.sugigami
+ * @author $Author$
+ * @version $Revision$ $Date$
  */
 public class UrumaDebugViewAction {
 
@@ -113,12 +115,10 @@ public class UrumaDebugViewAction {
         Bundle urumaBundle = BundleUtil.getBundle(symbolicName);
         Bundle[] bundles = urumaBundle.getBundleContext().getBundles();
         for (Bundle bundle : bundles) {
-            html += HtmlTagUtil.createH1("[" + convertStatus(bundle.getState())
-                    + "][" + bundle.getBundleId() + "] "
-                    + bundle.getSymbolicName());
+            html += HtmlTagUtil.createH1("[" + convertStatus(bundle.getState()) + "]["
+                    + bundle.getBundleId() + "] " + bundle.getSymbolicName());
             Date date = new Date(bundle.getLastModified());
-            html += HtmlTagUtil.createTable("[" + date + "]", "["
-                    + bundle.getLocation() + "]");
+            html += HtmlTagUtil.createTable("[" + date + "]", "[" + bundle.getLocation() + "]");
             Dictionary headers = bundle.getHeaders();
             Enumeration elements = headers.keys();
             while (elements.hasMoreElements()) {
@@ -170,26 +170,21 @@ public class UrumaDebugViewAction {
 
         html += HtmlTagUtil.createTable();
         html += HtmlTagUtil.createTr("id", workbenchComponent.getId());
-        html += HtmlTagUtil.createTr("ClassName", workbenchComponent.getClass()
+        html += HtmlTagUtil.createTr("ClassName", workbenchComponent.getClass().getName());
+        html += HtmlTagUtil.createTr("parentURL", workbenchComponent.getParentURL().toString());
+        html += HtmlTagUtil.createTr("Location", workbenchComponent.getLocation());
+        html += HtmlTagUtil.createTr("URL", workbenchComponent.getURL().toString());
+        html += HtmlTagUtil.createTr("Renderer", workbenchComponent.getRenderer().getClass()
                 .getName());
-        html += HtmlTagUtil.createTr("basePath", workbenchComponent
-                .getBasePath());
-        html += HtmlTagUtil.createTr("Location", workbenchComponent
-                .getLocation());
-        html += HtmlTagUtil.createTr("Path", workbenchComponent.getPath());
-        html += HtmlTagUtil.createTr("Renderer", workbenchComponent
-                .getRenderer().getClass().getName());
 
         html += HtmlTagUtil.createTr("title", workbenchComponent.title);
         html += HtmlTagUtil.createTr("image", workbenchComponent.image);
-        html += HtmlTagUtil.createTr("initHeight",
-                workbenchComponent.initHeight);
+        html += HtmlTagUtil.createTr("initHeight", workbenchComponent.initHeight);
         html += HtmlTagUtil.createTr("initWidth", workbenchComponent.initWidth);
         html += HtmlTagUtil.createTr("initialPerspectiveId",
                 workbenchComponent.initialPerspectiveId);
         html += HtmlTagUtil.createTr("menu", workbenchComponent.menu);
-        html += HtmlTagUtil.createTr("statusLine",
-                workbenchComponent.statusLine);
+        html += HtmlTagUtil.createTr("statusLine", workbenchComponent.statusLine);
         html += HtmlTagUtil.createTr("style", workbenchComponent.style);
 
         html += HtmlTagUtil.closeTable();
@@ -210,29 +205,27 @@ public class UrumaDebugViewAction {
             html += HtmlTagUtil.createTr("id", c.getId());
             html += HtmlTagUtil.createTr("ClassName", c.getClass().getName());
 
-            html += HtmlTagUtil.createTr("BasePath", c.getBasePath());
+            html += HtmlTagUtil.createTr("ParentURL", c.getParentURL().toString());
             html += HtmlTagUtil.createTr("Location", c.getLocation());
-            html += HtmlTagUtil.createTr("Path", c.getPath());
+            html += HtmlTagUtil.createTr("URL", c.getURL().toString());
 
-            html += HtmlTagUtil.createTr("BasePath", c.getBasePath());
+            html += HtmlTagUtil.createTr("ParentURL", c.getParentURL().toString());
             html += HtmlTagUtil.createTr("Location", c.getLocation());
-            html += HtmlTagUtil.createTr("Path", c.getPath());
+            html += HtmlTagUtil.createTr("URL", c.getURL().toString());
 
             html += HtmlTagUtil.createTr("accelerator", c.accelerator);
             html += HtmlTagUtil.createTr("defaultItemId", c.defaultItemId);
             html += HtmlTagUtil.createTr("description", c.description);
             html += HtmlTagUtil.createTr("disabledImage", c.disabledImage);
             html += HtmlTagUtil.createTr("enabled", c.enabled);
-            html += HtmlTagUtil.createTr("enablesDependingId",
-                    c.enablesDependingId);
+            html += HtmlTagUtil.createTr("enablesDependingId", c.enablesDependingId);
             html += HtmlTagUtil.createTr("enablesFor", c.enablesFor);
             html += HtmlTagUtil.createTr("hoverImage", c.hoverImage);
             html += HtmlTagUtil.createTr("image", c.image);
             html += HtmlTagUtil.createTr("selection", c.selection);
             html += HtmlTagUtil.createTr("text", c.text);
             html += HtmlTagUtil.createTr("visible", c.visible);
-            html += HtmlTagUtil.createTr("Renderer", c.getRenderer().getClass()
-                    .getName());
+            html += HtmlTagUtil.createTr("Renderer", c.getRenderer().getClass().getName());
             html += HtmlTagUtil.closeTable();
 
             for (UIElement elementChild : c.getChildren()) {
@@ -246,27 +239,24 @@ public class UrumaDebugViewAction {
             html += HtmlTagUtil.createTr("id", c.getId());
             html += HtmlTagUtil.createTr("ClassName", c.getClass().getName());
 
-            html += HtmlTagUtil.createTr("BasePath", c.getBasePath());
+            html += HtmlTagUtil.createTr("ParentURL", c.getParentURL().toString());
             html += HtmlTagUtil.createTr("Location", c.getLocation());
-            html += HtmlTagUtil.createTr("Path", c.getPath());
+            html += HtmlTagUtil.createTr("URL", c.getURL().toString());
 
             html += HtmlTagUtil.createTr("accelerator", c.accelerator);
             html += HtmlTagUtil.createTr("description", c.description);
             html += HtmlTagUtil.createTr("disabledImage", c.disabledImage);
             html += HtmlTagUtil.createTr("enabled", c.enabled);
-            html += HtmlTagUtil.createTr("enablesDependingId",
-                    c.enablesDependingId);
+            html += HtmlTagUtil.createTr("enablesDependingId", c.enablesDependingId);
             html += HtmlTagUtil.createTr("enablesFor", c.enablesFor);
             html += HtmlTagUtil.createTr("hoverImage", c.hoverImage);
             html += HtmlTagUtil.createTr("image", c.image);
             html += HtmlTagUtil.createTr("selection", c.selection);
             html += HtmlTagUtil.createTr("text", c.text);
-            html += HtmlTagUtil.createTr("Renderer", c.getRenderer().getClass()
-                    .getName());
+            html += HtmlTagUtil.createTr("Renderer", c.getRenderer().getClass().getName());
             html += HtmlTagUtil.closeTable();
 
-        } else if (PerspectiveComponent.class.isAssignableFrom(element
-                .getClass())) {
+        } else if (PerspectiveComponent.class.isAssignableFrom(element.getClass())) {
             PerspectiveComponent c = (PerspectiveComponent) element;
 
             html += HtmlTagUtil.createH2("PerspectiveComponent");
@@ -274,9 +264,9 @@ public class UrumaDebugViewAction {
             html += HtmlTagUtil.createTr("id", c.id);
             html += HtmlTagUtil.createTr("ClassName", c.getClass().getName());
 
-            html += HtmlTagUtil.createTr("BasePath", c.getBasePath());
+            html += HtmlTagUtil.createTr("ParentURL", c.getParentURL().toString());
             html += HtmlTagUtil.createTr("Location", c.getLocation());
-            html += HtmlTagUtil.createTr("Path", c.getPath());
+            html += HtmlTagUtil.createTr("URL", c.getURL().toString());
 
             html += HtmlTagUtil.createTr("name", c.name);
             html += HtmlTagUtil.createTr("fixed", c.fixed);
@@ -293,9 +283,9 @@ public class UrumaDebugViewAction {
             html += HtmlTagUtil.createH3("PartComponent");
             html += HtmlTagUtil.createTable();
             html += HtmlTagUtil.createTr("ClassName", c.getClass().getName());
-            html += HtmlTagUtil.createTr("BasePath", c.getBasePath());
+            html += HtmlTagUtil.createTr("ParentURL", c.getParentURL().toString());
             html += HtmlTagUtil.createTr("Location", c.getLocation());
-            html += HtmlTagUtil.createTr("Path", c.getPath());
+            html += HtmlTagUtil.createTr("URL", c.getURL().toString());
 
             html += HtmlTagUtil.createTr("ref", c.ref);
             html += HtmlTagUtil.createTr("position", c.position);
@@ -309,19 +299,17 @@ public class UrumaDebugViewAction {
             html += HtmlTagUtil.createTable();
             html += HtmlTagUtil.createTr("id", c.getId());
             html += HtmlTagUtil.createTr("ClassName", c.getClass().getName());
-            html += HtmlTagUtil.createTr("BasePath", c.getBasePath());
+            html += HtmlTagUtil.createTr("ParentURL", c.getParentURL().toString());
             html += HtmlTagUtil.createTr("Location", c.getLocation());
-            html += HtmlTagUtil.createTr("Path", c.getPath());
-            html += HtmlTagUtil.createTr("Renderer", c.getRenderer().getClass()
-                    .getName());
+            html += HtmlTagUtil.createTr("URL", c.getURL().toString());
+            html += HtmlTagUtil.createTr("Renderer", c.getRenderer().getClass().getName());
 
             html += HtmlTagUtil.createTr("position", c.allowMultiple);
             html += HtmlTagUtil.createTr("background", c.background);
             html += HtmlTagUtil.createTr("backgroundImage", c.backgroundImage);
             html += HtmlTagUtil.createTr("category", c.category);
             html += HtmlTagUtil.createTr("enabled", c.enabled);
-            html += HtmlTagUtil.createTr("enablesDependingId",
-                    c.enablesDependingId);
+            html += HtmlTagUtil.createTr("enablesDependingId", c.enablesDependingId);
             html += HtmlTagUtil.createTr("enablesFor", c.enablesFor);
             html += HtmlTagUtil.createTr("fontHeight", c.fontHeight);
             html += HtmlTagUtil.createTr("fontName", c.fontName);
@@ -362,8 +350,7 @@ public class UrumaDebugViewAction {
         //
         // ApplicationContext
         //
-        WindowContext wc = UrumaServiceUtil.getService()
-                .getWorkbenchWindowContext();
+        WindowContext wc = UrumaServiceUtil.getService().getWorkbenchWindowContext();
         ApplicationContext ac = wc.getApplicationContext();
 
         html += HtmlTagUtil.createH1("ApplicationContext");
@@ -377,8 +364,8 @@ public class UrumaDebugViewAction {
         html += HtmlTagUtil.createH1("WindowContext");
         html += HtmlTagUtil.createTable("Name", wc.getName());
         html += HtmlTagUtil.createTr("ClassName", wc.getClass().getName());
-        html += HtmlTagUtil.createTr("WorkbenchActionObject", wc
-                .getPartActionObject().getClass().getName());
+        html += HtmlTagUtil.createTr("WorkbenchActionObject", wc.getPartActionObject().getClass()
+                .getName());
 
         // PartContext
         for (PartContext pc : wc.getPartContextList()) {
@@ -409,50 +396,40 @@ public class UrumaDebugViewAction {
             html += HtmlTagUtil.createTable("Name", pc.getName());
             html += HtmlTagUtil.createTr("ClassName", pc.getClass().getName());
 
-            html += HtmlTagUtil.createTrSub1("PartActionClass Name",
-                    partActionDesc.getPartActionClass().getSimpleName());
-            html += HtmlTagUtil.createTr("partActionObject", pc
-                    .getPartActionObject().getClass().getSimpleName());
+            html += HtmlTagUtil.createTrSub1("PartActionClass Name", partActionDesc
+                    .getPartActionClass().getSimpleName());
+            html += HtmlTagUtil.createTr("partActionObject", pc.getPartActionObject().getClass()
+                    .getSimpleName());
             String initializeMethodName = " ";
             if (partActionDesc.getInitializeMethod() != null) {
-                initializeMethodName = partActionDesc.getInitializeMethod()
-                        .getName()
-                        + "()";
+                initializeMethodName = partActionDesc.getInitializeMethod().getName() + "()";
             }
-            html += HtmlTagUtil.createTr("InitializeMethodName",
-                    initializeMethodName);
+            html += HtmlTagUtil.createTr("InitializeMethodName", initializeMethodName);
 
             String postOpenMethodName = " ";
             if (partActionDesc.getPostOpenMethod() != null) {
-                postOpenMethodName = partActionDesc.getPostOpenMethod()
-                        .getName()
-                        + "()";
+                postOpenMethodName = partActionDesc.getPostOpenMethod().getName() + "()";
             }
-            html += HtmlTagUtil.createTr("PostOpenMethodName",
-                    postOpenMethodName);
+            html += HtmlTagUtil.createTr("PostOpenMethodName", postOpenMethodName);
 
-            for (EventListenerDef eld : partActionDesc
-                    .getEventListenerDefList()) {
-                html += HtmlTagUtil.createTrSub1(
-                        "EventListenerDef TargetMethodName", eld
-                                .getTargetMethod().getName());
+            for (EventListenerDef eld : partActionDesc.getEventListenerDefList()) {
+                html += HtmlTagUtil.createTrSub1("EventListenerDef TargetMethodName", eld
+                        .getTargetMethod().getName());
                 html += HtmlTagUtil.createTr("Type", eld.getType().getName());
-                html += HtmlTagUtil.createTr("isSWTEvent", String.valueOf(eld
-                        .getType().isSWTEvent()));
+                html += HtmlTagUtil.createTr("isSWTEvent", String.valueOf(eld.getType()
+                        .isSWTEvent()));
             }
 
-            for (ApplicationContextDef acd : partActionDesc
-                    .getApplicationContextDefList()) {
-                html += HtmlTagUtil.createTrSub1("ApplicationContextDef Name",
-                        acd.getName());
-                html += HtmlTagUtil.createTr("PropertyName", acd
-                        .getPropertyDesc().getPropertyName());
+            for (ApplicationContextDef acd : partActionDesc.getApplicationContextDefList()) {
+                html += HtmlTagUtil.createTrSub1("ApplicationContextDef Name", acd.getName());
+                html += HtmlTagUtil.createTr("PropertyName", acd.getPropertyDesc()
+                        .getPropertyName());
             }
 
-            html += HtmlTagUtil.createTrSub1("FormClass Name", formDesc
-                    .getFormClass().getSimpleName());
-            html += HtmlTagUtil.createTr("formObject", pc.getFormObject()
-                    .getClass().getSimpleName());
+            html += HtmlTagUtil.createTrSub1("FormClass Name", formDesc.getFormClass()
+                    .getSimpleName());
+            html += HtmlTagUtil.createTr("formObject", pc.getFormObject().getClass()
+                    .getSimpleName());
 
             dealFields(pc, IMPORT_VALUE_COMMAND);
             dealFields(pc, EXPORT_VALUE_COMMAND);
@@ -470,18 +447,16 @@ public class UrumaDebugViewAction {
         html += HtmlTagUtil.closeHeader();
     }
 
-    private void dealFields(final PartContext context,
-            final BindingCommand command) {
+    private void dealFields(final PartContext context, final BindingCommand command) {
         Object form = context.getFormObject();
         FormDesc formDesc = context.getFormDesc();
         if (form == null || formDesc == null) {
             return;
         }
-        html += HtmlTagUtil.createTrSub1("BindingCommand Class Name", command
-                .getClass().getSimpleName());
+        html += HtmlTagUtil.createTrSub1("BindingCommand Class Name", command.getClass()
+                .getSimpleName());
 
-        List<PropertyDesc> targetProperties = command
-                .getTargetPropertyDescs(formDesc);
+        List<PropertyDesc> targetProperties = command.getTargetPropertyDescs(formDesc);
         for (PropertyDesc pd : targetProperties) {
             String id = command.getId(pd.getField());
 
@@ -489,13 +464,11 @@ public class UrumaDebugViewAction {
             if (handle != null) {
                 Object widget = handle.getWidget();
 
-                html += HtmlTagUtil.createTrSub2("PropertyName", pd
-                        .getPropertyName());
-                html += HtmlTagUtil.createTr("WidgetName", widget.getClass()
-                        .getSimpleName());
+                html += HtmlTagUtil.createTrSub2("PropertyName", pd.getPropertyName());
+                html += HtmlTagUtil.createTr("WidgetName", widget.getClass().getSimpleName());
             } else {
-                throw new BindingException(UrumaMessageCodes.WIDGET_NOT_FOUND,
-                        id, form.getClass(), pd.getField());
+                throw new BindingException(UrumaMessageCodes.WIDGET_NOT_FOUND, id, form.getClass(),
+                        pd.getField());
             }
         }
     }
@@ -503,24 +476,19 @@ public class UrumaDebugViewAction {
     private void createWidgetHandle(final WidgetHandle wh) {
         html += HtmlTagUtil.createTrSub1("WidgetHandle Id", wh.getId());
         html += HtmlTagUtil.createTr("Class Name", wh.getClass().getName());
-        html += HtmlTagUtil.createTr("widgetClass", wh.getWidgetClass()
-                .getName());
+        html += HtmlTagUtil.createTr("widgetClass", wh.getWidgetClass().getName());
 
         if (StructuredViewer.class.isAssignableFrom(wh.getWidgetClass())) {
             StructuredViewer viewer = wh.<StructuredViewer> getCastWidget();
-            html += HtmlTagUtil.createTr("LabelProvider", getSimpleName(viewer
-                    .getLabelProvider()));
-            html += HtmlTagUtil.createTr("ContentProvider",
-                    getSimpleName(viewer.getContentProvider()));
-            html += HtmlTagUtil.createTr("Comparator", getSimpleName(viewer
-                    .getComparator()));
-            html += HtmlTagUtil.createTr("Sorter", getSimpleName(viewer
-                    .getSorter()));
+            html += HtmlTagUtil.createTr("LabelProvider", getSimpleName(viewer.getLabelProvider()));
+            html += HtmlTagUtil.createTr("ContentProvider", getSimpleName(viewer
+                    .getContentProvider()));
+            html += HtmlTagUtil.createTr("Comparator", getSimpleName(viewer.getComparator()));
+            html += HtmlTagUtil.createTr("Sorter", getSimpleName(viewer.getSorter()));
 
         } else if (GenericAction.class.isAssignableFrom(wh.getWidgetClass())) {
             // TODO 要実装
-        } else if (UrumaApplicationWindow.class.isAssignableFrom(wh
-                .getWidgetClass())) {
+        } else if (UrumaApplicationWindow.class.isAssignableFrom(wh.getWidgetClass())) {
             // TODO 要実装
         } else if (Widget.class.isAssignableFrom(wh.getWidgetClass())) {
             // TODO 要実装
@@ -534,12 +502,11 @@ public class UrumaDebugViewAction {
         if (uc != null) {
             html += HtmlTagUtil.createTrSub2("UIComponent id", uc.getId());
             html += HtmlTagUtil.createTr("Class Name", uc.getClass().getName());
-            html += HtmlTagUtil.createTr("BasePath", uc.getBasePath());
+            html += HtmlTagUtil.createTr("ParentURL", uc.getParentURL().toString());
             html += HtmlTagUtil.createTr("Location", uc.getLocation());
-            html += HtmlTagUtil.createTr("Path", uc.getPath());
+            html += HtmlTagUtil.createTr("URL", uc.getURL().toString());
             html += HtmlTagUtil.createTr("style", uc.getStyle());
-            html += HtmlTagUtil.createTr("renderer", uc.getRenderer()
-                    .getClass().getName());
+            html += HtmlTagUtil.createTr("renderer", uc.getRenderer().getClass().getName());
         }
     }
 
@@ -564,16 +531,14 @@ public class UrumaDebugViewAction {
 
         html += HtmlTagUtil.createTable();
 
-        TemplateManager templateManager = (TemplateManager) UrumaServiceUtil
-                .getService().getContainer()
-                .getComponent(TemplateManager.class);
-        List<Template> viewTemplates = templateManager
-                .getTemplates(ViewPartComponent.class);
+        TemplateManager templateManager = (TemplateManager) UrumaServiceUtil.getService()
+                .getContainer().getComponent(TemplateManager.class);
+        List<Template> viewTemplates = templateManager.getTemplates(ViewPartComponent.class);
 
         for (Template template : viewTemplates) {
-            html += HtmlTagUtil.createTrSub1("Path", template.getPath());
+            html += HtmlTagUtil.createTrSub1("URL", template.getURL().toString());
             html += HtmlTagUtil.createTr("Location", template.getLocation());
-            html += HtmlTagUtil.createTr("BasePath", template.getBasePath());
+            html += HtmlTagUtil.createTr("ParentURL", template.getParentURL().toString());
             html += HtmlTagUtil.createTr("Extends", template.getExtends());
 
             UIComponentContainer uic = template.getRootComponent();
@@ -586,8 +551,7 @@ public class UrumaDebugViewAction {
 
     private void createChildTemplateManager(final Object uic) {
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(uic.getClass());
-        html += HtmlTagUtil.createTrSub2("ClassName", uic.getClass()
-                .getSimpleName());
+        html += HtmlTagUtil.createTrSub2("ClassName", uic.getClass().getSimpleName());
         for (int i = 0; i < beanDesc.getFieldSize(); i++) {
             Field filed = beanDesc.getField(i);
 
@@ -613,8 +577,7 @@ public class UrumaDebugViewAction {
                 for (int j = 0; j < list.size(); j++) {
                     Object array_element = list.get(j);
 
-                    html += HtmlTagUtil.createTr("array_element", array_element
-                            .toString());
+                    html += HtmlTagUtil.createTr("array_element", array_element.toString());
                     createChildTemplateManager(array_element);
                 }
             }
@@ -628,8 +591,7 @@ public class UrumaDebugViewAction {
     public void doPlugin() {
         html = HtmlTagUtil.createHeader();
         html += "<pre>";
-        html += ContributionBuilder.getContent().replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;");
+        html += ContributionBuilder.getContent().replaceAll("<", "&lt;").replaceAll(">", "&gt;");
         html += "</pre>";
         html += HtmlTagUtil.closeHeader();
     }

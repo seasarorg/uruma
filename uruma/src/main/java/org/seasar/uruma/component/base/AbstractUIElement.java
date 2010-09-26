@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.component.base;
 
+import java.net.URL;
+
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.UIElementVisitor;
 
@@ -22,40 +24,42 @@ import org.seasar.uruma.component.UIElementVisitor;
  * {@link UIElement} を表す基底クラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$ $Date$
  */
 public abstract class AbstractUIElement implements UIElement {
-    private String path;
+    private URL url;
 
-    private String basePath;
+    private URL parentUrl;
 
     private String location;
 
     /*
-     * @see org.seasar.uruma.component.UIElement#getPath()
+     * @see org.seasar.uruma.component.UIElement#getParentURL()
      */
-    public String getPath() {
-        return this.path;
+    public URL getParentURL() {
+        return this.parentUrl;
     }
 
     /*
-     * @see org.seasar.uruma.component.UIElement#setPath(java.lang.String)
+     * @see org.seasar.uruma.component.UIElement#getURL()
      */
-    public void setPath(final String path) {
-        this.path = path;
+    public URL getURL() {
+        return this.url;
     }
 
     /*
-     * @see org.seasar.uruma.component.UIElement#getBasePath()
+     * @see org.seasar.uruma.component.UIElement#setParentURL(java.net.URL)
      */
-    public String getBasePath() {
-        return this.basePath;
+    public void setParentURL(final URL parentUrl) {
+        this.parentUrl = parentUrl;
     }
 
     /*
-     * @see org.seasar.uruma.component.UIElement#setBasePath(java.lang.String)
+     * @see org.seasar.uruma.component.UIElement#setURL(java.net.URL)
      */
-    public void setBasePath(final String basePath) {
-        this.basePath = basePath;
+    public void setURL(final URL url) {
+        this.url = url;
     }
 
     /*
@@ -73,17 +77,17 @@ public abstract class AbstractUIElement implements UIElement {
     }
 
     /*
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return path;
-    }
-
-    /*
      * @see org.seasar.uruma.component.UIElementVisitorAcceptor#accept(org.seasar.uruma.component.UIElementVisitor)
      */
     public void accept(final UIElementVisitor visitor) {
         visitor.visit(this);
+    }
+
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return url != null ? url.toString() : "";
     }
 }

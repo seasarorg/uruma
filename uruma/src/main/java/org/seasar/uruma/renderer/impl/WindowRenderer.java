@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.renderer.impl;
 
+import java.net.URL;
+
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -38,14 +40,15 @@ import org.seasar.uruma.util.PathUtil;
  * {@link Window} のレンダリングを行うためのクラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$
  */
-public class WindowRenderer extends
-        AbstractCompositeRenderer<WindowComponent, Composite> {
+public class WindowRenderer extends AbstractCompositeRenderer<WindowComponent, Composite> {
     /**
      * {@link Shell} のスタイルを返します。<br />
      * 
      * @param uiComponent
-     *            {@link WindowComponent} オブジェクト
+     *        {@link WindowComponent} オブジェクト
      * @return スタイル値
      */
     public int getShellStyle(final WindowComponent uiComponent) {
@@ -58,8 +61,8 @@ public class WindowRenderer extends
      *      org.seasar.uruma.context.PartContext)
      */
     @Override
-    public WidgetHandle render(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
+    public WidgetHandle render(final UIComponent uiComponent, final WidgetHandle parent,
+            final PartContext context) {
         Shell shell = parent.<Shell> getCastWidget();
 
         configureShell((WindowComponent) uiComponent, shell);
@@ -73,15 +76,13 @@ public class WindowRenderer extends
      *      org.seasar.uruma.context.PartContext)
      */
     @Override
-    protected void doRenderAfter(final Composite widget,
-            final WindowComponent uiComponent, final WidgetHandle parent,
-            final PartContext context) {
+    protected void doRenderAfter(final Composite widget, final WindowComponent uiComponent,
+            final WidgetHandle parent, final PartContext context) {
         setDefaultButton(uiComponent, context);
         setDefaultFocus(uiComponent, context);
     }
 
-    protected void configureShell(final WindowComponent window,
-            final Shell shell) {
+    protected void configureShell(final WindowComponent window, final Shell shell) {
         // タイトルの設定
         if (window.title != null) {
             shell.setText(window.title);
@@ -103,46 +104,39 @@ public class WindowRenderer extends
         if (!StringUtil.isEmpty(img)) {
             Image image = ImageManager.getImage(img);
             if (image == null) {
-                String path = PathUtil.createPath(window.getBasePath(), img);
-                image = ImageManager.loadImage(path);
+                URL url = PathUtil.createURL(window.getParentURL(), img);
+                image = ImageManager.loadImage(img, url);
             }
             shell.setImage(image);
         }
     }
 
     protected int calcWidth(final String width) {
-        return GeometryUtil.calcSize(width, Display.getCurrent()
-                .getClientArea().width);
+        return GeometryUtil.calcSize(width, Display.getCurrent().getClientArea().width);
     }
 
     protected int calcHeight(final String height) {
-        return GeometryUtil.calcSize(height, Display.getCurrent()
-                .getClientArea().height);
+        return GeometryUtil.calcSize(height, Display.getCurrent().getClientArea().height);
     }
 
     protected int calcX(final WindowComponent window) {
-        return GeometryUtil.calcPosition(window.x, Display.getCurrent()
-                .getClientArea().width, calcWidth(window.width));
+        return GeometryUtil.calcPosition(window.x, Display.getCurrent().getClientArea().width,
+                calcWidth(window.width));
     }
 
     protected int calcY(final WindowComponent window) {
-        return GeometryUtil.calcPosition(window.y, Display.getCurrent()
-                .getClientArea().height, calcHeight(window.height));
+        return GeometryUtil.calcPosition(window.y, Display.getCurrent().getClientArea().height,
+                calcHeight(window.height));
     }
 
-    protected void setDefaultButton(final WindowComponent windowComponent,
-            final PartContext context) {
-        WidgetHandle defaultButtonHandle = context
-                .getWidgetHandle(windowComponent.defaultButtonId);
+    protected void setDefaultButton(final WindowComponent windowComponent, final PartContext context) {
+        WidgetHandle defaultButtonHandle = context.getWidgetHandle(windowComponent.defaultButtonId);
 
         if (defaultButtonHandle != null) {
-            if (Button.class.isAssignableFrom(defaultButtonHandle
-                    .getWidgetClass())) {
-                Button defaultButton = defaultButtonHandle
-                        .<Button> getCastWidget();
+            if (Button.class.isAssignableFrom(defaultButtonHandle.getWidgetClass())) {
+                Button defaultButton = defaultButtonHandle.<Button> getCastWidget();
 
-                WidgetHandle handle = context
-                        .getWidgetHandle(UrumaConstants.SHELL_CID);
+                WidgetHandle handle = context.getWidgetHandle(UrumaConstants.SHELL_CID);
                 Shell shell = handle.<Shell> getCastWidget();
                 if (shell != null) {
                     shell.setDefaultButton(defaultButton);
@@ -153,21 +147,17 @@ public class WindowRenderer extends
         }
     }
 
-    protected void setDefaultFocus(final WindowComponent windowComponent,
-            final PartContext context) {
-        WidgetHandle defaultFocusHandle = context
-                .getWidgetHandle(windowComponent.defaultButtonId);
+    protected void setDefaultFocus(final WindowComponent windowComponent, final PartContext context) {
+        WidgetHandle defaultFocusHandle = context.getWidgetHandle(windowComponent.defaultButtonId);
         if (defaultFocusHandle != null) {
-            if (Control.class.isAssignableFrom(defaultFocusHandle
-                    .getWidgetClass())) {
+            if (Control.class.isAssignableFrom(defaultFocusHandle.getWidgetClass())) {
                 Control control = defaultFocusHandle.<Control> getCastWidget();
                 control.setFocus();
             }
         }
     }
 
-    protected void setMinimumSize(final WindowComponent windowComponent,
-            final Shell shell) {
+    protected void setMinimumSize(final WindowComponent windowComponent, final Shell shell) {
         String minWidth = windowComponent.minimumWidth;
         String minHeight = windowComponent.minimumHeight;
         if ((minWidth != null) && (minHeight != null)) {
@@ -206,8 +196,7 @@ public class WindowRenderer extends
      *      org.eclipse.swt.widgets.Control)
      */
     @Override
-    protected void setLocation(final ControlComponent controlComponent,
-            final Control control) {
+    protected void setLocation(final ControlComponent controlComponent, final Control control) {
         // Do nothing.
     }
 
@@ -216,8 +205,7 @@ public class WindowRenderer extends
      *      org.eclipse.swt.widgets.Control)
      */
     @Override
-    protected void setSize(final ControlComponent controlComponent,
-            final Control control) {
+    protected void setSize(final ControlComponent controlComponent, final Control control) {
         // Do nothing.
     }
 
@@ -226,8 +214,7 @@ public class WindowRenderer extends
      *      org.eclipse.swt.widgets.Control)
      */
     @Override
-    protected void setMenu(final ControlComponent controlComponent,
-            final Control control) {
+    protected void setMenu(final ControlComponent controlComponent, final Control control) {
         // Do nothing.
     }
 }

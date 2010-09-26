@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.rcp.ui;
 
+import java.net.URL;
+
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -59,10 +61,9 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      * {@link UrumaWorkbenchWindowAdvisor} を構築します。<br />
      * 
      * @param configurer
-     *            {@link IWorkbenchWindowConfigurer} オブジェクト
+     *        {@link IWorkbenchWindowConfigurer} オブジェクト
      */
-    public UrumaWorkbenchWindowAdvisor(
-            final IWorkbenchWindowConfigurer configurer) {
+    public UrumaWorkbenchWindowAdvisor(final IWorkbenchWindowConfigurer configurer) {
         super(configurer);
 
         registComponents(configurer);
@@ -75,8 +76,7 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void createWindowContents(final Shell shell) {
         super.createWindowContents(shell);
 
-        WindowContext windowContext = UrumaServiceUtil.getService()
-                .getWorkbenchWindowContext();
+        WindowContext windowContext = UrumaServiceUtil.getService().getWorkbenchWindowContext();
 
         // Workbench InitMethod
         ComponentUtil.setupWorkbenchAction(windowContext,
@@ -88,8 +88,7 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#createActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer)
      */
     @Override
-    public ActionBarAdvisor createActionBarAdvisor(
-            final IActionBarConfigurer configurer) {
+    public ActionBarAdvisor createActionBarAdvisor(final IActionBarConfigurer configurer) {
         return new UrumaActionBarAdvisor(configurer);
     }
 
@@ -100,13 +99,11 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setTitle(workbench.title);
 
-        configurer.setInitialSize(calcInitialSize(workbench.initWidth,
-                workbench.initHeight));
+        configurer.setInitialSize(calcInitialSize(workbench.initWidth, workbench.initHeight));
 
         setupStatusLine(workbench, configurer);
 
-        WindowContext windowContext = UrumaServiceUtil.getService()
-                .getWorkbenchWindowContext();
+        WindowContext windowContext = UrumaServiceUtil.getService().getWorkbenchWindowContext();
 
         setupCommandHandler(configurer, windowContext);
         setupEnablesDependable(windowContext);
@@ -120,8 +117,7 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowCreate() {
         // Enable Depending の準備
         // TODO 後から開いたビューに対しては EnableDepending が効かない
-        WindowContext context = UrumaServiceUtil.getService()
-                .getWorkbenchWindowContext();
+        WindowContext context = UrumaServiceUtil.getService().getWorkbenchWindowContext();
         EnablesDependingListenerSupport.setupEnableDependingListeners(context);
 
         // Method Binding の準備
@@ -136,12 +132,9 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setShowMenuBar(workbench.menuBar == null ? true : Boolean
                 .parseBoolean(workbench.menuBar));
         configurer.setShowCoolBar(Boolean.parseBoolean(workbench.coolBar));
-        configurer.setShowFastViewBars(Boolean
-                .parseBoolean(workbench.fastViewBars));
-        configurer.setShowPerspectiveBar(Boolean
-                .parseBoolean(workbench.perspectiveBar));
-        configurer.setShowProgressIndicator(Boolean
-                .parseBoolean(workbench.progressIndicator));
+        configurer.setShowFastViewBars(Boolean.parseBoolean(workbench.fastViewBars));
+        configurer.setShowPerspectiveBar(Boolean.parseBoolean(workbench.perspectiveBar));
+        configurer.setShowProgressIndicator(Boolean.parseBoolean(workbench.progressIndicator));
     }
 
     protected Point calcInitialSize(final String width, final String height) {
@@ -150,10 +143,8 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         String heightStr = StringUtil.isNotBlank(height) ? height
                 : UrumaConstants.DEFAULT_WORKBENCH_HEIGHT;
 
-        int xSize = GeometryUtil.calcSize(widthStr, Display.getCurrent()
-                .getClientArea().width);
-        int ySize = GeometryUtil.calcSize(heightStr, Display.getCurrent()
-                .getClientArea().height);
+        int xSize = GeometryUtil.calcSize(widthStr, Display.getCurrent().getClientArea().width);
+        int ySize = GeometryUtil.calcSize(heightStr, Display.getCurrent().getClientArea().height);
         return new Point(xSize, ySize);
     }
 
@@ -161,9 +152,8 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         if (StringUtil.isNotBlank(workbench.image)) {
             Image image = ImageManager.getImage(workbench.image);
             if (image == null) {
-                String path = PathUtil.createPath(workbench.getBasePath(),
-                        workbench.image);
-                image = ImageManager.loadImage(path);
+                URL url = PathUtil.createURL(workbench.getParentURL(), workbench.image);
+                image = ImageManager.loadImage(workbench.image, url);
             }
 
             if (image != null) {
@@ -176,25 +166,19 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     protected void setupStatusLine(final WorkbenchComponent workbench,
             final IWorkbenchWindowConfigurer configurer) {
-        configurer
-                .setShowStatusLine(Boolean.parseBoolean(workbench.statusLine));
+        configurer.setShowStatusLine(Boolean.parseBoolean(workbench.statusLine));
     }
 
     /**
-     * {@link IHandler} の実装クラスを {@link IHandlerService} へ登録します。<br />
-     * {@link IHandler} は {@link WidgetHandle} として {@link WindowContext}
-     * へも登録されます。<br />
+     * {@link IHandler} の実装クラスを {@link IHandlerService} へ登録します。<br /> {@link IHandler}
+     * は {@link WidgetHandle} として {@link WindowContext} へも登録されます。<br />
      */
-    protected void setupCommandHandler(
-            final IWorkbenchWindowConfigurer configurer,
+    protected void setupCommandHandler(final IWorkbenchWindowConfigurer configurer,
             final WindowContext context) {
-        IWorkbench workbench = configurer.getWorkbenchConfigurer()
-                .getWorkbench();
-        IHandlerService service = (IHandlerService) workbench
-                .getService(IHandlerService.class);
+        IWorkbench workbench = configurer.getWorkbenchConfigurer().getWorkbench();
+        IHandlerService service = (IHandlerService) workbench.getService(IHandlerService.class);
 
-        CommandRegistry registry = UrumaServiceUtil.getService()
-                .getCommandRegistry();
+        CommandRegistry registry = UrumaServiceUtil.getService().getCommandRegistry();
         for (CommandDesc desc : registry.getCommandDescs()) {
             GenericHandler handler = new GenericHandler();
             service.activateHandler(desc.getCommandId(), handler);

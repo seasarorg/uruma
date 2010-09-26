@@ -22,19 +22,21 @@ import org.seasar.framework.xml.TagHandlerContext;
  * XMLタグを処理するための基底クラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$ $Date$
  */
 public abstract class UrumaTagHandler extends TagHandler {
     private static final long serialVersionUID = -3260173885181997297L;
 
     /**
-     * 画面定義テンプレートファイルのパスを表す {@link TagHandlerContext} のパラメータ名です。<br />
+     * 画面定義テンプレートファイルの URL を表す {@link TagHandlerContext} のパラメータ名です。<br />
      */
-    public static final String PARAM_PATH = "path";
+    public static final String PARAM_URL = "url";
 
     /**
-     * 画面定義テンプレートファイルのベースパスを表す {@link TagHandlerContext} のパラメータ名です。<br />
+     * 画面定義テンプレートファイルの親 URL を表す {@link TagHandlerContext} のパラメータ名です。<br />
      */
-    public static final String PARAM_BASE_PATH = "basePath";
+    public static final String PARAM_PARENT_URL = "parentUrl";
 
     /**
      * 要素のパスを返します。<br />

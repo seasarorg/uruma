@@ -15,6 +15,9 @@
  */
 package org.seasar.uruma.core.impl;
 
+import static org.seasar.uruma.core.UrumaMessageCodes.*;
+
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,12 +27,12 @@ import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.framework.util.Disposable;
 import org.seasar.framework.util.DisposableUtil;
+import org.seasar.framework.util.ResourceUtil;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.Template;
 import org.seasar.uruma.component.UIComponentContainer;
 import org.seasar.uruma.component.factory.ComponentTreeBuilder;
 import org.seasar.uruma.core.TemplateManager;
-import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.DuplicateIdTemplateException;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
@@ -38,10 +41,11 @@ import org.seasar.uruma.log.UrumaLogger;
  * {@link TemplateManager} の実装クラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$ $Date$
  */
 public class TemplateManagerImpl implements TemplateManager {
-    private static final UrumaLogger logger = UrumaLogger
-            .getLogger(TemplateManager.class);
+    private static final UrumaLogger logger = UrumaLogger.getLogger(TemplateManager.class);
 
     private Map<String, Template> templateCache = new HashMap<String, Template>();
 
@@ -52,9 +56,9 @@ public class TemplateManagerImpl implements TemplateManager {
     private static boolean initialized = false;
 
     /*
-     * @see org.seasar.uruma.core.TemplateManager#getTemplate(java.lang.String)
+     * @see org.seasar.uruma.core.TemplateManager#getTemplate(java.net.URL)
      */
-    public Template getTemplate(final String path) {
+    public Template getTemplate(final URL url) {
         synchronized (templateCache) {
             if (!initialized) {
                 DisposableUtil.add(new Disposable() {
@@ -66,11 +70,12 @@ public class TemplateManagerImpl implements TemplateManager {
                 initialized = true;
             }
 
+            String path = url.getPath();
             Template template = templateCache.get(path);
             if (template == null) {
-                logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_FILE, path);
+                logger.log(LOAD_TEMPLATE_FROM_FILE, path);
 
-                template = componentTreeBuilder.build(path);
+                template = componentTreeBuilder.build(url);
                 if (template != null) {
                     templateCache.put(path, template);
                     String id = template.getRootComponent().getId();
@@ -78,10 +83,8 @@ public class TemplateManagerImpl implements TemplateManager {
                         if (!idToPathMap.containsKey(id)) {
                             idToPathMap.put(id, path);
 
-                            String type = template.getRootComponent()
-                                    .getClass().getSimpleName();
-                            logger.log(UrumaMessageCodes.TEMPLATE_REGISTERED,
-                                    id, type, path);
+                            String type = template.getRootComponent().getClass().getSimpleName();
+                            logger.log(TEMPLATE_REGISTERED, id, type, path);
                         } else {
                             if (!idToPathMap.get(id).equals(path)) {
                                 throw new DuplicateIdTemplateException(id, path);
@@ -90,10 +93,17 @@ public class TemplateManagerImpl implements TemplateManager {
                     }
                 }
             } else {
-                logger.log(UrumaMessageCodes.LOAD_TEMPLATE_FROM_CACHE, path);
+                logger.log(LOAD_TEMPLATE_FROM_CACHE, path);
             }
             return template;
         }
+    }
+
+    /*
+     * @see org.seasar.uruma.core.TemplateManager#getTemplate(java.lang.String)
+     */
+    public Template getTemplate(final String path) {
+        return getTemplate(ResourceUtil.getResource(path));
     }
 
     /*
@@ -105,16 +115,14 @@ public class TemplateManagerImpl implements TemplateManager {
         if (path != null) {
             return getTemplate(path);
         } else {
-            throw new NotFoundException(UrumaMessageCodes.TEMPLATE_NOT_FOUND,
-                    id);
+            throw new NotFoundException(TEMPLATE_NOT_FOUND, id);
         }
     }
 
     /*
      * @see org.seasar.uruma.core.TemplateManager#getTemplates(java.lang.Class)
      */
-    public List<Template> getTemplates(
-            final Class<? extends UIComponentContainer> componentClass) {
+    public List<Template> getTemplates(final Class<? extends UIComponentContainer> componentClass) {
         List<Template> templates = new ArrayList<Template>();
 
         for (String path : idToPathMap.values()) {
@@ -140,7 +148,7 @@ public class TemplateManagerImpl implements TemplateManager {
      * @see org.seasar.uruma.core.TemplateManager#clear()
      */
     public void clear() {
-        logger.log(UrumaMessageCodes.DELETE_ALL_TEMPLATE_FROM_CACHE);
+        logger.log(DELETE_ALL_TEMPLATE_FROM_CACHE);
         templateCache.clear();
     }
 
@@ -150,7 +158,7 @@ public class TemplateManagerImpl implements TemplateManager {
     public void remove(final String id) {
         String path = idToPathMap.get(id);
         if (path != null) {
-            logger.log(UrumaMessageCodes.DELETE_TEMPLATE_FROM_CACHE);
+            logger.log(DELETE_TEMPLATE_FROM_CACHE);
             templateCache.remove(path);
         }
     }
@@ -159,11 +167,10 @@ public class TemplateManagerImpl implements TemplateManager {
      * {@link ComponentTreeBuilder} を設定します。<br />
      * 
      * @param componentTreeBuilder
-     *            {@link ComponentTreeBuilder} オブジェクト
+     *        {@link ComponentTreeBuilder} オブジェクト
      */
     @Binding(bindingType = BindingType.MUST)
-    public void setComponentTreeBuilder(
-            final ComponentTreeBuilder componentTreeBuilder) {
+    public void setComponentTreeBuilder(final ComponentTreeBuilder componentTreeBuilder) {
         this.componentTreeBuilder = componentTreeBuilder;
     }
 }

@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.component.factory.handler;
 
+import java.net.URL;
+
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
@@ -37,6 +39,8 @@ import org.xml.sax.Attributes;
  * 汎用のタグハンドラクラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$ $Date$
  */
 public class GenericTagHandler extends UrumaTagHandler {
     private static final long serialVersionUID = 4075680211563734762L;
@@ -47,7 +51,7 @@ public class GenericTagHandler extends UrumaTagHandler {
      * 生成するクラスを指定してインスタンスを構築します。
      * 
      * @param uiElementClass
-     *            生成するクラス
+     *        生成するクラス
      */
     public GenericTagHandler(final Class<? extends UIElement> uiElementClass) {
         this.uiElementClass = uiElementClass;
@@ -58,8 +62,7 @@ public class GenericTagHandler extends UrumaTagHandler {
      *      org.xml.sax.Attributes)
      */
     @Override
-    public void start(final TagHandlerContext context,
-            final Attributes attributes) {
+    public void start(final TagHandlerContext context, final Attributes attributes) {
         UIElement uiElement = createUIElement(uiElementClass, context);
 
         setPath(uiElement, context);
@@ -100,15 +103,14 @@ public class GenericTagHandler extends UrumaTagHandler {
      * {@link UIElement} オブジェクトを生成します。<br />
      * 
      * @param uiElementClass
-     *            {@link UIElement} クラス
+     *        {@link UIElement} クラス
      * @param context
-     *            {@link TagHandlerContext} オブジェクト。<br />
-     *            コンテクストに応じて生成する {@link UIElement} を変更するために使用します。<br />
-     *            本クラスでは利用しませんが、サブクラスで必要に応じて利用することができます。<br />
+     *        {@link TagHandlerContext} オブジェクト。<br />
+     *        コンテクストに応じて生成する {@link UIElement} を変更するために使用します。<br />
+     *        本クラスでは利用しませんが、サブクラスで必要に応じて利用することができます。<br />
      * @return {@link UIElement} オブジェクト
      */
-    protected UIElement createUIElement(
-            final Class<? extends UIElement> uiElementClass,
+    protected UIElement createUIElement(final Class<? extends UIElement> uiElementClass,
             final TagHandlerContext context) {
         return ClassUtil.<UIElement> newInstance(uiElementClass);
     }
@@ -117,40 +119,35 @@ public class GenericTagHandler extends UrumaTagHandler {
      * {@link UIElement} へXMLのパスを設定します。<br />
      * 
      * @param uiElement
-     *            {@link UIElement} オブジェクト
+     *        {@link UIElement} オブジェクト
      * @param context
-     *            コンテクスト情報
+     *        コンテクスト情報
      */
-    protected void setPath(final UIElement uiElement,
-            final TagHandlerContext context) {
-        uiElement.setPath((String) context
-                .getParameter(UrumaTagHandler.PARAM_PATH));
+    protected void setPath(final UIElement uiElement, final TagHandlerContext context) {
+        uiElement.setURL((URL) context.getParameter(UrumaTagHandler.PARAM_URL));
     }
 
     /**
      * {@link UIElement} へXMLのベースパスを設定します。<br />
      * 
      * @param uiElement
-     *            {@link UIElement} オブジェクト
+     *        {@link UIElement} オブジェクト
      * @param context
-     *            コンテクスト情報
+     *        コンテクスト情報
      */
-    protected void setBasePath(final UIElement uiElement,
-            final TagHandlerContext context) {
-        uiElement.setBasePath((String) context
-                .getParameter(UrumaTagHandler.PARAM_BASE_PATH));
+    protected void setBasePath(final UIElement uiElement, final TagHandlerContext context) {
+        uiElement.setParentURL((URL) context.getParameter(UrumaTagHandler.PARAM_PARENT_URL));
     }
 
     /**
      * {@link UIElement} へXML上のロケーション情報を設定します。<br />
      * 
      * @param uiElement
-     *            {@link UIElement} オブジェクト
+     *        {@link UIElement} オブジェクト
      * @param context
-     *            コンテクスト情報
+     *        コンテクスト情報
      */
-    protected void setLocation(final UIElement uiElement,
-            final TagHandlerContext context) {
+    protected void setLocation(final UIElement uiElement, final TagHandlerContext context) {
         uiElement.setLocation(context.getDetailPath());
     }
 
@@ -158,12 +155,11 @@ public class GenericTagHandler extends UrumaTagHandler {
      * {@link UIElement} へ属性の値をセットします。<br />
      * 
      * @param uiElement
-     *            {@link UIElement} オブジェクト
+     *        {@link UIElement} オブジェクト
      * @param attributes
-     *            {@link Attributes} オブジェクト
+     *        {@link Attributes} オブジェクト
      */
-    protected void setAttributes(final UIElement uiElement,
-            final Attributes attributes) {
+    protected void setAttributes(final UIElement uiElement, final Attributes attributes) {
         int length = attributes.getLength();
 
         for (int i = 0; i < length; i++) {
@@ -180,14 +176,13 @@ public class GenericTagHandler extends UrumaTagHandler {
      * </p>
      * 
      * @param uiElement
-     *            {@link UIElement} オブジェクト
+     *        {@link UIElement} オブジェクト
      * @param name
-     *            プロパティ名
+     *        プロパティ名
      * @param value
-     *            値
+     *        値
      */
-    protected void setProperty(final UIElement uiElement, final String name,
-            final String value) {
+    protected void setProperty(final UIElement uiElement, final String name, final String value) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(uiElement.getClass());
         if (desc.hasPropertyDesc(name)) {
             PropertyDesc pd = desc.getPropertyDesc(name);
@@ -201,12 +196,11 @@ public class GenericTagHandler extends UrumaTagHandler {
      * 生成した {@link UIElement} を {@link TagHandlerContext} 内に存在する親へ設定します。<br />
      * 
      * @param uiElement
-     *            {@link UIElement} オブジェクト
+     *        {@link UIElement} オブジェクト
      * @param context
-     *            {@link TagHandlerContext} オブジェクト
+     *        {@link TagHandlerContext} オブジェクト
      */
-    protected void setParent(final UIElement uiElement,
-            final TagHandlerContext context) {
+    protected void setParent(final UIElement uiElement, final TagHandlerContext context) {
         if (!context.isEmpty()) {
             Object parent = context.peek();
             if (UIElementContainer.class.isAssignableFrom(parent.getClass())) {
@@ -220,16 +214,15 @@ public class GenericTagHandler extends UrumaTagHandler {
      * {@link UIComponent} に対応するレンダラをセットします。<br />
      * 
      * @param uiComponent
-     *            {@link UIComponent} オブジェクト
+     *        {@link UIComponent} オブジェクト
      */
     protected void setRenderer(final UIComponent uiComponent) {
-        Renderer renderer = RendererFactory
-                .getRenderer(uiComponent.getClass());
+        Renderer renderer = RendererFactory.getRenderer(uiComponent.getClass());
         if (renderer != null) {
             uiComponent.setRenderer(renderer);
         } else {
-            throw new NotFoundException(UrumaMessageCodes.RENDERER_NOT_FOUND,
-                    uiComponent.getClass().getName());
+            throw new NotFoundException(UrumaMessageCodes.RENDERER_NOT_FOUND, uiComponent
+                    .getClass().getName());
         }
     }
 
@@ -245,9 +238,8 @@ public class GenericTagHandler extends UrumaTagHandler {
         if (element instanceof UIComponent) {
             UIComponent uiComponent = (UIComponent) element;
             if (StringUtil.isEmpty(uiComponent.getId())) {
-                String fileName = PathUtil.getFileName(uiComponent.getPath());
-                String id = StringUtil.decapitalize(PathUtil
-                        .getBaseName(fileName));
+                String fileName = PathUtil.getFileName(uiComponent.getURL().getPath());
+                String id = StringUtil.decapitalize(PathUtil.getBaseName(fileName));
                 uiComponent.setId(id);
             }
         }
@@ -272,8 +264,7 @@ public class GenericTagHandler extends UrumaTagHandler {
                 PropertyDesc pd = desc.getPropertyDesc("title");
 
                 if (StringUtil.isEmpty((String) pd.getValue(uiComponent))) {
-                    String fileName = PathUtil.getFileName(uiComponent
-                            .getPath());
+                    String fileName = PathUtil.getFileName(uiComponent.getURL().getPath());
                     String title = PathUtil.getBaseName(fileName);
                     pd.setValue(uiComponent, title);
                 }

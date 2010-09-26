@@ -15,12 +15,18 @@
  */
 package org.seasar.uruma.util;
 
+import java.net.URL;
+
 import junit.framework.TestCase;
+
+import org.seasar.framework.util.ResourceUtil;
 
 /**
  * {@link PathUtil} のためのテストクラスです。<br />
  * 
  * @author y-komori
+ * @author $Author$
+ * @version $Revision$
  */
 public class PathUtilTest extends TestCase {
     /**
@@ -44,6 +50,17 @@ public class PathUtilTest extends TestCase {
 
         assertEquals("6", "org/seasar/uruma/util/../template/PathUtil.java", PathUtil.createPath(
                 "org/seasar/uruma/util", "../template/PathUtil.java"));
+    }
+
+    /**
+     * {@link PathUtil#createURL(URL, String)} メソッドのテストです。<br />
+     */
+    public void testCreateURL() {
+        URL url = ResourceUtil.getResource(getClass().getName().replace('.', '/') + ".class");
+        URL parentUrl = PathUtil.getParentURL(url);
+        URL actualUrl = PathUtil.createURL(parentUrl, "Test.txt");
+
+        assertEquals("1", parentUrl.toExternalForm() + "/Test.txt", actualUrl.toExternalForm());
     }
 
     /**
@@ -105,6 +122,17 @@ public class PathUtilTest extends TestCase {
                 .getParent("c:\\org/seasar\\uruma/test.java"));
 
         assertEquals("8", "test", PathUtil.getParent("test"));
+    }
+
+    /**
+     * {@link PathUtil#getParentURL(URL)} メソッドのテストです。<br />
+     */
+    public void testGetParentURL() {
+        URL url = ResourceUtil.getResource(getClass().getName().replace('.', '/') + ".class");
+        URL parentURL = PathUtil.getParentURL(url);
+        assertEquals("1", PathUtil.getParent(url.toExternalForm()), parentURL.toExternalForm());
+
+        assertNull("2", PathUtil.getParentURL(null));
     }
 
     /**
