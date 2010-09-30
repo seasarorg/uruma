@@ -17,8 +17,10 @@ package org.seasar.uruma.util;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.LinkedList;
 
 import org.seasar.framework.exception.IORuntimeException;
+import org.seasar.framework.util.ResourceUtil;
 import org.seasar.framework.util.StringUtil;
 
 /**
@@ -80,12 +82,43 @@ public class PathUtil {
         return path;
     }
 
+    /**
+     * 与えられた URL のパスを基準として、{@code relPath} で与えられる相対パスを持つ URL を生成します。<br />
+     * 本メソッドでは、相対パスの標準化は行いません。
+     * 
+     * @param parentUrl
+     *        親 URL
+     * @param relPath
+     *        相対パス
+     * @return 生成した URL
+     */
     public static URL createURL(final URL parentUrl, final String relPath) {
+        return createURL(parentUrl, relPath, false);
+    }
+
+    /**
+     * 与えられた URL のパスを基準として、{@code relPath} で与えられる相対パスを持つ URL を生成します。<br />
+     * 
+     * @param parentUrl
+     *        親 URL
+     * @param relPath
+     *        相対パス
+     * @param normalizeRelPath
+     *        {@code true} の場合、{@link #normalizeRelativePath(String)}
+     *        によって相対パスを標準化します
+     * @return 生成した URL
+     */
+    public static URL createURL(final URL parentUrl, final String relPath,
+            final boolean normalizeRelPath) {
         String path = parentUrl.toExternalForm();
         if (!path.endsWith("/")) {
             path += "/";
         }
         path += relPath;
+
+        if (normalizeRelPath) {
+            path = normalizeRelativePath(path);
+        }
         try {
             return new URL(path);
         } catch (MalformedURLException ex) {
@@ -168,6 +201,27 @@ public class PathUtil {
             return new URL(getParent(externalForm));
         } catch (MalformedURLException ex) {
             throw new IORuntimeException(ex);
+        }
+    }
+
+    /**
+     * 指定されたクラスの親を表す URL を返します。<br />
+     * 
+     * @param clazz
+     *        クラスオブジェクト
+     * @return 親を表す URL。引数が {@code null} の場合は {@code null}
+     */
+    public static URL getParentURL(final Class<?> clazz) {
+        if (clazz == null) {
+            return null;
+        }
+
+        String classFilePath = getClassFilePath(clazz);
+        URL url = ResourceUtil.getResourceNoException(classFilePath);
+        if (url != null) {
+            return getParentURL(url);
+        } else {
+            return null;
         }
     }
 
@@ -258,5 +312,60 @@ public class PathUtil {
             path += fileName;
         }
         return path;
+    }
+
+    /**
+     * 与えられたパスのうち、相対的に参照されている部分を相対パスを含まないパスに変換します。<br />
+     * <p>
+     * たとえば、{@code /abc/def/../ghi} というパスは {@code /abc/ghi} というパスに変換します。<br />
+     * 相対パスを含まないパスに対しては、なにも行いません。<br />
+     * </p>
+     * 
+     * @param path
+     *        変換対象パス
+     * @return 変換結果
+     */
+    public static String normalizeRelativePath(final String path) {
+        LinkedList<String> pathStack = new LinkedList<String>();
+        String[] pathElements = path.split("/");
+        for (String pathElement : pathElements) {
+            if (".".equals(pathElement)) {
+                continue;
+            } else if ("..".equals(pathElement) && pathStack.size() > 0) {
+                pathStack.removeLast();
+            } else {
+                pathStack.addLast(pathElement);
+            }
+        }
+
+        StringBuilder buf = new StringBuilder();
+        for (String pathElement : pathStack) {
+            buf.append(pathElement);
+            buf.append("/");
+        }
+
+        int length = buf.length();
+        if (!path.endsWith("/")) {
+            length--;
+        }
+        return buf.substring(0, length);
+    }
+
+    /**
+     * 与えられたクラスオブジェクトに対応する {@code class} ファイルのパスを返します。<br />
+     * <p>
+     * たとえば、{@code org.seasar.uruma.util.PathUtil} クラスに対して {@code
+     * org/seasar/uruma/util/PathUtil.class} という文字列を返します。<br />
+     * </p>
+     * 
+     * @param clazz
+     *        クラスオブジェクト
+     * @return パス。引数が {@code null} の場合は空文字列。
+     */
+    public static String getClassFilePath(final Class<?> clazz) {
+        if (clazz == null) {
+            return "";
+        }
+        return clazz.getName().replace('.', '/') + ".class";
     }
 }

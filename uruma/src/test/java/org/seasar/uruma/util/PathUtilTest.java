@@ -55,12 +55,25 @@ public class PathUtilTest extends TestCase {
     /**
      * {@link PathUtil#createURL(URL, String)} メソッドのテストです。<br />
      */
-    public void testCreateURL() {
+    public void testCreateURL_URL_String() {
         URL url = ResourceUtil.getResource(getClass().getName().replace('.', '/') + ".class");
         URL parentUrl = PathUtil.getParentURL(url);
         URL actualUrl = PathUtil.createURL(parentUrl, "Test.txt");
 
         assertEquals("1", parentUrl.toExternalForm() + "/Test.txt", actualUrl.toExternalForm());
+    }
+
+    /**
+     * {@link PathUtil#createURL(URL, String, boolean)} メソッドのテストです。<br />
+     */
+    public void testCreateURL_URL_String_boolean() {
+        URL url = ResourceUtil.getResource(getClass().getName().replace('.', '/') + ".class");
+        URL parentUrl = PathUtil.getParentURL(url);
+
+        String expectedPath = PathUtil.getParent(PathUtil.getParent(parentUrl.toExternalForm()))
+                + "/Test.txt";
+        assertEquals("1", expectedPath, PathUtil.createURL(parentUrl, "../../Test.txt", true)
+                .toExternalForm());
     }
 
     /**
@@ -127,12 +140,23 @@ public class PathUtilTest extends TestCase {
     /**
      * {@link PathUtil#getParentURL(URL)} メソッドのテストです。<br />
      */
-    public void testGetParentURL() {
+    public void testGetParentURL_URL() {
         URL url = ResourceUtil.getResource(getClass().getName().replace('.', '/') + ".class");
         URL parentURL = PathUtil.getParentURL(url);
         assertEquals("1", PathUtil.getParent(url.toExternalForm()), parentURL.toExternalForm());
 
-        assertNull("2", PathUtil.getParentURL(null));
+        assertNull("2", PathUtil.getParentURL((URL) null));
+    }
+
+    /**
+     * {@link PathUtil#getParentURL(Class)} メソッドのテストです。<br />
+     */
+    public void testGetParentURL_Class() {
+        URL url = ResourceUtil.getResource(getClass().getName().replace('.', '/') + ".class");
+        URL parentURL = PathUtil.getParentURL(getClass());
+        assertEquals("1", PathUtil.getParent(url.toExternalForm()), parentURL.toExternalForm());
+
+        assertNull("2", PathUtil.getParentURL((Class<?>) null));
     }
 
     /**
@@ -199,5 +223,41 @@ public class PathUtilTest extends TestCase {
         assertEquals("2", "filename.txt", PathUtil.getPath(null, "filename.txt"));
         assertEquals("3", "org/seasar/uruma/util/", PathUtil.getPath(getClass(), null));
         assertEquals("4", "", PathUtil.getPath(null, null));
+    }
+
+    /**
+     * {@link PathUtil#normalizeRelativePath(String)} メソッドのテストです。<br />
+     */
+    public void testNormalizeRelativePath() {
+        assertEquals("1", "", PathUtil.normalizeRelativePath(""));
+        assertEquals("2", "abc/def/ghi/jkl", PathUtil.normalizeRelativePath("abc/def/ghi/jkl"));
+        assertEquals("3", "/abc/def/ghi/jkl", PathUtil.normalizeRelativePath("/abc/def/ghi/jkl"));
+        assertEquals("4", "abc/def/ghi/jkl/", PathUtil.normalizeRelativePath("abc/def/ghi/jkl/"));
+        assertEquals("5", "/abc/def/ghi", PathUtil.normalizeRelativePath("/abc/def/ghi/jkl/.."));
+        assertEquals("6", "/abc/def/ghi/", PathUtil.normalizeRelativePath("/abc/def/ghi/jkl/../"));
+        assertEquals("7", "/abc/def/jkl", PathUtil.normalizeRelativePath("/abc/def/ghi/../jkl"));
+        assertEquals("8", "/jkl", PathUtil.normalizeRelativePath("/abc/../ghi/../jkl"));
+        assertEquals("9", "/ghi", PathUtil.normalizeRelativePath("/abc/../ghi/jkl/.."));
+        assertEquals("10", "/abc/ghi/jkl", PathUtil.normalizeRelativePath("/abc/def/../ghi/jkl"));
+        assertEquals("11", "/ghi/jkl", PathUtil.normalizeRelativePath("/abc/def/../../ghi/jkl"));
+        assertEquals("12", "/ghi/jkl/", PathUtil.normalizeRelativePath("/abc/def/../../ghi/jkl/"));
+        assertEquals("13", "ghi/jkl", PathUtil.normalizeRelativePath("/abc/def/../../../ghi/jkl"));
+        assertEquals("14", "../ghi/jkl", PathUtil.normalizeRelativePath("abc/def/../../../ghi/jkl"));
+        assertEquals("15", "../abc/def/ghi", PathUtil.normalizeRelativePath("../abc/def/ghi"));
+        assertEquals("16", "abc/def/ghi", PathUtil.normalizeRelativePath("/../abc/def/ghi"));
+        assertEquals("17", "abc/ghi/jkl", PathUtil.normalizeRelativePath("abc/./ghi/jkl"));
+        assertEquals("18", "def/ghi/jkl", PathUtil.normalizeRelativePath("./def/ghi/jkl"));
+        assertEquals("19", "abc/def/ghi", PathUtil.normalizeRelativePath("abc/def/ghi/."));
+        assertEquals("20", "file:///C:/abc/ghi.txt", PathUtil
+                .normalizeRelativePath("file:///C:/abc/def/../ghi.txt"));
+    }
+
+    /**
+     * {@link PathUtil#getClassFilePath(Class)} メソッドのテストです。<br />
+     */
+    public void testGetClassFilePath() {
+        assertEquals("1", "org/seasar/uruma/util/PathUtilTest.class", PathUtil
+                .getClassFilePath(getClass()));
+        assertEquals("2", "", PathUtil.getClassFilePath(null));
     }
 }
