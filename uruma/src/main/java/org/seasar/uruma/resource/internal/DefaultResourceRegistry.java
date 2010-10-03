@@ -64,33 +64,21 @@ public class DefaultResourceRegistry implements ResourceRegistry {
 
     }
 
-    /*
-     * @see org.seasar.uruma.resource.internal.InternalResourceRegistry#dispose()
-     */
     public void dispose() {
         // TODO 自動生成されたメソッド・スタブ
 
     }
 
-    /*
-     * @see org.seasar.uruma.resource.internal.InternalResourceRegistry#init(org.eclipse.swt.widgets.Display)
-     */
     public void init(final Display display) {
         // TODO 自動生成されたメソッド・スタブ
 
     }
 
-    /*
-     * @see org.seasar.uruma.resource.internal.InternalResourceRegistry#loadImages(java.lang.String)
-     */
     public void loadImages(final String bundleBaseName) {
         // TODO 自動生成されたメソッド・スタブ
 
     }
 
-    /*
-     * @see org.seasar.uruma.resource.internal.InternalResourceRegistry#loadImages(java.util.ResourceBundle)
-     */
     public void loadImages(final ResourceBundle resourceBundle) {
         // TODO 自動生成されたメソッド・スタブ
 

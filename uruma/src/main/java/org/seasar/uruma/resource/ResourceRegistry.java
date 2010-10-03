@@ -19,7 +19,6 @@ import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.seasar.uruma.resource.internal.InternalResourceRegistry;
 
 /**
  * 各種リソースを管理するためのインターフェースです。<br />
@@ -29,7 +28,7 @@ import org.seasar.uruma.resource.internal.InternalResourceRegistry;
  * @author $Author$
  * @version $Revision$ $Date$
  */
-public interface ResourceRegistry extends InternalResourceRegistry {
+public interface ResourceRegistry {
     /**
      * @param key
      * @return

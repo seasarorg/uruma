@@ -27,7 +27,8 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.resource.internal.InternalResourceRegistry;
+import org.seasar.uruma.resource.ResourceRegistry;
+import org.seasar.uruma.resource.internal.DefaultResourceRegistry;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 import org.seasar.uruma.util.MessageUtil;
 
@@ -173,7 +174,7 @@ public class StandAloneUrumaStarter {
     }
 
     protected void setupImageManager(final Display display) {
-        InternalResourceRegistry registry = getResourceRegistry();
+        DefaultResourceRegistry registry = getResourceRegistry();
         registry.init(display);
         logger.log(LOADING_IMAGE_BUNDLE, imageBundleName);
 
@@ -185,7 +186,7 @@ public class StandAloneUrumaStarter {
     }
 
     protected void dispose() {
-        InternalResourceRegistry registry = getResourceRegistry();
+        DefaultResourceRegistry registry = getResourceRegistry();
         registry.dispose();
         if (display != null) {
             display.dispose();
@@ -193,8 +194,8 @@ public class StandAloneUrumaStarter {
         }
     }
 
-    protected InternalResourceRegistry getResourceRegistry() {
-        return (InternalResourceRegistry) container.getComponent(InternalResourceRegistry.class);
+    protected DefaultResourceRegistry getResourceRegistry() {
+        return (DefaultResourceRegistry) container.getComponent(ResourceRegistry.class);
     }
 
     /**

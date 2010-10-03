@@ -33,7 +33,8 @@ import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
-import org.seasar.uruma.resource.internal.InternalResourceRegistry;
+import org.seasar.uruma.resource.ResourceRegistry;
+import org.seasar.uruma.resource.internal.DefaultResourceRegistry;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 import org.seasar.uruma.util.MessageUtil;
 
@@ -61,8 +62,8 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
         configurer.setSaveAndRestore(flg);
 
         // リソースレジストリにイメージリソースを読み込みます。
-        InternalResourceRegistry registry = (InternalResourceRegistry) container
-                .getComponent(InternalResourceRegistry.class);
+        DefaultResourceRegistry registry = (DefaultResourceRegistry) container
+                .getComponent(ResourceRegistry.class);
         ResourceBundle imageBundle = service.getImageBundle();
         if (imageBundle != null) {
             logger.log(LOADING_IMAGE_BUNDLE, imageBundle);
@@ -75,8 +76,8 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
      */
     @Override
     public boolean preShutdown() {
-        InternalResourceRegistry registry = (InternalResourceRegistry) UrumaServiceUtil
-                .getService().getContainer().getComponent(InternalResourceRegistry.class);
+        DefaultResourceRegistry registry = (DefaultResourceRegistry) UrumaServiceUtil.getService()
+                .getContainer().getComponent(ResourceRegistry.class);
         registry.dispose();
         return true;
     }
