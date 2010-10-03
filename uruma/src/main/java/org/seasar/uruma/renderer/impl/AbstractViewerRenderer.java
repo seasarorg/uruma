@@ -72,7 +72,8 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
         VIEWER_TYPE viewer = createViewer(parent.<Composite> getCastWidget(), getStyle(uiComponent));
 
         // ビューアに内包されるウィジットのレンダリングを行う
-        renderWidget((COMPONENT_TYPE) uiComponent, (CONTROL_TYPE) viewer.getControl());
+        renderWidget((COMPONENT_TYPE) uiComponent, (CONTROL_TYPE) viewer.getControl(),
+                getResourceRegistry());
 
         String id = uiComponent.getId();
         // コンテントプロバイダのセットアップ

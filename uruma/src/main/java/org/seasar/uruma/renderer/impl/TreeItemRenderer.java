@@ -15,13 +15,9 @@
  */
 package org.seasar.uruma.renderer.impl;
 
-import java.net.URL;
-
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TreeItem;
-import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.uruma.component.jface.TreeItemComponent;
-import org.seasar.uruma.util.PathUtil;
 
 /**
  * {@link TreeItem} のレンダリングを行うクラスです。<br />
@@ -61,11 +57,7 @@ public class TreeItemRenderer extends AbstractWidgetRenderer<TreeItemComponent, 
         String value = component.image;
 
         if (value != null) {
-            Image image = ImageManager.getImage(value);
-            if (image == null) {
-                URL url = PathUtil.createURL(component.getParentURL(), value);
-                image = ImageManager.loadImage(value, url);
-            }
+            Image image = getResourceRegistry().getImage(value, component.getParentURL());
             widget.setImage(image);
         }
     }

@@ -13,29 +13,26 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.uruma.resource;
+package org.seasar.uruma.resource.internal;
 
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
+import java.util.ResourceBundle;
+
+import org.eclipse.swt.widgets.Display;
+import org.seasar.uruma.resource.ResourceRegistry;
 
 /**
- * イメージリソースを管理するためのインターフェースです。<br />
- * Uruma が管理するイメージリソースは、本インターフェースを経由して取得してください。<br />
+ * {@link ResourceRegistry} の内部インターフェースです。<br />
  * 
  * @author y-komori
  * @author $Author$
  * @version $Revision$ $Date$
  */
-public interface ImageRegistry {
-    /**
-     * @param key
-     * @return
-     */
-    public Image get(String key);
+public interface InternalResourceRegistry {
+    public void init(Display display);
 
-    /**
-     * @param key
-     * @param descriptor
-     */
-    public void put(String key, ImageDescriptor descriptor);
+    public void dispose();
+
+    public void loadImages(String bundleBaseName);
+
+    public void loadImages(ResourceBundle resourceBundle);
 }

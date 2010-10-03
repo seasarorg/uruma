@@ -21,4 +21,7 @@
     
     <!-- アプリケーションコンテクスト -->
 	<component class="org.seasar.uruma.context.ApplicationContext">@org.seasar.uruma.context.ContextFactory@createApplicationContext()</component>
+	
+	<!-- リソースレジストリ -->
+	<component class="org.seasar.uruma.resource.internal.DefaultResourceRegistry"/>
 </components>

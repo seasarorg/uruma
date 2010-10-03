@@ -15,6 +15,9 @@
  */
 package org.seasar.uruma.rcp.ui;
 
+import static org.seasar.uruma.core.UrumaConstants.*;
+import static org.seasar.uruma.core.UrumaMessageCodes.*;
+
 import java.util.ResourceBundle;
 
 import org.eclipse.swt.widgets.Display;
@@ -23,15 +26,14 @@ import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
-import org.seasar.eclipse.common.util.ImageManager;
+import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.rcp.WorkbenchComponent;
-import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.NotFoundException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.rcp.UrumaService;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
+import org.seasar.uruma.resource.internal.InternalResourceRegistry;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 import org.seasar.uruma.util.MessageUtil;
 
@@ -40,10 +42,8 @@ import org.seasar.uruma.util.MessageUtil;
  * 
  * @author y-komori
  */
-public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
-        UrumaMessageCodes, UrumaConstants {
-    private static final UrumaLogger logger = UrumaLogger
-            .getLogger(UrumaWorkbenchAdvisor.class);
+public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor {
+    private static final UrumaLogger logger = UrumaLogger.getLogger(UrumaWorkbenchAdvisor.class);
 
     /*
      * @see org.eclipse.ui.application.WorkbenchAdvisor#initialize(org.eclipse.ui.application.IWorkbenchConfigurer)
@@ -51,18 +51,22 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
     @Override
     public void initialize(final IWorkbenchConfigurer configurer) {
         UrumaService service = UrumaServiceUtil.getService();
+        S2Container container = service.getContainer();
 
-        service.getContainer().register(configurer);
+        container.register(configurer);
 
         // ウィンドウの位置・サイズの保存可否を指定します。
         WorkbenchComponent workbench = service.getWorkbenchComponent();
         boolean flg = Boolean.parseBoolean(workbench.saveAndRestore);
         configurer.setSaveAndRestore(flg);
 
+        // リソースレジストリにイメージリソースを読み込みます。
+        InternalResourceRegistry registry = (InternalResourceRegistry) container
+                .getComponent(InternalResourceRegistry.class);
         ResourceBundle imageBundle = service.getImageBundle();
         if (imageBundle != null) {
-            logger.log(UrumaMessageCodes.LOADING_IMAGE_BUNDLE, imageBundle);
-            ImageManager.loadImages(imageBundle);
+            logger.log(LOADING_IMAGE_BUNDLE, imageBundle);
+            registry.loadImages(imageBundle);
         }
     }
 
@@ -71,7 +75,9 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
      */
     @Override
     public boolean preShutdown() {
-        ImageManager.dispose();
+        InternalResourceRegistry registry = (InternalResourceRegistry) UrumaServiceUtil
+                .getService().getContainer().getComponent(InternalResourceRegistry.class);
+        registry.dispose();
         return true;
     }
 
@@ -85,16 +91,14 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
         String perspectiveId = service.getWorkbenchComponent().initialPerspectiveId;
 
         if (StringUtil.isNotBlank(perspectiveId)) {
-            WorkbenchComponent workbench = UrumaServiceUtil.getService()
-                    .getWorkbenchComponent();
+            WorkbenchComponent workbench = UrumaServiceUtil.getService().getWorkbenchComponent();
             if (workbench.findPerspective(perspectiveId) != null) {
                 return service.createRcpId(perspectiveId);
             } else {
-                throw new NotFoundException(
-                        UrumaMessageCodes.PERSPECTIVE_NOT_FOUND, perspectiveId);
+                throw new NotFoundException(PERSPECTIVE_NOT_FOUND, perspectiveId);
             }
         } else {
-            return service.createRcpId(UrumaConstants.DEFAULT_PERSPECTIVE_ID);
+            return service.createRcpId(DEFAULT_PERSPECTIVE_ID);
         }
     }
 
@@ -112,8 +116,7 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
      */
     @Override
     public void eventLoopException(final Throwable throwable) {
-        logger.log(EXCEPTION_OCCURED_WITH_REASON, throwable, throwable
-                .getMessage());
+        logger.log(EXCEPTION_OCCURED_WITH_REASON, throwable, throwable.getMessage());
 
         Display display = getWorkbenchConfigurer().getWorkbench().getDisplay();
         boolean displayCreated = false;
@@ -128,8 +131,7 @@ public class UrumaWorkbenchAdvisor extends WorkbenchAdvisor implements
         Shell shell = new Shell(display);
         String msg = MessageUtil.getMessageWithBundleName(URUMA_MESSAGE_BASE,
                 "RCP_EXCEPTION_OCCURED");
-        UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg,
-                throwable);
+        UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg, throwable);
         dialog.open();
         shell.dispose();
 

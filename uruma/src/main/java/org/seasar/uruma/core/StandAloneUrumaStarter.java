@@ -15,16 +15,19 @@
  */
 package org.seasar.uruma.core;
 
+import static org.seasar.uruma.core.UrumaConstants.*;
+import static org.seasar.uruma.core.UrumaMessageCodes.*;
+
 import java.util.MissingResourceException;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.uruma.log.UrumaLogger;
+import org.seasar.uruma.resource.internal.InternalResourceRegistry;
 import org.seasar.uruma.ui.dialogs.UrumaErrorDialog;
 import org.seasar.uruma.util.MessageUtil;
 
@@ -33,10 +36,8 @@ import org.seasar.uruma.util.MessageUtil;
  * 
  * @author y-komori
  */
-public class StandAloneUrumaStarter implements UrumaMessageCodes,
-        UrumaConstants {
-    private final UrumaLogger logger = UrumaLogger
-            .getLogger(StandAloneUrumaStarter.class);
+public class StandAloneUrumaStarter {
+    private final UrumaLogger logger = UrumaLogger.getLogger(StandAloneUrumaStarter.class);
 
     private static StandAloneUrumaStarter instance;
 
@@ -50,17 +51,16 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
      * アプリケーションを開始します。<br />
      * 
      * @param args
-     *            コマンドライン引数
+     *        コマンドライン引数
      */
     public static void main(final String[] args) {
         if (args.length >= 1) {
             String templatePath = args[0];
-            StandAloneUrumaStarter starter = StandAloneUrumaStarter
-                    .getInstance();
+            StandAloneUrumaStarter starter = StandAloneUrumaStarter.getInstance();
             starter.openWindow(templatePath);
         } else {
-            String msg = MessageUtil.getMessageWithBundleName(
-                    URUMA_MESSAGE_BASE, "STANDALONE_USAGE");
+            String msg = MessageUtil.getMessageWithBundleName(URUMA_MESSAGE_BASE,
+                    "STANDALONE_USAGE");
             System.err.println(msg);
         }
     }
@@ -84,10 +84,9 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
         } catch (Throwable ex) {
             Display display = new Display();
             Shell shell = new Shell(display);
-            String msg = MessageUtil.getMessageWithBundleName(
-                    URUMA_MESSAGE_BASE, "STANDALONE_START_FAILED");
-            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg,
-                    ex);
+            String msg = MessageUtil.getMessageWithBundleName(URUMA_MESSAGE_BASE,
+                    "STANDALONE_START_FAILED");
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg, ex);
             dialog.open();
             shell.dispose();
         }
@@ -100,7 +99,7 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
      * メソッドを最初に呼び出す前に呼び出してください。
      * 
      * @param configPath
-     *            Dicon ファイルのパス
+     *        Dicon ファイルのパス
      */
     public static void setConfigPath(final String configPath) {
         SingletonS2ContainerFactory.setConfigPath(configPath);
@@ -110,7 +109,7 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
      * 指定された画面定義 XML を読み込み、画面を表示します。<br />
      * 
      * @param templatePath
-     *            画面定義XMLのパス
+     *        画面定義XMLのパス
      */
     public void openWindow(final String templatePath) {
         try {
@@ -130,10 +129,9 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
                 display = new Display();
             }
             Shell shell = new Shell(display);
-            String msg = MessageUtil.getMessageWithBundleName(
-                    URUMA_MESSAGE_BASE, "STANDALONE_EXCEPTION_OCCURED");
-            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg,
-                    ex);
+            String msg = MessageUtil.getMessageWithBundleName(URUMA_MESSAGE_BASE,
+                    "STANDALONE_EXCEPTION_OCCURED");
+            UrumaErrorDialog dialog = new UrumaErrorDialog(shell, "Uruma", msg, ex);
             dialog.open();
             shell.dispose();
         } finally {
@@ -146,8 +144,7 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
     }
 
     protected void initS2Container() {
-        S2Container urumaContainer = S2ContainerFactory
-                .create(UrumaConstants.URUMA_DICON_PATH);
+        S2Container urumaContainer = S2ContainerFactory.create(UrumaConstants.URUMA_DICON_PATH);
         String configPath = SingletonS2ContainerFactory.getConfigPath();
 
         try {
@@ -169,29 +166,35 @@ public class StandAloneUrumaStarter implements UrumaMessageCodes,
      * デフォルトでは、 <code>urumaImages</code> が使用されます。
      * 
      * @param imageBundleName
-     *            リソースバンドル名
+     *        リソースバンドル名
      */
     public void setImageBundleName(final String imageBundleName) {
         this.imageBundleName = imageBundleName;
     }
 
     protected void setupImageManager(final Display display) {
-        ImageManager.init(display);
+        InternalResourceRegistry registry = getResourceRegistry();
+        registry.init(display);
         logger.log(LOADING_IMAGE_BUNDLE, imageBundleName);
 
         try {
-            ImageManager.loadImages(imageBundleName);
+            registry.loadImages(imageBundleName);
         } catch (MissingResourceException ex) {
             logger.log(IMAGE_DEF_BUNDLE_NOT_FOUND, imageBundleName);
         }
     }
 
     protected void dispose() {
-        ImageManager.dispose();
+        InternalResourceRegistry registry = getResourceRegistry();
+        registry.dispose();
         if (display != null) {
             display.dispose();
             display = null;
         }
+    }
+
+    protected InternalResourceRegistry getResourceRegistry() {
+        return (InternalResourceRegistry) container.getComponent(InternalResourceRegistry.class);
     }
 
     /**

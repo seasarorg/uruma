@@ -27,7 +27,6 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 import org.seasar.eclipse.common.util.FontManager;
-import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
@@ -42,7 +41,7 @@ import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
-import org.seasar.uruma.util.PathUtil;
+import org.seasar.uruma.resource.ResourceRegistry;
 
 /**
  * レンダリングのサポートを行うユーティリティクラスです。<br />
@@ -51,13 +50,19 @@ import org.seasar.uruma.util.PathUtil;
  * @author $Author$
  * @version $Revision$
  */
+/**
+ * @author y-komori
+ * @author $Author$
+ * @version $Revision$ $Date$
+ * 
+ */
 public class RendererSupportUtil implements UrumaConstants {
     private static final UrumaLogger logger = UrumaLogger.getLogger(RendererSupportUtil.class);
 
     /**
      * {@code src} でアノテートされたフィールドを {@code dest} へコピーします。<br />
      * <p>
-     * src オブジェクトの持つフィールドのうち、 {@link RenderingPolicy}
+     * {@code src} オブジェクトの持つフィールドのうち、 {@link RenderingPolicy}
      * アノテーションが指定されたフィールドで、現在のタイミングと同じタイミングが指定されたフィールドを、 アノテーションの示す方法で変換して
      * {@code dest} の同名フィールドへコピーします。<br />
      * コピー方法の詳細は、 {@link RenderingPolicy} のドキュメントを参照してください。<br />
@@ -69,9 +74,12 @@ public class RendererSupportUtil implements UrumaConstants {
      *        転送先オブジェクト
      * @param nowTiming
      *        現在のタイミング
+     * @param registry
+     *        {@link ResourceRegistry} のインスタンス(イメージのレンダリングを行わない場合は {@code null}
+     *        でも構いません)
      */
     public static void setAttributes(final UIElement src, final Object dest,
-            final SetTiming nowTiming) {
+            final SetTiming nowTiming, final ResourceRegistry registry) {
         BeanDesc beanDesc = BeanDescFactory.getBeanDesc(src.getClass());
         int pdSize = beanDesc.getPropertyDescSize();
 
@@ -85,7 +93,7 @@ public class RendererSupportUtil implements UrumaConstants {
                         && (policy.targetType() != TargetType.NONE)) {
                     String value = getSrcValue(src, pd);
                     if (value != null) {
-                        setValue(src, dest, pd, policy, value);
+                        setValue(src, dest, pd, policy, value, registry);
                     }
                 }
             }
@@ -103,7 +111,7 @@ public class RendererSupportUtil implements UrumaConstants {
     }
 
     private static void setValue(final UIElement src, final Object dest, final PropertyDesc srcPd,
-            final RenderingPolicy policy, final String value) {
+            final RenderingPolicy policy, final String value, final ResourceRegistry registry) {
         BeanDesc desc = BeanDescFactory.getBeanDesc(dest.getClass());
 
         // RenderingPolicy#name が設定されていない場合は
@@ -117,7 +125,8 @@ public class RendererSupportUtil implements UrumaConstants {
             if (desc.hasPropertyDesc(propertyName)) {
                 PropertyDesc destPd = desc.getPropertyDesc(propertyName);
                 if (destPd.isWritable()) {
-                    destPd.setValue(dest, convertValue(src, value, policy.conversionType()));
+                    destPd.setValue(dest, convertValue(src, value, policy.conversionType(),
+                            registry));
                 } else {
                     logger.log(UrumaMessageCodes.PROPERTY_IS_NOT_WRITABLE, dest.getClass()
                             .getName(), destPd.getPropertyName());
@@ -141,10 +150,12 @@ public class RendererSupportUtil implements UrumaConstants {
      *        変換元の値
      * @param conversionType
      *        変換方式を指定する {@link ConversionType} オブジェクト
+     * @param registry
+     *        {@link ResourceRegistry} のインスタンス
      * @return 変換結果オブジェクト
      */
     public static Object convertValue(final UIElement src, final String value,
-            final ConversionType conversionType) {
+            final ConversionType conversionType, final ResourceRegistry registry) {
 
         if (conversionType == ConversionType.STRING) {
             return value;
@@ -163,7 +174,7 @@ public class RendererSupportUtil implements UrumaConstants {
         } else if (conversionType == ConversionType.COLOR) {
             return convertColor(value);
         } else if (conversionType == ConversionType.IMAGE) {
-            return convertImage(value, src.getParentURL());
+            return convertImage(value, src.getParentURL(), registry);
         } else if (conversionType == ConversionType.ACCELERATOR) {
             return convertAccelerator(value);
         }
@@ -265,70 +276,49 @@ public class RendererSupportUtil implements UrumaConstants {
     }
 
     /**
-     * {@code value} の示すパスからイメージを読み込みます。<br />
+     * {@code value} と {@code parentUrl} の示すパスからイメージを読み込んで返します。<br />
      * 
      * @param value
      *        パス
      * @param parentUrl
      *        親 URL
-     * @return 変換結果
-     * @see ImageManager
+     * @param registry
+     *        イメージを読み込むための {@link ResourceRegistry}
+     * @return イメージ
+     * @see ResourceRegistry
      */
-    public static Image convertImage(final String value, final URL parentUrl) {
-        Image image = ImageManager.getImage(value);
-        if (image == null) {
-            URL url = PathUtil.createURL(parentUrl, value);
-            image = ImageManager.loadImage(value, url);
-        }
-        return image;
+    public static Image convertImage(final String value, final URL parentUrl,
+            final ResourceRegistry registry) {
+        return registry.getImage(value, parentUrl);
     }
 
     /**
-     * {@code value} の示すパスからイメージを読み込みます。<br />
+     * {@code value} と {@code parentUrl} の示すパスから {@link ImageDescriptor} を返します。<br />
+     * 
+     * @param value
+     *        パス
+     * @param parentUrl
+     *        親 URL
+     * @param registry
+     *        イメージを読み込むための {@link ResourceRegistry}
+     * @return {@link ImageDescriptor} オブジェクト
+     * @see ResourceRegistry
+     */
+    public static ImageDescriptor convertImageDescriptor(final String value, final URL parentUrl,
+            final ResourceRegistry registry) {
+        return registry.getImageDescriptor(value, parentUrl);
+    }
+
+    /**
+     * {@code value} の示すパスからイメージを読み込んで返します。<br />
      * 
      * @param value
      *        パス
      * @return 変換結果
-     * @see ImageManager
+     * @see ResourceRegistry
      */
-    public static Image convertImage(final String value) {
-        return convertImage(value, ResourceUtil.getResource(""));
-    }
-
-    /**
-     * {@code value} のパスの指すイメージを表す {@link ImageDescriptor} を返します。<br />
-     * 
-     * @param value
-     *        パス
-     * @param basePath
-     *        ベースパス
-     * @return 変換結果
-     * @see ImageManager
-     */
-    public static ImageDescriptor convertImageDescriptor(final String value, final String basePath) {
-        ImageDescriptor image = ImageManager.getImageDescriptor(value);
-        if (image == null) {
-            String path = PathUtil.createPath(basePath, value);
-            image = ImageManager.loadImageDescriptor(path);
-        }
-        return image;
-    }
-
-    public static ImageDescriptor convertImageDescriptor(final String value, final URL parentUrl) {
-        // TODO 要実装
-        return null;
-    }
-
-    /**
-     * {@code value} のパスの指すイメージを表す {@link ImageDescriptor} を返します。<br />
-     * 
-     * @param value
-     *        パス
-     * @return 変換結果
-     * @see ImageManager
-     */
-    public static ImageDescriptor convertImageDescriptor(final String value) {
-        return convertImageDescriptor(value, "");
+    public static Image convertImage(final String value, final ResourceRegistry registry) {
+        return convertImage(value, ResourceUtil.getResource(""), registry);
     }
 
     /**

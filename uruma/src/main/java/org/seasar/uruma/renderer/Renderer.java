@@ -29,16 +29,17 @@ public interface Renderer {
     /**
      * レンダリングを行います。</br>
      * <p>
-     * 本メソッドは、{@link UIComponent#preRender(WidgetHandle, org.seasar.uruma.context.WindowContext)}
+     * 本メソッドは、
+     * {@link UIComponent#preRender(WidgetHandle, org.seasar.uruma.context.WindowContext)}
      * の内部から呼び出されます。<br />
      * </p>
      * 
      * @param uiComponent
-     *            レンダリング対象の情報を持つ {@link UIComponent} オブジェクト
+     *        レンダリング対象の情報を持つ {@link UIComponent} オブジェクト
      * @param parent
-     *            親となる {@link WidgetHandle} オブジェクト
+     *        親となる {@link WidgetHandle} オブジェクト
      * @param context
-     *            画面情報を収めた {@link WindowContext} オブジェクト
+     *        画面情報を収めた {@link WindowContext} オブジェクト
      * @return レンダリングしたウィジットのハンドル
      */
     public WidgetHandle preRender(UIComponent uiComponent, WidgetHandle parent,
@@ -48,32 +49,31 @@ public interface Renderer {
      * レンダリングを行います。</br>
      * 
      * @param uiComponent
-     *            レンダリング対象の情報を持つ {@link UIComponent} オブジェクト
+     *        レンダリング対象の情報を持つ {@link UIComponent} オブジェクト
      * @param parent
-     *            親となる {@link WidgetHandle} オブジェクト
+     *        親となる {@link WidgetHandle} オブジェクト
      * @param context
-     *            画面情報を収めた {@link PartContext} オブジェクト
+     *        画面情報を収めた {@link PartContext} オブジェクト
      * @return レンダリングしたウィジットのハンドル
      */
-    public WidgetHandle render(UIComponent uiComponent, WidgetHandle parent,
-            PartContext context);
+    public WidgetHandle render(UIComponent uiComponent, WidgetHandle parent, PartContext context);
 
     /**
      * 子のレンダリングが終わった後に呼び出されるメソッドです。</br>
      * 
      * @param widget
-     *            {@link Renderer#render(UIComponent, WidgetHandle, PartContext) render()}
-     *            メソッドでレンダリングされた {@link WidgetHandle} オブジェクト
+     *        {@link Renderer#render(UIComponent, WidgetHandle, PartContext)
+     *        render()} メソッドでレンダリングされた {@link WidgetHandle} オブジェクト
      * 
      * @param uiComponent
-     *            レンダリング対象の情報を持つ {@link UIComponent} オブジェクト
+     *        レンダリング対象の情報を持つ {@link UIComponent} オブジェクト
      * @param parent
-     *            親となる {@link WidgetHandle} オブジェクト
+     *        親となる {@link WidgetHandle} オブジェクト
      * @param context
-     *            画面情報を収めた {@link PartContext} オブジェクト
+     *        画面情報を収めた {@link PartContext} オブジェクト
      */
-    public void renderAfter(WidgetHandle widget, UIComponent uiComponent,
-            WidgetHandle parent, PartContext context);
+    public void renderAfter(WidgetHandle widget, UIComponent uiComponent, WidgetHandle parent,
+            PartContext context);
 
     /**
      * 一度レンダリングしたウィジットに対する再レンダリングを行います。<br />
@@ -82,8 +82,10 @@ public interface Renderer {
      * {@link UIComponent} を保持する {@link WidgetHandle} を本メソッドの引数として渡してください。
      * 
      * @param widget
-     *            再レンダリング対象のウィジットと {@link UIComponent} を保持する
-     *            {@link WidgetHandle} オブジェクト
+     *        再レンダリング対象のウィジットと {@link UIComponent} を保持する {@link WidgetHandle}
+     *        オブジェクト
+     * @param context
+     *        画面情報を収めた {@link PartContext} オブジェクト
      */
-    public void reRender(WidgetHandle widget);
+    public void reRender(WidgetHandle widget, PartContext context);
 }

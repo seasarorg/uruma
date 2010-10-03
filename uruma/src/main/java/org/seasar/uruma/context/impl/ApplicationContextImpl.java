@@ -22,10 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.seasar.framework.container.annotation.tiger.Binding;
+import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.uruma.context.ApplicationContext;
 import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.exception.DuplicateComponentIdException;
+import org.seasar.uruma.resource.ResourceRegistry;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -37,6 +40,8 @@ public class ApplicationContextImpl implements ApplicationContext {
     private List<WindowContext> windowContextList = new ArrayList<WindowContext>();
 
     private Map<String, Object> valueMap = new HashMap<String, Object>();
+
+    private ResourceRegistry resourceRegistry;
 
     /**
      * {@link ApplicationContextImpl} を構築します。<br />
@@ -70,9 +75,9 @@ public class ApplicationContextImpl implements ApplicationContext {
      * {@link WindowContext} オブジェクトを追加します。<br />
      * 
      * @param context
-     *            追加する {@link WindowContext} オブジェクト
+     *        追加する {@link WindowContext} オブジェクト
      * @throws DuplicateComponentIdException
-     *             ウィンドウ名称が既に登録されている場合
+     *         ウィンドウ名称が既に登録されている場合
      */
     public void addWindowContext(final WindowContext context) {
         AssertionUtil.assertNotNull("context", context);
@@ -88,13 +93,31 @@ public class ApplicationContextImpl implements ApplicationContext {
      * {@link WindowContext} を削除します。<br />
      * 
      * @param windowName
-     *            ウィンドウ名称
+     *        ウィンドウ名称
      */
     public void disposeWindowContext(final String windowName) {
         WindowContext context = getWindowContext(windowName);
         if (context != null) {
             windowContextList.remove(context);
         }
+    }
+
+    /**
+     * {@link ResourceRegistry} を設定します。<br />
+     * 
+     * @param resourceRegistry
+     *        {@link ResourceRegistry} のインスタンス
+     */
+    @Binding(bindingType = BindingType.MUST)
+    public void setResourceRegistry(final ResourceRegistry resourceRegistry) {
+        this.resourceRegistry = resourceRegistry;
+    }
+
+    /*
+     * @see org.seasar.uruma.context.ApplicationContext#getResourceRegistry()
+     */
+    public ResourceRegistry getResourceRegistry() {
+        return resourceRegistry;
     }
 
     /*

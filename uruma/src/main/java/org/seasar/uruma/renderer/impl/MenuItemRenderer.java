@@ -143,8 +143,7 @@ public class MenuItemRenderer extends AbstractRenderer {
             final MenuItemComponent menuItemComponent) {
         String path = menuItemComponent.image;
         if (!StringUtil.isEmpty(path)) {
-            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(path,
-                    menuItemComponent.getParentURL());
+            ImageDescriptor desc = getImageDescriptor(menuItemComponent, path);
             action.setImageDescriptor(desc);
         }
     }
@@ -153,8 +152,7 @@ public class MenuItemRenderer extends AbstractRenderer {
             final MenuItemComponent menuItemComponent) {
         String path = menuItemComponent.disabledImage;
         if (!StringUtil.isEmpty(path)) {
-            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(path,
-                    menuItemComponent.getParentURL());
+            ImageDescriptor desc = getImageDescriptor(menuItemComponent, path);
             action.setDisabledImageDescriptor(desc);
         }
     }
@@ -163,10 +161,13 @@ public class MenuItemRenderer extends AbstractRenderer {
             final MenuItemComponent menuItemComponent) {
         String path = menuItemComponent.disabledImage;
         if (!StringUtil.isEmpty(path)) {
-            ImageDescriptor desc = RendererSupportUtil.convertImageDescriptor(path,
-                    menuItemComponent.getParentURL());
+            ImageDescriptor desc = getImageDescriptor(menuItemComponent, path);
             action.setHoverImageDescriptor(desc);
         }
     }
 
+    protected ImageDescriptor getImageDescriptor(final UIComponent uiComponent, final String path) {
+        return RendererSupportUtil.convertImageDescriptor(path, uiComponent.getParentURL(),
+                getResourceRegistry());
+    }
 }

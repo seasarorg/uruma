@@ -22,7 +22,6 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
-import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.component.UICompositeComponent;
 import org.seasar.uruma.component.UIElement;
 import org.seasar.uruma.component.jface.TableComponent;
@@ -40,8 +39,7 @@ import org.seasar.uruma.viewer.PojoTableLabelProvider;
  * 
  * @author bskuroneko
  */
-public class TableViewerRenderer extends
-        AbstractViewerRenderer<TableComponent, TableViewer, Table> {
+public class TableViewerRenderer extends AbstractViewerRenderer<TableComponent, TableViewer, Table> {
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractViewerRenderer#canCreateViewer(org.seasar.uruma.component.UICompositeComponent)
      */
@@ -64,15 +62,13 @@ public class TableViewerRenderer extends
      *      org.seasar.uruma.context.PartContext)
      */
     @Override
-    protected void doRenderAfter(final TableViewer viewer,
-            final TableComponent uiComponent, final WidgetHandle parent,
-            final PartContext context) {
+    protected void doRenderAfter(final TableViewer viewer, final TableComponent uiComponent,
+            final WidgetHandle parent, final PartContext context) {
         // TODO ISelection を用いた設定に変更する
         String selection = uiComponent.selection;
         if (selection != null) {
             Table table = viewer.getTable();
-            table.setSelection((int[]) RendererSupportUtil.convertValue(
-                    uiComponent, selection, ConversionType.INT_ARRAY));
+            table.setSelection(RendererSupportUtil.convertIntArray(selection));
         }
     }
 

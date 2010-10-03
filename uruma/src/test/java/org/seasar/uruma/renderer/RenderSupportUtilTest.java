@@ -22,10 +22,10 @@ import junit.framework.TestCase;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
-import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.ResourceUtil;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 import org.seasar.uruma.exception.RenderException;
+import org.seasar.uruma.resource.internal.DefaultResourceRegistry;
 import org.seasar.uruma.util.PathUtil;
 
 /**
@@ -38,18 +38,21 @@ import org.seasar.uruma.util.PathUtil;
 public class RenderSupportUtilTest extends TestCase {
     private Display display;
 
+    private DefaultResourceRegistry registry;
+
     @Override
     protected void setUp() throws Exception {
         display = Display.getCurrent();
+        registry = new DefaultResourceRegistry();
         if (display == null) {
             display = new Display();
-            ImageManager.init(display);
+            registry.init(display);
         }
     }
 
     @Override
     protected void tearDown() throws Exception {
-        ImageManager.dispose();
+        registry.dispose();
         if (display != null) {
             display.dispose();
         }
@@ -61,7 +64,7 @@ public class RenderSupportUtilTest extends TestCase {
         src.setParentURL(PathUtil.getParentURL(url));
         DestObject dest = new DestObject();
 
-        RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER);
+        RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER, registry);
 
         assertEquals("1", "StringField1", dest.stringField);
         assertEquals("2", "Text\tField1\nText\tField1\n", dest.textField);
@@ -69,7 +72,7 @@ public class RenderSupportUtilTest extends TestCase {
         assertTrue("4", dest.booleanField);
         assertEquals("5", new RGB(255, 255, 255), dest.colorField.getRGB());
         assertEquals("6", SWT.YES, dest.swtConstField);
-        assertEquals("7", ImageManager.getImage("/images/container.gif"), dest.imageField);
+        assertEquals("7", registry.getImage("/images/container.gif"), dest.imageField);
         assertEquals("8", SWT.CTRL | SWT.ALT | 'A', dest.acceleratorField);
         assertEquals("9", 'A', dest.charField);
         assertEquals("10", 3, dest.intArrayField.length);
@@ -83,7 +86,7 @@ public class RenderSupportUtilTest extends TestCase {
         assertFalse("17", dest.getBooleanProperty());
         assertEquals("18", new RGB(0, 0, 0), dest.getColorProperty().getRGB());
         assertEquals("19", SWT.NO, dest.getSwtConstProperty());
-        assertEquals("20", ImageManager
+        assertEquals("20", registry
                 .getImage("org/seasar/uruma/renderer/../../../../images/container.gif"), dest
                 .getImageProperty());
         assertEquals("21", SWT.F2, dest.getAcceleratorProperty());
@@ -99,7 +102,7 @@ public class RenderSupportUtilTest extends TestCase {
         DestObject dest = new DestObject();
 
         try {
-            RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER);
+            RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER, registry);
             // TODO エラーログ出力を確認するようにする
             assertTrue(true);
         } catch (RenderException ex) {
@@ -112,7 +115,7 @@ public class RenderSupportUtilTest extends TestCase {
         DestObject dest = new DestObject();
 
         try {
-            RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER);
+            RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER, registry);
             // TODO エラーログ出力を確認するようにする
             assertTrue(true);
         } catch (RenderException ex) {
@@ -125,7 +128,7 @@ public class RenderSupportUtilTest extends TestCase {
         DestObject dest = new DestObject();
 
         try {
-            RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER);
+            RendererSupportUtil.setAttributes(src, dest, SetTiming.RENDER, registry);
             // TODO エラーログ出力を確認するようにする
             assertTrue(true);
         } catch (RenderException ex) {

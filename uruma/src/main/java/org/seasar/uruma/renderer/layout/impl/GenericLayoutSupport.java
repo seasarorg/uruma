@@ -38,9 +38,9 @@ public class GenericLayoutSupport implements LayoutSupport {
      * {@link GenericLayoutSupport} を構築します。<br />
      * 
      * @param layoutClass
-     *            {@link Layout} クラス
+     *        {@link Layout} クラス
      * @param layoutDataClass
-     *            レイアウトデータクラス
+     *        レイアウトデータクラス
      */
     public GenericLayoutSupport(final Class<? extends Layout> layoutClass,
             final Class<? extends Object> layoutDataClass) {
@@ -54,7 +54,7 @@ public class GenericLayoutSupport implements LayoutSupport {
 
     public Layout createLayout(final LayoutInfo<?> layoutInfo) {
         Layout layout = createLayout();
-        RendererSupportUtil.setAttributes(layoutInfo, layout, SetTiming.RENDER);
+        RendererSupportUtil.setAttributes(layoutInfo, layout, SetTiming.RENDER, null);
         return layout;
     }
 
@@ -70,8 +70,7 @@ public class GenericLayoutSupport implements LayoutSupport {
             final LayoutDataInfo layoutDataInfo) {
         if (layoutDataClass != null) {
             Object layoutData = createLayoutData();
-            RendererSupportUtil.setAttributes(layoutDataInfo, layoutData,
-                    SetTiming.RENDER);
+            RendererSupportUtil.setAttributes(layoutDataInfo, layoutData, SetTiming.RENDER, null);
             return layoutData;
         } else {
             return null;

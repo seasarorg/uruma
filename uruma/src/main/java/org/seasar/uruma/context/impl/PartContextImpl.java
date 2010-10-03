@@ -30,8 +30,7 @@ import org.seasar.uruma.desc.PartActionDesc;
  * 
  * @author y-komori
  */
-public class PartContextImpl extends AbstractWidgetHolder implements
-        PartContext {
+public class PartContextImpl extends AbstractWidgetHolder implements PartContext {
     private String partName;
 
     private PartActionDesc partActionDesc;
@@ -46,13 +45,14 @@ public class PartContextImpl extends AbstractWidgetHolder implements
 
     /**
      * {@link PartContextImpl} を構築します。<br />
-     * 本クラスのインスタンスを生成するには、{@link ContextFactory#createPartContext(org.seasar.uruma.context.WindowContext, String)}
+     * 本クラスのインスタンスを生成するには、
+     * {@link ContextFactory#createPartContext(org.seasar.uruma.context.WindowContext, String)}
      * メソッドを利用してください。
      * 
      * @param partName
-     *            パート名称
+     *        パート名称
      * @param parent
-     *            親 {@link WindowContext}
+     *        親 {@link WindowContext}
      */
     public PartContextImpl(final String partName, final WindowContext parent) {
         super();
@@ -66,7 +66,7 @@ public class PartContextImpl extends AbstractWidgetHolder implements
      * {@link WidgetHandle} を検索して返します。<br />
      * 
      * @param handleId
-     *            ハンドル ID
+     *        ハンドル ID
      * @return 見つかった {@link WidgetHandle} のリスト。
      */
     public Set<WidgetHandle> findWidgetHandle(final String handleId) {

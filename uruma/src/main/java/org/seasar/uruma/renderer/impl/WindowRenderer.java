@@ -15,8 +15,6 @@
  */
 package org.seasar.uruma.renderer.impl;
 
-import java.net.URL;
-
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -26,7 +24,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.seasar.eclipse.common.util.GeometryUtil;
-import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.component.UIComponent;
 import org.seasar.uruma.component.jface.ControlComponent;
@@ -34,7 +31,7 @@ import org.seasar.uruma.component.jface.WindowComponent;
 import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.core.UrumaConstants;
-import org.seasar.uruma.util.PathUtil;
+import org.seasar.uruma.resource.ResourceRegistry;
 
 /**
  * {@link Window} のレンダリングを行うためのクラスです。<br />
@@ -65,7 +62,7 @@ public class WindowRenderer extends AbstractCompositeRenderer<WindowComponent, C
             final PartContext context) {
         Shell shell = parent.<Shell> getCastWidget();
 
-        configureShell((WindowComponent) uiComponent, shell);
+        configureShell((WindowComponent) uiComponent, shell, getResourceRegistry());
         return super.render(uiComponent, parent, context);
     }
 
@@ -82,7 +79,8 @@ public class WindowRenderer extends AbstractCompositeRenderer<WindowComponent, C
         setDefaultFocus(uiComponent, context);
     }
 
-    protected void configureShell(final WindowComponent window, final Shell shell) {
+    protected void configureShell(final WindowComponent window, final Shell shell,
+            final ResourceRegistry registry) {
         // タイトルの設定
         if (window.title != null) {
             shell.setText(window.title);
@@ -102,11 +100,7 @@ public class WindowRenderer extends AbstractCompositeRenderer<WindowComponent, C
         // アイコンの設定
         String img = window.image;
         if (!StringUtil.isEmpty(img)) {
-            Image image = ImageManager.getImage(img);
-            if (image == null) {
-                URL url = PathUtil.createURL(window.getParentURL(), img);
-                image = ImageManager.loadImage(img, url);
-            }
+            Image image = registry.getImage(img, window.getParentURL());
             shell.setImage(image);
         }
     }

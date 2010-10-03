@@ -20,7 +20,6 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Color;
-import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.component.jface.CTabFolderComponent;
 import org.seasar.uruma.component.jface.GradientInfo;
 import org.seasar.uruma.component.jface.GradientItem;
@@ -33,16 +32,15 @@ import org.seasar.uruma.renderer.RendererSupportUtil;
  * 
  * @author bskuroneko
  */
-public class CTabFolderRenderer extends
-        AbstractCompositeRenderer<CTabFolderComponent, CTabFolder> {
+public class CTabFolderRenderer extends AbstractCompositeRenderer<CTabFolderComponent, CTabFolder> {
 
     /*
      * @see org.seasar.uruma.renderer.impl.AbstractCompositeRenderer#doRenderComposite(org.seasar.uruma.component.jface.CompositeComponent,
      *      org.eclipse.swt.widgets.Composite)
      */
     @Override
-    protected void doRenderComposite(
-            final CTabFolderComponent controlComponent, final CTabFolder control) {
+    protected void doRenderComposite(final CTabFolderComponent controlComponent,
+            final CTabFolder control) {
         setSelectionBackground(controlComponent, control);
     }
 
@@ -53,48 +51,38 @@ public class CTabFolderRenderer extends
      *      org.seasar.uruma.context.PartContext)
      */
     @Override
-    protected void doRenderAfter(final CTabFolder widget,
-            final CTabFolderComponent uiComponent, final WidgetHandle parent,
-            final PartContext context) {
+    protected void doRenderAfter(final CTabFolder widget, final CTabFolderComponent uiComponent,
+            final WidgetHandle parent, final PartContext context) {
         setSelection(uiComponent, widget);
     }
 
-    private void setSelectionBackground(
-            final CTabFolderComponent controlComponent, final CTabFolder control) {
-        GradientInfo gradientInfo = controlComponent
-                .getSelectionBackgroundGradient();
+    private void setSelectionBackground(final CTabFolderComponent controlComponent,
+            final CTabFolder control) {
+        GradientInfo gradientInfo = controlComponent.getSelectionBackgroundGradient();
         if (gradientInfo != null) {
             List<GradientItem> gradientItems = gradientInfo.getGradientItems();
             Color[] colors = new Color[gradientItems.size() + 1];
             int[] percents = new int[gradientItems.size()];
-            colors[0] = ((Color) RendererSupportUtil.convertValue(
-                    controlComponent, gradientInfo.startColor,
-                    ConversionType.COLOR));
+            colors[0] = RendererSupportUtil.convertColor(gradientInfo.startColor);
             int i = 0;
             for (GradientItem item : gradientItems) {
-                colors[i + 1] = ((Color) RendererSupportUtil.convertValue(
-                        controlComponent, item.color, ConversionType.COLOR));
-                percents[i] = ((Integer) RendererSupportUtil.convertValue(
-                        controlComponent, item.percent, ConversionType.INT));
+                colors[i + 1] = RendererSupportUtil.convertColor(item.color);
+                percents[i] = RendererSupportUtil.convertInt(item.percent);
                 i++;
             }
-            Boolean vertical = (Boolean) RendererSupportUtil.convertValue(
-                    controlComponent, gradientInfo.vertical,
-                    ConversionType.BOOLEAN);
+            Boolean vertical = RendererSupportUtil.convertBoolean(gradientInfo.vertical);
             control.setSelectionBackground(colors, percents, vertical);
         } else {
             String value = controlComponent.selectionBackground;
             if (value == null) {
                 return;
             }
-            Color color = (Color) RendererSupportUtil.convertValue(
-                    controlComponent, value, ConversionType.COLOR);
+            Color color = RendererSupportUtil.convertColor(value);
             control.setSelectionBackground(color);
         }
     }
 
-    private void setSelection(final CTabFolderComponent controlComponent,
-            final CTabFolder control) {
+    private void setSelection(final CTabFolderComponent controlComponent, final CTabFolder control) {
         String value = controlComponent.selection;
         if (value == null) {
             return;

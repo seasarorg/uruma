@@ -20,6 +20,9 @@
     <!-- アプリケーションコンテクスト -->
     <component class="org.seasar.uruma.context.ApplicationContext">@org.seasar.uruma.context.ContextFactory@createApplicationContext()</component>
     
+    <!-- リソースレジストリ -->
+    <component class="org.seasar.uruma.resource.internal.DefaultResourceRegistry"/>
+    
     <!-- == RCP環境固有コンポーネント -->
 	<!-- ビューテンプレートを読み込むためのコンポーネント -->
 	<component class="org.seasar.uruma.core.impl.ViewTemplateLoaderImpl" instance="singleton" />

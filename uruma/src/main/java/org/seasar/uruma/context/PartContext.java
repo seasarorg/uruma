@@ -23,7 +23,8 @@ import org.seasar.uruma.desc.PartActionDesc;
 
 /**
  * ウィンドウパートに関する情報を保持するクラスのための、インターフェースです。<br />
- * ウインドウパートは、 {@link ViewPart}、{@link EditorPart}、{@link DialogPage}など、ウィンドウやダイアログを構成する独立したパートを表します。
+ * ウインドウパートは、 {@link ViewPart}、{@link EditorPart}、{@link DialogPage}
+ * など、ウィンドウやダイアログを構成する独立したパートを表します。
  * 
  * @author y-komori
  */
@@ -67,7 +68,7 @@ public interface PartContext extends WidgetHolder {
      * {@link PartActionDesc} オブジェクトを設定します。<br />
      * 
      * @param desc
-     *            {@link PartActionDesc} オブジェクト
+     *        {@link PartActionDesc} オブジェクト
      */
     public void setPartActionDesc(PartActionDesc desc);
 
@@ -75,7 +76,7 @@ public interface PartContext extends WidgetHolder {
      * パートアクションクラスのオブジェクトを設定します。<br />
      * 
      * @param object
-     *            パートアクションクラスのオブジェクト
+     *        パートアクションクラスのオブジェクト
      */
     public void setPartActionObject(Object object);
 
@@ -83,7 +84,7 @@ public interface PartContext extends WidgetHolder {
      * {@link FormDesc} オブジェクトを設定します。<br />
      * 
      * @param desc
-     *            {@link FormDesc} オブジェクト
+     *        {@link FormDesc} オブジェクト
      */
     public void setFormDesc(FormDesc desc);
 
@@ -91,7 +92,7 @@ public interface PartContext extends WidgetHolder {
      * フォームクラスのオブジェクトを設定します。<br />
      * 
      * @param object
-     *            フォームクラスのオブジェクト
+     *        フォームクラスのオブジェクト
      */
     public void setFormObject(Object object);
 

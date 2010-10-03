@@ -33,8 +33,8 @@ public class NullRenderer implements Renderer {
      *      org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.WindowContext)
      */
-    public WidgetHandle preRender(final UIComponent uiComponent,
-            final WidgetHandle parent, final WindowContext context) {
+    public WidgetHandle preRender(final UIComponent uiComponent, final WidgetHandle parent,
+            final WindowContext context) {
         // Do nothing.
         return null;
     }
@@ -44,8 +44,8 @@ public class NullRenderer implements Renderer {
      *      org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.PartContext)
      */
-    public WidgetHandle render(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
+    public WidgetHandle render(final UIComponent uiComponent, final WidgetHandle parent,
+            final PartContext context) {
         // Do nothing.
         return null;
     }
@@ -56,16 +56,15 @@ public class NullRenderer implements Renderer {
      *      org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.PartContext)
      */
-    public void renderAfter(final WidgetHandle widget,
-            final UIComponent uiComponent, final WidgetHandle parent,
-            final PartContext context) {
+    public void renderAfter(final WidgetHandle widget, final UIComponent uiComponent,
+            final WidgetHandle parent, final PartContext context) {
         // Do nothing.
     }
 
     /*
-     * @see org.seasar.uruma.renderer.Renderer#reRender(org.seasar.uruma.context.WidgetHandle)
+     * @see org.seasar.uruma.renderer.Renderer#reRender(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)
      */
-    public void reRender(final WidgetHandle widget) {
+    public void reRender(final WidgetHandle widget, final PartContext context) {
         // Do nothing.
     }
 }

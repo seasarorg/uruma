@@ -16,7 +16,6 @@
 package org.seasar.uruma.renderer.impl;
 
 import org.eclipse.swt.widgets.Link;
-import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.component.jface.LinkComponent;
 import org.seasar.uruma.renderer.RendererSupportUtil;
 
@@ -32,16 +31,13 @@ public class LinkRenderer extends AbstractControlRenderer<LinkComponent, Link> {
      *      org.eclipse.swt.widgets.Control)
      */
     @Override
-    protected void doRenderControl(final LinkComponent controlComponent,
-            final Link control) {
+    protected void doRenderControl(final LinkComponent controlComponent, final Link control) {
         setText(controlComponent, control);
     }
 
-    private void setText(final LinkComponent controlComponent,
-            final Link control) {
+    private void setText(final LinkComponent controlComponent, final Link control) {
         String value = controlComponent.text;
-        String text = (String) RendererSupportUtil.convertValue(
-                controlComponent, value, ConversionType.TEXT);
+        String text = RendererSupportUtil.convertText(value);
         if (text.indexOf("<a") == -1 && text.indexOf("</a") == -1) {
             text = "<a>" + text + "</a>";
         }

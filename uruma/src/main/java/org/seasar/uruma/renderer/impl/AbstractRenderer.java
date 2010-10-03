@@ -27,6 +27,7 @@ import org.seasar.uruma.context.PartContext;
 import org.seasar.uruma.context.WidgetHandle;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.renderer.Renderer;
+import org.seasar.uruma.resource.ResourceRegistry;
 import org.seasar.uruma.util.AssertionUtil;
 
 /**
@@ -44,17 +45,14 @@ public abstract class AbstractRenderer implements Renderer {
      *      org.seasar.uruma.context.WidgetHandle,
      *      org.seasar.uruma.context.WindowContext)
      */
-    public WidgetHandle preRender(final UIComponent uiComponent,
-            final WidgetHandle parent, final WindowContext context) {
+    public WidgetHandle preRender(final UIComponent uiComponent, final WidgetHandle parent,
+            final WindowContext context) {
         setWindowContext(context);
 
         return null;
     }
 
-    /*
-     * @see org.seasar.uruma.renderer.Renderer#reRender(org.seasar.uruma.context.WidgetHandle)
-     */
-    public void reRender(final WidgetHandle widget) {
+    public void reRender(final WidgetHandle widget, final PartContext context) {
         // Do nothing.
     }
 
@@ -71,7 +69,7 @@ public abstract class AbstractRenderer implements Renderer {
      * {@link WindowContext} を設定します。<br />
      * 
      * @param context
-     *            {@link WindowContext} オブジェクト
+     *        {@link WindowContext} オブジェクト
      */
     protected void setWindowContext(final WindowContext context) {
         AssertionUtil.assertNotNull("context", context);
@@ -91,7 +89,7 @@ public abstract class AbstractRenderer implements Renderer {
      * {@link PartContext} を設定します。<br />
      * 
      * @param context
-     *            {@link PartContext} オブジェクト
+     *        {@link PartContext} オブジェクト
      */
     protected void setContext(final PartContext context) {
         AssertionUtil.assertNotNull("context", context);
@@ -102,13 +100,12 @@ public abstract class AbstractRenderer implements Renderer {
      * {@link WidgetHandle} の実装クラスを生成して返します。<br />
      * 
      * @param uiComponent
-     *            {@link WidgetHandle} へ格納する {@link UIComponent} オブジェクト
+     *        {@link WidgetHandle} へ格納する {@link UIComponent} オブジェクト
      * @param widget
-     *            {@link WidgetHandle} へ格納するオブジェクト
+     *        {@link WidgetHandle} へ格納するオブジェクト
      * @return 生成した {@link WidgetHandle}
      */
-    protected WidgetHandle createWidgetHandle(final UIComponent uiComponent,
-            final Object widget) {
+    protected WidgetHandle createWidgetHandle(final UIComponent uiComponent, final Object widget) {
         WidgetHandle handle = ContextFactory.createWidgetHandle(widget);
         handle.setUiComponent(uiComponent);
         String id = uiComponent.getId();
@@ -123,7 +120,7 @@ public abstract class AbstractRenderer implements Renderer {
      * {@link UIComponent} の保持する文字列のスタイル属性を <code>int</code> 値に変換します。<br />
      * 
      * @param uiComponent
-     *            {@link UIComponent} オブジェクト
+     *        {@link UIComponent} オブジェクト
      * @return 変換されたスタイル属性
      */
     protected int getStyle(final UIComponent uiComponent) {
@@ -146,9 +143,9 @@ public abstract class AbstractRenderer implements Renderer {
      * 本メソッドは必要に応じてサブクラス内から呼び出してください。<br />
      * 
      * @param handle
-     *            {@link WidgetHandle} オブジェクト
+     *        {@link WidgetHandle} オブジェクト
      * @param dependable
-     *            {@link EnablesDependable} コンポーネント
+     *        {@link EnablesDependable} コンポーネント
      */
     protected void setupEnablesDependingDef(final WidgetHandle handle,
             final EnablesDependable dependable) {
@@ -161,9 +158,18 @@ public abstract class AbstractRenderer implements Renderer {
                 type = EnablesForType.valueOf(enablesForType);
             }
 
-            EnablesDependingDef def = new EnablesDependingDef(handle,
-                    enablesDependingId, type);
+            EnablesDependingDef def = new EnablesDependingDef(handle, enablesDependingId, type);
             getWindowContext().addEnablesDependingDef(def);
         }
+    }
+
+    /**
+     * {@link ResourceRegistry} を取得するためのヘルパメソッドです。<br />
+     * サブクラスから利用してください。<br />
+     * 
+     * @return {@link ResourceRegistry} オブジェクト
+     */
+    protected ResourceRegistry getResourceRegistry() {
+        return context.getWindowContext().getApplicationContext().getResourceRegistry();
     }
 }

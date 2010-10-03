@@ -15,8 +15,6 @@
  */
 package org.seasar.uruma.rcp.ui;
 
-import java.net.URL;
-
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -29,7 +27,6 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.seasar.eclipse.common.util.GeometryUtil;
-import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.uruma.binding.enables.EnablesDependingListenerSupport;
@@ -47,7 +44,7 @@ import org.seasar.uruma.rcp.binding.CommandRegistry;
 import org.seasar.uruma.rcp.binding.GenericHandler;
 import org.seasar.uruma.rcp.util.UrumaServiceUtil;
 import org.seasar.uruma.rcp.util.ViewPartUtil;
-import org.seasar.uruma.util.PathUtil;
+import org.seasar.uruma.resource.ResourceRegistry;
 
 /**
  * ワークベンチウィンドウに関する設定を行うクラスです。<br />
@@ -150,11 +147,10 @@ public class UrumaWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     protected void setupImage(final WorkbenchComponent workbench) {
         if (StringUtil.isNotBlank(workbench.image)) {
-            Image image = ImageManager.getImage(workbench.image);
-            if (image == null) {
-                URL url = PathUtil.createURL(workbench.getParentURL(), workbench.image);
-                image = ImageManager.loadImage(workbench.image, url);
-            }
+            S2Container container = UrumaServiceUtil.getService().getContainer();
+            ResourceRegistry registry = (ResourceRegistry) container
+                    .getComponent(ResourceRegistry.class);
+            Image image = registry.getImage(workbench.image, workbench.getParentURL());
 
             if (image != null) {
                 IWorkbenchWindowConfigurer configurator = getWindowConfigurer();

@@ -36,8 +36,7 @@ import org.seasar.uruma.util.AssertionUtil;
  * 
  * @author y-komori
  */
-public class WindowContextImpl extends AbstractWidgetHolder implements
-        WindowContext {
+public class WindowContextImpl extends AbstractWidgetHolder implements WindowContext {
 
     private String windowName;
 
@@ -55,12 +54,11 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * {@link WindowContextImpl} を構築します。<br />
      * 
      * @param windowName
-     *            ウィンドウ名称
+     *        ウィンドウ名称
      * @param parent
-     *            親 {@link ApplicationContext}
+     *        親 {@link ApplicationContext}
      */
-    public WindowContextImpl(final String windowName,
-            final ApplicationContext parent) {
+    public WindowContextImpl(final String windowName, final ApplicationContext parent) {
         super();
 
         this.windowName = windowName;
@@ -115,9 +113,9 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * {@link PartContext} オブジェクトを追加します。<br />
      * 
      * @param context
-     *            {@link PartContext} オブジェクト
+     *        {@link PartContext} オブジェクト
      * @throws DuplicateComponentIdException
-     *             パート名称が既に登録されている場合
+     *         パート名称が既に登録されている場合
      */
     public void addPartContext(final PartContext context) {
         if (getPartContext(context.getName()) == null) {
@@ -131,7 +129,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * {@link PartContext} オブジェクトを削除します。<br />
      * 
      * @param partName
-     *            パート名称
+     *        パート名称
      */
     public void disposePartContext(final String partName) {
         PartContext partContext = getPartContext(partName);
@@ -189,8 +187,7 @@ public class WindowContextImpl extends AbstractWidgetHolder implements
      * @see org.seasar.uruma.context.WindowContext#addEnablesDependingDef(org.seasar
      *      .uruma.binding.enables.EnablesDependingDef)
      */
-    public void addEnablesDependingDef(
-            final EnablesDependingDef enablesDependingDef) {
+    public void addEnablesDependingDef(final EnablesDependingDef enablesDependingDef) {
         AssertionUtil.assertNotNull("enablesDependingDef", enablesDependingDef);
         enablesDependingDefList.add(enablesDependingDef);
     }

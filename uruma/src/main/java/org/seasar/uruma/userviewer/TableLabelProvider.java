@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.seasar.eclipse.common.util.ImageManager;
+import org.seasar.uruma.resource.ResourceRegistry;
 
 /**
  * テーブルのラベルを提供するための抽象クラスです。<br />
@@ -29,6 +29,7 @@ import org.seasar.eclipse.common.util.ImageManager;
  * @version $Revision$ $Date$
  */
 public abstract class TableLabelProvider<E> implements ILabelProvider, ITableLabelProvider {
+    private ResourceRegistry resourceRegistry;
 
     @SuppressWarnings("unchecked")
     private E cast(final Object target) {
@@ -92,6 +93,25 @@ public abstract class TableLabelProvider<E> implements ILabelProvider, ITableLab
     }
 
     /**
+     * {@link ResourceRegistry} を取得します。<br />
+     * 
+     * @return {@link ResourceRegistry}
+     */
+    public ResourceRegistry getResourceRegistry() {
+        return this.resourceRegistry;
+    }
+
+    /**
+     * {@link ResourceRegistry} を設定します。<br />
+     * 
+     * @param resourceRegistry
+     *        {@link ResourceRegistry}
+     */
+    public void setResourceRegistry(final ResourceRegistry resourceRegistry) {
+        this.resourceRegistry = resourceRegistry;
+    }
+
+    /**
      * カラムに表示する文字列を返します。<br />
      * 
      * @param element
@@ -106,9 +126,9 @@ public abstract class TableLabelProvider<E> implements ILabelProvider, ITableLab
      * カラムに表示するイメージを返します。<br />
      * デフォルトの実装では、内部で
      * {@link TableLabelProvider#doGetColumnImageKey(Object, int)
-     * doGetColumnImageKey()} メソッドを呼び出してイメージのキーまたはパスを取得し、 {@link ImageManager}
-     * を使用して {@link Image} オブジェクトを取得するようになっています。 そのため、通常は
-     * {@link TableLabelProvider#doGetColumnImageKey(Object, int)
+     * doGetColumnImageKey()} メソッドを呼び出してイメージのキーまたはパスを取得し、
+     * {@link ResourceRegistry} を使用して {@link Image} オブジェクトを取得するようになっています。
+     * そのため、通常は {@link TableLabelProvider#doGetColumnImageKey(Object, int)
      * doGetColumnImageKey()} メソッドを実装するようにしてください。
      * 
      * @param element
@@ -118,9 +138,13 @@ public abstract class TableLabelProvider<E> implements ILabelProvider, ITableLab
      * @return イメージオブジェクト
      */
     protected Image doGetColumnImage(final E element, final int columnIndex) {
+        if (resourceRegistry == null) {
+            return null;
+        }
         String key = doGetColumnImageKey(element, columnIndex);
         if (key != null) {
-            return ImageManager.getImage(key);
+            // TODO 親 URL を指定できるようになっていない
+            return resourceRegistry.getImage(key);
         } else {
             return null;
         }
@@ -128,8 +152,8 @@ public abstract class TableLabelProvider<E> implements ILabelProvider, ITableLab
 
     /**
      * カラムに表示する画像のキーまたはパスを返します。<br />
-     * キーまたはパスは {@link ImageManager} で読み込むためのものを返します。<br /> {@link ImageManager}
-     * を使用しない場合は、本メソッドを空実装とし、
+     * キーまたはパスは {@link ResourceRegistry} で読み込むためのものを返します。<br />
+     * {@link ResourceRegistry} を使用しない場合は、本メソッドを空実装とし、
      * {@link TableLabelProvider#doGetColumnImage(Object, int)
      * doGetColumnImage()} メソッドをオーバーライドしてください。
      * 

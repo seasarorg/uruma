@@ -17,6 +17,8 @@ package org.seasar.uruma.context;
 
 import java.util.Collection;
 
+import org.seasar.uruma.resource.ResourceRegistry;
+
 /**
  * アプリケーション全体に共通な情報を保持するクラスのためのインターフェースです。<br />
  * 
@@ -32,22 +34,29 @@ public interface ApplicationContext {
     public Collection<WindowContext> getWindowContexts();
 
     /**
-     * <code>windowName</code> で指定された名称を持つ {@link WindowContext} を返します。<br />
+     * {@code windowName} で指定された名称を持つ {@link WindowContext} を返します。<br />
      * 
      * @param windowName
-     *            ウィンドウ名称
-     * @return {@link WindowContext} オブジェクト。見つからなかった場合は <code>null</code>。
+     *        ウィンドウ名称
+     * @return {@link WindowContext} オブジェクト。見つからなかった場合は {@code null}
      */
     public WindowContext getWindowContext(String windowName);
+
+    /**
+     * {@link ResourceRegistry} を取得します。<br />
+     * 
+     * @return {@link ResourceRegistry} のインスタンス
+     */
+    public ResourceRegistry getResourceRegistry();
 
     /**
      * {@link ApplicationContext} へ値を設定します。<br />
      * 同じ名称の値が既に設定されている場合は、上書きされます。<br />
      * 
      * @param name
-     *            名称
+     *        名称
      * @param value
-     *            値
+     *        値
      */
     public void setValue(String name, Object value);
 
@@ -55,7 +64,7 @@ public interface ApplicationContext {
      * {@link ApplicationContext} から値を取得します。<br />
      * 
      * @param name
-     *            名称
+     *        名称
      * @return 値。見つからない場合は <code>null</code>
      */
     public Object getValue(String name);

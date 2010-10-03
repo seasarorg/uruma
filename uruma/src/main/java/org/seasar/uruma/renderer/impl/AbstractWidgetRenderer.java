@@ -28,6 +28,7 @@ import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
 import org.seasar.uruma.renderer.RendererSupportUtil;
+import org.seasar.uruma.resource.ResourceRegistry;
 import org.seasar.uruma.util.AssertionUtil;
 import org.seasar.uruma.util.ClassUtil;
 
@@ -35,9 +36,9 @@ import org.seasar.uruma.util.ClassUtil;
  * {@link Widget} のレンダリングを行うための基底クラスです。<br />
  * 
  * @param <COMPONENT_TYPE>
- *            レンダラに対応するコンポーネントの実際の型
+ *        レンダラに対応するコンポーネントの実際の型
  * @param <WIDGET_TYPE>
- *            レンダラが生成するウィジットの実際の型
+ *        レンダラが生成するウィジットの実際の型
  * @author bskuroneko
  */
 public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent, WIDGET_TYPE extends Widget>
@@ -52,8 +53,8 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
      *      org.seasar.uruma.context.PartContext)
      */
     @SuppressWarnings("unchecked")
-    public WidgetHandle render(final UIComponent uiComponent,
-            final WidgetHandle parent, final PartContext context) {
+    public WidgetHandle render(final UIComponent uiComponent, final WidgetHandle parent,
+            final PartContext context) {
         setContext(context);
 
         inherit((COMPONENT_TYPE) uiComponent);
@@ -66,13 +67,13 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
         } else if (parentObject instanceof Viewer) {
             parentWidget = Viewer.class.cast(parentObject).getControl();
         } else {
-            throw new RenderException(UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR,
-                    parentObject, Widget.class.getName());
+            throw new RenderException(UrumaMessageCodes.UNSUPPORTED_TYPE_ERROR, parentObject,
+                    Widget.class.getName());
         }
 
         WIDGET_TYPE widget = createWidget(parentWidget, getStyle(uiComponent));
 
-        renderWidget((COMPONENT_TYPE) uiComponent, widget);
+        renderWidget((COMPONENT_TYPE) uiComponent, widget, getResourceRegistry());
 
         WidgetHandle handle = createWidgetHandle(uiComponent, widget);
 
@@ -87,22 +88,22 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
      * 生成したウィジットに対するレンダリングを行います。<br />
      * 
      * @param uiComponent
-     *            対応する {@link UIComponent}
+     *        対応する {@link UIComponent}
      * @param widget
-     *            生成したウィジット
+     *        生成したウィジット
+     * @param registry
+     *        レンダリングに使用する {@link ResourceRegistry}
      */
-    protected void renderWidget(final COMPONENT_TYPE uiComponent,
-            final WIDGET_TYPE widget) {
+    protected void renderWidget(final COMPONENT_TYPE uiComponent, final WIDGET_TYPE widget,
+            final ResourceRegistry registry) {
         try {
-            RendererSupportUtil.setAttributes(uiComponent, widget,
-                    SetTiming.RENDER);
+            RendererSupportUtil.setAttributes(uiComponent, widget, SetTiming.RENDER, registry);
 
             doRender(uiComponent, getWidgetType().cast(widget));
 
         } catch (Exception ex) {
-            throw new RenderException(
-                    UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, ex, ex
-                            .getMessage());
+            throw new RenderException(UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, ex, ex
+                    .getMessage());
         }
     }
 
@@ -113,21 +114,20 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
      *      org.seasar.uruma.context.PartContext)
      */
     @SuppressWarnings("unchecked")
-    public void renderAfter(final WidgetHandle handle,
-            final UIComponent uiComponent, final WidgetHandle parent,
-            final PartContext context) {
+    public void renderAfter(final WidgetHandle handle, final UIComponent uiComponent,
+            final WidgetHandle parent, final PartContext context) {
         Object widget = handle.getWidget();
-        RendererSupportUtil.setAttributes(uiComponent, widget,
-                SetTiming.RENDER_AFTER);
-        doRenderAfter(getWidgetType().cast(widget),
-                (COMPONENT_TYPE) uiComponent, parent, context);
+        RendererSupportUtil.setAttributes(uiComponent, widget, SetTiming.RENDER_AFTER,
+                getResourceRegistry());
+        doRenderAfter(getWidgetType().cast(widget), (COMPONENT_TYPE) uiComponent, parent, context);
     }
 
     /*
-     * @see org.seasar.uruma.renderer.Renderer#reRender(org.seasar.uruma.context.WidgetHandle)
+     * @see org.seasar.uruma.renderer.Renderer#reRender(org.seasar.uruma.context.WidgetHandle, org.seasar.uruma.context.PartContext)
      */
+    @Override
     @SuppressWarnings("unchecked")
-    public void reRender(final WidgetHandle handle) {
+    public void reRender(final WidgetHandle handle, final PartContext context) {
         AssertionUtil.assertNotNull("handle", handle);
         UIComponent uiComponent = handle.getUiComponent();
         Object widget = handle.getWidget();
@@ -135,14 +135,13 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
         AssertionUtil.assertNotNull("widget", widget);
 
         try {
-            RendererSupportUtil.setAttributes(uiComponent, widget,
-                    SetTiming.RENDER);
+            RendererSupportUtil.setAttributes(uiComponent, widget, SetTiming.RENDER,
+                    getResourceRegistry());
 
             doRender((COMPONENT_TYPE) uiComponent, getWidgetType().cast(widget));
         } catch (Exception ex) {
-            throw new RenderException(
-                    UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, ex, ex
-                            .getMessage());
+            throw new RenderException(UrumaMessageCodes.EXCEPTION_OCCURED_WITH_REASON, ex, ex
+                    .getMessage());
         }
     }
 
@@ -152,7 +151,7 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
      * デフォルトでは何も行いません。
      * 
      * @param uiComponent
-     *            自コンポーネントの {@link UIComponent} オブジェクト
+     *        自コンポーネントの {@link UIComponent} オブジェクト
      */
     protected void inherit(final COMPONENT_TYPE uiComponent) {
         // do nothing.
@@ -163,19 +162,17 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
      * ウィジットの生成を独自に行いたい場合、サブクラスで本メソッドをオーバーライドしてください。<br />
      * 
      * @param parent
-     *            親ウィジットオブジェクト
+     *        親ウィジットオブジェクト
      * @param style
-     *            スタイル値
+     *        スタイル値
      * @return 生成したウィジットのインタンス
      */
     protected WIDGET_TYPE createWidget(final Widget parent, final int style) {
         Class<WIDGET_TYPE> widgetClass = getWidgetType();
-        WIDGET_TYPE widget = ClassUtil.<WIDGET_TYPE> newInstance(widgetClass,
-                parent, style);
+        WIDGET_TYPE widget = ClassUtil.<WIDGET_TYPE> newInstance(widgetClass, parent, style);
 
         if (logger.isTraceEnabled()) {
-            logger.log(UrumaMessageCodes.WIDGET_CREATED, UrumaLogger
-                    .getObjectDescription(widget));
+            logger.log(UrumaMessageCodes.WIDGET_CREATED, UrumaLogger.getObjectDescription(widget));
         }
 
         return widget;
@@ -195,12 +192,11 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
      * に対して設定してください。<br />
      * 
      * @param uiComponent
-     *            {@link UIComponent} オブジェクト
+     *        {@link UIComponent} オブジェクト
      * @param widget
-     *            生成されたウィジット
+     *        生成されたウィジット
      */
-    protected abstract void doRender(COMPONENT_TYPE uiComponent,
-            WIDGET_TYPE widget);
+    protected abstract void doRender(COMPONENT_TYPE uiComponent, WIDGET_TYPE widget);
 
     /**
      * 子のレンダリング終了後にレンダリング処理を行います。<br />
@@ -208,17 +204,16 @@ public abstract class AbstractWidgetRenderer<COMPONENT_TYPE extends UIComponent,
      * デフォルトでは何も行いません。<br />
      * 
      * @param widget
-     *            レンダリング対象ウィジット
+     *        レンダリング対象ウィジット
      * @param uiComponent
-     *            レンダリング対象の {@link UIComponent} オブジェクト
+     *        レンダリング対象の {@link UIComponent} オブジェクト
      * @param parent
-     *            親のウィジットハンドル
+     *        親のウィジットハンドル
      * @param context
-     *            {@link PartContext} オブジェクト
+     *        {@link PartContext} オブジェクト
      */
-    protected void doRenderAfter(final WIDGET_TYPE widget,
-            final COMPONENT_TYPE uiComponent, final WidgetHandle parent,
-            final PartContext context) {
+    protected void doRenderAfter(final WIDGET_TYPE widget, final COMPONENT_TYPE uiComponent,
+            final WidgetHandle parent, final PartContext context) {
         // do nothing.
     }
 
