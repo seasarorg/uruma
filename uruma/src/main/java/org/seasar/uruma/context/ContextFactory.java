@@ -34,27 +34,18 @@ public class ContextFactory {
     }
 
     /**
-     * {@link ApplicationContext} オブジェクトを生成します。<br />
-     * 
-     * @return 生成した {@link ApplicationContext} オブジェクト
-     */
-    public static ApplicationContext createApplicationContext() {
-        return new ApplicationContextImpl();
-    }
-
-    /**
      * {@link WindowContext} オブジェクトを生成します。<br />
      * 
      * @param parent
-     *            親 {@link ApplicationContext} オブジェクト
+     *        親 {@link ApplicationContext} オブジェクト
      * @param name
-     *            {@link WindowContext} の名称
+     *        {@link WindowContext} の名称
      * @return 生成した {@link WindowContext} オブジェクト
      * @throws DuplicateComponentIdException
-     *             名称が重複している場合
+     *         名称が重複している場合
      */
-    public static WindowContext createWindowContext(
-            final ApplicationContext parent, final String name) {
+    public static WindowContext createWindowContext(final ApplicationContext parent,
+            final String name) {
         AssertionUtil.assertNotNull("parent", parent);
         AssertionUtil.assertNotNull("name", name);
 
@@ -68,15 +59,14 @@ public class ContextFactory {
      * {@link PartContext} オブジェクトを生成します。<br />
      * 
      * @param parent
-     *            親 {@link WindowContext} オブジェクト
+     *        親 {@link WindowContext} オブジェクト
      * @param name
-     *            {@link PartContext} の名称
+     *        {@link PartContext} の名称
      * @return 生成した {@link PartContext} オブジェクト
      * @throws DuplicateComponentIdException
-     *             名称が重複している場合
+     *         名称が重複している場合
      */
-    public static PartContext createPartContext(final WindowContext parent,
-            final String name) {
+    public static PartContext createPartContext(final WindowContext parent, final String name) {
         AssertionUtil.assertNotNull("parent", parent);
         AssertionUtil.assertNotNull("name", name);
 
@@ -90,7 +80,7 @@ public class ContextFactory {
      * {@link WidgetHandle} オブジェクトを生成します。<br />
      * 
      * @param widget
-     *            {@link WidgetHandle} へ格納するオブジェクト
+     *        {@link WidgetHandle} へ格納するオブジェクト
      * @return 生成した {@link WidgetHandle} オブジェクト
      */
     public static WidgetHandle createWidgetHandle(final Object widget) {

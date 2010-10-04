@@ -36,6 +36,13 @@ import org.seasar.uruma.util.PathUtil;
 /**
  * 様々なパスからイメージを検索できる {@link ImageDescriptor} です。<br />
  * 本クラスを利用する際は、インスタンスを直接生成してください。<br />
+ * 本クラスでは、以下の順番でイメージを検索します。<br />
+ * <ol>
+ * <li>コンストラクタで与えられた {@code path} が「/」で始まる場合、クラスパス上の絶対パスと見なしてイメージを読み込みます。
+ * <li>コンストラクタで {@code parentUrl} が与えられている場合、{@code path}
+ * をそのURLからの相対パスと見なしてイメージを読み込みます。
+ * <li>コンストラクタで与えられた {@code path} 自体を URL と見なしてイメージを読み込みます。
+ * </ol>
  * 
  * @author y-komori
  * @author $Author$
@@ -78,12 +85,13 @@ public class UrumaImageDescriptor extends ImageDescriptor {
         return resolevedUrl;
     }
 
-    protected void resolve() {
+    protected URL resolve() {
         resolevedUrl = doResolve(parentUrl, path);
         if (resolevedUrl == null) {
             logImageResourceLoadFailed(parentUrl, path);
         }
         resolved = true;
+        return resolevedUrl;
     }
 
     protected URL doResolve(final URL parentUrl, final String path) {
@@ -177,25 +185,50 @@ public class UrumaImageDescriptor extends ImageDescriptor {
             } finally {
                 InputStreamUtil.closeSilently(is);
             }
+        } else {
+            result = getMissingImageDescriptor().getImageData();
         }
         return result;
     }
 
-    protected String createId(final URL parentUrl, final String path) {
-        String parentUrlSpec = "";
+    /**
+     * {@link UrumaImageDescriptor} を識別する文字列を生成します。<br />
+     * 識別文字列は以下の規則で生成します。
+     * <dl>
+     * <dt>{@code parentUrl} が存在するとき</dt>
+     * <dd>{@code parentUrl} の文字列表現 + {@code $} + {@code path}
+     * <dt>{@code parentUrl} が存在しないとき</dt>
+     * <dd>{@code path}
+     * </dl>
+     * 
+     * @param parentUrl
+     *        親 URL
+     * @param path
+     *        パス
+     * @return ID
+     */
+    public static String createId(final URL parentUrl, final String path) {
+        StringBuilder builder = new StringBuilder(64);
         if (parentUrl != null) {
-            parentUrlSpec = parentUrl.toExternalForm();
+            builder.append(parentUrl.toExternalForm());
+            builder.append("$");
         }
-        StringBuilder builder = new StringBuilder(parentUrlSpec.length() + path.length() + 1);
-        builder.append(parentUrlSpec);
-        builder.append("/");
-        builder.append(parentUrlSpec);
+        builder.append(path);
         return builder.toString();
     }
 
     protected void logImageResourceLoadFailed(final URL parentUrl, final String path) {
         String parentPath = parentUrl != null ? parentUrl.toExternalForm() : "";
         LOGGER.log(IMAGE_RESOURCE_LOAD_FAILED, path, parentPath);
+    }
+
+    /**
+     * {@link UrumaImageDescriptor} を識別する文字列を取得します。<br />
+     * 
+     * @return ID
+     */
+    public String getId() {
+        return this.id;
     }
 
     /*

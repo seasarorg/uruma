@@ -25,7 +25,6 @@ import java.util.Map;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.seasar.uruma.context.ApplicationContext;
-import org.seasar.uruma.context.ContextFactory;
 import org.seasar.uruma.context.WindowContext;
 import org.seasar.uruma.exception.DuplicateComponentIdException;
 import org.seasar.uruma.resource.ResourceRegistry;
@@ -45,8 +44,6 @@ public class ApplicationContextImpl implements ApplicationContext {
 
     /**
      * {@link ApplicationContextImpl} を構築します。<br />
-     * 本クラスのインスタンスを生成するには、{@link ContextFactory#createApplicationContext()}
-     * メソッドを利用してください。<br />
      */
     public ApplicationContextImpl() {
         super();

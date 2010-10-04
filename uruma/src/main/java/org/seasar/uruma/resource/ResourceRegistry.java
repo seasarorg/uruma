@@ -43,6 +43,12 @@ public interface ResourceRegistry {
     public Image getImage(String path, URL parentUrl);
 
     /**
+     * @param key
+     * @return
+     */
+    public ImageDescriptor getImageDescriptor(String key);
+
+    /**
      * @param path
      * @param parentUrl
      * @return

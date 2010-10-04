@@ -170,6 +170,12 @@ public abstract class AbstractRenderer implements Renderer {
      * @return {@link ResourceRegistry} オブジェクト
      */
     protected ResourceRegistry getResourceRegistry() {
-        return context.getWindowContext().getApplicationContext().getResourceRegistry();
+        if (windowContext != null) {
+            return windowContext.getApplicationContext().getResourceRegistry();
+        } else if (context != null) {
+            return context.getWindowContext().getApplicationContext().getResourceRegistry();
+        } else {
+            return null;
+        }
     }
 }

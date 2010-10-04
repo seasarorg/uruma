@@ -44,6 +44,7 @@ import org.seasar.uruma.util.PathUtil;
  * @author $Author$
  * @version $Revision$ $Date$
  */
+@Deprecated
 public class ImageResourceManager {
     private static UrumaLogger LOGGER = UrumaLogger.getLogger(ImageResourceManager.class);
 
