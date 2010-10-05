@@ -90,8 +90,12 @@ public class DefaultResourceRegistry implements ResourceRegistry {
      */
     public Image getImage(final String path, final URL parentUrl) {
         AssertionUtil.assertNotNull("path", path);
+        Image image = imageRegistry.get(path);
+        if (image != null) {
+            return image;
+        }
         String id = UrumaImageDescriptor.createId(parentUrl, path);
-        Image image = imageRegistry.get(id);
+        image = imageRegistry.get(id);
         if (image == null) {
             UrumaImageDescriptor desc = new UrumaImageDescriptor(parentUrl, path);
             image = desc.createImage();
@@ -106,8 +110,13 @@ public class DefaultResourceRegistry implements ResourceRegistry {
      */
     public ImageDescriptor getImageDescriptor(final String path, final URL parentUrl) {
         AssertionUtil.assertNotNull("path", path);
+        ImageDescriptor desc = imageRegistry.getDescriptor(path);
+        if (desc != null) {
+            return desc;
+        }
+
         String id = UrumaImageDescriptor.createId(parentUrl, path);
-        ImageDescriptor desc = imageRegistry.getDescriptor(id);
+        desc = imageRegistry.getDescriptor(id);
         if (desc == null) {
             desc = new UrumaImageDescriptor(parentUrl, path);
             checkKey(id);

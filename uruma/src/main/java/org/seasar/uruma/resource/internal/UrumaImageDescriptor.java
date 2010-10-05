@@ -208,13 +208,12 @@ public class UrumaImageDescriptor extends ImageDescriptor {
      * @return ID
      */
     public static String createId(final URL parentUrl, final String path) {
-        StringBuilder builder = new StringBuilder(64);
         if (parentUrl != null) {
-            builder.append(parentUrl.toExternalForm());
-            builder.append("$");
+            String fullPath = PathUtil.concat(parentUrl.toExternalForm(), path);
+            return PathUtil.normalizeRelativePath(fullPath);
+        } else {
+            return path;
         }
-        builder.append(path);
-        return builder.toString();
     }
 
     protected void logImageResourceLoadFailed(final URL parentUrl, final String path) {
@@ -250,4 +249,11 @@ public class UrumaImageDescriptor extends ImageDescriptor {
         return ((UrumaImageDescriptor) obj).id.equals(this.id);
     }
 
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return UrumaImageDescriptor.class.getName() + "(" + id + ")";
+    }
 }

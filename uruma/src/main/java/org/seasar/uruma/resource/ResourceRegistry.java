@@ -30,34 +30,61 @@ import org.eclipse.swt.graphics.Image;
  */
 public interface ResourceRegistry {
     /**
+     * キーに対応したイメージを取得します。<br />
+     * キーに対応したイメージが登録されていない場合、未登録イメージ(赤い矩形)を返します。 本メソッドは、
+     * {@link #getImage(String, URL)} メソッドで {@code parentUrl} に {@code null}
+     * を指定した場合と同じです。
+     * 
      * @param key
-     * @return
+     *        キー
+     * @return イメージ
      */
     public Image getImage(String key);
 
     /**
+     * 親 URL とパスを指定してイメージを取得します。<br />
+     * 親 URL に {@code null} を指定した場合、まずパスをキーと見なして登録されたイメージを検索し、見つからなければ親 URL
+     * とパスからイメージを検索します。<br />
+     * 
      * @param path
+     *        パス
      * @param parentUrl
-     * @return
+     *        親 URL
+     * @return イメージ
      */
     public Image getImage(String path, URL parentUrl);
 
     /**
+     * キーに対応した {@link ImageDescriptor} を取得します。<br />
+     * キーに対応した {@link ImageDescriptor} が登録されていない場合、未登録イメージ(赤い矩形)の
+     * {@link ImageDescriptor} を返します。<br />
+     * 
      * @param key
-     * @return
+     *        キー
+     * @return {@link ImageDescriptor}
      */
     public ImageDescriptor getImageDescriptor(String key);
 
     /**
+     * 親 URL とパスを指定して {@link ImageDescriptor} を取得します。<br />
+     * 親 URL に {@code null} を指定した場合、まずパスをキーと見なして登録された {@link ImageDescriptor}
+     * を検索し、見つからなければ親 URL とパスから {@link ImageDescriptor} を検索します。<br />
+     * 
      * @param path
+     *        パス
      * @param parentUrl
-     * @return
+     *        親 URL
+     * @return イメージ
      */
     public ImageDescriptor getImageDescriptor(String path, URL parentUrl);
 
     /**
+     * キーに対応した {@link ImageDescriptor} を登録します。<br />
+     * 
      * @param key
+     *        キー
      * @param descriptor
+     *        {@link ImageDescriptor} オブジェクト
      */
     public void putImage(String key, ImageDescriptor descriptor);
 }

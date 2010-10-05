@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Shell;
  * @author $Author$
  * @version $Revision$ $Date$
  */
-public class AbstractShellTestCase {
+public abstract class AbstractShellTestCase {
     protected Display display;
 
     protected Shell shell;

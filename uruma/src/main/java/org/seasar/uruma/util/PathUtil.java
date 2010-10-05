@@ -317,9 +317,18 @@ public class PathUtil {
     /**
      * 与えられたパスのうち、相対的に参照されている部分を相対パスを含まないパスに変換します。<br />
      * <p>
-     * たとえば、{@code /abc/def/../ghi} というパスは {@code /abc/ghi} というパスに変換します。<br />
-     * 相対パスを含まないパスに対しては、なにも行いません。<br />
+     * 本メソッドでは、以下のような処理を行います。
      * </p>
+     * <dl>
+     * <dt>相対パスの処理
+     * <dd>たとえば、{@code /abc/def/../ghi} というパスは {@code /abc/ghi} というパスに変換します。
+     * <dt>カレントパスの圧縮
+     * <dd>たとえば、{@code abc/./def} のように途中にカレントディレクトリが含まれるパスは、圧縮して {@code abc/def}
+     * のようにします。
+     * <dt>重複したパス区切り文字の圧縮
+     * <dd>たとえば、{@code abc//def} のようにパス区切り文字が重複している場合、圧縮して {@code abc/def}
+     * のようにします。
+     * </dl>
      * 
      * @param path
      *        変換対象パス
@@ -345,7 +354,7 @@ public class PathUtil {
         }
 
         int length = buf.length();
-        if (!path.endsWith("/")) {
+        if (length > 0 && !path.endsWith("/")) {
             length--;
         }
         return buf.substring(0, length);
@@ -367,5 +376,48 @@ public class PathUtil {
             return "";
         }
         return clazz.getName().replace('.', '/') + ".class";
+    }
+
+    /**
+     * 与えられたパスを連結します。<br />
+     * 連結対象パス 1 の最後と連結対象パス 2 の最初にパス区切り文字があるかどうかにかかわらず、連結部のパス区切り文字は必ず 1 つになります。<br />
+     * 引数の双方が {@code null} の場合、{@code null} を返します。<br />
+     * 引数の双方が空文字列の場合、空文字列を返します。<br />
+     * 引数の片方が {@code null} または空文字列の場合、もう一方の引数をそのまま返します。<br />
+     * 
+     * @param path1
+     *        連結対象パス1
+     * @param path2
+     *        連結対象パス2
+     * @return 連結結果
+     */
+    public static String concat(final String path1, final String path2) {
+        if (path1 == null && path2 == null) {
+            return null;
+        }
+        if ("".equals(path1) && "".equals(path2)) {
+            return "";
+        }
+        if (path1 == null || "".equals(path1)) {
+            return path2;
+        }
+        if (path2 == null || "".equals(path2)) {
+            return path1;
+        }
+
+        StringBuilder result = new StringBuilder(path1.length() + path2.length() + 1);
+        result.append(path1);
+        if (!path1.endsWith("/")) {
+            result.append("/");
+        }
+
+        if (path2.length() > 0) {
+            if (path2.startsWith("/")) {
+                result.append(path2.substring(1));
+            } else {
+                result.append(path2);
+            }
+        }
+        return result.toString();
     }
 }

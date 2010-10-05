@@ -250,6 +250,7 @@ public class PathUtilTest extends TestCase {
         assertEquals("19", "abc/def/ghi", PathUtil.normalizeRelativePath("abc/def/ghi/."));
         assertEquals("20", "file:///C:/abc/ghi.txt", PathUtil
                 .normalizeRelativePath("file:///C:/abc/def/../ghi.txt"));
+        assertEquals("21", "abc/def", PathUtil.normalizeRelativePath("abc/./def"));
     }
 
     /**
@@ -259,5 +260,23 @@ public class PathUtilTest extends TestCase {
         assertEquals("1", "org/seasar/uruma/util/PathUtilTest.class", PathUtil
                 .getClassFilePath(getClass()));
         assertEquals("2", "", PathUtil.getClassFilePath(null));
+    }
+
+    /**
+     * {@link PathUtil#concat(String, String)} メソッドのテストです。<br />
+     */
+    public void testConcat() {
+        assertNull("1", PathUtil.concat(null, null));
+        assertEquals("2", "abc", PathUtil.concat("abc", null));
+        assertEquals("3", "abc", PathUtil.concat(null, "abc"));
+        assertEquals("4", "/abc/", PathUtil.concat("/abc/", null));
+        assertEquals("5", "/abc/", PathUtil.concat("/abc/", ""));
+        assertEquals("6", "/def/", PathUtil.concat(null, "/def/"));
+        assertEquals("7", "/def/", PathUtil.concat("", "/def/"));
+
+        assertEquals("8", "/abc/def/", PathUtil.concat("/abc", "def/"));
+        assertEquals("9", "/abc/def/", PathUtil.concat("/abc/", "def/"));
+        assertEquals("10", "/abc/def/", PathUtil.concat("/abc", "/def/"));
+        assertEquals("11", "/abc/def/", PathUtil.concat("/abc/", "/def/"));
     }
 }

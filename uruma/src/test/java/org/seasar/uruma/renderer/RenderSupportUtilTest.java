@@ -72,7 +72,8 @@ public class RenderSupportUtilTest extends TestCase {
         assertTrue("4", dest.booleanField);
         assertEquals("5", new RGB(255, 255, 255), dest.colorField.getRGB());
         assertEquals("6", SWT.YES, dest.swtConstField);
-        assertEquals("7", registry.getImage("/images/container.gif"), dest.imageField);
+        assertEquals("7", registry.getImage("/images/container.gif", src.getParentURL()),
+                dest.imageField);
         assertEquals("8", SWT.CTRL | SWT.ALT | 'A', dest.acceleratorField);
         assertEquals("9", 'A', dest.charField);
         assertEquals("10", 3, dest.intArrayField.length);
@@ -87,7 +88,7 @@ public class RenderSupportUtilTest extends TestCase {
         assertEquals("18", new RGB(0, 0, 0), dest.getColorProperty().getRGB());
         assertEquals("19", SWT.NO, dest.getSwtConstProperty());
         assertEquals("20", registry
-                .getImage("org/seasar/uruma/renderer/../../../../images/container.gif"), dest
+                .getImage("../../../../images/container.gif", src.getParentURL()), dest
                 .getImageProperty());
         assertEquals("21", SWT.F2, dest.getAcceleratorProperty());
         assertEquals("22", 'x', dest.getCharProperty());

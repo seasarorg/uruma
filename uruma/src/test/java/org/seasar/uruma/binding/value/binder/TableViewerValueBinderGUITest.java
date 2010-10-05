@@ -24,7 +24,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.annotation.ExportValue;
-import org.seasar.uruma.annotation.Form;
 import org.seasar.uruma.annotation.ImportSelection;
 import org.seasar.uruma.annotation.InitializeMethod;
 import org.seasar.uruma.renderer.impl.AbstractGUITest;
@@ -98,8 +97,8 @@ public class TableViewerValueBinderGUITest extends AbstractGUITest {
          * @param column3
          * @param column4
          */
-        public Contents(final String column1, final String column2,
-                final String column3, final String column4) {
+        public Contents(final String column1, final String column2, final String column3,
+                final String column4) {
             this.column1 = column1;
             this.column2 = column2;
             this.column3 = column3;

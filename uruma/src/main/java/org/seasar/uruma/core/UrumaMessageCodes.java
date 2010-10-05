@@ -267,7 +267,7 @@ public interface UrumaMessageCodes {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String GUI_COMPONENT_LOADING = "IURM0118";
+    public static final String GUI_COMPONENT_LOADING = "DURM0118";
 
     /**
      * コンポーネント定義ファイル登録時のメッセージコードです。<br />
@@ -276,7 +276,7 @@ public interface UrumaMessageCodes {
      * <dd>{@value}</dd>
      * </dl>
      */
-    public static final String GUI_COMPONENT_REGISTERED = "IURM0119";
+    public static final String GUI_COMPONENT_REGISTERED = "DURM0119";
 
     /**
      * コンポーネント定義ファイル登録失敗時のメッセージコードです。<br />

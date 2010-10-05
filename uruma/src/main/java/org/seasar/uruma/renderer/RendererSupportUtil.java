@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.renderer;
 
+import static org.seasar.uruma.core.UrumaConstants.*;
+
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.StringTokenizer;
@@ -37,7 +39,6 @@ import org.seasar.uruma.annotation.RenderingPolicy.ConversionType;
 import org.seasar.uruma.annotation.RenderingPolicy.SetTiming;
 import org.seasar.uruma.annotation.RenderingPolicy.TargetType;
 import org.seasar.uruma.component.UIElement;
-import org.seasar.uruma.core.UrumaConstants;
 import org.seasar.uruma.core.UrumaMessageCodes;
 import org.seasar.uruma.exception.RenderException;
 import org.seasar.uruma.log.UrumaLogger;
@@ -50,13 +51,7 @@ import org.seasar.uruma.resource.ResourceRegistry;
  * @author $Author$
  * @version $Revision$
  */
-/**
- * @author y-komori
- * @author $Author$
- * @version $Revision$ $Date$
- * 
- */
-public class RendererSupportUtil implements UrumaConstants {
+public class RendererSupportUtil {
     private static final UrumaLogger logger = UrumaLogger.getLogger(RendererSupportUtil.class);
 
     /**
