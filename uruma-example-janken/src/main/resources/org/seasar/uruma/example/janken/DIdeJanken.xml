@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template xmlns="http://uruma.sandbox.seasar.org">
   <window id="janken" title="DIでジャンケン" image="container.gif" background="white">
-    <commonAttributes background="white" foreground="black" fontHeight="50"/>
+    <commonAttributes background="white" foreground="black" fontHeight="32"/>
     <gridLayout numColumns="3" marginHeight="5" marginWidth="5">
       <gridData horizontalAlignment="CENTER" verticalAlignment="CENTER" />
     </gridLayout>
@@ -15,7 +15,7 @@
     <label id="playerWinLabel" text="0 勝" />
 
     <label id="computerHandImage" image="blank" />
-    <label text="vs" fontHeight="100">
+    <label text="vs" fontHeight="72">
       <gridData verticalAlignment="CENTER"
         grabExcessHorizontalSpace="true" />
     </label>

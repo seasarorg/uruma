@@ -15,6 +15,8 @@
  */
 package org.seasar.uruma.example.janken;
 
+import javax.annotation.Resource;
+
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
@@ -24,6 +26,7 @@ import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.uruma.annotation.EventListener;
 import org.seasar.uruma.example.janken.impl.PlayerImpl;
+import org.seasar.uruma.resource.ResourceRegistry;
 
 /**
  * @author y-komori
@@ -50,7 +53,10 @@ public class JankenAction {
 	public Player computer;
 
 	public Player player = new PlayerImpl();
-
+	
+	@Resource
+	public ResourceRegistry registry;
+	
 	@EventListener(id = "guButton")
 	public void goo() {
 		call(Janken.STONE);
@@ -118,7 +124,7 @@ public class JankenAction {
 	}
 
 	private void clearImage() {
-		Image image = ImageManager.getImage("blank");
+		Image image = registry.getImage("blank");
 		playerHandImage.setImage(image);
 		computerHandImage.setImage(image);
 	}
@@ -127,15 +133,15 @@ public class JankenAction {
 		Image image = null;
 		switch (hand) {
 		case Janken.STONE:
-			image = ImageManager.getImage("gu");
+			image = registry.getImage("gu");
 			break;
 
 		case Janken.SCISSORS:
-			image = ImageManager.getImage("cyoki");
+			image = registry.getImage("cyoki");
 			break;
 
 		case Janken.PAPER:
-			image = ImageManager.getImage("pa");
+			image = registry.getImage("pa");
 			break;
 
 		default:
