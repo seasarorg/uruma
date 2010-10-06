@@ -76,10 +76,24 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
                 getResourceRegistry());
 
         String id = uiComponent.getId();
+
+        // 各種プロバイダのセットアップは子コンポーネントのレンダリング前に実施
         // コンテントプロバイダのセットアップ
         if (viewer instanceof ContentViewer) {
             ComponentUtil.setupContentProvider((ContentViewer) viewer, id,
                     getDefaultContentProvider());
+        }
+
+        // ラベルプロバイダのセットアップ
+        if (viewer instanceof StructuredViewer) {
+            ComponentUtil
+                    .setupLabelProvider((StructuredViewer) viewer, id, getDefaultLabelProvider(),
+                            getLabelProviderClass(), getPojoLabelProviderClass());
+        }
+
+        // コンパレータのセットアップ
+        if (viewer instanceof StructuredViewer) {
+            ComponentUtil.setupComparator((StructuredViewer) viewer, id, getDefaultComparator());
         }
 
         doRenderViewer((COMPONENT_TYPE) uiComponent, viewer);
@@ -110,20 +124,6 @@ public abstract class AbstractViewerRenderer<COMPONENT_TYPE extends CompositeCom
             super.renderAfter(controlHandle, uiComponent, parent, context);
 
             doRenderAfter(viewer, (COMPONENT_TYPE) uiComponent, parent, context);
-
-            String id = uiComponent.getId();
-            // ラベルプロバイダのセットアップ
-            if (viewer instanceof StructuredViewer) {
-                ComponentUtil.setupLabelProvider((StructuredViewer) viewer, id,
-                        getDefaultLabelProvider(), getLabelProviderClass(),
-                        getPojoLabelProviderClass());
-            }
-
-            // コンパレータのセットアップ
-            if (viewer instanceof StructuredViewer) {
-                ComponentUtil
-                        .setupComparator((StructuredViewer) viewer, id, getDefaultComparator());
-            }
         } else {
             super.renderAfter(handle, uiComponent, parent, context);
         }
