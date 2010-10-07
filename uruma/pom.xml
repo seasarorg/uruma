@@ -205,6 +205,25 @@
 
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<classpathContainers>
+						<classpathContainer>org.eclipse.pde.core.requiredPlugins</classpathContainer>
+					</classpathContainers>
+					<buildcommands>
+						<buildcommand>org.eclipse.pde.ManifestBuilder</buildcommand>
+						<buildcommand>org.eclipse.pde.SchemaBuilder</buildcommand>
+					</buildcommands>
+					<additionalProjectnatures>
+						<projectnature>org.eclipse.pde.PluginNature</projectnature>
+					</additionalProjectnatures>
+				</configuration>
+			</plugin>
+
+			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<forkMode>once</forkMode>
@@ -456,43 +475,43 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-j2ee_1.4_spec</artifactId>
 			<version>1.0</version>
 		</dependency>
-	    <dependency>
-	      <groupId>org.apache.geronimo.specs</groupId>
-	      <artifactId>geronimo-jta_1.1_spec</artifactId>
-	      <version>1.0</version>
-	      <type>jar</type>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.apache.geronimo.specs</groupId>
-	      <artifactId>geronimo-annotation_1.0_spec</artifactId>
-	      <version>1.0</version>
-	      <type>jar</type>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.apache.geronimo.specs</groupId>
-	      <artifactId>geronimo-ejb_3.0_spec</artifactId>
-	      <version>1.0</version>
-	      <type>jar</type>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.apache.geronimo.specs</groupId>
-	      <artifactId>geronimo-interceptor_3.0_spec</artifactId>
-	      <version>1.0</version>
-	      <type>jar</type>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.apache.geronimo.specs</groupId>
-	      <artifactId>geronimo-jpa_3.0_spec</artifactId>
-	      <version>1.0</version>
-	      <type>jar</type>
-	    </dependency>
-		
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jta_1.1_spec</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-annotation_1.0_spec</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-ejb_3.0_spec</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-interceptor_3.0_spec</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jpa_3.0_spec</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+		</dependency>
+
 		<dependency>
 			<groupId>nlink</groupId>
 			<artifactId>nlink</artifactId>
@@ -504,8 +523,8 @@
 			<artifactId>junit</artifactId>
 			<version>4.4</version>
 			<type>jar</type>
-    	</dependency>
-	
+		</dependency>
+
 		<dependency>
 			<groupId>junit-addons</groupId>
 			<artifactId>junit-addons</artifactId>
