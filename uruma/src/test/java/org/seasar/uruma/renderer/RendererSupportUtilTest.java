@@ -35,7 +35,7 @@ import org.seasar.uruma.util.PathUtil;
  * @author $Author$
  * @version $Revision$
  */
-public class RenderSupportUtilTest extends TestCase {
+public class RendererSupportUtilTest extends TestCase {
     private Display display;
 
     private DefaultResourceRegistry registry;
