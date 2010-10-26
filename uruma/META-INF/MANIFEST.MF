@@ -14,6 +14,28 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching
 Eclipse-AutoStart: false
+Bundle-ClassPath: .,
+ lib/aopalliance-1.0.jar,
+ lib/commons-logging-1.1.1.jar,
+ lib/easymock-2.4.jar,
+ lib/geronimo-annotation_1.0_spec-1.0.jar,
+ lib/geronimo-ejb_3.0_spec-1.0.jar,
+ lib/geronimo-interceptor_3.0_spec-1.0.jar,
+ lib/geronimo-j2ee_1.4_spec-1.0.jar,
+ lib/geronimo-jpa_3.0_spec-1.0.jar,
+ lib/geronimo-jta_1.1_spec-1.0.jar,
+ lib/javassist-3.4.ga.jar,
+ lib/junit-4.4.jar,
+ lib/log4j-1.2.16.jar,
+ lib/nlink-20080126.jar,
+ lib/ognl-2.6.9-patch-20090427.jar,
+ lib/poi-3.0-FINAL.jar,
+ lib/s2-extension-2.4.42.jar,
+ lib/s2-framework-2.4.42.jar,
+ lib/s2-tiger-2.4.42.jar
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: %author
+Bundle-Localization: plugin
 Export-Package: javassist,
  javassist.bytecode,
  javassist.bytecode.annotation,
@@ -426,25 +448,3 @@ Export-Package: javassist,
  org.seasar.uruma.util.resource.impl,
  org.seasar.uruma.util.win32,
  org.seasar.uruma.viewer
-Bundle-ClassPath: .,
- lib/aopalliance-1.0.jar,
- lib/commons-logging-1.1.1.jar,
- lib/easymock-2.4.jar,
- lib/geronimo-annotation_1.0_spec-1.0.jar,
- lib/geronimo-ejb_3.0_spec-1.0.jar,
- lib/geronimo-interceptor_3.0_spec-1.0.jar,
- lib/geronimo-j2ee_1.4_spec-1.0.jar,
- lib/geronimo-jpa_3.0_spec-1.0.jar,
- lib/geronimo-jta_1.1_spec-1.0.jar,
- lib/javassist-3.4.ga.jar,
- lib/junit-4.4.jar,
- lib/log4j-1.2.16.jar,
- lib/nlink-20080126.jar,
- lib/ognl-2.6.9-patch-20090427.jar,
- lib/poi-3.0-FINAL.jar,
- lib/s2-extension-2.4.42.jar,
- lib/s2-framework-2.4.42.jar,
- lib/s2-tiger-2.4.42.jar
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-Vendor: %author
-Bundle-Localization: plugin
