@@ -176,6 +176,18 @@
 			<url>http://maven.seasar.org/maven2-snapshot</url>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven.seasar.org</id>
+			<name>The Seasar Foundation Maven2 Repository</name>
+			<url>http://maven.seasar.org/maven2/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>maven-snapshot.seasar.org</id>
+			<name>The Seasar Foundation Maven2 Repository</name>
+			<url>http://maven.seasar.org/maven2-snapshot/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<!-- Build Settings -->
 	<build>
@@ -309,6 +321,17 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.seasar.uruma</groupId>
+				<artifactId>maven-uruma-eclipse-plugin</artifactId>
+				<configuration>
+					<destdir>lib</destdir>
+					<excludeGroupIds>
+					   <excludeGroupId>org.eclipse</excludeGroupId>
+					</excludeGroupIds>
+				</configuration>
 			</plugin>
 		</plugins>
 

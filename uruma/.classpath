@@ -1,15 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <classpath>
 	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
 	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
-	<classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/core-commands/3.5.2/core-commands-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/core-commands/3.5.2/core-commands-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/core-contenttype/3.5.2/core-contenttype-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/core-contenttype/3.5.2/core-contenttype-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/core-expressions/3.5.2/core-expressions-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/core-expressions/3.5.2/core-expressions-3.5.2-sources.jar"/>
@@ -19,85 +13,76 @@
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/core-runtime/3.5.2/core-runtime-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/core-runtime/3.5.2/core-runtime-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/core-runtime-compatibility-registry/3.5.2/core-runtime-compatibility-registry-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/core-runtime-compatibility-registry/3.5.2/core-runtime-compatibility-registry-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/debug-core/3.5.2/debug-core-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/debug-core/3.5.2/debug-core-3.5.2-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/easymock/easymock/2.4/easymock-2.4.jar" sourcepath="M2_REPO/org/easymock/easymock/2.4/easymock-2.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/easymock/easymock/2.4/easymock-2.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/equinox-app/3.5.2/equinox-app-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/equinox-app/3.5.2/equinox-app-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/equinox-common/3.5.2/equinox-common-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/equinox-common/3.5.2/equinox-common-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/equinox-preferences/3.5.2/equinox-preferences-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/equinox-preferences/3.5.2/equinox-preferences-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/equinox-registry/3.5.2/equinox-registry-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/equinox-registry/3.5.2/equinox-registry-3.5.2-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.0/geronimo-annotation_1.0_spec-1.0.jar" sourcepath="M2_REPO/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.0/geronimo-annotation_1.0_spec-1.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.0/geronimo-annotation_1.0_spec-1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-ejb_3.0_spec/1.0/geronimo-ejb_3.0_spec-1.0.jar" sourcepath="M2_REPO/org/apache/geronimo/specs/geronimo-ejb_3.0_spec/1.0/geronimo-ejb_3.0_spec-1.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-ejb_3.0_spec/1.0/geronimo-ejb_3.0_spec-1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-interceptor_3.0_spec/1.0/geronimo-interceptor_3.0_spec-1.0.jar" sourcepath="M2_REPO/org/apache/geronimo/specs/geronimo-interceptor_3.0_spec/1.0/geronimo-interceptor_3.0_spec-1.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-interceptor_3.0_spec/1.0/geronimo-interceptor_3.0_spec-1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-j2ee_1.4_spec/1.0/geronimo-j2ee_1.4_spec-1.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-jpa_3.0_spec/1.0/geronimo-jpa_3.0_spec-1.0.jar" sourcepath="M2_REPO/org/apache/geronimo/specs/geronimo-jpa_3.0_spec/1.0/geronimo-jpa_3.0_spec-1.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-jpa_3.0_spec/1.0/geronimo-jpa_3.0_spec-1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.0/geronimo-jta_1.1_spec-1.0.jar" sourcepath="M2_REPO/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.0/geronimo-jta_1.1_spec-1.0-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.0/geronimo-jta_1.1_spec-1.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/jboss/javassist/3.4.ga/javassist-3.4.ga.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/jdt-core/3.5.2/jdt-core-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/jdt-core/3.5.2/jdt-core-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/jdt-launching/3.5.2/jdt-launching-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/jdt-launching/3.5.2/jdt-launching-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/jface/3.5.2/jface-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/jface/3.5.2/jface-3.5.2-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/junit/junit/4.4/junit-4.4.jar" sourcepath="M2_REPO/junit/junit/4.4/junit-4.4-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/junit/junit/4.4/junit-4.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/junit-addons/junit-addons/1.4/junit-addons-1.4.jar"/>
-	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16.jar" sourcepath="M2_REPO/log4j/log4j/1.2.16/log4j-1.2.16-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/nlink/nlink/20080126/nlink-20080126.jar"/>
-	<classpathentry kind="var" path="M2_REPO/ognl/ognl/2.6.9-patch-20090427/ognl-2.6.9-patch-20090427.jar" sourcepath="M2_REPO/ognl/ognl/2.6.9-patch-20090427/ognl-2.6.9-patch-20090427-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/osgi/3.5.2/osgi-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/osgi/3.5.2/osgi-3.5.2-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/poi/poi/3.0-FINAL/poi-3.0-FINAL.jar" sourcepath="M2_REPO/org/apache/poi/poi/3.0-FINAL/poi-3.0-FINAL-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/seasar/container/s2-extension/2.4.42/s2-extension-2.4.42.jar" sourcepath="M2_REPO/org/seasar/container/s2-extension/2.4.42/s2-extension-2.4.42-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/seasar/container/s2-framework/2.4.42/s2-framework-2.4.42.jar" sourcepath="M2_REPO/org/seasar/container/s2-framework/2.4.42/s2-framework-2.4.42-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/seasar/container/s2-tiger/2.4.42/s2-tiger-2.4.42.jar" sourcepath="M2_REPO/org/seasar/container/s2-tiger/2.4.42/s2-tiger-2.4.42-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/swt/3.5.2/swt-3.5.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/swt-win32-win32-x86/3.5.2/swt-win32-win32-x86-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/swt-win32-win32-x86/3.5.2/swt-win32-win32-x86-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/ui/3.5.2/ui-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/ui/3.5.2/ui-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/ui-workbench/3.5.2/ui-workbench-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/ui-workbench/3.5.2/ui-workbench-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/ui-workbench-texteditor/3.5.2/ui-workbench-texteditor-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/ui-workbench-texteditor/3.5.2/ui-workbench-texteditor-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar" sourcepath="M2_REPO/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/javassist-3.4.ga.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/aopalliance-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-annotation_1.0_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-ejb_3.0_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-interceptor_3.0_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-j2ee_1.4_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-jpa_3.0_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-jta_1.1_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.16.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nlink-20080126.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/ognl-2.6.9-patch-20090427.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/s2-extension-2.4.42.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/s2-framework-2.4.42.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/s2-tiger-2.4.42.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="target/classes"/>
+<classpathentry kind="lib" path="lib/aopalliance-1.0.jar" sourcepath="C:/Users/y-komori/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
+  <classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar" sourcepath="C:/Users/y-komori/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar">
+    <attributes>
+      <attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="lib" path="lib/javassist-3.4.ga.jar"/>
+  <classpathentry kind="lib" path="lib/junit-4.4.jar" sourcepath="C:/Users/y-komori/.m2/repository/junit/junit/4.4/junit-4.4-sources.jar">
+    <attributes>
+      <attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/junit/junit/4.4/junit-4.4-javadoc.jar!/"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="lib" path="lib/log4j-1.2.16.jar" sourcepath="C:/Users/y-komori/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16-sources.jar">
+    <attributes>
+      <attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16-javadoc.jar!/"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="lib" path="lib/nlink-20080126.jar"/>
+  <classpathentry kind="lib" path="lib/ognl-2.6.9-patch-20090427.jar" sourcepath="C:/Users/y-komori/.m2/repository/ognl/ognl/2.6.9-patch-20090427/ognl-2.6.9-patch-20090427-sources.jar"/>
+  <classpathentry kind="lib" path="lib/geronimo-annotation_1.0_spec-1.0.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.0/geronimo-annotation_1.0_spec-1.0-sources.jar">
+    <attributes>
+      <attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.0/geronimo-annotation_1.0_spec-1.0-javadoc.jar!/"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="lib" path="lib/geronimo-ejb_3.0_spec-1.0.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-ejb_3.0_spec/1.0/geronimo-ejb_3.0_spec-1.0-sources.jar">
+    <attributes>
+      <attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-ejb_3.0_spec/1.0/geronimo-ejb_3.0_spec-1.0-javadoc.jar!/"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="lib" path="lib/geronimo-interceptor_3.0_spec-1.0.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-interceptor_3.0_spec/1.0/geronimo-interceptor_3.0_spec-1.0-sources.jar">
+    <attributes>
+      <attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-interceptor_3.0_spec/1.0/geronimo-interceptor_3.0_spec-1.0-javadoc.jar!/"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="lib" path="lib/geronimo-j2ee_1.4_spec-1.0.jar"/>
+  <classpathentry kind="lib" path="lib/geronimo-jpa_3.0_spec-1.0.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-jpa_3.0_spec/1.0/geronimo-jpa_3.0_spec-1.0-sources.jar">
+    <attributes>
+      <attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-jpa_3.0_spec/1.0/geronimo-jpa_3.0_spec-1.0-javadoc.jar!/"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="lib" path="lib/geronimo-jta_1.1_spec-1.0.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.0/geronimo-jta_1.1_spec-1.0-sources.jar">
+    <attributes>
+      <attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.0/geronimo-jta_1.1_spec-1.0-javadoc.jar!/"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="lib" path="lib/poi-3.0-FINAL.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/apache/poi/poi/3.0-FINAL/poi-3.0-FINAL-sources.jar"/>
+  <classpathentry kind="lib" path="lib/easymock-2.4.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/easymock/easymock/2.4/easymock-2.4-sources.jar">
+    <attributes>
+      <attribute name="javadoc_location" value="jar:file:/C:/Users/y-komori/.m2/repository/org/easymock/easymock/2.4/easymock-2.4-javadoc.jar!/"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="lib" path="lib/s2-extension-2.4.42.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/seasar/container/s2-extension/2.4.42/s2-extension-2.4.42-sources.jar"/>
+  <classpathentry kind="lib" path="lib/s2-framework-2.4.42.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/seasar/container/s2-framework/2.4.42/s2-framework-2.4.42-sources.jar"/>
+  <classpathentry kind="lib" path="lib/s2-tiger-2.4.42.jar" sourcepath="C:/Users/y-komori/.m2/repository/org/seasar/container/s2-tiger/2.4.42/s2-tiger-2.4.42-sources.jar"/>
 </classpath>
