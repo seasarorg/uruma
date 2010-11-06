@@ -21,7 +21,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.seasar.eclipse.common.util.ImageManager;
 import org.seasar.eclipse.common.util.SWTUtil;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.uruma.annotation.EventListener;
