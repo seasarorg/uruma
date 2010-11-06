@@ -1,2 +1,2 @@
-mvn eclipse:eclipse -DdownloadSources=true -DdownloadJavadocs=true
+mvn uruma-eclipse:sync-classpath
 pause

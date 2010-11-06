@@ -327,10 +327,14 @@
 				<groupId>org.seasar.uruma</groupId>
 				<artifactId>maven-uruma-eclipse-plugin</artifactId>
 				<configuration>
+				    <policy>project</policy>
 					<destdir>lib</destdir>
 					<excludeGroupIds>
 					   <excludeGroupId>org.eclipse</excludeGroupId>
 					</excludeGroupIds>
+                    <excludeScopes>
+                       <excludeScope>test</excludeScope>
+                    </excludeScopes>
 				</configuration>
 			</plugin>
 		</plugins>
