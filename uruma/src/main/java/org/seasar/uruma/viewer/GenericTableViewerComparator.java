@@ -67,6 +67,7 @@ public class GenericTableViewerComparator extends ViewerComparator {
                 public void widgetSelected(final SelectionEvent e) {
                     setSortKey((TableColumn) e.widget);
                     viewer.setInput(viewer.getInput());
+                    viewer.refresh(true, true);
                 }
             });
         }
@@ -114,17 +115,16 @@ public class GenericTableViewerComparator extends ViewerComparator {
      * 比較方法をカスタマイズする場合、サブクラスで本メソッドをオーバーライドしてください。<br />
      * 
      * @param viewer
-     *            {@link TableViewer} オブジェクト
+     *        {@link TableViewer} オブジェクト
      * @param e1
-     *            比較対象1
+     *        比較対象1
      * @param e2
-     *            比較対象2
+     *        比較対象2
      * @param sortColumn
-     *            ソート対象のカラム番号
+     *        ソート対象のカラム番号
      * @return 比較結果
      */
-    protected int doCompare(final TableViewer viewer, final Object e1,
-            final Object e2, final int sortColumn) {
+    protected int doCompare(final TableViewer viewer, final Object e1, final Object e2, final int sortColumn) {
         IBaseLabelProvider baseLabelProvider = viewer.getLabelProvider();
 
         String value1 = "";
@@ -153,7 +153,7 @@ public class GenericTableViewerComparator extends ViewerComparator {
      * ソート順は呼び出すたびに反転します。
      * 
      * @param tableColumn
-     *            ソートキーとなる {@link TableColumn} オブジェクト
+     *        ソートキーとなる {@link TableColumn} オブジェクト
      */
     public void setSortKey(final TableColumn tableColumn) {
         if ((tableColumn != null) && !tableColumn.isDisposed()) {
