@@ -15,6 +15,7 @@
  */
 package org.seasar.uruma.viewer;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -165,6 +166,11 @@ public abstract class AbstractGenericColumnViewerComparator<V extends ColumnView
         }
 
         return getComparator().compare(value1, value2);
+    }
+
+    @Override
+    protected final Comparator<String> getComparator() {
+        return getComparator();
     }
 
     /**
