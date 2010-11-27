@@ -169,8 +169,9 @@ public abstract class AbstractGenericColumnViewerComparator<V extends ColumnView
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected final Comparator<String> getComparator() {
-        return getComparator();
+        return super.getComparator();
     }
 
     /**
