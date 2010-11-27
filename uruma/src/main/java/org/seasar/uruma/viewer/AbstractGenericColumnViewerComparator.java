@@ -28,10 +28,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Item;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 
 /**
  * {@link ColumnViewer} 用の汎用ソートクラスです。<br />
+ * 本クラスのインスタンスを {@link ColumnViewer#setComparator(ViewerComparator)}
+ * メソッドで設定して使用してください。<br />
+ * 本コンパレータを設定する時点で {@link ColumnViewer} の内包するウィジット({@link Table} や {@link Tree}
+ * など)のカラムが生成されている必要があります。<br />
  * 
  * @author y-komori
  * @author $Author$
