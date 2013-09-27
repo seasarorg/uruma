@@ -4,26 +4,10 @@
 	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
 	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
-	<classpathentry exported="true" kind="lib" path="lib/aopalliance-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/easymock-2.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-annotation_1.0_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-ejb_3.0_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-interceptor_3.0_spec-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/geronimo-j2ee_1.4_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-jpa_3.0_spec-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/geronimo-jta_1.1_spec-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/javassist-3.4.ga.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/junit-4.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.16.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nlink-20080126.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/ognl-2.6.9-patch-20090427.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/poi-3.0-FINAL.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/s2-extension-2.4.42.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/s2-framework-2.4.42.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/s2-tiger-2.4.42.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="var" path="M2_REPO/junit-addons/junit-addons/1.4/junit-addons-1.4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/core-commands/3.5.2/core-commands-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/core-commands/3.5.2/core-commands-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/core-contenttype/3.5.2/core-contenttype-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/core-contenttype/3.5.2/core-contenttype-3.5.2-sources.jar"/>
@@ -48,5 +32,57 @@
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/ui-workbench/3.5.2/ui-workbench-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/ui-workbench/3.5.2/ui-workbench-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/ui-workbench-texteditor/3.5.2/ui-workbench-texteditor-3.5.2.jar" sourcepath="M2_REPO/org/eclipse/ui-workbench-texteditor/3.5.2/ui-workbench-texteditor-3.5.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar" sourcepath="M2_REPO/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2-sources.jar"/>
+	<classpathentry kind="lib" path="lib/s2-framework-2.4.42.jar" sourcepath="lib/sources/s2-framework-2.4.42-sources.jar"/>
+	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar" sourcepath="lib/sources/aopalliance-1.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/ognl-2.6.9-patch-20090427.jar" sourcepath="lib/sources/ognl-2.6.9-patch-20090427-sources.jar"/>
+	<classpathentry kind="lib" path="lib/s2-extension-2.4.42.jar" sourcepath="lib/sources/s2-extension-2.4.42-sources.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.0-FINAL.jar" sourcepath="lib/sources/poi-3.0-FINAL-sources.jar"/>
+	<classpathentry kind="lib" path="lib/s2-tiger-2.4.42.jar" sourcepath="lib/sources/s2-tiger-2.4.42-sources.jar"/>
+	<classpathentry kind="lib" path="lib/easymock-2.4.jar" sourcepath="lib/sources/easymock-2.4-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/uruma/lib/javadoc/easymock-2.4-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar" sourcepath="lib/sources/log4j-1.2.16-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/uruma/lib/javadoc/log4j-1.2.16-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar" sourcepath="lib/sources/commons-logging-1.1.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/uruma/lib/javadoc/commons-logging-1.1.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/geronimo-jta_1.1_spec-1.0.jar" sourcepath="lib/sources/geronimo-jta_1.1_spec-1.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/uruma/lib/javadoc/geronimo-jta_1.1_spec-1.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/geronimo-annotation_1.0_spec-1.0.jar" sourcepath="lib/sources/geronimo-annotation_1.0_spec-1.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/uruma/lib/javadoc/geronimo-annotation_1.0_spec-1.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/geronimo-ejb_3.0_spec-1.0.jar" sourcepath="lib/sources/geronimo-ejb_3.0_spec-1.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/uruma/lib/javadoc/geronimo-ejb_3.0_spec-1.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/geronimo-interceptor_3.0_spec-1.0.jar" sourcepath="lib/sources/geronimo-interceptor_3.0_spec-1.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/uruma/lib/javadoc/geronimo-interceptor_3.0_spec-1.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/geronimo-jpa_3.0_spec-1.0.jar" sourcepath="lib/sources/geronimo-jpa_3.0_spec-1.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/uruma/lib/javadoc/geronimo-jpa_3.0_spec-1.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/junit-4.4.jar" sourcepath="lib/sources/junit-4.4-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/uruma/lib/javadoc/junit-4.4-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
