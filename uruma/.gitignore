@@ -1,0 +1,9 @@
+/bin
+/doc
+/.fbprefs
+/.djunitplugin
+/target
+/coverage
+/log
+/classes
+/cobertura.ser
